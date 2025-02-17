@@ -3,7 +3,8 @@
 1. Make a folder in project root, called `build`
 2. Run the `configure` vscode task, or run the following in project root: `cmake . -G "Ninja" -B build -DCMAKE_BUILD_TYPE=Debug`
 3. Run the `build` vscode task, or run the following in project root: `ninja -C build`
-4. Built binaries, like `ISLE.EXE`, will be found in the `build` directory
+4. Built binaries will be found in the `build` directory
+5. Run `CONFIG.EXE` to generate settings in `registry.txt`, then run `ISLE.EXE` to start.
 
 # LEGO Island Decompilation
 
