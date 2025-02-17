@@ -237,13 +237,19 @@ Act3::Act3() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 567f045d (Initial project setup for N64 mod)
 // FUNCTION: LEGO1 0x10072500
 MxBool Act3::VTable0x5c() {
 	return TRUE;
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 5a7df7f9 (Order until `LegoCarBuildAnimPresenter` (#1365))
+=======
+>>>>>>> 567f045d (Initial project setup for N64 mod)
 // FUNCTION: LEGO1 0x100726a0
 // FUNCTION: BETA10 0x100155da
 Act3::~Act3() {
