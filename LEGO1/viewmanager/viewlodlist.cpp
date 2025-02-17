@@ -14,30 +14,15 @@ DECOMP_SIZE_ASSERT(ViewLODList, 0x18)
 // GLOBAL: BETA10 0x10205d08
 int ViewLODListManager::g_ROINameUID = 0;
 
-#ifdef _DEBUG
-// FUNCTION: BETA10 0x10178310
-inline void ViewLODList::Dump(void (*pTracer)(const char*, ...)) const
-{
-	pTracer("   ViewLODList<0x%x>: Capacity=%d, Size=%d, RefCount=%d\n", this, Capacity(), Size(), m_refCount);
-
-	for (int i = 0; i < (int) Size(); i++) {
-		ViewLOD* lod = const_cast<ViewLOD*>(this->operator[](i));
-		pTracer("      [%d]: ViewLOD<0x%x>: Vertices=%d\n", i, lod, lod->NVerts());
-	}
-}
-#endif
-
 // FUNCTION: LEGO1 0x100a6fd0
 // FUNCTION: BETA10 0x101783a3
-ViewLODListManager::ViewLODListManager()
-{
+ViewLODListManager::ViewLODListManager() {
 }
 
 // FUNCTION: LEGO1 0x100a7130
 // FUNCTION: BETA10 0x1017841c
 // FUNCTION: ALPHA 0x100e3402
-ViewLODListManager::~ViewLODListManager()
-{
+ViewLODListManager::~ViewLODListManager() {
 	ViewLODListMap::iterator iterator;
 
 	// delete all ViewLODLists
@@ -64,8 +49,7 @@ ViewLODListManager::~ViewLODListManager()
 // FUNCTION: LEGO1 0x100a72c0
 // FUNCTION: BETA10 0x101785ef
 // FUNCTION: ALPHA 0x100e35d2
-ViewLODList* ViewLODListManager::Create(const ROIName& rROIName, int lodCount)
-{
+ViewLODList* ViewLODListManager::Create(const ROIName& rROIName, int lodCount) {
 	// returned ViewLODList has a refCount of 1, i.e. caller must call Release()
 	// when it no longer holds on to the list
 
@@ -105,8 +89,7 @@ ViewLODList* ViewLODListManager::Create(const ROIName& rROIName, int lodCount)
 
 // FUNCTION: LEGO1 0x100a75b0
 // FUNCTION: BETA10 0x101787d8
-ViewLODList* ViewLODListManager::Lookup(const ROIName& p_roiName) const
-{
+ViewLODList* ViewLODListManager::Lookup(const ROIName& p_roiName) const {
 	// returned ViewLODList's refCount is increased, i.e. caller must call Release()
 	// when it no longer holds on to the list
 
@@ -125,8 +108,7 @@ ViewLODList* ViewLODListManager::Lookup(const ROIName& p_roiName) const
 
 // FUNCTION: LEGO1 0x100a7680
 // FUNCTION: BETA10 0x1017886b
-unsigned char ViewLODListManager::Destroy(ViewLODList* lodList)
-{
+unsigned char ViewLODListManager::Destroy(ViewLODList* lodList) {
 	ViewLODListMap::iterator iterator;
 	char deleted = FALSE;
 

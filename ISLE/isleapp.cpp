@@ -30,6 +30,8 @@
 
 #include <dsound.h>
 
+#include "MockRegistry.h"
+
 DECOMP_SIZE_ASSERT(IsleApp, 0x8c)
 
 // GLOBAL: ISLE 0x410030
@@ -45,7 +47,7 @@ unsigned char g_mousemoved = 0;
 BOOL g_closed = FALSE;
 
 // GLOBAL: ISLE 0x410040
-RECT g_windowRect = {0, 0, 640, 480};
+RECT g_windowRect = { 0, 0, 640, 480 };
 
 // GLOBAL: ISLE 0x410050
 BOOL g_rmDisabled = FALSE;
@@ -76,8 +78,7 @@ BOOL FindExistingInstance();
 BOOL StartDirectSound();
 
 // FUNCTION: ISLE 0x401000
-IsleApp::IsleApp()
-{
+IsleApp::IsleApp() {
 	m_hdPath = NULL;
 	m_cdPath = NULL;
 	m_deviceId = NULL;
@@ -121,8 +122,7 @@ IsleApp::IsleApp()
 }
 
 // FUNCTION: ISLE 0x4011a0
-IsleApp::~IsleApp()
-{
+IsleApp::~IsleApp() {
 	if (LegoOmni::GetInstance()) {
 		Close();
 		MxOmni::DestroyInstance();
@@ -146,8 +146,7 @@ IsleApp::~IsleApp()
 }
 
 // FUNCTION: ISLE 0x401260
-void IsleApp::Close()
-{
+void IsleApp::Close() {
 	MxDSAction ds;
 	ds.SetUnknown24(-2);
 
@@ -175,8 +174,7 @@ void IsleApp::Close()
 }
 
 // FUNCTION: ISLE 0x4013b0
-BOOL IsleApp::SetupLegoOmni()
-{
+BOOL IsleApp::SetupLegoOmni() {
 	BOOL result = FALSE;
 	char mediaPath[256];
 	GetProfileStringA("LEGO Island", "MediaPath", "", mediaPath, sizeof(mediaPath));
@@ -184,12 +182,12 @@ BOOL IsleApp::SetupLegoOmni()
 #ifdef COMPAT_MODE
 	BOOL failure;
 	{
-		MxOmniCreateParam param(mediaPath, (struct HWND__*) m_windowHandle, m_videoParam, MxOmniCreateFlags());
+		MxOmniCreateParam param(mediaPath, (struct HWND__*)m_windowHandle, m_videoParam, MxOmniCreateFlags());
 		failure = Lego()->Create(param) == FAILURE;
 	}
 #else
 	BOOL failure =
-		Lego()->Create(MxOmniCreateParam(mediaPath, (struct HWND__*) m_windowHandle, m_videoParam, MxOmniCreateFlags())
+		Lego()->Create(MxOmniCreateParam(mediaPath, (struct HWND__*)m_windowHandle, m_videoParam, MxOmniCreateFlags())
 		) == FAILURE;
 #endif
 
@@ -198,7 +196,6 @@ BOOL IsleApp::SetupLegoOmni()
 		TickleManager()->SetClientTickleInterval(VideoManager(), 10);
 		result = TRUE;
 	}
-
 	return result;
 }
 
@@ -213,8 +210,7 @@ void IsleApp::SetupVideoFlags(
 	BOOL param_7,
 	BOOL wideViewAngle,
 	char* deviceId
-)
-{
+) {
 	m_videoParam.Flags().SetFullScreen(fullScreen);
 	m_videoParam.Flags().SetFlipSurfaces(flipSurfaces);
 	m_videoParam.Flags().SetBackBuffers(!backBuffers);
@@ -232,8 +228,7 @@ void IsleApp::SetupVideoFlags(
 }
 
 // FUNCTION: ISLE 0x401610
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
-{
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 	// Look for another instance, if we find one, bring it to the foreground instead
 	if (!FindExistingInstance()) {
 		return 0;
@@ -341,8 +336,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 }
 
 // FUNCTION: ISLE 0x401ca0
-BOOL FindExistingInstance()
-{
+BOOL FindExistingInstance() {
 	HWND hWnd = FindWindowA(WNDCLASS_NAME, WINDOW_TITLE);
 	if (hWnd) {
 		if (SetForegroundWindow(hWnd)) {
@@ -354,8 +348,7 @@ BOOL FindExistingInstance()
 }
 
 // FUNCTION: ISLE 0x401ce0
-BOOL StartDirectSound()
-{
+BOOL StartDirectSound() {
 	LPDIRECTSOUND lpDS = NULL;
 	HRESULT ret = DirectSoundCreate(NULL, &lpDS, NULL);
 	if (ret == DS_OK && lpDS != NULL) {
@@ -367,8 +360,7 @@ BOOL StartDirectSound()
 }
 
 // FUNCTION: ISLE 0x401d20
-LRESULT WINAPI WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
+LRESULT WINAPI WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	NotificationId type;
 	unsigned char keyCode = 0;
 
@@ -405,10 +397,10 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		return DefWindowProcA(hWnd, uMsg, wParam, lParam);
 	case WM_GETMINMAXINFO:
-		((MINMAXINFO*) lParam)->ptMaxTrackSize.x = (g_windowRect.right - g_windowRect.left) + 1;
-		((MINMAXINFO*) lParam)->ptMaxTrackSize.y = (g_windowRect.bottom - g_windowRect.top) + 1;
-		((MINMAXINFO*) lParam)->ptMinTrackSize.x = (g_windowRect.right - g_windowRect.left) + 1;
-		((MINMAXINFO*) lParam)->ptMinTrackSize.y = (g_windowRect.bottom - g_windowRect.top) + 1;
+		((MINMAXINFO*)lParam)->ptMaxTrackSize.x = (g_windowRect.right - g_windowRect.left) + 1;
+		((MINMAXINFO*)lParam)->ptMaxTrackSize.y = (g_windowRect.bottom - g_windowRect.top) + 1;
+		((MINMAXINFO*)lParam)->ptMinTrackSize.x = (g_windowRect.right - g_windowRect.left) + 1;
+		((MINMAXINFO*)lParam)->ptMinTrackSize.y = (g_windowRect.bottom - g_windowRect.top) + 1;
 		return 0;
 	case WM_ENTERMENULOOP:
 		return DefWindowProcA(hWnd, uMsg, wParam, lParam);
@@ -433,7 +425,7 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		return DefWindowProcA(hWnd, uMsg, wParam, lParam);
 	case WM_MOVING:
 		if (g_isle && g_isle->GetFullScreen()) {
-			GetWindowRect(hWnd, (LPRECT) lParam);
+			GetWindowRect(hWnd, (LPRECT)lParam);
 			return 0;
 		}
 		return DefWindowProcA(hWnd, uMsg, wParam, lParam);
@@ -507,7 +499,7 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_SETCURSOR:
 		if (g_isle && (g_isle->GetCursorCurrent() == g_isle->GetCursorBusy() ||
-					   g_isle->GetCursorCurrent() == g_isle->GetCursorNo() || !g_isle->GetCursorCurrent())) {
+			g_isle->GetCursorCurrent() == g_isle->GetCursorNo() || !g_isle->GetCursorCurrent())) {
 			SetCursor(g_isle->GetCursorCurrent());
 			return 0;
 		}
@@ -537,8 +529,11 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 }
 
 // FUNCTION: ISLE 0x4023e0
-MxResult IsleApp::SetupWindow(HINSTANCE hInstance, LPSTR lpCmdLine)
-{
+MxResult IsleApp::SetupWindow(HINSTANCE hInstance, LPSTR lpCmdLine) {
+	AllocConsole();
+	freopen("CON", "w", stdout);
+	printf("Window setup started :)\n");
+
 	WNDCLASSA wndclass;
 	ZeroMemory(&wndclass, sizeof(WNDCLASSA));
 
@@ -572,10 +567,11 @@ MxResult IsleApp::SetupWindow(HINSTANCE hInstance, LPSTR lpCmdLine)
 	m_cursorBusy = LoadCursorA(hInstance, MAKEINTRESOURCEA(ISLE_BUSY));
 	m_cursorNo = LoadCursorA(hInstance, MAKEINTRESOURCEA(ISLE_NO));
 	wndclass.hInstance = hInstance;
-	wndclass.hbrBackground = (HBRUSH) GetStockObject(BLACK_BRUSH);
+	wndclass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wndclass.lpszClassName = WNDCLASS_NAME;
 
 	if (!RegisterClassA(&wndclass)) {
+		printf("Failed to register window class\n");
 		return FAILURE;
 	}
 
@@ -617,6 +613,7 @@ MxResult IsleApp::SetupWindow(HINSTANCE hInstance, LPSTR lpCmdLine)
 	}
 
 	if (!m_windowHandle) {
+		printf("Failed to create window\n");
 		return FAILURE;
 	}
 
@@ -634,6 +631,7 @@ MxResult IsleApp::SetupWindow(HINSTANCE hInstance, LPSTR lpCmdLine)
 	ShowWindow(m_windowHandle, SW_SHOWNORMAL);
 	UpdateWindow(m_windowHandle);
 	if (!SetupLegoOmni()) {
+		printf("Failed to setup omni\n");
 		return FAILURE;
 	}
 
@@ -682,63 +680,50 @@ MxResult IsleApp::SetupWindow(HINSTANCE hInstance, LPSTR lpCmdLine)
 	return SUCCESS;
 }
 
+
 // FUNCTION: ISLE 0x402740
-BOOL IsleApp::ReadReg(LPCSTR name, LPSTR outValue, DWORD outSize)
-{
-	HKEY hKey;
-	DWORD valueType;
-
-	BOOL out = FALSE;
-	DWORD size = outSize;
-	if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\Mindscape\\LEGO Island", 0, KEY_READ, &hKey) == ERROR_SUCCESS) {
-		if (RegQueryValueExA(hKey, name, NULL, &valueType, (LPBYTE) outValue, &size) == ERROR_SUCCESS) {
-			if (RegCloseKey(hKey) == ERROR_SUCCESS) {
-				out = TRUE;
-			}
-		}
+BOOL IsleApp::ReadReg(LPCSTR name, LPSTR outValue, DWORD outSize) {
+	int result = RegReadKey(name, RegString, (char*)outValue, outSize);
+	if (result == 0) {
+		printf("Read str %d, %s : [%d] %s\n", result, name, outSize, outValue);
+		return 1;
 	}
-
-	return out;
+	else {
+		printf("Read str %d, %s\n", result, name);
+		return 0;
+	}
 }
 
 // FUNCTION: ISLE 0x4027b0
-BOOL IsleApp::ReadRegBool(LPCSTR name, BOOL* out)
-{
-	char buffer[256];
-
-	BOOL read = ReadReg(name, buffer, sizeof(buffer));
-	if (read) {
-		if (strcmp("YES", buffer) == 0) {
-			*out = TRUE;
-			return read;
-		}
-
-		if (strcmp("NO", buffer) == 0) {
-			*out = FALSE;
-			return read;
-		}
-
-		read = FALSE;
+BOOL IsleApp::ReadRegBool(LPCSTR name, BOOL* out) {
+	int result = RegReadKey(name, RegBool, out, 16);
+	if (result == 0) {
+		printf("Read bol %d, %s : %d\n", result, name, *out);
+		return 1;
 	}
-	return read;
+	else {
+		printf("Read bol %d, %s\n", result, name);
+		return 0;
+	}
+	return result;
 }
 
 // FUNCTION: ISLE 0x402880
-BOOL IsleApp::ReadRegInt(LPCSTR name, int* out)
-{
-	char buffer[256];
-
-	BOOL read = ReadReg(name, buffer, sizeof(buffer));
-	if (read) {
-		*out = atoi(buffer);
+BOOL IsleApp::ReadRegInt(LPCSTR name, int* out) {
+	int result = RegReadKey(name, RegInt, out, 16);
+	if (result == 0) {
+		printf("Read int %d, %s : %d\n", result, name, *out);
+		return 1;
 	}
-
-	return read;
+	else {
+		printf("Read int %d, %s\n", result, name);
+		return 0;
+	}
+	return result;
 }
 
 // FUNCTION: ISLE 0x4028d0
-void IsleApp::LoadConfig()
-{
+void IsleApp::LoadConfig() {
 	char buffer[1024];
 
 	if (!ReadReg("diskpath", buffer, sizeof(buffer))) {
@@ -803,8 +788,7 @@ void IsleApp::LoadConfig()
 }
 
 // FUNCTION: ISLE 0x402c20
-inline void IsleApp::Tick(BOOL sleepIfNotNextFrame)
-{
+inline void IsleApp::Tick(BOOL sleepIfNotNextFrame) {
 	// GLOBAL: ISLE 0x4101c0
 	static MxLong g_lastFrameTime = 0;
 
@@ -883,8 +867,7 @@ inline void IsleApp::Tick(BOOL sleepIfNotNextFrame)
 }
 
 // FUNCTION: ISLE 0x402e80
-void IsleApp::SetupCursor(WPARAM wParam)
-{
+void IsleApp::SetupCursor(WPARAM wParam) {
 	switch (wParam) {
 	case e_cursorArrow:
 		m_cursorCurrent = m_cursorArrow;

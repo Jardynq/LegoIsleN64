@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "*.sql": "sql",
+        "deque": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "vector": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "array": "cpp",
+        "system_error": "cpp",
+        "new": "cpp",
+        "type_traits": "cpp"
+    }
+}

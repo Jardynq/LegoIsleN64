@@ -1,13 +1,15 @@
 #include "mxdirectdraw.h"
 
 #include "decomp.h"
+#include <stdio.h>
 
 DECOMP_SIZE_ASSERT(MxDirectDraw, 0x880)
 
-#define RELEASE(x)                                                                                                     \
-	if (x != NULL) {                                                                                                   \
-		x->Release();                                                                                                  \
-		x = NULL;                                                                                                      \
+#define RELEASE(x)    \
+	if (x != NULL)    \
+	{                 \
+		x->Release(); \
+		x = NULL;     \
 	}
 
 #ifndef DDSCAPS_3DDEVICE
@@ -18,8 +20,7 @@ DECOMP_SIZE_ASSERT(MxDirectDraw, 0x880)
 BOOL g_isPaletteIndexed8 = 0;
 
 // FUNCTION: LEGO1 0x1009d490
-MxDirectDraw::MxDirectDraw()
-{
+MxDirectDraw::MxDirectDraw() {
 	m_pFrontBuffer = NULL;
 	m_pBackBuffer = NULL;
 	m_pZBuffer = NULL;
@@ -45,8 +46,7 @@ MxDirectDraw::MxDirectDraw()
 }
 
 // FUNCTION: LEGO1 0x1009d530
-MxDirectDraw::~MxDirectDraw()
-{
+MxDirectDraw::~MxDirectDraw() {
 	Destroy();
 
 	if (m_pCurrentDeviceModesList != NULL) {
@@ -56,8 +56,7 @@ MxDirectDraw::~MxDirectDraw()
 }
 
 // FUNCTION: LEGO1 0x1009d570
-int MxDirectDraw::GetPrimaryBitDepth()
-{
+int MxDirectDraw::GetPrimaryBitDepth() {
 	DWORD dwRGBBitCount;
 	LPDIRECTDRAW pDDraw;
 	DDSURFACEDESC ddsd;
@@ -87,9 +86,7 @@ BOOL MxDirectDraw::Create(
 	int height,
 	int bpp,
 	const PALETTEENTRY* pPaletteEntries,
-	int paletteEntryCount
-)
-{
+	int paletteEntryCount) {
 	m_hWndMain = hWnd;
 
 	CacheOriginalPaletteEntries();
@@ -122,15 +119,13 @@ BOOL MxDirectDraw::Create(
 }
 
 // FUNCTION: LEGO1 0x1009d690
-BOOL MxDirectDraw::RecreateDirectDraw(GUID** ppGUID)
-{
+BOOL MxDirectDraw::RecreateDirectDraw(GUID** ppGUID) {
 	RELEASE(m_pDirectDraw);
 	return (DirectDrawCreate(*ppGUID, &m_pDirectDraw, 0) == DD_OK);
 }
 
 // FUNCTION: LEGO1 0x1009d6c0
-BOOL MxDirectDraw::CacheOriginalPaletteEntries()
-{
+BOOL MxDirectDraw::CacheOriginalPaletteEntries() {
 	HDC hdc;
 
 	if (g_isPaletteIndexed8) {
@@ -142,8 +137,7 @@ BOOL MxDirectDraw::CacheOriginalPaletteEntries()
 }
 
 // FUNCTION: LEGO1 0x1009d700
-BOOL MxDirectDraw::SetPaletteEntries(const PALETTEENTRY* pPaletteEntries, int paletteEntryCount, BOOL fullscreen)
-{
+BOOL MxDirectDraw::SetPaletteEntries(const PALETTEENTRY* pPaletteEntries, int paletteEntryCount, BOOL fullscreen) {
 	int reservedLowEntryCount = 10;
 	int reservedHighEntryCount = 10;
 	int arraySize = sizeOfArray(m_paletteEntries);
@@ -194,8 +188,7 @@ BOOL MxDirectDraw::SetPaletteEntries(const PALETTEENTRY* pPaletteEntries, int pa
 }
 
 // FUNCTION: LEGO1 0x1009d800
-void MxDirectDraw::Destroy()
-{
+void MxDirectDraw::Destroy() {
 	DestroyButNotDirectDraw();
 
 	FUN_1009d920();
@@ -211,8 +204,7 @@ void MxDirectDraw::Destroy()
 }
 
 // FUNCTION: LEGO1 0x1009d860
-void MxDirectDraw::DestroyButNotDirectDraw()
-{
+void MxDirectDraw::DestroyButNotDirectDraw() {
 	RestoreOriginalPaletteEntries();
 	if (m_bFullScreen) {
 		if (m_pDirectDraw) {
@@ -232,8 +224,7 @@ void MxDirectDraw::DestroyButNotDirectDraw()
 }
 
 // FUNCTION: LEGO1 0x1009d920
-void MxDirectDraw::FUN_1009d920()
-{
+void MxDirectDraw::FUN_1009d920() {
 	RestoreOriginalPaletteEntries();
 	if (m_pDirectDraw != NULL) {
 		m_bIgnoreWMSIZE = TRUE;
@@ -244,8 +235,7 @@ void MxDirectDraw::FUN_1009d920()
 }
 
 // FUNCTION: LEGO1 0x1009d960
-BOOL MxDirectDraw::DDInit(BOOL fullscreen)
-{
+BOOL MxDirectDraw::DDInit(BOOL fullscreen) {
 	HRESULT result;
 
 	if (fullscreen) {
@@ -268,9 +258,8 @@ BOOL MxDirectDraw::DDInit(BOOL fullscreen)
 }
 
 // FUNCTION: LEGO1 0x1009d9d0
-BOOL MxDirectDraw::IsSupportedMode(int width, int height, int bpp)
-{
-	DeviceModesInfo::Mode mode = {width, height, bpp};
+BOOL MxDirectDraw::IsSupportedMode(int width, int height, int bpp) {
+	DeviceModesInfo::Mode mode = { width, height, bpp };
 
 	for (int i = 0; i < m_pCurrentDeviceModesList->m_count; i++) {
 		if (m_pCurrentDeviceModesList->m_modeArray[i] == mode) {
@@ -282,8 +271,7 @@ BOOL MxDirectDraw::IsSupportedMode(int width, int height, int bpp)
 }
 
 // FUNCTION: LEGO1 0x1009da20
-void EnableResizing(HWND p_hwnd, BOOL p_flag)
-{
+void EnableResizing(HWND p_hwnd, BOOL p_flag) {
 	static DWORD g_dwStyle;
 
 	if (!p_flag) {
@@ -298,8 +286,7 @@ void EnableResizing(HWND p_hwnd, BOOL p_flag)
 }
 
 // FUNCTION: LEGO1 0x1009da80
-BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp)
-{
+BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 	HRESULT result;
 
 	if (m_bFullScreen) {
@@ -339,8 +326,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp)
 		if (!m_bIsOnPrimaryDevice) {
 			Error(
 				"Attempt made enter a windowed mode on a DirectDraw device that is not the primary display",
-				DDERR_GENERIC
-			);
+				DDERR_GENERIC);
 			return FALSE;
 		}
 
@@ -354,8 +340,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp)
 			&rc,
 			GetWindowLong(m_hWndMain, GWL_STYLE),
 			GetMenu(m_hWndMain) != NULL,
-			GetWindowLong(m_hWndMain, GWL_EXSTYLE)
-		);
+			GetWindowLong(m_hWndMain, GWL_EXSTYLE));
 		SetWindowPos(
 			m_hWndMain,
 			NULL,
@@ -363,8 +348,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp)
 			0,
 			rc.right - rc.left + 1,
 			rc.bottom - rc.top + 1,
-			SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE
-		);
+			SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE);
 		SetWindowPos(m_hWndMain, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
 		m_bIgnoreWMSIZE = FALSE;
 	}
@@ -397,8 +381,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp)
 			DDPCAPS_8BIT | DDPCAPS_ALLOW256 | DDPCAPS_INITIALIZE, // 0x4c
 			m_paletteEntries,
 			&m_pPalette,
-			NULL
-		);
+			NULL);
 		if (result != DD_OK) {
 			Error("CreatePalette failed", result);
 			return 0;
@@ -419,15 +402,12 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp)
 HRESULT MxDirectDraw::CreateDDSurface(
 	LPDDSURFACEDESC p_lpDDSurfDesc,
 	LPDIRECTDRAWSURFACE FAR* p_lpDDSurface,
-	IUnknown FAR* p_pUnkOuter
-)
-{
+	IUnknown FAR* p_pUnkOuter) {
 	return m_pDirectDraw->CreateSurface(p_lpDDSurfDesc, p_lpDDSurface, p_pUnkOuter);
 }
 
 // FUNCTION: LEGO1 0x1009dda0
-BOOL MxDirectDraw::GetDDSurfaceDesc(LPDDSURFACEDESC lpDDSurfDesc, LPDIRECTDRAWSURFACE lpDDSurf)
-{
+BOOL MxDirectDraw::GetDDSurfaceDesc(LPDDSURFACEDESC lpDDSurfDesc, LPDIRECTDRAWSURFACE lpDDSurf) {
 	HRESULT result;
 
 	memset(lpDDSurfDesc, 0, sizeof(DDSURFACEDESC));
@@ -441,8 +421,7 @@ BOOL MxDirectDraw::GetDDSurfaceDesc(LPDDSURFACEDESC lpDDSurfDesc, LPDIRECTDRAWSU
 }
 
 // FUNCTION: LEGO1 0x1009ddf0
-BOOL MxDirectDraw::DDCreateSurfaces()
-{
+BOOL MxDirectDraw::DDCreateSurfaces() {
 	HRESULT result;
 	DDSURFACEDESC ddsd;
 	DDSCAPS ddscaps;
@@ -518,8 +497,7 @@ BOOL MxDirectDraw::DDCreateSurfaces()
 }
 
 // FUNCTION: LEGO1 0x1009e020
-void MxDirectDraw::FUN_1009e020()
-{
+void MxDirectDraw::FUN_1009e020() {
 	HRESULT result;
 	byte* line;
 	DDSURFACEDESC ddsd;
@@ -542,7 +520,7 @@ void MxDirectDraw::FUN_1009e020()
 		}
 
 		// clear backBuffer
-		line = (byte*) ddsd.lpSurface;
+		line = (byte*)ddsd.lpSurface;
 		for (j = ddsd.dwHeight; j--;) {
 			memset(line, 0, ddsd.dwWidth);
 			line += ddsd.lPitch;
@@ -557,8 +535,7 @@ void MxDirectDraw::FUN_1009e020()
 }
 
 // FUNCTION: LEGO1 0x1009e110
-BOOL MxDirectDraw::TextToTextSurface(const char* text, IDirectDrawSurface* pSurface, SIZE& textSizeOnSurface)
-{
+BOOL MxDirectDraw::TextToTextSurface(const char* text, IDirectDrawSurface* pSurface, SIZE& textSizeOnSurface) {
 	HRESULT result;
 	HDC hdc;
 	RECT rc;
@@ -589,20 +566,17 @@ BOOL MxDirectDraw::TextToTextSurface(const char* text, IDirectDrawSurface* pSurf
 }
 
 // FUNCTION: LEGO1 0x1009e210
-BOOL MxDirectDraw::TextToTextSurface1(const char* text)
-{
+BOOL MxDirectDraw::TextToTextSurface1(const char* text) {
 	return TextToTextSurface(text, m_pText1Surface, m_text1SizeOnSurface);
 }
 
 // FUNCTION: LEGO1 0x1009e230
-BOOL MxDirectDraw::TextToTextSurface2(const char* text)
-{
+BOOL MxDirectDraw::TextToTextSurface2(const char* text) {
 	return TextToTextSurface(text, m_pText2Surface, m_text2SizeOnSurface);
 }
 
 // FUNCTION: LEGO1 0x1009e250
-BOOL MxDirectDraw::CreateTextSurfaces()
-{
+BOOL MxDirectDraw::CreateTextSurfaces() {
 	HRESULT result;
 	DDCOLORKEY ddck;
 	DDSURFACEDESC ddsd;
@@ -627,8 +601,7 @@ BOOL MxDirectDraw::CreateTextSurfaces()
 		CLIP_DEFAULT_PRECIS,
 		DEFAULT_QUALITY,
 		VARIABLE_PITCH,
-		"Arial"
-	);
+		"Arial");
 
 	hdc = GetDC(NULL);
 	SelectObject(hdc, m_hFont);
@@ -680,8 +653,7 @@ BOOL MxDirectDraw::CreateTextSurfaces()
 }
 
 // FUNCTION: LEGO1 0x1009e4d0
-BOOL MxDirectDraw::RestoreSurfaces()
-{
+BOOL MxDirectDraw::RestoreSurfaces() {
 	HRESULT result;
 
 	if (m_pFrontBuffer != NULL) {
@@ -738,9 +710,8 @@ BOOL MxDirectDraw::RestoreSurfaces()
 }
 
 // FUNCTION: LEGO1 0x1009e5e0
-BOOL MxDirectDraw::CreateZBuffer(DWORD memorytype, DWORD depth)
-{
-	HRESULT result;                // eax
+BOOL MxDirectDraw::CreateZBuffer(DWORD memorytype, DWORD depth) {
+	HRESULT result;				   // eax
 	LPDIRECTDRAWSURFACE lpZBuffer; // [esp+8h] [ebp-70h] BYREF
 	DDSURFACEDESC ddsd;
 
@@ -769,8 +740,7 @@ BOOL MxDirectDraw::CreateZBuffer(DWORD memorytype, DWORD depth)
 }
 
 // FUNCTION: LEGO1 0x1009e6a0
-int MxDirectDraw::Pause(BOOL p_pause)
-{
+int MxDirectDraw::Pause(BOOL p_pause) {
 	if (p_pause) {
 		++m_pauseCount;
 
@@ -811,8 +781,7 @@ int MxDirectDraw::Pause(BOOL p_pause)
 }
 
 // FUNCTION: LEGO1 0x1009e750
-BOOL MxDirectDraw::RestorePaletteEntries()
-{
+BOOL MxDirectDraw::RestorePaletteEntries() {
 
 	if (m_bFullScreen && m_bPrimaryPalettized) {
 		if (m_pPalette) {
@@ -831,8 +800,7 @@ BOOL MxDirectDraw::RestorePaletteEntries()
 }
 
 // FUNCTION: LEGO1 0x1009e7a0
-BOOL MxDirectDraw::RestoreOriginalPaletteEntries()
-{
+BOOL MxDirectDraw::RestoreOriginalPaletteEntries() {
 	if (m_bPrimaryPalettized) {
 		if (m_pPalette) {
 			HRESULT result;
@@ -841,8 +809,7 @@ BOOL MxDirectDraw::RestoreOriginalPaletteEntries()
 				0,
 				0,
 				sizeof(m_originalPaletteEntries) / sizeof(m_originalPaletteEntries[0]),
-				m_originalPaletteEntries
-			);
+				m_originalPaletteEntries);
 			if (result != DD_OK) {
 				Error("SetEntries failed", result);
 				return FALSE;
@@ -854,8 +821,7 @@ BOOL MxDirectDraw::RestoreOriginalPaletteEntries()
 }
 
 // FUNCTION: LEGO1 0x1009e7f0
-int MxDirectDraw::FlipToGDISurface()
-{
+int MxDirectDraw::FlipToGDISurface() {
 
 	if (m_pDirectDraw) {
 		HRESULT result;
@@ -871,11 +837,10 @@ int MxDirectDraw::FlipToGDISurface()
 }
 
 // FUNCTION: LEGO1 0x1009e830
-void MxDirectDraw::Error(const char* p_message, int p_error)
-{
+void MxDirectDraw::Error(const char* p_message, int p_error) {
 	// at LEGO1 0x10100c70, needs no annotation
 	static BOOL g_isInsideError = FALSE;
-
+	printf("MxDirectDraw::Error %s\n\t%s\n", p_message, ErrorToString(p_error));
 	if (!g_isInsideError) {
 		g_isInsideError = TRUE;
 		Destroy();
@@ -887,8 +852,7 @@ void MxDirectDraw::Error(const char* p_message, int p_error)
 }
 
 // FUNCTION: LEGO1 0x1009e880
-const char* MxDirectDraw::ErrorToString(HRESULT p_error)
-{
+const char* MxDirectDraw::ErrorToString(HRESULT p_error) {
 	switch (p_error) {
 	case DD_OK:
 		return "No error.";
@@ -922,10 +886,10 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error)
 		return "Height of rectangle provided is not a multiple of reqd alignment.";
 	case DDERR_HWNDALREADYSET:
 		return "The CooperativeLevel HWND has already been set. It can not be reset while the process has surfaces or "
-			   "palettes created.";
+			"palettes created.";
 	case DDERR_HWNDSUBCLASSED:
 		return "HWND used by DirectDraw CooperativeLevel has been subclassed, this prevents DirectDraw from restoring "
-			   "state.";
+			"state.";
 	case DDERR_IMPLICITLYCREATED:
 		return "This surface can not be restored because it is an implicitly created surface.";
 	case DDERR_INCOMPATIBLEPRIMARY:
@@ -946,7 +910,7 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error)
 		return "The pixel format was invalid as specified.";
 	case DDERR_INVALIDPOSITION:
 		return "Returned when the position of the overlay on the destination is no longer legal for that "
-			   "destination.";
+			"destination.";
 	case DDERR_INVALIDRECT:
 		return "Rectangle provided was invalid.";
 	case DDERR_LOCKEDSURFACES:
@@ -955,7 +919,7 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error)
 		return "There is no 3D present.";
 	case DDERR_NOALPHAHW:
 		return "Operation could not be carried out because there is no alpha accleration hardware present or "
-			   "available.";
+			"available.";
 	case DDERR_NOBLTHW:
 		return "No blitter hardware present.";
 	case DDERR_NOCLIPLIST:
@@ -964,12 +928,12 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error)
 		return "No clipper object attached to surface object.";
 	case DDERR_NOCOLORCONVHW:
 		return "Operation could not be carried out because there is no color conversion hardware present or "
-			   "available.";
+			"available.";
 	case DDERR_NOCOLORKEY:
 		return "Surface doesn't currently have a color key";
 	case DDERR_NOCOLORKEYHW:
 		return "Operation could not be carried out because there is no hardware support of the destination color "
-			   "key.";
+			"key.";
 	case DDERR_NOCOOPERATIVELEVELSET:
 		return "Create function called without DirectDraw object method SetCooperativeLevel being called.";
 	case DDERR_NODC:
@@ -978,24 +942,24 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error)
 		return "No DirectDraw ROP hardware.";
 	case DDERR_NODIRECTDRAWHW:
 		return "A hardware-only DirectDraw object creation was attempted but the driver did not support any "
-			   "hardware.";
+			"hardware.";
 	case DDERR_NOEMULATION:
 		return "Software emulation not available.";
 	case DDERR_NOEXCLUSIVEMODE:
 		return "Operation requires the application to have exclusive mode but the application does not have exclusive "
-			   "mode.";
+			"mode.";
 	case DDERR_NOFLIPHW:
 		return "Flipping visible surfaces is not supported.";
 	case DDERR_NOGDI:
 		return "There is no GDI present.";
 	case DDERR_NOHWND:
 		return "Clipper notification requires an HWND or no HWND has previously been set as the CooperativeLevel "
-			   "HWND.";
+			"HWND.";
 	case DDERR_NOMIRRORHW:
 		return "Operation could not be carried out because there is no hardware present or available.";
 	case DDERR_NOOVERLAYDEST:
 		return "Returned when GetOverlayPosition is called on an overlay that UpdateOverlay has never been called on "
-			   "to establish a destination.";
+			"to establish a destination.";
 	case DDERR_NOOVERLAYHW:
 		return "Operation could not be carried out because there is no overlay hardware present or available.";
 	case DDERR_NOPALETTEATTACHED:
@@ -1004,41 +968,41 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error)
 		return "No hardware support for 16 or 256 color palettes.";
 	case DDERR_NORASTEROPHW:
 		return "Operation could not be carried out because there is no appropriate raster op hardware present or "
-			   "available.";
+			"available.";
 	case DDERR_NOROTATIONHW:
 		return "Operation could not be carried out because there is no rotation hardware present or available.";
 	case DDERR_NOSTRETCHHW:
 		return "Operation could not be carried out because there is no hardware support for stretching.";
 	case DDERR_NOT4BITCOLOR:
 		return "DirectDrawSurface is not in 4 bit color palette and the requested operation requires 4 bit color "
-			   "palette.";
+			"palette.";
 	case DDERR_NOT4BITCOLORINDEX:
 		return "DirectDrawSurface is not in 4 bit color index palette and the requested operation requires 4 bit color "
-			   "index palette.";
+			"index palette.";
 	case DDERR_NOT8BITCOLOR:
 		return "DirectDrawSurface is not in 8 bit color mode and the requested operation requires 8 bit color.";
 	case DDERR_NOTAOVERLAYSURFACE:
 		return "Returned when an overlay member is called for a non-overlay surface.";
 	case DDERR_NOTEXTUREHW:
 		return "Operation could not be carried out because there is no texture mapping hardware present or "
-			   "available.";
+			"available.";
 	case DDERR_NOTFLIPPABLE:
 		return "An attempt has been made to flip a surface that is not flippable.";
 	case DDERR_NOTFOUND:
 		return "Requested item was not found.";
 	case DDERR_NOTLOCKED:
 		return "Surface was not locked.  An attempt to unlock a surface that was not locked at all, or by this "
-			   "process, has been attempted.";
+			"process, has been attempted.";
 	case DDERR_NOTPALETTIZED:
 		return "The surface being used is not a palette-based surface.";
 	case DDERR_NOVSYNCHW:
 		return "Operation could not be carried out because there is no hardware support for vertical blank "
-			   "synchronized operations.";
+			"synchronized operations.";
 	case DDERR_NOZBUFFERHW:
 		return "Operation could not be carried out because there is no hardware support for zbuffer blitting.";
 	case DDERR_NOZOVERLAYHW:
 		return "Overlay surfaces could not be z layered based on their BltOrder because the hardware does not support "
-			   "z layering of overlays.";
+			"z layering of overlays.";
 	case DDERR_OUTOFCAPS:
 		return "The hardware needed for the requested operation has already been allocated.";
 	case DDERR_OUTOFMEMORY:
@@ -1067,7 +1031,7 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error)
 		return "Access to surface refused because the surface is obscured.";
 	case DDERR_SURFACELOST:
 		return "Access to this surface is being refused because the surface memory is gone. The DirectDrawSurface "
-			   "object representing this surface should have Restore called on it.";
+			"object representing this surface should have Restore called on it.";
 	case DDERR_SURFACENOTATTACHED:
 		return "The requested surface is not attached.";
 	case DDERR_TOOBIGHEIGHT:
@@ -1086,7 +1050,7 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error)
 		return "Vertical blank is in progress.";
 	case DDERR_WASSTILLDRAWING:
 		return "Informs DirectDraw that the previous Blt which is transfering information to or from this Surface is "
-			   "incomplete.";
+			"incomplete.";
 	case DDERR_WRONGMODE:
 		return "This surface can not be restored because it was created in a different mode.";
 	case DDERR_XALIGN:

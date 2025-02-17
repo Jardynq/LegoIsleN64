@@ -1,0 +1,55 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+            "label": "clean",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+				"-rf",
+				"./build/CMakeFiles",
+				"./build/.cmake",
+				"./build/cmake_install.cmake",
+				"./build/CMakeCache.txt",
+				
+				"./build/.ninja_deps",
+				"./build/build.ninja",
+				"./build/compile_commands.json",
+
+				"./build/LEGO1.DLL",
+				"./build/ISLE.EXE",
+				"./build/*.a"
+            ],
+            "problemMatcher": []
+        },
+		{
+            "label": "configure",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                ".",
+                "-G", "Ninja",
+                "-B", "build",
+                "-DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false,
+            },
+            "problemMatcher": []
+        },
+		{
+            "label": "build",
+            "type": "shell",
+            "command": "ninja",
+            "args": [
+                "-C", "./build",
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true,
+            },
+            "problemMatcher": []
+        }
+	]
+}

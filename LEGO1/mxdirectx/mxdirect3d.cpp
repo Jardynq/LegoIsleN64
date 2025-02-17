@@ -1,4 +1,5 @@
 #include "mxdirect3d.h"
+#include <stdio.h>
 
 DECOMP_SIZE_ASSERT(MxDirect3D, 0x894)
 
@@ -10,8 +11,7 @@ DECOMP_SIZE_ASSERT(MxDirect3D, 0x894)
 	}
 
 // FUNCTION: LEGO1 0x1009b0a0
-MxDirect3D::MxDirect3D()
-{
+MxDirect3D::MxDirect3D() {
 	this->m_pDirect3d = NULL;
 	this->m_pDirect3dDevice = NULL;
 	this->m_bTexturesDisabled = FALSE;
@@ -19,8 +19,7 @@ MxDirect3D::MxDirect3D()
 }
 
 // FUNCTION: LEGO1 0x1009b140
-MxDirect3D::~MxDirect3D()
-{
+MxDirect3D::~MxDirect3D() {
 	Destroy();
 }
 
@@ -35,9 +34,8 @@ BOOL MxDirect3D::Create(
 	int bpp,
 	const PALETTEENTRY* pPaletteEntries,
 	int paletteEntryCount
-)
-{
-	BOOL success = FALSE;
+) {
+	BOOL success = TRUE;
 	BOOL ret = MxDirectDraw::Create(
 		hWnd,
 		fullscreen_1,
@@ -49,9 +47,17 @@ BOOL MxDirect3D::Create(
 		pPaletteEntries,
 		paletteEntryCount
 	);
-
-	if (ret && D3DCreate() && D3DSetMode()) {
-		success = TRUE;
+	if (!ret) {
+		success = FALSE;
+		printf("Failed to create mx direct draw\n");
+	}
+	if (!D3DCreate()) {
+		success = FALSE;
+		printf("Failed to create mx direct 3d\n");
+	}
+	if (!D3DSetMode()) {
+		success = FALSE;
+		printf("Failed to set mx direct 3d mode\n");
 	}
 
 	if (!success) {
@@ -62,8 +68,7 @@ BOOL MxDirect3D::Create(
 }
 
 // FUNCTION: LEGO1 0x1009b210
-void MxDirect3D::Destroy()
-{
+void MxDirect3D::Destroy() {
 	RELEASE(m_pDirect3dDevice);
 	RELEASE(m_pDirect3d);
 
@@ -80,19 +85,17 @@ void MxDirect3D::Destroy()
 }
 
 // FUNCTION: LEGO1 0x1009b290
-void MxDirect3D::DestroyButNotDirectDraw()
-{
+void MxDirect3D::DestroyButNotDirectDraw() {
 	RELEASE(m_pDirect3dDevice);
 	RELEASE(m_pDirect3d);
 	MxDirectDraw::DestroyButNotDirectDraw();
 }
 
 // FUNCTION: LEGO1 0x1009b2d0
-BOOL MxDirect3D::D3DCreate()
-{
+BOOL MxDirect3D::D3DCreate() {
 	HRESULT result;
 
-	result = DirectDraw()->QueryInterface(IID_IDirect3D2, (LPVOID*) &m_pDirect3d);
+	result = DirectDraw()->QueryInterface(IID_IDirect3D2, (LPVOID*)&m_pDirect3d);
 	if (result != DD_OK) {
 		Error("Creation of IDirect3D failed", result);
 		return FALSE;
@@ -101,9 +104,9 @@ BOOL MxDirect3D::D3DCreate()
 }
 
 // FUNCTION: LEGO1 0x1009b310
-BOOL MxDirect3D::D3DSetMode()
-{
+BOOL MxDirect3D::D3DSetMode() {
 	if (m_assignedDevice->m_flags & MxAssignedDevice::c_hardwareMode) {
+		printf("Using hardware renderer\n");
 		if (m_bOnlySoftRender) {
 			Error("Failed to place vital surfaces in video memory for hardware driver", DDERR_GENERIC);
 			return FALSE;
@@ -121,6 +124,7 @@ BOOL MxDirect3D::D3DSetMode()
 		}
 	}
 	else {
+		printf("Using software renderer\n");
 		if (m_assignedDevice->m_desc.dpcTriCaps.dwTextureCaps & D3DPTEXTURECAPS_PERSPECTIVE) {
 			m_bTexturesDisabled = FALSE;
 		}
@@ -157,7 +161,7 @@ BOOL MxDirect3D::D3DSetMode()
 	desc.dwSize = sizeof(desc);
 
 	if (backBuffer->Lock(NULL, &desc, DDLOCK_WAIT, NULL) == DD_OK) {
-		unsigned char* surface = (unsigned char*) desc.lpSurface;
+		unsigned char* surface = (unsigned char*)desc.lpSurface;
 
 		for (int i = mode.height; i > 0; i--) {
 			memset(surface, 0, mode.width * desc.ddpfPixelFormat.dwRGBBitCount / 8);
@@ -175,7 +179,7 @@ BOOL MxDirect3D::D3DSetMode()
 		desc.dwSize = sizeof(desc);
 
 		if (frontBuffer->Lock(NULL, &desc, DDLOCK_WAIT, NULL) == DD_OK) {
-			unsigned char* surface = (unsigned char*) desc.lpSurface;
+			unsigned char* surface = (unsigned char*)desc.lpSurface;
 
 			for (int i = mode.height; i > 0; i--) {
 				memset(surface, 0, mode.width * desc.ddpfPixelFormat.dwRGBBitCount / 8);
@@ -193,8 +197,7 @@ BOOL MxDirect3D::D3DSetMode()
 }
 
 // FUNCTION: LEGO1 0x1009b5a0
-int MxDirect3D::ZBufferDepth(MxAssignedDevice* p_assignedDevice)
-{
+int MxDirect3D::ZBufferDepth(MxAssignedDevice* p_assignedDevice) {
 	int depth;
 	DWORD deviceDepth;
 
@@ -226,13 +229,14 @@ int MxDirect3D::ZBufferDepth(MxAssignedDevice* p_assignedDevice)
 
 // FUNCTION: LEGO1 0x1009b5f0
 // FUNCTION: BETA10 0x1011bbca
-BOOL MxDirect3D::SetDevice(MxDeviceEnumerate& p_deviceEnumerate, MxDriver* p_driver, Direct3DDeviceInfo* p_device)
-{
+BOOL MxDirect3D::SetDevice(MxDeviceEnumerate& p_deviceEnumerate, MxDriver* p_driver, Direct3DDeviceInfo* p_device) {
 	if (m_assignedDevice) {
 		delete m_assignedDevice;
 		m_assignedDevice = NULL;
 		m_pCurrentDeviceModesList = NULL;
 	}
+	printf("%s\n", p_device->m_deviceName);
+	printf("%s\n", p_device->m_deviceDesc);
 
 	MxAssignedDevice* assignedDevice = new MxAssignedDevice;
 	int i = 0;
@@ -256,8 +260,8 @@ BOOL MxDirect3D::SetDevice(MxDeviceEnumerate& p_deviceEnumerate, MxDriver* p_dri
 
 				int j = 0;
 				for (list<MxDisplayMode>::iterator it2 = driver.m_displayModes.begin();
-					 it2 != driver.m_displayModes.end();
-					 it2++) {
+					it2 != driver.m_displayModes.end();
+					it2++) {
 					assignedDevice->m_deviceInfo->m_modeArray[j].width = (*it2).m_width;
 					assignedDevice->m_deviceInfo->m_modeArray[j].height = (*it2).m_height;
 					assignedDevice->m_deviceInfo->m_modeArray[j].bitsPerPixel = (*it2).m_bitsPerPixel;
@@ -276,7 +280,7 @@ BOOL MxDirect3D::SetDevice(MxDeviceEnumerate& p_deviceEnumerate, MxDriver* p_dri
 			}
 
 			for (list<Direct3DDeviceInfo>::iterator it2 = driver.m_devices.begin(); it2 != driver.m_devices.end();
-				 it2++) {
+				it2++) {
 				Direct3DDeviceInfo& device = *it2;
 				if (&device != p_device) {
 					continue;

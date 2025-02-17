@@ -40,10 +40,6 @@ public:
 	inline int AddRef();
 	inline int Release();
 
-#ifdef _DEBUG
-	void Dump(void (*pTracer)(const char*, ...)) const;
-#endif
-
 private:
 	int m_refCount;              // 0x10
 	ViewLODListManager* m_owner; // 0x14
@@ -56,9 +52,8 @@ private:
 typedef const char* ROIName;
 struct ROINameComparator {
 	// FUNCTION: BETA10 0x101794c0
-	unsigned char operator()(const ROIName& rName1, const ROIName& rName2) const
-	{
-		return strcmp((const char*) rName1, (const char*) rName2) > 0;
+	unsigned char operator()(const ROIName& rName1, const ROIName& rName2) const {
+		return strcmp((const char*)rName1, (const char*)rName2) > 0;
 	}
 };
 
@@ -93,10 +88,6 @@ public:
 	// when it no longer holds on to the list
 	ViewLODList* Lookup(const ROIName&) const;
 	unsigned char Destroy(ViewLODList* lodList);
-
-#ifdef _DEBUG
-	void Dump(void (*pTracer)(const char*, ...)) const;
-#endif
 
 	// SYNTHETIC: LEGO1 0x100a70c0
 	// SYNTHETIC: BETA10 0x10178a80
@@ -197,25 +188,21 @@ private:
 // ViewLODList implementation
 
 // FUNCTION: BETA10 0x1017b240
-inline ViewLODList::ViewLODList(size_t capacity, ViewLODListManager* owner) : LODList<ViewLOD>(capacity), m_refCount(0)
-{
+inline ViewLODList::ViewLODList(size_t capacity, ViewLODListManager* owner) : LODList<ViewLOD>(capacity), m_refCount(0) {
 	m_owner = owner;
 }
 
-inline ViewLODList::~ViewLODList()
-{
+inline ViewLODList::~ViewLODList() {
 	assert(m_refCount == 0);
 }
 
 // FUNCTION: BETA10 0x1007b5b0
-inline int ViewLODList::AddRef()
-{
+inline int ViewLODList::AddRef() {
 	return ++m_refCount;
 }
 
 // FUNCTION: BETA10 0x1007ad70
-inline int ViewLODList::Release()
-{
+inline int ViewLODList::Release() {
 	assert(m_refCount > 0);
 	if (!--m_refCount) {
 		m_owner->Destroy(this);

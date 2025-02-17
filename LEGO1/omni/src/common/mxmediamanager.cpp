@@ -5,6 +5,7 @@
 #include "mxomni.h"
 #include "mxpresenter.h"
 #include "mxticklemanager.h"
+#include "stdio.h"
 
 DECOMP_SIZE_ASSERT(MxMediaManager, 0x2c);
 DECOMP_SIZE_ASSERT(MxPresenterList, 0x18);
@@ -38,6 +39,7 @@ MxResult MxMediaManager::Create()
 	this->m_presenters = new MxPresenterList;
 
 	if (!this->m_presenters) {
+		printf("Failed to get presenters for MX media manager\n");
 		this->Destroy();
 		return FAILURE;
 	}

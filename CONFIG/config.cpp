@@ -1,206 +1,101 @@
 #include "config.h"
 
-#include "ConfigCommandLineInfo.h"
-#include "MainDlg.h"
-#include "detectdx5.h"
-
 #include <direct.h> // _chdir
+#include <iostream>
 #include <mxdirectx/legodxinfo.h>
 #include <mxdirectx/mxdirect3d.h>
+#include "../ISLE/MockRegistry.h"
 #include <process.h> // _spawnl
-
-DECOMP_SIZE_ASSERT(CWinApp, 0xc4)
-DECOMP_SIZE_ASSERT(CConfigApp, 0x108)
-
-DECOMP_STATIC_ASSERT(offsetof(CConfigApp, m_display_bit_depth) == 0xd0)
-
-BEGIN_MESSAGE_MAP(CConfigApp, CWinApp)
-ON_COMMAND(ID_HELP, OnHelp)
-END_MESSAGE_MAP()
+#include <stdio.h>
+#include <windows.h>
 
 // FUNCTION: CONFIG 0x00402c40
-CConfigApp::CConfigApp()
-{
+CConfigApp::CConfigApp() {
 }
 
 #define MiB (1024 * 1024)
 
 // FUNCTION: CONFIG 0x00402dc0
-BOOL CConfigApp::InitInstance()
-{
-	if (!IsLegoNotRunning()) {
-		return FALSE;
-	}
-	if (!DetectDirectX5()) {
-		AfxMessageBox(
-			"\"LEGO\xae Island\" is not detecting DirectX 5 or later.  Please quit all other applications and try "
-			"again."
-		);
-		return FALSE;
-	}
-#ifdef _AFXDLL
-	Enable3dControls();
-#else
-	Enable3dControlsStatic();
-#endif
-	CConfigCommandLineInfo cmdInfo;
-	ParseCommandLine(cmdInfo);
-	if (_stricmp(afxCurrentAppName, "config") == 0) {
-		m_run_config_dialog = TRUE;
-	}
+BOOL CConfigApp::InitInstance() {
+	AllocConsole();
+	freopen("CONOUT$", "w", stdout);
+	freopen("CONIN$", "r", stdin);
+
+	m_run_config_dialog = TRUE;
 	m_device_enumerator = new LegoDeviceEnumerate;
 	if (m_device_enumerator->DoEnumerate()) {
 		return FALSE;
 	}
 	m_driver = NULL;
 	m_device = NULL;
-	m_full_screen = TRUE;
+	m_full_screen = FALSE;
 	m_wide_view_angle = TRUE;
 	m_use_joystick = FALSE;
 	m_music = TRUE;
-	m_flip_surfaces = FALSE;
-	m_3d_video_ram = FALSE;
+	m_flip_surfaces = m_full_screen; // seems dependent
+	m_draw_cursor = FALSE; // seems to crash
+	m_3d_video_ram = TRUE; // seems to not matter in software emu
 	m_joystick_index = -1;
+	m_3d_sound = FALSE;
+	m_model_quality = 0;
+	m_texture_quality = 1;
 	m_display_bit_depth = 16;
-	MEMORYSTATUS memory_status;
-	memory_status.dwLength = sizeof(memory_status);
-	GlobalMemoryStatus(&memory_status);
-	if (memory_status.dwTotalPhys < 12 * MiB) {
-		m_3d_sound = FALSE;
-		m_model_quality = 0;
-		m_texture_quality = 1;
-	}
-	else if (memory_status.dwTotalPhys < 20 * MiB) {
-		m_3d_sound = FALSE;
-		m_model_quality = 1;
-		m_texture_quality = 1;
+
+	m_diskpath = "";
+	m_moviespath = "";
+	m_savepath = "";
+	char* cwd = (char*)calloc(1, PATH_MAX);
+	if (getcwd(cwd, PATH_MAX) != NULL) {
+		m_diskpath = cwd;
+		m_moviespath = cwd;
+		m_savepath = cwd;
 	}
 	else {
-		m_model_quality = 2;
-		m_3d_sound = TRUE;
-		m_texture_quality = 1;
+		printf("Failed to get cwd\n");
 	}
-	if (!m_run_config_dialog) {
-		ReadRegisterSettings();
-		ValidateSettings();
-		WriteRegisterSettings();
-		delete m_device_enumerator;
-		m_device_enumerator = NULL;
-		m_driver = NULL;
-		m_device = NULL;
-		char password[256];
-		ReadReg("password", password, sizeof(password));
-		const char* exe = _stricmp("ogel", password) == 0 ? "isled.exe" : "isle.exe";
-		char diskpath[1024];
-		if (ReadReg("diskpath", diskpath, sizeof(diskpath))) {
-			_chdir(diskpath);
-		}
-		_spawnl(_P_NOWAIT, exe, exe, "/diskstream", "/script", "\\lego\\scripts\\isle\\isle.si", NULL);
-		return FALSE;
-	}
-	CMainDialog main_dialog(NULL);
-	main_dialog.DoModal();
-	return FALSE;
-}
 
-// FUNCTION: CONFIG 0x00403100
-BOOL CConfigApp::IsLegoNotRunning()
-{
-	HWND hWnd = FindWindowA("Lego Island MainNoM App", "LEGO\xae");
-	if (_stricmp(afxCurrentAppName, "config") == 0 || !hWnd) {
-		return TRUE;
-	}
-	if (SetForegroundWindow(hWnd)) {
-		ShowWindow(hWnd, SW_RESTORE);
-	}
-	return FALSE;
+	return 0;
 }
 
 // FUNCTION: CONFIG 0x004031b0
-BOOL CConfigApp::WriteReg(const char* p_key, const char* p_value) const
-{
-	HKEY hKey;
-	DWORD pos;
+BOOL CConfigApp::WriteReg(const char* p_key, const char* p_value) const {
+	printf("Write str %s : %s\n", p_key, p_value);
+	return RegWriteKey(p_key, RegString, p_value);
+}
 
-	if (RegCreateKeyExA(
-			HKEY_LOCAL_MACHINE,
-			"SOFTWARE\\Mindscape\\LEGO Island",
-			0,
-			"string",
-			0,
-			KEY_READ | KEY_WRITE,
-			NULL,
-			&hKey,
-			&pos
-		) == ERROR_SUCCESS) {
-		if (RegSetValueExA(hKey, p_key, 0, REG_SZ, (LPBYTE) p_value, strlen(p_value)) == ERROR_SUCCESS) {
-			if (RegCloseKey(hKey) == ERROR_SUCCESS) {
-				return TRUE;
-			}
-		}
-		else {
-			RegCloseKey(hKey);
-		}
-	}
-	return FALSE;
+BOOL CConfigApp::WriteRegBool(const char* p_key, BOOL value) const {
+	printf("Write bol %s : %d\n", p_key, value);
+	return RegWriteKey(p_key, RegBool, &value);
+}
+
+BOOL CConfigApp::WriteRegInt(const char* p_key, int value) const {
+	printf("Write int %s : %d\n", p_key, value);
+	return RegWriteKey(p_key, RegInt, &value);
 }
 
 // FUNCTION: CONFIG 0x00403240
-BOOL CConfigApp::ReadReg(LPCSTR p_key, LPCSTR p_value, DWORD p_size) const
-{
-	HKEY hKey;
-	DWORD valueType;
-
-	BOOL out = FALSE;
-	DWORD size = p_size;
-	if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\Mindscape\\LEGO Island", 0, KEY_READ, &hKey) == ERROR_SUCCESS) {
-		if (RegQueryValueExA(hKey, p_key, NULL, &valueType, (LPBYTE) p_value, &size) == ERROR_SUCCESS) {
-			if (RegCloseKey(hKey) == ERROR_SUCCESS) {
-				out = TRUE;
-			}
-		}
-	}
-	return out;
+BOOL CConfigApp::ReadReg(LPCSTR p_key, LPCSTR p_value, DWORD p_size) const {
+	int result = RegReadKey(p_key, RegString, (char*)p_value, p_size);
+	printf("Read str %d, %d, %s : %s\n", result, p_size, p_key, p_value);
+	return result;
 }
 
 // FUNCTION: CONFIG 0x004032b0
-BOOL CConfigApp::ReadRegBool(LPCSTR p_key, BOOL* p_bool) const
-{
-	char buffer[256];
-
-	BOOL read = ReadReg(p_key, buffer, sizeof(buffer));
-	if (read) {
-		if (strcmp("YES", buffer) == 0) {
-			*p_bool = TRUE;
-			return read;
-		}
-
-		if (strcmp("NO", buffer) == 0) {
-			*p_bool = FALSE;
-			return read;
-		}
-
-		read = FALSE;
-	}
-	return read;
+BOOL CConfigApp::ReadRegBool(LPCSTR p_key, BOOL* p_bool) const {
+	int result = RegReadKey(p_key, RegBool, p_bool, 16);
+	printf("Read bol %d, %s : %d\n", result, p_key, *p_bool);
+	return result;
 }
 
 // FUNCTION: CONFIG 0x00403380
-BOOL CConfigApp::ReadRegInt(LPCSTR p_key, int* p_value) const
-{
-	char buffer[256];
-
-	BOOL read = ReadReg(p_key, buffer, sizeof(buffer));
-	if (read) {
-		*p_value = atoi(buffer);
-	}
-
-	return read;
+BOOL CConfigApp::ReadRegInt(LPCSTR p_key, int* p_value) const {
+	int result = RegReadKey(p_key, RegInt, p_value, 16);
+	printf("Read int %d, %s : %d\n", result, p_key, *p_value);
+	return result;
 }
 
 // FUNCTION: CONFIG 0x004033d0
-BOOL CConfigApp::IsDeviceInBasicRGBMode() const
-{
+BOOL CConfigApp::IsDeviceInBasicRGBMode() const {
 	/*
 	 * BUG: should be:
 	 *  return !GetHardwareDeviceColorModel() && (m_device->m_HELDesc.dcmColorModel & D3DCOLOR_RGB);
@@ -209,78 +104,104 @@ BOOL CConfigApp::IsDeviceInBasicRGBMode() const
 }
 
 // FUNCTION: CONFIG 0x00403400
-D3DCOLORMODEL CConfigApp::GetHardwareDeviceColorModel() const
-{
+D3DCOLORMODEL CConfigApp::GetHardwareDeviceColorModel() const {
 	return m_device->m_HWDesc.dcmColorModel;
 }
 
 // FUNCTION: CONFIG 0x00403410
-BOOL CConfigApp::IsPrimaryDriver() const
-{
+BOOL CConfigApp::IsPrimaryDriver() const {
 	return m_driver == &m_device_enumerator->GetDriverList().front();
 }
 
+
+void PrintD3DDeviceDesc(const D3DDEVICEDESC* desc) {
+	if (!desc) {
+		printf("Invalid D3D Device Descriptor!\n");
+		return;
+	}
+
+	printf("=============== D3D Device Descriptor ===============\n");
+	printf("Size: %lu bytes\n", desc->dwSize);
+	printf("Flags: 0x%08lx\n", desc->dwFlags);
+	printf("Color Model: %s\n", (desc->dcmColorModel == D3DCOLOR_MONO) ? "Monochrome" : "RGB");
+	printf("Device Capabilities: 0x%08lx\n", desc->dwDevCaps);
+	printf("Supports Clipping: %s\n", desc->bClipping ? "Yes" : "No");
+
+	// Transform capabilities
+	printf("\n-- Transform Capabilities --\n");
+	printf("  Size: %lu\n", desc->dtcTransformCaps.dwSize);
+	printf("  Caps: 0x%08lx\n", desc->dtcTransformCaps.dwCaps);
+
+	// Lighting capabilities
+	printf("\n-- Lighting Capabilities --\n");
+	printf("  Size: %lu\n", desc->dlcLightingCaps.dwSize);
+	printf("  Caps: 0x%08lx\n", desc->dlcLightingCaps.dwCaps);
+	printf("  Max Active Lights: %lu\n", desc->dlcLightingCaps.dwNumLights);
+	printf("  Lighting Model: %lu\n", desc->dlcLightingCaps.dwLightingModel);
+
+	// Line Caps
+	printf("\n-- Line Capabilities --\n");
+	printf("  Misc Caps: 0x%08lx\n", desc->dpcLineCaps.dwMiscCaps);
+	printf("  Raster Caps: 0x%08lx\n", desc->dpcLineCaps.dwRasterCaps);
+	printf("  ZCmp Caps: 0x%08lx\n", desc->dpcLineCaps.dwZCmpCaps);
+	printf("  SrcBlend Caps: 0x%08lx\n", desc->dpcLineCaps.dwSrcBlendCaps);
+	printf("  DestBlend Caps: 0x%08lx\n", desc->dpcLineCaps.dwDestBlendCaps);
+
+	// Triangle Caps
+	printf("\n-- Triangle Capabilities --\n");
+	printf("  Misc Caps: 0x%08lx\n", desc->dpcTriCaps.dwMiscCaps);
+	printf("  Raster Caps: 0x%08lx\n", desc->dpcTriCaps.dwRasterCaps);
+	printf("  ZCmp Caps: 0x%08lx\n", desc->dpcTriCaps.dwZCmpCaps);
+	printf("  SrcBlend Caps: 0x%08lx\n", desc->dpcTriCaps.dwSrcBlendCaps);
+	printf("  DestBlend Caps: 0x%08lx\n", desc->dpcTriCaps.dwDestBlendCaps);
+
+	// Depth Buffers
+	printf("\n-- Depth & Buffer Information --\n");
+	printf("  Render Bit Depth: %lu\n", desc->dwDeviceRenderBitDepth);
+	printf("  Z-Buffer Bit Depth: %lu\n", desc->dwDeviceZBufferBitDepth);
+	printf("  Max Buffer Size: %lu\n", desc->dwMaxBufferSize);
+	printf("  Max Vertex Count: %lu\n", desc->dwMaxVertexCount);
+
+	// Texture Information
+	printf("\n-- Texture Capabilities --\n");
+	printf("  Min Texture Size: %lux%lu\n", desc->dwMinTextureWidth, desc->dwMinTextureHeight);
+	printf("  Max Texture Size: %lux%lu\n", desc->dwMaxTextureWidth, desc->dwMaxTextureHeight);
+	printf("  Min Stipple Size: %lux%lu\n", desc->dwMinStippleWidth, desc->dwMinStippleHeight);
+	printf("  Max Stipple Size: %lux%lu\n", desc->dwMaxStippleWidth, desc->dwMaxStippleHeight);
+	printf("======================================================\n");
+}
+
 // FUNCTION: CONFIG 0x00403430
-BOOL CConfigApp::ReadRegisterSettings()
-{
+BOOL CConfigApp::ReadRegisterSettings() {
 	char buffer[256];
 	BOOL is_modified = FALSE;
 	int tmp = -1;
 
-	if (ReadReg("3D Device ID", buffer, sizeof(buffer))) {
-		tmp = m_device_enumerator->ParseDeviceName(buffer);
-		if (tmp >= 0) {
-			tmp = m_device_enumerator->GetDevice(tmp, m_driver, m_device);
+	is_modified = TRUE;
+	m_device_enumerator->FUN_1009d210();
+	tmp = m_device_enumerator->FUN_1009d0d0();
+	LPDIRECTDRAW dd;
+	if (DirectDrawCreate(NULL, &dd, 0) != DD_OK) {
+		printf("Failed to create DD\n");
+	}
+
+	int index = 0;
+	while (1) {
+		if (m_device_enumerator->GetDevice(index++, m_driver, m_device) == -1) {
+			break;
 		}
+		printf("%s\n:", m_device->m_deviceName);
+		printf("%s\n:", m_device->m_deviceDesc);
+		PrintD3DDeviceDesc(&m_device->m_HWDesc);
+		PrintD3DDeviceDesc(&m_device->m_HELDesc);
 	}
-	if (tmp != 0) {
-		is_modified = TRUE;
-		m_device_enumerator->FUN_1009d210();
-		tmp = m_device_enumerator->FUN_1009d0d0();
-		m_device_enumerator->GetDevice(tmp, m_driver, m_device);
-	}
-	if (!ReadRegInt("Display Bit Depth", &m_display_bit_depth)) {
-		is_modified = TRUE;
-	}
-	if (!ReadRegBool("Flip Surfaces", &m_flip_surfaces)) {
-		is_modified = TRUE;
-	}
-	if (!ReadRegBool("Full Screen", &m_full_screen)) {
-		is_modified = TRUE;
-	}
-	if (!ReadRegBool("Back Buffers in Video RAM", &m_3d_video_ram)) {
-		is_modified = TRUE;
-	}
-	if (!ReadRegBool("Wide View Angle", &m_wide_view_angle)) {
-		is_modified = TRUE;
-	}
-	if (!ReadRegBool("3DSound", &m_3d_sound)) {
-		is_modified = TRUE;
-	}
-	if (!ReadRegBool("Draw Cursor", &m_draw_cursor)) {
-		is_modified = TRUE;
-	}
-	if (!ReadRegInt("Island Quality", &m_model_quality)) {
-		is_modified = TRUE;
-	}
-	if (!ReadRegInt("Island Texture", &m_texture_quality)) {
-		is_modified = TRUE;
-	}
-	if (!ReadRegBool("UseJoystick", &m_use_joystick)) {
-		is_modified = TRUE;
-	}
-	if (!ReadRegBool("Music", &m_music)) {
-		is_modified = TRUE;
-	}
-	if (!ReadRegInt("JoystickIndex", &m_joystick_index)) {
-		is_modified = TRUE;
-	}
-	return is_modified;
+
+	m_device_enumerator->GetDevice(4, m_driver, m_device);
+	return 0;
 }
 
 // FUNCTION: CONFIG 0x00403630
-BOOL CConfigApp::ValidateSettings()
-{
+BOOL CConfigApp::ValidateSettings() {
 	BOOL is_modified = FALSE;
 
 	if (!IsPrimaryDriver() && !m_full_screen) {
@@ -341,8 +262,7 @@ BOOL CConfigApp::ValidateSettings()
 }
 
 // FUNCTION: CONFIG 0x004037a0
-DWORD CConfigApp::GetConditionalDeviceRenderBitDepth() const
-{
+DWORD CConfigApp::GetConditionalDeviceRenderBitDepth() const {
 	if (IsDeviceInBasicRGBMode()) {
 		return 0;
 	}
@@ -353,8 +273,7 @@ DWORD CConfigApp::GetConditionalDeviceRenderBitDepth() const
 }
 
 // FUNCTION: CONFIG 0x004037e0
-DWORD CConfigApp::GetDeviceRenderBitStatus() const
-{
+DWORD CConfigApp::GetDeviceRenderBitStatus() const {
 	if (GetHardwareDeviceColorModel()) {
 		return m_device->m_HWDesc.dwDeviceRenderBitDepth & 0x400;
 	}
@@ -364,8 +283,7 @@ DWORD CConfigApp::GetDeviceRenderBitStatus() const
 }
 
 // FUNCTION: CONFIG 0x00403810
-BOOL CConfigApp::AdjustDisplayBitDepthBasedOnRenderStatus()
-{
+BOOL CConfigApp::AdjustDisplayBitDepthBasedOnRenderStatus() {
 	if (m_display_bit_depth == 8) {
 		if (GetConditionalDeviceRenderBitDepth()) {
 			return FALSE;
@@ -389,17 +307,8 @@ BOOL CConfigApp::AdjustDisplayBitDepthBasedOnRenderStatus()
 }
 
 // FUNCTION: CONFIG 00403890
-void CConfigApp::WriteRegisterSettings() const
-
-{
+void CConfigApp::WriteRegisterSettings() const {
 	char buffer[128];
-
-#define WriteRegBool(NAME, VALUE) WriteReg(NAME, VALUE ? "YES" : "NO")
-#define WriteRegInt(NAME, VALUE)                                                                                       \
-	do {                                                                                                               \
-		sprintf(buffer, "%d", VALUE);                                                                                  \
-		WriteReg(NAME, buffer);                                                                                        \
-	} while (0)
 
 	m_device_enumerator->FormatDeviceName(buffer, m_driver, m_device);
 	WriteReg("3D Device ID", buffer);
@@ -416,20 +325,31 @@ void CConfigApp::WriteRegisterSettings() const
 	WriteRegBool("UseJoystick", m_use_joystick);
 	WriteRegBool("Music", m_music);
 	WriteRegInt("JoystickIndex", m_joystick_index);
-
-#undef WriteRegBool
-#undef WriteRegInt
+	WriteReg("diskpath", m_diskpath);
+	WriteReg("moviespath", m_moviespath);
+	WriteReg("savepath", m_savepath);
 }
 
 // FUNCTION: CONFIG 0x00403a90
-int CConfigApp::ExitInstance()
-{
+int CConfigApp::ExitInstance() {
 	if (m_device_enumerator) {
 		delete m_device_enumerator;
 		m_device_enumerator = NULL;
 	}
-	return CWinApp::ExitInstance();
+	return 0;
 }
 
 // GLOBAL: CONFIG 0x00408e50
 CConfigApp g_theApp;
+
+int main() {
+	RegReset();
+	g_theApp.InitInstance();
+	g_theApp.ReadRegisterSettings();
+	//g_theApp.ValidateSettings();
+	g_theApp.WriteRegisterSettings();
+	char input[100];
+	printf("Enter text: ");
+	fgets(input, sizeof(input), stdin);
+	return 0;
+}

@@ -26,8 +26,7 @@ DECOMP_SIZE_ASSERT(MxStopWatch, 0x18)
 DECOMP_SIZE_ASSERT(MxFrequencyMeter, 0x20)
 
 // FUNCTION: LEGO1 0x1007aa20
-LegoVideoManager::LegoVideoManager()
-{
+LegoVideoManager::LegoVideoManager() {
 	m_renderer = NULL;
 	m_3dManager = NULL;
 	m_viewROI = NULL;
@@ -54,15 +53,13 @@ LegoVideoManager::LegoVideoManager()
 }
 
 // FUNCTION: LEGO1 0x1007ab40
-LegoVideoManager::~LegoVideoManager()
-{
+LegoVideoManager::~LegoVideoManager() {
 	Destroy();
 	delete m_palette;
 }
 
 // FUNCTION: LEGO1 0x1007abb0
-MxResult LegoVideoManager::CreateDirect3D()
-{
+MxResult LegoVideoManager::CreateDirect3D() {
 	if (!m_direct3d) {
 		m_direct3d = new MxDirect3D;
 	}
@@ -72,8 +69,7 @@ MxResult LegoVideoManager::CreateDirect3D()
 
 // FUNCTION: LEGO1 0x1007ac40
 // FUNCTION: BETA10 0x100d5cf4
-MxResult LegoVideoManager::Create(MxVideoParam& p_videoParam, MxU32 p_frequencyMS, MxBool p_createThread)
-{
+MxResult LegoVideoManager::Create(MxVideoParam& p_videoParam, MxU32 p_frequencyMS, MxBool p_createThread) {
 	MxResult result = FAILURE;
 	MxBool paletteCreated = FALSE;
 	MxS32 deviceNum = -1;
@@ -92,6 +88,7 @@ MxResult LegoVideoManager::Create(MxVideoParam& p_videoParam, MxU32 p_frequencyM
 		p_videoParam.SetPalette(palette);
 
 		if (!p_videoParam.GetPalette()) {
+			printf("Failed to get pallete\n");
 			goto done;
 		}
 		paletteCreated = TRUE;
@@ -101,10 +98,12 @@ MxResult LegoVideoManager::Create(MxVideoParam& p_videoParam, MxU32 p_frequencyM
 	p_videoParam.GetPalette()->GetEntries(paletteEntries);
 
 	if (CreateDirect3D() != SUCCESS) {
+		printf("Failed to create d3d\n");
 		goto done;
 	}
 
 	if (deviceEnumerate.DoEnumerate() != SUCCESS) {
+		printf("Failed to enumerate devices\n");
 		goto done;
 	}
 
@@ -135,41 +134,45 @@ MxResult LegoVideoManager::Create(MxVideoParam& p_videoParam, MxU32 p_frequencyM
 	ViewROI::SetUnk101013d8(p_videoParam.Flags().GetF2bit0() == FALSE);
 
 	if (!m_direct3d->Create(
-			hwnd,
-			p_videoParam.Flags().GetFullScreen(),
-			p_videoParam.Flags().GetFlipSurfaces(),
-			p_videoParam.Flags().GetBackBuffers() == FALSE,
-			p_videoParam.GetRect().GetWidth(),
-			p_videoParam.GetRect().GetHeight(),
-			bits,
-			paletteEntries,
-			sizeof(paletteEntries) / sizeof(paletteEntries[0])
-		)) {
+		hwnd,
+		p_videoParam.Flags().GetFullScreen(),
+		p_videoParam.Flags().GetFlipSurfaces(),
+		p_videoParam.Flags().GetBackBuffers() == FALSE,
+		p_videoParam.GetRect().GetWidth(),
+		p_videoParam.GetRect().GetHeight(),
+		bits,
+		paletteEntries,
+		sizeof(paletteEntries) / sizeof(paletteEntries[0])
+	)) {
+		printf("Failed to initialize d3d\n");
 		goto done;
 	}
 
 	if (MxVideoManager::VTable0x28(
-			p_videoParam,
-			m_direct3d->DirectDraw(),
-			m_direct3d->Direct3D(),
-			m_direct3d->FrontBuffer(),
-			m_direct3d->BackBuffer(),
-			m_direct3d->Clipper(),
-			p_frequencyMS,
-			p_createThread
-		) != SUCCESS) {
+		p_videoParam,
+		m_direct3d->DirectDraw(),
+		m_direct3d->Direct3D(),
+		m_direct3d->FrontBuffer(),
+		m_direct3d->BackBuffer(),
+		m_direct3d->Clipper(),
+		p_frequencyMS,
+		p_createThread
+	) != SUCCESS) {
+		printf("Failed to initialize mx video manager\n");
 		goto done;
 	}
 
 	m_renderer = Tgl::CreateRenderer();
 
 	if (!m_renderer) {
+		printf("Failed to create tgl renderer\n");
 		goto done;
 	}
 
 	m_3dManager = new Lego3DManager;
 
 	if (!m_3dManager) {
+		printf("Failed to create 3d manager\n");
 		goto done;
 	}
 
@@ -186,12 +189,14 @@ MxResult LegoVideoManager::Create(MxVideoParam& p_videoParam, MxU32 p_frequencyM
 	createStruct.m_d3dDevice = m_direct3d->Direct3DDevice();
 
 	if (!m_3dManager->Create(createStruct)) {
+		printf("Failed to initialize 3d manager\n");
 		goto done;
 	}
 
 	ViewLODList* pLODList;
 
 	if (ConfigureD3DRM() != SUCCESS) {
+		printf("Failed to configure d3drm\n");
 		goto done;
 	}
 
@@ -223,8 +228,7 @@ done:
 
 // FUNCTION: LEGO1 0x1007b5e0
 // FUNCTION: BETA10 0x100d6816
-void LegoVideoManager::Destroy()
-{
+void LegoVideoManager::Destroy() {
 	if (m_cursorSurface != NULL) {
 		m_cursorSurface->Release();
 		m_cursorSurface = NULL;
@@ -257,8 +261,7 @@ void LegoVideoManager::Destroy()
 }
 
 // FUNCTION: LEGO1 0x1007b6a0
-void LegoVideoManager::MoveCursor(MxS32 p_cursorX, MxS32 p_cursorY)
-{
+void LegoVideoManager::MoveCursor(MxS32 p_cursorX, MxS32 p_cursorY) {
 	m_cursorX = p_cursorX;
 	m_cursorY = p_cursorY;
 	m_drawCursor = TRUE;
@@ -273,8 +276,7 @@ void LegoVideoManager::MoveCursor(MxS32 p_cursorX, MxS32 p_cursorY)
 }
 
 // FUNCTION: LEGO1 0x1007b6f0
-void LegoVideoManager::ToggleFPS(MxBool p_visible)
-{
+void LegoVideoManager::ToggleFPS(MxBool p_visible) {
 	if (p_visible && !m_drawFPS) {
 		m_drawFPS = TRUE;
 		m_unk0x550 = 1.0;
@@ -286,8 +288,7 @@ void LegoVideoManager::ToggleFPS(MxBool p_visible)
 }
 
 // FUNCTION: LEGO1 0x1007b770
-MxResult LegoVideoManager::Tickle()
-{
+MxResult LegoVideoManager::Tickle() {
 	if (m_unk0x554 && !m_videoParam.Flags().GetFlipSurfaces() &&
 		TransitionManager()->GetTransitionType() == MxTransitionManager::e_idle) {
 		Sleep(30);
@@ -365,8 +366,7 @@ MxResult LegoVideoManager::Tickle()
 	return SUCCESS;
 }
 
-inline void LegoVideoManager::DrawCursor()
-{
+inline void LegoVideoManager::DrawCursor() {
 	if (m_cursorX != m_cursorXCopy || m_cursorY != m_cursorYCopy) {
 		if (m_cursorX >= 0 && m_cursorY >= 0) {
 			m_cursorXCopy = m_cursorX;
@@ -393,8 +393,7 @@ inline void LegoVideoManager::DrawCursor()
 }
 
 // FUNCTION: LEGO1 0x1007bbc0
-void LegoVideoManager::DrawFPS()
-{
+void LegoVideoManager::DrawFPS() {
 	char zeros[8] = "0000.00";
 
 	if (m_unk0x528 == NULL) {
@@ -445,7 +444,7 @@ void LegoVideoManager::DrawFPS()
 		}
 		else {
 			DWORD i;
-			char* ptr = (char*) surfaceDesc.lpSurface;
+			char* ptr = (char*)surfaceDesc.lpSurface;
 
 			for (i = 0; i < surfaceDesc.dwHeight; i++) {
 				memset(ptr, 0, surfaceDesc.dwWidth * surfaceDesc.ddpfPixelFormat.dwRGBBitCount / 8);
@@ -470,7 +469,7 @@ void LegoVideoManager::DrawFPS()
 
 			if (m_unk0x528->Lock(NULL, &surfaceDesc, DDLOCK_WAIT, NULL) == DD_OK) {
 				DWORD i;
-				char* ptr = (char*) surfaceDesc.lpSurface;
+				char* ptr = (char*)surfaceDesc.lpSurface;
 
 				for (i = 0; i < surfaceDesc.dwHeight; i++) {
 					memset(ptr, 0, surfaceDesc.dwWidth * surfaceDesc.ddpfPixelFormat.dwRGBBitCount / 8);
@@ -514,8 +513,7 @@ void LegoVideoManager::DrawFPS()
 }
 
 // FUNCTION: LEGO1 0x1007c080
-MxPresenter* LegoVideoManager::GetPresenterAt(MxS32 p_x, MxS32 p_y)
-{
+MxPresenter* LegoVideoManager::GetPresenterAt(MxS32 p_x, MxS32 p_y) {
 	MxPresenterListCursor cursor(m_presenters);
 	MxPresenter* presenter;
 
@@ -530,8 +528,7 @@ MxPresenter* LegoVideoManager::GetPresenterAt(MxS32 p_x, MxS32 p_y)
 
 // FUNCTION: LEGO1 0x1007c180
 // FUNCTION: BETA10 0x100d6df4
-MxPresenter* LegoVideoManager::GetPresenterByActionObjectName(const char* p_actionObjectName)
-{
+MxPresenter* LegoVideoManager::GetPresenterByActionObjectName(const char* p_actionObjectName) {
 	MxPresenterListCursor cursor(m_presenters);
 	MxPresenter* presenter;
 
@@ -551,8 +548,7 @@ MxPresenter* LegoVideoManager::GetPresenterByActionObjectName(const char* p_acti
 }
 
 // FUNCTION: LEGO1 0x1007c290
-MxResult LegoVideoManager::RealizePalette(MxPalette* p_pallete)
-{
+MxResult LegoVideoManager::RealizePalette(MxPalette* p_pallete) {
 	if (p_pallete && m_videoParam.GetPalette()) {
 		p_pallete->GetEntries(m_paletteEntries);
 		m_videoParam.GetPalette()->SetEntries(m_paletteEntries);
@@ -563,8 +559,7 @@ MxResult LegoVideoManager::RealizePalette(MxPalette* p_pallete)
 }
 
 // FUNCTION: LEGO1 0x1007c2d0
-MxResult LegoVideoManager::ResetPalette(MxBool p_ignoreSkyColor)
-{
+MxResult LegoVideoManager::ResetPalette(MxBool p_ignoreSkyColor) {
 	MxResult result = FAILURE;
 
 	if (m_videoParam.GetPalette() != NULL) {
@@ -577,14 +572,12 @@ MxResult LegoVideoManager::ResetPalette(MxBool p_ignoreSkyColor)
 }
 
 // FUNCTION: LEGO1 0x1007c300
-void LegoVideoManager::EnableFullScreenMovie(MxBool p_enable)
-{
+void LegoVideoManager::EnableFullScreenMovie(MxBool p_enable) {
 	EnableFullScreenMovie(p_enable, TRUE);
 }
 
 // FUNCTION: LEGO1 0x1007c310
-void LegoVideoManager::EnableFullScreenMovie(MxBool p_enable, MxBool p_scale)
-{
+void LegoVideoManager::EnableFullScreenMovie(MxBool p_enable, MxBool p_scale) {
 	if (m_isFullscreenMovie != p_enable) {
 		m_isFullscreenMovie = p_enable;
 
@@ -632,8 +625,7 @@ void LegoVideoManager::EnableFullScreenMovie(MxBool p_enable, MxBool p_scale)
 }
 
 // FUNCTION: LEGO1 0x1007c440
-void LegoVideoManager::SetSkyColor(float p_red, float p_green, float p_blue)
-{
+void LegoVideoManager::SetSkyColor(float p_red, float p_green, float p_blue) {
 	PALETTEENTRY colorStrucure;
 
 	colorStrucure.peRed = (p_red * 255.0f);
@@ -646,14 +638,12 @@ void LegoVideoManager::SetSkyColor(float p_red, float p_green, float p_blue)
 }
 
 // FUNCTION: LEGO1 0x1007c4c0
-void LegoVideoManager::OverrideSkyColor(MxBool p_shouldOverride)
-{
+void LegoVideoManager::OverrideSkyColor(MxBool p_shouldOverride) {
 	m_videoParam.GetPalette()->SetOverrideSkyColor(p_shouldOverride);
 }
 
 // FUNCTION: LEGO1 0x1007c4d0
-void LegoVideoManager::UpdateView(MxU32 p_x, MxU32 p_y, MxU32 p_width, MxU32 p_height)
-{
+void LegoVideoManager::UpdateView(MxU32 p_x, MxU32 p_y, MxU32 p_width, MxU32 p_height) {
 	if (p_width == 0) {
 		p_width = m_videoParam.GetRect().GetWidth();
 	}
@@ -667,8 +657,7 @@ void LegoVideoManager::UpdateView(MxU32 p_x, MxU32 p_y, MxU32 p_width, MxU32 p_h
 }
 
 // FUNCTION: LEGO1 0x1007c520
-void LegoVideoManager::FUN_1007c520()
-{
+void LegoVideoManager::FUN_1007c520() {
 	m_unk0xe5 = TRUE;
 	m_render3d = FALSE;
 	m_videoParam.GetPalette()->SetOverrideSkyColor(FALSE);
@@ -681,21 +670,20 @@ void LegoVideoManager::FUN_1007c520()
 extern void ViewportDestroyCallback(IDirect3DRMObject*, void*);
 
 // FUNCTION: LEGO1 0x1007c560
-int LegoVideoManager::EnableRMDevice()
-{
+int LegoVideoManager::EnableRMDevice() {
 	IDirect3DRMViewport* viewport;
 
 	if (!m_paused) {
 		return -1;
 	}
 
-	TglImpl::DeviceImpl* deviceImpl = (TglImpl::DeviceImpl*) m_3dManager->GetLego3DView()->GetDevice();
+	TglImpl::DeviceImpl* deviceImpl = (TglImpl::DeviceImpl*)m_3dManager->GetLego3DView()->GetDevice();
 	IDirect3DRMDevice2* d3drmDev2 = NULL;
 	IDirect3D2* d3d2 = m_direct3d->Direct3D();
 	IDirect3DDevice2* d3dDev2 = m_direct3d->Direct3DDevice();
 
 	int result = -1;
-	IDirect3DRM2* d3drm2 = ((TglImpl::RendererImpl*) m_renderer)->ImplementationData();
+	IDirect3DRM2* d3drm2 = ((TglImpl::RendererImpl*)m_renderer)->ImplementationData();
 
 	m_direct3d->RestoreSurfaces();
 
@@ -709,7 +697,7 @@ int LegoVideoManager::EnableRMDevice()
 			viewport->SetField(m_fov);
 			viewport->SetCamera(m_camera);
 			viewport->SetProjection(m_projection);
-			viewport->SetAppData((DWORD) m_appdata);
+			viewport->SetAppData((DWORD)m_appdata);
 			d3drmDev2->SetQuality(m_quality);
 			d3drmDev2->SetShades(m_shades);
 			d3drmDev2->SetTextureQuality(m_textureQuality);
@@ -719,7 +707,7 @@ int LegoVideoManager::EnableRMDevice()
 			m_camera->Release();
 
 			if (viewport->AddDestroyCallback(ViewportDestroyCallback, m_appdata) == D3DRM_OK) {
-				((TglImpl::ViewImpl*) m_3dManager->GetLego3DView()->GetView())->SetImplementationData(viewport);
+				((TglImpl::ViewImpl*)m_3dManager->GetLego3DView()->GetView())->SetImplementationData(viewport);
 				m_paused = 0;
 				result = 0;
 			}
@@ -730,14 +718,13 @@ int LegoVideoManager::EnableRMDevice()
 }
 
 // FUNCTION: LEGO1 0x1007c740
-int LegoVideoManager::DisableRMDevice()
-{
+int LegoVideoManager::DisableRMDevice() {
 	if (m_paused) {
 		return -1;
 	}
 
 	IDirect3DRMDevice2* d3drmDev2 =
-		((TglImpl::DeviceImpl*) m_3dManager->GetLego3DView()->GetDevice())->ImplementationData();
+		((TglImpl::DeviceImpl*)m_3dManager->GetLego3DView()->GetDevice())->ImplementationData();
 
 	if (d3drmDev2 != NULL) {
 		IDirect3DRMViewportArray* viewportArray = NULL;
@@ -754,7 +741,7 @@ int LegoVideoManager::DisableRMDevice()
 					m_fov = viewport->GetField();
 					viewport->GetCamera(&m_camera);
 					m_projection = viewport->GetProjection();
-					m_appdata = (ViewportAppData*) viewport->GetAppData();
+					m_appdata = (ViewportAppData*)viewport->GetAppData();
 					viewportArray->Release();
 					viewport->Release();
 					viewport->DeleteDestroyCallback(ViewportDestroyCallback, this->m_appdata);
@@ -787,10 +774,9 @@ int LegoVideoManager::DisableRMDevice()
 }
 
 // FUNCTION: LEGO1 0x1007c930
-MxResult LegoVideoManager::ConfigureD3DRM()
-{
+MxResult LegoVideoManager::ConfigureD3DRM() {
 	IDirect3DRMDevice2* d3drm =
-		((TglImpl::DeviceImpl*) m_3dManager->GetLego3DView()->GetDevice())->ImplementationData();
+		((TglImpl::DeviceImpl*)m_3dManager->GetLego3DView()->GetDevice())->ImplementationData();
 
 	if (!d3drm) {
 		return FAILURE;

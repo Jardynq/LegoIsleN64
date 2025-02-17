@@ -4,7 +4,6 @@ Debug/
 Release/
 *.ncb
 /.vs
-/.vscode
 /.idea
 .env
 .venv

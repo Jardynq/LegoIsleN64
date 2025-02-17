@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Lego Island",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "cppStandard": "c++17",
+            "compilerPath": "/usr/bin/i686-w64-mingw32-g++",
+            "intelliSenseMode": "windows-gcc-x86",
+            "cStandard": "c11",
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+            "configurationProvider": "ms-vscode.cmake-tools"
+        }
+    ],
+    "version": 4
+}

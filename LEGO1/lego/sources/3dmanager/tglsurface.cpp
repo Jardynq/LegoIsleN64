@@ -13,8 +13,7 @@ using namespace Tgl;
 
 // FUNCTION: LEGO1 0x100abbf0
 // FUNCTION: BETA10 0x1017d490
-TglSurface::TglSurface()
-{
+TglSurface::TglSurface() {
 	m_pRenderer = 0;
 	m_pDevice = 0;
 	m_pView = 0;
@@ -28,22 +27,17 @@ TglSurface::TglSurface()
 
 	// statistics
 	m_frameCount = 0;
-#ifdef _DEBUG
-	m_triangleCount = 0;
-#endif
 }
 
 // FUNCTION: LEGO1 0x100abd60
 // FUNCTION: BETA10 0x1017d5a2
-TglSurface::~TglSurface()
-{
+TglSurface::~TglSurface() {
 	Destroy();
 }
 
 // FUNCTION: LEGO1 0x100abde0
 // FUNCTION: BETA10 0x1017d647
-void TglSurface::Destroy()
-{
+void TglSurface::Destroy() {
 	DestroyView();
 
 	delete m_pDevice;
@@ -56,8 +50,7 @@ void TglSurface::Destroy()
 // ???
 // FUNCTION: LEGO1 0x100abe10
 // FUNCTION: BETA10 0x1017d6b0
-int GetBitsPerPixel(IDirectDrawSurface* pSurface)
-{
+int GetBitsPerPixel(IDirectDrawSurface* pSurface) {
 	DDPIXELFORMAT pixelFormat;
 	HRESULT result;
 
@@ -73,9 +66,8 @@ int GetBitsPerPixel(IDirectDrawSurface* pSurface)
 
 // FUNCTION: LEGO1 0x100abe50
 // FUNCTION: BETA10 0x1017d742
-BOOL TglSurface::Create(const CreateStruct& rCreateStruct, Renderer* pRenderer, Group* pScene)
-{
-	DeviceDirect3DCreateData createData = {rCreateStruct.m_direct3d, rCreateStruct.m_d3dDevice};
+BOOL TglSurface::Create(const CreateStruct& rCreateStruct, Renderer* pRenderer, Group* pScene) {
+	DeviceDirect3DCreateData createData = { rCreateStruct.m_direct3d, rCreateStruct.m_d3dDevice };
 	int bitsPerPixel = GetBitsPerPixel(rCreateStruct.m_pFrontBuffer);
 
 	ColorModel colorModel = Ramp;
@@ -156,9 +148,6 @@ BOOL TglSurface::Create(const CreateStruct& rCreateStruct, Renderer* pRenderer, 
 
 	m_frameRateMeter.Reset();
 	m_renderingRateMeter.Reset();
-#ifdef _DEBUG
-	m_triangleRateMeter.Reset();
-#endif
 	m_frameRateMeter.StartOperation();
 
 	m_isInitialized = TRUE;
@@ -168,24 +157,19 @@ BOOL TglSurface::Create(const CreateStruct& rCreateStruct, Renderer* pRenderer, 
 
 // FUNCTION: LEGO1 0x100ac030
 // FUNCTION: BETA10 0x1017db86
-void TglSurface::DestroyView()
-{
+void TglSurface::DestroyView() {
 	delete m_pView;
 	m_pView = 0;
 }
 
 // FUNCTION: LEGO1 0x100ac050
 // FUNCTION: BETA10 0x1017dbd0
-double TglSurface::Render()
-{
+double TglSurface::Render() {
 	MxStopWatch renderTimer;
 
 	if (m_isInitialized && !m_stopRendering) {
 		Result result;
 
-#ifdef _DEBUG
-		m_triangleRateMeter.StartOperation();
-#endif
 		m_renderingRateMeter.StartOperation();
 		renderTimer.Start();
 
@@ -194,29 +178,12 @@ double TglSurface::Render()
 		renderTimer.Stop();
 		assert(Succeeded(result));
 		m_renderingRateMeter.EndOperation();
-#ifdef _DEBUG
-		m_triangleRateMeter.EndOperation();
-#endif
 		m_frameRateMeter.EndOperation();
 		m_frameCount++;
 
-#ifdef _DEBUG
-		{
 #if 0
-			// FIXME: Tgl::Device::GetDrawnTriangleCount does not exist
-			unsigned long triangleCount = m_pDevice->GetDrawnTriangleCount();
-#else
-			unsigned long triangleCount = 0;
-#endif
-
-			m_triangleRateMeter.IncreaseOperationCount(triangleCount - m_triangleCount - 1);
-			m_triangleCount = triangleCount;
-		}
-#endif
-
-#if 0
-        // reset rate meters every 20 frames
-        if ((++m_frameCount % 20) == 0)
+		// reset rate meters every 20 frames
+		if ((++m_frameCount % 20) == 0)
 #else
 		// reset rate meters every 4 seconds
 		if (m_frameRateMeter.ElapsedSeconds() > 4.0)
@@ -224,9 +191,6 @@ double TglSurface::Render()
 		{
 			m_frameRateMeter.Reset();
 			m_renderingRateMeter.Reset();
-#ifdef _DEBUG
-			m_triangleRateMeter.Reset();
-#endif
 		}
 
 		m_frameRateMeter.StartOperation();

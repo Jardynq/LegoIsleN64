@@ -1,3 +1,0 @@
-reccmp @ git+https://github.com/isledecomp/reccmp
-clang==16.*
-pyyaml

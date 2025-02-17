@@ -4,12 +4,11 @@
 #include "mxdirectx/mxstopwatch.h"
 #include "tgl/tgl.h"
 
-namespace Tgl
-{
-class Renderer;
-class Device;
-class View;
-class Group;
+namespace Tgl {
+	class Renderer;
+	class Device;
+	class View;
+	class Group;
 } // namespace Tgl
 
 /////////////////////////////////////////////////////////////////////////////
@@ -59,9 +58,6 @@ public:
 	double GetRenderingRate() const { return m_renderingRateMeter.Frequency(); }
 	double GetFrameRate() const { return m_frameRateMeter.Frequency(); }
 	unsigned long GetFrameCount() const { return m_frameCount; }
-#ifdef _DEBUG
-	double GetTriangleRate() const { return m_triangleRateMeter.Frequency(); }
-#endif
 
 protected:
 	virtual Tgl::View* CreateView(Tgl::Renderer*, Tgl::Device*) = 0; // vtable+0x10
@@ -83,10 +79,6 @@ private:
 	MxFrequencyMeter m_renderingRateMeter; // 0x28
 	MxFrequencyMeter m_frameRateMeter;     // 0x48
 	unsigned long m_frameCount;            // 0x68
-#ifdef _DEBUG
-	MxFrequencyMeter m_triangleRateMeter;
-	unsigned long m_triangleCount;
-#endif
 };
 
 /////////////////////////////////////////////////////////////////////////////
