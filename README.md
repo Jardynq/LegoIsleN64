@@ -1,10 +1,13 @@
-# How to run (on linux/wsl)
+# How to build (on linux/wsl)
 0. Install cmake, ninja-build, mingw-w64  
 1. Make a folder in project root, called `build`
 2. Run the `configure` vscode task, or run the following in project root: `cmake . -G "Ninja" -B build -DCMAKE_BUILD_TYPE=Debug`
 3. Run the `build` vscode task, or run the following in project root: `ninja -C build`
 4. Built binaries will be found in the `build` directory
-5. Run `CONFIG.EXE` to generate settings in `registry.txt`, then run `ISLE.EXE` to start.
+
+# How to run (Only works on windows)
+1. Run `CONFIG.EXE` to generate settings in `registry.txt`
+2. Run `ISLE.EXE` to start.
 
 # LEGO Island Decompilation
 
