@@ -1,13 +1,14 @@
-# How to build (on linux/wsl)
-0. Install cmake, ninja-build, mingw-w64  
-1. Make a folder in project root, called `build`
+# How to build (On Linux/WSL)
+1. Install cmake, ninja-build, mingw-w64  
 2. Run the `configure` vscode task, or run the following in project root: `cmake . -G "Ninja" -B build -DCMAKE_BUILD_TYPE=Debug`
 3. Run the `build` vscode task, or run the following in project root: `ninja -C build`
-4. Built binaries will be found in the `build` directory
+4. Built binaries will be found in the `game` directory
 
-# How to run (Only works on windows)
-1. Run `CONFIG.EXE` to generate settings in `registry.txt`
-2. Run `ISLE.EXE` to start.
+# How to run (Only works on Windows)
+1. Have a legitemate install of Lego Island on you computer
+2. Copy the file `d3drm.dll` and the folder `LEGO` from your Lego Island installation into the `game` directory
+3. Run `game/config.exe` to generate settings to `registry.txt`
+4. Run `game/isle.exe` to start.
 
 # LEGO Island Decompilation
 

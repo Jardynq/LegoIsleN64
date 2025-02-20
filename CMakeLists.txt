@@ -1,23 +1,11 @@
 cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
+set(CMAKE_TOOLCHAIN_FILE mingw-i686.cmake)
 
-
-set(CMAKE_SYSTEM_NAME Windows)
-set(CMAKE_C_COMPILER i686-w64-mingw32-gcc)
-set(CMAKE_CXX_COMPILER i686-w64-mingw32-g++)
-set(CMAKE_RC_COMPILER i686-w64-mingw32-windres)
 
 project(isle CXX)
-
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-  message("Debug enabled")
-  add_definitions(-D_DEBUG)
-endif()
-
 include(CheckCXXSourceCompiles)
 include(CMakeDependentOption)
 include(CMakePushCheckState)
-
-set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 math(EXPR bits "8 * ${CMAKE_SIZEOF_VOID_P}")
 message(STATUS "Building ${bits}-bit LEGO Island")
@@ -25,21 +13,47 @@ if (NOT bits EQUAL 32)
   message(WARNING "Only 32-bit executables are supported")
 endif()
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../game")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/libs")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/libs")
 
-option(ISLE_WERROR "Treat warnings as errors" OFF)
-option(ISLE_BUILD_APP "Build ISLE.EXE application" ON)
-option(ISLE_BUILD_CONFIG "Build CONFIG.EXE application" ON)
-option(ISLE_USE_SMARTHEAP "Build LEGO1.DLL with SmartHeap" ${MSVC_FOR_DECOMP})
-option(ISLE_USE_DX5 "Build with internal DirectX 5 SDK" ON)
-option(ISLE_DECOMP_ASSERT "Assert struct size" ${MSVC_FOR_DECOMP})
-cmake_dependent_option(ISLE_USE_DX5_LIBS "Build with internal DirectX 5 SDK Libraries" ON ISLE_USE_DX5 OFF)
+option(ISLE_BUILD_APP "Build isle.exe application" ON)
 option(ISLE_BUILD_LEGO1 "Build LEGO1.DLL library" ON)
+option(ISLE_BUILD_CONFIG "Build conig.exe application" ON)
+option(ISLE_USE_DX5 "Build with internal DirectX 5 SDK" ON)
 
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -DWIN32 -D_WINDOWS")
+set(CMAKE_EXE_LINKER_FLAGS " -static -static-libgcc -static-libstdc++ -mwindows")
+set(CMAKE_STATIC_LINKER_FLAGS "")
+set(CMAKE_SHARED_LINKER_FLAGS " -static -static-libgcc -static-libstdc++ -mwindows")
+
+# Debug Build
+set(CMAKE_CXX_FLAGS_DEBUG "-g -Og -D_DEBUG")
+set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-g")
+
+# Release Build
+#set(CMAKE_CXX_FLAGS_RELEASE "-O2 -D_NDEBUG")
+#set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
+#set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-Wl,--no-incremental")
+#set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "-Wl,--no-incremental")
+
+# Relase Build with Debug Info
+#set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_NDEBUG")
+#set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g -O2 -DNDEBUG")
+#set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "-g -Wl,--no-incremental")
+#set(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO "-g -Wl,--no-incremental")
+
+# Release Build Minimal Size
+#set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -D_NDEBUG")
+#set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG")
+#set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL "-Wl,--no-incremental")
+#set(CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL "-Wl,--no-incremental")
 
 
 add_library(DirectX5::DirectX5 INTERFACE IMPORTED)
 target_include_directories(DirectX5::DirectX5 INTERFACE "${PROJECT_SOURCE_DIR}/3rdparty/dx5/inc")
-if(ISLE_USE_DX5_LIBS)
+if(ISLE_USE_DX5)
   target_link_directories(DirectX5::DirectX5 INTERFACE "${PROJECT_SOURCE_DIR}/3rdparty/dx5/lib")
 endif()
 
@@ -50,19 +64,46 @@ set_property(TARGET Smacker::Smacker PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${P
 add_library(Vec::Vec INTERFACE IMPORTED)
 target_include_directories(Vec::Vec INTERFACE "${PROJECT_SOURCE_DIR}/3rdparty/vec")
 
-add_library(SmartHeap::SmartHeap STATIC IMPORTED)
-set_property(TARGET SmartHeap::SmartHeap PROPERTY IMPORTED_LOCATION "${PROJECT_SOURCE_DIR}/3rdparty/smartheap/SHLW32MT.LIB")
-set_property(TARGET SmartHeap::SmartHeap PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${PROJECT_SOURCE_DIR}/3rdparty/smartheap")
-set_property(TARGET SmartHeap::SmartHeap PROPERTY INTERFACE_COMPILE_OPTIONS "/FI${PROJECT_SOURCE_DIR}/3rdparty/smartheap/SMRTHEAP.HPP")
 
-function(add_lego_libraries NAME)
-  cmake_parse_arguments(ARG "" "SUFFIX;OUT_TARGETS;DLL_OUTPUT_NAME;DLL_PREFIX;DLL_SUFFIX" "LINK_LIBRARIES" ${ARGN})
+if (ISLE_BUILD_APP)
+  add_executable(isle WIN32
+    ISLE/res/isle.rc
+    ISLE/isleapp.cpp
+    ISLE/MockRegistry.cpp
+  )
+  target_compile_definitions(isle PRIVATE ISLE_APP)
 
-  set(list_targets )
+  target_link_libraries(isle PRIVATE $<$<BOOL:${ISLE_USE_DX5}>:DirectX5::DirectX5>)
+  target_link_libraries(isle PRIVATE dsound winmm)
+  target_link_libraries(isle PRIVATE lego1)
+  
+  set_property(TARGET isle PROPERTY OUTPUT_NAME "isle")
+  set_property(TARGET isle PROPERTY SUFFIX ".exe")
+endif()
 
-  set(SUFFIX "${ARG_SUFFIX}")
 
-  add_library(tglrl${ARG_SUFFIX} STATIC
+if (ISLE_BUILD_CONFIG)
+  add_executable(config WIN32
+    CONFIG/res/config.rc
+    CONFIG/config.cpp
+    ISLE/MockRegistry.cpp
+    LEGO1/mxdirectx/mxdirectxinfo.cpp
+    LEGO1/mxdirectx/legodxinfo.cpp
+  )
+  target_include_directories(config PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/LEGO1")
+
+  target_link_libraries(config PRIVATE DirectX5::DirectX5)
+  target_link_libraries(config PRIVATE ddraw dxguid)
+
+  set_property(TARGET config PROPERTY OUTPUT_NAME "config")
+  set_property(TARGET config PROPERTY SUFFIX ".exe")
+endif()
+
+
+if(ISLE_BUILD_LEGO1)
+  set(list_targets)
+
+  add_library(tglrl STATIC
     LEGO1/tgl/d3drm/renderer.cpp
     LEGO1/tgl/d3drm/texture.cpp
     LEGO1/tgl/d3drm/view.cpp
@@ -73,83 +114,83 @@ function(add_lego_libraries NAME)
     LEGO1/tgl/d3drm/meshbuilder.cpp
     LEGO1/tgl/d3drm/mesh.cpp
   )
-  list(APPEND list_targets tglrl${ARG_SUFFIX})
-  set_property(TARGET tglrl${ARG_SUFFIX} PROPERTY ARCHIVE_OUTPUT_NAME "tglrl40$<$<CONFIG:Debug>:d>${ARG_SUFFIX}")
-  target_include_directories(tglrl${ARG_SUFFIX} PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/util")
-  target_link_libraries(tglrl${ARG_SUFFIX} PRIVATE d3drm)
+  list(APPEND list_targets tglrl)
+  set_property(TARGET tglrl PROPERTY ARCHIVE_OUTPUT_NAME "tglrl40$<$<CONFIG:Debug>:d>")
+  target_include_directories(tglrl PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1")
+  target_link_libraries(tglrl PRIVATE d3drm)
 
-  add_library(realtime${ARG_SUFFIX} STATIC
+  add_library(realtime STATIC
     LEGO1/realtime/orientableroi.cpp
     LEGO1/realtime/realtime.cpp
     LEGO1/realtime/realtimeview.cpp
   )
-  list(APPEND list_targets realtime${ARG_SUFFIX})
-  set_property(TARGET realtime${ARG_SUFFIX} PROPERTY ARCHIVE_OUTPUT_NAME "realtime$<$<CONFIG:Debug>:d>${ARG_SUFFIX}")
-  target_include_directories(realtime${ARG_SUFFIX} PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/util")
-  target_link_libraries(realtime${ARG_SUFFIX} PRIVATE Vec::Vec)
+  list(APPEND list_targets realtime)
+  set_property(TARGET realtime PROPERTY ARCHIVE_OUTPUT_NAME "realtime$<$<CONFIG:Debug>:d>")
+  target_include_directories(realtime PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1")
+  target_link_libraries(realtime PRIVATE Vec::Vec)
 
-  add_library(viewmanager${ARG_SUFFIX} STATIC
+  add_library(viewmanager STATIC
     LEGO1/viewmanager/viewlod.cpp
     LEGO1/viewmanager/viewmanager.cpp
     LEGO1/viewmanager/viewlodlist.cpp
     LEGO1/viewmanager/viewroi.cpp
   )
-  list(APPEND list_targets viewmanager${ARG_SUFFIX})
-  set_property(TARGET viewmanager${ARG_SUFFIX} PROPERTY ARCHIVE_OUTPUT_NAME "viewmanager$<$<CONFIG:Debug>:d>${ARG_SUFFIX}")
-  target_include_directories(viewmanager${ARG_SUFFIX} PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/util")
-  target_link_libraries(viewmanager${ARG_SUFFIX} PRIVATE Vec::Vec)
+  list(APPEND list_targets viewmanager)
+  set_property(TARGET viewmanager PROPERTY ARCHIVE_OUTPUT_NAME "viewmanager$<$<CONFIG:Debug>:d>")
+  target_include_directories(viewmanager PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1")
+  target_link_libraries(viewmanager PRIVATE Vec::Vec)
 
-  add_library(mxdirectx${ARG_SUFFIX} STATIC
+  add_library(mxdirectx STATIC
     LEGO1/mxdirectx/mxdirect3d.cpp
     LEGO1/mxdirectx/mxdirectxinfo.cpp
     LEGO1/mxdirectx/legodxinfo.cpp
     LEGO1/mxdirectx/mxdirectdraw.cpp
   )
-  list(APPEND list_targets mxdirectx${ARG_SUFFIX})
-  set_property(TARGET mxdirectx${ARG_SUFFIX} PROPERTY ARCHIVE_OUTPUT_NAME "MxDirectX$<$<CONFIG:Debug>:d>${ARG_SUFFIX}")
-  target_include_directories(mxdirectx${ARG_SUFFIX} PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/util")
-  target_link_libraries(mxdirectx${ARG_SUFFIX} PRIVATE ddraw)
+  list(APPEND list_targets mxdirectx)
+  set_property(TARGET mxdirectx PROPERTY ARCHIVE_OUTPUT_NAME "MxDirectX$<$<CONFIG:Debug>:d>")
+  target_include_directories(mxdirectx PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1")
+  target_link_libraries(mxdirectx PRIVATE ddraw)
 
-  add_library(roi${ARG_SUFFIX} STATIC
+  add_library(roi STATIC
     LEGO1/lego/sources/roi/legoroi.cpp
     LEGO1/lego/sources/roi/legolod.cpp
   )
-  list(APPEND list_targets roi${ARG_SUFFIX})
-  set_property(TARGET roi${ARG_SUFFIX} PROPERTY ARCHIVE_OUTPUT_NAME "roi$<$<CONFIG:Debug>:d>${ARG_SUFFIX}")
-  target_include_directories(roi${ARG_SUFFIX} PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources" "${PROJECT_SOURCE_DIR}/util")
-  target_link_libraries(roi${ARG_SUFFIX} PRIVATE viewmanager${ARG_SUFFIX} Vec::Vec)
+  list(APPEND list_targets roi)
+  set_property(TARGET roi PROPERTY ARCHIVE_OUTPUT_NAME "roi$<$<CONFIG:Debug>:d>")
+  target_include_directories(roi PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources")
+  target_link_libraries(roi PRIVATE viewmanager Vec::Vec)
 
-  add_library(geom${ARG_SUFFIX} STATIC
+  add_library(geom STATIC
     LEGO1/lego/sources/geom/legoedge.cpp
     LEGO1/lego/sources/geom/legoweedge.cpp
     LEGO1/lego/sources/geom/legounkown100db7f4.cpp
     LEGO1/lego/sources/geom/legowegedge.cpp
   )
-  list(APPEND list_targets geom${ARG_SUFFIX})
-  set_property(TARGET geom${ARG_SUFFIX} PROPERTY ARCHIVE_OUTPUT_NAME "geom$<$<CONFIG:Debug>:d>${ARG_SUFFIX}")
-  target_include_directories(geom${ARG_SUFFIX} PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources" "${PROJECT_SOURCE_DIR}/util")
-  target_link_libraries(geom${ARG_SUFFIX} PRIVATE)
+  list(APPEND list_targets geom)
+  set_property(TARGET geom PROPERTY ARCHIVE_OUTPUT_NAME "geom$<$<CONFIG:Debug>:d>")
+  target_include_directories(geom PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources")
+  target_link_libraries(geom PRIVATE)
 
-  add_library(shape${ARG_SUFFIX} STATIC
+  add_library(shape STATIC
     LEGO1/lego/sources/shape/legobox.cpp
     LEGO1/lego/sources/shape/legosphere.cpp
     LEGO1/lego/sources/shape/legovertex.cpp
     LEGO1/lego/sources/shape/legomesh.cpp
     LEGO1/lego/sources/shape/legocolor.cpp
   )
-  list(APPEND list_targets shape${ARG_SUFFIX})
-  set_property(TARGET shape${ARG_SUFFIX} PROPERTY ARCHIVE_OUTPUT_NAME "shape$<$<CONFIG:Debug>:d>${ARG_SUFFIX}")
-  target_include_directories(shape${ARG_SUFFIX} PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources" "${PROJECT_SOURCE_DIR}/util")
-  target_link_libraries(shape${ARG_SUFFIX} PRIVATE)
+  list(APPEND list_targets shape)
+  set_property(TARGET shape PROPERTY ARCHIVE_OUTPUT_NAME "shape$<$<CONFIG:Debug>:d>")
+  target_include_directories(shape PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources")
+  target_link_libraries(shape PRIVATE)
 
-  add_library(anim${ARG_SUFFIX} STATIC
+  add_library(anim STATIC
     LEGO1/lego/sources/anim/legoanim.cpp
   )
-  list(APPEND list_targets anim${ARG_SUFFIX})
-  set_property(TARGET anim${ARG_SUFFIX} PROPERTY ARCHIVE_OUTPUT_NAME "anim$<$<CONFIG:Debug>:d>${ARG_SUFFIX}")
-  target_include_directories(anim${ARG_SUFFIX} PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources" "${PROJECT_SOURCE_DIR}/util")
+  list(APPEND list_targets anim)
+  set_property(TARGET anim PROPERTY ARCHIVE_OUTPUT_NAME "anim$<$<CONFIG:Debug>:d>")
+  target_include_directories(anim PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources")
 
-  add_library(misc${ARG_SUFFIX} STATIC
+  add_library(misc STATIC
     LEGO1/lego/sources/misc/legotexture.cpp
     LEGO1/lego/sources/misc/legostorage.cpp
     LEGO1/lego/sources/misc/legoimage.cpp
@@ -157,23 +198,23 @@ function(add_lego_libraries NAME)
     LEGO1/lego/sources/misc/legotree.cpp
     LEGO1/lego/sources/misc/legounknown.cpp
   )
-  list(APPEND list_targets misc${ARG_SUFFIX})
-  set_property(TARGET misc${ARG_SUFFIX} PROPERTY ARCHIVE_OUTPUT_NAME "misc$<$<CONFIG:Debug>:d>${ARG_SUFFIX}")
-  target_include_directories(misc${ARG_SUFFIX} PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources" "${PROJECT_SOURCE_DIR}/util")
-  target_link_libraries(misc${ARG_SUFFIX} PRIVATE)
+  list(APPEND list_targets misc)
+  set_property(TARGET misc PROPERTY ARCHIVE_OUTPUT_NAME "misc$<$<CONFIG:Debug>:d>")
+  target_include_directories(misc PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources")
+  target_link_libraries(misc PRIVATE)
 
-  add_library(3dmanager${ARG_SUFFIX} STATIC
+  add_library(3dmanager STATIC
     LEGO1/lego/sources/3dmanager/lego3dview.cpp
     LEGO1/lego/sources/3dmanager/lego3dmanager.cpp
     LEGO1/lego/sources/3dmanager/legoview1.cpp
     LEGO1/lego/sources/3dmanager/tglsurface.cpp
   )
-  list(APPEND list_targets 3dmanager${ARG_SUFFIX})
-  set_property(TARGET 3dmanager${ARG_SUFFIX} PROPERTY ARCHIVE_OUTPUT_NAME "3dmanager$<$<CONFIG:Debug>:d>${ARG_SUFFIX}")
-  target_include_directories(3dmanager${ARG_SUFFIX} PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/util")
-  target_link_libraries(3dmanager${ARG_SUFFIX} PRIVATE Vec::Vec)
+  list(APPEND list_targets 3dmanager)
+  set_property(TARGET 3dmanager PROPERTY ARCHIVE_OUTPUT_NAME "3dmanager$<$<CONFIG:Debug>:d>")
+  target_include_directories(3dmanager PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1")
+  target_link_libraries(3dmanager PRIVATE Vec::Vec)
 
-  add_library(omni${ARG_SUFFIX} STATIC
+  add_library(omni STATIC
     LEGO1/omni/src/notify/mxnotificationmanager.cpp
     LEGO1/omni/src/common/mxdebug.cpp
     LEGO1/omni/src/common/mxmisc.cpp
@@ -251,12 +292,12 @@ function(add_lego_libraries NAME)
     LEGO1/omni/src/stream/mxramstreamprovider.cpp
     LEGO1/omni/src/stream/mxdiskstreamprovider.cpp
   )
-  list(APPEND list_targets omni${ARG_SUFFIX})
-  set_property(TARGET omni${ARG_SUFFIX} PROPERTY ARCHIVE_OUTPUT_NAME "omni$<$<CONFIG:Debug>:d>${ARG_SUFFIX}")
-  target_include_directories(omni${ARG_SUFFIX} PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1" "${PROJECT_SOURCE_DIR}/util")
-  target_link_libraries(omni${ARG_SUFFIX} PRIVATE dsound winmm Smacker::Smacker)
+  list(APPEND list_targets omni)
+  set_property(TARGET omni PROPERTY ARCHIVE_OUTPUT_NAME "omni$<$<CONFIG:Debug>:d>")
+  target_include_directories(omni PRIVATE "${PROJECT_SOURCE_DIR}/LEGO1/omni/include" "${PROJECT_SOURCE_DIR}/LEGO1")
+  target_link_libraries(omni PRIVATE dsound winmm Smacker::Smacker)
 
-  add_library(${NAME} STATIC
+  add_library(lego1 STATIC
     LEGO1/lego/legoomni/src/worlds/score.cpp
     LEGO1/lego/legoomni/src/actors/helicopter.cpp
     LEGO1/lego/legoomni/src/worlds/gasstation.cpp
@@ -368,148 +409,33 @@ function(add_lego_libraries NAME)
     LEGO1/lego/legoomni/src/common/legoplants.cpp
     LEGO1/define.cpp
   )
-  list(APPEND list_targets ${NAME})
+  list(APPEND list_targets lego1)
 
-  if (MINGW)
-    target_compile_definitions(${NAME} PRIVATE DIRECTINPUT_VERSION=0x0500)
-  endif()
+  target_include_directories(lego1 PUBLIC "${PROJECT_SOURCE_DIR}/LEGO1")
+  target_include_directories(lego1 PUBLIC "${PROJECT_SOURCE_DIR}/LEGO1/omni/include")
+  target_include_directories(lego1 PUBLIC "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources")
+  target_include_directories(lego1 PUBLIC "${PROJECT_SOURCE_DIR}/LEGO1/lego/legoomni/include")
+  target_include_directories(lego1 PUBLIC "${PROJECT_SOURCE_DIR}/LEGO1/lego/legoomni/include/actions")
 
-
-  target_include_directories(${NAME} PUBLIC "${PROJECT_SOURCE_DIR}/util")
-  target_include_directories(${NAME} PUBLIC "${PROJECT_SOURCE_DIR}/LEGO1")
-  target_include_directories(${NAME} PUBLIC "${PROJECT_SOURCE_DIR}/LEGO1/omni/include")
-  target_include_directories(${NAME} PUBLIC "${PROJECT_SOURCE_DIR}/LEGO1/lego/sources")
-  target_include_directories(${NAME} PUBLIC "${PROJECT_SOURCE_DIR}/LEGO1/lego/legoomni/include")
-  target_include_directories(${NAME} PUBLIC "${PROJECT_SOURCE_DIR}/LEGO1/lego/legoomni/include/actions")
-
-  # Link libraries
-  target_link_libraries(${NAME} PRIVATE
+  target_link_libraries(lego1 PRIVATE
     dinput
-    misc${ARG_SUFFIX}
-    geom${ARG_SUFFIX}
-    mxdirectx${ARG_SUFFIX}
-    anim${ARG_SUFFIX}
-    tglrl${ARG_SUFFIX}
-    realtime${ARG_SUFFIX}
-    viewmanager${ARG_SUFFIX}
-    roi${ARG_SUFFIX}
-    3dmanager${ARG_SUFFIX}
-    omni${ARG_SUFFIX}
-    shape${ARG_SUFFIX}
+    misc
+    geom
+    mxdirectx
+    anim
+    tglrl
+    realtime
+    viewmanager
+    roi
+    3dmanager
+    omni
+    shape
     Vec::Vec
     dxguid
   )
 
   foreach(tgt IN LISTS list_targets)
-    target_link_libraries(${tgt} PRIVATE ${ARG_LINK_LIBRARIES})
     target_link_libraries(${tgt} PRIVATE $<$<BOOL:${ISLE_USE_DX5}>:DirectX5::DirectX5>)
     target_compile_definitions(${tgt} PRIVATE $<$<BOOL:${ISLE_USE_DX5}>:DIRECTX5_SDK>)
   endforeach()
-
-  # Make sure filenames are ALL CAPS
-  set_property(TARGET ${NAME} PROPERTY OUTPUT_NAME "${ARG_DLL_OUTPUT_NAME}")
-  set_property(TARGET ${NAME} PROPERTY PREFIX "${ARG_DLL_PREFIX}")
-  set_property(TARGET ${NAME} PROPERTY SUFFIX "${ARG_DLL_SUFFIX}")
-
-  set(${ARG_OUT_TARGETS} ${list_targets} PARENT_SCOPE)
-endfunction()
-
-set(lego1_link_libraries )
-if (ISLE_USE_SMARTHEAP)
-  list(APPEND lego1_link_libraries SmartHeap::SmartHeap)
 endif()
-
-if(ISLE_BUILD_LEGO1)
-  add_lego_libraries(lego1
-    LINK_LIBRARIES ${lego1_link_libraries}
-    DLL_OUTPUT_NAME "LEGO1"
-    DLL_PREFIX ""
-    DLL_SUFFIX ".DLL"
-    OUT_TARGETS lego1_targets
-  )
-endif()
-
-if (ISLE_BUILD_APP)
-  add_executable(isle WIN32
-    ISLE/res/isle.rc
-    ISLE/isleapp.cpp
-    ISLE/MockRegistry.cpp
-  )
-
-  target_compile_definitions(isle PRIVATE ISLE_APP)
-
-  # Use internal DirectX 5 if required
-  target_link_libraries(isle PRIVATE $<$<BOOL:${ISLE_USE_DX5}>:DirectX5::DirectX5>)
-
-  if (ISLE_USE_SMARTHEAP)
-    target_link_libraries(isle PRIVATE SmartHeap::SmartHeap)
-  endif()
-
-  # Link DSOUND, WINMM, and LEGO1
-  target_link_libraries(isle PRIVATE dsound winmm)
-  target_link_libraries(isle PRIVATE lego1)
-  
-  # Make sure filenames are ALL CAPS
-  set_property(TARGET isle PROPERTY OUTPUT_NAME ISLE)
-  set_property(TARGET isle PROPERTY SUFFIX ".EXE")
-endif()
-
-
-if (ISLE_BUILD_CONFIG)
-  add_executable(config WIN32
-    LEGO1/mxdirectx/mxdirectxinfo.cpp
-    LEGO1/mxdirectx/legodxinfo.cpp
-    ISLE/MockRegistry.cpp
-    CONFIG/config.cpp
-    CONFIG/res/config.rc
-  )
-  target_compile_definitions(config PRIVATE _AFXDLL MXDIRECTX_FOR_CONFIG)
-  target_include_directories(config PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/util" "${CMAKE_CURRENT_SOURCE_DIR}/LEGO1")
-  if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 14)
-    target_link_libraries(config PRIVATE DirectX5::DirectX5)
-  endif()
-  target_compile_definitions(config PRIVATE DIRECT3D_VERSION=0x500)
-  target_link_libraries(config PRIVATE ddraw dxguid)
-  set_property(TARGET config PROPERTY OUTPUT_NAME "CONFIG")
-  set_property(TARGET config PROPERTY SUFFIX ".EXE")
-  set_property(TARGET config PROPERTY MSVC_RUNTIME_LIBRARY MultiThreaded$<$<CONFIG:Debug>:Debug>DLL)
-endif()
-
-
-if (MINGW)
-  add_compile_options(-fdiagnostics-color=always)
-  add_compile_options(-w)
-  add_compile_options(-dM -E)
-
-  # General C++ Flags
-  set(CMAKE_CXX_FLAGS "-Wall -Wextra -DWIN32 -D_WINDOWS")
-  set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -mwindows -static")
-  set(CMAKE_STATIC_LINKER_FLAGS "")
-  set(CMAKE_SHARED_LINKER_FLAGS "-mwindows")
-
-  # Debug Build
-  set(CMAKE_CXX_FLAGS_DEBUG "-g -Og -D_DEBUG")
-  #set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -D_DEBUG")
-  #set(CMAKE_STATIC_LINKER_FLAGS_DEBUG "-g")
-  #set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "-g")
-  set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-g")
-
-  # Release Build
-  #set(CMAKE_CXX_FLAGS_RELEASE "-O2 -D_NDEBUG")
-  #set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
-  #set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-Wl,--no-incremental")
-  #set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "-Wl,--no-incremental")
-
-  # RelWithDebInfo (Optimized Build with Debug Info)
-  #set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -D_NDEBUG")
-  #set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g -O2 -DNDEBUG")
-  #set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "-g -Wl,--no-incremental")
-  #set(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO "-g -Wl,--no-incremental")
-
-  # MinSizeRel (Minimal Size Build)
-  #set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -D_NDEBUG")
-  #set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG")
-  #set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL "-Wl,--no-incremental")
-  #set(CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL "-Wl,--no-incremental")
-endif()
-

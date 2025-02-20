@@ -6,28 +6,14 @@
             "type": "shell",
             "command": "rm",
             "args": [
-				"-rf",
-				"./build/CMakeFiles",
-				"./build/.cmake",
-				"./build/cmake_install.cmake",
-				"./build/CMakeCache.txt",
-				"./build/G0.GS",
-				
-				"./build/.ninja_deps",
-				"./build/build.ninja",
-				"./build/compile_commands.json",
-                
-				"./build/CONFIG.EXE",
-				"./build/LEGO1.DLL",
-				"./build/ISLE.EXE",
-				"./build/*.a",
-				"./build/Registry.txt",
+				"-rf", "./build"
             ],
             "problemMatcher": []
         },
 		{
             "label": "configure",
             "type": "shell",
+            "dependsOn": ["clean"],
             "command": "cmake",
             "args": [
                 ".",
