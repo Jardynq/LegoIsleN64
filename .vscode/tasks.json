@@ -11,14 +11,17 @@
 				"./build/.cmake",
 				"./build/cmake_install.cmake",
 				"./build/CMakeCache.txt",
+				"./build/G0.GS",
 				
 				"./build/.ninja_deps",
 				"./build/build.ninja",
 				"./build/compile_commands.json",
-
+                
+				"./build/CONFIG.EXE",
 				"./build/LEGO1.DLL",
 				"./build/ISLE.EXE",
-				"./build/*.a"
+				"./build/*.a",
+				"./build/Registry.txt",
             ],
             "problemMatcher": []
         },
