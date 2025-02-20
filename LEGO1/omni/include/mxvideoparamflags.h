@@ -3,8 +3,6 @@
 
 #include "mxtypes.h"
 
-#include <windows.h>
-
 class MxVideoParamFlags {
 public:
 	MxVideoParamFlags();

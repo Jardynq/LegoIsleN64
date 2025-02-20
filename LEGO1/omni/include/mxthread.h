@@ -30,7 +30,7 @@ public:
 	virtual ~MxThread();
 
 private:
-	static unsigned ThreadProc(void* p_thread);
+	static unsigned __attribute__((stdcall)) ThreadProc(void* p_thread);
 
 	MxULong m_hThread;       // 0x04
 	MxU32 m_threadId;        // 0x08

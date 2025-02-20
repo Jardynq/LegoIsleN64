@@ -5,8 +5,6 @@
 #include "mxtypes.h"
 #include "mxvideoparamflags.h"
 
-#include <ddraw.h>
-
 class MxPalette;
 
 // SIZE 0x24
