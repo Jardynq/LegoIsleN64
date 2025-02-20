@@ -482,7 +482,7 @@ if (MINGW)
   add_compile_options(-dM -E)
 
   # General C++ Flags
-  set(CMAKE_CXX_FLAGS "-Wall -Wextra -DWIN32 -D_WINDOWS -static-libgcc -static-libstdc++")
+  set(CMAKE_CXX_FLAGS "-Wall -Wextra -DWIN32 -D_WINDOWS")
   set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -mwindows -static")
   set(CMAKE_STATIC_LINKER_FLAGS "")
   set(CMAKE_SHARED_LINKER_FLAGS "-mwindows")
