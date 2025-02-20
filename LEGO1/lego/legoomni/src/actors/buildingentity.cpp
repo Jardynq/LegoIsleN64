@@ -4,7 +4,6 @@
 #include "mxnotificationmanager.h"
 #include "mxnotificationparam.h"
 
-DECOMP_SIZE_ASSERT(BuildingEntity, 0x68)
 
 // FUNCTION: LEGO1 0x10014e20
 BuildingEntity::BuildingEntity() {

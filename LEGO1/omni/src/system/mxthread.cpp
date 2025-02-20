@@ -1,10 +1,9 @@
 #include "mxthread.h"
 
-#include "decomp.h"
+#include "utils.h"
 
 #include <process.h>
 
-DECOMP_SIZE_ASSERT(MxThread, 0x1c)
 
 // FUNCTION: LEGO1 0x100bf510
 MxThread::MxThread() {

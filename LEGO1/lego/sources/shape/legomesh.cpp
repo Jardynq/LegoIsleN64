@@ -2,8 +2,6 @@
 
 #include "misc/legostorage.h"
 
-DECOMP_SIZE_ASSERT(LegoMeshUnkComponent, 0x1c)
-DECOMP_SIZE_ASSERT(LegoMesh, 0x24)
 
 // FUNCTION: LEGO1 0x100d3810
 LegoMesh::LegoMesh() {

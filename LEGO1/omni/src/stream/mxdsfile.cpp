@@ -1,6 +1,6 @@
 #include "mxdsfile.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxdebug.h"
 
 #include <stdio.h>
@@ -8,9 +8,6 @@
 #define SI_MAJOR_VERSION 2
 #define SI_MINOR_VERSION 2
 
-DECOMP_SIZE_ASSERT(MxDSSource, 0x14)
-DECOMP_SIZE_ASSERT(MxDSFile::ChunkHeader, 0x0c)
-DECOMP_SIZE_ASSERT(MxDSFile, 0x7c)
 
 // FUNCTION: LEGO1 0x100cc4b0
 // FUNCTION: BETA10 0x1015db90

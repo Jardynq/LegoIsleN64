@@ -20,8 +20,6 @@
 #include "mxtransitionmanager.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(Hospital, 0x12c)
-DECOMP_SIZE_ASSERT(HospitalState, 0x18)
 
 // GLOBAL: LEGO1 0x100f7918
 undefined4 g_unk0x100f7918 = 3;

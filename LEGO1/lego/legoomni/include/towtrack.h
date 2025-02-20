@@ -1,7 +1,7 @@
 #ifndef TOWTRACK_H
 #define TOWTRACK_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "islepathactor.h"
 #include "legostate.h"
 

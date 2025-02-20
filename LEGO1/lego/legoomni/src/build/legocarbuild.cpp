@@ -40,9 +40,6 @@
 #define Jetski_Actor JetskiScript::c_Jetski_Actor
 #define RaceCar_Actor RacecarScript::c_RaceCar_Actor
 
-DECOMP_SIZE_ASSERT(LegoCarBuild, 0x34c)
-DECOMP_SIZE_ASSERT(LegoVehicleBuildState, 0x50)
-DECOMP_SIZE_ASSERT(LegoCarBuild::LookupTableActions, 0x1c);
 
 // These four structs can be matched to the vehicle types using BETA10 0x10070520
 

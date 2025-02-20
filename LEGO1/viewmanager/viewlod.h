@@ -1,7 +1,7 @@
 #ifndef VIEWLOD_H
 #define VIEWLOD_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "realtime/roi.h"
 #include "tgl/tgl.h"
 

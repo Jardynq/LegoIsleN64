@@ -6,7 +6,6 @@
 #include "mxnotificationparam.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(IsleActor, 0x7c)
 
 // FUNCTION: LEGO1 0x1002c780
 MxResult IsleActor::Create(MxDSAction& p_dsAction) {

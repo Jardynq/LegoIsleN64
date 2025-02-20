@@ -25,10 +25,6 @@
 
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(Act3, 0x4274)
-DECOMP_SIZE_ASSERT(Act3State, 0x0c)
-DECOMP_SIZE_ASSERT(Act3ListElement, 0x0c)
-DECOMP_SIZE_ASSERT(Act3List, 0x10)
 
 // GLOBAL: LEGO1 0x100d94f8
 Act3Script::Script g_unk0x100d94f8[] = {

@@ -22,7 +22,6 @@
 #include "mxvariabletable.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(CarRace, 0x154)
 
 // GLOBAL: LEGO1 0x100d5d10
 MxS32 CarRace::g_unk0x100d5d10[] = {

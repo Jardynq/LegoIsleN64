@@ -16,9 +16,6 @@
 
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(LegoBuildingManager, 0x30)
-DECOMP_SIZE_ASSERT(LegoBuildingInfo, 0x2c)
-DECOMP_SIZE_ASSERT(LegoBuildingManager::AnimEntry, 0x14)
 
 // GLOBAL: LEGO1 0x100f3410
 const char* g_buildingInfoVariants[5] = {

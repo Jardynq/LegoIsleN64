@@ -1,11 +1,10 @@
 #include "mxstring.h"
 
-#include "decomp.h"
+#include "utils.h"
 
 #include <stdlib.h>
 #include <string.h>
 
-DECOMP_SIZE_ASSERT(MxString, 0x10)
 
 // FUNCTION: LEGO1 0x100ae200
 // FUNCTION: BETA10 0x1012c110

@@ -1,9 +1,8 @@
 #include "legoedge.h"
 
 #include "assert.h"
-#include "decomp.h"
+#include "utils.h"
 
-DECOMP_SIZE_ASSERT(LegoEdge, 0x24)
 
 // FUNCTION: LEGO1 0x1009a470
 LegoEdge::LegoEdge() {

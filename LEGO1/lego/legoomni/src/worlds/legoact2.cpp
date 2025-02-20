@@ -29,8 +29,6 @@
 
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(LegoAct2, 0x1154)
-DECOMP_SIZE_ASSERT(LegoAct2State, 0x10)
 
 // GLOBAL: LEGO1 0x100f4474
 Act2mainScript::Script g_unk0x100f4474 = (Act2mainScript::Script)0;

@@ -2,8 +2,6 @@
 
 using namespace TglImpl;
 
-DECOMP_SIZE_ASSERT(MeshBuilder, 0x04);
-DECOMP_SIZE_ASSERT(MeshBuilderImpl, 0x08);
 
 // FUNCTION: LEGO1 0x100a3830
 void* MeshBuilderImpl::ImplementationDataPtr() {

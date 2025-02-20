@@ -10,7 +10,6 @@
 #include "mxstillpresenter.h"
 #include "mxtransitionmanager.h"
 
-DECOMP_SIZE_ASSERT(HistoryBook, 0x3e4)
 
 // FUNCTION: LEGO1 0x100822f0
 HistoryBook::HistoryBook() {

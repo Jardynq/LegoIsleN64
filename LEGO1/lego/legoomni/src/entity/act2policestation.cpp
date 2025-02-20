@@ -6,7 +6,6 @@
 #include "mxnotificationmanager.h"
 #include "mxnotificationparam.h"
 
-DECOMP_SIZE_ASSERT(Act2PoliceStation, 0x68)
 
 // FUNCTION: LEGO1 0x1004e0e0
 // FUNCTION: BETA10 0x100137c0

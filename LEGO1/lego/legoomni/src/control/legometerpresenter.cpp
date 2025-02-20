@@ -1,6 +1,6 @@
 #include "legometerpresenter.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "define.h"
 #include "mxbitmap.h"
 #include "mxdsaction.h"
@@ -10,7 +10,6 @@
 
 #include <assert.h>
 
-DECOMP_SIZE_ASSERT(LegoMeterPresenter, 0x94)
 
 // FUNCTION: LEGO1 0x10043430
 // FUNCTION: BETA10 0x10097570

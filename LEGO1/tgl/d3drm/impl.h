@@ -1,6 +1,5 @@
 
-#include "compat.h"
-#include "decomp.h"
+#include "utils.h"
 #include "tgl/tgl.h"
 
 #include <d3drm.h>

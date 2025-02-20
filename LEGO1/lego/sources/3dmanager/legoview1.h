@@ -1,8 +1,7 @@
 #ifndef _LegoView1_h
 #define _LegoView1_h
 
-#include "compat.h"
-#include "decomp.h"
+#include "utils.h"
 #include "tglsurface.h"
 
 namespace Tgl {

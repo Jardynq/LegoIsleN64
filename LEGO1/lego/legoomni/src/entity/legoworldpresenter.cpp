@@ -29,7 +29,6 @@
 
 #include <io.h>
 
-DECOMP_SIZE_ASSERT(LegoWorldPresenter, 0x54)
 
 // GLOBAL: LEGO1 0x100f75d4
 MxS32 g_legoWorldPresenterQuality = 1;

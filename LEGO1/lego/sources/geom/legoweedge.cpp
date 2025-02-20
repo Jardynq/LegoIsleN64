@@ -2,7 +2,6 @@
 
 #include "legounkown100db7f4.h"
 
-DECOMP_SIZE_ASSERT(LegoWEEdge, 0x0c)
 
 // FUNCTION: LEGO1 0x1009a550
 LegoWEEdge::LegoWEEdge() {

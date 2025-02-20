@@ -13,7 +13,6 @@
 #include <assert.h>
 #include <stdio.h>
 
-DECOMP_SIZE_ASSERT(Act3Ammo, 0x1a0)
 
 // Initialized at LEGO1 0x100537c0
 // GLOBAL: LEGO1 0x10104f08

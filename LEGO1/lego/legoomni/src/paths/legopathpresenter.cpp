@@ -9,7 +9,6 @@
 #include "mxdssubscriber.h"
 #include "mxutilities.h"
 
-DECOMP_SIZE_ASSERT(LegoPathPresenter, 0x54)
 
 // FUNCTION: LEGO1 0x100448d0
 LegoPathPresenter::LegoPathPresenter() {

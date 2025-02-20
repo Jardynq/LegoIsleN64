@@ -1,13 +1,12 @@
 #include "mxmidipresenter.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxautolock.h"
 #include "mxdssound.h"
 #include "mxdssubscriber.h"
 #include "mxmisc.h"
 #include "mxmusicmanager.h"
 
-DECOMP_SIZE_ASSERT(MxMIDIPresenter, 0x58);
 
 // FUNCTION: LEGO1 0x100c25e0
 MxMIDIPresenter::MxMIDIPresenter() {

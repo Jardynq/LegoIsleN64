@@ -20,9 +20,6 @@
 #include <assert.h>
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(LegoCharacter, 0x08)
-DECOMP_SIZE_ASSERT(LegoCharacterManager, 0x08)
-DECOMP_SIZE_ASSERT(CustomizeAnimFileVariable, 0x24)
 
 // GLOBAL: LEGO1 0x100fc4d0
 MxU32 LegoCharacterManager::g_maxMove = 4;

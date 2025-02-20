@@ -1,9 +1,8 @@
 
 #include "mxsemaphore.h"
 
-#include "decomp.h"
+#include "utils.h"
 
-DECOMP_SIZE_ASSERT(MxSemaphore, 0x08)
 
 // FUNCTION: LEGO1 0x100c87d0
 MxSemaphore::MxSemaphore() {

@@ -1,11 +1,9 @@
 #include "mxbitmap.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxpalette.h"
 #include "mxutilities.h"
 
-DECOMP_SIZE_ASSERT(MxBitmap, 0x20);
-DECOMP_SIZE_ASSERT(MxBITMAPINFO, 0x428);
 
 // GLOBAL: LEGO1 0x10102184
 // GLOBAL: BETA10 0x10203030

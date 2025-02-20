@@ -17,8 +17,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-DECOMP_SIZE_ASSERT(MxDSObject, 0x2c)
-DECOMP_SIZE_ASSERT(MxDSObjectList, 0x0c)
 
 // FUNCTION: LEGO1 0x100bf6a0
 // FUNCTION: BETA10 0x101478c0

@@ -16,7 +16,6 @@
 #include "mxvariabletable.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(Jetski, 0x164)
 
 // These two have been changed between BETA10 and LEGO1
 // GLOBAL: LEGO1 0x100f7ab8

@@ -16,7 +16,6 @@
 #include "mxtransitionmanager.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(InfocenterDoor, 0xfc)
 
 // FUNCTION: LEGO1 0x10037730
 InfocenterDoor::InfocenterDoor() {

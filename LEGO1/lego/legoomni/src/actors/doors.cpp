@@ -8,7 +8,6 @@
 
 #include <assert.h>
 
-DECOMP_SIZE_ASSERT(Doors, 0x1f8)
 
 // GLOBAL: LEGO1 0x100d8e7c
 // GLOBAL: BETA10 0x101b954c

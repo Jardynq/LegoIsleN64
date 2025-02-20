@@ -2,11 +2,10 @@
 //
 #include "lego3dmanager.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "viewmanager/viewlodlist.h"
 #include "viewmanager/viewmanager.h"
 
-DECOMP_SIZE_ASSERT(Lego3DManager, 0x10);
 
 //////////////////////////////////////////////////////////////////////////////
 

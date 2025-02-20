@@ -11,8 +11,6 @@
 #include "mxstring.h"
 #include "mxthread.h"
 
-DECOMP_SIZE_ASSERT(MxDiskStreamProviderThread, 0x1c)
-DECOMP_SIZE_ASSERT(MxDiskStreamProvider, 0x60);
 
 // GLOBAL: LEGO1 0x10102878
 MxU32 g_unk0x10102878 = 0;

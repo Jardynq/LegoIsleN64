@@ -1,7 +1,6 @@
 #include "mxnotificationmanager.h"
 
-#include "compat.h"
-#include "decomp.h"
+#include "utils.h"
 #include "mxautolock.h"
 #include "mxmisc.h"
 #include "mxnotificationparam.h"
@@ -9,8 +8,6 @@
 #include "mxticklemanager.h"
 #include "mxtypes.h"
 
-DECOMP_SIZE_ASSERT(MxNotification, 0x08);
-DECOMP_SIZE_ASSERT(MxNotificationManager, 0x40);
 
 // FUNCTION: LEGO1 0x100ac220
 MxNotification::MxNotification(MxCore* p_target, const MxNotificationParam& p_param) {

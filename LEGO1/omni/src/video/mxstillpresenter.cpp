@@ -1,6 +1,6 @@
 #include "mxstillpresenter.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "define.h"
 #include "mxcompositepresenter.h"
 #include "mxdisplaysurface.h"
@@ -12,7 +12,6 @@
 #include "mxutilities.h"
 #include "mxvideomanager.h"
 
-DECOMP_SIZE_ASSERT(MxStillPresenter, 0x6c);
 
 // FUNCTION: LEGO1 0x100b9c70
 void MxStillPresenter::Destroy(MxBool p_fromDestructor) {

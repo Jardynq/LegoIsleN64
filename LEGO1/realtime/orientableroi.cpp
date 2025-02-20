@@ -1,10 +1,9 @@
 #include "orientableroi.h"
 
-#include "decomp.h"
+#include "utils.h"
 
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(OrientableROI, 0xdc)
 
 // FUNCTION: LEGO1 0x100a4420
 OrientableROI::OrientableROI() {

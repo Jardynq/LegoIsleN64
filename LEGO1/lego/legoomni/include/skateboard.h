@@ -1,7 +1,7 @@
 #ifndef SKATEBOARD_H
 #define SKATEBOARD_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "islepathactor.h"
 
 class Act1State;

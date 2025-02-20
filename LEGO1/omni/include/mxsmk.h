@@ -1,7 +1,7 @@
 #ifndef MXSMK_H
 #define MXSMK_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxrectlist.h"
 #include "mxtypes.h"
 

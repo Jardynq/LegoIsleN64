@@ -5,16 +5,6 @@
 
 #include <limits.h>
 
-DECOMP_SIZE_ASSERT(LegoAnimKey, 0x08)
-DECOMP_SIZE_ASSERT(LegoTranslationKey, 0x14)
-DECOMP_SIZE_ASSERT(LegoRotationKey, 0x18)
-DECOMP_SIZE_ASSERT(LegoScaleKey, 0x14)
-DECOMP_SIZE_ASSERT(LegoMorphKey, 0x0c)
-DECOMP_SIZE_ASSERT(LegoUnknownKey, 0x0c)
-DECOMP_SIZE_ASSERT(LegoAnimNodeData, 0x34)
-DECOMP_SIZE_ASSERT(LegoAnimActorEntry, 0x08)
-DECOMP_SIZE_ASSERT(LegoAnimScene, 0x24)
-DECOMP_SIZE_ASSERT(LegoAnim, 0x18)
 
 // FUNCTION: LEGO1 0x1009f000
 LegoUnknownKey::LegoUnknownKey() {

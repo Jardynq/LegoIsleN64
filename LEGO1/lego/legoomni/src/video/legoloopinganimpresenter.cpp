@@ -7,7 +7,6 @@
 #include "mxdsaction.h"
 #include "mxdssubscriber.h"
 
-DECOMP_SIZE_ASSERT(LegoLoopingAnimPresenter, 0xc0)
 
 // FUNCTION: LEGO1 0x1006caa0
 // FUNCTION: BETA10 0x1005223d

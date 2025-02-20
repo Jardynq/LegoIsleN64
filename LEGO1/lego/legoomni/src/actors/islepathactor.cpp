@@ -16,8 +16,6 @@
 #include "scripts.h"
 #include "viewmanager/viewmanager.h"
 
-DECOMP_SIZE_ASSERT(IslePathActor, 0x160)
-DECOMP_SIZE_ASSERT(IslePathActor::SpawnLocation, 0x38)
 
 // FUNCTION: LEGO1 0x1001a200
 IslePathActor::IslePathActor() {

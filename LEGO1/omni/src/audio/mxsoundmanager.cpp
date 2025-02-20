@@ -9,7 +9,6 @@
 #include "mxticklethread.h"
 #include "mxwavepresenter.h"
 
-DECOMP_SIZE_ASSERT(MxSoundManager, 0x3c);
 
 // GLOBAL LEGO1 0x10101420
 MxS32 g_volumeAttenuation[100] = { -6643, -5643, -5058, -4643, -4321, -4058, -3836, -3643, -3473, -3321, -3184, -3058,

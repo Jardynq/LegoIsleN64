@@ -20,11 +20,6 @@
 
 #include <assert.h>
 
-DECOMP_SIZE_ASSERT(Act3Actor, 0x178)
-DECOMP_SIZE_ASSERT(Act3Cop, 0x188)
-DECOMP_SIZE_ASSERT(Act3Cop::Act3CopDest, 0x20)
-DECOMP_SIZE_ASSERT(Act3Brickster, 0x1b4)
-DECOMP_SIZE_ASSERT(Act3Shark, 0x1a8)
 
 // name verified by BETA10 0x10018776
 // GLOBAL: LEGO1 0x100f4120

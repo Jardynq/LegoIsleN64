@@ -15,8 +15,6 @@
 #include "police_actions.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(Police, 0x110)
-DECOMP_SIZE_ASSERT(PoliceState, 0x10)
 
 // FUNCTION: LEGO1 0x1005e130
 Police::Police() {

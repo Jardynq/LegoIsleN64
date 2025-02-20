@@ -1,7 +1,6 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include "compat.h"
 
 // Note: virtual function overloads appear in the virtual table
 // in reverse order of appearance.

@@ -31,14 +31,6 @@
 #include <io.h>
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(LegoAnimationManager, 0x500)
-DECOMP_SIZE_ASSERT(LegoAnimationManager::Character, 0x18)
-DECOMP_SIZE_ASSERT(LegoAnimationManager::Vehicle, 0x08)
-DECOMP_SIZE_ASSERT(LegoAnimationManager::Extra, 0x18)
-DECOMP_SIZE_ASSERT(LegoTranInfo, 0x78)
-DECOMP_SIZE_ASSERT(AnimState, 0x1c)
-DECOMP_SIZE_ASSERT(AnimInfo, 0x30)
-DECOMP_SIZE_ASSERT(ModelInfo, 0x30)
 
 // GLOBAL: LEGO1 0x100d8b28
 MxU8 g_unk0x100d8b28[] = { 0, 1, 2, 4, 8, 16 };

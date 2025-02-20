@@ -1,7 +1,7 @@
 #ifndef LEGOPHONEME_H
 #define LEGOPHONEME_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxstring.h"
 
 class LegoTextureInfo;

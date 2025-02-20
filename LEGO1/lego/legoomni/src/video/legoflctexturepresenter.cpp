@@ -4,7 +4,6 @@
 #include "misc/legocontainer.h"
 #include "mxdsaction.h"
 
-DECOMP_SIZE_ASSERT(LegoFlcTexturePresenter, 0x70)
 
 // FUNCTION: LEGO1 0x1005de80
 LegoFlcTexturePresenter::LegoFlcTexturePresenter() {

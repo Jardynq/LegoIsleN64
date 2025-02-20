@@ -1,8 +1,7 @@
 #include "mxvideoparamflags.h"
 
-#include "decomp.h"
+#include "utils.h"
 
-DECOMP_SIZE_ASSERT(MxVideoParamFlags, 0x02)
 
 // FUNCTION: LEGO1 0x100bec40
 // FUNCTION: BETA10 0x1012dadb

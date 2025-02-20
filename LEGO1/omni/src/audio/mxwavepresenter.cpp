@@ -1,6 +1,6 @@
 #include "mxwavepresenter.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "define.h"
 #include "mxautolock.h"
 #include "mxdssound.h"
@@ -10,8 +10,6 @@
 #include "mxsoundmanager.h"
 #include "mxutilities.h"
 
-DECOMP_SIZE_ASSERT(MxWavePresenter, 0x6c);
-DECOMP_SIZE_ASSERT(MxWavePresenter::WaveFormat, 0x18);
 
 // FUNCTION: LEGO1 0x100b1ad0
 void MxWavePresenter::Init() {

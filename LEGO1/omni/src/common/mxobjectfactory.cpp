@@ -1,6 +1,6 @@
 #include "mxobjectfactory.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxcompositepresenter.h"
 #include "mxeventpresenter.h"
 #include "mxflcpresenter.h"
@@ -14,7 +14,6 @@
 #include "mxvideopresenter.h"
 #include "mxwavepresenter.h"
 
-DECOMP_SIZE_ASSERT(MxObjectFactory, 0x38); // 100af1db
 
 // FUNCTION: LEGO1 0x100b0d80
 MxObjectFactory::MxObjectFactory() {

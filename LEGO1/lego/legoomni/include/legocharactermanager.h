@@ -1,7 +1,7 @@
 #ifndef LEGOCHARACTERMANAGER_H
 #define LEGOCHARACTERMANAGER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxstl/stlcompat.h"
 #include "mxtypes.h"
 #include "mxvariable.h"

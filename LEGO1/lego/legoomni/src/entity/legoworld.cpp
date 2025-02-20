@@ -25,11 +25,6 @@
 #include "mxutilities.h"
 #include "viewmanager/viewmanager.h"
 
-DECOMP_SIZE_ASSERT(LegoWorld, 0xf8)
-DECOMP_SIZE_ASSERT(LegoEntityList, 0x18)
-DECOMP_SIZE_ASSERT(LegoEntityListCursor, 0x10)
-DECOMP_SIZE_ASSERT(LegoCacheSoundList, 0x18)
-DECOMP_SIZE_ASSERT(LegoCacheSoundListCursor, 0x10)
 
 // FUNCTION: LEGO1 0x1001ca40
 LegoWorld::LegoWorld() : m_list0x68(TRUE) {

@@ -1,7 +1,7 @@
 #ifndef JETSKI_H
 #define JETSKI_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "islepathactor.h"
 
 class LegoControlManagerNotificationParam;

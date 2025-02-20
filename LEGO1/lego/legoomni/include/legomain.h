@@ -1,7 +1,6 @@
 #ifndef LEGOMAIN_H
 #define LEGOMAIN_H
 
-#include "compat.h"
 #include "mxdsaction.h"
 #include "mxomni.h"
 

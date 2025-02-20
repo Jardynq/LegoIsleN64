@@ -1,7 +1,7 @@
 #ifndef __LEGOWEEDGE_H
 #define __LEGOWEEDGE_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "misc/legotypes.h"
 
 struct LegoUnknown100db7f4;

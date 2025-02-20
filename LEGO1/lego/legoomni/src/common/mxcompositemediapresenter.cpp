@@ -10,7 +10,6 @@
 #include "mxobjectfactory.h"
 #include "mxtimer.h"
 
-DECOMP_SIZE_ASSERT(MxCompositeMediaPresenter, 0x50)
 
 // FUNCTION: LEGO1 0x10073ea0
 MxCompositeMediaPresenter::MxCompositeMediaPresenter() {

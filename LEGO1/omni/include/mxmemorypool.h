@@ -1,7 +1,7 @@
 #ifndef MXMEMORYPOOL_H
 #define MXMEMORYPOOL_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxbitset.h"
 #include "mxdebug.h"
 #include "mxtypes.h"

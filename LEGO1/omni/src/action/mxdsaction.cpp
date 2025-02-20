@@ -8,7 +8,6 @@
 #include <float.h>
 #include <limits.h>
 
-DECOMP_SIZE_ASSERT(MxDSAction, 0x94)
 
 // GLOBAL: LEGO1 0x10101410
 // GLOBAL: BETA10 0x10201f5c

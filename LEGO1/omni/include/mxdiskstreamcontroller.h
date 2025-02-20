@@ -1,7 +1,7 @@
 #ifndef MXDISKSTREAMCONTROLLER_H
 #define MXDISKSTREAMCONTROLLER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxdsbuffer.h"
 #include "mxstl/stlcompat.h"
 #include "mxstreamcontroller.h"

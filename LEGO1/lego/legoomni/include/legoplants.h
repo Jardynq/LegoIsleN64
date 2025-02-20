@@ -1,7 +1,7 @@
 #ifndef LEGOPLANTS_H
 #define LEGOPLANTS_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxtypes.h"
 
 class LegoEntity;

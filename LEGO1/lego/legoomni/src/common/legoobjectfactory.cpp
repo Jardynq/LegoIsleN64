@@ -42,7 +42,7 @@
 #include "buildings.h"
 #include "bumpbouy.h"
 #include "carrace.h"
-#include "decomp.h"
+#include "utils.h"
 #include "doors.h"
 #include "dunebuggy.h"
 #include "elevatorbottom.h"
@@ -101,7 +101,6 @@
 #include "skateboard.h"
 #include "towtrack.h"
 
-DECOMP_SIZE_ASSERT(LegoObjectFactory, 0x1c8)
 
 // FUNCTION: LEGO1 0x10006e40
 // FUNCTION: BETA10 0x1009e930

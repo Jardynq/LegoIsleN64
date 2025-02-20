@@ -1,7 +1,7 @@
 #ifndef MXDSSUBSCRIBER_H
 #define MXDSSUBSCRIBER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxcore.h"
 #include "mxstreamchunklist.h"
 #include "mxutilitylist.h"

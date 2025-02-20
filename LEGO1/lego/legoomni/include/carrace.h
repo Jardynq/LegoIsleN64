@@ -1,7 +1,7 @@
 #ifndef CARRACE_H
 #define CARRACE_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "legorace.h"
 
 class RaceSkel;

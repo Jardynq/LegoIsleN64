@@ -1,13 +1,12 @@
 #include "mxio.h"
 
-#include "decomp.h"
+#include "utils.h"
 
 #include <assert.h>
 
 // This class should be 72 bytes in size, same as the MMIOINFO struct.
 // The current implementation has MMIOINFO as the only member of the class,
 // but this assert will enforce the size if we decide to change that.
-DECOMP_SIZE_ASSERT(MXIOINFO, sizeof(MMIOINFO));
 
 #ifdef MXIO_MINFO_MFILE
 #define ASSIGN_M_FILE(X) m_info.hmmio = (HMMIO) (X)

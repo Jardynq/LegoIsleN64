@@ -7,7 +7,6 @@
 #include "mxcompositepresenter.h"
 #include "mxdsaction.h"
 
-DECOMP_SIZE_ASSERT(LegoPhonemePresenter, 0x88)
 
 // FUNCTION: LEGO1 0x1004e180
 LegoPhonemePresenter::LegoPhonemePresenter() {

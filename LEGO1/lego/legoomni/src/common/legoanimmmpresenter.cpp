@@ -1,7 +1,7 @@
 #include "legoanimmmpresenter.h"
 
 #include "3dmanager/lego3dmanager.h"
-#include "decomp.h"
+#include "utils.h"
 #include "define.h"
 #include "islepathactor.h"
 #include "legoanimationmanager.h"
@@ -20,7 +20,6 @@
 #include "mxtimer.h"
 #include "mxutilities.h"
 
-DECOMP_SIZE_ASSERT(LegoAnimMMPresenter, 0x74)
 
 // FUNCTION: LEGO1 0x1004a8d0
 LegoAnimMMPresenter::LegoAnimMMPresenter() {

@@ -1,6 +1,6 @@
 #include "dunebuggy.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "isle.h"
 #include "isle_actions.h"
 #include "jukebox_actions.h"
@@ -18,7 +18,6 @@
 #include "mxtransitionmanager.h"
 #include "mxvariabletable.h"
 
-DECOMP_SIZE_ASSERT(DuneBuggy, 0x16c)
 
 // GLOBAL: LEGO1 0x100f7660
 // STRING: LEGO1 0x100f7634

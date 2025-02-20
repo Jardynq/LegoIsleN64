@@ -10,9 +10,6 @@
 #include "mxdssubscriber.h"
 #include "viewmanager/viewlodlist.h"
 
-DECOMP_SIZE_ASSERT(LegoLODList, 0x18)
-DECOMP_SIZE_ASSERT(LegoNamedPart, 0x14)
-DECOMP_SIZE_ASSERT(LegoNamedPartList, 0x18)
 
 // GLOBAL: LEGO1 0x100f7aa0
 MxS32 g_partPresenterConfig1 = 1;

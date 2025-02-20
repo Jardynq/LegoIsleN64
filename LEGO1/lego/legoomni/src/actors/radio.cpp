@@ -14,8 +14,6 @@
 #include "mxtimer.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(Radio, 0x10)
-DECOMP_SIZE_ASSERT(RadioState, 0x30)
 
 // GLOBAL: LEGO1 0x100f3218
 JukeboxScript::Script g_unk0x100f3218[] = {

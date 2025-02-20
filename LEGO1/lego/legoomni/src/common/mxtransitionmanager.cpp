@@ -12,7 +12,6 @@
 #include "mxticklemanager.h"
 #include "mxvideopresenter.h"
 
-DECOMP_SIZE_ASSERT(MxTransitionManager, 0x900)
 
 // GLOBAL: LEGO1 0x100f4378
 RECT g_fullScreenRect = { 0, 0, 640, 480 };

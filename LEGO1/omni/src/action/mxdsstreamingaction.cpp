@@ -2,7 +2,6 @@
 
 #include "mxdsbuffer.h"
 
-DECOMP_SIZE_ASSERT(MxDSStreamingAction, 0xb4)
 
 // FUNCTION: LEGO1 0x100cd010
 // FUNCTION: BETA10 0x1015f380

@@ -1,6 +1,5 @@
 #include "mxdsstill.h"
 
-DECOMP_SIZE_ASSERT(MxDSStill, 0xb8)
 
 // FUNCTION: LEGO1 0x100c98c0
 // FUNCTION: BETA10 0x1015d54f

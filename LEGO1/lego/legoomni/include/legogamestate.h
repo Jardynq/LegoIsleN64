@@ -2,7 +2,7 @@
 #define LEGOGAMESTATE_H
 
 #include "actionsfwd.h"
-#include "decomp.h"
+#include "utils.h"
 #include "mxtypes.h"
 #include "mxvariable.h"
 

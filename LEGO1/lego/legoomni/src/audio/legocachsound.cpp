@@ -6,7 +6,6 @@
 
 #include <assert.h>
 
-DECOMP_SIZE_ASSERT(LegoCacheSound, 0x88)
 
 // FUNCTION: LEGO1 0x100064d0
 // FUNCTION: BETA10 0x10066340

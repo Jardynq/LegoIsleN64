@@ -9,7 +9,6 @@
 #include "mxvariabletable.h"
 #include "roi/legoroi.h"
 
-DECOMP_SIZE_ASSERT(LegoRaceActor, 0x180)
 
 // Initialized at LEGO1 0x100145a0
 // GLOBAL: LEGO1 0x10102b08

@@ -1,6 +1,6 @@
 #include "ambulance.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "isle.h"
 #include "isle_actions.h"
 #include "jukebox_actions.h"
@@ -23,8 +23,6 @@
 #include "mxvariabletable.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(Ambulance, 0x184)
-DECOMP_SIZE_ASSERT(AmbulanceMissionState, 0x24)
 
 // Flags used in isle.cpp
 extern MxU32 g_isleFlags;

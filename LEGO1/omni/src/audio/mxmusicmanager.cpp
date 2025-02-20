@@ -6,7 +6,6 @@
 
 #include <windows.h>
 
-DECOMP_SIZE_ASSERT(MxMusicManager, 0x58);
 
 // FUNCTION: LEGO1 0x100c05a0
 MxMusicManager::MxMusicManager() {

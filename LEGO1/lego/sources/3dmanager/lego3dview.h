@@ -1,7 +1,7 @@
 #ifndef _Lego3DView_h
 #define _Lego3DView_h
 
-#include "decomp.h"
+#include "utils.h"
 #include "legoview1.h"
 
 class ViewManager;

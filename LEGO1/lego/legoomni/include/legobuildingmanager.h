@@ -1,7 +1,7 @@
 #ifndef LEGOBUILDINGMANAGER_H
 #define LEGOBUILDINGMANAGER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "misc/legotypes.h"
 #include "mxcore.h"
 

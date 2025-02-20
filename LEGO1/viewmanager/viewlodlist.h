@@ -2,7 +2,6 @@
 #define VIEWLODLIST_H
 
 #include "assert.h"
-#include "compat.h"
 #include "mxstl/stlcompat.h"
 #include "realtime/lodlist.h"
 

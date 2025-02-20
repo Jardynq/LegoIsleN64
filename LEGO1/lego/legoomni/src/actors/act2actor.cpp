@@ -20,8 +20,6 @@
 
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(Act2Actor, 0x1a8)
-DECOMP_SIZE_ASSERT(Act2Actor::Location, 0x20)
 
 // GLOBAL: LEGO1 0x100f0db8
 // GLOBAL: BETA10 0x101dbd00

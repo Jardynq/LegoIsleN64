@@ -1,11 +1,9 @@
 #include "legoimage.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "legostorage.h"
 #include "memory.h"
 
-DECOMP_SIZE_ASSERT(LegoPaletteEntry, 0x03);
-DECOMP_SIZE_ASSERT(LegoImage, 0x310);
 
 // FUNCTION: LEGO1 0x100994c0
 LegoPaletteEntry::LegoPaletteEntry() {

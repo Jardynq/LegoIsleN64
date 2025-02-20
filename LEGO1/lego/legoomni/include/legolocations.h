@@ -1,7 +1,7 @@
 #ifndef LEGOLOCATIONS_H
 #define LEGOLOCATIONS_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxtypes.h"
 
 // SIZE 0x60

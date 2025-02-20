@@ -1,7 +1,7 @@
 #ifndef RACECAR_H
 #define RACECAR_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "islepathactor.h"
 
 // VTABLE: LEGO1 0x100d6918

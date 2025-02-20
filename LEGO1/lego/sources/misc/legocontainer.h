@@ -1,8 +1,7 @@
 #ifndef LEGOCONTAINER_H
 #define LEGOCONTAINER_H
 
-#include "compat.h"
-#include "decomp.h"
+#include "utils.h"
 #include "legotexture.h"
 #include "legotypes.h"
 #include "mxstl/stlcompat.h"
@@ -54,10 +53,10 @@ public:
 
 		if (it != m_map.end()) {
 			value = (*it).second;
-	}
+		}
 
 		return value;
-}
+	}
 
 	void Add(const char* p_name, T* p_value) {
 		typename LegoContainerInfo<T>::iterator it = m_map.find(p_name);
@@ -68,8 +67,8 @@ public:
 
 			if (m_ownership) {
 				delete (*it).second;
+			}
 		}
-	}
 		else {
 			name = new char[strlen(p_name) + 1];
 			strcpy(name, p_name);
@@ -83,7 +82,7 @@ public:
 protected:
 	LegoBool m_ownership;       // 0x04
 	LegoContainerInfo<T> m_map; // 0x08
-	};
+};
 
 // VTABLE: LEGO1 0x100d86d4
 // class LegoContainer<LegoTextureInfo>

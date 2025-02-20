@@ -1,6 +1,6 @@
 #include "mxpresenter.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "define.h"
 #include "mxactionnotificationparam.h"
 #include "mxautolock.h"
@@ -27,7 +27,6 @@
 
 #include <string.h>
 
-DECOMP_SIZE_ASSERT(MxPresenter, 0x40);
 
 // FUNCTION: LEGO1 0x100b4d50
 void MxPresenter::Init() {

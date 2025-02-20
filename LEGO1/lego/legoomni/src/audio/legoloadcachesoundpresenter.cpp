@@ -9,7 +9,6 @@
 #include "mxstreamchunk.h"
 #include "mxwavepresenter.h"
 
-DECOMP_SIZE_ASSERT(LegoLoadCacheSoundPresenter, 0x90)
 
 // FUNCTION: LEGO1 0x10018340
 LegoLoadCacheSoundPresenter::LegoLoadCacheSoundPresenter() {

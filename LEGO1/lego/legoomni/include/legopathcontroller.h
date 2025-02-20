@@ -1,7 +1,7 @@
 #ifndef LEGOPATHCONTROLLER_H
 #define LEGOPATHCONTROLLER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "geom/legounkown100db7f4.h"
 #include "legopathactor.h"
 #include "legopathboundary.h"

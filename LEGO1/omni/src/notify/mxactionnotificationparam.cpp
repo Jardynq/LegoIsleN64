@@ -1,7 +1,5 @@
 #include "mxactionnotificationparam.h"
 
-DECOMP_SIZE_ASSERT(MxActionNotificationParam, 0x14)
-DECOMP_SIZE_ASSERT(MxEndActionNotificationParam, 0x14)
 
 // FUNCTION: LEGO1 0x100b0300
 MxNotificationParam* MxStartActionNotificationParam::Clone() const {

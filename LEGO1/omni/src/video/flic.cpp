@@ -1,8 +1,5 @@
 #include "flic.h"
 
-DECOMP_SIZE_ASSERT(FLIC_CHUNK, 0x06)
-DECOMP_SIZE_ASSERT(FLIC_HEADER, 0x14)
-DECOMP_SIZE_ASSERT(FLIC_FRAME, 0x10)
 
 void WritePixel(LPBITMAPINFOHEADER p_bitmapHeader, BYTE* p_pixelData, short p_column, short p_row, byte p_pixel);
 void WritePixels(

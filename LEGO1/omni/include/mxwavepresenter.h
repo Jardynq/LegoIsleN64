@@ -1,7 +1,7 @@
 #ifndef MXWAVEPRESENTER_H
 #define MXWAVEPRESENTER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxsoundpresenter.h"
 
 #include <dsound.h>

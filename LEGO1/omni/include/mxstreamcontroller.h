@@ -1,7 +1,7 @@
 #ifndef MXSTREAMCONTROLLER_H
 #define MXSTREAMCONTROLLER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxatom.h"
 #include "mxcore.h"
 #include "mxcriticalsection.h"

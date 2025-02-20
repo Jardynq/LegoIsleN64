@@ -3,15 +3,13 @@
 
 #include "legoview1.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxgeometry/mxgeometry3d.h"
 #include "mxgeometry/mxmatrix.h"
 #include "realtime/realtime.h"
 
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(LegoView, 0x78);
-DECOMP_SIZE_ASSERT(LegoView1, 0x88);
 
 // GLOBAL: LEGO1 0x101013e4
 float g_sunLightRGB = 1.0;

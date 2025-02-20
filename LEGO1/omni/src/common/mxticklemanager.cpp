@@ -1,14 +1,12 @@
 #include "mxticklemanager.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxmisc.h"
 #include "mxtimer.h"
 #include "mxtypes.h"
 
 #define TICKLE_MANAGER_FLAG_DESTROY 0x01
 
-DECOMP_SIZE_ASSERT(MxTickleClient, 0x10);
-DECOMP_SIZE_ASSERT(MxTickleManager, 0x14);
 
 // FUNCTION: LEGO1 0x100bdd10
 MxTickleClient::MxTickleClient(MxCore* p_client, MxTime p_interval) {

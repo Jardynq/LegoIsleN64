@@ -1,12 +1,11 @@
 #include "legopathboundary.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "geom/legounkown100db7f4.h"
 #include "legolocomotionanimpresenter.h"
 #include "legopathactor.h"
 #include "legopathstruct.h"
 
-DECOMP_SIZE_ASSERT(LegoPathBoundary, 0x74)
 
 // FUNCTION: LEGO1 0x10056a70
 // FUNCTION: BETA10 0x100b1360

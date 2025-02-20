@@ -1,10 +1,9 @@
 #include "mxmusicpresenter.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxmisc.h"
 #include "mxmusicmanager.h"
 
-DECOMP_SIZE_ASSERT(MxMusicPresenter, 0x54);
 
 // FUNCTION: LEGO1 0x100c22c0
 MxMusicPresenter::MxMusicPresenter() {

@@ -1,7 +1,5 @@
 #include "legolocations.h"
 
-DECOMP_SIZE_ASSERT(LegoLocation, 0x60)
-DECOMP_SIZE_ASSERT(LegoLocation::Boundary, 0x18)
 
 // GLOBAL: LEGO1 0x100f4c60
 LegoLocation g_locations[] = {

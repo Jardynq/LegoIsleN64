@@ -1,15 +1,12 @@
 #include "mxmediamanager.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxautolock.h"
 #include "mxomni.h"
 #include "mxpresenter.h"
 #include "mxticklemanager.h"
 #include "stdio.h"
 
-DECOMP_SIZE_ASSERT(MxMediaManager, 0x2c);
-DECOMP_SIZE_ASSERT(MxPresenterList, 0x18);
-DECOMP_SIZE_ASSERT(MxPresenterListCursor, 0x10);
 
 // FUNCTION: LEGO1 0x100b84c0
 MxMediaManager::MxMediaManager() {

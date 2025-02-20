@@ -22,8 +22,6 @@
 #include "scripts.h"
 #include "towtrack.h"
 
-DECOMP_SIZE_ASSERT(Score, 0x104)
-DECOMP_SIZE_ASSERT(ScoreState, 0x0c)
 
 // FUNCTION: LEGO1 0x10001000
 Score::Score() {

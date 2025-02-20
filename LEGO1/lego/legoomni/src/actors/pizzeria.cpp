@@ -11,8 +11,6 @@
 #include "pizza.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(Pizzeria, 0x84)
-DECOMP_SIZE_ASSERT(PizzeriaState, 0x58)
 
 // GLOBAL: LEGO1 0x100f0ce8
 IsleScript::Script PizzeriaState::g_pepperActions[] =

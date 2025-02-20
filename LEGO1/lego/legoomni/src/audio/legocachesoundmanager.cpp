@@ -3,8 +3,6 @@
 #include "legoworld.h"
 #include "misc.h"
 
-DECOMP_SIZE_ASSERT(LegoCacheSoundEntry, 0x08)
-DECOMP_SIZE_ASSERT(LegoCacheSoundManager, 0x20)
 
 // FUNCTION: LEGO1 0x1003cf20
 LegoCacheSoundManager::~LegoCacheSoundManager() {

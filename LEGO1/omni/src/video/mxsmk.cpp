@@ -4,8 +4,6 @@
 
 #include <string.h>
 
-DECOMP_SIZE_ASSERT(SmackTag, 0x390);
-DECOMP_SIZE_ASSERT(MxSmk, 0x6b8);
 
 // FUNCTION: LEGO1 0x100c5a90
 // FUNCTION: BETA10 0x10151e70

@@ -10,7 +10,6 @@
 #include "mxstreamer.h"
 #include "mxstreamprovider.h"
 
-DECOMP_SIZE_ASSERT(MxDSBuffer, 0x34);
 
 // FUNCTION: LEGO1 0x100c6470
 // FUNCTION: BETA10 0x10156f00

@@ -2,7 +2,6 @@
 
 #include "mxutilities.h"
 
-DECOMP_SIZE_ASSERT(MxDSSound, 0xc0)
 
 // FUNCTION: LEGO1 0x100c92c0
 // FUNCTION: BETA10 0x1015cfdb

@@ -1,7 +1,7 @@
 #ifndef VIEWMANAGER_H
 #define VIEWMANAGER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "realtime/realtimeview.h"
 #include "viewroi.h"
 

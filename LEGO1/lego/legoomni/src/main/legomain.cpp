@@ -32,10 +32,6 @@
 #include "scripts.h"
 #include "viewmanager/viewmanager.h"
 
-DECOMP_SIZE_ASSERT(LegoOmni, 0x140)
-DECOMP_SIZE_ASSERT(LegoOmni::WorldContainer, 0x1c)
-DECOMP_SIZE_ASSERT(LegoWorldList, 0x18)
-DECOMP_SIZE_ASSERT(LegoWorldListCursor, 0x10)
 
 // GLOBAL: LEGO1 0x100f6718
 // STRING: LEGO1 0x100f6710

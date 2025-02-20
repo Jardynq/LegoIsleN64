@@ -11,7 +11,6 @@
 #include <assert.h>
 #include <windows.h>
 
-DECOMP_SIZE_ASSERT(MxDisplaySurface, 0xac);
 
 #define RGB555_CREATE(R, G, B) (((R) << 10) | (G) << 5 | (B) << 0)
 

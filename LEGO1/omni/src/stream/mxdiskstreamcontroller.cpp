@@ -10,7 +10,6 @@
 
 #include <assert.h>
 
-DECOMP_SIZE_ASSERT(MxDiskStreamController, 0xc8);
 
 // FUNCTION: LEGO1 0x100c7120
 MxDiskStreamController::MxDiskStreamController() {

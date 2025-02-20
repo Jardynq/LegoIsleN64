@@ -1,7 +1,7 @@
 #ifndef MXAUDIOMANAGER_H
 #define MXAUDIOMANAGER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxmediamanager.h"
 
 // VTABLE: LEGO1 0x100dc6e0

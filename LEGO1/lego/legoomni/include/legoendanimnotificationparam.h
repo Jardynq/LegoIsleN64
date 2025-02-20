@@ -1,7 +1,7 @@
 #ifndef LEGOENDANIMNOTIFICATIONPARAM_H
 #define LEGOENDANIMNOTIFICATIONPARAM_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxnotificationparam.h"
 
 // VTABLE: LEGO1 0x100d7e80

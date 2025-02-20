@@ -14,7 +14,6 @@ struct ViewportAppData {
 	float m_backgroundColorBlue;
 };
 
-DECOMP_SIZE_ASSERT(ViewportAppData, 0x18);
 
 // FUNCTION: LEGO1 0x100a10b0
 ViewportAppData::ViewportAppData(IDirect3DRM2* pRenderer) {

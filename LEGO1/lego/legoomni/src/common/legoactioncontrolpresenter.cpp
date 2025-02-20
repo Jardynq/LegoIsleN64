@@ -12,7 +12,6 @@
 #include "mxticklemanager.h"
 #include "mxutilities.h"
 
-DECOMP_SIZE_ASSERT(LegoActionControlPresenter, 0x68)
 
 // FUNCTION: LEGO1 0x10043ce0
 void LegoActionControlPresenter::ReadyTickle() {

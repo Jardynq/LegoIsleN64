@@ -1,7 +1,7 @@
 #ifndef LEGOCACHESOUNDMANAGER_H
 #define LEGOCACHESOUNDMANAGER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "legocachsound.h"
 #include "mxstl/stlcompat.h"
 #include "mxtypes.h"

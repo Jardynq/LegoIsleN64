@@ -1,8 +1,7 @@
 #ifndef MXDISKSTREAMPROVIDER_H
 #define MXDISKSTREAMPROVIDER_H
 
-#include "compat.h"
-#include "decomp.h"
+#include "utils.h"
 #include "mxcriticalsection.h"
 #include "mxdsaction.h"
 #include "mxstreamprovider.h"

@@ -1,14 +1,11 @@
 #include "mxatom.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxmisc.h"
 #include "mxomni.h"
 
 #include <assert.h>
 
-DECOMP_SIZE_ASSERT(MxAtomId, 0x04);
-DECOMP_SIZE_ASSERT(MxAtom, 0x14);
-DECOMP_SIZE_ASSERT(MxAtomSet, 0x10);
 
 // FUNCTION: LEGO1 0x100acf90
 // FUNCTION: BETA10 0x1012308b

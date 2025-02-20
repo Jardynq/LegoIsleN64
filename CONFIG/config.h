@@ -1,8 +1,7 @@
 #ifndef AFX_CONFIG_H
 #define AFX_CONFIG_H
 
-#include "compat.h"
-#include "decomp.h"
+#include "utils.h"
 
 #include <d3d.h>
 

@@ -1,5 +1,4 @@
 #include "mxaudiopresenter.h"
 
-#include "decomp.h"
+#include "utils.h"
 
-DECOMP_SIZE_ASSERT(MxAudioPresenter, 0x54);

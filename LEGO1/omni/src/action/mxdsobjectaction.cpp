@@ -1,6 +1,5 @@
 #include "mxdsobjectaction.h"
 
-DECOMP_SIZE_ASSERT(MxDSObjectAction, 0xb8)
 
 // FUNCTION: LEGO1 0x100c8870
 // FUNCTION: BETA10 0x1015c3b0

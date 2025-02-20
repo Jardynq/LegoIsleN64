@@ -1,7 +1,6 @@
 #include "isleapp.h"
 
 #include "3dmanager/lego3dmanager.h"
-#include "decomp.h"
 #include "legoanimationmanager.h"
 #include "legobuildingmanager.h"
 #include "legogamestate.h"
@@ -31,8 +30,6 @@
 #include <dsound.h>
 
 #include "MockRegistry.h"
-
-DECOMP_SIZE_ASSERT(IsleApp, 0x8c)
 
 // GLOBAL: ISLE 0x410030
 IsleApp* g_isle = NULL;

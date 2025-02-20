@@ -16,8 +16,6 @@
 #include "mxtimer.h"
 #include "realtime/realtime.h"
 
-DECOMP_SIZE_ASSERT(LegoCarBuildAnimPresenter::UnknownListEntry, 0x0c)
-DECOMP_SIZE_ASSERT(LegoCarBuildAnimPresenter, 0x150)
 
 // FUNCTION: LEGO1 0x10078400
 // FUNCTION: BETA10 0x100707c0

@@ -22,9 +22,6 @@
 #include "skateboard.h"
 #include "sndanim_actions.h"
 
-DECOMP_SIZE_ASSERT(Pizza, 0x9c)
-DECOMP_SIZE_ASSERT(PizzaMissionState, 0xb4)
-DECOMP_SIZE_ASSERT(PizzaMissionState::Mission, 0x20)
 
 // Flags used in isle.cpp
 extern MxU32 g_isleFlags;

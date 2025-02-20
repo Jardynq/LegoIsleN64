@@ -1,7 +1,7 @@
 #ifndef FLIC_H
 #define FLIC_H
 
-#include "decomp.h"
+#include "utils.h"
 
 #include <windows.h>
 

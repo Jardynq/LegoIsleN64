@@ -9,7 +9,6 @@
 
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(Lego3DSound, 0x30)
 
 // FUNCTION: LEGO1 0x10011630
 Lego3DSound::Lego3DSound() {

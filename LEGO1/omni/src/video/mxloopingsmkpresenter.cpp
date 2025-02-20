@@ -4,7 +4,6 @@
 #include "mxdsmediaaction.h"
 #include "mxdssubscriber.h"
 
-DECOMP_SIZE_ASSERT(MxLoopingSmkPresenter, 0x724);
 
 // FUNCTION: LEGO1 0x100b48b0
 MxLoopingSmkPresenter::MxLoopingSmkPresenter() {

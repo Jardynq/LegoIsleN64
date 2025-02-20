@@ -12,8 +12,6 @@
 #include <string.h>
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(LegoROI, 0x108)
-DECOMP_SIZE_ASSERT(TimeROI, 0x10c)
 
 // SIZE 0x14
 typedef struct {

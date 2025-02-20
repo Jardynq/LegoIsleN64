@@ -1,9 +1,8 @@
 #include "mxdirectdraw.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include <stdio.h>
 
-DECOMP_SIZE_ASSERT(MxDirectDraw, 0x880)
 
 #define RELEASE(x)    \
 	if (x != NULL)    \

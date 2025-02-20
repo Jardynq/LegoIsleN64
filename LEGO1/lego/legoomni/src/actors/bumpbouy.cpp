@@ -14,7 +14,6 @@
 
 #include <assert.h>
 
-DECOMP_SIZE_ASSERT(BumpBouy, 0x174)
 
 // FUNCTION: LEGO1 0x10027220
 BumpBouy::BumpBouy() {

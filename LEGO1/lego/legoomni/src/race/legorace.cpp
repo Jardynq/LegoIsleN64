@@ -7,9 +7,6 @@
 #include "mxmisc.h"
 #include "mxnotificationmanager.h"
 
-DECOMP_SIZE_ASSERT(LegoRace, 0x144)
-DECOMP_SIZE_ASSERT(RaceState::Entry, 0x06)
-DECOMP_SIZE_ASSERT(RaceState, 0x2c)
 
 // Defined in legopathstruct.cpp
 extern MxBool g_unk0x100f119c;

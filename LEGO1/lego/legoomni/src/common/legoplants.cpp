@@ -1,6 +1,5 @@
 #include "legoplants.h"
 
-DECOMP_SIZE_ASSERT(LegoPlantInfo, 0x54)
 
 // GLOBAL: LEGO1 0x100f16c8
 LegoPlantInfo g_plantInfoInit[81] = {

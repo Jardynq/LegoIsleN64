@@ -15,7 +15,6 @@
 #include "mxtransitionmanager.h"
 #include "mxvariabletable.h"
 
-DECOMP_SIZE_ASSERT(ElevatorBottom, 0xfc)
 
 // FUNCTION: LEGO1 0x10017e90
 ElevatorBottom::ElevatorBottom() {

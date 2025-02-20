@@ -1,7 +1,7 @@
 #ifndef MXPRESENTER_H
 #define MXPRESENTER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxcore.h"
 #include "mxcriticalsection.h"
 #include "mxpoint32.h"

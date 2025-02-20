@@ -7,7 +7,6 @@
 #include "mxutilities.h"
 #include "roi/legoroi.h"
 
-DECOMP_SIZE_ASSERT(LegoActor, 0x78)
 
 // GLOBAL: LEGO1 0x100f32d0
 const char* g_actorNames[] = { "none", "pepper", "mama", "papa", "nick", "laura", "The_Brickster!" };

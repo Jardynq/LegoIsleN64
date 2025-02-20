@@ -17,13 +17,6 @@
 #include "mxtransitionmanager.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(BeachHouseEntity, 0x68)
-DECOMP_SIZE_ASSERT(GasStationEntity, 0x68)
-DECOMP_SIZE_ASSERT(HospitalEntity, 0x68)
-DECOMP_SIZE_ASSERT(InfoCenterEntity, 0x68)
-DECOMP_SIZE_ASSERT(JailEntity, 0x68)
-DECOMP_SIZE_ASSERT(PoliceEntity, 0x68)
-DECOMP_SIZE_ASSERT(RaceStandsEntity, 0x68)
 
 // GLOBAL: LEGO1 0x100f0c2c
 // STRING: LEGO1 0x100f0c24

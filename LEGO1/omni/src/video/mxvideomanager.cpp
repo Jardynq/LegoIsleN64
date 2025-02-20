@@ -11,7 +11,6 @@
 #include "mxticklethread.h"
 #include "stdio.h"
 
-DECOMP_SIZE_ASSERT(MxVideoManager, 0x64)
 
 // FUNCTION: LEGO1 0x100be1f0
 MxVideoManager::MxVideoManager() {

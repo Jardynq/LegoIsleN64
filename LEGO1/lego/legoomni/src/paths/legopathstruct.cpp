@@ -12,8 +12,6 @@
 #include "mxnotificationmanager.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(LegoPathStructBase, 0x0c)
-DECOMP_SIZE_ASSERT(LegoPathStruct, 0x14)
 
 // Flags used in isle.cpp
 extern MxU32 g_isleFlags;

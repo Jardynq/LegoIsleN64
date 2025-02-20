@@ -1,7 +1,7 @@
 #ifndef VIEWROI_H
 #define VIEWROI_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "realtime/orientableroi.h"
 #include "tgl/tgl.h"
 #include "viewlodlist.h"

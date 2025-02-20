@@ -1,7 +1,7 @@
 #ifndef MXSTREAMER_H
 #define MXSTREAMER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxcore.h"
 #include "mxmemorypool.h"
 #include "mxnotificationparam.h"

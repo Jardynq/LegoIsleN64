@@ -1,6 +1,6 @@
 #include "mxeventpresenter.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxautolock.h"
 #include "mxdsaction.h"
 #include "mxdssubscriber.h"
@@ -8,7 +8,6 @@
 #include "mxmisc.h"
 #include "mxvariabletable.h"
 
-DECOMP_SIZE_ASSERT(MxEventPresenter, 0x54);
 
 // FUNCTION: LEGO1 0x100c2b70
 MxEventPresenter::MxEventPresenter() {

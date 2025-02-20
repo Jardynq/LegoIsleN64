@@ -1,7 +1,7 @@
 #ifndef LEGO3DSOUND_H
 #define LEGO3DSOUND_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxtypes.h"
 
 #include <dsound.h>

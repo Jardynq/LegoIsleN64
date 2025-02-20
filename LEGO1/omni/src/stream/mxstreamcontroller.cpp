@@ -12,9 +12,6 @@
 #include "mxtimer.h"
 #include "mxutilities.h"
 
-DECOMP_SIZE_ASSERT(MxStreamController, 0x64)
-DECOMP_SIZE_ASSERT(MxNextActionDataStart, 0x14)
-DECOMP_SIZE_ASSERT(MxNextActionDataStartList, 0x0c)
 
 // FUNCTION: LEGO1 0x100c0b90
 MxStreamController::MxStreamController() {

@@ -8,7 +8,6 @@
 #include "mxpalette.h"
 #include "mxstreamchunk.h"
 
-DECOMP_SIZE_ASSERT(LegoPalettePresenter, 0x68)
 
 // FUNCTION: LEGO1 0x10079e50
 LegoPalettePresenter::LegoPalettePresenter() {

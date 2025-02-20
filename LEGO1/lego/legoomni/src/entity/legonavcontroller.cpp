@@ -28,7 +28,6 @@
 
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(LegoNavController, 0x70)
 
 // MSVC 4.20 didn't define a macro for this key
 #ifndef VK_OEM_MINUS

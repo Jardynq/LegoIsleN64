@@ -15,8 +15,6 @@
 #include "mxtransitionmanager.h"
 #include "mxvideopresenter.h"
 
-DECOMP_SIZE_ASSERT(JukeBox, 0x104)
-DECOMP_SIZE_ASSERT(JukeBoxState, 0x10)
 
 // FUNCTION: LEGO1 0x1005d660
 JukeBox::JukeBox() {

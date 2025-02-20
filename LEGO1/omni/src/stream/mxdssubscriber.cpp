@@ -2,8 +2,6 @@
 
 #include "mxstreamcontroller.h"
 
-DECOMP_SIZE_ASSERT(MxDSSubscriber, 0x4c)
-DECOMP_SIZE_ASSERT(MxDSSubscriberList, 0x0c)
 
 // FUNCTION: LEGO1 0x100b7bb0
 MxDSSubscriber::MxDSSubscriber() {

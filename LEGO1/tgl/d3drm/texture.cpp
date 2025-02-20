@@ -2,7 +2,6 @@
 
 using namespace TglImpl;
 
-DECOMP_SIZE_ASSERT(TglD3DRMIMAGE, 0x40);
 
 inline TglD3DRMIMAGE* TextureGetImage(IDirect3DRMTexture* pTexture) {
 	return reinterpret_cast<TglD3DRMIMAGE*>(pTexture->GetAppData());

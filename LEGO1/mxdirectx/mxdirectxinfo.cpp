@@ -3,13 +3,6 @@
 #include <assert.h>
 #include <stdio.h> // for vsprintf
 
-DECOMP_SIZE_ASSERT(MxAssignedDevice, 0xe4)
-DECOMP_SIZE_ASSERT(Direct3DDeviceInfo, 0x1a4)
-DECOMP_SIZE_ASSERT(MxDisplayMode, 0x0c)
-DECOMP_SIZE_ASSERT(MxDriver, 0x190)
-DECOMP_SIZE_ASSERT(MxDeviceEnumerate, 0x14)
-DECOMP_SIZE_ASSERT(DeviceModesInfo, 0x17c)
-DECOMP_SIZE_ASSERT(DeviceModesInfo::Mode, 0x0c)
 
 // FUNCTION: LEGO1 0x1009b8b0
 // FUNCTION: BETA10 0x1011c05e

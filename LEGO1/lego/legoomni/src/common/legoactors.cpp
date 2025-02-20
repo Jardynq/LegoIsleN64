@@ -1,8 +1,5 @@
 #include "legoactors.h"
 
-DECOMP_SIZE_ASSERT(LegoActorInfo, 0x108)
-DECOMP_SIZE_ASSERT(LegoActorInfo::Part, 0x18)
-DECOMP_SIZE_ASSERT(LegoActorLOD, 0x58)
 
 // Unclear whether g_actorLODs[0] (top) is its own global, see: LegoCharacterManager::CreateActorROI
 

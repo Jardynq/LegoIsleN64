@@ -6,10 +6,6 @@
 #include "mxticklemanager.h"
 #include "mxtimer.h"
 
-DECOMP_SIZE_ASSERT(LegoPathController, 0x40)
-DECOMP_SIZE_ASSERT(LegoPathCtrlEdge, 0x40)
-DECOMP_SIZE_ASSERT(LegoPathController::CtrlBoundary, 0x08)
-DECOMP_SIZE_ASSERT(LegoPathController::CtrlEdge, 0x08)
 
 // GLOBAL: LEGO1 0x100d7cc8
 MxU32 g_unk0x100d7cc8[] = { 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0 };

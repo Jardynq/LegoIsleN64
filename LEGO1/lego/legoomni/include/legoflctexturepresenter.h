@@ -1,7 +1,7 @@
 #ifndef LEGOFLCTEXTUREPRESENTER_H
 #define LEGOFLCTEXTUREPRESENTER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxflcpresenter.h"
 
 class LegoTextureInfo;

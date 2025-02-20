@@ -20,8 +20,6 @@
 #include "mxtransitionmanager.h"
 #include "mxvariabletable.h"
 
-DECOMP_SIZE_ASSERT(TowTrack, 0x180)
-DECOMP_SIZE_ASSERT(TowTrackMissionState, 0x28)
 
 // Flags used in isle.cpp
 extern MxU32 g_isleFlags;

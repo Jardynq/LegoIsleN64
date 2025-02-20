@@ -1,7 +1,7 @@
 #ifndef LEGOVIDEOMANAGER_H
 #define LEGOVIDEOMANAGER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "legophonemelist.h"
 #include "mxvideomanager.h"
 

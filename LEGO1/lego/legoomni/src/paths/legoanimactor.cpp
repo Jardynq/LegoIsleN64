@@ -8,8 +8,6 @@
 #include "misc.h"
 #include "mxutilities.h"
 
-DECOMP_SIZE_ASSERT(LegoAnimActor, 0x174)
-DECOMP_SIZE_ASSERT(LegoAnimActorStruct, 0x20)
 
 // FUNCTION: LEGO1 0x1001bf80
 // FUNCTION: BETA10 0x1003dc10

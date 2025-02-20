@@ -19,10 +19,6 @@
 #include "mxvariabletable.h"
 #include "raceskel.h"
 
-DECOMP_SIZE_ASSERT(EdgeReference, 0x08)
-DECOMP_SIZE_ASSERT(SkeletonKickPhase, 0x10)
-DECOMP_SIZE_ASSERT(LegoRaceCar, 0x200)
-DECOMP_SIZE_ASSERT(LegoJetski, 0x1dc)
 
 // name verified by BETA10 0x100cbee6
 // GLOBAL: LEGO1 0x100f0a20

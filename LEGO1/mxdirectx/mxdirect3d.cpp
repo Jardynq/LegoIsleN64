@@ -1,7 +1,6 @@
 #include "mxdirect3d.h"
 #include <stdio.h>
 
-DECOMP_SIZE_ASSERT(MxDirect3D, 0x894)
 
 #if !defined(MXDIRECTX_FOR_CONFIG)
 #define RELEASE(x)                                                                                                     \

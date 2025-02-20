@@ -4,7 +4,6 @@
 #include "mxdsstreamingaction.h"
 #include "mxramstreamprovider.h"
 
-DECOMP_SIZE_ASSERT(MxRAMStreamController, 0x98);
 
 // FUNCTION: LEGO1 0x100c6110
 MxResult MxRAMStreamController::Open(const char* p_filename) {

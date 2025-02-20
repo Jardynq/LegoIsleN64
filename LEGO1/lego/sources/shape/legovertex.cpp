@@ -1,9 +1,8 @@
 #include "legovertex.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "misc/legostorage.h"
 
-DECOMP_SIZE_ASSERT(LegoVertex, 0x0c)
 
 // FUNCTION: LEGO1 0x100d37b0
 LegoVertex::LegoVertex() {

@@ -1,6 +1,5 @@
 #include "mxdsanim.h"
 
-DECOMP_SIZE_ASSERT(MxDSAnim, 0xb8)
 
 // FUNCTION: LEGO1 0x100c8ff0
 // FUNCTION: BETA10 0x1015cd71

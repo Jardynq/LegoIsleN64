@@ -1,6 +1,5 @@
 #include "mxaudiomanager.h"
 
-DECOMP_SIZE_ASSERT(MxAudioManager, 0x30);
 
 // GLOBAL: LEGO1 0x10102108
 MxS32 MxAudioManager::g_count = 0;

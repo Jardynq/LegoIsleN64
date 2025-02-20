@@ -22,8 +22,6 @@
 #include "radio.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(GasStation, 0x128)
-DECOMP_SIZE_ASSERT(GasStationState, 0x24)
 
 // GLOBAL: LEGO1 0x100f0160
 undefined4 g_unk0x100f0160 = 3;

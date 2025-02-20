@@ -1,9 +1,8 @@
 #include "legocolor.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "misc/legostorage.h"
 
-DECOMP_SIZE_ASSERT(LegoColor, 0x03)
 
 // FUNCTION: LEGO1 0x100d3a20
 LegoResult LegoColor::Read(LegoStorage* p_storage) {

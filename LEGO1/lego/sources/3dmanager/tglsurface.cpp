@@ -2,9 +2,8 @@
 
 #include "tglsurface.h"
 
-#include "decomp.h"
+#include "utils.h"
 
-DECOMP_SIZE_ASSERT(TglSurface, 0x70);
 
 using namespace Tgl;
 

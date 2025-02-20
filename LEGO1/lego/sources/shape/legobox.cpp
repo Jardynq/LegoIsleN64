@@ -1,9 +1,8 @@
 #include "legobox.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "misc/legoutil.h"
 
-DECOMP_SIZE_ASSERT(LegoBox, 0x18)
 
 // FUNCTION: LEGO1 0x100d3740
 // FUNCTION: BETA10 0x1018f83c

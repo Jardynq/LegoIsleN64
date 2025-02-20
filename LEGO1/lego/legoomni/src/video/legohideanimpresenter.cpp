@@ -5,8 +5,6 @@
 #include "legoworld.h"
 #include "misc.h"
 
-DECOMP_SIZE_ASSERT(LegoHideAnimPresenter, 0xc4)
-DECOMP_SIZE_ASSERT(LegoHideAnimStruct, 0x08)
 
 // FUNCTION: LEGO1 0x1006d7e0
 LegoHideAnimPresenter::LegoHideAnimPresenter() {

@@ -1,7 +1,7 @@
 #ifndef MXLOOPINGFLCPRESENTER_H
 #define MXLOOPINGFLCPRESENTER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxflcpresenter.h"
 
 // VTABLE: LEGO1 0x100dc480

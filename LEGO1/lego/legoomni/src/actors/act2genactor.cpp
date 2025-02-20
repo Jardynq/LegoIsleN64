@@ -7,7 +7,6 @@
 #include "mxtimer.h"
 #include "roi/legoroi.h"
 
-DECOMP_SIZE_ASSERT(Act2GenActor, 0x154)
 
 // GLOBAL: LEGO1 0x100f0f18
 MxLong Act2GenActor::g_lastHitActorTime = 0;

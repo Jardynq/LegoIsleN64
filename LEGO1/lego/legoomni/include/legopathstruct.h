@@ -1,7 +1,7 @@
 #ifndef LEGOPATHSTRUCT_H
 #define LEGOPATHSTRUCT_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxatom.h"
 #include "mxnotificationparam.h"
 #include "mxtypes.h"

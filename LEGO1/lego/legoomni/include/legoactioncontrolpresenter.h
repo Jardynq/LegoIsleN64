@@ -1,7 +1,7 @@
 #ifndef LEGOACTIONCONTROLPRESENTER_H
 #define LEGOACTIONCONTROLPRESENTER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "extra.h"
 #include "mxmediapresenter.h"
 #include "mxstring.h"

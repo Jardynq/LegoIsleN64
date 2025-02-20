@@ -29,7 +29,6 @@
 #include "regbook_actions.h"
 #include "scripts.h"
 
-DECOMP_SIZE_ASSERT(RegistrationBook, 0x2d0)
 
 // GLOBAL: LEGO1 0x100d9924
 // GLOBAL: BETA10 0x101bfb3c

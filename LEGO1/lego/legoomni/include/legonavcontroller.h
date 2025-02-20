@@ -1,7 +1,7 @@
 #ifndef __LEGONAVCONTROLLER_H
 #define __LEGONAVCONTROLLER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxcore.h"
 #include "mxtypes.h"
 

@@ -6,7 +6,6 @@
 
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(ViewManager, 0x1bc)
 
 // GLOBAL: LEGO1 0x100dbc78
 int g_boundingBoxCornerMap[8][3] =

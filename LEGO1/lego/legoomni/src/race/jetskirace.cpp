@@ -32,7 +32,6 @@ extern const char* g_varJSWNSHY5;
 // Defined in legopathactor.cpp
 extern const char* g_strHIT_WALL_SOUND;
 
-DECOMP_SIZE_ASSERT(JetskiRace, 0x144)
 
 // GLOBAL: LEGO1 0x100f0c78
 MxS32 JetskiRace::g_unk0x100f0c78 = 2;

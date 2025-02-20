@@ -5,10 +5,6 @@
 #include "mxdirectx/mxdirect3d.h"
 #include "tgl/d3drm/impl.h"
 
-DECOMP_SIZE_ASSERT(LegoContainerInfo<LegoTexture>, 0x10);
-// DECOMP_SIZE_ASSERT(LegoContainer<LegoTexture>, 0x18);
-DECOMP_SIZE_ASSERT(LegoTextureContainer, 0x24);
-
 // FUNCTION: LEGO1 0x10099870
 LegoTextureContainer::~LegoTextureContainer() {
 }

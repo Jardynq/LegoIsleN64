@@ -19,8 +19,6 @@
 #include <stdio.h>
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(LegoPlantManager, 0x2c)
-DECOMP_SIZE_ASSERT(LegoPlantManager::AnimEntry, 0x0c)
 
 // GLOBAL: LEGO1 0x100f1660
 const char* g_plantLodNames[4][5] = {

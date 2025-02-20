@@ -1,7 +1,7 @@
 #ifndef LEGOPLANTMANAGER_H
 #define LEGOPLANTMANAGER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "legomain.h"
 #include "mxcore.h"
 

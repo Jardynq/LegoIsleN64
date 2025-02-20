@@ -1,7 +1,7 @@
 #ifndef MXENTITY_H
 #define MXENTITY_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxatom.h"
 #include "mxcore.h"
 #include "mxdsaction.h"

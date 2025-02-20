@@ -3,8 +3,7 @@
 
 // ROI stands for Real-time Object Instance.
 
-#include "compat.h"
-#include "decomp.h"
+#include "utils.h"
 #include "lodlist.h"
 #include "mxgeometry/mxgeometry3d.h"
 #include "mxstl/stlcompat.h"

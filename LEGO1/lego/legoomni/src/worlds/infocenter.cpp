@@ -31,9 +31,6 @@
 #include "sndanim_actions.h"
 #include "viewmanager/viewmanager.h"
 
-DECOMP_SIZE_ASSERT(Infocenter, 0x1d8)
-DECOMP_SIZE_ASSERT(InfocenterMapEntry, 0x18)
-DECOMP_SIZE_ASSERT(InfocenterState, 0x94)
 
 // GLOBAL: LEGO1 0x100f76a0
 const char* g_object2x4red = "2x4red";

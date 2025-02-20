@@ -1,7 +1,7 @@
 #ifndef LEGOTRANINFO_H
 #define LEGOTRANINFO_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxgeometry/mxmatrix.h"
 #include "mxtypes.h"
 

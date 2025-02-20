@@ -1,7 +1,6 @@
 #ifndef MXDEBUG_H
 #define MXDEBUG_H
 
-#include "compat.h"
 
 #ifdef _DEBUG
 

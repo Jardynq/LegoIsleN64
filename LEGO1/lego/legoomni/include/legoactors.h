@@ -1,7 +1,7 @@
 #ifndef LEGOACTORS_H
 #define LEGOACTORS_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxtypes.h"
 
 class LegoExtraActor;

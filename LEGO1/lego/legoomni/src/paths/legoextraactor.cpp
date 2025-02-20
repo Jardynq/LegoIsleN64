@@ -9,7 +9,6 @@
 #include "mxmisc.h"
 #include "mxtimer.h"
 
-DECOMP_SIZE_ASSERT(LegoExtraActor, 0x1dc)
 
 // GLOBAL: LEGO1 0x100f31d0
 LegoWorld* g_unk0x100f31d0 = NULL;

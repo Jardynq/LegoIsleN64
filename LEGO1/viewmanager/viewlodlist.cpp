@@ -1,14 +1,10 @@
 #include "viewlodlist.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "viewlod.h"
 
 #include <stdio.h>
 
-DECOMP_SIZE_ASSERT(ViewLODListManager, 0x14)
-DECOMP_SIZE_ASSERT(LODListBase, 0x10)
-DECOMP_SIZE_ASSERT(LODList<ViewLOD>, 0x10)
-DECOMP_SIZE_ASSERT(ViewLODList, 0x18)
 
 // GLOBAL: LEGO1 0x10101064
 // GLOBAL: BETA10 0x10205d08

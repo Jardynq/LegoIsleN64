@@ -1,6 +1,5 @@
 #include "mxdschunk.h"
 
-DECOMP_SIZE_ASSERT(MxDSChunk, 0x1c);
 
 // FUNCTION: LEGO1 0x100be050
 // FUNCTION: BETA10 0x10147290

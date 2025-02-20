@@ -1,7 +1,7 @@
 #ifndef MXDSACTIONLIST_H
 #define MXDSACTIONLIST_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxdsaction.h"
 #include "mxlist.h"
 

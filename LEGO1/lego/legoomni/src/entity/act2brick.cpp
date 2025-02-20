@@ -16,7 +16,6 @@
 #include <stdio.h>
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(Act2Brick, 0x194)
 
 // GLOBAL: LEGO1 0x100f7a38
 // GLOBAL: BETA10 0x101dc480

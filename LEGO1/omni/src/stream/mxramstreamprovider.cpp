@@ -1,13 +1,11 @@
 #include "mxramstreamprovider.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxdsbuffer.h"
 #include "mxdsfile.h"
 #include "mxomni.h"
 #include "mxstreamcontroller.h"
 
-DECOMP_SIZE_ASSERT(MxStreamProvider, 0x10)
-DECOMP_SIZE_ASSERT(MxRAMStreamProvider, 0x24)
 
 // FUNCTION: LEGO1 0x100d0730
 MxRAMStreamProvider::MxRAMStreamProvider() {

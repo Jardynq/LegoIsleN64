@@ -2,8 +2,6 @@
 
 #include <stdlib.h>
 
-DECOMP_SIZE_ASSERT(LegoState, 0x08)
-DECOMP_SIZE_ASSERT(LegoState::Playlist, 0x0c)
 
 // FUNCTION: LEGO1 0x10014d00
 MxU32 LegoState::Playlist::Next() {

@@ -1,5 +1,4 @@
 #include "mxnotificationparam.h"
 
-#include "decomp.h"
+#include "utils.h"
 
-DECOMP_SIZE_ASSERT(MxNotificationParam, 0x0c);

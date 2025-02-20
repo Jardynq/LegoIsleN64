@@ -1,7 +1,6 @@
 #ifndef STLCOMPAT_H
 #define STLCOMPAT_H
 
-#include "compat.h"
 
 #if defined(_MSC_VER) && _MSC_VER <= MSVC420_VERSION
 // Disable "nonstandard extension used : 'bool'" warning spam

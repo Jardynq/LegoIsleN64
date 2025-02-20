@@ -3,7 +3,6 @@
 #include "mxdebug.h"
 #include "mxutilities.h"
 
-DECOMP_SIZE_ASSERT(MxDSMediaAction, 0xb8)
 
 // FUNCTION: LEGO1 0x100c8b40
 // FUNCTION: BETA10 0x1015c760

@@ -1,12 +1,11 @@
 #include "mxsmkpresenter.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxdsmediaaction.h"
 #include "mxmisc.h"
 #include "mxpalette.h"
 #include "mxvideomanager.h"
 
-DECOMP_SIZE_ASSERT(MxSmkPresenter, 0x720);
 
 // FUNCTION: LEGO1 0x100b3650
 MxSmkPresenter::MxSmkPresenter() {

@@ -1,7 +1,6 @@
 #ifndef MXNOTIFICATIONPARAM_H
 #define MXNOTIFICATIONPARAM_H
 
-#include "compat.h"
 #include "mxparam.h"
 #include "mxtypes.h"
 

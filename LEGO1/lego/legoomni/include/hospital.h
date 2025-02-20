@@ -2,7 +2,7 @@
 #define HOSPITAL_H
 
 #include "actionsfwd.h"
-#include "decomp.h"
+#include "utils.h"
 #include "legogamestate.h"
 #include "legostate.h"
 #include "legoworld.h"

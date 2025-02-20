@@ -1,6 +1,5 @@
 #include "legophoneme.h"
 
-DECOMP_SIZE_ASSERT(LegoPhoneme, 0x20)
 
 // FUNCTION: LEGO1 0x10044e50
 LegoPhoneme::~LegoPhoneme() {

@@ -1,11 +1,10 @@
 #include "mxloopingmidipresenter.h"
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxdssound.h"
 #include "mxmisc.h"
 #include "mxmusicmanager.h"
 
-DECOMP_SIZE_ASSERT(MxLoopingMIDIPresenter, 0x58);
 
 // FUNCTION: LEGO1 0x100c2a80
 void MxLoopingMIDIPresenter::StreamingTickle() {

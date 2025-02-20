@@ -1,7 +1,7 @@
 #ifndef LEGORACE_H
 #define LEGORACE_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "legogamestate.h"
 #include "legoraceactor.h"
 #include "legoracemap.h"

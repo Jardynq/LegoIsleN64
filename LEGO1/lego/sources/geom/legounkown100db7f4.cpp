@@ -1,6 +1,5 @@
 #include "legounkown100db7f4.h"
 
-DECOMP_SIZE_ASSERT(LegoUnknown100db7f4, 0x40)
 
 // FUNCTION: LEGO1 0x1009a630
 // FUNCTION: BETA10 0x10183050

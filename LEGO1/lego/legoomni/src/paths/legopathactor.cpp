@@ -19,8 +19,6 @@
 #include <mxdebug.h>
 #include <vec.h>
 
-DECOMP_SIZE_ASSERT(LegoPathActor, 0x154)
-DECOMP_SIZE_ASSERT(LegoPathEdgeContainer, 0x3c)
 
 #ifndef M_PI
 #define M_PI 3.1416

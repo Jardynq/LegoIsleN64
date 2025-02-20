@@ -7,10 +7,6 @@
 #include "misc.h"
 #include "roi/legoroi.h"
 
-DECOMP_SIZE_ASSERT(VisibilityVariable, 0x24)
-DECOMP_SIZE_ASSERT(CameraLocationVariable, 0x24)
-DECOMP_SIZE_ASSERT(CursorVariable, 0x24)
-DECOMP_SIZE_ASSERT(WhoAmIVariable, 0x24)
 
 // GLOBAL: LEGO1 0x100f7ab0
 // STRING: LEGO1 0x100f09c0

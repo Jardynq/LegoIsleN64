@@ -7,10 +7,6 @@
 #include "shape/legomesh.h"
 #include "tgl/d3drm/impl.h"
 
-DECOMP_SIZE_ASSERT(LODObject, 0x04)
-DECOMP_SIZE_ASSERT(ViewLOD, 0x0c)
-DECOMP_SIZE_ASSERT(LegoLOD, 0x20)
-DECOMP_SIZE_ASSERT(LegoLOD::Mesh, 0x08)
 
 // GLOBAL: LEGO1 0x101013d4
 LPDIRECT3DRMMATERIAL g_unk0x101013d4 = NULL;

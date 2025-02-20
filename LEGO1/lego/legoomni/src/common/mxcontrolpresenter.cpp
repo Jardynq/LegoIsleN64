@@ -9,7 +9,6 @@
 #include "mxutilities.h"
 #include "mxvideopresenter.h"
 
-DECOMP_SIZE_ASSERT(MxControlPresenter, 0x5c)
 
 // FUNCTION: LEGO1 0x10043f50
 MxControlPresenter::MxControlPresenter() {

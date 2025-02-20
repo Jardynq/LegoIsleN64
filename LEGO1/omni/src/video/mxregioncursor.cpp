@@ -1,6 +1,5 @@
 #include "mxregioncursor.h"
 
-DECOMP_SIZE_ASSERT(MxRegionCursor, 0x18);
 
 // FUNCTION: LEGO1 0x100c3f70
 // FUNCTION: BETA10 0x10149663

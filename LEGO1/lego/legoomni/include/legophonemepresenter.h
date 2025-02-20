@@ -1,7 +1,7 @@
 #ifndef LEGOPHONEMEPRESENTER_H
 #define LEGOPHONEMEPRESENTER_H
 
-#include "decomp.h"
+#include "utils.h"
 #include "mxflcpresenter.h"
 #include "mxstring.h"
 #include "mxtypes.h"

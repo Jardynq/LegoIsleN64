@@ -12,8 +12,6 @@
 
 // File name verified by BETA10 0x100cedf7
 
-DECOMP_SIZE_ASSERT(LegoCarRaceActor, 0x1a0)
-DECOMP_SIZE_ASSERT(LegoJetskiRaceActor, 0x1a8)
 
 // GLOBAL: LEGO1 0x100f0c68
 // STRING: LEGO1 0x100f0c5c
