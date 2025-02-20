@@ -403,7 +403,6 @@ if(ISLE_BUILD_LEGO1)
     lego1/lego/legoomni/src/worlds/historybook.cpp
     lego1/lego/legoomni/src/common/legocharactermanager.cpp
     lego1/lego/legoomni/src/actors/jukeboxentity.cpp
-    lego1/main.cpp
     lego1/lego/legoomni/src/entity/legolocations.cpp
     lego1/lego/legoomni/src/common/legoactors.cpp
     lego1/lego/legoomni/src/common/legoplants.cpp
