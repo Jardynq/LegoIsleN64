@@ -59,8 +59,7 @@ JukeboxScript::Script g_unk0x100f3268[] = {
 };
 
 // FUNCTION: LEGO1 0x1002c850
-Radio::Radio()
-{
+Radio::Radio() {
 	NotificationManager()->Register(this);
 	ControlManager()->Register(this);
 
@@ -69,8 +68,7 @@ Radio::Radio()
 }
 
 // FUNCTION: LEGO1 0x1002c990
-Radio::~Radio()
-{
+Radio::~Radio() {
 	if (m_state->IsActive()) {
 		BackgroundAudioManager()->Stop();
 		m_state->SetActive(FALSE);
@@ -82,18 +80,17 @@ Radio::~Radio()
 
 // FUNCTION: LEGO1 0x1002ca30
 // FUNCTION: BETA10 0x100f19e8
-MxLong Radio::Notify(MxParam& p_param)
-{
+MxLong Radio::Notify(MxParam& p_param) {
 	MxLong result = 0;
 
 	if (m_unk0x0c) {
-		MxNotificationParam& param = (MxNotificationParam&) p_param;
+		MxNotificationParam& param = (MxNotificationParam&)p_param;
 		switch (param.GetNotification()) {
 		case c_notificationEndAction:
-			result = HandleEndAction((MxEndActionNotificationParam&) p_param);
+			result = HandleEndAction((MxEndActionNotificationParam&)p_param);
 			break;
 		case c_notificationControl:
-			result = HandleControl((LegoControlManagerNotificationParam&) p_param);
+			result = HandleControl((LegoControlManagerNotificationParam&)p_param);
 			break;
 		}
 	}
@@ -102,8 +99,7 @@ MxLong Radio::Notify(MxParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x1002ca70
-void Radio::Play()
-{
+void Radio::Play() {
 	if (!m_state->IsActive()) {
 		CurrentWorld();
 
@@ -123,12 +119,11 @@ void Radio::Play()
 }
 
 // FUNCTION: LEGO1 0x1002cb70
-void Radio::Stop()
-{
+void Radio::Stop() {
 	if (m_state->IsActive()) {
 		LegoWorld* world = CurrentWorld();
 
-		MxControlPresenter* presenter = (MxControlPresenter*) world->Find(world->GetAtomId(), IsleScript::c_Radio_Ctl);
+		MxControlPresenter* presenter = (MxControlPresenter*)world->Find(world->GetAtomId(), IsleScript::c_Radio_Ctl);
 
 		if (presenter) {
 			presenter->VTable0x6c(0);
@@ -141,8 +136,7 @@ void Radio::Stop()
 }
 
 // FUNCTION: LEGO1 0x1002cbc0
-MxLong Radio::HandleControl(LegoControlManagerNotificationParam& p_param)
-{
+MxLong Radio::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxDSAction action; // Unused
 	MxS32 objectId = p_param.GetClickedObjectId();
 
@@ -155,12 +149,8 @@ MxLong Radio::HandleControl(LegoControlManagerNotificationParam& p_param)
 		}
 
 		if (CurrentWorld()) {
-#ifdef COMPAT_MODE
 			MxNotificationParam param(c_notificationType0, this);
 			CurrentWorld()->Notify(param);
-#else
-			CurrentWorld()->Notify(MxNotificationParam(c_notificationType0, this));
-#endif
 		}
 
 		return 1;
@@ -170,8 +160,7 @@ MxLong Radio::HandleControl(LegoControlManagerNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x1002ccc0
-MxLong Radio::HandleEndAction(MxEndActionNotificationParam& p_param)
-{
+MxLong Radio::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	if (m_state->IsActive() &&
 		m_state->FUN_1002d0c0(p_param.GetAction()->GetAtomId(), p_param.GetAction()->GetObjectId())) {
 
@@ -188,8 +177,7 @@ MxLong Radio::HandleEndAction(MxEndActionNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x1002cdc0
-void Radio::Initialize(MxBool p_und)
-{
+void Radio::Initialize(MxBool p_und) {
 	if (m_unk0x0c != p_und) {
 		m_unk0x0c = p_und;
 		CreateState();
@@ -197,12 +185,11 @@ void Radio::Initialize(MxBool p_und)
 }
 
 // FUNCTION: LEGO1 0x1002cde0
-void Radio::CreateState()
-{
+void Radio::CreateState() {
 	LegoGameState* gameState = GameState();
-	RadioState* state = (RadioState*) gameState->GetState("RadioState");
+	RadioState* state = (RadioState*)gameState->GetState("RadioState");
 	if (state == NULL) {
-		state = (RadioState*) gameState->CreateState("RadioState");
+		state = (RadioState*)gameState->CreateState("RadioState");
 	}
 
 	m_state = state;
@@ -210,28 +197,26 @@ void Radio::CreateState()
 
 // FUNCTION: LEGO1 0x1002ce10
 // FUNCTION: BETA10 0x100f20f6
-RadioState::RadioState()
-{
+RadioState::RadioState() {
 	srand(Timer()->GetTime());
 
 	MxS32 random = rand();
 	m_unk0x2c = random % 3;
 
-	m_unk0x08[0] = Playlist((MxU32*) g_unk0x100f3218, sizeOfArray(g_unk0x100f3218), Playlist::e_loop);
+	m_unk0x08[0] = Playlist((MxU32*)g_unk0x100f3218, sizeOfArray(g_unk0x100f3218), Playlist::e_loop);
 	m_unk0x08[0].m_nextIndex = (rand() % sizeOfArray(g_unk0x100f3218));
 
-	m_unk0x08[1] = Playlist((MxU32*) g_unk0x100f3230, sizeOfArray(g_unk0x100f3230), Playlist::e_loop);
+	m_unk0x08[1] = Playlist((MxU32*)g_unk0x100f3230, sizeOfArray(g_unk0x100f3230), Playlist::e_loop);
 	m_unk0x08[1].m_nextIndex = (rand() % sizeOfArray(g_unk0x100f3230));
 
-	m_unk0x08[2] = Playlist((MxU32*) g_unk0x100f3268, sizeOfArray(g_unk0x100f3268), Playlist::e_loop);
+	m_unk0x08[2] = Playlist((MxU32*)g_unk0x100f3268, sizeOfArray(g_unk0x100f3268), Playlist::e_loop);
 	m_unk0x08[2].m_nextIndex = (rand() % sizeOfArray(g_unk0x100f3268));
 
 	m_active = FALSE;
 }
 
 // FUNCTION: LEGO1 0x1002d090
-MxU32 RadioState::FUN_1002d090()
-{
+MxU32 RadioState::FUN_1002d090() {
 	if (m_unk0x2c == 2) {
 		m_unk0x2c = 0;
 	}
@@ -243,8 +228,7 @@ MxU32 RadioState::FUN_1002d090()
 }
 
 // FUNCTION: LEGO1 0x1002d0c0
-MxBool RadioState::FUN_1002d0c0(const MxAtomId& p_atom, MxU32 p_objectId)
-{
+MxBool RadioState::FUN_1002d0c0(const MxAtomId& p_atom, MxU32 p_objectId) {
 	if (*g_jukeboxScript == p_atom) {
 		for (MxS16 i = 0; i < 3; i++) {
 			if (m_unk0x08[i].Contains(p_objectId)) {

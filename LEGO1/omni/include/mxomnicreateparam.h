@@ -13,7 +13,6 @@
 class MxOmniCreateParam : public MxParam {
 public:
 	MxOmniCreateParam(
-		const char* p_mediaPath,
 		struct HWND__* p_windowHandle,
 		MxVideoParam& p_vparam,
 		MxOmniCreateFlags p_flags
@@ -22,7 +21,6 @@ public:
 	// FUNCTION: BETA10 0x10092cb0
 	MxOmniCreateFlags& CreateFlags() { return this->m_createFlags; }
 
-	const MxString& GetMediaPath() const { return m_mediaPath; }
 	const HWND GetWindowHandle() const { return m_windowHandle; }
 	MxVideoParam& GetVideoParam() { return m_videoParam; }
 	const MxVideoParam& GetVideoParam() const { return m_videoParam; }
@@ -32,7 +30,6 @@ public:
 	// MxOmniCreateParam::`scalar deleting destructor'
 
 private:
-	MxString m_mediaPath;            // 0x04
 	HWND m_windowHandle;             // 0x14
 	MxVideoParam m_videoParam;       // 0x18
 	MxOmniCreateFlags m_createFlags; // 0x3c

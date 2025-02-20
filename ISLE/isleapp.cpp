@@ -101,15 +101,9 @@ IsleApp::IsleApp() {
 	m_frameDelta = 10;
 	m_windowActive = TRUE;
 
-#ifdef COMPAT_MODE
-	{
-		MxRect32 r(0, 0, 639, 479);
-		MxVideoParamFlags flags;
-		m_videoParam = MxVideoParam(r, NULL, 1, flags);
-	}
-#else
-	m_videoParam = MxVideoParam(MxRect32(0, 0, 639, 479), NULL, 1, MxVideoParamFlags());
-#endif
+	MxRect32 r(0, 0, 639, 479);
+	MxVideoParamFlags flags;
+	m_videoParam = MxVideoParam(r, NULL, 1, flags);
 	m_videoParam.Flags().Set16Bit(MxDirectDraw::GetPrimaryBitDepth() == 16);
 
 	m_windowHandle = NULL;
@@ -176,20 +170,10 @@ void IsleApp::Close() {
 // FUNCTION: ISLE 0x4013b0
 BOOL IsleApp::SetupLegoOmni() {
 	BOOL result = FALSE;
-	char mediaPath[256];
-	GetProfileStringA("LEGO Island", "MediaPath", "", mediaPath, sizeof(mediaPath));
 
-#ifdef COMPAT_MODE
 	BOOL failure;
-	{
-		MxOmniCreateParam param(mediaPath, (struct HWND__*)m_windowHandle, m_videoParam, MxOmniCreateFlags());
-		failure = Lego()->Create(param) == FAILURE;
-	}
-#else
-	BOOL failure =
-		Lego()->Create(MxOmniCreateParam(mediaPath, (struct HWND__*)m_windowHandle, m_videoParam, MxOmniCreateFlags())
-		) == FAILURE;
-#endif
+	MxOmniCreateParam param((struct HWND__*)m_windowHandle, m_videoParam, MxOmniCreateFlags());
+	failure = Lego()->Create(param) == FAILURE;
 
 	if (!failure) {
 		VariableTable()->SetVariable("ACTOR_01", "");

@@ -3,10 +3,6 @@
 
 // Various macros to enable compiling with other/newer compilers.
 
-#if defined(__MINGW32__) || (defined(_MSC_VER) && _MSC_VER >= 1100)
-#define COMPAT_MODE
-#endif
-
 // Disable "identifier was truncated to '255' characters" warning.
 // Impossible to avoid this if using STL map or set.
 // This removes most (but not all) occurrences of the warning.

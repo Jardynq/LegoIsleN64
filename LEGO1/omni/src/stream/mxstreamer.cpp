@@ -18,15 +18,13 @@ DECOMP_SIZE_ASSERT(MxBitset<2>, 0x04);
 
 // FUNCTION: LEGO1 0x100b8f00
 // FUNCTION: BETA10 0x10145150
-MxStreamer::MxStreamer()
-{
+MxStreamer::MxStreamer() {
 	NotificationManager()->Register(this);
 }
 
 // FUNCTION: LEGO1 0x100b9190
 // FUNCTION: BETA10 0x10145220
-MxResult MxStreamer::Create()
-{
+MxResult MxStreamer::Create() {
 	if (m_pool64.Allocate() || m_pool128.Allocate()) {
 		return FAILURE;
 	}
@@ -36,19 +34,12 @@ MxResult MxStreamer::Create()
 
 // FUNCTION: LEGO1 0x100b91d0
 // FUNCTION: BETA10 0x10145268
-MxStreamer::~MxStreamer()
-{
+MxStreamer::~MxStreamer() {
 	while (!m_controllers.empty()) {
 		MxStreamController* controller = m_controllers.front();
 
-#ifdef COMPAT_MODE
-		{
-			MxDSAction action;
-			assert(controller->IsStoped(&action));
-		}
-#else
-		assert(controller->IsStoped(&MxDSAction()));
-#endif
+		MxDSAction action;
+		assert(controller->IsStoped(&action));
 
 		m_controllers.pop_front();
 		delete controller;
@@ -59,8 +50,7 @@ MxStreamer::~MxStreamer()
 
 // FUNCTION: LEGO1 0x100b92c0
 // FUNCTION: BETA10 0x1014542d
-MxStreamController* MxStreamer::Open(const char* p_name, MxU16 p_lookupType)
-{
+MxStreamController* MxStreamer::Open(const char* p_name, MxU16 p_lookupType) {
 	MxTrace("Open %s as %s controller\n", p_name, !p_lookupType ? "disk" : "RAM");
 	MxTrace("Heap before: %d\n", DebugHeapState());
 
@@ -95,8 +85,7 @@ done:
 
 // FUNCTION: LEGO1 0x100b9570
 // FUNCTION: BETA10 0x10145638
-MxLong MxStreamer::Close(const char* p_name)
-{
+MxLong MxStreamer::Close(const char* p_name) {
 	MxDSAction ds;
 	ds.SetUnknown24(-2);
 
@@ -122,15 +111,13 @@ MxLong MxStreamer::Close(const char* p_name)
 
 // FUNCTION: LEGO1 0x100b9700
 // FUNCTION: BETA10 0x10146ed0
-MxNotificationParam* MxStreamerNotification::Clone() const
-{
+MxNotificationParam* MxStreamerNotification::Clone() const {
 	return new MxStreamerNotification(m_type, m_sender, m_controller);
 }
 
 // FUNCTION: LEGO1 0x100b9870
 // FUNCTION: BETA10 0x1014584b
-MxStreamController* MxStreamer::GetOpenStream(const char* p_name)
-{
+MxStreamController* MxStreamer::GetOpenStream(const char* p_name) {
 	for (list<MxStreamController*>::iterator it = m_controllers.begin(); it != m_controllers.end(); it++) {
 		if ((*it)->GetAtom() == p_name) {
 			return *it;
@@ -141,18 +128,16 @@ MxStreamController* MxStreamer::GetOpenStream(const char* p_name)
 }
 
 // FUNCTION: LEGO1 0x100b98f0
-void MxStreamer::FUN_100b98f0(MxDSAction* p_action)
-{
+void MxStreamer::FUN_100b98f0(MxDSAction* p_action) {
 	MxStreamController* controller = GetOpenStream(p_action->GetAtomId().GetInternal());
 	if (controller && controller->IsA("MxDiskStreamController")) {
-		((MxDiskStreamController*) controller)->FUN_100c8120(p_action);
+		((MxDiskStreamController*)controller)->FUN_100c8120(p_action);
 	}
 }
 
 // FUNCTION: LEGO1 0x100b9930
 // FUNCTION: BETA10 0x101458e5
-MxResult MxStreamer::AddStreamControllerToOpenList(MxStreamController* p_stream)
-{
+MxResult MxStreamer::AddStreamControllerToOpenList(MxStreamController* p_stream) {
 	list<MxStreamController*>::iterator i = find(m_controllers.begin(), m_controllers.end(), p_stream);
 
 	assert(i == m_controllers.end());
@@ -168,8 +153,7 @@ MxResult MxStreamer::AddStreamControllerToOpenList(MxStreamController* p_stream)
 
 // FUNCTION: LEGO1 0x100b99b0
 // FUNCTION: BETA10 0x101459ad
-MxResult MxStreamer::FUN_100b99b0(MxDSAction* p_action)
-{
+MxResult MxStreamer::FUN_100b99b0(MxDSAction* p_action) {
 	// TODO: MxAtomId operator== used here for NULL test. BETA10 0x1007dc20
 	if (p_action == NULL || p_action->GetAtomId().GetInternal() == NULL || p_action->GetObjectId() == -1) {
 		return FAILURE;
@@ -185,8 +169,7 @@ MxResult MxStreamer::FUN_100b99b0(MxDSAction* p_action)
 
 // FUNCTION: LEGO1 0x100b99f0
 // FUNCTION: BETA10 0x10145a54
-MxResult MxStreamer::DeleteObject(MxDSAction* p_dsAction)
-{
+MxResult MxStreamer::DeleteObject(MxDSAction* p_dsAction) {
 	MxDSAction tempAction;
 
 	if (p_dsAction) {
@@ -212,8 +195,7 @@ MxResult MxStreamer::DeleteObject(MxDSAction* p_dsAction)
 
 // FUNCTION: LEGO1 0x100b9b30
 // FUNCTION: BETA10 0x10145d01
-MxBool MxStreamer::FUN_100b9b30(MxDSObject& p_dsObject)
-{
+MxBool MxStreamer::FUN_100b9b30(MxDSObject& p_dsObject) {
 	MxStreamController* controller = GetOpenStream(p_dsObject.GetAtomId().GetInternal());
 	if (controller) {
 		return controller->IsStoped(&p_dsObject);
@@ -223,8 +205,7 @@ MxBool MxStreamer::FUN_100b9b30(MxDSObject& p_dsObject)
 
 // FUNCTION: LEGO1 0x100b9b60
 // FUNCTION: BETA10 0x10145d51
-MxLong MxStreamer::Notify(MxParam& p_param)
-{
+MxLong MxStreamer::Notify(MxParam& p_param) {
 	MxStreamerNotification& s = static_cast<MxStreamerNotification&>(p_param);
 
 	switch (s.GetNotification()) {

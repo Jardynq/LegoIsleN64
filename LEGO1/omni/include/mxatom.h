@@ -68,11 +68,9 @@ public:
 	// FUNCTION: BETA10 0x100178d0
 	MxBool operator==(const MxAtomId& p_atomId) const { return this->m_internal == p_atomId.m_internal; }
 
-#ifdef COMPAT_MODE
 	// Required for modern compilers.
 	// MSVC 4.20 uses a synthetic function from INCLUDE/UTILITY that inverts operator==
 	MxBool operator!=(const MxAtomId& p_atomId) const { return this->m_internal != p_atomId.m_internal; }
-#endif
 
 	// TODO:
 	// BETA10 0x1007dc20 operator==

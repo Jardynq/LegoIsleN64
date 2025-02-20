@@ -12,8 +12,7 @@ DECOMP_SIZE_ASSERT(MxAtomSet, 0x10);
 
 // FUNCTION: LEGO1 0x100acf90
 // FUNCTION: BETA10 0x1012308b
-MxAtomId::MxAtomId(const char* p_str, LookupMode p_mode)
-{
+MxAtomId::MxAtomId(const char* p_str, LookupMode p_mode) {
 	if (!MxOmni::GetInstance()) {
 		return;
 	}
@@ -29,15 +28,13 @@ MxAtomId::MxAtomId(const char* p_str, LookupMode p_mode)
 
 // FUNCTION: LEGO1 0x100acfd0
 // FUNCTION: BETA10 0x10123130
-MxAtomId::~MxAtomId()
-{
+MxAtomId::~MxAtomId() {
 	Destroy();
 }
 
 // FUNCTION: LEGO1 0x100acfe0
 // FUNCTION: BETA10 0x101231a6
-void MxAtomId::Destroy()
-{
+void MxAtomId::Destroy() {
 	if (!m_internal) {
 		return;
 	}
@@ -50,25 +47,20 @@ void MxAtomId::Destroy()
 		return;
 	}
 
-#ifdef COMPAT_MODE
 	MxAtomSet::iterator it;
 	{
 		MxAtom idAtom(m_internal);
 		it = AtomSet()->find(&idAtom);
 	}
-#else
-	MxAtomSet::iterator it = AtomSet()->find(&MxAtom(m_internal));
-#endif
 	assert(it != AtomSet()->end());
 
-	MxAtom* atom = (MxAtom*) (*it);
+	MxAtom* atom = (MxAtom*)(*it);
 	atom->Dec();
 }
 
 // FUNCTION: LEGO1 0x100ad1c0
 // FUNCTION: BETA10 0x101232b9
-MxAtomId& MxAtomId::operator=(const MxAtomId& p_atomId)
-{
+MxAtomId& MxAtomId::operator=(const MxAtomId& p_atomId) {
 	if (m_internal) {
 		Destroy();
 	}
@@ -85,8 +77,7 @@ MxAtomId& MxAtomId::operator=(const MxAtomId& p_atomId)
 
 // FUNCTION: LEGO1 0x100ad210
 // FUNCTION: BETA10 0x10123378
-MxAtom* MxAtomId::GetAtom(const char* p_str, LookupMode p_mode)
-{
+MxAtom* MxAtomId::GetAtom(const char* p_str, LookupMode p_mode) {
 	MxAtomId unused;
 	MxAtom* atom = new MxAtom(p_str);
 	assert(atom);
@@ -119,8 +110,7 @@ MxAtom* MxAtomId::GetAtom(const char* p_str, LookupMode p_mode)
 
 // FUNCTION: LEGO1 0x100ad7e0
 // FUNCTION: BETA10 0x100553e0
-void MxAtomId::Clear()
-{
+void MxAtomId::Clear() {
 	// Reset but do not delete MxAtomId object.
 	Destroy();
 	m_internal = NULL;
@@ -128,15 +118,13 @@ void MxAtomId::Clear()
 
 // FUNCTION: LEGO1 0x100ad7f0
 // FUNCTION: BETA10 0x101235d5
-void MxAtom::Inc()
-{
+void MxAtom::Inc() {
 	m_value++;
 }
 
 // FUNCTION: LEGO1 0x100ad800
 // FUNCTION: BETA10 0x1012364a
-void MxAtom::Dec()
-{
+void MxAtom::Dec() {
 	if (m_value) {
 		m_value--;
 	}

@@ -10,13 +10,11 @@ DECOMP_SIZE_ASSERT(LegoContainerInfo<LegoTexture>, 0x10);
 DECOMP_SIZE_ASSERT(LegoTextureContainer, 0x24);
 
 // FUNCTION: LEGO1 0x10099870
-LegoTextureContainer::~LegoTextureContainer()
-{
+LegoTextureContainer::~LegoTextureContainer() {
 }
 
 // FUNCTION: LEGO1 0x100998e0
-LegoTextureInfo* LegoTextureContainer::GetCached(LegoTextureInfo* p_textureInfo)
-{
+LegoTextureInfo* LegoTextureContainer::GetCached(LegoTextureInfo* p_textureInfo) {
 	DDSURFACEDESC desc, newDesc;
 	DWORD width, height;
 	memset(&desc, 0, sizeof(desc));
@@ -84,15 +82,15 @@ LegoTextureInfo* LegoTextureContainer::GetCached(LegoTextureInfo* p_textureInfo)
 			return NULL;
 		}
 		else {
-			if (((TglImpl::RendererImpl*) VideoManager()->GetRenderer())
-					->CreateTextureFromSurface(textureInfo->m_surface, &textureInfo->m_texture) != D3DRM_OK) {
+			if (((TglImpl::RendererImpl*)VideoManager()->GetRenderer())
+				->CreateTextureFromSurface(textureInfo->m_surface, &textureInfo->m_texture) != D3DRM_OK) {
 				textureInfo->m_surface->Release();
 				textureInfo->m_palette->Release();
 				delete textureInfo;
 				return NULL;
 			}
 			else {
-				textureInfo->m_texture->SetAppData((DWORD) textureInfo);
+				textureInfo->m_texture->SetAppData((DWORD)textureInfo);
 				m_cached.push_back(LegoCachedTexture(textureInfo, TRUE));
 
 				textureInfo->m_texture->AddRef();
@@ -112,18 +110,13 @@ LegoTextureInfo* LegoTextureContainer::GetCached(LegoTextureInfo* p_textureInfo)
 }
 
 // FUNCTION: LEGO1 0x10099cc0
-void LegoTextureContainer::EraseCached(LegoTextureInfo* p_textureInfo)
-{
+void LegoTextureContainer::EraseCached(LegoTextureInfo* p_textureInfo) {
 	if (p_textureInfo == NULL) {
 		return;
 	}
 
-#ifdef COMPAT_MODE
 	LegoCachedTextureList::iterator it;
 	for (it = m_cached.begin(); it != m_cached.end(); it++) {
-#else
-	for (LegoCachedTextureList::iterator it = m_cached.begin(); it != m_cached.end(); it++) {
-#endif
 		if ((*it).first == p_textureInfo) {
 			(*it).second = FALSE;
 

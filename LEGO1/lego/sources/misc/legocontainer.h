@@ -13,8 +13,7 @@
 #pragma warning(disable : 4237)
 
 struct LegoContainerInfoComparator {
-	LegoBool operator()(const char* const& p_key0, const char* const& p_key1) const
-	{
+	LegoBool operator()(const char* const& p_key0, const char* const& p_key1) const {
 		return strcmp(p_key0, p_key1) > 0;
 	}
 };
@@ -29,13 +28,8 @@ class LegoContainer {
 public:
 	LegoContainer() { m_ownership = TRUE; }
 
-	virtual ~LegoContainer()
-	{
-#ifdef COMPAT_MODE
+	virtual ~LegoContainer() {
 		typename LegoContainerInfo<T>::iterator it;
-#else
-		LegoContainerInfo<T>::iterator it;
-#endif
 		for (it = m_map.begin(); it != m_map.end(); it++) {
 			// DECOMP: Use of const_cast here matches ~ViewLODListManager from 96 source.
 			const char* const& key = (*it).first;
@@ -47,42 +41,26 @@ public:
 		}
 	}
 
-	void Clear()
-	{
-#ifdef COMPAT_MODE
-		for (typename LegoContainerInfo<T>::iterator it = m_map.begin(); it != m_map.end(); it++)
-#else
-		for (LegoContainerInfo<T>::iterator it = m_map.begin(); it != m_map.end(); it++)
-#endif
-		{
+	void Clear() {
+		for (typename LegoContainerInfo<T>::iterator it = m_map.begin(); it != m_map.end(); it++) {
 			delete (*it).second;
 		}
 	}
 
-	T* Get(const char* p_name)
-	{
+	T* Get(const char* p_name) {
 		T* value = NULL;
 
-#ifdef COMPAT_MODE
 		typename LegoContainerInfo<T>::iterator it = m_map.find(p_name);
-#else
-		LegoContainerInfo<T>::iterator it = m_map.find(p_name);
-#endif
 
 		if (it != m_map.end()) {
 			value = (*it).second;
-		}
-
-		return value;
 	}
 
-	void Add(const char* p_name, T* p_value)
-	{
-#ifdef COMPAT_MODE
+		return value;
+}
+
+	void Add(const char* p_name, T* p_value) {
 		typename LegoContainerInfo<T>::iterator it = m_map.find(p_name);
-#else
-		LegoContainerInfo<T>::iterator it = m_map.find(p_name);
-#endif
 
 		char* name;
 		if (it != m_map.end()) {
@@ -90,8 +68,8 @@ public:
 
 			if (m_ownership) {
 				delete (*it).second;
-			}
 		}
+	}
 		else {
 			name = new char[strlen(p_name) + 1];
 			strcpy(name, p_name);
@@ -105,7 +83,7 @@ public:
 protected:
 	LegoBool m_ownership;       // 0x04
 	LegoContainerInfo<T> m_map; // 0x08
-};
+	};
 
 // VTABLE: LEGO1 0x100d86d4
 // class LegoContainer<LegoTextureInfo>

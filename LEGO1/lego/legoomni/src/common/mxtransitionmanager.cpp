@@ -15,11 +15,10 @@
 DECOMP_SIZE_ASSERT(MxTransitionManager, 0x900)
 
 // GLOBAL: LEGO1 0x100f4378
-RECT g_fullScreenRect = {0, 0, 640, 480};
+RECT g_fullScreenRect = { 0, 0, 640, 480 };
 
 // FUNCTION: LEGO1 0x1004b8d0
-MxTransitionManager::MxTransitionManager()
-{
+MxTransitionManager::MxTransitionManager() {
 	m_animationTimer = 0;
 	m_mode = e_idle;
 	m_ddSurface = NULL;
@@ -31,8 +30,7 @@ MxTransitionManager::MxTransitionManager()
 }
 
 // FUNCTION: LEGO1 0x1004ba00
-MxTransitionManager::~MxTransitionManager()
-{
+MxTransitionManager::~MxTransitionManager() {
 	delete[] m_copyBuffer;
 
 	if (m_waitIndicator != NULL) {
@@ -52,8 +50,7 @@ MxResult MxTransitionManager::GetDDrawSurfaceFromVideoManager() // vtable+0x14
 }
 
 // FUNCTION: LEGO1 0x1004bac0
-MxResult MxTransitionManager::Tickle()
-{
+MxResult MxTransitionManager::Tickle() {
 	MxULong time = m_animationSpeed + m_systemTime;
 	if (time > timeGetTime()) {
 		return SUCCESS;
@@ -91,8 +88,7 @@ MxResult MxTransitionManager::StartTransition(
 	MxS32 p_speed,
 	MxBool p_doCopy,
 	MxBool p_playMusicInAnim
-)
-{
+) {
 	assert(m_mode == e_idle);
 
 	if (m_mode == e_idle) {
@@ -135,8 +131,7 @@ MxResult MxTransitionManager::StartTransition(
 }
 
 // FUNCTION: LEGO1 0x1004bc30
-void MxTransitionManager::EndTransition(MxBool p_notifyWorld)
-{
+void MxTransitionManager::EndTransition(MxBool p_notifyWorld) {
 	if (m_mode != e_idle) {
 		m_mode = e_idle;
 
@@ -148,30 +143,22 @@ void MxTransitionManager::EndTransition(MxBool p_notifyWorld)
 			LegoWorld* world = CurrentWorld();
 
 			if (world) {
-#ifdef COMPAT_MODE
-				{
-					MxNotificationParam param(c_notificationTransitioned, this);
-					world->Notify(param);
-				}
-#else
-				world->Notify(MxNotificationParam(c_notificationTransitioned, this));
-#endif
+				MxNotificationParam param(c_notificationTransitioned, this);
+				world->Notify(param);
 			}
 		}
 	}
 }
 
 // FUNCTION: LEGO1 0x1004bcf0
-void MxTransitionManager::NoTransition()
-{
+void MxTransitionManager::NoTransition() {
 	LegoVideoManager* videoManager = VideoManager();
 	videoManager->GetDisplaySurface()->ClearScreen();
 	EndTransition(TRUE);
 }
 
 // FUNCTION: LEGO1 0x1004bd10
-void MxTransitionManager::DissolveTransition()
-{
+void MxTransitionManager::DissolveTransition() {
 	// If the animation is finished
 	if (m_animationTimer == 40) {
 		m_animationTimer = 0;
@@ -233,12 +220,12 @@ void MxTransitionManager::DissolveTransition()
 
 				// Set the chosen pixel to black
 				if (ddsd.ddpfPixelFormat.dwRGBBitCount == 8) {
-					MxU8* surf = (MxU8*) ddsd.lpSurface + ddsd.lPitch * row + xShift;
+					MxU8* surf = (MxU8*)ddsd.lpSurface + ddsd.lPitch * row + xShift;
 					*surf = 0;
 				}
 				else {
-					MxU8* surf = (MxU8*) ddsd.lpSurface + ddsd.lPitch * row + xShift * 2;
-					*(MxU16*) surf = 0;
+					MxU8* surf = (MxU8*)ddsd.lpSurface + ddsd.lPitch * row + xShift * 2;
+					*(MxU16*)surf = 0;
 				}
 			}
 		}
@@ -256,8 +243,7 @@ void MxTransitionManager::DissolveTransition()
 }
 
 // FUNCTION: LEGO1 0x1004bed0
-void MxTransitionManager::MosaicTransition()
-{
+void MxTransitionManager::MosaicTransition() {
 	if (m_animationTimer == 16) {
 		m_animationTimer = 0;
 		EndTransition(TRUE);
@@ -322,21 +308,21 @@ void MxTransitionManager::MosaicTransition()
 					MxS32 bytesPerPixel = ddsd.ddpfPixelFormat.dwRGBBitCount / 8;
 
 					// Seek to the sample position.
-					MxU8* source = (MxU8*) ddsd.lpSurface + 10 * row * ddsd.lPitch + bytesPerPixel * xShift;
+					MxU8* source = (MxU8*)ddsd.lpSurface + 10 * row * ddsd.lPitch + bytesPerPixel * xShift;
 
 					// Sample byte or word depending on display mode.
-					MxU32 sample = bytesPerPixel == 1 ? *source : *(MxU16*) source;
+					MxU32 sample = bytesPerPixel == 1 ? *source : *(MxU16*)source;
 
 					// For each of the 10 rows in the 10x10 square:
 					for (MxS32 k = 10 * row; k < 10 * row + 10; k++) {
 						if (ddsd.ddpfPixelFormat.dwRGBBitCount == 8) {
 							// Optimization: If the pixel is only one byte, we can use memset
-							MxU8* pos = ((MxU8*) ddsd.lpSurface + k * ddsd.lPitch + xShift);
+							MxU8* pos = ((MxU8*)ddsd.lpSurface + k * ddsd.lPitch + xShift);
 							memset(pos, sample, 10);
 						}
 						else {
 							// Need to double xShift because it measures pixels not bytes
-							MxU16* pos = (MxU16*) ((MxU8*) ddsd.lpSurface + k * ddsd.lPitch + 2 * xShift);
+							MxU16* pos = (MxU16*)((MxU8*)ddsd.lpSurface + k * ddsd.lPitch + 2 * xShift);
 
 							for (MxS32 tt = 0; tt < 10; tt++) {
 								pos[tt] = sample;
@@ -360,8 +346,7 @@ void MxTransitionManager::MosaicTransition()
 }
 
 // FUNCTION: LEGO1 0x1004c170
-void MxTransitionManager::WipeDownTransition()
-{
+void MxTransitionManager::WipeDownTransition() {
 	// If the animation is finished
 	if (m_animationTimer == 240) {
 		m_animationTimer = 0;
@@ -385,7 +370,7 @@ void MxTransitionManager::WipeDownTransition()
 		// For each of the 240 animation ticks, blank out two scanlines
 		// starting at the top of the screen.
 		// (dwRGBBitCount / 8) will tell how many bytes are used per pixel.
-		MxU8* line = (MxU8*) ddsd.lpSurface + 2 * ddsd.lPitch * m_animationTimer;
+		MxU8* line = (MxU8*)ddsd.lpSurface + 2 * ddsd.lPitch * m_animationTimer;
 		memset(line, 0, 640 * ddsd.ddpfPixelFormat.dwRGBBitCount / 8);
 
 		line += ddsd.lPitch;
@@ -399,8 +384,7 @@ void MxTransitionManager::WipeDownTransition()
 }
 
 // FUNCTION: LEGO1 0x1004c270
-void MxTransitionManager::WindowsTransition()
-{
+void MxTransitionManager::WindowsTransition() {
 	if (m_animationTimer == 240) {
 		m_animationTimer = 0;
 		EndTransition(TRUE);
@@ -420,7 +404,7 @@ void MxTransitionManager::WindowsTransition()
 	if (res == DD_OK) {
 		SubmitCopyRect(&ddsd);
 
-		MxU8* line = (MxU8*) ddsd.lpSurface + m_animationTimer * ddsd.lPitch;
+		MxU8* line = (MxU8*)ddsd.lpSurface + m_animationTimer * ddsd.lPitch;
 
 		MxS32 bytesPerPixel = ddsd.ddpfPixelFormat.dwRGBBitCount / 8;
 		MxS32 bytesPerLine = bytesPerPixel * 640;
@@ -445,8 +429,7 @@ void MxTransitionManager::WindowsTransition()
 }
 
 // FUNCTION: LEGO1 0x1004c3e0
-void MxTransitionManager::BrokenTransition()
-{
+void MxTransitionManager::BrokenTransition() {
 	// This function has no actual animation logic.
 	// It also never calls EndTransition to
 	// properly terminate the transition, so
@@ -470,8 +453,7 @@ void MxTransitionManager::BrokenTransition()
 }
 
 // FUNCTION: LEGO1 0x1004c470
-void MxTransitionManager::SetWaitIndicator(MxVideoPresenter* p_waitIndicator)
-{
+void MxTransitionManager::SetWaitIndicator(MxVideoPresenter* p_waitIndicator) {
 	// End current wait indicator
 	if (m_waitIndicator != NULL) {
 		m_waitIndicator->GetAction()->SetFlags(m_waitIndicator->GetAction()->GetFlags() & ~MxDSAction::c_world);
@@ -498,8 +480,7 @@ void MxTransitionManager::SetWaitIndicator(MxVideoPresenter* p_waitIndicator)
 }
 
 // FUNCTION: LEGO1 0x1004c4d0
-void MxTransitionManager::SubmitCopyRect(LPDDSURFACEDESC p_ddsc)
-{
+void MxTransitionManager::SubmitCopyRect(LPDDSURFACEDESC p_ddsc) {
 	// Check if the copy rect is setup
 	if (m_copyFlags.m_bit0 == FALSE || m_waitIndicator == NULL || m_copyBuffer == NULL) {
 		return;
@@ -510,13 +491,13 @@ void MxTransitionManager::SubmitCopyRect(LPDDSURFACEDESC p_ddsc)
 
 	MxU32 bytesPerPixel = p_ddsc->ddpfPixelFormat.dwRGBBitCount / 8;
 
-	const MxU8* src = (const MxU8*) m_copyBuffer;
+	const MxU8* src = (const MxU8*)m_copyBuffer;
 
 	MxS32 copyPitch;
 	copyPitch = ((m_copyRect.right - m_copyRect.left) + 1) * bytesPerPixel;
 
 	MxS32 y;
-	dst = (MxU8*) p_ddsc->lpSurface + (p_ddsc->lPitch * m_copyRect.top) + (bytesPerPixel * m_copyRect.left);
+	dst = (MxU8*)p_ddsc->lpSurface + (p_ddsc->lPitch * m_copyRect.top) + (bytesPerPixel * m_copyRect.left);
 
 	for (y = 0; y < m_copyRect.bottom - m_copyRect.top + 1; ++y) {
 		memcpy(dst, src, copyPitch);
@@ -530,8 +511,7 @@ void MxTransitionManager::SubmitCopyRect(LPDDSURFACEDESC p_ddsc)
 }
 
 // FUNCTION: LEGO1 0x1004c580
-void MxTransitionManager::SetupCopyRect(LPDDSURFACEDESC p_ddsc)
-{
+void MxTransitionManager::SetupCopyRect(LPDDSURFACEDESC p_ddsc) {
 	// Check if the copy rect is setup
 	if (m_copyFlags.m_bit0 == FALSE || m_waitIndicator == NULL) {
 		return;
@@ -544,7 +524,7 @@ void MxTransitionManager::SetupCopyRect(LPDDSURFACEDESC p_ddsc)
 	if (m_waitIndicator->GetCurrentTickleState() >= MxPresenter::e_streaming) {
 		// Setup the copy rect
 		MxU32 copyPitch = (p_ddsc->ddpfPixelFormat.dwRGBBitCount / 8) *
-						  (m_copyRect.right - m_copyRect.left + 1); // This uses m_copyRect, seemingly erroneously
+			(m_copyRect.right - m_copyRect.left + 1); // This uses m_copyRect, seemingly erroneously
 		MxU32 bytesPerPixel = p_ddsc->ddpfPixelFormat.dwRGBBitCount / 8;
 
 		m_copyRect.left = m_waitIndicator->GetLocation().GetX();
@@ -558,7 +538,7 @@ void MxTransitionManager::SetupCopyRect(LPDDSURFACEDESC p_ddsc)
 
 		// Allocate the copy buffer
 		const MxU8* src =
-			(const MxU8*) p_ddsc->lpSurface + m_copyRect.top * p_ddsc->lPitch + bytesPerPixel * m_copyRect.left;
+			(const MxU8*)p_ddsc->lpSurface + m_copyRect.top * p_ddsc->lPitch + bytesPerPixel * m_copyRect.left;
 
 		m_copyBuffer = new MxU8[bytesPerPixel * width * height];
 		if (!m_copyBuffer) {

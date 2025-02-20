@@ -22,8 +22,7 @@ DECOMP_SIZE_ASSERT(MxDSObjectList, 0x0c)
 
 // FUNCTION: LEGO1 0x100bf6a0
 // FUNCTION: BETA10 0x101478c0
-MxDSObject::MxDSObject()
-{
+MxDSObject::MxDSObject() {
 	m_type = e_object;
 	m_sourceName = NULL;
 	m_unk0x14 = 0;
@@ -35,16 +34,14 @@ MxDSObject::MxDSObject()
 
 // FUNCTION: LEGO1 0x100bf7e0
 // FUNCTION: BETA10 0x1014798e
-MxDSObject::~MxDSObject()
-{
+MxDSObject::~MxDSObject() {
 	delete[] m_objectName;
 	delete[] m_sourceName;
 }
 
 // FUNCTION: LEGO1 0x100bf870
 // FUNCTION: BETA10 0x10147a45
-void MxDSObject::CopyFrom(MxDSObject& p_dsObject)
-{
+void MxDSObject::CopyFrom(MxDSObject& p_dsObject) {
 	SetSourceName(p_dsObject.m_sourceName);
 	m_unk0x14 = p_dsObject.m_unk0x14;
 	SetObjectName(p_dsObject.m_objectName);
@@ -55,15 +52,13 @@ void MxDSObject::CopyFrom(MxDSObject& p_dsObject)
 }
 
 // FUNCTION: BETA10 0x10147abf
-MxDSObject::MxDSObject(MxDSObject& p_dsObject)
-{
+MxDSObject::MxDSObject(MxDSObject& p_dsObject) {
 	CopyFrom(p_dsObject);
 }
 
 // FUNCTION: LEGO1 0x100bf8c0
 // FUNCTION: BETA10 0x10147b57
-MxDSObject& MxDSObject::operator=(MxDSObject& p_dsObject)
-{
+MxDSObject& MxDSObject::operator=(MxDSObject& p_dsObject) {
 	if (this == &p_dsObject) {
 		return *this;
 	}
@@ -74,8 +69,7 @@ MxDSObject& MxDSObject::operator=(MxDSObject& p_dsObject)
 
 // FUNCTION: LEGO1 0x100bf8e0
 // FUNCTION: BETA10 0x10147b92
-void MxDSObject::SetObjectName(const char* p_objectName)
-{
+void MxDSObject::SetObjectName(const char* p_objectName) {
 	if (p_objectName == m_objectName) {
 		return;
 	}
@@ -96,8 +90,7 @@ void MxDSObject::SetObjectName(const char* p_objectName)
 
 // FUNCTION: LEGO1 0x100bf950
 // FUNCTION: BETA10 0x10147c2e
-void MxDSObject::SetSourceName(const char* p_sourceName)
-{
+void MxDSObject::SetSourceName(const char* p_sourceName) {
 	if (p_sourceName == m_sourceName) {
 		return;
 	}
@@ -118,16 +111,14 @@ void MxDSObject::SetSourceName(const char* p_sourceName)
 
 // FUNCTION: LEGO1 0x100bf9c0
 // FUNCTION: BETA10 0x10147cca
-undefined4 MxDSObject::VTable0x14()
-{
+undefined4 MxDSObject::VTable0x14() {
 	// DECOMP: Rendered as 8 + 2 in beta. Maybe a sizeof() call?
 	return 10;
 }
 
 // FUNCTION: LEGO1 0x100bf9d0
 // FUNCTION: BETA10 0x10147cee
-MxU32 MxDSObject::GetSizeOnDisk()
-{
+MxU32 MxDSObject::GetSizeOnDisk() {
 	MxU32 sizeOnDisk = 0;
 
 	sizeOnDisk += 2;
@@ -156,18 +147,17 @@ MxU32 MxDSObject::GetSizeOnDisk()
 
 // FUNCTION: LEGO1 0x100bfa20
 // FUNCTION: BETA10 0x10147d73
-void MxDSObject::Deserialize(MxU8*& p_source, MxS16 p_unk0x24)
-{
-	SetSourceName((char*) p_source);
+void MxDSObject::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
+	SetSourceName((char*)p_source);
 	p_source += strlen(m_sourceName) + 1;
 
-	m_unk0x14 = *(undefined4*) p_source;
+	m_unk0x14 = *(undefined4*)p_source;
 	p_source += sizeof(m_unk0x14);
 
-	SetObjectName((char*) p_source);
+	SetObjectName((char*)p_source);
 	p_source += strlen(m_objectName) + 1;
 
-	m_objectId = *(MxU32*) p_source;
+	m_objectId = *(MxU32*)p_source;
 	p_source += sizeof(m_objectId);
 
 	m_unk0x24 = p_unk0x24;
@@ -175,18 +165,13 @@ void MxDSObject::Deserialize(MxU8*& p_source, MxS16 p_unk0x24)
 
 // FUNCTION: LEGO1 0x100bfa80
 // FUNCTION: BETA10 0x10147e02
-MxDSObject* MxDSObjectList::FindInternal(MxDSObject* p_action, MxBool p_delete)
-{
+MxDSObject* MxDSObjectList::FindInternal(MxDSObject* p_action, MxBool p_delete) {
 	// DECOMP ALPHA 0x1008b99d ?
 
 	MxDSObject* found = NULL;
 
-#ifdef COMPAT_MODE
 	iterator it;
 	for (it = begin(); it != end(); it++) {
-#else
-	for (iterator it = begin(); it != end(); it++) {
-#endif
 		if (p_action->GetObjectId() == -1 || p_action->GetObjectId() == (*it)->GetObjectId()) {
 			if (p_action->GetUnknown24() == -2 || p_action->GetUnknown24() == -3 ||
 				p_action->GetUnknown24() == (*it)->GetUnknown24()) {
@@ -207,11 +192,10 @@ MxDSObject* MxDSObjectList::FindInternal(MxDSObject* p_action, MxBool p_delete)
 
 // FUNCTION: LEGO1 0x100bfb30
 // FUNCTION: BETA10 0x10147f35
-MxDSObject* DeserializeDSObjectDispatch(MxU8*& p_source, MxS16 p_flags)
-{
+MxDSObject* DeserializeDSObjectDispatch(MxU8*& p_source, MxS16 p_flags) {
 	MxDSObject* obj = NULL;
 
-	MxU16 type = *(MxU16*) p_source;
+	MxU16 type = *(MxU16*)p_source;
 	p_source += 2;
 
 	switch (type) {
@@ -263,17 +247,16 @@ MxDSObject* DeserializeDSObjectDispatch(MxU8*& p_source, MxS16 p_flags)
 }
 
 // FUNCTION: LEGO1 0x100c0280
-MxDSObject* CreateStreamObject(MxDSFile* p_file, MxS16 p_ofs)
-{
+MxDSObject* CreateStreamObject(MxDSFile* p_file, MxS16 p_ofs) {
 	MxU8* buf;
 	_MMCKINFO tmpChunk;
 
-	if (p_file->Seek(((MxLong*) p_file->GetBuffer())[p_ofs], SEEK_SET)) {
+	if (p_file->Seek(((MxLong*)p_file->GetBuffer())[p_ofs], SEEK_SET)) {
 		return NULL;
 	}
 
-	if (p_file->Read((MxU8*) &tmpChunk.ckid, 8) == 0 && tmpChunk.ckid == FOURCC('M', 'x', 'S', 't')) {
-		if (p_file->Read((MxU8*) &tmpChunk.ckid, 8) == 0 && tmpChunk.ckid == FOURCC('M', 'x', 'O', 'b')) {
+	if (p_file->Read((MxU8*)&tmpChunk.ckid, 8) == 0 && tmpChunk.ckid == FOURCC('M', 'x', 'S', 't')) {
+		if (p_file->Read((MxU8*)&tmpChunk.ckid, 8) == 0 && tmpChunk.ckid == FOURCC('M', 'x', 'O', 'b')) {
 
 			buf = new MxU8[tmpChunk.cksize];
 			if (!buf) {

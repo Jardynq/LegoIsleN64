@@ -31,31 +31,26 @@ MxBool g_use3dSound = FALSE;
 MxOmni* MxOmni::g_instance = NULL;
 
 // FUNCTION: LEGO1 0x100aef10
-MxOmni::MxOmni()
-{
+MxOmni::MxOmni() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x100aefb0
-MxEntity* MxOmni::AddToWorld(const char*, MxS32, MxPresenter*)
-{
+MxEntity* MxOmni::AddToWorld(const char*, MxS32, MxPresenter*) {
 	return NULL;
 }
 
 // FUNCTION: LEGO1 0x100aefc0
-void MxOmni::NotifyCurrentEntity(const MxNotificationParam& p_param)
-{
+void MxOmni::NotifyCurrentEntity(const MxNotificationParam& p_param) {
 }
 
 // FUNCTION: LEGO1 0x100aeff0
-MxOmni::~MxOmni()
-{
+MxOmni::~MxOmni() {
 	Destroy();
 }
 
 // FUNCTION: LEGO1 0x100af080
-void MxOmni::Init()
-{
+void MxOmni::Init() {
 	m_windowHandle = NULL;
 	m_objectFactory = NULL;
 	m_variableTable = NULL;
@@ -72,22 +67,19 @@ void MxOmni::Init()
 }
 
 // FUNCTION: LEGO1 0x100af0b0
-void MxOmni::SetInstance(MxOmni* p_instance)
-{
+void MxOmni::SetInstance(MxOmni* p_instance) {
 	g_instance = p_instance;
 }
 
 // FUNCTION: LEGO1 0x100af0c0
 // FUNCTION: BETA10 0x1012f3ff
-MxResult MxOmni::Create(MxOmniCreateParam& p_param)
-{
+MxResult MxOmni::Create(MxOmniCreateParam& p_param) {
 	MxResult result = FAILURE;
 
 	if (!(m_atomSet = new MxAtomSet())) {
 		goto done;
 	}
 
-	m_mediaPath = p_param.GetMediaPath();
 	m_windowHandle = p_param.GetWindowHandle();
 
 	if (p_param.CreateFlags().CreateObjectFactory()) {
@@ -179,8 +171,7 @@ done:
 
 // FUNCTION: LEGO1 0x100afe90
 // FUNCTION: BETA10 0x1012fe5b
-void MxOmni::Destroy()
-{
+void MxOmni::Destroy() {
 	{
 		MxDSAction action;
 		action.SetObjectId(-1);
@@ -223,8 +214,7 @@ void MxOmni::Destroy()
 }
 
 // FUNCTION: LEGO1 0x100b0090
-MxResult MxOmni::Start(MxDSAction* p_dsAction)
-{
+MxResult MxOmni::Start(MxDSAction* p_dsAction) {
 	MxResult result = FAILURE;
 	if (p_dsAction->GetAtomId().GetInternal() != NULL && p_dsAction->GetObjectId() != -1 && m_streamer != NULL) {
 		result = m_streamer->FUN_100b99b0(p_dsAction);
@@ -234,19 +224,17 @@ MxResult MxOmni::Start(MxDSAction* p_dsAction)
 }
 
 // FUNCTION: LEGO1 0x100b00c0
-void MxOmni::DeleteObject(MxDSAction& p_dsAction)
-{
+void MxOmni::DeleteObject(MxDSAction& p_dsAction) {
 	if (m_streamer != NULL) {
 		m_streamer->DeleteObject(&p_dsAction);
 	}
 }
 
 // FUNCTION: LEGO1 0x100b00e0
-MxResult MxOmni::CreatePresenter(MxStreamController* p_controller, MxDSAction& p_action)
-{
+MxResult MxOmni::CreatePresenter(MxStreamController* p_controller, MxDSAction& p_action) {
 	MxResult result = FAILURE;
 	const char* name = PresenterNameDispatch(p_action);
-	MxPresenter* object = (MxPresenter*) m_objectFactory->Create(name);
+	MxPresenter* object = (MxPresenter*)m_objectFactory->Create(name);
 
 	if (object) {
 		if (object->AddToManager() == SUCCESS) {
@@ -257,7 +245,7 @@ MxResult MxOmni::CreatePresenter(MxStreamController* p_controller, MxDSAction& p
 
 			if (sender) {
 				p_action.SetOrigin(sender);
-				object->SetCompositePresenter((MxCompositePresenter*) sender);
+				object->SetCompositePresenter((MxCompositePresenter*)sender);
 			}
 			else {
 				if (!p_action.GetOrigin()) {
@@ -286,14 +274,12 @@ MxResult MxOmni::CreatePresenter(MxStreamController* p_controller, MxDSAction& p
 }
 
 // FUNCTION: LEGO1 0x100b0680
-MxOmni* MxOmni::GetInstance()
-{
+MxOmni* MxOmni::GetInstance() {
 	return g_instance;
 }
 
 // FUNCTION: LEGO1 0x100b0690
-void MxOmni::DestroyInstance()
-{
+void MxOmni::DestroyInstance() {
 	if (g_instance != NULL) {
 		delete g_instance;
 		g_instance = NULL;
@@ -301,14 +287,13 @@ void MxOmni::DestroyInstance()
 }
 
 // FUNCTION: LEGO1 0x100b06b0
-MxBool MxOmni::ActionSourceEquals(MxDSAction* p_action, const char* p_name)
-{
+MxBool MxOmni::ActionSourceEquals(MxDSAction* p_action, const char* p_name) {
 	if (!strcmp(p_action->GetSourceName(), p_name)) {
 		return TRUE;
 	}
 
 	if (p_action->IsA("MxDSMultiAction")) {
-		MxDSActionListCursor cursor(((MxDSMultiAction*) p_action)->GetActionList());
+		MxDSActionListCursor cursor(((MxDSMultiAction*)p_action)->GetActionList());
 		MxDSAction* action;
 
 		while (cursor.Next(action)) {
@@ -322,11 +307,10 @@ MxBool MxOmni::ActionSourceEquals(MxDSAction* p_action, const char* p_name)
 }
 
 // FUNCTION: LEGO1 0x100b07f0
-MxLong MxOmni::Notify(MxParam& p_param)
-{
+MxLong MxOmni::Notify(MxParam& p_param) {
 	AUTOLOCK(m_criticalSection);
 
-	if (((MxNotificationParam&) p_param).GetNotification() != c_notificationEndAction) {
+	if (((MxNotificationParam&)p_param).GetNotification() != c_notificationEndAction) {
 		return 0;
 	}
 
@@ -334,13 +318,12 @@ MxLong MxOmni::Notify(MxParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x100b0880
-MxLong MxOmni::HandleEndAction(MxParam& p_param)
-{
-	MxDSAction* action = ((MxEndActionNotificationParam&) p_param).GetAction();
+MxLong MxOmni::HandleEndAction(MxParam& p_param) {
+	MxDSAction* action = ((MxEndActionNotificationParam&)p_param).GetAction();
 	MxStreamController* controller = Streamer()->GetOpenStream(action->GetAtomId().GetInternal());
 
 	if (controller != NULL) {
-		action = (MxDSAction*) controller->GetUnk0x54().Find(action);
+		action = (MxDSAction*)controller->GetUnk0x54().Find(action);
 		if (action) {
 			if (ActionSourceEquals(action, "LegoLoopingAnimPresenter") == FALSE) {
 				delete controller->GetUnk0x54().FindAndErase(action);
@@ -348,56 +331,49 @@ MxLong MxOmni::HandleEndAction(MxParam& p_param)
 		}
 	}
 
-	if (((MxEndActionNotificationParam&) p_param).GetSender()) {
-		delete ((MxEndActionNotificationParam&) p_param).GetSender();
+	if (((MxEndActionNotificationParam&)p_param).GetSender()) {
+		delete ((MxEndActionNotificationParam&)p_param).GetSender();
 	}
 
-	if (((MxEndActionNotificationParam&) p_param).GetAction()) {
-		delete ((MxEndActionNotificationParam&) p_param).GetAction();
+	if (((MxEndActionNotificationParam&)p_param).GetAction()) {
+		delete ((MxEndActionNotificationParam&)p_param).GetAction();
 	}
 
 	return 1;
 }
 
 // FUNCTION: LEGO1 0x100b0900
-const char* MxOmni::GetHD()
-{
+const char* MxOmni::GetHD() {
 	return g_hdPath;
 }
 
 // FUNCTION: LEGO1 0x100b0910
-void MxOmni::SetHD(const char* p_hd)
-{
+void MxOmni::SetHD(const char* p_hd) {
 	strcpy(g_hdPath, p_hd);
 }
 
 // FUNCTION: LEGO1 0x100b0940
-const char* MxOmni::GetCD()
-{
+const char* MxOmni::GetCD() {
 	return g_cdPath;
 }
 
 // FUNCTION: LEGO1 0x100b0950
-void MxOmni::SetCD(const char* p_cd)
-{
+void MxOmni::SetCD(const char* p_cd) {
 	strcpy(g_cdPath, p_cd);
 }
 
 // FUNCTION: LEGO1 0x100b0980
-MxBool MxOmni::IsSound3D()
-{
+MxBool MxOmni::IsSound3D() {
 	return g_use3dSound;
 }
 
 // FUNCTION: LEGO1 0x100b0990
-void MxOmni::SetSound3D(MxBool p_use3dSound)
-{
+void MxOmni::SetSound3D(MxBool p_use3dSound) {
 	g_use3dSound = p_use3dSound;
 }
 
 // FUNCTION: LEGO1 0x100b09a0
-MxBool MxOmni::DoesEntityExist(MxDSAction& p_dsAction)
-{
+MxBool MxOmni::DoesEntityExist(MxDSAction& p_dsAction) {
 	if (m_streamer->FUN_100b9b30(p_dsAction)) {
 		MxNotificationPtrList* notifications = m_notificationManager->GetQueue();
 
@@ -409,8 +385,7 @@ MxBool MxOmni::DoesEntityExist(MxDSAction& p_dsAction)
 }
 
 // FUNCTION: LEGO1 0x100b09d0
-void MxOmni::Pause()
-{
+void MxOmni::Pause() {
 	if (m_paused == FALSE && m_timer != NULL && m_soundManager != NULL) {
 		m_timer->Start();
 		m_soundManager->Pause();
@@ -419,8 +394,7 @@ void MxOmni::Pause()
 }
 
 // FUNCTION: LEGO1 0x100b0a00
-void MxOmni::Resume()
-{
+void MxOmni::Resume() {
 	if (m_paused != FALSE && m_timer != NULL && m_soundManager != NULL) {
 		m_timer->Stop();
 		m_soundManager->Resume();
