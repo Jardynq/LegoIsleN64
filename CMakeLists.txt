@@ -362,7 +362,6 @@ function(add_lego_libraries NAME)
     LEGO1/lego/legoomni/src/worlds/historybook.cpp
     LEGO1/lego/legoomni/src/common/legocharactermanager.cpp
     LEGO1/lego/legoomni/src/actors/jukeboxentity.cpp
-    # We need to get rid of / refactor the below units into existing/other ones
     LEGO1/main.cpp
     LEGO1/lego/legoomni/src/entity/legolocations.cpp
     LEGO1/lego/legoomni/src/common/legoactors.cpp
@@ -375,11 +374,6 @@ function(add_lego_libraries NAME)
     target_compile_definitions(${NAME} PRIVATE DIRECTINPUT_VERSION=0x0500)
   endif()
 
-  if (MSVC)
-    target_sources(${NAME} PRIVATE LEGO1/LegoOmni.def)
-  else()
-    target_sources(${NAME} PRIVATE LEGO1/LegoOmni.mingw.def)
-  endif()
 
   target_include_directories(${NAME} PUBLIC "${PROJECT_SOURCE_DIR}/util")
   target_include_directories(${NAME} PUBLIC "${PROJECT_SOURCE_DIR}/LEGO1")
