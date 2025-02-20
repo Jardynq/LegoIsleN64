@@ -9,27 +9,23 @@
 DECOMP_SIZE_ASSERT(MxMusicManager, 0x58);
 
 // FUNCTION: LEGO1 0x100c05a0
-MxMusicManager::MxMusicManager()
-{
+MxMusicManager::MxMusicManager() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x100c0630
-MxMusicManager::~MxMusicManager()
-{
+MxMusicManager::~MxMusicManager() {
 	Destroy(TRUE);
 }
 
 // FUNCTION: LEGO1 0x100c0690
-void MxMusicManager::Init()
-{
+void MxMusicManager::Init() {
 	m_multiplier = 100;
 	InitData();
 }
 
 // FUNCTION: LEGO1 0x100c06a0
-void MxMusicManager::InitData()
-{
+void MxMusicManager::InitData() {
 	m_midiStreamH = 0;
 	m_midiInitialized = FALSE;
 	m_bufferSize = 0;
@@ -41,8 +37,7 @@ void MxMusicManager::InitData()
 }
 
 // FUNCTION: LEGO1 0x100c06c0
-void MxMusicManager::Destroy(MxBool p_fromDestructor)
-{
+void MxMusicManager::Destroy(MxBool p_fromDestructor) {
 	if (m_thread) {
 		m_thread->Terminate();
 		if (m_thread) {
@@ -64,8 +59,7 @@ void MxMusicManager::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x100c0720
-MxResult MxMusicManager::ResetStream()
-{
+MxResult MxMusicManager::ResetStream() {
 	MxResult result = FAILURE;
 
 	if (m_midiInitialized) {
@@ -83,7 +77,7 @@ MxResult MxMusicManager::ResetStream()
 		}
 
 		if (m_midiHdrP->dwFlags & MHDR_DONE || m_midiHdrP->dwFlags & MHDR_PREPARED) {
-			if (midiOutUnprepareHeader((HMIDIOUT) m_midiStreamH, m_midiHdrP, sizeof(MIDIHDR)) != MMSYSERR_NOERROR) {
+			if (midiOutUnprepareHeader((HMIDIOUT)m_midiStreamH, m_midiHdrP, sizeof(MIDIHDR)) != MMSYSERR_NOERROR) {
 				goto done;
 			}
 
@@ -91,14 +85,14 @@ MxResult MxMusicManager::ResetStream()
 		}
 
 		m_bufferCurrentOffset += 4;
-		DWORD length = *((DWORD*) m_bufferCurrentOffset);
+		DWORD length = *((DWORD*)m_bufferCurrentOffset);
 		m_bufferCurrentOffset += sizeof(DWORD);
 
-		m_midiHdrP->lpData = (LPSTR) m_bufferCurrentOffset;
+		m_midiHdrP->lpData = (LPSTR)m_bufferCurrentOffset;
 		m_midiHdrP->dwBufferLength = length;
 		m_midiHdrP->dwBytesRecorded = length;
 
-		if (!midiOutPrepareHeader((HMIDIOUT) m_midiStreamH, m_midiHdrP, sizeof(MIDIHDR))) {
+		if (!midiOutPrepareHeader((HMIDIOUT)m_midiStreamH, m_midiHdrP, sizeof(MIDIHDR))) {
 			if (!midiStreamOut(m_midiStreamH, m_midiHdrP, sizeof(MIDIHDR))) {
 				result = SUCCESS;
 				m_bufferCurrentOffset += length;
@@ -112,35 +106,31 @@ done:
 }
 
 // FUNCTION: LEGO1 0x100c07e0
-void MxMusicManager::ResetBuffer()
-{
+void MxMusicManager::ResetBuffer() {
 	m_bufferCurrentOffset = m_bufferOffset;
 	m_bufferCurrentSize = m_bufferSize;
 }
 
 // FUNCTION: LEGO1 0x100c07f0
-void MxMusicManager::SetMIDIVolume()
-{
+void MxMusicManager::SetMIDIVolume() {
 	MxS32 result = (m_volume * m_multiplier) / 0x64;
 	HMIDISTRM streamHandle = m_midiStreamH;
 
 	if (streamHandle) {
 		MxS32 volume = CalculateVolume(result);
-		midiOutSetVolume((HMIDIOUT) streamHandle, volume);
+		midiOutSetVolume((HMIDIOUT)streamHandle, volume);
 	}
 }
 
 // FUNCTION: LEGO1 0x100c0820
-void CALLBACK MxMusicManager::MidiCallbackProc(HDRVR p_hdrvr, UINT p_uMsg, DWORD p_dwUser, DWORD p_dw1, DWORD p_dw2)
-{
+void CALLBACK MxMusicManager::MidiCallbackProc(HDRVR p_hdrvr, UINT p_uMsg, DWORD p_dwUser, DWORD p_dw1, DWORD p_dw2) {
 	if (p_uMsg == MOM_DONE) {
-		((MxMusicManager*) p_dwUser)->ResetStream();
+		((MxMusicManager*)p_dwUser)->ResetStream();
 	}
 }
 
 // FUNCTION: LEGO1 0x100c0840
-MxResult MxMusicManager::Create(MxU32 p_frequencyMS, MxBool p_createThread)
-{
+MxResult MxMusicManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 	MxResult status = FAILURE;
 	MxBool locked = FALSE;
 
@@ -174,14 +164,12 @@ done:
 }
 
 // FUNCTION: LEGO1 0x100c0930
-void MxMusicManager::Destroy()
-{
+void MxMusicManager::Destroy() {
 	Destroy(FALSE);
 }
 
 // FUNCTION: LEGO1 0x100c0940
-void MxMusicManager::SetVolume(MxS32 p_volume)
-{
+void MxMusicManager::SetVolume(MxS32 p_volume) {
 	MxAudioManager::SetVolume(p_volume);
 	m_criticalSection.Enter();
 	SetMIDIVolume();
@@ -189,8 +177,7 @@ void MxMusicManager::SetVolume(MxS32 p_volume)
 }
 
 // FUNCTION: LEGO1 0x100c0970
-void MxMusicManager::SetMultiplier(MxS32 p_multiplier)
-{
+void MxMusicManager::SetMultiplier(MxS32 p_multiplier) {
 	m_criticalSection.Enter();
 	m_multiplier = p_multiplier;
 	SetMIDIVolume();
@@ -198,15 +185,13 @@ void MxMusicManager::SetMultiplier(MxS32 p_multiplier)
 }
 
 // FUNCTION: LEGO1 0x100c09a0
-MxS32 MxMusicManager::CalculateVolume(MxS32 p_volume)
-{
+MxS32 MxMusicManager::CalculateVolume(MxS32 p_volume) {
 	MxS32 result = (p_volume * 0xffff) / 100;
 	return (result << 0x10) | result;
 }
 
 // FUNCTION: LEGO1 0x100c09c0
-MxResult MxMusicManager::InitializeMIDI(MxU8* p_data, MxS32 p_loopCount)
-{
+MxResult MxMusicManager::InitializeMIDI(MxU8* p_data, MxS32 p_loopCount) {
 	MxResult result = FAILURE;
 
 	m_criticalSection.Enter();
@@ -227,7 +212,7 @@ MxResult MxMusicManager::InitializeMIDI(MxU8* p_data, MxS32 p_loopCount)
 			device = -1;
 		}
 
-		if (midiStreamOpen(&m_midiStreamH, &device, 1, (DWORD) MidiCallbackProc, (DWORD) this, CALLBACK_FUNCTION) !=
+		if (midiStreamOpen(&m_midiStreamH, &device, 1, (DWORD)MidiCallbackProc, (DWORD)this, CALLBACK_FUNCTION) !=
 			MMSYSERR_NOERROR) {
 			goto done;
 		}
@@ -245,14 +230,14 @@ MxResult MxMusicManager::InitializeMIDI(MxU8* p_data, MxS32 p_loopCount)
 		timediv.cbStruct = 8;
 		m_bufferOffset = p_data;
 		m_bufferOffset += 0x14;
-		timediv.dwTimeDiv = *((DWORD*) m_bufferOffset);
+		timediv.dwTimeDiv = *((DWORD*)m_bufferOffset);
 
-		if (midiStreamProperty(m_midiStreamH, (LPBYTE) &timediv, MIDIPROP_SET | MIDIPROP_TIMEDIV) != MMSYSERR_NOERROR) {
+		if (midiStreamProperty(m_midiStreamH, (LPBYTE)&timediv, MIDIPROP_SET | MIDIPROP_TIMEDIV) != MMSYSERR_NOERROR) {
 			goto done;
 		}
 
 		m_bufferOffset += 0x14;
-		m_bufferSize = *((MxU32*) m_bufferOffset);
+		m_bufferSize = *((MxU32*)m_bufferOffset);
 		m_bufferOffset += sizeof(MxU32);
 		m_loopCount = p_loopCount;
 		m_midiInitialized = TRUE;
@@ -276,15 +261,14 @@ done:
 }
 
 // FUNCTION: LEGO1 0x100c0b20
-void MxMusicManager::DeinitializeMIDI()
-{
+void MxMusicManager::DeinitializeMIDI() {
 	m_criticalSection.Enter();
 
 	if (m_midiInitialized) {
 		m_midiInitialized = FALSE;
 		midiStreamStop(m_midiStreamH);
-		midiOutUnprepareHeader((HMIDIOUT) m_midiStreamH, m_midiHdrP, sizeof(MIDIHDR));
-		midiOutSetVolume((HMIDIOUT) m_midiStreamH, m_midiVolume);
+		midiOutUnprepareHeader((HMIDIOUT)m_midiStreamH, m_midiHdrP, sizeof(MIDIHDR));
+		midiOutSetVolume((HMIDIOUT)m_midiStreamH, m_midiVolume);
 		midiStreamClose(m_midiStreamH);
 		delete m_midiHdrP;
 		InitData();

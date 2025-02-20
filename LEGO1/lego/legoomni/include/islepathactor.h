@@ -43,8 +43,7 @@ public:
 			float p_destScale,
 			MxU32 p_location,
 			JukeboxScript::Script p_music
-		)
-		{
+		) {
 			m_area = p_area;
 			m_script = p_script;
 			m_entityId = p_entityId;
@@ -58,8 +57,7 @@ public:
 		}
 
 		// FUNCTION: LEGO1 0x1001b230
-		SpawnLocation& operator=(const SpawnLocation& p_location)
-		{
+		SpawnLocation& operator=(const SpawnLocation& p_location) {
 			m_area = p_location.m_area;
 			m_script = p_location.m_script;
 			m_entityId = p_location.m_entityId;

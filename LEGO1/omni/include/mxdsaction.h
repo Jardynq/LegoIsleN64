@@ -62,8 +62,7 @@ public:
 	void AppendExtra(MxU16 p_extraLength, const char* p_extraData);
 
 	// FUNCTION: BETA10 0x1003a560
-	void GetExtra(MxU16& p_extraLength, char*& p_extraData)
-	{
+	void GetExtra(MxU16& p_extraLength, char*& p_extraData) {
 		p_extraLength = m_extraLength;
 		p_extraData = m_extraData;
 	}

@@ -17,8 +17,7 @@ public:
 	virtual void SetVolume(MxS32 p_volume) { m_volume = p_volume; } // vtable+0x60
 
 	// FUNCTION: BETA10 0x1008cba0
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f078c
 		return "MxAudioPresenter";
 	}

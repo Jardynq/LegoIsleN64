@@ -14,8 +14,7 @@ DECOMP_SIZE_ASSERT(LegoMeterPresenter, 0x94)
 
 // FUNCTION: LEGO1 0x10043430
 // FUNCTION: BETA10 0x10097570
-LegoMeterPresenter::LegoMeterPresenter()
-{
+LegoMeterPresenter::LegoMeterPresenter() {
 	m_meterPixels = NULL;
 	m_fillColor = 1;
 	m_curPercent = 0;
@@ -25,15 +24,13 @@ LegoMeterPresenter::LegoMeterPresenter()
 
 // FUNCTION: LEGO1 0x10043780
 // FUNCTION: BETA10 0x1009764a
-LegoMeterPresenter::~LegoMeterPresenter()
-{
+LegoMeterPresenter::~LegoMeterPresenter() {
 	delete m_meterPixels;
 }
 
 // FUNCTION: LEGO1 0x10043800
 // FUNCTION: BETA10 0x100976ec
-void LegoMeterPresenter::ParseExtra()
-{
+void LegoMeterPresenter::ParseExtra() {
 	MxStillPresenter::ParseExtra();
 
 	MxU16 extraLength;
@@ -80,8 +77,7 @@ void LegoMeterPresenter::ParseExtra()
 
 // FUNCTION: LEGO1 0x10043990
 // FUNCTION: BETA10 0x10097917
-void LegoMeterPresenter::StreamingTickle()
-{
+void LegoMeterPresenter::StreamingTickle() {
 	MxStillPresenter::StreamingTickle();
 
 	m_meterPixels = new MxU8[m_frameBitmap->GetDataSize()];
@@ -100,16 +96,14 @@ void LegoMeterPresenter::StreamingTickle()
 
 // FUNCTION: LEGO1 0x10043a30
 // FUNCTION: BETA10 0x10097a1a
-void LegoMeterPresenter::RepeatingTickle()
-{
+void LegoMeterPresenter::RepeatingTickle() {
 	DrawMeter();
 	MxStillPresenter::RepeatingTickle();
 }
 
 // FUNCTION: LEGO1 0x10043a50
 // FUNCTION: BETA10 0x10097a40
-void LegoMeterPresenter::DrawMeter()
-{
+void LegoMeterPresenter::DrawMeter() {
 	const char* strval = VariableTable()->GetVariable(m_variable.GetData());
 	MxFloat percent = atof(strval);
 	MxS16 row, leftRightCol, bottomTopCol, leftRightEnd, bottomTopEnd;
@@ -143,7 +137,7 @@ void LegoMeterPresenter::DrawMeter()
 			}
 			break;
 		case e_bottomToTop:
-			bottomTopEnd = m_meterRect.GetBottom() - (MxS16) (m_meterRect.GetHeight() * m_curPercent);
+			bottomTopEnd = m_meterRect.GetBottom() - (MxS16)(m_meterRect.GetHeight() * m_curPercent);
 
 			for (row = m_meterRect.GetBottom(); row > bottomTopEnd; row--) {
 				MxU8* line = m_frameBitmap->GetStart(m_meterRect.GetLeft(), row);

@@ -8,8 +8,7 @@
 class LegoLoopingAnimPresenter : public LegoAnimPresenter {
 public:
 	// FUNCTION: BETA10 0x1005c6f0
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f0700
 		return "LegoLoopingAnimPresenter";
 	}

@@ -93,61 +93,61 @@ LegoActorLOD g_actorLODs[] = {
 };
 
 // GLOBAL: LEGO1 0x100da778
-MxU8 g_unk0x100da778[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 0xff};
+MxU8 g_unk0x100da778[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 0xff };
 
 // GLOBAL: LEGO1 0x100da790
-MxU8 g_unk0x100da790[] = {21, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 0xff};
+MxU8 g_unk0x100da790[] = { 21, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 0xff };
 
 // GLOBAL: LEGO1 0x100da7a8
-MxU8 g_unk0x100da7a8[] = {22, 0xff};
+MxU8 g_unk0x100da7a8[] = { 22, 0xff };
 
 // GLOBAL: LEGO1 0x100da7ac
-MxU8 g_unk0x100da7ac[] = {20, 0xff};
+MxU8 g_unk0x100da7ac[] = { 20, 0xff };
 
 // GLOBAL: LEGO1 0x100da7b0
-MxU8 g_unk0x100da7b0[] = {0, 1, 2, 3, 4, 5, 6, 7, 0xff};
+MxU8 g_unk0x100da7b0[] = { 0, 1, 2, 3, 4, 5, 6, 7, 0xff };
 
 // GLOBAL: LEGO1 0x100da7c0
-MxU8 g_unk0x100da7c0[] = {0, 1, 2, 3, 4, 5, 6, 7, 0xff};
+MxU8 g_unk0x100da7c0[] = { 0, 1, 2, 3, 4, 5, 6, 7, 0xff };
 
 // GLOBAL: LEGO1 0x100da7d0
-MxU8 g_unk0x100da7d0[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0xff};
+MxU8 g_unk0x100da7d0[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0xff };
 
 // GLOBAL: LEGO1 0x100da7e0
-MxU8 g_unk0x100da7e0[] = {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13,
-						  14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 0xff};
+MxU8 g_unk0x100da7e0[] = { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13,
+						  14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 0xff };
 
 // GLOBAL: LEGO1 0x100da800
-MxU8 g_unk0x100da800[] = {0, 1, 2, 3, 4, 5, 6, 7, 0xff};
+MxU8 g_unk0x100da800[] = { 0, 1, 2, 3, 4, 5, 6, 7, 0xff };
 
 // GLOBAL: LEGO1 0x100da810
-MxU8 g_unk0x100da810[] = {0, 1, 2, 3, 4, 5, 6, 7, 0xff};
+MxU8 g_unk0x100da810[] = { 0, 1, 2, 3, 4, 5, 6, 7, 0xff };
 
 // GLOBAL: LEGO1 0x100da820
-MxU8 g_unk0x100da820[] = {0, 1, 2, 3, 4, 5, 6, 7, 0xff};
+MxU8 g_unk0x100da820[] = { 0, 1, 2, 3, 4, 5, 6, 7, 0xff };
 
 // GLOBAL: LEGO1 0x100da830
-MxU8 g_unk0x100da830[] = {0, 1, 2, 3, 4, 5, 6, 7, 0xff};
+MxU8 g_unk0x100da830[] = { 0, 1, 2, 3, 4, 5, 6, 7, 0xff };
 
 // GLOBAL: LEGO1 0x100da840
-MxU8 g_unk0x100da840[] = {0, 1, 2, 3, 4, 5, 6, 7, 0xff};
+MxU8 g_unk0x100da840[] = { 0, 1, 2, 3, 4, 5, 6, 7, 0xff };
 
 // GLOBAL: LEGO1 0x100f7f78
-const char* g_unk0x100f7f78[] = {"baseball", "chef",   "cap",     "cophat", "helmet", "ponytail", "pageboy", "shrthair",
+const char* g_unk0x100f7f78[] = { "baseball", "chef",   "cap",     "cophat", "helmet", "ponytail", "pageboy", "shrthair",
 								 "bald",     "flower", "cboyhat", "cuphat", "cathat", "backbcap", "pizhat",  "caprc",
-								 "capch",    "capdb",  "capjs",   "capmd",  "sheet",  "phat",     "icap",    NULL};
+								 "capch",    "capdb",  "capjs",   "capmd",  "sheet",  "phat",     "icap",    NULL };
 
 // GLOBAL: LEGO1 0x100f7fd8
 const char* g_unk0x100f7fd8[] =
-	{"body", "bodyred", "bodyblck", "bodywhte", "bodyyllw", "bodyblue", "bodygren", "bodybrwn"};
+{ "body", "bodyred", "bodyblck", "bodywhte", "bodyyllw", "bodyblue", "bodygren", "bodybrwn" };
 
 // GLOBAL: LEGO1 0x100f7ff8
-const char* g_unk0x100f7ff8[] = {"peprchst.gif", "mamachst.gif", "papachst.gif", "nickchst.gif", "norachst.gif",
+const char* g_unk0x100f7ff8[] = { "peprchst.gif", "mamachst.gif", "papachst.gif", "nickchst.gif", "norachst.gif",
 								 "infochst.gif", "shftchst.gif", "rac1chst.gif", "rac2chst.gif", "bth1chst.gif",
 								 "bth2chst.gif", "mech.gif",     "polkadot.gif", "bowtie.gif",   "postchst.gif",
 								 "vest.gif",     "doctor.gif",   "copchest.gif", "l.gif",        "e.gif",
 								 "g.gif",        "o.gif",        "fruit.gif",    "flowers.gif",  "construct.gif",
-								 "paint.gif",    "l6.gif",       "unkchst.gif"};
+								 "paint.gif",    "l6.gif",       "unkchst.gif" };
 
 // GLOBAL: LEGO1 0x100f8068
 const char* g_unk0x100f8068[] = {
@@ -169,7 +169,7 @@ const char* g_unk0x100f8068[] = {
 
 // GLOBAL: LEGO1 0x100f80a0
 const char* g_unk0x100f80a0[] =
-	{"lego white", "lego black", "lego yellow", "lego red", "lego blue", "lego brown", "lego lt grey", "lego green"};
+{ "lego white", "lego black", "lego yellow", "lego red", "lego blue", "lego brown", "lego lt grey", "lego green" };
 
 // GLOBAL: LEGO1 0x100f80c0
 LegoActorInfo g_actorInfoInit[] = {

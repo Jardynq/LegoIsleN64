@@ -15,8 +15,7 @@ struct LegoCacheSoundEntry {
 	LegoCacheSoundEntry(LegoCacheSound* p_sound) : m_sound(p_sound), m_name(p_sound->GetUnknown0x48().GetData()) {}
 
 	// FUNCTION: LEGO1 0x1003d030
-	~LegoCacheSoundEntry()
-	{
+	~LegoCacheSoundEntry() {
 		if (m_sound == NULL && m_name != NULL) {
 			delete[] const_cast<char*>(m_name);
 		}
@@ -36,8 +35,7 @@ private:
 };
 
 struct Set100d6b4cComparator {
-	bool operator()(const LegoCacheSoundEntry& p_a, const LegoCacheSoundEntry& p_b) const
-	{
+	bool operator()(const LegoCacheSoundEntry& p_a, const LegoCacheSoundEntry& p_b) const {
 		return strcmpi(p_a.m_name, p_b.m_name) > 0;
 	}
 };

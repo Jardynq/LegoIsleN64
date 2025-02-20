@@ -25,7 +25,7 @@ public:
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
 		return !strcmp(p_name, MxRAMStreamController::ClassName()) ||
-			   !strcmp(p_name, MxStreamController::ClassName()) || MxCore::IsA(p_name);
+			!strcmp(p_name, MxStreamController::ClassName()) || MxCore::IsA(p_name);
 	}
 
 	MxResult Open(const char* p_filename) override;

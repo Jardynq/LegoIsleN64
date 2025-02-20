@@ -7,27 +7,23 @@
 DECOMP_SIZE_ASSERT(LegoSoundManager, 0x44)
 
 // FUNCTION: LEGO1 0x100298a0
-LegoSoundManager::LegoSoundManager()
-{
+LegoSoundManager::LegoSoundManager() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x10029940
-LegoSoundManager::~LegoSoundManager()
-{
+LegoSoundManager::~LegoSoundManager() {
 	Destroy(TRUE);
 }
 
 // FUNCTION: LEGO1 0x100299a0
-void LegoSoundManager::Init()
-{
+void LegoSoundManager::Init() {
 	m_cacheSoundManager = NULL;
 	m_listener = NULL;
 }
 
 // FUNCTION: LEGO1 0x100299b0
-void LegoSoundManager::Destroy(MxBool p_fromDestructor)
-{
+void LegoSoundManager::Destroy(MxBool p_fromDestructor) {
 	delete m_cacheSoundManager;
 	Init();
 
@@ -37,8 +33,7 @@ void LegoSoundManager::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x100299f0
-MxResult LegoSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread)
-{
+MxResult LegoSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 	MxBool locked = FALSE;
 	MxResult result = FAILURE;
 
@@ -47,7 +42,7 @@ MxResult LegoSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread)
 		locked = TRUE;
 
 		if (MxOmni::IsSound3D()) {
-			if (m_dsBuffer->QueryInterface(IID_IDirectSound3DListener, (LPVOID*) &m_listener) != DS_OK) {
+			if (m_dsBuffer->QueryInterface(IID_IDirectSound3DListener, (LPVOID*)&m_listener) != DS_OK) {
 				goto done;
 			}
 
@@ -83,14 +78,12 @@ done:
 }
 
 // FUNCTION: LEGO1 0x1002a390
-void LegoSoundManager::Destroy()
-{
+void LegoSoundManager::Destroy() {
 	Destroy(FALSE);
 }
 
 // FUNCTION: LEGO1 0x1002a3a0
-MxResult LegoSoundManager::Tickle()
-{
+MxResult LegoSoundManager::Tickle() {
 	MxSoundManager::Tickle();
 
 	AUTOLOCK(m_criticalSection);
@@ -104,8 +97,7 @@ void LegoSoundManager::UpdateListener(
 	const float* p_direction,
 	const float* p_up,
 	const float* p_velocity
-)
-{
+) {
 	if (m_listener != NULL) {
 		if (p_position != NULL) {
 			m_listener->SetPosition(p_position[0], p_position[1], p_position[2], DS3D_DEFERRED);

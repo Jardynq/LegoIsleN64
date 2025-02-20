@@ -11,26 +11,22 @@
 DECOMP_SIZE_ASSERT(LegoPalettePresenter, 0x68)
 
 // FUNCTION: LEGO1 0x10079e50
-LegoPalettePresenter::LegoPalettePresenter()
-{
+LegoPalettePresenter::LegoPalettePresenter() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x1007a070
-LegoPalettePresenter::~LegoPalettePresenter()
-{
+LegoPalettePresenter::~LegoPalettePresenter() {
 	Destroy(TRUE);
 }
 
 // FUNCTION: LEGO1 0x1007a0d0
-void LegoPalettePresenter::Init()
-{
+void LegoPalettePresenter::Init() {
 	m_palette = NULL;
 }
 
 // FUNCTION: LEGO1 0x1007a0e0
-void LegoPalettePresenter::Destroy(MxBool p_fromDestructor)
-{
+void LegoPalettePresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 	if (m_palette) {
 		delete m_palette;
@@ -43,19 +39,17 @@ void LegoPalettePresenter::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x1007a120
-void LegoPalettePresenter::Destroy()
-{
+void LegoPalettePresenter::Destroy() {
 	Destroy(FALSE);
 }
 
 // FUNCTION: LEGO1 0x1007a130
-MxResult LegoPalettePresenter::ParsePalette(MxStreamChunk* p_chunk)
-{
+MxResult LegoPalettePresenter::ParsePalette(MxStreamChunk* p_chunk) {
 	MxU8 buffer[40];
 	RGBQUAD palette[256];
 	MxResult result = FAILURE;
 
-	LegoMemory stream((char*) p_chunk->GetData());
+	LegoMemory stream((char*)p_chunk->GetData());
 	if (stream.Read(buffer, sizeof(buffer)) == SUCCESS) {
 		if (stream.Read(palette, sizeof(palette)) == SUCCESS) {
 			m_palette = new MxPalette(palette);
@@ -74,8 +68,7 @@ MxResult LegoPalettePresenter::ParsePalette(MxStreamChunk* p_chunk)
 }
 
 // FUNCTION: LEGO1 0x1007a230
-void LegoPalettePresenter::ReadyTickle()
-{
+void LegoPalettePresenter::ReadyTickle() {
 	MxStreamChunk* chunk = m_subscriber->PeekData();
 	if (chunk) {
 		if (chunk->GetTime() <= m_action->GetElapsedTime()) {

@@ -4,24 +4,20 @@ DECOMP_SIZE_ASSERT(MxDSAnim, 0xb8)
 
 // FUNCTION: LEGO1 0x100c8ff0
 // FUNCTION: BETA10 0x1015cd71
-MxDSAnim::MxDSAnim()
-{
+MxDSAnim::MxDSAnim() {
 	this->SetType(e_anim);
 }
 
 // FUNCTION: LEGO1 0x100c91a0
-MxDSAnim::~MxDSAnim()
-{
+MxDSAnim::~MxDSAnim() {
 }
 
 // FUNCTION: LEGO1 0x100c91f0
-void MxDSAnim::CopyFrom(MxDSAnim& p_dsAnim)
-{
+void MxDSAnim::CopyFrom(MxDSAnim& p_dsAnim) {
 }
 
 // FUNCTION: LEGO1 0x100c9200
-MxDSAnim& MxDSAnim::operator=(MxDSAnim& p_dsAnim)
-{
+MxDSAnim& MxDSAnim::operator=(MxDSAnim& p_dsAnim) {
 	if (this == &p_dsAnim) {
 		return *this;
 	}
@@ -32,8 +28,7 @@ MxDSAnim& MxDSAnim::operator=(MxDSAnim& p_dsAnim)
 }
 
 // FUNCTION: LEGO1 0x100c9230
-MxDSAction* MxDSAnim::Clone()
-{
+MxDSAction* MxDSAnim::Clone() {
 	MxDSAnim* clone = new MxDSAnim();
 
 	if (clone) {

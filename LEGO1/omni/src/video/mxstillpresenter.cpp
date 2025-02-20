@@ -15,8 +15,7 @@
 DECOMP_SIZE_ASSERT(MxStillPresenter, 0x6c);
 
 // FUNCTION: LEGO1 0x100b9c70
-void MxStillPresenter::Destroy(MxBool p_fromDestructor)
-{
+void MxStillPresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 
 	if (m_bitmapInfo) {
@@ -32,20 +31,18 @@ void MxStillPresenter::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x100b9cc0
-void MxStillPresenter::LoadHeader(MxStreamChunk* p_chunk)
-{
+void MxStillPresenter::LoadHeader(MxStreamChunk* p_chunk) {
 	if (m_bitmapInfo) {
 		delete m_bitmapInfo;
 	}
 
 	MxU8* data = new MxU8[p_chunk->GetLength()];
-	m_bitmapInfo = (MxBITMAPINFO*) data;
+	m_bitmapInfo = (MxBITMAPINFO*)data;
 	memcpy(m_bitmapInfo, p_chunk->GetData(), p_chunk->GetLength());
 }
 
 // FUNCTION: LEGO1 0x100b9d10
-void MxStillPresenter::CreateBitmap()
-{
+void MxStillPresenter::CreateBitmap() {
 	if (m_frameBitmap) {
 		delete m_frameBitmap;
 	}
@@ -58,16 +55,14 @@ void MxStillPresenter::CreateBitmap()
 }
 
 // FUNCTION: LEGO1 0x100b9db0
-void MxStillPresenter::NextFrame()
-{
+void MxStillPresenter::NextFrame() {
 	MxStreamChunk* chunk = NextChunk();
 	LoadFrame(chunk);
 	m_subscriber->FreeDataChunk(chunk);
 }
 
 // FUNCTION: LEGO1 0x100b9dd0
-void MxStillPresenter::LoadFrame(MxStreamChunk* p_chunk)
-{
+void MxStillPresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	memcpy(m_frameBitmap->GetImage(), p_chunk->GetData(), p_chunk->GetLength());
 
 	// MxRect32 rect(m_location, MxSize32(GetWidth(), GetHeight()));
@@ -104,26 +99,23 @@ void MxStillPresenter::LoadFrame(MxStreamChunk* p_chunk)
 }
 
 // FUNCTION: LEGO1 0x100b9f30
-void MxStillPresenter::RealizePalette()
-{
+void MxStillPresenter::RealizePalette() {
 	MxPalette* palette = m_frameBitmap->CreatePalette();
 	MVideoManager()->RealizePalette(palette);
 	delete palette;
 }
 
 // FUNCTION: LEGO1 0x100b9f60
-void MxStillPresenter::StartingTickle()
-{
+void MxStillPresenter::StartingTickle() {
 	MxVideoPresenter::StartingTickle();
 
-	if (m_currentTickleState == e_streaming && ((MxDSMediaAction*) m_action)->GetPaletteManagement()) {
+	if (m_currentTickleState == e_streaming && ((MxDSMediaAction*)m_action)->GetPaletteManagement()) {
 		RealizePalette();
 	}
 }
 
 // FUNCTION: LEGO1 0x100b9f90
-void MxStillPresenter::StreamingTickle()
-{
+void MxStillPresenter::StreamingTickle() {
 	MxStreamChunk* chunk = CurrentChunk();
 
 	if (chunk && m_action->GetElapsedTime() >= chunk->GetTime()) {
@@ -138,8 +130,7 @@ void MxStillPresenter::StreamingTickle()
 }
 
 // FUNCTION: LEGO1 0x100b9ff0
-void MxStillPresenter::RepeatingTickle()
-{
+void MxStillPresenter::RepeatingTickle() {
 	if (m_action->GetDuration() != -1) {
 		if (m_action->GetElapsedTime() >= m_action->GetStartTime() + m_action->GetDuration()) {
 			ProgressTickleState(e_freezing);
@@ -148,8 +139,7 @@ void MxStillPresenter::RepeatingTickle()
 }
 
 // FUNCTION: LEGO1 0x100ba040
-void MxStillPresenter::SetPosition(MxS32 p_x, MxS32 p_y)
-{
+void MxStillPresenter::SetPosition(MxS32 p_x, MxS32 p_y) {
 	MxS32 x = m_location.GetX();
 	MxS32 y = m_location.GetY();
 	m_location.SetX(p_x);
@@ -172,8 +162,7 @@ void MxStillPresenter::SetPosition(MxS32 p_x, MxS32 p_y)
 }
 
 // FUNCTION: LEGO1 0x100ba140
-void MxStillPresenter::Enable(MxBool p_enable)
-{
+void MxStillPresenter::Enable(MxBool p_enable) {
 	MxPresenter::Enable(p_enable);
 
 	if (MVideoManager() && (m_alpha || m_frameBitmap)) {
@@ -190,8 +179,7 @@ void MxStillPresenter::Enable(MxBool p_enable)
 }
 
 // FUNCTION: LEGO1 0x100ba1e0
-void MxStillPresenter::ParseExtra()
-{
+void MxStillPresenter::ParseExtra() {
 	MxPresenter::ParseExtra();
 
 	if (m_action->GetFlags() & MxDSAction::c_bit5) {
@@ -223,8 +211,7 @@ void MxStillPresenter::ParseExtra()
 }
 
 // FUNCTION: LEGO1 0x100ba2c0
-MxStillPresenter* MxStillPresenter::Clone()
-{
+MxStillPresenter* MxStillPresenter::Clone() {
 	MxResult result = FAILURE;
 	MxStillPresenter* presenter = new MxStillPresenter;
 

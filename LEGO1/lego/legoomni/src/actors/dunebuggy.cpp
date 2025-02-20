@@ -25,15 +25,13 @@ DECOMP_SIZE_ASSERT(DuneBuggy, 0x16c)
 const char* g_varDBFRFNY4 = "C_DBFRFNY4";
 
 // FUNCTION: LEGO1 0x10067bb0
-DuneBuggy::DuneBuggy()
-{
+DuneBuggy::DuneBuggy() {
 	m_maxLinearVel = 25.0;
 	m_fuel = 1.0;
 }
 
 // FUNCTION: LEGO1 0x10067e30
-MxResult DuneBuggy::Create(MxDSAction& p_dsAction)
-{
+MxResult DuneBuggy::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 	m_world = CurrentWorld();
 
@@ -48,8 +46,7 @@ MxResult DuneBuggy::Create(MxDSAction& p_dsAction)
 }
 
 // FUNCTION: LEGO1 0x10067ec0
-void DuneBuggy::Animate(float p_time)
-{
+void DuneBuggy::Animate(float p_time) {
 	IslePathActor::Animate(p_time);
 
 	char buf[200];
@@ -71,8 +68,7 @@ void DuneBuggy::Animate(float p_time)
 }
 
 // FUNCTION: LEGO1 0x10067fa0
-void DuneBuggy::Exit()
-{
+void DuneBuggy::Exit() {
 	IslePathActor::Exit();
 	GameState()->m_currentArea = LegoGameState::e_dunecar;
 	RemoveFromCurrentWorld(*g_isleScript, m_dashboard);
@@ -86,19 +82,18 @@ void DuneBuggy::Exit()
 }
 
 // FUNCTION: LEGO1 0x10068060
-MxLong DuneBuggy::HandleClick()
-{
+MxLong DuneBuggy::HandleClick() {
 	if (!FUN_1003ef60()) {
 		return 1;
 	}
 
 	FUN_10015820(TRUE, 0);
 
-	((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::Area::e_dunecar);
+	((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::Area::e_dunecar);
 	TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
 
 	if (GameState()->GetActorId() != UserActor()->GetActorId()) {
-		((IslePathActor*) UserActor())->Exit();
+		((IslePathActor*)UserActor())->Exit();
 	}
 
 	m_time = Timer()->GetTime();
@@ -117,8 +112,7 @@ MxLong DuneBuggy::HandleClick()
 }
 
 // FUNCTION: LEGO1 0x100681b0
-MxLong DuneBuggy::HandleControl(LegoControlManagerNotificationParam& p_param)
-{
+MxLong DuneBuggy::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxLong result = 0;
 
 	if (p_param.GetUnknown0x28() == 1) {
@@ -129,14 +123,14 @@ MxLong DuneBuggy::HandleControl(LegoControlManagerNotificationParam& p_param)
 			result = 1;
 			break;
 		case IsleScript::c_DuneCarInfo_Ctl:
-			((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
+			((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
 			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
 			Exit();
 			result = 1;
 			break;
 		case IsleScript::c_DuneCarHorn_Ctl:
 			MxSoundPresenter* presenter =
-				(MxSoundPresenter*) CurrentWorld()->Find("MxSoundPresenter", "DuneCarHorn_Sound");
+				(MxSoundPresenter*)CurrentWorld()->Find("MxSoundPresenter", "DuneCarHorn_Sound");
 			presenter->Enable(p_param.GetUnknown0x28());
 			break;
 		}
@@ -146,8 +140,7 @@ MxLong DuneBuggy::HandleControl(LegoControlManagerNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10068270
-MxLong DuneBuggy::HandlePathStruct(LegoPathStructNotificationParam& p_param)
-{
+MxLong DuneBuggy::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	// 0x168 corresponds to the path at the gas station
 	if (p_param.GetData() == 0x168) {
 		m_fuel = 1.0f;
@@ -158,8 +151,7 @@ MxLong DuneBuggy::HandlePathStruct(LegoPathStructNotificationParam& p_param)
 
 // FUNCTION: LEGO1 0x10068290
 // FUNCTION: BETA10 0x1002765d
-MxS32 DuneBuggy::GetColorOffset(const char* p_variable)
-{
+MxS32 DuneBuggy::GetColorOffset(const char* p_variable) {
 	MxS32 offset = 1;
 	const char* color = VariableTable()->GetVariable(p_variable);
 	assert(color);
@@ -187,11 +179,10 @@ MxS32 DuneBuggy::GetColorOffset(const char* p_variable)
 }
 
 // FUNCTION: LEGO1 0x10068350
-void DuneBuggy::ActivateSceneActions()
-{
+void DuneBuggy::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_GarageArea_Music);
 
-	Act1State* act1state = (Act1State*) GameState()->GetState("Act1State");
+	Act1State* act1state = (Act1State*)GameState()->GetState("Act1State");
 	if (!act1state->m_unk0x022) {
 		act1state->m_unk0x022 = TRUE;
 

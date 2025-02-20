@@ -7,8 +7,7 @@ DECOMP_SIZE_ASSERT(LegoBox, 0x18)
 
 // FUNCTION: LEGO1 0x100d3740
 // FUNCTION: BETA10 0x1018f83c
-LegoResult LegoBox::Read(LegoStorage* p_storage)
-{
+LegoResult LegoBox::Read(LegoStorage* p_storage) {
 	LegoResult result;
 	if ((result = m_min.Read(p_storage)) != SUCCESS) {
 		return result;

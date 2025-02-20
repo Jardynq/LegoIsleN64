@@ -12,25 +12,21 @@
 DECOMP_SIZE_ASSERT(LegoPathPresenter, 0x54)
 
 // FUNCTION: LEGO1 0x100448d0
-LegoPathPresenter::LegoPathPresenter()
-{
+LegoPathPresenter::LegoPathPresenter() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x10044ab0
-void LegoPathPresenter::Init()
-{
+void LegoPathPresenter::Init() {
 }
 
 // FUNCTION: LEGO1 0x10044ac0
-LegoPathPresenter::~LegoPathPresenter()
-{
+LegoPathPresenter::~LegoPathPresenter() {
 	Destroy(TRUE);
 }
 
 // FUNCTION: LEGO1 0x10044b40
-MxResult LegoPathPresenter::AddToManager()
-{
+MxResult LegoPathPresenter::AddToManager() {
 	MxResult status = FAILURE;
 
 	if (VideoManager()) {
@@ -42,8 +38,7 @@ MxResult LegoPathPresenter::AddToManager()
 }
 
 // FUNCTION: LEGO1 0x10044b70
-void LegoPathPresenter::Destroy(MxBool p_fromDestructor)
-{
+void LegoPathPresenter::Destroy(MxBool p_fromDestructor) {
 	if (VideoManager()) {
 		VideoManager()->UnregisterPresenter(*this);
 	}
@@ -59,14 +54,12 @@ void LegoPathPresenter::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x10044c10
-void LegoPathPresenter::Destroy()
-{
+void LegoPathPresenter::Destroy() {
 	Destroy(FALSE);
 }
 
 // FUNCTION: LEGO1 0x10044c20
-void LegoPathPresenter::ReadyTickle()
-{
+void LegoPathPresenter::ReadyTickle() {
 	LegoWorld* world = CurrentWorld();
 
 	if (world) {
@@ -92,8 +85,7 @@ void LegoPathPresenter::ReadyTickle()
 }
 
 // FUNCTION: LEGO1 0x10044d00
-void LegoPathPresenter::StreamingTickle()
-{
+void LegoPathPresenter::StreamingTickle() {
 	MxStreamChunk* chunk = m_subscriber->PopData();
 
 	if (chunk) {
@@ -106,8 +98,7 @@ void LegoPathPresenter::StreamingTickle()
 }
 
 // FUNCTION: LEGO1 0x10044d40
-void LegoPathPresenter::RepeatingTickle()
-{
+void LegoPathPresenter::RepeatingTickle() {
 	if (this->m_action->GetDuration() == -1) {
 		return;
 	}
@@ -116,8 +107,7 @@ void LegoPathPresenter::RepeatingTickle()
 }
 
 // FUNCTION: LEGO1 0x10044d60
-void LegoPathPresenter::ParseExtra()
-{
+void LegoPathPresenter::ParseExtra() {
 	MxU16 extraLength;
 	char* extraData;
 	m_action->GetExtra(extraLength, extraData);

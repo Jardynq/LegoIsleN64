@@ -69,9 +69,8 @@ void WriteNamedTexture(LegoStorage* p_storage, LegoNamedTexture* p_namedTexture)
 void FUN_1003f930(LegoNamedTexture* p_namedTexture);
 
 // FUNCTION: BETA10 0x100260a0
-inline void StartIsleAction(IsleScript::Script p_objectId)
-{
-	if (p_objectId != (IsleScript::Script) -1) {
+inline void StartIsleAction(IsleScript::Script p_objectId) {
+	if (p_objectId != (IsleScript::Script)-1) {
 		InvokeAction(Extra::e_start, *g_isleScript, p_objectId, NULL);
 	}
 }

@@ -9,8 +9,7 @@ DECOMP_SIZE_ASSERT(PathWithTrigger, 0x0c)
 
 // FUNCTION: LEGO1 0x1009a730
 // FUNCTION: BETA10 0x101830ec
-LegoWEGEdge::LegoWEGEdge()
-{
+LegoWEGEdge::LegoWEGEdge() {
 	m_unk0x0d = 0;
 	m_name = NULL;
 	m_unk0x14.Clear();
@@ -22,8 +21,7 @@ LegoWEGEdge::LegoWEGEdge()
 }
 
 // FUNCTION: LEGO1 0x1009a800
-LegoWEGEdge::~LegoWEGEdge()
-{
+LegoWEGEdge::~LegoWEGEdge() {
 	if (m_edges) {
 		delete[] m_edges;
 		m_edges = NULL;
@@ -44,8 +42,7 @@ LegoWEGEdge::~LegoWEGEdge()
 
 // FUNCTION: LEGO1 0x1009a8c0
 // FUNCTION: BETA10 0x101832f7
-LegoS32 LegoWEGEdge::VTable0x04()
-{
+LegoS32 LegoWEGEdge::VTable0x04() {
 	LegoS32 result = 0;
 	m_unk0x30.Clear();
 	LegoWEEdge::VTable0x04();
@@ -61,7 +58,7 @@ LegoS32 LegoWEGEdge::VTable0x04()
 		local20 = m_edges[0]->m_pointA;
 	}
 
-	Vector3 *local1c, *local14;
+	Vector3* local1c, * local14;
 	if (IsEqual(m_edges[1]->m_faceA)) {
 		local1c = m_edges[1]->m_pointB;
 		local14 = m_edges[1]->m_pointA;
@@ -114,7 +111,7 @@ LegoS32 LegoWEGEdge::VTable0x04()
 		}
 	}
 
-	m_unk0x44 = sqrt((double) m_unk0x44);
+	m_unk0x44 = sqrt((double)m_unk0x44);
 
 	for (i = 0; i < m_numEdges; i++) {
 		edge = m_edges[i];
@@ -132,7 +129,7 @@ LegoS32 LegoWEGEdge::VTable0x04()
 				}
 			}
 
-			edge->m_unk0x3c = sqrt((double) edge->m_unk0x3c);
+			edge->m_unk0x3c = sqrt((double)edge->m_unk0x3c);
 			local5c /= edge->m_unk0x3c;
 		}
 
@@ -218,8 +215,7 @@ LegoS32 LegoWEGEdge::VTable0x04()
 
 // FUNCTION: LEGO1 0x1009aea0
 // FUNCTION: BETA10 0x10183e2a
-LegoS32 LegoWEGEdge::FUN_1009aea0()
-{
+LegoS32 LegoWEGEdge::FUN_1009aea0() {
 	LegoU32 localc = FALSE;
 	Mx3DPointFloat local24;
 
@@ -227,7 +223,7 @@ LegoS32 LegoWEGEdge::FUN_1009aea0()
 		return -1;
 	}
 
-	Vector3** local8 = new Vector3*[m_numEdges];
+	Vector3** local8 = new Vector3 * [m_numEdges];
 	LegoS32 i;
 
 	for (i = 0; i < m_numEdges; i++) {
@@ -251,7 +247,7 @@ LegoS32 LegoWEGEdge::FUN_1009aea0()
 			continue;
 		}
 
-		float local58 = sqrt((double) local28);
+		float local58 = sqrt((double)local28);
 		local24 /= local58;
 
 		if (localc) {

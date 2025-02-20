@@ -21,29 +21,26 @@ DECOMP_SIZE_ASSERT(Act2Brick, 0x194)
 // GLOBAL: LEGO1 0x100f7a38
 // GLOBAL: BETA10 0x101dc480
 const LegoChar* Act2Brick::g_lodNames[] =
-	{"xchbase1", "xchblad1", "xchseat1", "xchtail1", "xhback1", "xhljet1", "xhmidl1", "xhmotr1", "xhsidl1", "xhsidr1"};
+{ "xchbase1", "xchblad1", "xchseat1", "xchtail1", "xhback1", "xhljet1", "xhmidl1", "xhmotr1", "xhsidl1", "xhsidr1" };
 
 // GLOBAL: LEGO1 0x100f7a60
 MxLong Act2Brick::g_lastHitActorTime = 0;
 
 // FUNCTION: LEGO1 0x1007a2b0
 // FUNCTION: BETA10 0x10012a30
-Act2Brick::Act2Brick()
-{
+Act2Brick::Act2Brick() {
 	m_whistleSound = NULL;
 	m_unk0x164 = 0;
 }
 
 // FUNCTION: LEGO1 0x1007a470
-Act2Brick::~Act2Brick()
-{
+Act2Brick::~Act2Brick() {
 	TickleManager()->UnregisterClient(this);
 }
 
 // FUNCTION: LEGO1 0x1007a4e0
 // FUNCTION: BETA10 0x10012ad5
-MxResult Act2Brick::Create(MxS32 p_index)
-{
+MxResult Act2Brick::Create(MxS32 p_index) {
 	if (m_roi != NULL) {
 		return FAILURE;
 	}
@@ -78,8 +75,7 @@ MxResult Act2Brick::Create(MxS32 p_index)
 
 // FUNCTION: LEGO1 0x1007a620
 // FUNCTION: BETA10 0x10012ba2
-void Act2Brick::Remove()
-{
+void Act2Brick::Remove() {
 	StopWhistleSound();
 	CurrentWorld()->Remove(this);
 
@@ -93,8 +89,7 @@ void Act2Brick::Remove()
 
 // FUNCTION: LEGO1 0x1007a670
 // FUNCTION: BETA10 0x10012c04
-void Act2Brick::FUN_1007a670(MxMatrix& p_param1, MxMatrix& p_param2, LegoPathBoundary* p_boundary)
-{
+void Act2Brick::FUN_1007a670(MxMatrix& p_param1, MxMatrix& p_param2, LegoPathBoundary* p_boundary) {
 	m_unk0x17c = p_param2[3];
 	m_unk0x168 = p_param2[3];
 	m_unk0x168 -= p_param1[3];
@@ -114,8 +109,7 @@ void Act2Brick::FUN_1007a670(MxMatrix& p_param1, MxMatrix& p_param2, LegoPathBou
 }
 
 // FUNCTION: LEGO1 0x1007a750
-MxResult Act2Brick::HitActor(LegoPathActor* p_actor, MxBool)
-{
+MxResult Act2Brick::HitActor(LegoPathActor* p_actor, MxBool) {
 	MxLong time = Timer()->GetTime();
 	MxLong diff = time - g_lastHitActorTime;
 
@@ -133,8 +127,7 @@ MxResult Act2Brick::HitActor(LegoPathActor* p_actor, MxBool)
 
 // FUNCTION: LEGO1 0x1007a7f0
 // FUNCTION: BETA10 0x10012d46
-MxResult Act2Brick::Tickle()
-{
+MxResult Act2Brick::Tickle() {
 	MxMatrix local2world(m_roi->GetLocal2World());
 	m_unk0x190++;
 
@@ -154,9 +147,8 @@ MxResult Act2Brick::Tickle()
 
 // FUNCTION: LEGO1 0x1007a8c0
 // FUNCTION: BETA10 0x10012ec4
-MxLong Act2Brick::Notify(MxParam& p_param)
-{
-	MxNotificationParam& param = (MxNotificationParam&) p_param;
+MxLong Act2Brick::Notify(MxParam& p_param) {
+	MxNotificationParam& param = (MxNotificationParam&)p_param;
 
 	if (param.GetNotification() == c_notificationClick && m_roi->GetVisibility()) {
 		m_roi->SetVisibility(FALSE);
@@ -176,8 +168,7 @@ MxLong Act2Brick::Notify(MxParam& p_param)
 
 // FUNCTION: LEGO1 0x1007a990
 // FUNCTION: BETA10 0x10012fca
-void Act2Brick::PlayWhistleSound()
-{
+void Act2Brick::PlayWhistleSound() {
 	if (m_whistleSound == NULL) {
 		m_whistleSound = SoundManager()->GetCacheSoundManager()->Play("xwhistle", m_roi->GetName(), TRUE);
 	}
@@ -185,8 +176,7 @@ void Act2Brick::PlayWhistleSound()
 
 // FUNCTION: LEGO1 0x1007a9d0
 // FUNCTION: BETA10 0x1001300f
-void Act2Brick::StopWhistleSound()
-{
+void Act2Brick::StopWhistleSound() {
 	if (m_whistleSound != NULL) {
 		SoundManager()->GetCacheSoundManager()->Stop(m_whistleSound);
 		m_whistleSound = NULL;
@@ -194,8 +184,7 @@ void Act2Brick::StopWhistleSound()
 }
 
 // FUNCTION: LEGO1 0x1007aa00
-void Act2Brick::Mute(MxBool p_muted)
-{
+void Act2Brick::Mute(MxBool p_muted) {
 	if (m_whistleSound != NULL) {
 		m_whistleSound->MuteSilence(p_muted);
 	}

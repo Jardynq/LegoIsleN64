@@ -23,8 +23,7 @@ public:
 	void SetWorldSpeed(MxFloat p_worldSpeed) override;                    // vtable+0x30
 
 	// FUNCTION: LEGO1 0x1001a180
-	MxS32 VTable0x68(Vector3& p_v1, Vector3& p_v2, Vector3& p_v3) override
-	{
+	MxS32 VTable0x68(Vector3& p_v1, Vector3& p_v2, Vector3& p_v3) override {
 		if (m_unk0x1f) {
 			return 0;
 		}

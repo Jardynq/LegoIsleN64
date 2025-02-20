@@ -21,8 +21,7 @@ public:
 	}
 
 	// FUNCTION: BETA10 0x10083790
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f43c8
 		return "MxFlcPresenter";
 	}

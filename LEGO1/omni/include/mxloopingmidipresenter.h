@@ -8,8 +8,7 @@
 class MxLoopingMIDIPresenter : public MxMIDIPresenter {
 public:
 	// FUNCTION: BETA10 0x1012f0b0
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x10101de0
 		return "MxLoopingMIDIPresenter";
 	}

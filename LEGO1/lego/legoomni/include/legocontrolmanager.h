@@ -12,8 +12,7 @@ class MxControlPresenter;
 // SIZE 0x2c
 class LegoControlManagerNotificationParam : public LegoEventNotificationParam {
 public:
-	LegoControlManagerNotificationParam() : LegoEventNotificationParam()
-	{
+	LegoControlManagerNotificationParam() : LegoEventNotificationParam() {
 		m_clickedObjectId = -1;
 		m_clickedAtom = NULL;
 	}
@@ -49,8 +48,7 @@ public:
 	MxResult Tickle() override; // vtable+0x08
 
 	// FUNCTION: BETA10 0x1008af70
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f31b8
 		return "LegoControlManager";
 	}

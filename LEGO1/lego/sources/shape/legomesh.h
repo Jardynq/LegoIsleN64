@@ -9,8 +9,7 @@ class LegoStorage;
 
 // SIZE 0x1c
 struct LegoMeshUnkComponent {
-	~LegoMeshUnkComponent()
-	{
+	~LegoMeshUnkComponent() {
 		if (m_unk0x08) {
 			delete m_unk0x08;
 		}

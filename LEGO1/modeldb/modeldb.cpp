@@ -8,15 +8,13 @@ DECOMP_SIZE_ASSERT(ModelDbPartListCursor, 0x10)
 
 // FUNCTION: LEGO1 0x10027690
 // FUNCTION: BETA10 0x100e5620
-void ModelDbModel::Free()
-{
+void ModelDbModel::Free() {
 	delete[] m_modelName;
 	delete[] m_presenterName;
 }
 
 // FUNCTION: LEGO1 0x100276b0
-MxResult ModelDbModel::Read(FILE* p_file)
-{
+MxResult ModelDbModel::Read(FILE* p_file) {
 	MxU32 len;
 
 	if (fread(&len, sizeof(len), 1, p_file) != 1) {
@@ -60,8 +58,7 @@ MxResult ModelDbModel::Read(FILE* p_file)
 }
 
 // FUNCTION: LEGO1 0x10027850
-MxResult ModelDbPart::Read(FILE* p_file)
-{
+MxResult ModelDbPart::Read(FILE* p_file) {
 	MxU32 len;
 	char buff[128];
 
@@ -87,8 +84,7 @@ MxResult ModelDbPart::Read(FILE* p_file)
 }
 
 // FUNCTION: LEGO1 0x10027910
-MxResult ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWorlds)
-{
+MxResult ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWorlds) {
 	p_worlds = NULL;
 	p_numWorlds = 0;
 
@@ -146,8 +142,7 @@ MxResult ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWo
 
 // FUNCTION: LEGO1 0x10028080
 // FUNCTION: BETA10 0x100e6431
-void FreeModelDbWorlds(ModelDbWorld*& p_worlds, MxS32 p_numWorlds)
-{
+void FreeModelDbWorlds(ModelDbWorld*& p_worlds, MxS32 p_numWorlds) {
 	ModelDbWorld* worlds = p_worlds;
 
 	for (MxS32 i = 0; i < p_numWorlds; i++) {

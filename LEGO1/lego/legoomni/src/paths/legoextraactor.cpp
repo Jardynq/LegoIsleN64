@@ -28,8 +28,7 @@ Mx3DPointFloat g_unk0x10104c18 = Mx3DPointFloat(0.0f, 2.5f, 0.0f);
 
 // FUNCTION: LEGO1 0x1002a500
 // FUNCTION: BETA10 0x10080908
-LegoExtraActor::LegoExtraActor()
-{
+LegoExtraActor::LegoExtraActor() {
 	m_unk0x70 = 0.0f;
 	m_scheduledTime = 0;
 	m_unk0x0c = 0;
@@ -41,15 +40,13 @@ LegoExtraActor::LegoExtraActor()
 }
 
 // FUNCTION: LEGO1 0x1002a6b0
-LegoExtraActor::~LegoExtraActor()
-{
+LegoExtraActor::~LegoExtraActor() {
 	delete m_assAnim;
 	delete m_disAnim;
 }
 
 // FUNCTION: LEGO1 0x1002a720
-MxU32 LegoExtraActor::VTable0x90(float p_time, Matrix4& p_transform)
-{
+MxU32 LegoExtraActor::VTable0x90(float p_time, Matrix4& p_transform) {
 	switch (m_actorState & c_maxState) {
 	case c_initial:
 	case c_one:
@@ -109,8 +106,7 @@ MxU32 LegoExtraActor::VTable0x90(float p_time, Matrix4& p_transform)
 }
 
 // FUNCTION: LEGO1 0x1002aa90
-void LegoExtraActor::VTable0xa4(MxBool& p_und1, MxS32& p_und2)
-{
+void LegoExtraActor::VTable0xa4(MxBool& p_und1, MxS32& p_und2) {
 	switch (m_unk0x0c) {
 	case 1:
 		p_und1 = TRUE;
@@ -128,8 +124,7 @@ void LegoExtraActor::VTable0xa4(MxBool& p_und1, MxS32& p_und2)
 }
 
 // FUNCTION: LEGO1 0x1002aae0
-MxResult LegoExtraActor::FUN_1002aae0()
-{
+MxResult LegoExtraActor::FUN_1002aae0() {
 	LegoPathBoundary* oldEdge = m_boundary;
 	Vector3 rightRef(m_unk0xec[0]);
 	Vector3 upRef(m_unk0xec[1]);
@@ -140,10 +135,10 @@ MxResult LegoExtraActor::FUN_1002aae0()
 	rightRef.EqualsCross(upRef, dirRef);
 
 	if (m_boundary == m_destEdge->m_faceA) {
-		m_boundary = (LegoPathBoundary*) m_destEdge->m_faceB;
+		m_boundary = (LegoPathBoundary*)m_destEdge->m_faceB;
 	}
 	else {
-		m_boundary = (LegoPathBoundary*) m_destEdge->m_faceA;
+		m_boundary = (LegoPathBoundary*)m_destEdge->m_faceA;
 	}
 
 	if (!m_boundary) {
@@ -154,14 +149,13 @@ MxResult LegoExtraActor::FUN_1002aae0()
 	return SUCCESS;
 }
 
-inline void LegoExtraActor::FUN_1002ad8a()
-{
+inline void LegoExtraActor::FUN_1002ad8a() {
 	LegoWorld* w = CurrentWorld();
 
 	if (g_unk0x100f31d0 != w) {
 		g_unk0x100f31d0 = w;
-		m_assAnimP = (LegoLocomotionAnimPresenter*) w->Find("LegoAnimPresenter", "BNsAss01");
-		m_disAnimP = (LegoLocomotionAnimPresenter*) w->Find("LegoAnimPresenter", "BNsDis01");
+		m_assAnimP = (LegoLocomotionAnimPresenter*)w->Find("LegoAnimPresenter", "BNsAss01");
+		m_disAnimP = (LegoLocomotionAnimPresenter*)w->Find("LegoAnimPresenter", "BNsDis01");
 	}
 
 	if (!m_assAnim) {
@@ -191,8 +185,7 @@ inline void LegoExtraActor::FUN_1002ad8a()
 
 // FUNCTION: LEGO1 0x1002aba0
 // FUNCTION: BETA10 0x1008114a
-MxResult LegoExtraActor::HitActor(LegoPathActor* p_actor, MxBool p_bool)
-{
+MxResult LegoExtraActor::HitActor(LegoPathActor* p_actor, MxBool p_bool) {
 	if (p_actor->GetActorState() != c_initial || GetActorState() != c_initial) {
 		return FAILURE;
 	}
@@ -272,8 +265,7 @@ MxResult LegoExtraActor::HitActor(LegoPathActor* p_actor, MxBool p_bool)
 }
 
 // FUNCTION: LEGO1 0x1002b290
-MxResult LegoExtraActor::VTable0x9c()
-{
+MxResult LegoExtraActor::VTable0x9c() {
 	LegoPathBoundary* oldBoundary = m_boundary;
 	MxResult result = LegoPathActor::VTable0x9c();
 
@@ -300,8 +292,7 @@ MxResult LegoExtraActor::VTable0x9c()
 }
 
 // FUNCTION: LEGO1 0x1002b370
-void LegoExtraActor::Restart()
-{
+void LegoExtraActor::Restart() {
 	if (m_unk0x0e != 0) {
 		MxU32 b = FALSE;
 		LegoAnimPresenterSet& presenters = m_boundary->GetPresenters();
@@ -322,8 +313,7 @@ void LegoExtraActor::Restart()
 }
 
 // FUNCTION: LEGO1 0x1002b440
-void LegoExtraActor::Animate(float p_time)
-{
+void LegoExtraActor::Animate(float p_time) {
 	LegoAnimActorStruct* laas = NULL;
 
 	switch (m_whichAnim) {
@@ -379,16 +369,14 @@ void LegoExtraActor::Animate(float p_time)
 }
 
 // FUNCTION: LEGO1 0x1002b5d0
-void LegoExtraActor::VTable0x74(Matrix4& p_transform)
-{
+void LegoExtraActor::VTable0x74(Matrix4& p_transform) {
 	if (m_whichAnim == 0) {
 		LegoAnimActor::VTable0x74(p_transform);
 	}
 }
 
 // FUNCTION: LEGO1 0x1002b5f0
-void LegoExtraActor::SetWorldSpeed(MxFloat p_worldSpeed)
-{
+void LegoExtraActor::SetWorldSpeed(MxFloat p_worldSpeed) {
 	if (m_curAnim == 0 && p_worldSpeed > 0) {
 		VTable0xc4();
 	}
@@ -397,14 +385,13 @@ void LegoExtraActor::SetWorldSpeed(MxFloat p_worldSpeed)
 }
 
 // FUNCTION: LEGO1 0x1002b630
-void LegoExtraActor::VTable0xc4()
-{
+void LegoExtraActor::VTable0xc4() {
 	if (m_curAnim != 0) {
 		return;
 	}
 
 	if (m_worldSpeed > -0.001 || m_worldSpeed < 0.001) {
-		MxU16 name = *((MxU16*) m_roi->GetName());
+		MxU16 name = *((MxU16*)m_roi->GetName());
 		MxBool b = name == TWOCC('m', 'a') || name == TWOCC('p', 'a');
 
 		if (b) {
@@ -416,8 +403,7 @@ void LegoExtraActor::VTable0xc4()
 }
 
 // FUNCTION: LEGO1 0x1002b6f0
-MxS32 LegoExtraActor::VTable0x68(Vector3& p_point1, Vector3& p_point2, Vector3& p_point3)
-{
+MxS32 LegoExtraActor::VTable0x68(Vector3& p_point1, Vector3& p_point2, Vector3& p_point3) {
 	return LegoPathActor::VTable0x68(p_point1, p_point2, p_point3);
 }
 
@@ -429,8 +415,7 @@ inline MxU32 LegoExtraActor::VTable0x6c(
 	float p_f1,
 	float p_f2,
 	Vector3& p_v3
-)
-{
+) {
 	LegoAnimPresenterSet& presenters = p_boundary->GetPresenters();
 
 	for (LegoAnimPresenterSet::iterator itap = presenters.begin(); itap != presenters.end(); itap++) {

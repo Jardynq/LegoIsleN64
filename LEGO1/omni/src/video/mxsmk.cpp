@@ -9,11 +9,10 @@ DECOMP_SIZE_ASSERT(MxSmk, 0x6b8);
 
 // FUNCTION: LEGO1 0x100c5a90
 // FUNCTION: BETA10 0x10151e70
-MxResult MxSmk::LoadHeader(MxU8* p_data, MxSmk* p_mxSmk)
-{
-// Macros for readability
-// If bit0 of SmackerType is set, there is an extra frame ("ring frame")
-// at the end. It is a duplicate of the first frame to simplify looping.
+MxResult MxSmk::LoadHeader(MxU8* p_data, MxSmk* p_mxSmk) {
+	// Macros for readability
+	// If bit0 of SmackerType is set, there is an extra frame ("ring frame")
+	// at the end. It is a duplicate of the first frame to simplify looping.
 #define FRAME_COUNT(_tag) (_tag->Frames + (_tag->SmackerType & 1))
 
 	MxResult result = SUCCESS;
@@ -104,7 +103,7 @@ MxResult MxSmk::LoadHeader(MxU8* p_data, MxSmk* p_mxSmk)
 	memset(p_mxSmk->m_unk0x6b4, 0, size);
 
 	width = p_mxSmk->m_smackTag.Width;
-	data = (MxU32*) p_mxSmk->m_unk0x6b4;
+	data = (MxU32*)p_mxSmk->m_unk0x6b4;
 
 	*data = 1;
 	data++;
@@ -138,8 +137,7 @@ done:
 
 // FUNCTION: LEGO1 0x100c5d40
 // FUNCTION: BETA10 0x10152298
-void MxSmk::Destroy(MxSmk* p_mxSmk)
-{
+void MxSmk::Destroy(MxSmk* p_mxSmk) {
 	if (p_mxSmk->m_frameSizes) {
 		delete[] p_mxSmk->m_frameSizes;
 	}
@@ -166,10 +164,9 @@ MxResult MxSmk::LoadFrame(
 	MxU8* p_chunkData,
 	MxBool p_paletteChanged,
 	MxRectList* p_list
-)
-{
+) {
 	p_bitmapInfo->m_bmiHeader.biHeight = -MxBitmap::HeightAbs(p_bitmapInfo->m_bmiHeader.biHeight);
-	*(MxU8**) (p_mxSmk->m_unk0x6b4 + 4) = p_bitmapData;
+	*(MxU8**)(p_mxSmk->m_unk0x6b4 + 4) = p_bitmapData;
 
 	// Reference: https://wiki.multimedia.cx/index.php/Smacker#Palette_Chunk
 	if (p_paletteChanged) {
@@ -198,7 +195,7 @@ MxResult MxSmk::LoadFrame(
 					intoChunk += 2;
 				}
 				else {
-					*(MxU32*) intoPalette = *(MxU32*) intoChunk;
+					*(MxU32*)intoPalette = *(MxU32*)intoChunk;
 					intoPalette += 3;
 					paletteIndex++;
 					intoChunk += 3;
@@ -233,8 +230,7 @@ MxResult MxSmk::LoadFrame(
 
 // FUNCTION: LEGO1 0x100c6050
 // FUNCTION: BETA10 0x10152739
-MxBool MxSmk::GetRect(MxU8* p_unk0x6b4, MxU16* p_und, u32* p_smackRect, MxRect32* p_rect)
-{
+MxBool MxSmk::GetRect(MxU8* p_unk0x6b4, MxU16* p_und, u32* p_smackRect, MxRect32* p_rect) {
 	u32 left, bottom, top, right;
 
 	if (!*p_und) {

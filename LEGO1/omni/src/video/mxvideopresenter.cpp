@@ -12,8 +12,7 @@ DECOMP_SIZE_ASSERT(MxVideoPresenter, 0x64);
 DECOMP_SIZE_ASSERT(MxVideoPresenter::AlphaMask, 0x0c);
 
 // FUNCTION: LEGO1 0x100b24f0
-MxVideoPresenter::AlphaMask::AlphaMask(const MxBitmap& p_bitmap)
-{
+MxVideoPresenter::AlphaMask::AlphaMask(const MxBitmap& p_bitmap) {
 	m_width = p_bitmap.GetBmiWidth();
 	// DECOMP: ECX becomes word-sized if these are not two separate actions.
 	MxLong height = p_bitmap.GetBmiHeightAbs();
@@ -78,7 +77,7 @@ MxVideoPresenter::AlphaMask::AlphaMask(const MxBitmap& p_bitmap)
 			if (*tPtr) {
 				// TODO: Second CDQ instruction for abs() should not be there.
 				MxU32 shift = abs(offset) & 7;
-				m_bitmask[offset / 8] |= (1 << abs((MxS32) shift));
+				m_bitmask[offset / 8] |= (1 << abs((MxS32)shift));
 			}
 			tPtr++;
 			offset++;
@@ -90,8 +89,7 @@ MxVideoPresenter::AlphaMask::AlphaMask(const MxBitmap& p_bitmap)
 }
 
 // FUNCTION: LEGO1 0x100b2670
-MxVideoPresenter::AlphaMask::AlphaMask(const MxVideoPresenter::AlphaMask& p_alpha)
-{
+MxVideoPresenter::AlphaMask::AlphaMask(const MxVideoPresenter::AlphaMask& p_alpha) {
 	m_width = p_alpha.m_width;
 	m_height = p_alpha.m_height;
 
@@ -101,16 +99,14 @@ MxVideoPresenter::AlphaMask::AlphaMask(const MxVideoPresenter::AlphaMask& p_alph
 }
 
 // FUNCTION: LEGO1 0x100b26d0
-MxVideoPresenter::AlphaMask::~AlphaMask()
-{
+MxVideoPresenter::AlphaMask::~AlphaMask() {
 	if (m_bitmask) {
 		delete[] m_bitmask;
 	}
 }
 
 // FUNCTION: LEGO1 0x100b26f0
-MxS32 MxVideoPresenter::AlphaMask::IsHit(MxU32 p_x, MxU32 p_y)
-{
+MxS32 MxVideoPresenter::AlphaMask::IsHit(MxU32 p_x, MxU32 p_y) {
 	if (p_x >= m_width || p_y >= m_height) {
 		return 0;
 	}
@@ -120,8 +116,7 @@ MxS32 MxVideoPresenter::AlphaMask::IsHit(MxU32 p_x, MxU32 p_y)
 }
 
 // FUNCTION: LEGO1 0x100b2760
-void MxVideoPresenter::Init()
-{
+void MxVideoPresenter::Init() {
 	m_frameBitmap = NULL;
 	m_alpha = NULL;
 	m_unk0x5c = 1;
@@ -140,8 +135,7 @@ void MxVideoPresenter::Init()
 }
 
 // FUNCTION: LEGO1 0x100b27b0
-void MxVideoPresenter::Destroy(MxBool p_fromDestructor)
-{
+void MxVideoPresenter::Destroy(MxBool p_fromDestructor) {
 	if (MVideoManager() != NULL) {
 		MVideoManager()->UnregisterPresenter(*this);
 	}
@@ -177,8 +171,7 @@ void MxVideoPresenter::Destroy(MxBool p_fromDestructor)
 
 // FUNCTION: LEGO1 0x100b28b0
 // FUNCTION: BETA10 0x101389c1
-void MxVideoPresenter::NextFrame()
-{
+void MxVideoPresenter::NextFrame() {
 	MxStreamChunk* chunk = NextChunk();
 
 	if (chunk->GetChunkFlags() & DS_CHUNK_END_OF_STREAM) {
@@ -193,8 +186,7 @@ void MxVideoPresenter::NextFrame()
 
 // FUNCTION: LEGO1 0x100b2900
 // FUNCTION: BETA10 0x10138a3a
-MxBool MxVideoPresenter::IsHit(MxS32 p_x, MxS32 p_y)
-{
+MxBool MxVideoPresenter::IsHit(MxS32 p_x, MxS32 p_y) {
 	MxDSAction* action = GetAction();
 	if ((action == NULL) || (((action->GetFlags() & MxDSAction::c_bit11) == 0) && !IsEnabled()) ||
 		(!m_frameBitmap && !m_alpha)) {
@@ -248,7 +240,7 @@ MxBool MxVideoPresenter::IsHit(MxS32 p_x, MxS32 p_y)
 	}
 
 	if (GetBit4()) {
-		return (MxBool) *pixel;
+		return (MxBool)*pixel;
 	}
 
 	if ((GetAction()->GetFlags() & MxDSAction::c_bit4) && *pixel == 0) {
@@ -258,8 +250,7 @@ MxBool MxVideoPresenter::IsHit(MxS32 p_x, MxS32 p_y)
 	return TRUE;
 }
 
-inline MxS32 MxVideoPresenter::PrepareRects(RECT& p_rectDest, RECT& p_rectSrc)
-{
+inline MxS32 MxVideoPresenter::PrepareRects(RECT& p_rectDest, RECT& p_rectSrc) {
 	if (p_rectDest.top > 480 || p_rectDest.left > 640 || p_rectSrc.top > 480 || p_rectSrc.left > 640) {
 		return -1;
 	}
@@ -296,8 +287,7 @@ inline MxS32 MxVideoPresenter::PrepareRects(RECT& p_rectDest, RECT& p_rectSrc)
 }
 
 // FUNCTION: LEGO1 0x100b2a70
-void MxVideoPresenter::PutFrame()
-{
+void MxVideoPresenter::PutFrame() {
 	MxDisplaySurface* displaySurface = MVideoManager()->GetDisplaySurface();
 	MxRegion* region = MVideoManager()->GetRegion();
 	MxRect32 rect(MxPoint32(0, 0), MxSize32(GetWidth(), GetHeight()));
@@ -399,8 +389,7 @@ void MxVideoPresenter::PutFrame()
 }
 
 // FUNCTION: LEGO1 0x100b2f60
-void MxVideoPresenter::ReadyTickle()
-{
+void MxVideoPresenter::ReadyTickle() {
 	MxStreamChunk* chunk = NextChunk();
 
 	if (chunk) {
@@ -412,8 +401,7 @@ void MxVideoPresenter::ReadyTickle()
 }
 
 // FUNCTION: LEGO1 0x100b2fa0
-void MxVideoPresenter::StartingTickle()
-{
+void MxVideoPresenter::StartingTickle() {
 	MxStreamChunk* chunk = CurrentChunk();
 
 	if (chunk && m_action->GetElapsedTime() >= chunk->GetTime()) {
@@ -423,8 +411,7 @@ void MxVideoPresenter::StartingTickle()
 }
 
 // FUNCTION: LEGO1 0x100b2fe0
-void MxVideoPresenter::StreamingTickle()
-{
+void MxVideoPresenter::StreamingTickle() {
 	if (m_action->GetFlags() & MxDSAction::c_bit10) {
 		if (!m_currentChunk) {
 			MxMediaPresenter::StreamingTickle();
@@ -466,8 +453,7 @@ void MxVideoPresenter::StreamingTickle()
 }
 
 // FUNCTION: LEGO1 0x100b3080
-void MxVideoPresenter::RepeatingTickle()
-{
+void MxVideoPresenter::RepeatingTickle() {
 	if (IsEnabled()) {
 		if (m_action->GetFlags() & MxDSAction::c_bit10) {
 			if (!m_currentChunk) {
@@ -510,9 +496,8 @@ void MxVideoPresenter::RepeatingTickle()
 }
 
 // FUNCTION: LEGO1 0x100b3130
-void MxVideoPresenter::FreezingTickle()
-{
-	MxLong sustainTime = ((MxDSMediaAction*) m_action)->GetSustainTime();
+void MxVideoPresenter::FreezingTickle() {
+	MxLong sustainTime = ((MxDSMediaAction*)m_action)->GetSustainTime();
 
 	if (sustainTime != -1) {
 		if (sustainTime) {
@@ -520,7 +505,7 @@ void MxVideoPresenter::FreezingTickle()
 				m_unk0x60 = m_action->GetElapsedTime();
 			}
 
-			if (m_action->GetElapsedTime() >= m_unk0x60 + ((MxDSMediaAction*) m_action)->GetSustainTime()) {
+			if (m_action->GetElapsedTime() >= m_unk0x60 + ((MxDSMediaAction*)m_action)->GetSustainTime()) {
 				ProgressTickleState(e_done);
 			}
 		}
@@ -531,8 +516,7 @@ void MxVideoPresenter::FreezingTickle()
 }
 
 // FUNCTION: LEGO1 0x100b31a0
-MxResult MxVideoPresenter::AddToManager()
-{
+MxResult MxVideoPresenter::AddToManager() {
 	MxResult result = FAILURE;
 
 	if (MVideoManager()) {
@@ -545,8 +529,7 @@ MxResult MxVideoPresenter::AddToManager()
 
 // FUNCTION: LEGO1 0x100b31d0
 // FUNCTION: BETA10 0x101396d9
-void MxVideoPresenter::EndAction()
-{
+void MxVideoPresenter::EndAction() {
 	if (m_action) {
 		MxMediaPresenter::EndAction();
 		AUTOLOCK(m_criticalSection);
@@ -566,8 +549,7 @@ void MxVideoPresenter::EndAction()
 
 // FUNCTION: LEGO1 0x100b3280
 // FUNCTION: BETA10 0x101397c0
-MxResult MxVideoPresenter::PutData()
-{
+MxResult MxVideoPresenter::PutData() {
 	AUTOLOCK(m_criticalSection);
 
 	if (IsEnabled() && m_currentTickleState >= e_streaming && m_currentTickleState <= e_freezing) {
@@ -578,7 +560,6 @@ MxResult MxVideoPresenter::PutData()
 }
 
 // FUNCTION: LEGO1 0x100b3300
-undefined MxVideoPresenter::VTable0x74()
-{
+undefined MxVideoPresenter::VTable0x74() {
 	return 0;
 }

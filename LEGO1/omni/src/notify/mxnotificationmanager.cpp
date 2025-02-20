@@ -13,22 +13,19 @@ DECOMP_SIZE_ASSERT(MxNotification, 0x08);
 DECOMP_SIZE_ASSERT(MxNotificationManager, 0x40);
 
 // FUNCTION: LEGO1 0x100ac220
-MxNotification::MxNotification(MxCore* p_target, const MxNotificationParam& p_param)
-{
+MxNotification::MxNotification(MxCore* p_target, const MxNotificationParam& p_param) {
 	m_target = p_target;
 	m_param = p_param.Clone();
 }
 
 // FUNCTION: LEGO1 0x100ac240
-MxNotification::~MxNotification()
-{
+MxNotification::~MxNotification() {
 	delete m_param;
 }
 
 // FUNCTION: LEGO1 0x100ac250
 // FUNCTION: BETA10 0x10125805
-MxNotificationManager::MxNotificationManager() : MxCore(), m_lock(), m_listenerIds()
-{
+MxNotificationManager::MxNotificationManager() : MxCore(), m_lock(), m_listenerIds() {
 	m_unk0x2c = 0;
 	m_queue = NULL;
 	m_active = TRUE;
@@ -36,8 +33,7 @@ MxNotificationManager::MxNotificationManager() : MxCore(), m_lock(), m_listenerI
 }
 
 // FUNCTION: LEGO1 0x100ac450
-MxNotificationManager::~MxNotificationManager()
-{
+MxNotificationManager::~MxNotificationManager() {
 	AUTOLOCK(m_lock);
 	Tickle();
 	delete m_queue;
@@ -47,8 +43,7 @@ MxNotificationManager::~MxNotificationManager()
 }
 
 // FUNCTION: LEGO1 0x100ac600
-MxResult MxNotificationManager::Create(MxU32 p_frequencyMS, MxBool p_createThread)
-{
+MxResult MxNotificationManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 	MxResult result = SUCCESS;
 	m_queue = new MxNotificationPtrList();
 
@@ -64,8 +59,7 @@ MxResult MxNotificationManager::Create(MxU32 p_frequencyMS, MxBool p_createThrea
 
 // FUNCTION: LEGO1 0x100ac6c0
 // FUNCTION: BETA10 0x10125b57
-MxResult MxNotificationManager::Send(MxCore* p_listener, const MxNotificationParam& p_param)
-{
+MxResult MxNotificationManager::Send(MxCore* p_listener, const MxNotificationParam& p_param) {
 	AUTOLOCK(m_lock);
 
 	if (!m_active) {
@@ -87,8 +81,7 @@ MxResult MxNotificationManager::Send(MxCore* p_listener, const MxNotificationPar
 }
 
 // FUNCTION: LEGO1 0x100ac800
-MxResult MxNotificationManager::Tickle()
-{
+MxResult MxNotificationManager::Tickle() {
 	m_sendList = new MxNotificationPtrList();
 	if (m_sendList == NULL) {
 		return FAILURE;
@@ -116,8 +109,7 @@ MxResult MxNotificationManager::Tickle()
 }
 
 // FUNCTION: LEGO1 0x100ac990
-void MxNotificationManager::FlushPending(MxCore* p_listener)
-{
+void MxNotificationManager::FlushPending(MxCore* p_listener) {
 	MxNotificationPtrList pending;
 	MxNotification* notif;
 
@@ -131,7 +123,7 @@ void MxNotificationManager::FlushPending(MxCore* p_listener)
 				notif = *it;
 				if (notif->GetTarget()->GetId() == p_listener->GetId() ||
 					(notif->GetParam()->GetSender() && notif->GetParam()->GetSender()->GetId() == p_listener->GetId()
-					)) {
+						)) {
 					m_sendList->erase(it++);
 					pending.push_back(notif);
 				}
@@ -165,8 +157,7 @@ void MxNotificationManager::FlushPending(MxCore* p_listener)
 }
 
 // FUNCTION: LEGO1 0x100acd20
-void MxNotificationManager::Register(MxCore* p_listener)
-{
+void MxNotificationManager::Register(MxCore* p_listener) {
 	AUTOLOCK(m_lock);
 
 	MxIdList::iterator it = find(m_listenerIds.begin(), m_listenerIds.end(), p_listener->GetId());
@@ -179,8 +170,7 @@ void MxNotificationManager::Register(MxCore* p_listener)
 
 // FUNCTION: LEGO1 0x100acdf0
 // FUNCTION: BETA10 0x10126785
-void MxNotificationManager::Unregister(MxCore* p_listener)
-{
+void MxNotificationManager::Unregister(MxCore* p_listener) {
 	AUTOLOCK(m_lock);
 
 	MxIdList::iterator it = find(m_listenerIds.begin(), m_listenerIds.end(), p_listener->GetId());

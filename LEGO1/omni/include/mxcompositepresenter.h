@@ -19,8 +19,7 @@ public:
 	MxLong Notify(MxParam& p_param) override; // vtable+0x04
 
 	// FUNCTION: BETA10 0x1004da30
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f0774
 		return "MxCompositePresenter";
 	}
@@ -48,8 +47,7 @@ public:
 	virtual void VTable0x60(MxPresenter* p_presenter);                                     // vtable+0x60
 
 	// FUNCTION: LEGO1 0x1000caf0
-	virtual MxBool VTable0x64(undefined4 p_undefined)
-	{
+	virtual MxBool VTable0x64(undefined4 p_undefined) {
 		if (m_compositePresenter) {
 			return m_compositePresenter->VTable0x64(p_undefined);
 		}

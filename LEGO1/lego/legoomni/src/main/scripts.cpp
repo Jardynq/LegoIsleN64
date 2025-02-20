@@ -90,8 +90,7 @@ MxAtomId* g_creditsScript = NULL;
 MxAtomId* g_nocdSourceName = NULL;
 
 // FUNCTION: LEGO1 0x100528e0
-void CreateScripts()
-{
+void CreateScripts() {
 	g_copterScript = new MxAtomId("\\lego\\scripts\\build\\copter", e_lowerCase2);
 	g_dunecarScript = new MxAtomId("\\lego\\scripts\\build\\dunecar", e_lowerCase2);
 	g_jetskiScript = new MxAtomId("\\lego\\scripts\\build\\jetski", e_lowerCase2);
@@ -123,8 +122,7 @@ void CreateScripts()
 }
 
 // FUNCTION: LEGO1 0x100530c0
-void DestroyScripts()
-{
+void DestroyScripts() {
 	delete g_copterScript;
 	delete g_dunecarScript;
 	delete g_jetskiScript;
@@ -186,7 +184,6 @@ void DestroyScripts()
 }
 
 // FUNCTION: LEGO1 0x10053430
-const char* GetNoCD_SourceName()
-{
+const char* GetNoCD_SourceName() {
 	return g_nocdSourceName->GetInternal();
 }

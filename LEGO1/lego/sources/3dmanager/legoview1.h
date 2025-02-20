@@ -5,10 +5,9 @@
 #include "decomp.h"
 #include "tglsurface.h"
 
-namespace Tgl
-{
-class Camera;
-class Light;
+namespace Tgl {
+	class Camera;
+	class Light;
 } // namespace Tgl
 
 /////////////////////////////////////////////////////////////////////////////
@@ -39,13 +38,11 @@ private:
 /////////////////////////////////////////////////////////////////////////////
 // LegoView implementation
 
-inline Tgl::Group* LegoView::GetScene() const
-{
+inline Tgl::Group* LegoView::GetScene() const {
 	return m_pScene;
 }
 
-inline Tgl::Camera* LegoView::GetCamera() const
-{
+inline Tgl::Camera* LegoView::GetCamera() const {
 	return m_pCamera;
 }
 

@@ -9,26 +9,22 @@ DECOMP_SIZE_ASSERT(LegoHideAnimPresenter, 0xc4)
 DECOMP_SIZE_ASSERT(LegoHideAnimStruct, 0x08)
 
 // FUNCTION: LEGO1 0x1006d7e0
-LegoHideAnimPresenter::LegoHideAnimPresenter()
-{
+LegoHideAnimPresenter::LegoHideAnimPresenter() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x1006d9f0
-LegoHideAnimPresenter::~LegoHideAnimPresenter()
-{
+LegoHideAnimPresenter::~LegoHideAnimPresenter() {
 	Destroy(TRUE);
 }
 
 // FUNCTION: LEGO1 0x1006da50
-void LegoHideAnimPresenter::Init()
-{
+void LegoHideAnimPresenter::Init() {
 	m_boundaryMap = NULL;
 }
 
 // FUNCTION: LEGO1 0x1006da60
-void LegoHideAnimPresenter::Destroy(MxBool p_fromDestructor)
-{
+void LegoHideAnimPresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 
 	if (m_boundaryMap) {
@@ -45,26 +41,22 @@ void LegoHideAnimPresenter::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x1006dab0
-MxResult LegoHideAnimPresenter::AddToManager()
-{
+MxResult LegoHideAnimPresenter::AddToManager() {
 	return LegoAnimPresenter::AddToManager();
 }
 
 // FUNCTION: LEGO1 0x1006dac0
-void LegoHideAnimPresenter::Destroy()
-{
+void LegoHideAnimPresenter::Destroy() {
 	Destroy(FALSE);
 }
 
 // FUNCTION: LEGO1 0x1006dad0
-void LegoHideAnimPresenter::PutFrame()
-{
+void LegoHideAnimPresenter::PutFrame() {
 }
 
 // FUNCTION: LEGO1 0x1006dae0
 // FUNCTION: BETA10 0x100530f4
-void LegoHideAnimPresenter::ReadyTickle()
-{
+void LegoHideAnimPresenter::ReadyTickle() {
 	LegoLoopingAnimPresenter::ReadyTickle();
 
 	if (m_currentWorld) {
@@ -78,8 +70,7 @@ void LegoHideAnimPresenter::ReadyTickle()
 
 // FUNCTION: LEGO1 0x1006db20
 // FUNCTION: BETA10 0x1005316b
-void LegoHideAnimPresenter::StartingTickle()
-{
+void LegoHideAnimPresenter::StartingTickle() {
 	LegoLoopingAnimPresenter::StartingTickle();
 
 	if (m_currentTickleState == e_streaming) {
@@ -90,16 +81,14 @@ void LegoHideAnimPresenter::StartingTickle()
 
 // FUNCTION: LEGO1 0x1006db40
 // FUNCTION: BETA10 0x100531ab
-void LegoHideAnimPresenter::FUN_1006db40(LegoTime p_time)
-{
+void LegoHideAnimPresenter::FUN_1006db40(LegoTime p_time) {
 	FUN_1006db60(m_anim->GetRoot(), p_time);
 }
 
 // FUNCTION: LEGO1 0x1006db60
 // FUNCTION: BETA10 0x100531de
-void LegoHideAnimPresenter::FUN_1006db60(LegoTreeNode* p_node, LegoTime p_time)
-{
-	LegoAnimNodeData* data = (LegoAnimNodeData*) p_node->GetData();
+void LegoHideAnimPresenter::FUN_1006db60(LegoTreeNode* p_node, LegoTime p_time) {
+	LegoAnimNodeData* data = (LegoAnimNodeData*)p_node->GetData();
 	MxBool newB = FALSE;
 	MxBool previousB = FALSE;
 
@@ -131,8 +120,7 @@ void LegoHideAnimPresenter::FUN_1006db60(LegoTreeNode* p_node, LegoTime p_time)
 
 // FUNCTION: LEGO1 0x1006dc10
 // FUNCTION: BETA10 0x100532fd
-void LegoHideAnimPresenter::FUN_1006dc10()
-{
+void LegoHideAnimPresenter::FUN_1006dc10() {
 	LegoHideAnimStructMap anims;
 
 	FUN_1006e3f0(anims, m_anim->GetRoot());
@@ -141,7 +129,7 @@ void LegoHideAnimPresenter::FUN_1006dc10()
 		delete[] m_boundaryMap;
 	}
 
-	m_boundaryMap = new LegoPathBoundary*[anims.size() + 1];
+	m_boundaryMap = new LegoPathBoundary * [anims.size() + 1];
 	m_boundaryMap[0] = NULL;
 
 	for (LegoHideAnimStructMap::iterator it = anims.begin(); !(it == anims.end()); it++) {
@@ -152,9 +140,8 @@ void LegoHideAnimPresenter::FUN_1006dc10()
 
 // FUNCTION: LEGO1 0x1006e3f0
 // FUNCTION: BETA10 0x1005345e
-void LegoHideAnimPresenter::FUN_1006e3f0(LegoHideAnimStructMap& p_map, LegoTreeNode* p_node)
-{
-	LegoAnimNodeData* data = (LegoAnimNodeData*) p_node->GetData();
+void LegoHideAnimPresenter::FUN_1006e3f0(LegoHideAnimStructMap& p_map, LegoTreeNode* p_node) {
+	LegoAnimNodeData* data = (LegoAnimNodeData*)p_node->GetData();
 	const char* name = data->GetName();
 
 	if (name != NULL) {
@@ -181,8 +168,7 @@ void LegoHideAnimPresenter::FUN_1006e470(
 	LegoAnimNodeData* p_data,
 	const char* p_name,
 	LegoPathBoundary* p_boundary
-)
-{
+) {
 	LegoHideAnimStructMap::iterator it;
 
 	it = p_map.find(p_name);
@@ -205,8 +191,7 @@ void LegoHideAnimPresenter::FUN_1006e470(
 
 // FUNCTION: LEGO1 0x1006e9e0
 // FUNCTION: BETA10 0x100535ef
-void LegoHideAnimPresenter::EndAction()
-{
+void LegoHideAnimPresenter::EndAction() {
 	if (m_action) {
 		MxVideoPresenter::EndAction();
 

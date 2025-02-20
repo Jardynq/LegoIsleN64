@@ -19,16 +19,14 @@ DECOMP_SIZE_ASSERT(JukeBox, 0x104)
 DECOMP_SIZE_ASSERT(JukeBoxState, 0x10)
 
 // FUNCTION: LEGO1 0x1005d660
-JukeBox::JukeBox()
-{
+JukeBox::JukeBox() {
 	m_unk0x100 = 0;
 	m_state = NULL;
 	NotificationManager()->Register(this);
 }
 
 // FUNCTION: LEGO1 0x1005d830
-JukeBox::~JukeBox()
-{
+JukeBox::~JukeBox() {
 	if (InputManager()->GetWorld() == this) {
 		InputManager()->ClearWorld();
 	}
@@ -39,8 +37,7 @@ JukeBox::~JukeBox()
 }
 
 // FUNCTION: LEGO1 0x1005d8d0
-MxResult JukeBox::Create(MxDSAction& p_dsAction)
-{
+MxResult JukeBox::Create(MxDSAction& p_dsAction) {
 	MxResult ret = LegoWorld::Create(p_dsAction);
 	if (ret == SUCCESS) {
 		InputManager()->SetWorld(this);
@@ -49,9 +46,9 @@ MxResult JukeBox::Create(MxDSAction& p_dsAction)
 
 	InputManager()->SetCamera(NULL);
 
-	m_state = (JukeBoxState*) GameState()->GetState("JukeBoxState");
+	m_state = (JukeBoxState*)GameState()->GetState("JukeBoxState");
 	if (!m_state) {
-		m_state = (JukeBoxState*) GameState()->CreateState("JukeBoxState");
+		m_state = (JukeBoxState*)GameState()->CreateState("JukeBoxState");
 		m_state->m_music = JukeBoxState::e_pasquell;
 	}
 
@@ -63,16 +60,15 @@ MxResult JukeBox::Create(MxDSAction& p_dsAction)
 
 // FUNCTION: LEGO1 0x1005d980
 // FUNCTION: BETA10 0x10037daf
-MxLong JukeBox::Notify(MxParam& p_param)
-{
+MxLong JukeBox::Notify(MxParam& p_param) {
 	MxLong result = 0;
-	MxNotificationParam& param = (MxNotificationParam&) p_param;
+	MxNotificationParam& param = (MxNotificationParam&)p_param;
 	LegoWorld::Notify(p_param);
 
 	if (m_worldStarted) {
 		switch (param.GetNotification()) {
 		case c_notificationControl:
-			result = HandleControl((LegoControlManagerNotificationParam&) p_param);
+			result = HandleControl((LegoControlManagerNotificationParam&)p_param);
 			break;
 		case c_notificationTransitioned:
 			GameState()->SwitchArea(m_destLocation);
@@ -86,27 +82,26 @@ MxLong JukeBox::Notify(MxParam& p_param)
 
 // FUNCTION: LEGO1 0x1005d9f0
 // FUNCTION: BETA10 0x10037e39
-void JukeBox::ReadyWorld()
-{
+void JukeBox::ReadyWorld() {
 	MxStillPresenter* presenter = NULL;
 
 	switch (m_state->m_music) {
 	case JukeBoxState::e_pasquell:
 		break;
 	case JukeBoxState::e_right:
-		presenter = (MxStillPresenter*) Find("MxStillPresenter", "Right_Bitmap");
+		presenter = (MxStillPresenter*)Find("MxStillPresenter", "Right_Bitmap");
 		break;
 	case JukeBoxState::e_decal:
-		presenter = (MxStillPresenter*) Find("MxStillPresenter", "Decal_Bitmap");
+		presenter = (MxStillPresenter*)Find("MxStillPresenter", "Decal_Bitmap");
 		break;
 	case JukeBoxState::e_wallis:
-		presenter = (MxStillPresenter*) Find("MxStillPresenter", "Wallis_Bitmap");
+		presenter = (MxStillPresenter*)Find("MxStillPresenter", "Wallis_Bitmap");
 		break;
 	case JukeBoxState::e_nelson:
-		presenter = (MxStillPresenter*) Find("MxStillPresenter", "Nelson_Bitmap");
+		presenter = (MxStillPresenter*)Find("MxStillPresenter", "Nelson_Bitmap");
 		break;
 	case JukeBoxState::e_torpedos:
-		presenter = (MxStillPresenter*) Find("MxStillPresenter", "Torpedos_Bitmap");
+		presenter = (MxStillPresenter*)Find("MxStillPresenter", "Torpedos_Bitmap");
 		break;
 	}
 
@@ -119,8 +114,7 @@ void JukeBox::ReadyWorld()
 
 // FUNCTION: LEGO1 0x1005da70
 // FUNCTION: BETA10 0x10037f6d
-MxBool JukeBox::HandleControl(LegoControlManagerNotificationParam& p_param)
-{
+MxBool JukeBox::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxStillPresenter* presenter;
 
 	if (p_param.m_unk0x28 == 1) {
@@ -129,40 +123,40 @@ MxBool JukeBox::HandleControl(LegoControlManagerNotificationParam& p_param)
 			switch (m_state->m_music) {
 			case JukeBoxState::e_pasquell:
 				m_state->m_music = JukeBoxState::e_torpedos;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Torpedos_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Torpedos_Bitmap");
 				presenter->Enable(TRUE);
 				break;
 			case JukeBoxState::e_right:
 				m_state->m_music = JukeBoxState::e_pasquell;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Right_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Right_Bitmap");
 				presenter->Enable(FALSE);
 				break;
 			case JukeBoxState::e_decal:
 				m_state->m_music = JukeBoxState::e_right;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Decal_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Decal_Bitmap");
 				presenter->Enable(FALSE);
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Right_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Right_Bitmap");
 				presenter->Enable(TRUE);
 				break;
 			case JukeBoxState::e_wallis:
 				m_state->m_music = JukeBoxState::e_decal;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Wallis_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Wallis_Bitmap");
 				presenter->Enable(FALSE);
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Decal_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Decal_Bitmap");
 				presenter->Enable(TRUE);
 				break;
 			case JukeBoxState::e_nelson:
 				m_state->m_music = JukeBoxState::e_wallis;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Nelson_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Nelson_Bitmap");
 				presenter->Enable(FALSE);
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Wallis_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Wallis_Bitmap");
 				presenter->Enable(TRUE);
 				break;
 			case JukeBoxState::e_torpedos:
 				m_state->m_music = JukeBoxState::e_nelson;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Torpedos_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Torpedos_Bitmap");
 				presenter->Enable(FALSE);
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Nelson_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Nelson_Bitmap");
 				presenter->Enable(TRUE);
 				break;
 			}
@@ -171,46 +165,46 @@ MxBool JukeBox::HandleControl(LegoControlManagerNotificationParam& p_param)
 			switch (m_state->m_music) {
 			case JukeBoxState::e_pasquell:
 				m_state->m_music = JukeBoxState::e_right;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Right_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Right_Bitmap");
 				presenter->Enable(TRUE);
 				break;
 			case JukeBoxState::e_right:
 				m_state->m_music = JukeBoxState::e_decal;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Right_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Right_Bitmap");
 				presenter->Enable(FALSE);
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Decal_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Decal_Bitmap");
 				presenter->Enable(TRUE);
 				break;
 			case JukeBoxState::e_decal:
 				m_state->m_music = JukeBoxState::e_wallis;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Decal_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Decal_Bitmap");
 				presenter->Enable(FALSE);
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Wallis_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Wallis_Bitmap");
 				presenter->Enable(TRUE);
 				break;
 			case JukeBoxState::e_wallis:
 				m_state->m_music = JukeBoxState::e_nelson;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Wallis_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Wallis_Bitmap");
 				presenter->Enable(FALSE);
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Nelson_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Nelson_Bitmap");
 				presenter->Enable(TRUE);
 				break;
 			case JukeBoxState::e_nelson:
 				m_state->m_music = JukeBoxState::e_torpedos;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Nelson_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Nelson_Bitmap");
 				presenter->Enable(FALSE);
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Torpedos_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Torpedos_Bitmap");
 				presenter->Enable(TRUE);
 				break;
 			case JukeBoxState::e_torpedos:
 				m_state->m_music = JukeBoxState::e_pasquell;
-				presenter = (MxStillPresenter*) Find("MxStillPresenter", "Torpedos_Bitmap");
+				presenter = (MxStillPresenter*)Find("MxStillPresenter", "Torpedos_Bitmap");
 				presenter->Enable(FALSE);
 				break;
 			}
 			break;
 		case JukeboxwScript::c_Note_Ctl:
-			Act1State* act1State = (Act1State*) GameState()->GetState("Act1State");
+			Act1State* act1State = (Act1State*)GameState()->GetState("Act1State");
 			act1State->m_unk0x018 = 11;
 			m_destLocation = LegoGameState::Area::e_jukeboxExterior;
 			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, 0, FALSE);
@@ -222,8 +216,7 @@ MxBool JukeBox::HandleControl(LegoControlManagerNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x1005dde0
-void JukeBox::Enable(MxBool p_enable)
-{
+void JukeBox::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
 	if (p_enable) {
@@ -238,8 +231,7 @@ void JukeBox::Enable(MxBool p_enable)
 }
 
 // FUNCTION: LEGO1 0x1005de30
-MxResult JukeBox::Tickle()
-{
+MxResult JukeBox::Tickle() {
 	if (m_worldStarted == FALSE) {
 		LegoWorld::Tickle();
 		return SUCCESS;
@@ -254,8 +246,7 @@ MxResult JukeBox::Tickle()
 }
 
 // FUNCTION: LEGO1 0x1005de70
-MxBool JukeBox::Escape()
-{
+MxBool JukeBox::Escape() {
 	m_destLocation = LegoGameState::e_infomain;
 	return TRUE;
 }

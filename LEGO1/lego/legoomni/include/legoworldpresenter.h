@@ -19,8 +19,7 @@ public:
 	static void configureLegoWorldPresenter(MxS32 p_legoWorldPresenterQuality);
 
 	// FUNCTION: BETA10 0x100e41c0
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f0608
 		return "LegoWorldPresenter";
 	}

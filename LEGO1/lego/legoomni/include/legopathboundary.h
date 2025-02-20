@@ -14,16 +14,14 @@
 #endif
 
 struct LegoPathActorSetCompare {
-	MxU32 operator()(const LegoPathActor* p_lhs, const LegoPathActor* p_rhs) const
-	{
-		return (COMPARE_POINTER_TYPE) p_lhs < (COMPARE_POINTER_TYPE) p_rhs;
+	MxU32 operator()(const LegoPathActor* p_lhs, const LegoPathActor* p_rhs) const {
+		return (COMPARE_POINTER_TYPE)p_lhs < (COMPARE_POINTER_TYPE)p_rhs;
 	}
 };
 
 struct LegoAnimPresenterSetCompare {
-	MxBool operator()(const LegoAnimPresenter* p_lhs, const LegoAnimPresenter* p_rhs) const
-	{
-		return (COMPARE_POINTER_TYPE) p_lhs < (COMPARE_POINTER_TYPE) p_rhs;
+	MxBool operator()(const LegoAnimPresenter* p_lhs, const LegoAnimPresenter* p_rhs) const {
+		return (COMPARE_POINTER_TYPE)p_lhs < (COMPARE_POINTER_TYPE)p_rhs;
 	}
 };
 

@@ -4,24 +4,20 @@ DECOMP_SIZE_ASSERT(MxDSObjectAction, 0xb8)
 
 // FUNCTION: LEGO1 0x100c8870
 // FUNCTION: BETA10 0x1015c3b0
-MxDSObjectAction::MxDSObjectAction()
-{
+MxDSObjectAction::MxDSObjectAction() {
 	this->SetType(e_objectAction);
 }
 
 // FUNCTION: LEGO1 0x100c8a20
-MxDSObjectAction::~MxDSObjectAction()
-{
+MxDSObjectAction::~MxDSObjectAction() {
 }
 
 // FUNCTION: LEGO1 0x100c8a70
-void MxDSObjectAction::CopyFrom(MxDSObjectAction& p_dsObjectAction)
-{
+void MxDSObjectAction::CopyFrom(MxDSObjectAction& p_dsObjectAction) {
 }
 
 // FUNCTION: LEGO1 0x100c8a80
-MxDSObjectAction& MxDSObjectAction::operator=(MxDSObjectAction& p_dsObjectAction)
-{
+MxDSObjectAction& MxDSObjectAction::operator=(MxDSObjectAction& p_dsObjectAction) {
 	if (this == &p_dsObjectAction) {
 		return *this;
 	}
@@ -32,8 +28,7 @@ MxDSObjectAction& MxDSObjectAction::operator=(MxDSObjectAction& p_dsObjectAction
 }
 
 // FUNCTION: LEGO1 0x100c8ab0
-MxDSAction* MxDSObjectAction::Clone()
-{
+MxDSAction* MxDSObjectAction::Clone() {
 	MxDSObjectAction* clone = new MxDSObjectAction();
 
 	if (clone) {

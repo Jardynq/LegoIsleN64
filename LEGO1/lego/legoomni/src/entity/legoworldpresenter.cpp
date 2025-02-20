@@ -38,27 +38,24 @@ MxS32 g_legoWorldPresenterQuality = 1;
 MxLong g_wdbOffset = 0;
 
 // FUNCTION: LEGO1 0x100665b0
-void LegoWorldPresenter::configureLegoWorldPresenter(MxS32 p_legoWorldPresenterQuality)
-{
+void LegoWorldPresenter::configureLegoWorldPresenter(MxS32 p_legoWorldPresenterQuality) {
 	g_legoWorldPresenterQuality = p_legoWorldPresenterQuality;
 }
 
 // FUNCTION: LEGO1 0x100665c0
-LegoWorldPresenter::LegoWorldPresenter()
-{
+LegoWorldPresenter::LegoWorldPresenter() {
 	m_unk0x50 = 50000;
 }
 
 // FUNCTION: LEGO1 0x10066770
-LegoWorldPresenter::~LegoWorldPresenter()
-{
+LegoWorldPresenter::~LegoWorldPresenter() {
 	MxBool result = FALSE;
 	if (m_entity) {
-		LegoOmni::World worldId = ((LegoWorld*) m_entity)->GetWorldId();
+		LegoOmni::World worldId = ((LegoWorld*)m_entity)->GetWorldId();
 		PlantManager()->LoadWorldInfo(worldId);
 		AnimationManager()->LoadWorldInfo(worldId);
 		BuildingManager()->LoadWorldInfo();
-		result = ((LegoWorld*) m_entity)->VTable0x5c();
+		result = ((LegoWorld*)m_entity)->VTable0x5c();
 	}
 
 	if (result == FALSE) {
@@ -71,12 +68,11 @@ LegoWorldPresenter::~LegoWorldPresenter()
 }
 
 // FUNCTION: LEGO1 0x10066870
-MxResult LegoWorldPresenter::StartAction(MxStreamController* p_controller, MxDSAction* p_action)
-{
+MxResult LegoWorldPresenter::StartAction(MxStreamController* p_controller, MxDSAction* p_action) {
 	AUTOLOCK(m_criticalSection);
 
 	MxResult result = FAILURE;
-	MxDSActionList* actions = ((MxDSMultiAction*) p_action)->GetActionList();
+	MxDSActionList* actions = ((MxDSMultiAction*)p_action)->GetActionList();
 	MxObjectFactory* factory = ObjectFactory();
 	MxDSActionListCursor cursor(actions);
 	MxDSAction* action;
@@ -99,7 +95,7 @@ MxResult LegoWorldPresenter::StartAction(MxStreamController* p_controller, MxDSA
 			}
 
 			presenterName = PresenterNameDispatch(*action);
-			presenter = (MxPresenter*) factory->Create(presenterName);
+			presenter = (MxPresenter*)factory->Create(presenterName);
 
 			if (presenter && presenter->AddToManager() == SUCCESS) {
 				presenter->SetCompositePresenter(this);
@@ -127,12 +123,11 @@ MxResult LegoWorldPresenter::StartAction(MxStreamController* p_controller, MxDSA
 }
 
 // FUNCTION: LEGO1 0x10066a50
-void LegoWorldPresenter::ReadyTickle()
-{
-	m_entity = (LegoEntity*) MxPresenter::CreateEntity("LegoWorld");
+void LegoWorldPresenter::ReadyTickle() {
+	m_entity = (LegoEntity*)MxPresenter::CreateEntity("LegoWorld");
 	if (m_entity) {
 		m_entity->Create(*m_action);
-		Lego()->AddWorld((LegoWorld*) m_entity);
+		Lego()->AddWorld((LegoWorld*)m_entity);
 		SetEntityLocation(m_action->GetLocation(), m_action->GetDirection(), m_action->GetUp());
 	}
 
@@ -141,8 +136,7 @@ void LegoWorldPresenter::ReadyTickle()
 }
 
 // FUNCTION: LEGO1 0x10066ac0
-void LegoWorldPresenter::StartingTickle()
-{
+void LegoWorldPresenter::StartingTickle() {
 	if (m_action->IsA("MxDSSerialAction")) {
 		MxPresenter* presenter = *m_list.begin();
 		if (presenter->GetCurrentTickleState() == e_idle) {
@@ -161,8 +155,7 @@ void LegoWorldPresenter::StartingTickle()
 }
 
 // FUNCTION: LEGO1 0x10066b40
-MxResult LegoWorldPresenter::LoadWorld(char* p_worldName, LegoWorld* p_world)
-{
+MxResult LegoWorldPresenter::LoadWorld(char* p_worldName, LegoWorld* p_world) {
 	char wdbPath[512];
 	sprintf(wdbPath, "%s", MxOmni::GetHD());
 
@@ -314,8 +307,7 @@ MxResult LegoWorldPresenter::LoadWorld(char* p_worldName, LegoWorld* p_world)
 }
 
 // FUNCTION: LEGO1 0x10067360
-MxResult LegoWorldPresenter::FUN_10067360(ModelDbPart& p_part, FILE* p_wdbFile)
-{
+MxResult LegoWorldPresenter::FUN_10067360(ModelDbPart& p_part, FILE* p_wdbFile) {
 	MxResult result;
 	MxU8* buff = new MxU8[p_part.m_partDataLength];
 
@@ -340,8 +332,7 @@ MxResult LegoWorldPresenter::FUN_10067360(ModelDbPart& p_part, FILE* p_wdbFile)
 }
 
 // FUNCTION: LEGO1 0x100674b0
-MxResult LegoWorldPresenter::FUN_100674b0(ModelDbModel& p_model, FILE* p_wdbFile, LegoWorld* p_world)
-{
+MxResult LegoWorldPresenter::FUN_100674b0(ModelDbModel& p_model, FILE* p_wdbFile, LegoWorld* p_world) {
 	MxU8* buff = new MxU8[p_model.m_unk0x04];
 
 	fseek(p_wdbFile, p_model.m_unk0x08, SEEK_SET);
@@ -370,7 +361,7 @@ MxResult LegoWorldPresenter::FUN_100674b0(ModelDbModel& p_model, FILE* p_wdbFile
 	if (!strcmp(p_model.m_presenterName, "LegoActorPresenter")) {
 		LegoActorPresenter presenter;
 		presenter.SetAction(&action);
-		LegoEntity* entity = (LegoEntity*) presenter.CreateEntity("LegoActor");
+		LegoEntity* entity = (LegoEntity*)presenter.CreateEntity("LegoActor");
 		presenter.SetInternalEntity(entity);
 		presenter.SetEntityLocation(p_model.m_location, p_model.m_direction, p_model.m_up);
 		entity->Create(action);
@@ -378,7 +369,7 @@ MxResult LegoWorldPresenter::FUN_100674b0(ModelDbModel& p_model, FILE* p_wdbFile
 	else if (!strcmp(p_model.m_presenterName, "LegoEntityPresenter")) {
 		LegoEntityPresenter presenter;
 		presenter.SetAction(&action);
-		createdEntity = (LegoEntity*) presenter.CreateEntity("LegoEntity");
+		createdEntity = (LegoEntity*)presenter.CreateEntity("LegoEntity");
 		presenter.SetInternalEntity(createdEntity);
 		presenter.SetEntityLocation(p_model.m_location, p_model.m_direction, p_model.m_up);
 		createdEntity->Create(action);
@@ -400,8 +391,7 @@ MxResult LegoWorldPresenter::FUN_100674b0(ModelDbModel& p_model, FILE* p_wdbFile
 }
 
 // FUNCTION: LEGO1 0x10067a70
-void LegoWorldPresenter::VTable0x60(MxPresenter* p_presenter)
-{
+void LegoWorldPresenter::VTable0x60(MxPresenter* p_presenter) {
 	MxCompositePresenter::VTable0x60(p_presenter);
 	MxDSAction* action = p_presenter->GetAction();
 
@@ -410,7 +400,7 @@ void LegoWorldPresenter::VTable0x60(MxPresenter* p_presenter)
 			return;
 		}
 
-		if (((MxDSMediaAction*) action)->GetSustainTime() != -1) {
+		if (((MxDSMediaAction*)action)->GetSustainTime() != -1) {
 			return;
 		}
 	}
@@ -418,13 +408,12 @@ void LegoWorldPresenter::VTable0x60(MxPresenter* p_presenter)
 	if (!p_presenter->IsA("LegoAnimPresenter") && !p_presenter->IsA("MxControlPresenter") &&
 		!p_presenter->IsA("MxCompositePresenter")) {
 		p_presenter->SendToCompositePresenter(Lego());
-		((LegoWorld*) m_entity)->Add(p_presenter);
+		((LegoWorld*)m_entity)->Add(p_presenter);
 	}
 }
 
 // FUNCTION: LEGO1 0x10067b00
-void LegoWorldPresenter::ParseExtra()
-{
+void LegoWorldPresenter::ParseExtra() {
 	MxU16 extraLength;
 	char* extraData;
 	m_action->GetExtra(extraLength, extraData);
@@ -437,8 +426,8 @@ void LegoWorldPresenter::ParseExtra()
 		char output[1024];
 		if (KeyValueStringParse(output, g_strWORLD, extraCopy)) {
 			char* worldKey = strtok(output, g_parseExtraTokens);
-			LoadWorld(worldKey, (LegoWorld*) m_entity);
-			((LegoWorld*) m_entity)->SetWorldId(Lego()->GetWorldId(worldKey));
+			LoadWorld(worldKey, (LegoWorld*)m_entity);
+			((LegoWorld*)m_entity)->SetWorldId(Lego()->GetWorldId(worldKey));
 		}
 	}
 }

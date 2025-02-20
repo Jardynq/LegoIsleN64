@@ -7,8 +7,7 @@
 DECOMP_SIZE_ASSERT(OrientableROI, 0xdc)
 
 // FUNCTION: LEGO1 0x100a4420
-OrientableROI::OrientableROI()
-{
+OrientableROI::OrientableROI() {
 	FILLVEC3(m_world_bounding_box.Min(), 888888.8);
 	FILLVEC3(m_world_bounding_box.Max(), -888888.8);
 	ZEROVEC3(m_world_bounding_sphere.Center());
@@ -23,14 +22,12 @@ OrientableROI::OrientableROI()
 // Maybe an overload based on MxMatrix type
 // FUNCTION: LEGO1 0x100a46a0
 // FUNCTION: BETA10 0x10165268
-void OrientableROI::WrappedSetLocalTransform(const Matrix4& p_transform)
-{
+void OrientableROI::WrappedSetLocalTransform(const Matrix4& p_transform) {
 	SetLocalTransform(p_transform);
 }
 
 // FUNCTION: LEGO1 0x100a46b0
-void OrientableROI::UpdateTransformationRelativeToParent(const Matrix4& p_transform)
-{
+void OrientableROI::UpdateTransformationRelativeToParent(const Matrix4& p_transform) {
 	MxMatrix mat;
 
 	double local2world[4][4];
@@ -62,14 +59,12 @@ void OrientableROI::UpdateTransformationRelativeToParent(const Matrix4& p_transf
 
 // Maybe an overload based on MxMatrix type
 // FUNCTION: LEGO1 0x100a5090
-void OrientableROI::WrappedVTable0x24(const Matrix4& p_transform)
-{
+void OrientableROI::WrappedVTable0x24(const Matrix4& p_transform) {
 	VTable0x24(p_transform);
 }
 
 // FUNCTION: LEGO1 0x100a50a0
-void OrientableROI::GetLocalTransform(Matrix4& p_transform)
-{
+void OrientableROI::GetLocalTransform(Matrix4& p_transform) {
 	MxMatrix mat;
 
 	if (m_parentROI != NULL) {
@@ -100,30 +95,26 @@ void OrientableROI::GetLocalTransform(Matrix4& p_transform)
 
 // FUNCTION: LEGO1 0x100a58f0
 // FUNCTION: BETA10 0x10167b77
-void OrientableROI::FUN_100a58f0(const Matrix4& p_transform)
-{
+void OrientableROI::FUN_100a58f0(const Matrix4& p_transform) {
 	m_local2world = p_transform;
 	ToggleUnknown0xd8(TRUE);
 }
 
 // FUNCTION: LEGO1 0x100a5910
-void OrientableROI::VTable0x1c()
-{
+void OrientableROI::VTable0x1c() {
 	UpdateWorldBoundingVolumes();
 	UpdateWorldVelocity();
 }
 
 // FUNCTION: LEGO1 0x100a5930
-void OrientableROI::SetLocalTransform(const Matrix4& p_transform)
-{
+void OrientableROI::SetLocalTransform(const Matrix4& p_transform) {
 	m_local2world = p_transform;
 	UpdateWorldBoundingVolumes();
 	UpdateWorldVelocity();
 }
 
 // FUNCTION: LEGO1 0x100a5960
-void OrientableROI::VTable0x24(const Matrix4& p_transform)
-{
+void OrientableROI::VTable0x24(const Matrix4& p_transform) {
 	MxMatrix l_matrix(m_local2world);
 	m_local2world.Product(p_transform, l_matrix);
 	UpdateWorldBoundingVolumes();
@@ -131,8 +122,7 @@ void OrientableROI::VTable0x24(const Matrix4& p_transform)
 }
 
 // FUNCTION: LEGO1 0x100a59b0
-void OrientableROI::UpdateWorldData(const Matrix4& p_transform)
-{
+void OrientableROI::UpdateWorldData(const Matrix4& p_transform) {
 	MxMatrix l_matrix(m_local2world);
 	m_local2world.Product(l_matrix, p_transform);
 	UpdateWorldBoundingVolumes();
@@ -148,14 +138,12 @@ void OrientableROI::UpdateWorldData(const Matrix4& p_transform)
 }
 
 // FUNCTION: LEGO1 0x100a5a30
-void OrientableROI::FUN_100a5a30(const Vector3& p_world_velocity)
-{
+void OrientableROI::FUN_100a5a30(const Vector3& p_world_velocity) {
 	m_world_velocity = p_world_velocity;
 }
 
 // FUNCTION: LEGO1 0x100a5a50
-void OrientableROI::UpdateWorldVelocity()
-{
+void OrientableROI::UpdateWorldVelocity() {
 }
 
 // FUNCTION: LEGO1 0x100a5a60
@@ -164,8 +152,7 @@ void CalcWorldBoundingVolumes(
 	const Matrix4& local2world,
 	BoundingBox& world_bounding_box,
 	BoundingSphere& world_bounding_sphere
-)
-{
+) {
 	// calculate world bounding volumes given a bounding sphere in modelling
 	// space and local2world transform
 
@@ -185,19 +172,16 @@ void CalcWorldBoundingVolumes(
 }
 
 // FUNCTION: LEGO1 0x100a5d80
-const float* OrientableROI::GetWorldVelocity() const
-{
+const float* OrientableROI::GetWorldVelocity() const {
 	return m_world_velocity.GetData();
 }
 
 // FUNCTION: LEGO1 0x100a5d90
-const BoundingBox& OrientableROI::GetWorldBoundingBox() const
-{
+const BoundingBox& OrientableROI::GetWorldBoundingBox() const {
 	return m_world_bounding_box;
 }
 
 // FUNCTION: LEGO1 0x100a5da0
-const BoundingSphere& OrientableROI::GetWorldBoundingSphere() const
-{
+const BoundingSphere& OrientableROI::GetWorldBoundingSphere() const {
 	return m_world_bounding_sphere;
 }

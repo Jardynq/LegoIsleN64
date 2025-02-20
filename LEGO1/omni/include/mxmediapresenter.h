@@ -22,8 +22,7 @@ public:
 	MxResult Tickle() override; // vtable+0x08
 
 	// FUNCTION: BETA10 0x10054f50
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f074c
 		return "MxMediaPresenter";
 	}

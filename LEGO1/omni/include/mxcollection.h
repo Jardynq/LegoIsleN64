@@ -6,8 +6,7 @@
 template <class T>
 class MxCollection : public MxCore {
 public:
-	MxCollection()
-	{
+	MxCollection() {
 		m_count = 0;
 		SetDestroy(Destroy);
 	}

@@ -19,8 +19,7 @@ public:
 	void InitLastTimeCalculated() { g_lastTimeCalculated = m_startTime; }
 
 	// FUNCTION: BETA10 0x10017810
-	MxLong GetTime()
-	{
+	MxLong GetTime() {
 		// Note that the BETA10 implementation differs - it only consists of the second branch of this `if` call
 		if (m_isRunning) {
 			return g_lastTimeTimerStarted;

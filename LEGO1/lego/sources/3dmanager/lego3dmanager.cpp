@@ -14,8 +14,7 @@ DECOMP_SIZE_ASSERT(Lego3DManager, 0x10);
 BOOL InitializeCreateStruct(
 	TglSurface::CreateStruct& rTglSurfaceCreateStruct,
 	const Lego3DManager::CreateStruct& rCreateStruct
-)
-{
+) {
 	// initializes a TglSurface::CreateStruct from a Lego3DManager::CreateStruct
 	rTglSurfaceCreateStruct.m_pDriverGUID = rCreateStruct.m_pDriverGUID;
 	rTglSurfaceCreateStruct.m_hWnd = rCreateStruct.m_hWnd;
@@ -33,8 +32,7 @@ BOOL InitializeCreateStruct(
 //////////////////////////////////////////////////////////////////////////////
 
 // FUNCTION: LEGO1 0x100ab320
-Lego3DManager::Lego3DManager()
-{
+Lego3DManager::Lego3DManager() {
 	// Tgl things
 	m_pRenderer = 0;
 
@@ -43,14 +41,12 @@ Lego3DManager::Lego3DManager()
 }
 
 // FUNCTION: LEGO1 0x100ab360
-Lego3DManager::~Lego3DManager()
-{
+Lego3DManager::~Lego3DManager() {
 	Destroy();
 }
 
 // FUNCTION: LEGO1 0x100ab370
-BOOL Lego3DManager::Create(CreateStruct& rCreateStruct)
-{
+BOOL Lego3DManager::Create(CreateStruct& rCreateStruct) {
 	TglSurface::CreateStruct tglSurfaceCreateStruct;
 	BOOL result;
 
@@ -76,8 +72,7 @@ BOOL Lego3DManager::Create(CreateStruct& rCreateStruct)
 }
 
 // FUNCTION: LEGO1 0x100ab460
-void Lego3DManager::Destroy()
-{
+void Lego3DManager::Destroy() {
 	delete m_pLego3DView;
 	m_pLego3DView = 0;
 
@@ -89,8 +84,7 @@ void Lego3DManager::Destroy()
 }
 
 // FUNCTION: LEGO1 0x100ab4b0
-double Lego3DManager::Render(double p_und)
-{
+double Lego3DManager::Render(double p_und) {
 	assert(m_pLego3DView);
 
 	return m_pLego3DView->Render(p_und);
@@ -98,8 +92,7 @@ double Lego3DManager::Render(double p_und)
 
 // FUNCTION: LEGO1 0x100ab4d0
 // FUNCTION: BETA10 0x1017baeb
-int Lego3DManager::SetFrustrum(float p_fov, float p_front, float p_back)
-{
+int Lego3DManager::SetFrustrum(float p_fov, float p_front, float p_back) {
 	m_pLego3DView->GetView()->SetFrustrum(p_front, p_back, p_fov);
 	m_pLego3DView->GetViewManager()->SetFrustrum(p_fov, p_front, p_back);
 	return 0;

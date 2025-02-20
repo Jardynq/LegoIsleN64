@@ -142,8 +142,7 @@ const char* g_strEnable = "enable";
 const char* g_strDisable = "disable";
 
 // FUNCTION: LEGO1 0x10039550
-LegoGameState::LegoGameState()
-{
+LegoGameState::LegoGameState() {
 	SetColors();
 	SetROIHandlerFunction();
 
@@ -174,8 +173,7 @@ LegoGameState::LegoGameState()
 }
 
 // FUNCTION: LEGO1 0x10039720
-LegoGameState::~LegoGameState()
-{
+LegoGameState::~LegoGameState() {
 	LegoROI::FUN_100a9d30(NULL);
 
 	if (m_stateCount) {
@@ -194,8 +192,7 @@ LegoGameState::~LegoGameState()
 
 // FUNCTION: LEGO1 0x10039780
 // FUNCTION: BETA10 0x10083d43
-void LegoGameState::SetActor(MxU8 p_actorId)
-{
+void LegoGameState::SetActor(MxU8 p_actorId) {
 	if (p_actorId) {
 		m_actorId = p_actorId;
 	}
@@ -225,8 +222,7 @@ void LegoGameState::SetActor(MxU8 p_actorId)
 }
 
 // FUNCTION: LEGO1 0x10039910
-void LegoGameState::RemoveActor()
-{
+void LegoGameState::RemoveActor() {
 	LegoPathActor* actor = UserActor();
 	SetUserActor(NULL);
 	delete actor;
@@ -235,8 +231,7 @@ void LegoGameState::RemoveActor()
 
 // FUNCTION: LEGO1 0x10039940
 // FUNCTION: BETA10 0x10084069
-void LegoGameState::ResetROI()
-{
+void LegoGameState::ResetROI() {
 	if (m_actorId) {
 		LegoPathActor* actor = UserActor();
 
@@ -253,9 +248,8 @@ void LegoGameState::ResetROI()
 
 // FUNCTION: LEGO1 0x10039980
 // FUNCTION: BETA10 0x100840e4
-MxResult LegoGameState::Save(MxULong p_slot)
-{
-	InfocenterState* infocenterState = (InfocenterState*) GameState()->GetState("InfocenterState");
+MxResult LegoGameState::Save(MxULong p_slot) {
+	InfocenterState* infocenterState = (InfocenterState*)GameState()->GetState("InfocenterState");
 
 	if (!infocenterState || !infocenterState->HasRegistered()) {
 		return SUCCESS;
@@ -323,8 +317,7 @@ done:
 }
 
 // FUNCTION: LEGO1 0x10039bf0
-MxResult LegoGameState::DeleteState()
-{
+MxResult LegoGameState::DeleteState() {
 	MxS16 stateCount = m_stateCount;
 	LegoState** stateArray = m_stateArray;
 
@@ -347,8 +340,7 @@ MxResult LegoGameState::DeleteState()
 
 // FUNCTION: LEGO1 0x10039c60
 // FUNCTION: BETA10 0x10084329
-MxResult LegoGameState::Load(MxULong p_slot)
-{
+MxResult LegoGameState::Load(MxULong p_slot) {
 	MxResult result = FAILURE;
 	LegoFile storage;
 	MxVariableTable* variableTable = VariableTable();
@@ -375,7 +367,7 @@ MxResult LegoGameState::Load(MxULong p_slot)
 	storage.ReadS16(m_unk0x24);
 	storage.ReadS16(actArea);
 
-	SetCurrentAct((Act) actArea);
+	SetCurrentAct((Act)actArea);
 	storage.ReadU8(m_actorId);
 	if (m_actorId) {
 		SetActor(m_actorId);
@@ -434,7 +426,7 @@ MxResult LegoGameState::Load(MxULong p_slot)
 		m_unk0x42c = e_undefined;
 	}
 	else {
-		m_unk0x42c = (Area) actArea;
+		m_unk0x42c = (Area)actArea;
 	}
 
 	result = SUCCESS;
@@ -449,8 +441,7 @@ done:
 }
 
 // FUNCTION: LEGO1 0x10039f00
-void LegoGameState::SetSavePath(char* p_savePath)
-{
+void LegoGameState::SetSavePath(char* p_savePath) {
 	if (m_savePath != NULL) {
 		delete[] m_savePath;
 	}
@@ -466,8 +457,7 @@ void LegoGameState::SetSavePath(char* p_savePath)
 
 // FUNCTION: LEGO1 0x10039f70
 // FUNCTION: BETA10 0x1008483b
-MxResult LegoGameState::WriteVariable(LegoStorage* p_storage, MxVariableTable* p_from, const char* p_variableName)
-{
+MxResult LegoGameState::WriteVariable(LegoStorage* p_storage, MxVariableTable* p_from, const char* p_variableName) {
 	MxResult result = FAILURE;
 	const char* variableValue = p_from->GetVariable(p_variableName);
 
@@ -495,8 +485,7 @@ done:
 
 // FUNCTION: LEGO1 0x1003a020
 // FUNCTION: BETA10 0x10084928
-MxResult LegoGameState::WriteEndOfVariables(LegoStorage* p_storage)
-{
+MxResult LegoGameState::WriteEndOfVariables(LegoStorage* p_storage) {
 	MxU8 len = strlen(g_endOfVariables);
 
 	if (p_storage->Write(&len, sizeof(len)) == SUCCESS) {
@@ -508,8 +497,7 @@ MxResult LegoGameState::WriteEndOfVariables(LegoStorage* p_storage)
 
 // FUNCTION: LEGO1 0x1003a080
 // FUNCTION: BETA10 0x1008498b
-MxS32 LegoGameState::ReadVariable(LegoStorage* p_storage, MxVariableTable* p_to)
-{
+MxS32 LegoGameState::ReadVariable(LegoStorage* p_storage, MxVariableTable* p_to) {
 	MxS32 result = 1;
 	MxU8 len;
 
@@ -552,8 +540,7 @@ done:
 
 // FUNCTION: LEGO1 0x1003a170
 // FUNCTION: BETA10 0x10084b45
-void LegoGameState::GetFileSavePath(MxString* p_outPath, MxS16 p_slotn)
-{
+void LegoGameState::GetFileSavePath(MxString* p_outPath, MxS16 p_slotn) {
 	char baseForSlot[2] = "0";
 	char path[1024] = "";
 
@@ -573,8 +560,7 @@ void LegoGameState::GetFileSavePath(MxString* p_outPath, MxS16 p_slotn)
 }
 
 // FUNCTION: LEGO1 0x1003a2e0
-void LegoGameState::SerializePlayersInfo(MxS16 p_flags)
-{
+void LegoGameState::SerializePlayersInfo(MxS16 p_flags) {
 	LegoFile storage;
 	MxString playersGSI = MxString(m_savePath);
 
@@ -596,8 +582,7 @@ void LegoGameState::SerializePlayersInfo(MxS16 p_flags)
 }
 
 // FUNCTION: LEGO1 0x1003a3f0
-MxResult LegoGameState::AddPlayer(Username& p_player)
-{
+MxResult LegoGameState::AddPlayer(Username& p_player) {
 	MxString from, to;
 
 	if (m_playerCount == 9) {
@@ -625,8 +610,7 @@ MxResult LegoGameState::AddPlayer(Username& p_player)
 
 // FUNCTION: LEGO1 0x1003a540
 // FUNCTION: BETA10 0x10084fc4
-void LegoGameState::SwitchPlayer(MxS16 p_playerId)
-{
+void LegoGameState::SwitchPlayer(MxS16 p_playerId) {
 	if (p_playerId > 0) {
 		MxString from, temp, to;
 
@@ -655,8 +639,7 @@ void LegoGameState::SwitchPlayer(MxS16 p_playerId)
 }
 
 // FUNCTION: LEGO1 0x1003a6e0
-MxS16 LegoGameState::FindPlayer(Username& p_player)
-{
+MxS16 LegoGameState::FindPlayer(Username& p_player) {
 	for (MxS16 i = 0; i < m_playerCount; i++) {
 		if (memcmp(&m_players[i], &p_player, sizeof(p_player)) == 0) {
 			return i;
@@ -668,8 +651,7 @@ MxS16 LegoGameState::FindPlayer(Username& p_player)
 
 // FUNCTION: LEGO1 0x1003a720
 // FUNCTION: BETA10 0x10085211
-void LegoGameState::StopArea(Area p_area)
-{
+void LegoGameState::StopArea(Area p_area) {
 	if (p_area == e_previousArea) {
 		p_area = m_previousArea;
 	}
@@ -831,8 +813,7 @@ void LegoGameState::StopArea(Area p_area)
 	}
 }
 
-inline void LoadIsle()
-{
+inline void LoadIsle() {
 	LegoWorld* world = FindWorld(*g_isleScript, IsleScript::c__Isle);
 	if (world != NULL) {
 		if (!world->GetUnknown0xd0Empty()) {
@@ -846,8 +827,7 @@ inline void LoadIsle()
 
 // FUNCTION: LEGO1 0x1003b060
 // FUNCTION: BETA10 0x10085adf
-void LegoGameState::SwitchArea(Area p_area)
-{
+void LegoGameState::SwitchArea(Area p_area) {
 	m_previousArea = m_currentArea;
 	m_currentArea = p_area;
 
@@ -949,7 +929,7 @@ void LegoGameState::SwitchArea(Area p_area)
 		InvokeAction(Extra::ActionType::e_start, *g_isleScript, IsleScript::c_GaraDoor, NULL);
 		break;
 	case e_unk28: {
-		Act1State* state = (Act1State*) GameState()->GetState("Act1State");
+		Act1State* state = (Act1State*)GameState()->GetState("Act1State");
 		LoadIsle();
 
 		if (state->GetUnknown18() == 7) {
@@ -961,7 +941,7 @@ void LegoGameState::SwitchArea(Area p_area)
 			AnimationManager()->Resume();
 		}
 
-		((IslePathActor*) UserActor())
+		((IslePathActor*)UserActor())
 			->SpawnPlayer(
 				p_area,
 				TRUE,
@@ -978,7 +958,7 @@ void LegoGameState::SwitchArea(Area p_area)
 		SetCameraControllerFromIsle();
 		UserActor()->ResetWorldTransform(TRUE);
 		AnimationManager()->Resume();
-		((IslePathActor*) UserActor())
+		((IslePathActor*)UserActor())
 			->SpawnPlayer(
 				p_area,
 				TRUE,
@@ -1050,8 +1030,7 @@ void LegoGameState::SwitchArea(Area p_area)
 }
 
 // FUNCTION: LEGO1 0x1003ba90
-void LegoGameState::SetColors()
-{
+void LegoGameState::SetColors() {
 	MxVariableTable* variableTable = VariableTable();
 
 	for (MxS32 i = 0; i < sizeOfArray(g_colorSaveData); i++) {
@@ -1060,17 +1039,15 @@ void LegoGameState::SetColors()
 }
 
 // FUNCTION: LEGO1 0x1003bac0
-void LegoGameState::SetROIHandlerFunction()
-{
+void LegoGameState::SetROIHandlerFunction() {
 	LegoROI::FUN_100a9d30(&ROIHandlerFunction);
 }
 
 // FUNCTION: LEGO1 0x1003bad0
-MxBool ROIHandlerFunction(const char* p_input, char* p_output, MxU32 p_copyLen)
-{
+MxBool ROIHandlerFunction(const char* p_input, char* p_output, MxU32 p_copyLen) {
 	if (p_output != NULL && p_copyLen != 0 &&
 		(strnicmp(p_input, "INDIR-F-", strlen("INDIR-F-")) == 0 ||
-		 strnicmp(p_input, "INDIR-G-", strlen("INDIR-F-")) == 0)) {
+			strnicmp(p_input, "INDIR-G-", strlen("INDIR-F-")) == 0)) {
 
 		char buf[256];
 		sprintf(buf, "c_%s", &p_input[strlen("INDIR-F-")]);
@@ -1088,8 +1065,7 @@ MxBool ROIHandlerFunction(const char* p_input, char* p_output, MxU32 p_copyLen)
 
 // FUNCTION: LEGO1 0x1003bbb0
 // FUNCTION: BETA10 0x10086280
-LegoState* LegoGameState::GetState(const char* p_stateName)
-{
+LegoState* LegoGameState::GetState(const char* p_stateName) {
 	for (MxS32 i = 0; i < m_stateCount; ++i) {
 		if (m_stateArray[i]->IsA(p_stateName)) {
 			return m_stateArray[i];
@@ -1100,10 +1076,9 @@ LegoState* LegoGameState::GetState(const char* p_stateName)
 
 // FUNCTION: LEGO1 0x1003bc00
 // FUNCTION: BETA10 0x100862fc
-LegoState* LegoGameState::CreateState(const char* p_stateName)
-{
+LegoState* LegoGameState::CreateState(const char* p_stateName) {
 	// variable name verified by BETA10 0x10086341
-	LegoState* state = (LegoState*) ObjectFactory()->Create(p_stateName);
+	LegoState* state = (LegoState*)ObjectFactory()->Create(p_stateName);
 	assert(state);
 
 	RegisterState(state);
@@ -1113,8 +1088,7 @@ LegoState* LegoGameState::CreateState(const char* p_stateName)
 
 // FUNCTION: LEGO1 0x1003bc30
 // FUNCTION: BETA10 0x1008636e
-void LegoGameState::RegisterState(LegoState* p_state)
-{
+void LegoGameState::RegisterState(LegoState* p_state) {
 	MxS32 targetIndex;
 	for (targetIndex = 0; targetIndex < m_stateCount; ++targetIndex) {
 		if (m_stateArray[targetIndex]->IsA(p_state->ClassName())) {
@@ -1123,7 +1097,7 @@ void LegoGameState::RegisterState(LegoState* p_state)
 	}
 
 	if (targetIndex == m_stateCount) {
-		LegoState** newBuffer = new LegoState*[m_stateCount + 1];
+		LegoState** newBuffer = new LegoState * [m_stateCount + 1];
 
 		if (m_stateCount != 0) {
 			memcpy(newBuffer, m_stateArray, m_stateCount * sizeof(LegoState*));
@@ -1140,8 +1114,7 @@ void LegoGameState::RegisterState(LegoState* p_state)
 }
 
 // FUNCTION: LEGO1 0x1003bd00
-void LegoGameState::Init()
-{
+void LegoGameState::Init() {
 	m_backgroundColor->SetValue("set 56 54 68");
 	m_backgroundColor->SetLightColor();
 	m_tempBackgroundColor->SetValue("set 56 54 68");
@@ -1159,30 +1132,30 @@ void LegoGameState::Init()
 	SetCurrentAct(e_act1);
 
 	if (m_loadedAct == e_act1) {
-		Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
+		Isle* isle = (Isle*)FindWorld(*g_isleScript, IsleScript::c__Isle);
 
-		Helicopter* copter = (Helicopter*) isle->Find(*g_copterScript, CopterScript::c_Helicopter_Actor);
+		Helicopter* copter = (Helicopter*)isle->Find(*g_copterScript, CopterScript::c_Helicopter_Actor);
 		if (copter) {
 			isle->RemoveActor(copter);
 			isle->VTable0x6c(copter);
 			delete copter;
 		}
 
-		DuneBuggy* dunebuggy = (DuneBuggy*) isle->Find(*g_dunecarScript, DunecarScript::c_DuneBugy_Actor);
+		DuneBuggy* dunebuggy = (DuneBuggy*)isle->Find(*g_dunecarScript, DunecarScript::c_DuneBugy_Actor);
 		if (dunebuggy) {
 			isle->RemoveActor(dunebuggy);
 			isle->VTable0x6c(dunebuggy);
 			delete dunebuggy;
 		}
 
-		Jetski* jetski = (Jetski*) isle->Find(*g_jetskiScript, JetskiScript::c_Jetski_Actor);
+		Jetski* jetski = (Jetski*)isle->Find(*g_jetskiScript, JetskiScript::c_Jetski_Actor);
 		if (jetski) {
 			isle->RemoveActor(jetski);
 			isle->VTable0x6c(jetski);
 			delete jetski;
 		}
 
-		RaceCar* racecar = (RaceCar*) isle->Find(*g_racecarScript, RacecarScript::c_RaceCar_Actor);
+		RaceCar* racecar = (RaceCar*)isle->Find(*g_racecarScript, RacecarScript::c_RaceCar_Actor);
 		if (racecar) {
 			isle->RemoveActor(racecar);
 			isle->VTable0x6c(racecar);
@@ -1194,8 +1167,7 @@ void LegoGameState::Init()
 }
 
 // FUNCTION: BETA10 0x10086510
-LegoBackgroundColor::LegoBackgroundColor()
-{
+LegoBackgroundColor::LegoBackgroundColor() {
 	m_h = 0.0f;
 	m_s = 0.0f;
 	m_v = 0.0f;
@@ -1203,8 +1175,7 @@ LegoBackgroundColor::LegoBackgroundColor()
 
 // FUNCTION: LEGO1 0x1003bfb0
 // FUNCTION: BETA10 0x1008659d
-LegoBackgroundColor::LegoBackgroundColor(const char* p_key, const char* p_value)
-{
+LegoBackgroundColor::LegoBackgroundColor(const char* p_key, const char* p_value) {
 	m_key = p_key;
 	m_key.ToUpperCase();
 	SetValue(p_value);
@@ -1212,8 +1183,7 @@ LegoBackgroundColor::LegoBackgroundColor(const char* p_key, const char* p_value)
 
 // FUNCTION: LEGO1 0x1003c070
 // FUNCTION: BETA10 0x10086634
-void LegoBackgroundColor::SetValue(const char* p_colorString)
-{
+void LegoBackgroundColor::SetValue(const char* p_colorString) {
 	m_value = p_colorString;
 	m_value.ToLowerCase();
 
@@ -1229,15 +1199,15 @@ void LegoBackgroundColor::SetValue(const char* p_colorString)
 	if (!strcmp(colorStringSplit, g_set)) {
 		colorStringSplit = strtok(0, g_delimiter);
 		if (colorStringSplit) {
-			m_h = (float) (atoi(colorStringSplit) * 0.01);
+			m_h = (float)(atoi(colorStringSplit) * 0.01);
 		}
 		colorStringSplit = strtok(0, g_delimiter);
 		if (colorStringSplit) {
-			m_s = (float) (atoi(colorStringSplit) * 0.01);
+			m_s = (float)(atoi(colorStringSplit) * 0.01);
 		}
 		colorStringSplit = strtok(0, g_delimiter);
 		if (colorStringSplit) {
-			m_v = (float) (atoi(colorStringSplit) * 0.01);
+			m_v = (float)(atoi(colorStringSplit) * 0.01);
 		}
 
 		ConvertHSVToRGB(m_h, m_s, m_v, &convertedR, &convertedG, &convertedB);
@@ -1253,8 +1223,7 @@ void LegoBackgroundColor::SetValue(const char* p_colorString)
 
 // FUNCTION: LEGO1 0x1003c230
 // FUNCTION: BETA10 0x100867f9
-void LegoBackgroundColor::ToggleDayNight(MxBool p_sun)
-{
+void LegoBackgroundColor::ToggleDayNight(MxBool p_sun) {
 	char buffer[30];
 
 	if (p_sun) {
@@ -1270,7 +1239,7 @@ void LegoBackgroundColor::ToggleDayNight(MxBool p_sun)
 		}
 	}
 
-	sprintf(buffer, "set %d %d %d", (MxU32) (m_h * 100.0f), (MxU32) (m_s * 100.0f), (MxU32) (m_v * 100.0f));
+	sprintf(buffer, "set %d %d %d", (MxU32)(m_h * 100.0f), (MxU32)(m_s * 100.0f), (MxU32)(m_v * 100.0f));
 	m_value = buffer;
 
 	float convertedR, convertedG, convertedB;
@@ -1281,8 +1250,7 @@ void LegoBackgroundColor::ToggleDayNight(MxBool p_sun)
 
 // FUNCTION: LEGO1 0x1003c330
 // FUNCTION: BETA10 0x100868de
-void LegoBackgroundColor::ToggleSkyColor()
-{
+void LegoBackgroundColor::ToggleSkyColor() {
 	char buffer[30];
 
 	m_h += 0.05;
@@ -1290,7 +1258,7 @@ void LegoBackgroundColor::ToggleSkyColor()
 		m_h -= 1.0;
 	}
 
-	sprintf(buffer, "set %d %d %d", (MxU32) (m_h * 100.0f), (MxU32) (m_s * 100.0f), (MxU32) (m_v * 100.0f));
+	sprintf(buffer, "set %d %d %d", (MxU32)(m_h * 100.0f), (MxU32)(m_s * 100.0f), (MxU32)(m_v * 100.0f));
 	m_value = buffer;
 
 	float convertedR, convertedG, convertedB;
@@ -1301,8 +1269,7 @@ void LegoBackgroundColor::ToggleSkyColor()
 
 // FUNCTION: LEGO1 0x1003c400
 // FUNCTION: BETA10 0x10086984
-void LegoBackgroundColor::SetLightColor(float p_r, float p_g, float p_b)
-{
+void LegoBackgroundColor::SetLightColor(float p_r, float p_g, float p_b) {
 	if (!VideoManager()->GetVideoParam().Flags().GetF2bit0()) {
 		// TODO: Computed constants based on what?
 		p_r *= 1. / 0.23;
@@ -1327,8 +1294,7 @@ void LegoBackgroundColor::SetLightColor(float p_r, float p_g, float p_b)
 }
 
 // FUNCTION: LEGO1 0x1003c4b0
-void LegoBackgroundColor::SetLightColor()
-{
+void LegoBackgroundColor::SetLightColor() {
 	float convertedR, convertedG, convertedB;
 	ConvertHSVToRGB(m_h, m_s, m_v, &convertedR, &convertedG, &convertedB);
 	SetLightColor(convertedR, convertedG, convertedB);
@@ -1336,8 +1302,7 @@ void LegoBackgroundColor::SetLightColor()
 
 // FUNCTION: LEGO1 0x1003c500
 // FUNCTION: BETA10 0x10086af6
-LegoFullScreenMovie::LegoFullScreenMovie(const char* p_key, const char* p_value)
-{
+LegoFullScreenMovie::LegoFullScreenMovie(const char* p_key, const char* p_value) {
 	m_key = p_key;
 	m_key.ToUpperCase();
 	SetValue(p_value);
@@ -1345,8 +1310,7 @@ LegoFullScreenMovie::LegoFullScreenMovie(const char* p_key, const char* p_value)
 
 // FUNCTION: LEGO1 0x1003c5c0
 // FUNCTION: BETA10 0x10086b8d
-void LegoFullScreenMovie::SetValue(const char* p_option)
-{
+void LegoFullScreenMovie::SetValue(const char* p_option) {
 	m_value = p_option;
 	m_value.ToLowerCase();
 
@@ -1362,22 +1326,20 @@ void LegoFullScreenMovie::SetValue(const char* p_option)
 }
 
 // FUNCTION: LEGO1 0x1003c670
-LegoGameState::Username::Username()
-{
+LegoGameState::Username::Username() {
 	memset(m_letters, -1, sizeof(m_letters));
 }
 
 // FUNCTION: LEGO1 0x1003c690
 // FUNCTION: BETA10 0x10086c57
-MxResult LegoGameState::Username::Serialize(LegoStorage* p_storage)
-{
+MxResult LegoGameState::Username::Serialize(LegoStorage* p_storage) {
 	if (p_storage->IsReadMode()) {
-		for (MxS16 i = 0; i < (MxS16) sizeOfArray(m_letters); i++) {
+		for (MxS16 i = 0; i < (MxS16)sizeOfArray(m_letters); i++) {
 			p_storage->ReadS16(m_letters[i]);
 		}
 	}
 	else if (p_storage->IsWriteMode()) {
-		for (MxS16 i = 0; i < (MxS16) sizeOfArray(m_letters); i++) {
+		for (MxS16 i = 0; i < (MxS16)sizeOfArray(m_letters); i++) {
 			p_storage->WriteS16(m_letters[i]);
 		}
 	}
@@ -1387,16 +1349,14 @@ MxResult LegoGameState::Username::Serialize(LegoStorage* p_storage)
 
 // FUNCTION: LEGO1 0x1003c710
 // FUNCTION: BETA10 0x10086d0c
-LegoGameState::Username& LegoGameState::Username::operator=(const Username& p_other)
-{
+LegoGameState::Username& LegoGameState::Username::operator=(const Username& p_other) {
 	memcpy(m_letters, p_other.m_letters, sizeof(m_letters));
 	return *this;
 }
 
 // FUNCTION: LEGO1 0x1003c740
 // FUNCTION: BETA10 0x10086d39
-MxResult LegoGameState::ScoreItem::Serialize(LegoStorage* p_storage)
-{
+MxResult LegoGameState::ScoreItem::Serialize(LegoStorage* p_storage) {
 	if (p_storage->IsReadMode()) {
 		p_storage->ReadS16(m_totalScore);
 
@@ -1427,28 +1387,26 @@ MxResult LegoGameState::ScoreItem::Serialize(LegoStorage* p_storage)
 
 // FUNCTION: LEGO1 0x1003c830
 // FUNCTION: BETA10 0x10086e87
-LegoGameState::History::History()
-{
+LegoGameState::History::History() {
 	m_count = 0;
 	m_unk0x372 = 0;
 }
 
 // FUNCTION: LEGO1 0x1003c870
 // FUNCTION: BETA10 0x10086ec9
-void LegoGameState::History::WriteScoreHistory()
-{
+void LegoGameState::History::WriteScoreHistory() {
 	MxS16 totalScore = 0;
 	MxU8 scores[5][5];
 
-	InfocenterState* state = (InfocenterState*) GameState()->GetState("InfocenterState");
+	InfocenterState* state = (InfocenterState*)GameState()->GetState("InfocenterState");
 	if (state->m_letters[0]) {
-		JetskiRaceState* jetskiRaceState = (JetskiRaceState*) GameState()->GetState("JetskiRaceState");
-		CarRaceState* carRaceState = (CarRaceState*) GameState()->GetState("CarRaceState");
+		JetskiRaceState* jetskiRaceState = (JetskiRaceState*)GameState()->GetState("JetskiRaceState");
+		CarRaceState* carRaceState = (CarRaceState*)GameState()->GetState("CarRaceState");
 		TowTrackMissionState* towTrackMissionState =
-			(TowTrackMissionState*) GameState()->GetState("TowTrackMissionState");
-		PizzaMissionState* pizzaMissionState = (PizzaMissionState*) GameState()->GetState("PizzaMissionState");
+			(TowTrackMissionState*)GameState()->GetState("TowTrackMissionState");
+		PizzaMissionState* pizzaMissionState = (PizzaMissionState*)GameState()->GetState("PizzaMissionState");
 		AmbulanceMissionState* ambulanceMissionState =
-			(AmbulanceMissionState*) GameState()->GetState("AmbulanceMissionState");
+			(AmbulanceMissionState*)GameState()->GetState("AmbulanceMissionState");
 
 		for (MxS32 actor = 1; actor <= 5; actor++) {
 			scores[0][actor - 1] = carRaceState ? carRaceState->GetState(actor)->GetHighScore() : 0;
@@ -1475,7 +1433,7 @@ void LegoGameState::History::WriteScoreHistory()
 			memcpy(p_scorehist->m_scores, scores, sizeof(p_scorehist->m_scores));
 		}
 		else {
-			if (m_count < (MxS16) sizeOfArray(m_scores)) {
+			if (m_count < (MxS16)sizeOfArray(m_scores)) {
 				m_scores[m_count].m_totalScore = totalScore;
 				memcpy(m_scores[m_count].m_scores, scores, sizeof(m_scores[m_count].m_scores));
 				m_scores[m_count].m_name = GameState()->m_players[0];
@@ -1521,8 +1479,7 @@ LegoGameState::ScoreItem* LegoGameState::History::FUN_1003cc90(
 	LegoGameState::Username* p_player,
 	MxS16 p_unk0x24,
 	MxS32& p_unk0x2c
-)
-{
+) {
 	MxS32 i = 0;
 	for (; i < m_count; i++) {
 		if (!memcmp(p_player, &m_scores[i].m_name, sizeof(*p_player)) && m_scores[i].m_unk0x2a == p_unk0x24) {
@@ -1541,8 +1498,7 @@ LegoGameState::ScoreItem* LegoGameState::History::FUN_1003cc90(
 
 // FUNCTION: LEGO1 0x1003ccf0
 // FUNCTION: BETA10 0x100873e7
-MxResult LegoGameState::History::Serialize(LegoStorage* p_storage)
-{
+MxResult LegoGameState::History::Serialize(LegoStorage* p_storage) {
 	if (p_storage->IsReadMode()) {
 		p_storage->ReadS16(m_unk0x372);
 		p_storage->ReadS16(m_count);
@@ -1567,8 +1523,7 @@ MxResult LegoGameState::History::Serialize(LegoStorage* p_storage)
 }
 
 // FUNCTION: LEGO1 0x1003cdd0
-void LegoGameState::SerializeScoreHistory(MxS16 p_flags)
-{
+void LegoGameState::SerializeScoreHistory(MxS16 p_flags) {
 	LegoFile storage;
 	MxString savePath(m_savePath);
 	savePath += "\\";
@@ -1584,14 +1539,12 @@ void LegoGameState::SerializeScoreHistory(MxS16 p_flags)
 }
 
 // FUNCTION: LEGO1 0x1003cea0
-void LegoGameState::SetCurrentAct(Act p_currentAct)
-{
+void LegoGameState::SetCurrentAct(Act p_currentAct) {
 	m_currentAct = p_currentAct;
 }
 
 // FUNCTION: LEGO1 0x1003ceb0
-void LegoGameState::FindLoadedAct()
-{
+void LegoGameState::FindLoadedAct() {
 	if (FindWorld(*g_isleScript, IsleScript::c__Isle)) {
 		m_loadedAct = e_act1;
 	}

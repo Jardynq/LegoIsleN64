@@ -13,8 +13,7 @@ public:
 	LegoFlcTexturePresenter();
 
 	// FUNCTION: BETA10 0x100837e0
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f0634
 		return "LegoFlcTexturePresenter";
 	}

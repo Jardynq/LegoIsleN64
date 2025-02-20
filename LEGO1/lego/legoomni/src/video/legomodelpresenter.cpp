@@ -25,14 +25,12 @@ DECOMP_SIZE_ASSERT(LegoModelPresenter, 0x6c)
 MxS32 g_modelPresenterConfig = 1;
 
 // FUNCTION: LEGO1 0x1007f660
-void LegoModelPresenter::configureLegoModelPresenter(MxS32 p_modelPresenterConfig)
-{
+void LegoModelPresenter::configureLegoModelPresenter(MxS32 p_modelPresenterConfig) {
 	g_modelPresenterConfig = p_modelPresenterConfig;
 }
 
 // FUNCTION: LEGO1 0x1007f670
-void LegoModelPresenter::Destroy(MxBool p_fromDestructor)
-{
+void LegoModelPresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 	m_roi = NULL;
 	m_addedToView = FALSE;
@@ -45,8 +43,7 @@ void LegoModelPresenter::Destroy(MxBool p_fromDestructor)
 
 // FUNCTION: LEGO1 0x1007f6b0
 // FUNCTION: BETA10 0x1009845e
-MxResult LegoModelPresenter::CreateROI(MxDSChunk* p_chunk)
-{
+MxResult LegoModelPresenter::CreateROI(MxDSChunk* p_chunk) {
 	MxResult result = FAILURE;
 	LegoU32 numROIs;
 	Mx3DPointFloat vect;
@@ -199,8 +196,7 @@ MxResult LegoModelPresenter::FUN_1007ff70(
 	LegoEntity* p_entity,
 	MxBool p_roiVisible,
 	LegoWorld* p_world
-)
-{
+) {
 	MxResult result = SUCCESS;
 
 	ParseExtra();
@@ -227,8 +223,7 @@ MxResult LegoModelPresenter::FUN_1007ff70(
 
 // FUNCTION: LEGO1 0x10080050
 // FUNCTION: BETA10 0x100991c2
-void LegoModelPresenter::ReadyTickle()
-{
+void LegoModelPresenter::ReadyTickle() {
 	if (m_compositePresenter != NULL && m_compositePresenter->IsA("LegoEntityPresenter") &&
 		m_compositePresenter->GetCurrentTickleState() <= e_ready) {
 		return;
@@ -238,14 +233,14 @@ void LegoModelPresenter::ReadyTickle()
 
 	if (m_roi != NULL) {
 		if (m_compositePresenter && m_compositePresenter->IsA("LegoEntityPresenter")) {
-			((LegoEntityPresenter*) m_compositePresenter)->GetInternalEntity()->SetROI(m_roi, m_addedToView, TRUE);
-			((LegoEntityPresenter*) m_compositePresenter)
+			((LegoEntityPresenter*)m_compositePresenter)->GetInternalEntity()->SetROI(m_roi, m_addedToView, TRUE);
+			((LegoEntityPresenter*)m_compositePresenter)
 				->GetInternalEntity()
 				->SetFlags(
-					((LegoEntityPresenter*) m_compositePresenter)->GetInternalEntity()->GetFlags() &
+					((LegoEntityPresenter*)m_compositePresenter)->GetInternalEntity()->GetFlags() &
 					~LegoEntity::c_managerOwned
 				);
-			((LegoEntityPresenter*) m_compositePresenter)->GetInternalEntity()->SetType(LegoEntity::e_actor);
+			((LegoEntityPresenter*)m_compositePresenter)->GetInternalEntity()->SetType(LegoEntity::e_actor);
 		}
 
 		ParseExtra();
@@ -265,11 +260,11 @@ void LegoModelPresenter::ReadyTickle()
 				VideoManager()->Get3DManager()->Moved(*m_roi);
 
 				if (m_compositePresenter != NULL && m_compositePresenter->IsA("LegoEntityPresenter")) {
-					((LegoEntityPresenter*) m_compositePresenter)->GetInternalEntity()->SetROI(m_roi, TRUE, TRUE);
-					((LegoEntityPresenter*) m_compositePresenter)
+					((LegoEntityPresenter*)m_compositePresenter)->GetInternalEntity()->SetROI(m_roi, TRUE, TRUE);
+					((LegoEntityPresenter*)m_compositePresenter)
 						->GetInternalEntity()
 						->SetFlags(
-							((LegoEntityPresenter*) m_compositePresenter)->GetInternalEntity()->GetFlags() &
+							((LegoEntityPresenter*)m_compositePresenter)->GetInternalEntity()->GetFlags() &
 							~LegoEntity::c_managerOwned
 						);
 				}
@@ -285,8 +280,7 @@ void LegoModelPresenter::ReadyTickle()
 
 // FUNCTION: LEGO1 0x100801b0
 // FUNCTION: BETA10 0x10099443
-void LegoModelPresenter::ParseExtra()
-{
+void LegoModelPresenter::ParseExtra() {
 	MxU16 extraLength;
 	char* extraData;
 	m_action->GetExtra(extraLength, extraData);

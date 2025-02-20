@@ -10,20 +10,17 @@ DECOMP_SIZE_ASSERT(RaceSkel, 0x178)
 
 // FUNCTION: LEGO1 0x100719b0
 // FUNCTION: BETA10 0x100f1240
-RaceSkel::RaceSkel()
-{
+RaceSkel::RaceSkel() {
 	m_animPosition = 0.0f;
 }
 
 // FUNCTION: LEGO1 0x10071ad0
-RaceSkel::~RaceSkel()
-{
+RaceSkel::~RaceSkel() {
 }
 
 // FUNCTION: LEGO1 0x10071b50
 // FUNCTION: BETA10 0x100f13cf
-MxResult RaceSkel::FUN_1001c360(float p_und, Matrix4& p_transform)
-{
+MxResult RaceSkel::FUN_1001c360(float p_und, Matrix4& p_transform) {
 	p_transform[3][0] = -630.0f;
 	p_transform[3][1] = -4.688f;
 	p_transform[3][2] = 323.0f;
@@ -35,12 +32,11 @@ MxResult RaceSkel::FUN_1001c360(float p_und, Matrix4& p_transform)
 
 // FUNCTION: LEGO1 0x10071b90
 // FUNCTION: BETA10 0x100f1444
-void RaceSkel::ParseAction(char* p_extra)
-{
+void RaceSkel::ParseAction(char* p_extra) {
 	LegoAnimActor::ParseAction(p_extra);
 
 	// name verified by BETA10 0x100f147d
-	CarRace* w = (CarRace*) CurrentWorld();
+	CarRace* w = (CarRace*)CurrentWorld();
 	assert(w);
 	w->SetSkeleton(this);
 
@@ -52,8 +48,7 @@ void RaceSkel::ParseAction(char* p_extra)
 
 // FUNCTION: LEGO1 0x10071c80
 // FUNCTION: BETA10 0x100f1531
-void RaceSkel::FUN_10071c80(Vector3& p_vec)
-{
+void RaceSkel::FUN_10071c80(Vector3& p_vec) {
 	p_vec[0] = -630.0f;
 	p_vec[1] = -4.688f;
 	p_vec[2] = 323.0f;
@@ -61,8 +56,7 @@ void RaceSkel::FUN_10071c80(Vector3& p_vec)
 
 // FUNCTION: LEGO1 0x10071cb0
 // FUNCTION: BETA10 0x100f158b
-void RaceSkel::GetCurrentAnimData(float* p_outCurAnimPosition, float* p_outCurAnimDuration)
-{
+void RaceSkel::GetCurrentAnimData(float* p_outCurAnimPosition, float* p_outCurAnimDuration) {
 	*p_outCurAnimPosition = m_animPosition;
 
 	assert(m_curAnim >= 0);

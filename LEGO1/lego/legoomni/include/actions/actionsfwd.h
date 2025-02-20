@@ -3,243 +3,217 @@
 #ifndef ACTIONSFWD_H
 #define ACTIONSFWD_H
 
-namespace SndanimScript
-{
+namespace SndanimScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace SndanimScript
 
-namespace NocdScript
-{
+namespace NocdScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace NocdScript
 
-namespace CreditsScript
-{
+namespace CreditsScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace CreditsScript
 
-namespace IntroScript
-{
+namespace IntroScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace IntroScript
 
-namespace HospitalScript
-{
+namespace HospitalScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace HospitalScript
 
-namespace CarraceScript
-{
+namespace CarraceScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace CarraceScript
 
-namespace JetraceScript
-{
+namespace JetraceScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace JetraceScript
 
-namespace CarracerScript
-{
+namespace CarracerScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace CarracerScript
 
-namespace JetracerScript
-{
+namespace JetracerScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace JetracerScript
 
-namespace InfoscorScript
-{
+namespace InfoscorScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace InfoscorScript
 
-namespace RegbookScript
-{
+namespace RegbookScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace RegbookScript
 
-namespace HistbookScript
-{
+namespace HistbookScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace HistbookScript
 
-namespace InfomainScript
-{
+namespace InfomainScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace InfomainScript
 
-namespace ElevbottScript
-{
+namespace ElevbottScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace ElevbottScript
 
-namespace InfodoorScript
-{
+namespace InfodoorScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace InfodoorScript
 
-namespace RacecarScript
-{
+namespace RacecarScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace RacecarScript
 
-namespace DunecarScript
-{
+namespace DunecarScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace DunecarScript
 
-namespace CopterScript
-{
+namespace CopterScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace CopterScript
 
-namespace JetskiScript
-{
+namespace JetskiScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace JetskiScript
 
-namespace GarageScript
-{
+namespace GarageScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace GarageScript
 
-namespace Act3Script
-{
+namespace Act3Script {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace Act3Script
 
-namespace Act2mainScript
-{
+namespace Act2mainScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace Act2mainScript
 
-namespace JukeboxwScript
-{
+namespace JukeboxwScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace JukeboxwScript
 
-namespace IsleScript
-{
+namespace IsleScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 
 #if __cplusplus >= 201103L
-enum Script2 : int;
+    enum Script2 : int;
 #else
-enum Script2;
+    enum Script2;
 #endif
 } // namespace IsleScript
 
-namespace JukeboxScript
-{
+namespace JukeboxScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace JukeboxScript
 
-namespace PoliceScript
-{
+namespace PoliceScript {
 #if __cplusplus >= 201103L
-enum Script : int;
+    enum Script : int;
 #else
-enum Script;
+    enum Script;
 #endif
 } // namespace PoliceScript
 

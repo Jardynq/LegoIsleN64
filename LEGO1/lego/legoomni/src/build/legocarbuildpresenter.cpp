@@ -21,8 +21,7 @@ DECOMP_SIZE_ASSERT(LegoCarBuildAnimPresenter, 0x150)
 
 // FUNCTION: LEGO1 0x10078400
 // FUNCTION: BETA10 0x100707c0
-LegoCarBuildAnimPresenter::LegoCarBuildAnimPresenter()
-{
+LegoCarBuildAnimPresenter::LegoCarBuildAnimPresenter() {
 	m_unk0xbc = 0;
 	m_numberOfParts = 0;
 	m_placedPartCount = 0;
@@ -41,8 +40,7 @@ LegoCarBuildAnimPresenter::LegoCarBuildAnimPresenter()
 
 // FUNCTION: LEGO1 0x10078680
 // FUNCTION: BETA10 0x1007091e
-LegoCarBuildAnimPresenter::~LegoCarBuildAnimPresenter()
-{
+LegoCarBuildAnimPresenter::~LegoCarBuildAnimPresenter() {
 	if (m_parts) {
 		for (MxS16 i = 0; i < m_numberOfParts; i++) {
 			delete m_parts[i].m_name;
@@ -60,8 +58,7 @@ LegoCarBuildAnimPresenter::~LegoCarBuildAnimPresenter()
 }
 
 // FUNCTION: BETA10 0x100733d0
-inline void LegoCarBuildAnimPresenter::Beta10Inline0x100733d0()
-{
+inline void LegoCarBuildAnimPresenter::Beta10Inline0x100733d0() {
 	MxLong time = Timer()->GetTime();
 	MxLong bvar5;
 
@@ -112,8 +109,7 @@ inline void LegoCarBuildAnimPresenter::Beta10Inline0x100733d0()
 
 // FUNCTION: LEGO1 0x10078790
 // FUNCTION: BETA10 0x10070ab1
-void LegoCarBuildAnimPresenter::PutFrame()
-{
+void LegoCarBuildAnimPresenter::PutFrame() {
 	switch (m_unk0xbc) {
 	case 0:
 		break;
@@ -132,8 +128,7 @@ void LegoCarBuildAnimPresenter::PutFrame()
 
 // FUNCTION: LEGO1 0x100788c0
 // FUNCTION: BETA10 0x10070b56
-void LegoCarBuildAnimPresenter::ReadyTickle()
-{
+void LegoCarBuildAnimPresenter::ReadyTickle() {
 	if (!m_anim) {
 		LegoAnimPresenter::ReadyTickle();
 
@@ -150,23 +145,23 @@ void LegoCarBuildAnimPresenter::ReadyTickle()
 #endif
 	}
 
-	m_unk0x140 = (LegoEntity*) m_currentWorld->Find("MxEntity", "Dunebld");
+	m_unk0x140 = (LegoEntity*)m_currentWorld->Find("MxEntity", "Dunebld");
 
 	if (!m_unk0x140) {
-		m_unk0x140 = (LegoEntity*) m_currentWorld->Find("MxEntity", "Chptrbld");
+		m_unk0x140 = (LegoEntity*)m_currentWorld->Find("MxEntity", "Chptrbld");
 	}
 
 	if (!m_unk0x140) {
-		m_unk0x140 = (LegoEntity*) m_currentWorld->Find("MxEntity", "Jetbld");
+		m_unk0x140 = (LegoEntity*)m_currentWorld->Find("MxEntity", "Jetbld");
 	}
 
 	if (!m_unk0x140) {
-		m_unk0x140 = (LegoEntity*) m_currentWorld->Find("MxEntity", "bldrace");
+		m_unk0x140 = (LegoEntity*)m_currentWorld->Find("MxEntity", "bldrace");
 	}
 
 	if (m_unk0x140) {
-		((LegoCarBuild*) m_currentWorld)->SetUnknown0x258(this);
-		m_placedPartCount = ((LegoCarBuild*) m_currentWorld)->GetPlacedPartCount();
+		((LegoCarBuild*)m_currentWorld)->SetUnknown0x258(this);
+		m_placedPartCount = ((LegoCarBuild*)m_currentWorld)->GetPlacedPartCount();
 		SetUnknown0xbc(1);
 		m_previousTickleStates |= 1 << m_currentTickleState;
 		m_currentTickleState = e_starting;
@@ -180,8 +175,7 @@ void LegoCarBuildAnimPresenter::ReadyTickle()
 
 // FUNCTION: LEGO1 0x100789e0
 // FUNCTION: BETA10 0x10070cdd
-void LegoCarBuildAnimPresenter::StreamingTickle()
-{
+void LegoCarBuildAnimPresenter::StreamingTickle() {
 	if (!m_unk0x140->GetROI()) {
 		return;
 	}
@@ -239,7 +233,7 @@ void LegoCarBuildAnimPresenter::StreamingTickle()
 	MxS16 totalNodes = CountTotalTreeNodes(m_anim->GetRoot());
 
 	for (i = 0; i < totalNodes; i++) {
-		LegoAnimNodeData* animNodeData = (LegoAnimNodeData*) GetTreeNode(m_anim->GetRoot(), i)->GetData();
+		LegoAnimNodeData* animNodeData = (LegoAnimNodeData*)GetTreeNode(m_anim->GetRoot(), i)->GetData();
 
 		if (strnicmp(animNodeData->GetName(), "CAM", strlen("CAM")) == 0) {
 			camera = local60->FindChildROI(animNodeData->GetName(), local60);
@@ -279,8 +273,7 @@ void LegoCarBuildAnimPresenter::StreamingTickle()
 
 // FUNCTION: LEGO1 0x10078db0
 // FUNCTION: BETA10 0x100712f3
-void LegoCarBuildAnimPresenter::EndAction()
-{
+void LegoCarBuildAnimPresenter::EndAction() {
 	if (m_action) {
 		AUTOLOCK(m_criticalSection);
 		MxVideoPresenter::EndAction();
@@ -290,8 +283,7 @@ void LegoCarBuildAnimPresenter::EndAction()
 
 // FUNCTION: LEGO1 0x10078e30
 // FUNCTION: BETA10 0x10071387
-MxResult LegoCarBuildAnimPresenter::Serialize(LegoStorage* p_storage)
-{
+MxResult LegoCarBuildAnimPresenter::Serialize(LegoStorage* p_storage) {
 	if (p_storage->IsReadMode()) {
 		p_storage->ReadS16(m_placedPartCount);
 		p_storage->ReadFloat(m_unk0x130);
@@ -316,16 +308,14 @@ MxResult LegoCarBuildAnimPresenter::Serialize(LegoStorage* p_storage)
 
 // FUNCTION: LEGO1 0x10079050
 // FUNCTION: BETA10 0x1007151e
-void LegoCarBuildAnimPresenter::FUN_10079050(MxS16 p_index)
-{
+void LegoCarBuildAnimPresenter::FUN_10079050(MxS16 p_index) {
 	SwapNodesByName(m_parts[p_index].m_wiredName, m_parts[p_index].m_name);
 	FUN_100795d0(m_parts[p_index].m_wiredName);
 }
 
 // FUNCTION: LEGO1 0x10079090
 // FUNCTION: BETA10 0x10071584
-void LegoCarBuildAnimPresenter::SwapNodesByName(LegoChar* p_name1, LegoChar* p_name2)
-{
+void LegoCarBuildAnimPresenter::SwapNodesByName(LegoChar* p_name1, LegoChar* p_name2) {
 	char buffer[40];
 
 	if (stricmp(p_name1, p_name2) != 0) {
@@ -344,8 +334,7 @@ void LegoCarBuildAnimPresenter::SwapNodesByName(LegoChar* p_name1, LegoChar* p_n
 
 // FUNCTION: LEGO1 0x10079160
 // FUNCTION: BETA10 0x1007165d
-void LegoCarBuildAnimPresenter::FUN_10079160()
-{
+void LegoCarBuildAnimPresenter::FUN_10079160() {
 	LegoTreeNode* root;
 	LegoAnimNodeData* data2;
 	MxS16 i;
@@ -356,7 +345,7 @@ void LegoCarBuildAnimPresenter::FUN_10079160()
 	LegoTreeNode** children;
 
 	for (i = 0; i < totalNodes; i++) {
-		LegoAnimNodeData* data = (LegoAnimNodeData*) GetTreeNode(m_anim->GetRoot(), i)->GetData();
+		LegoAnimNodeData* data = (LegoAnimNodeData*)GetTreeNode(m_anim->GetRoot(), i)->GetData();
 		name = data->GetName();
 
 		if (StringEqualsPlatform(name)) {
@@ -385,7 +374,7 @@ void LegoCarBuildAnimPresenter::FUN_10079160()
 	assert(m_parts);
 
 	for (i = 0; i < totalNodes; i++) {
-		name = ((LegoAnimNodeData*) GetTreeNode(m_anim->GetRoot(), i)->GetData())->GetName();
+		name = ((LegoAnimNodeData*)GetTreeNode(m_anim->GetRoot(), i)->GetData())->GetName();
 
 		strupr(name);
 
@@ -393,7 +382,7 @@ void LegoCarBuildAnimPresenter::FUN_10079160()
 			m_parts[name[strlen(name) - 1] - 'A'].m_wiredName = new LegoChar[strlen(name) + 1];
 
 			// clang-format off
-			assert(m_parts[name[strlen(name)-1] - 'A'].m_wiredName);
+			assert(m_parts[name[strlen(name) - 1] - 'A'].m_wiredName);
 			// clang-format on
 
 			strcpy(m_parts[name[strlen(name) - 1] - 'A'].m_wiredName, name);
@@ -403,7 +392,7 @@ void LegoCarBuildAnimPresenter::FUN_10079160()
 	MxS16 counter = 0;
 
 	for (i = 0; i < totalNodes; i++) {
-		name = ((LegoAnimNodeData*) GetTreeNode(m_anim->GetRoot(), i)->GetData())->GetName();
+		name = ((LegoAnimNodeData*)GetTreeNode(m_anim->GetRoot(), i)->GetData())->GetName();
 		if (StringEndsOnYOrN(name)) {
 			for (MxS16 ii = 0; ii < m_numberOfParts; ii++) {
 				if (strnicmp(m_parts[ii].m_wiredName, name, strlen(name) - 2) == 0) {
@@ -427,7 +416,7 @@ void LegoCarBuildAnimPresenter::FUN_10079160()
 	destNode->SetData(destData);
 
 	root = m_anim->GetRoot();
-	data2 = (LegoAnimNodeData*) root->GetData();
+	data2 = (LegoAnimNodeData*)root->GetData();
 	destData->SetName(data2->GetName());
 
 	destNode->SetNumChildren(1);
@@ -441,8 +430,7 @@ void LegoCarBuildAnimPresenter::FUN_10079160()
 
 // FUNCTION: LEGO1 0x100795d0
 // FUNCTION: BETA10 0x10071d96
-void LegoCarBuildAnimPresenter::FUN_100795d0(LegoChar* p_param)
-{
+void LegoCarBuildAnimPresenter::FUN_100795d0(LegoChar* p_param) {
 	LegoAnimNodeData* data = FindNodeDataByName(m_anim->GetRoot(), p_param);
 
 	if (data) {
@@ -463,8 +451,7 @@ void LegoCarBuildAnimPresenter::FUN_100795d0(LegoChar* p_param)
 
 // FUNCTION: LEGO1 0x10079680
 // FUNCTION: BETA10 0x10071ec5
-void LegoCarBuildAnimPresenter::FUN_10079680(LegoChar* p_param)
-{
+void LegoCarBuildAnimPresenter::FUN_10079680(LegoChar* p_param) {
 	LegoAnimNodeData* data = FindNodeDataByName(m_anim->GetRoot(), p_param);
 
 	if (data) {
@@ -479,12 +466,11 @@ void LegoCarBuildAnimPresenter::FUN_10079680(LegoChar* p_param)
 
 // FUNCTION: LEGO1 0x100796b0
 // FUNCTION: BETA10 0x10071f3c
-LegoAnimNodeData* LegoCarBuildAnimPresenter::FindNodeDataByName(LegoTreeNode* p_treeNode, const LegoChar* p_name)
-{
+LegoAnimNodeData* LegoCarBuildAnimPresenter::FindNodeDataByName(LegoTreeNode* p_treeNode, const LegoChar* p_name) {
 	LegoAnimNodeData* data = NULL;
 
 	if (p_treeNode) {
-		data = (LegoAnimNodeData*) p_treeNode->GetData();
+		data = (LegoAnimNodeData*)p_treeNode->GetData();
 
 		if (stricmp(data->GetName(), p_name) == 0) {
 			return data;
@@ -504,13 +490,12 @@ LegoAnimNodeData* LegoCarBuildAnimPresenter::FindNodeDataByName(LegoTreeNode* p_
 
 // FUNCTION: LEGO1 0x10079720
 // FUNCTION: BETA10 0x10071fec
-LegoTreeNode* LegoCarBuildAnimPresenter::FindNodeByName(LegoTreeNode* p_treeNode, const LegoChar* p_name)
-{
+LegoTreeNode* LegoCarBuildAnimPresenter::FindNodeByName(LegoTreeNode* p_treeNode, const LegoChar* p_name) {
 	LegoAnimNodeData* data = NULL;
 	LegoTreeNode* node = NULL;
 
 	if (p_treeNode) {
-		data = (LegoAnimNodeData*) p_treeNode->GetData();
+		data = (LegoAnimNodeData*)p_treeNode->GetData();
 
 		if (stricmp(data->GetName(), p_name) == 0) {
 			return p_treeNode;
@@ -530,8 +515,7 @@ LegoTreeNode* LegoCarBuildAnimPresenter::FindNodeByName(LegoTreeNode* p_treeNode
 
 // FUNCTION: LEGO1 0x10079790
 // FUNCTION: BETA10 0x100720a3
-void LegoCarBuildAnimPresenter::FUN_10079790(const LegoChar* p_name)
-{
+void LegoCarBuildAnimPresenter::FUN_10079790(const LegoChar* p_name) {
 	MxS16 i;
 	LegoChar buffer[40];
 
@@ -550,7 +534,7 @@ void LegoCarBuildAnimPresenter::FUN_10079790(const LegoChar* p_name)
 	FUN_10079050(m_placedPartCount);
 	m_placedPartCount++;
 
-	((LegoCarBuild*) m_currentWorld)->SetPlacedPartCount(m_placedPartCount);
+	((LegoCarBuild*)m_currentWorld)->SetPlacedPartCount(m_placedPartCount);
 
 	if (m_placedPartCount < m_numberOfParts) {
 		FUN_10079680(m_parts[m_placedPartCount].m_wiredName);
@@ -559,8 +543,7 @@ void LegoCarBuildAnimPresenter::FUN_10079790(const LegoChar* p_name)
 
 // FUNCTION: LEGO1 0x10079920
 // FUNCTION: BETA10 0x1007225d
-void LegoCarBuildAnimPresenter::RotateAroundYAxis(MxFloat p_angle)
-{
+void LegoCarBuildAnimPresenter::RotateAroundYAxis(MxFloat p_angle) {
 	if (m_unk0xc4) {
 		LegoRotationKey* rotationKey = m_unk0xc4->GetRotationKey(0);
 
@@ -592,8 +575,7 @@ void LegoCarBuildAnimPresenter::RotateAroundYAxis(MxFloat p_angle)
 
 // FUNCTION: LEGO1 0x10079a90
 // FUNCTION: BETA10 0x10072412
-void LegoCarBuildAnimPresenter::FUN_10079a90()
-{
+void LegoCarBuildAnimPresenter::FUN_10079a90() {
 	if (m_unk0x12c >= m_unk0x134) {
 		m_unk0x130 = 0.0;
 		m_unk0x12c = m_unk0x130;
@@ -611,49 +593,43 @@ void LegoCarBuildAnimPresenter::FUN_10079a90()
 
 // FUNCTION: LEGO1 0x10079b20
 // FUNCTION: BETA10 0x100724fa
-MxBool LegoCarBuildAnimPresenter::StringEqualsPlatform(const LegoChar* p_string)
-{
+MxBool LegoCarBuildAnimPresenter::StringEqualsPlatform(const LegoChar* p_string) {
 	return stricmp(p_string, "PLATFORM") == 0;
 }
 
 // FUNCTION: LEGO1 0x10079b40
 // FUNCTION: BETA10 0x10072534
-MxBool LegoCarBuildAnimPresenter::StringEndsOnW(LegoChar* p_param)
-{
+MxBool LegoCarBuildAnimPresenter::StringEndsOnW(LegoChar* p_param) {
 	return (p_param[strlen(p_param) - 2] == 'W') || (p_param[strlen(p_param) - 2] == 'w');
 }
 
 // FUNCTION: LEGO1 0x10079b80
 // FUNCTION: BETA10 0x1007258f
-MxBool LegoCarBuildAnimPresenter::StringEndsOnYOrN(const LegoChar* p_string)
-{
+MxBool LegoCarBuildAnimPresenter::StringEndsOnYOrN(const LegoChar* p_string) {
 	return (p_string[strlen(p_string) - 2] == 'N') || (p_string[strlen(p_string) - 2] == 'n') ||
-		   (p_string[strlen(p_string) - 2] == 'Y') || (p_string[strlen(p_string) - 2] == 'y');
+		(p_string[strlen(p_string) - 2] == 'Y') || (p_string[strlen(p_string) - 2] == 'y');
 }
 
 // FUNCTION: LEGO1 0x10079bf0
 // FUNCTION: BETA10 0x10072624
-MxBool LegoCarBuildAnimPresenter::StringEqualsShelf(const LegoChar* p_string)
-{
+MxBool LegoCarBuildAnimPresenter::StringEqualsShelf(const LegoChar* p_string) {
 	return strnicmp(p_string, "SHELF", strlen("SHELF")) == 0;
 }
 
 // FUNCTION: LEGO1 0x10079c30
 // FUNCTION: BETA10 0x100726a6
-MxBool LegoCarBuildAnimPresenter::FUN_10079c30(const LegoChar* p_name)
-{
+MxBool LegoCarBuildAnimPresenter::FUN_10079c30(const LegoChar* p_name) {
 	if (PartIsPlaced(p_name)) {
 		return FALSE;
 	}
 
 	return m_placedPartCount < m_numberOfParts &&
-		   strnicmp(p_name, m_parts[m_placedPartCount].m_name, strlen(p_name) - 3) == 0;
+		strnicmp(p_name, m_parts[m_placedPartCount].m_name, strlen(p_name) - 3) == 0;
 }
 
 // FUNCTION: LEGO1 0x10079ca0
 // FUNCTION: BETA10 0x10072740
-MxBool LegoCarBuildAnimPresenter::PartIsPlaced(const LegoChar* p_name)
-{
+MxBool LegoCarBuildAnimPresenter::PartIsPlaced(const LegoChar* p_name) {
 	for (MxS16 i = 0; i < m_placedPartCount; i++) {
 		if (strcmpi(p_name, m_parts[i].m_name) == 0) {
 			return TRUE;
@@ -665,22 +641,19 @@ MxBool LegoCarBuildAnimPresenter::PartIsPlaced(const LegoChar* p_name)
 
 // FUNCTION: LEGO1 0x10079cf0
 // FUNCTION: BETA10 0x100727b3
-MxBool LegoCarBuildAnimPresenter::StringEndsOnY(const LegoChar* p_string)
-{
+MxBool LegoCarBuildAnimPresenter::StringEndsOnY(const LegoChar* p_string) {
 	return (p_string[strlen(p_string) - 2] == 'Y') || (p_string[strlen(p_string) - 2] == 'y');
 }
 
 // FUNCTION: LEGO1 0x10079d30
 // FUNCTION: BETA10 0x1007280e
-MxBool LegoCarBuildAnimPresenter::StringDoesNotEndOnZero(const LegoChar* p_string)
-{
+MxBool LegoCarBuildAnimPresenter::StringDoesNotEndOnZero(const LegoChar* p_string) {
 	return (p_string[strlen(p_string) - 1] != '0');
 }
 
 // FUNCTION: LEGO1 0x10079d60
 // FUNCTION: BETA10 0x1007284c
-const LegoChar* LegoCarBuildAnimPresenter::GetWiredNameByPartName(const LegoChar* p_name)
-{
+const LegoChar* LegoCarBuildAnimPresenter::GetWiredNameByPartName(const LegoChar* p_name) {
 	for (MxS16 i = 0; i < m_numberOfParts; i++) {
 		if (strcmpi(p_name, m_parts[i].m_name) == 0) {
 			return m_parts[i].m_wiredName;
@@ -692,8 +665,7 @@ const LegoChar* LegoCarBuildAnimPresenter::GetWiredNameByPartName(const LegoChar
 
 // FUNCTION: LEGO1 0x10079dc0
 // FUNCTION: BETA10 0x100728d1
-void LegoCarBuildAnimPresenter::SetPartObjectIdByName(const LegoChar* p_name, MxS16 p_objectId)
-{
+void LegoCarBuildAnimPresenter::SetPartObjectIdByName(const LegoChar* p_name, MxS16 p_objectId) {
 	for (MxS16 i = 0; i < m_numberOfParts; i++) {
 		if (strcmpi(p_name, m_parts[i].m_name) == 0) {
 			m_parts[i].m_objectId = p_objectId;
@@ -704,8 +676,7 @@ void LegoCarBuildAnimPresenter::SetPartObjectIdByName(const LegoChar* p_name, Mx
 
 // FUNCTION: LEGO1 0x10079e20
 // FUNCTION: BETA10 0x10072959
-const BoundingSphere& LegoCarBuildAnimPresenter::FUN_10079e20()
-{
+const BoundingSphere& LegoCarBuildAnimPresenter::FUN_10079e20() {
 	LegoROI* roi = m_unk0x140->GetROI();
 	return roi->FindChildROI(m_parts[m_placedPartCount].m_wiredName, roi)->GetWorldBoundingSphere();
 }

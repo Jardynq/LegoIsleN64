@@ -13,8 +13,7 @@ public:
 	~MxMIDIPresenter() override;
 
 	// FUNCTION: BETA10 0x1012f090
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x10101df8
 		return "MxMIDIPresenter";
 	}

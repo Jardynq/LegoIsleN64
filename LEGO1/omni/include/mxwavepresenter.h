@@ -25,8 +25,7 @@ public:
 	virtual MxBool IsPaused() { return m_paused; } // vtable+0x6c
 
 	// FUNCTION: BETA10 0x1008cd00
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f07b4
 		return "MxWavePresenter";
 	}

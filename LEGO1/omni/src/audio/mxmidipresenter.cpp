@@ -10,26 +10,22 @@
 DECOMP_SIZE_ASSERT(MxMIDIPresenter, 0x58);
 
 // FUNCTION: LEGO1 0x100c25e0
-MxMIDIPresenter::MxMIDIPresenter()
-{
+MxMIDIPresenter::MxMIDIPresenter() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x100c27c0
-MxMIDIPresenter::~MxMIDIPresenter()
-{
+MxMIDIPresenter::~MxMIDIPresenter() {
 	Destroy(TRUE);
 }
 
 // FUNCTION: LEGO1 0x100c2820
-void MxMIDIPresenter::Init()
-{
+void MxMIDIPresenter::Init() {
 	m_chunk = NULL;
 }
 
 // FUNCTION: LEGO1 0x100c2830
-void MxMIDIPresenter::Destroy(MxBool p_fromDestructor)
-{
+void MxMIDIPresenter::Destroy(MxBool p_fromDestructor) {
 	if (MusicManager()) {
 		MusicManager()->DeinitializeMIDI();
 	}
@@ -49,8 +45,7 @@ void MxMIDIPresenter::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x100c2890
-void MxMIDIPresenter::ReadyTickle()
-{
+void MxMIDIPresenter::ReadyTickle() {
 	MxStreamChunk* chunk = NextChunk();
 
 	if (chunk) {
@@ -61,8 +56,7 @@ void MxMIDIPresenter::ReadyTickle()
 }
 
 // FUNCTION: LEGO1 0x100c28d0
-void MxMIDIPresenter::StartingTickle()
-{
+void MxMIDIPresenter::StartingTickle() {
 	MxStreamChunk* chunk = CurrentChunk();
 
 	if (chunk && m_action->GetElapsedTime() >= chunk->GetTime()) {
@@ -71,8 +65,7 @@ void MxMIDIPresenter::StartingTickle()
 }
 
 // FUNCTION: LEGO1 0x100c2910
-void MxMIDIPresenter::StreamingTickle()
-{
+void MxMIDIPresenter::StreamingTickle() {
 	if (m_chunk) {
 		ProgressTickleState(e_done);
 	}
@@ -82,26 +75,23 @@ void MxMIDIPresenter::StreamingTickle()
 }
 
 // FUNCTION: LEGO1 0x100c2940
-void MxMIDIPresenter::DoneTickle()
-{
+void MxMIDIPresenter::DoneTickle() {
 	if (!MusicManager()->GetMIDIInitialized()) {
 		EndAction();
 	}
 }
 
 // FUNCTION: LEGO1 0x100c2960
-void MxMIDIPresenter::Destroy()
-{
+void MxMIDIPresenter::Destroy() {
 	Destroy(FALSE);
 }
 
 // FUNCTION: LEGO1 0x100c2970
-MxResult MxMIDIPresenter::PutData()
-{
+MxResult MxMIDIPresenter::PutData() {
 	m_criticalSection.Enter();
 
 	if (m_currentTickleState == e_streaming && m_chunk && !MusicManager()->GetMIDIInitialized()) {
-		SetVolume(((MxDSSound*) m_action)->GetVolume());
+		SetVolume(((MxDSSound*)m_action)->GetVolume());
 
 		if (MusicManager()->InitializeMIDI(m_chunk->GetData(), 1) != SUCCESS) {
 			EndAction();
@@ -113,8 +103,7 @@ MxResult MxMIDIPresenter::PutData()
 }
 
 // FUNCTION: LEGO1 0x100c29e0
-void MxMIDIPresenter::EndAction()
-{
+void MxMIDIPresenter::EndAction() {
 	if (m_action) {
 		AUTOLOCK(m_criticalSection);
 
@@ -124,8 +113,7 @@ void MxMIDIPresenter::EndAction()
 }
 
 // FUNCTION: LEGO1 0x100c2a60
-void MxMIDIPresenter::SetVolume(MxS32 p_volume)
-{
+void MxMIDIPresenter::SetVolume(MxS32 p_volume) {
 	m_volume = p_volume;
 	MusicManager()->SetMultiplier(p_volume);
 }

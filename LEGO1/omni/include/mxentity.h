@@ -35,15 +35,13 @@ public:
 
 	// FUNCTION: LEGO1 0x10001070
 	// FUNCTION: BETA10 0x1000f3a0
-	virtual MxResult Create(MxS32 p_entityId, const MxAtomId& p_atomId)
-	{
+	virtual MxResult Create(MxS32 p_entityId, const MxAtomId& p_atomId) {
 		m_entityId = p_entityId;
 		m_atomId = p_atomId;
 		return SUCCESS;
 	} // vtable+0x14
 
-	MxResult Create(MxDSAction& p_dsAction)
-	{
+	MxResult Create(MxDSAction& p_dsAction) {
 		m_entityId = p_dsAction.GetObjectId();
 		m_atomId = p_dsAction.GetAtomId();
 		return SUCCESS;

@@ -6,26 +6,22 @@ DECOMP_SIZE_ASSERT(MxAudioManager, 0x30);
 MxS32 MxAudioManager::g_count = 0;
 
 // FUNCTION: LEGO1 0x100b8d00
-MxAudioManager::MxAudioManager()
-{
+MxAudioManager::MxAudioManager() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x100b8d90
-MxAudioManager::~MxAudioManager()
-{
+MxAudioManager::~MxAudioManager() {
 	Destroy(TRUE);
 }
 
 // FUNCTION: LEGO1 0x100b8df0
-void MxAudioManager::Init()
-{
+void MxAudioManager::Init() {
 	m_volume = 100;
 }
 
 // FUNCTION: LEGO1 0x100b8e00
-void MxAudioManager::Destroy(MxBool p_fromDestructor)
-{
+void MxAudioManager::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 	g_count--;
 	Init();
@@ -37,8 +33,7 @@ void MxAudioManager::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x100b8e40
-MxResult MxAudioManager::Create()
-{
+MxResult MxAudioManager::Create() {
 	MxResult result = FAILURE;
 	MxBool success = FALSE;
 
@@ -61,14 +56,12 @@ MxResult MxAudioManager::Create()
 }
 
 // FUNCTION: LEGO1 0x100b8e90
-void MxAudioManager::Destroy()
-{
+void MxAudioManager::Destroy() {
 	Destroy(FALSE);
 }
 
 // FUNCTION: LEGO1 0x100b8ea0
-void MxAudioManager::SetVolume(MxS32 p_volume)
-{
+void MxAudioManager::SetVolume(MxS32 p_volume) {
 	m_criticalSection.Enter();
 	m_volume = p_volume;
 	m_criticalSection.Leave();

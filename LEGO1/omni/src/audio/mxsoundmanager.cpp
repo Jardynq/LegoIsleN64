@@ -12,7 +12,7 @@
 DECOMP_SIZE_ASSERT(MxSoundManager, 0x3c);
 
 // GLOBAL LEGO1 0x10101420
-MxS32 g_volumeAttenuation[100] = {-6643, -5643, -5058, -4643, -4321, -4058, -3836, -3643, -3473, -3321, -3184, -3058,
+MxS32 g_volumeAttenuation[100] = { -6643, -5643, -5058, -4643, -4321, -4058, -3836, -3643, -3473, -3321, -3184, -3058,
 								  -2943, -2836, -2736, -2643, -2556, -2473, -2395, -2321, -2251, -2184, -2120, -2058,
 								  -2000, -1943, -1888, -1836, -1785, -1736, -1689, -1643, -1599, -1556, -1514, -1473,
 								  -1434, -1395, -1358, -1321, -1286, -1251, -1217, -1184, -1152, -1120, -1089, -1058,
@@ -20,30 +20,26 @@ MxS32 g_volumeAttenuation[100] = {-6643, -5643, -5058, -4643, -4321, -4058, -383
 								  -713,  -689,  -666,  -643,  -621,  -599,  -577,  -556,  -535,  -514,  -494,  -473,
 								  -454,  -434,  -415,  -395,  -377,  -358,  -340,  -321,  -304,  -286,  -268,  -251,
 								  -234,  -217,  -200,  -184,  -168,  -152,  -136,  -120,  -104,  -89,   -74,   -58,
-								  -43,   -29,   -14,   0};
+								  -43,   -29,   -14,   0 };
 
 // FUNCTION: LEGO1 0x100ae740
-MxSoundManager::MxSoundManager()
-{
+MxSoundManager::MxSoundManager() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x100ae7d0
-MxSoundManager::~MxSoundManager()
-{
+MxSoundManager::~MxSoundManager() {
 	Destroy(TRUE);
 }
 
 // FUNCTION: LEGO1 0x100ae830
-void MxSoundManager::Init()
-{
+void MxSoundManager::Init() {
 	m_directSound = NULL;
 	m_dsBuffer = NULL;
 }
 
 // FUNCTION: LEGO1 0x100ae840
-void MxSoundManager::Destroy(MxBool p_fromDestructor)
-{
+void MxSoundManager::Destroy(MxBool p_fromDestructor) {
 	if (m_thread) {
 		m_thread->Terminate();
 		delete m_thread;
@@ -67,8 +63,7 @@ void MxSoundManager::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x100ae8b0
-MxResult MxSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread)
-{
+MxResult MxSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 	MxResult status = FAILURE;
 	MxBool locked = FALSE;
 
@@ -155,14 +150,12 @@ done:
 }
 
 // FUNCTION: LEGO1 0x100aeab0
-void MxSoundManager::Destroy()
-{
+void MxSoundManager::Destroy() {
 	Destroy(FALSE);
 }
 
 // FUNCTION: LEGO1 0x100aeac0
-void MxSoundManager::SetVolume(MxS32 p_volume)
-{
+void MxSoundManager::SetVolume(MxS32 p_volume) {
 	MxAudioManager::SetVolume(p_volume);
 
 	m_criticalSection.Enter();
@@ -171,15 +164,14 @@ void MxSoundManager::SetVolume(MxS32 p_volume)
 	MxPresenterListCursor cursor(m_presenters);
 
 	while (cursor.Next(presenter)) {
-		((MxAudioPresenter*) presenter)->SetVolume(((MxAudioPresenter*) presenter)->GetVolume());
+		((MxAudioPresenter*)presenter)->SetVolume(((MxAudioPresenter*)presenter)->GetVolume());
 	}
 
 	m_criticalSection.Leave();
 }
 
 // FUNCTION: LEGO1 0x100aebd0
-MxPresenter* MxSoundManager::FUN_100aebd0(const MxAtomId& p_atomId, MxU32 p_objectId)
-{
+MxPresenter* MxSoundManager::FUN_100aebd0(const MxAtomId& p_atomId, MxU32 p_objectId) {
 	AUTOLOCK(m_criticalSection);
 
 	MxPresenter* presenter;
@@ -196,8 +188,7 @@ MxPresenter* MxSoundManager::FUN_100aebd0(const MxAtomId& p_atomId, MxU32 p_obje
 }
 
 // FUNCTION: LEGO1 0x100aecf0
-MxS32 MxSoundManager::GetAttenuation(MxU32 p_volume)
-{
+MxS32 MxSoundManager::GetAttenuation(MxU32 p_volume) {
 	// The unit for p_volume is percent, rounded to integer.
 	// Convert to DSOUND attenuation units: -10000 (silent) to 0 (loudest).
 	if (p_volume == 0) {
@@ -208,8 +199,7 @@ MxS32 MxSoundManager::GetAttenuation(MxU32 p_volume)
 }
 
 // FUNCTION: LEGO1 0x100aed10
-void MxSoundManager::Pause()
-{
+void MxSoundManager::Pause() {
 	AUTOLOCK(m_criticalSection);
 
 	MxPresenter* presenter;
@@ -217,14 +207,13 @@ void MxSoundManager::Pause()
 
 	while (cursor.Next(presenter)) {
 		if (presenter->IsA("MxWavePresenter")) {
-			((MxWavePresenter*) presenter)->Pause();
+			((MxWavePresenter*)presenter)->Pause();
 		}
 	}
 }
 
 // FUNCTION: LEGO1 0x100aee10
-void MxSoundManager::Resume()
-{
+void MxSoundManager::Resume() {
 	AUTOLOCK(m_criticalSection);
 
 	MxPresenter* presenter;
@@ -232,7 +221,7 @@ void MxSoundManager::Resume()
 
 	while (cursor.Next(presenter)) {
 		if (presenter->IsA("MxWavePresenter")) {
-			((MxWavePresenter*) presenter)->Resume();
+			((MxWavePresenter*)presenter)->Resume();
 		}
 	}
 }

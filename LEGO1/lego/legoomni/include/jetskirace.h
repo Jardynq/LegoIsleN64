@@ -9,8 +9,7 @@
 class JetskiRace : public LegoRace {
 public:
 	// FUNCTION: BETA10 0x100a8840
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f0530
 		return "JetskiRace";
 	}

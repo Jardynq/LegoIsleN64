@@ -17,8 +17,7 @@ public:
 	struct UnknownListEntry {
 		// FUNCTION: LEGO1 0x100795c0
 		// FUNCTION: BETA10 0x10073850
-		UnknownListEntry()
-		{
+		UnknownListEntry() {
 			m_name = NULL;
 			m_wiredName = NULL;
 			m_objectId = 0;
@@ -38,8 +37,7 @@ public:
 	~LegoCarBuildAnimPresenter() override; // vtable+0x00
 
 	// FUNCTION: BETA10 0x10073290
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f05ec
 		return "LegoCarBuildAnimPresenter";
 	}
@@ -104,8 +102,7 @@ public:
 	MxS16 GetPlacedPartCount() { return m_placedPartCount; }
 
 	// FUNCTION: BETA10 0x10070270
-	MxBool AllPartsPlaced()
-	{
+	MxBool AllPartsPlaced() {
 		// this function differs in BETA10
 		return m_placedPartCount == m_numberOfParts;
 	}

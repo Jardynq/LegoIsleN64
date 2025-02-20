@@ -14,8 +14,7 @@ class LegoWorld;
 class LegoPathStructNotificationParam : public MxNotificationParam {
 public:
 	LegoPathStructNotificationParam(NotificationId p_type, MxCore* p_sender, MxU8 p_trigger, MxS16 p_data)
-		: MxNotificationParam()
-	{
+		: MxNotificationParam() {
 		m_type = p_type;
 		m_sender = p_sender;
 		m_data = p_data;
@@ -23,8 +22,7 @@ public:
 	}
 
 	// FUNCTION: LEGO1 0x1001bac0
-	MxNotificationParam* Clone() const override
-	{
+	MxNotificationParam* Clone() const override {
 		return new LegoPathStructNotificationParam(m_type, m_sender, m_trigger, m_data);
 	} // vtable+0x04
 
@@ -56,8 +54,7 @@ public:
 	LegoPathStructBase() : m_name(NULL), m_flags(0) {}
 
 	// FUNCTION: LEGO1 0x10047420
-	virtual ~LegoPathStructBase()
-	{
+	virtual ~LegoPathStructBase() {
 		if (m_name != NULL) {
 			delete[] m_name;
 		}

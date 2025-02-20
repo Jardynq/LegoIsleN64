@@ -12,8 +12,7 @@ public:
 	~MxLoopingFlcPresenter() override;
 
 	// FUNCTION: BETA10 0x1012f050
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x10101e20
 		return "MxLoopingFlcPresenter";
 	}

@@ -7,8 +7,7 @@
 DECOMP_SIZE_ASSERT(MxSoundPresenter, 0x54)
 
 // FUNCTION: LEGO1 0x100b1a50
-void MxSoundPresenter::Destroy(MxBool p_fromDestructor)
-{
+void MxSoundPresenter::Destroy(MxBool p_fromDestructor) {
 	if (MSoundManager()) {
 		MSoundManager()->UnregisterPresenter(*this);
 	}
@@ -23,8 +22,7 @@ void MxSoundPresenter::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x100b1aa0
-MxResult MxSoundPresenter::AddToManager()
-{
+MxResult MxSoundPresenter::AddToManager() {
 	MxResult ret = FAILURE;
 
 	if (MSoundManager()) {

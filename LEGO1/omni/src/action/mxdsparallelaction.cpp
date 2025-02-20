@@ -6,24 +6,20 @@ DECOMP_SIZE_ASSERT(MxDSParallelAction, 0x9c)
 
 // FUNCTION: LEGO1 0x100cae80
 // FUNCTION: BETA10 0x1015a14d
-MxDSParallelAction::MxDSParallelAction()
-{
+MxDSParallelAction::MxDSParallelAction() {
 	this->SetType(e_parallelAction);
 }
 
 // FUNCTION: LEGO1 0x100cb040
-MxDSParallelAction::~MxDSParallelAction()
-{
+MxDSParallelAction::~MxDSParallelAction() {
 }
 
 // FUNCTION: LEGO1 0x100cb090
-void MxDSParallelAction::CopyFrom(MxDSParallelAction& p_dsParallelAction)
-{
+void MxDSParallelAction::CopyFrom(MxDSParallelAction& p_dsParallelAction) {
 }
 
 // FUNCTION: LEGO1 0x100cb0a0
-MxDSParallelAction& MxDSParallelAction::operator=(MxDSParallelAction& p_dsParallelAction)
-{
+MxDSParallelAction& MxDSParallelAction::operator=(MxDSParallelAction& p_dsParallelAction) {
 	if (this == &p_dsParallelAction) {
 		return *this;
 	}
@@ -34,8 +30,7 @@ MxDSParallelAction& MxDSParallelAction::operator=(MxDSParallelAction& p_dsParall
 }
 
 // FUNCTION: LEGO1 0x100cb0d0
-MxDSAction* MxDSParallelAction::Clone()
-{
+MxDSAction* MxDSParallelAction::Clone() {
 	MxDSParallelAction* clone = new MxDSParallelAction();
 
 	if (clone) {
@@ -46,8 +41,7 @@ MxDSAction* MxDSParallelAction::Clone()
 }
 
 // FUNCTION: LEGO1 0x100cb160
-MxLong MxDSParallelAction::GetDuration()
-{
+MxLong MxDSParallelAction::GetDuration() {
 	if (this->m_duration) {
 		return this->m_duration;
 	}
@@ -68,7 +62,7 @@ MxLong MxDSParallelAction::GetDuration()
 
 		duration += action->GetStartTime();
 		if (action->IsA("MxDSMediaAction")) {
-			MxLong sustainTime = ((MxDSMediaAction*) action)->GetSustainTime();
+			MxLong sustainTime = ((MxDSMediaAction*)action)->GetSustainTime();
 
 			if (sustainTime == -1) {
 				duration = -1;

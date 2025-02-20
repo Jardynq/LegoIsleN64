@@ -14,8 +14,7 @@ public:
 	~LegoLocomotionAnimPresenter() override;
 
 	// FUNCTION: BETA10 0x1005c4e0
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f06e4
 		return "LegoLocomotionAnimPresenter";
 	}
@@ -47,8 +46,7 @@ public:
 
 	void FUN_1006d680(LegoAnimActor* p_actor, MxFloat p_value);
 
-	void DecrementUnknown0xd4()
-	{
+	void DecrementUnknown0xd4() {
 		if (m_unk0xd4) {
 			--m_unk0xd4;
 		}

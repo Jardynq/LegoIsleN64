@@ -18,8 +18,7 @@ public:
 	MxBool IsSerializable() override { return FALSE; } // vtable+0x14
 
 	// FUNCTION: LEGO1 0x1000e0c0
-	MxBool Reset() override
-	{
+	MxBool Reset() override {
 		m_unk0x08 = 0;
 		return TRUE;
 	} // vtable+0x18

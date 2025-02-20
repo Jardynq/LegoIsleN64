@@ -18,8 +18,7 @@
 DECOMP_SIZE_ASSERT(SkateBoard, 0x168)
 
 // FUNCTION: LEGO1 0x1000fd40
-SkateBoard::SkateBoard()
-{
+SkateBoard::SkateBoard() {
 	m_pizzaVisible = FALSE;
 	m_maxLinearVel = 15.0;
 	m_unk0x150 = 3.5;
@@ -29,22 +28,20 @@ SkateBoard::SkateBoard()
 }
 
 // FUNCTION: LEGO1 0x1000ff80
-SkateBoard::~SkateBoard()
-{
+SkateBoard::~SkateBoard() {
 	ControlManager()->Unregister(this);
 	NotificationManager()->Unregister(this);
 }
 
 // FUNCTION: LEGO1 0x10010000
-MxResult SkateBoard::Create(MxDSAction& p_dsAction)
-{
+MxResult SkateBoard::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 
 	if (result == SUCCESS) {
 		m_world = CurrentWorld();
 		m_world->Add(this);
 
-		Pizza* pizza = (Pizza*) CurrentWorld()->Find(*g_isleScript, IsleScript::c_Pizza_Actor);
+		Pizza* pizza = (Pizza*)CurrentWorld()->Find(*g_isleScript, IsleScript::c_Pizza_Actor);
 		if (pizza) {
 			pizza->SetSkateboard(this);
 		}
@@ -54,10 +51,9 @@ MxResult SkateBoard::Create(MxDSAction& p_dsAction)
 }
 
 // FUNCTION: LEGO1 0x10010050
-void SkateBoard::Exit()
-{
+void SkateBoard::Exit() {
 	if (m_act1state->m_unk0x018 == 3) {
-		Pizza* pizza = (Pizza*) CurrentWorld()->Find(*g_isleScript, IsleScript::c_Pizza_Actor);
+		Pizza* pizza = (Pizza*)CurrentWorld()->Find(*g_isleScript, IsleScript::c_Pizza_Actor);
 		pizza->StopActions();
 		pizza->FUN_100382b0();
 		m_pizzaVisible = FALSE;
@@ -71,9 +67,8 @@ void SkateBoard::Exit()
 }
 
 // FUNCTION: LEGO1 0x100100e0
-MxLong SkateBoard::HandleClick()
-{
-	Act1State* state = (Act1State*) GameState()->GetState("Act1State");
+MxLong SkateBoard::HandleClick() {
+	Act1State* state = (Act1State*)GameState()->GetState("Act1State");
 
 	if (!FUN_1003ef60() && state->m_unk0x018 != 3) {
 		return 1;
@@ -81,12 +76,12 @@ MxLong SkateBoard::HandleClick()
 
 	FUN_10015820(TRUE, 0);
 
-	((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::Area::e_skateboard);
+	((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::Area::e_skateboard);
 	TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
 
 	if (GameState()->GetActorId() != UserActor()->GetActorId()) {
 		if (!UserActor()->IsA("SkateBoard")) {
-			((IslePathActor*) UserActor())->Exit();
+			((IslePathActor*)UserActor())->Exit();
 		}
 	}
 
@@ -106,8 +101,7 @@ MxLong SkateBoard::HandleClick()
 }
 
 // FUNCTION: LEGO1 0x10010230
-MxLong SkateBoard::HandleControl(LegoControlManagerNotificationParam& p_param)
-{
+MxLong SkateBoard::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxU32 result = 0;
 
 	if (p_param.GetUnknown0x28() == 1 && p_param.GetClickedObjectId() == IsleScript::c_SkateArms_Ctl) {
@@ -121,14 +115,13 @@ MxLong SkateBoard::HandleControl(LegoControlManagerNotificationParam& p_param)
 
 // FUNCTION: LEGO1 0x10010270
 // FUNCTION: BETA10 0x100f5366
-void SkateBoard::EnableScenePresentation(MxBool p_enable)
-{
-	m_act1state = (Act1State*) GameState()->GetState("Act1State");
+void SkateBoard::EnableScenePresentation(MxBool p_enable) {
+	m_act1state = (Act1State*)GameState()->GetState("Act1State");
 	if (!m_act1state) {
-		m_act1state = (Act1State*) GameState()->CreateState("Act1State");
+		m_act1state = (Act1State*)GameState()->CreateState("Act1State");
 	}
 
-	MxStillPresenter* presenter = (MxStillPresenter*) m_world->Find(*g_isleScript, IsleScript::c_SkatePizza_Bitmap);
+	MxStillPresenter* presenter = (MxStillPresenter*)m_world->Find(*g_isleScript, IsleScript::c_SkatePizza_Bitmap);
 	if (presenter) {
 		presenter->Enable(p_enable);
 	}
@@ -139,15 +132,13 @@ void SkateBoard::EnableScenePresentation(MxBool p_enable)
 
 // FUNCTION: LEGO1 0x100104f0
 // FUNCTION: BETA10 0x100f5472
-MxLong SkateBoard::HandleNotification0()
-{
+MxLong SkateBoard::HandleNotification0() {
 	EnableScenePresentation(m_pizzaVisible);
 	return 1;
 }
 
 // FUNCTION: LEGO1 0x10010510
-void SkateBoard::ActivateSceneActions()
-{
+void SkateBoard::ActivateSceneActions() {
 	if (m_act1state->m_unk0x018 != 3) {
 		PlayMusic(JukeboxScript::c_BeachBlvd_Music);
 

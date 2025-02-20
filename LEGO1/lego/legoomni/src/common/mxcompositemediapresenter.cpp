@@ -13,26 +13,23 @@
 DECOMP_SIZE_ASSERT(MxCompositeMediaPresenter, 0x50)
 
 // FUNCTION: LEGO1 0x10073ea0
-MxCompositeMediaPresenter::MxCompositeMediaPresenter()
-{
+MxCompositeMediaPresenter::MxCompositeMediaPresenter() {
 	m_unk0x4c = 0;
 	m_unk0x4e = FALSE;
 	VideoManager()->RegisterPresenter(*this);
 }
 
 // FUNCTION: LEGO1 0x10074020
-MxCompositeMediaPresenter::~MxCompositeMediaPresenter()
-{
+MxCompositeMediaPresenter::~MxCompositeMediaPresenter() {
 	VideoManager()->UnregisterPresenter(*this);
 }
 
 // FUNCTION: LEGO1 0x10074090
-MxResult MxCompositeMediaPresenter::StartAction(MxStreamController* p_controller, MxDSAction* p_action)
-{
+MxResult MxCompositeMediaPresenter::StartAction(MxStreamController* p_controller, MxDSAction* p_action) {
 	AUTOLOCK(m_criticalSection);
 
 	MxResult result = FAILURE;
-	MxDSActionList* actions = ((MxDSMultiAction*) p_action)->GetActionList();
+	MxDSActionList* actions = ((MxDSMultiAction*)p_action)->GetActionList();
 	MxDSActionListCursor cursor(actions);
 	MxDSAction* action;
 
@@ -54,7 +51,7 @@ MxResult MxCompositeMediaPresenter::StartAction(MxStreamController* p_controller
 			}
 
 			presenterName = PresenterNameDispatch(*action);
-			presenter = (MxPresenter*) ObjectFactory()->Create(presenterName);
+			presenter = (MxPresenter*)ObjectFactory()->Create(presenterName);
 
 			if (presenter && presenter->AddToManager() == SUCCESS) {
 				presenter->SetCompositePresenter(this);
@@ -94,8 +91,7 @@ MxResult MxCompositeMediaPresenter::StartAction(MxStreamController* p_controller
 }
 
 // FUNCTION: LEGO1 0x100742e0
-void MxCompositeMediaPresenter::StartingTickle()
-{
+void MxCompositeMediaPresenter::StartingTickle() {
 	AUTOLOCK(m_criticalSection);
 
 	if (!m_unk0x4e) {
@@ -123,7 +119,7 @@ void MxCompositeMediaPresenter::StartingTickle()
 	}
 	else {
 		for (MxCompositePresenterList::iterator it = m_list.begin(); it != m_list.end(); it++) {
-			if (!(*it)->GetAction()->GetStartTime() && ((MxMediaPresenter*) *it)->CurrentChunk() &&
+			if (!(*it)->GetAction()->GetStartTime() && ((MxMediaPresenter*)*it)->CurrentChunk() &&
 				!((*it)->GetAction()->GetFlags() & MxDSAction::c_bit9)) {
 				(*it)->Tickle();
 				(*it)->GetAction()->SetFlags((*it)->GetAction()->GetFlags() | MxDSAction::c_bit9);
@@ -140,8 +136,7 @@ void MxCompositeMediaPresenter::StartingTickle()
 }
 
 // FUNCTION: LEGO1 0x10074470
-MxResult MxCompositeMediaPresenter::Tickle()
-{
+MxResult MxCompositeMediaPresenter::Tickle() {
 	AUTOLOCK(m_criticalSection);
 
 	switch (m_currentTickleState) {
@@ -167,8 +162,7 @@ MxResult MxCompositeMediaPresenter::Tickle()
 }
 
 // FUNCTION: LEGO1 0x10074540
-MxResult MxCompositeMediaPresenter::PutData()
-{
+MxResult MxCompositeMediaPresenter::PutData() {
 	AUTOLOCK(m_criticalSection);
 
 	if (m_currentTickleState >= e_streaming && m_currentTickleState <= e_done) {

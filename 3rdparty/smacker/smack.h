@@ -55,7 +55,7 @@ typedef struct SmackTag {
   u32 OpenFlags;         // flags used on open
   u32 LeftOfs;           // Left Offset used in SmackTo
   u32 TopOfs;            // Top Offset used in SmackTo
-} Smack;              
+} Smack;
 
 #define SmackHeaderSize(smk) ((((u8*)&((smk)->extra))-((u8*)(smk)))+4)
 
@@ -79,18 +79,18 @@ typedef struct SmackTag {
 
 #define SMACKAUTOEXTRA 0xffffffffL // NOT A FLAG! - Use as extrabuf param 
 //=======================================================================
-  
+
 #define SMACKSURFACEFAST     0
 #define SMACKSURFACESLOW     1
 #define SMACKSURFACEDIRECT   2
 
 
-Smack PTR4* RADEXPLINK SmackOpen(char PTR4* name,u32 flags,u32 extrabuf);
+Smack PTR4* RADEXPLINK SmackOpen(char PTR4* name, u32 flags, u32 extrabuf);
 
 #ifdef __RADMAC__
-  #include <files.h>
+#include <files.h>
 
-  Smack PTR4* RADEXPLINK SmackMacOpen(FSSpec* fsp,u32 flags,u32 extrabuf);
+Smack PTR4* RADEXPLINK SmackMacOpen(FSSpec* fsp, u32 flags, u32 extrabuf);
 #endif
 
 u32  RADEXPLINK SmackDoFrame(Smack PTR4* smk);
@@ -98,207 +98,207 @@ void RADEXPLINK SmackNextFrame(Smack PTR4* smk);
 u32  RADEXPLINK SmackWait(Smack PTR4* smk);
 void RADEXPLINK SmackClose(Smack PTR4* smk);
 
-void RADEXPLINK SmackVolumePan(Smack PTR4* smk, u32 trackflag,u32 volume,u32 pan);    
+void RADEXPLINK SmackVolumePan(Smack PTR4* smk, u32 trackflag, u32 volume, u32 pan);
 
-void RADEXPLINK SmackSummary(Smack PTR4* smk,SmackSum PTR4* sum);
+void RADEXPLINK SmackSummary(Smack PTR4* smk, SmackSum PTR4* sum);
 
-u32  RADEXPLINK SmackSoundInTrack(Smack PTR4* smk,u32 trackflags);
-u32  RADEXPLINK SmackSoundOnOff(Smack PTR4* smk,u32 on);
+u32  RADEXPLINK SmackSoundInTrack(Smack PTR4* smk, u32 trackflags);
+u32  RADEXPLINK SmackSoundOnOff(Smack PTR4* smk, u32 on);
 
 #ifdef __RADMAC__
-  void RADEXPLINK SmackToScreen(Smack PTR4* smk,u32 left,u32 top);
+void RADEXPLINK SmackToScreen(Smack PTR4* smk, u32 left, u32 top);
 #else
-  void RADEXPLINK SmackToScreen(Smack PTR4* smk,u32 left,u32 top,u32 BytesPS,u16 PTR4* WinTbl,u32 SetBank);
+void RADEXPLINK SmackToScreen(Smack PTR4* smk, u32 left, u32 top, u32 BytesPS, u16 PTR4* WinTbl, u32 SetBank);
 #endif
 
-void RADEXPLINK SmackToBuffer(Smack PTR4* smk,u32 left,u32 top,u32 Pitch,u32 destheight,void PTR4* buf,u32 Reversed);
+void RADEXPLINK SmackToBuffer(Smack PTR4* smk, u32 left, u32 top, u32 Pitch, u32 destheight, void PTR4* buf, u32 Reversed);
 u32  RADEXPLINK SmackToBufferRect(Smack PTR4* smk, u32 SmackSurface);
 
-void RADEXPLINK SmackGoto(Smack PTR4* smk,u32 frame);
-void RADEXPLINK SmackColorRemap(Smack PTR4* smk,void PTR4* remappal,u32 numcolors,u32 paltype);
-void RADEXPLINK SmackColorTrans(Smack PTR4* smk,void PTR4* trans);
+void RADEXPLINK SmackGoto(Smack PTR4* smk, u32 frame);
+void RADEXPLINK SmackColorRemap(Smack PTR4* smk, void PTR4* remappal, u32 numcolors, u32 paltype);
+void RADEXPLINK SmackColorTrans(Smack PTR4* smk, void PTR4* trans);
 void RADEXPLINK SmackFrameRate(u32 forcerate);
 void RADEXPLINK SmackSimulate(u32 sim);
 
-u32  RADEXPLINK SmackGetTrackData(Smack PTR4* smk,void PTR4* dest,u32 trackflag);
+u32  RADEXPLINK SmackGetTrackData(Smack PTR4* smk, void PTR4* dest, u32 trackflag);
 
 void RADEXPLINK SmackSoundCheck();
 
 //======================================================================
 #ifdef __RADDOS__
 
-  #define SMACKSOUNDNONE -1
+#define SMACKSOUNDNONE -1
 
-  extern void* cdecl SmackTimerSetupAddr;
-  extern void* cdecl SmackTimerReadAddr;
-  extern void* cdecl SmackTimerDoneAddr;
+extern void* cdecl SmackTimerSetupAddr;
+extern void* cdecl SmackTimerReadAddr;
+extern void* cdecl SmackTimerDoneAddr;
 
-  typedef void RADLINK (*SmackTimerSetupType)();
-  typedef u32 RADLINK (*SmackTimerReadType)();
-  typedef void RADLINK (*SmackTimerDoneType)();
+typedef void RADLINK(*SmackTimerSetupType)();
+typedef u32 RADLINK(*SmackTimerReadType)();
+typedef void RADLINK(*SmackTimerDoneType)();
 
-  #define SmackTimerSetup() ((SmackTimerSetupType)(SmackTimerSetupAddr))()
-  #define SmackTimerRead() ((SmackTimerReadType)(SmackTimerReadAddr))()
-  #define SmackTimerDone() ((SmackTimerDoneType)(SmackTimerDoneAddr))()
+#define SmackTimerSetup() ((SmackTimerSetupType)(SmackTimerSetupAddr))()
+#define SmackTimerRead() ((SmackTimerReadType)(SmackTimerReadAddr))()
+#define SmackTimerDone() ((SmackTimerDoneType)(SmackTimerDoneAddr))()
 
-  u8 RADEXPLINK SmackSoundUseMSS(void* DigDriver,u32 MaxTimerSpeed);
-  void RADEXPLINK SmackSoundMSSLiteInit();
-  void RADEXPLINK SmackSoundMSSLiteDone();
+u8 RADEXPLINK SmackSoundUseMSS(void* DigDriver, u32 MaxTimerSpeed);
+void RADEXPLINK SmackSoundMSSLiteInit();
+void RADEXPLINK SmackSoundMSSLiteDone();
 
-  u8 RADEXPLINK SmackSoundUseSOS3r(u32 SOSDriver,u32 MaxTimerSpeed);
-  u8 RADEXPLINK SmackSoundUseSOS3s(u32 SOSDriver,u32 MaxTimerSpeed);
-  u8 RADEXPLINK SmackSoundUseSOS4r(u32 SOSDriver,u32 MaxTimerSpeed);
-  u8 RADEXPLINK SmackSoundUseSOS4s(u32 SOSDriver,u32 MaxTimerSpeed);
+u8 RADEXPLINK SmackSoundUseSOS3r(u32 SOSDriver, u32 MaxTimerSpeed);
+u8 RADEXPLINK SmackSoundUseSOS3s(u32 SOSDriver, u32 MaxTimerSpeed);
+u8 RADEXPLINK SmackSoundUseSOS4r(u32 SOSDriver, u32 MaxTimerSpeed);
+u8 RADEXPLINK SmackSoundUseSOS4s(u32 SOSDriver, u32 MaxTimerSpeed);
 
-  #ifdef __SW_3R
-    #define SmackSoundUseSOS3 SmackSoundUseSOS3r
-    #define SmackSoundUseSOS4 SmackSoundUseSOS4r
-  #else
-    #define SmackSoundUseSOS3 SmackSoundUseSOS3s
-    #define SmackSoundUseSOS4 SmackSoundUseSOS4s
-  #endif
+#ifdef __SW_3R
+#define SmackSoundUseSOS3 SmackSoundUseSOS3r
+#define SmackSoundUseSOS4 SmackSoundUseSOS4r
+#else
+#define SmackSoundUseSOS3 SmackSoundUseSOS3s
+#define SmackSoundUseSOS4 SmackSoundUseSOS4s
+#endif
 
 #else
 
-  #define SMACKRESRESET    0
-  #define SMACKRES640X400  1
-  #define SMACKRES640X480  2
-  #define SMACKRES800X600  3
-  #define SMACKRES1024X768 4
+#define SMACKRESRESET    0
+#define SMACKRES640X400  1
+#define SMACKRES640X480  2
+#define SMACKRES800X600  3
+#define SMACKRES1024X768 4
 
-  u32 RADEXPLINK SmackSetSystemRes(u32 mode);  // use SMACKRES* values
+u32 RADEXPLINK SmackSetSystemRes(u32 mode);  // use SMACKRES* values
 
-  #ifdef __RADMAC__
+#ifdef __RADMAC__
 
-    #include <windows.h>
-    #include <palettes.h>
-    #include <qdoffscreen.h>
-    #include <timer.h>
+#include <windows.h>
+#include <palettes.h>
+#include <qdoffscreen.h>
+#include <timer.h>
 
-    typedef struct SmkTMInfoTag {
-      TMTask smTask;
-      u32 milli;
-    } SmkTMInfo;
-    
-    extern SmkTMInfo __SmackTimeInfo;
+typedef struct SmkTMInfoTag {
+  TMTask smTask;
+  u32 milli;
+} SmkTMInfo;
 
-    void RADEXPLINK SmackTimerSetup();
-    void RADEXPLINK SmackTimerDone();
-    #define SmackTimerRead() (__SmackTimeInfo.milli)
+extern SmkTMInfo __SmackTimeInfo;
 
-    #define SMACKAUTOBLIT    0
-    #define SMACKDIRECTBLIT  1
-    #define SMACKGWORLDBLIT  2
+void RADEXPLINK SmackTimerSetup();
+void RADEXPLINK SmackTimerDone();
+#define SmackTimerRead() (__SmackTimeInfo.milli)
 
-    typedef struct SmackBufTag {
-      u32 Reversed;
-      u32 SurfaceType;    // SMACKSURFACExxxxxx
-      u32 BlitType;       // SMACKxxxxxBLIT
-      u32 Width;
-      u32 Height;
-      u32 Pitch;
-      u32 Zoomed;
-      u32 ZWidth;
-      u32 ZHeight;
-      u32 DispColors;     // colors on screen
-      u32 MaxPalColors;
-      u32 PalColorsInUse;
-      u32 StartPalColor;
-      u32 EndPalColor;
-      void* Buffer;
-      void* Palette;
-      u32 PalType;
+#define SMACKAUTOBLIT    0
+#define SMACKDIRECTBLIT  1
+#define SMACKGWORLDBLIT  2
 
-      WindowPtr wp;
-      GWorldPtr gwp;
-      CTabHandle cth;
-      PaletteHandle palh;
-    } SmackBuf;
+typedef struct SmackBufTag {
+  u32 Reversed;
+  u32 SurfaceType;    // SMACKSURFACExxxxxx
+  u32 BlitType;       // SMACKxxxxxBLIT
+  u32 Width;
+  u32 Height;
+  u32 Pitch;
+  u32 Zoomed;
+  u32 ZWidth;
+  u32 ZHeight;
+  u32 DispColors;     // colors on screen
+  u32 MaxPalColors;
+  u32 PalColorsInUse;
+  u32 StartPalColor;
+  u32 EndPalColor;
+  void* Buffer;
+  void* Palette;
+  u32 PalType;
 
-  #else
+  WindowPtr wp;
+  GWorldPtr gwp;
+  CTabHandle cth;
+  PaletteHandle palh;
+} SmackBuf;
 
-    #ifdef __RADWIN__
+#else
 
-      #define INCLUDE_MMSYSTEM_H
-      #include "windows.h"
-      #include "windowsx.h"
+#ifdef __RADWIN__
 
-      #define SMACKAUTOBLIT        0
-      #define SMACKFULL320X240BLIT 1
-      #define SMACKFULL320X200BLIT 2
-      #define SMACKSTANDARDBLIT    3
-      #define SMACKWINGBLIT        4
+#define INCLUDE_MMSYSTEM_H
+#include "windows.h"
+#include "windowsx.h"
 
-      #define WM_SMACKACTIVATE WM_USER+0x5678
+#define SMACKAUTOBLIT        0
+#define SMACKFULL320X240BLIT 1
+#define SMACKFULL320X200BLIT 2
+#define SMACKSTANDARDBLIT    3
+#define SMACKWINGBLIT        4
 
-      typedef struct SmackBufTag {
-        u32 Reversed;             // 1 if the buffer is upside down
-        u32 SurfaceType;          // SMACKSURFACExxxx defines
-        u32 BlitType;             // SMACKxxxxBLIT defines
-        u32 FullScreen;           // 1 if full-screen
-        u32 Width;
-        u32 Height;
-        u32 Zoomed;
-        u32 ZWidth;
-        u32 ZHeight;
-        u32 DispColors;           // colors on the screen
-        u32 MaxPalColors;         // total possible colors in palette (usually 256)
-        u32 PalColorsInUse;       // Used colors in palette (usually 236)
-        u32 StartPalColor;        // first usable color index (usually 10)
-        u32 EndPalColor;          // last usable color index (usually 246)
-        RGBQUAD Palette[256];
-        u32 PalType;
+#define WM_SMACKACTIVATE WM_USER+0x5678
 
-        void PTR4* Buffer;
-        void PTR4* DIBRestore;
-        u32 OurBitmap;
-        u32 OrigBitmap;
-        u32 OurPalette;
-        u32 WinGDC;
-        u32 FullFocused;
-        u32 ParentHwnd;
-        u32 OldParWndProc;
-        u32 OldDispWndProc;
-        u32 DispHwnd;
-        u32 WinGBufHandle;
-      } SmackBuf;
+typedef struct SmackBufTag {
+  u32 Reversed;             // 1 if the buffer is upside down
+  u32 SurfaceType;          // SMACKSURFACExxxx defines
+  u32 BlitType;             // SMACKxxxxBLIT defines
+  u32 FullScreen;           // 1 if full-screen
+  u32 Width;
+  u32 Height;
+  u32 Zoomed;
+  u32 ZWidth;
+  u32 ZHeight;
+  u32 DispColors;           // colors on the screen
+  u32 MaxPalColors;         // total possible colors in palette (usually 256)
+  u32 PalColorsInUse;       // Used colors in palette (usually 236)
+  u32 StartPalColor;        // first usable color index (usually 10)
+  u32 EndPalColor;          // last usable color index (usually 246)
+  RGBQUAD Palette[256];
+  u32 PalType;
 
-      void RADEXPLINK SmackGet(Smack PTR4* smk,void PTR4* dest);
-      void RADEXPLINK SmackBufferGet( SmackBuf PTR4* sbuf, void PTR4* dest);
-      
-      u8 RADEXPLINK SmackSoundUseMSS(void PTR4* dd);
-      u8 RADEXPLINK SmackSoundUseDirectSound(HWND hw);
+  void PTR4* Buffer;
+  void PTR4* DIBRestore;
+  u32 OurBitmap;
+  u32 OrigBitmap;
+  u32 OurPalette;
+  u32 WinGDC;
+  u32 FullFocused;
+  u32 ParentHwnd;
+  u32 OldParWndProc;
+  u32 OldDispWndProc;
+  u32 DispHwnd;
+  u32 WinGBufHandle;
+} SmackBuf;
 
-      #define SmackTimerSetup()
-      #define SmackTimerDone()
-      #define SmackTimerRead timeGetTime
+void RADEXPLINK SmackGet(Smack PTR4* smk, void PTR4* dest);
+void RADEXPLINK SmackBufferGet(SmackBuf PTR4* sbuf, void PTR4* dest);
 
-    #endif
+u8 RADEXPLINK SmackSoundUseMSS(void PTR4* dd);
+u8 RADEXPLINK SmackSoundUseDirectSound(HWND hw);
 
-  #endif
+#define SmackTimerSetup()
+#define SmackTimerDone()
+#define SmackTimerRead timeGetTime
 
-  #ifdef __RADMAC__
-    SmackBuf PTR4* RADEXPLINK SmackBufferOpen( WindowPtr wp, u16 BlitType, u16 width, u16 height, u16 ZoomW, u16 ZoomH );
-    u16  RADEXPLINK SmackBufferBlit( SmackBuf PTR4* sbuf, u16 hwndx, u16 hwndy, u16 subx, u16 suby, u16 subw, u16 subh );
-    void RADEXPLINK SmackBufferFromScreen( SmackBuf PTR4* destbuf, u16 x, u16 y);
-  #else
-    SmackBuf PTR4* RADEXPLINK SmackBufferOpen( HWND wnd, u16 BlitType, u16 width, u16 height, u16 ZoomW, u16 ZoomH );
-    u16  RADEXPLINK SmackBufferBlit( SmackBuf PTR4* sbuf, HDC dc, u16 hwndx, u16 hwndy, u16 subx, u16 suby, u16 subw, u16 subh );
-    void RADEXPLINK SmackBufferFromScreen( SmackBuf PTR4* destbuf, HWND hw, u16 x, u16 y);
-  #endif
+#endif
 
-  char PTR4* RADEXPLINK SmackBufferString(char PTR4* dest,u16 BlitType);
+#endif
 
-  void RADEXPLINK SmackBufferNewPalette( SmackBuf PTR4* sbuf, void PTR4* pal, u16 paltype );
-  u16  RADEXPLINK SmackBufferSetPalette( SmackBuf PTR4* sbuf );
-  void RADEXPLINK SmackBufferClose( SmackBuf PTR4* sbuf );
- 
-  void RADEXPLINK SmackBufferClear( SmackBuf PTR4* destbuf, u16 color);
-  void RADEXPLINK SmackBufferToBuffer( SmackBuf PTR4* destbuf, u16 destx, u16 desty, SmackBuf PTR4* sourcebuf,u16 sourcex,u16 sourcey,u16 sourcew,u16 sourceh);
-  void RADEXPLINK SmackBufferToBufferTrans( SmackBuf PTR4* destbuf, u16 destx, u16 desty, SmackBuf PTR4* sourcebuf,u16 sourcex,u16 sourcey,u16 sourcew,u16 sourceh,u16 TransColor);
-  void RADEXPLINK SmackBufferCopyPalette( SmackBuf PTR4* destbuf, SmackBuf PTR4* sourcebuf, u16 remap);
+#ifdef __RADMAC__
+SmackBuf PTR4* RADEXPLINK SmackBufferOpen(WindowPtr wp, u16 BlitType, u16 width, u16 height, u16 ZoomW, u16 ZoomH);
+u16  RADEXPLINK SmackBufferBlit(SmackBuf PTR4* sbuf, u16 hwndx, u16 hwndy, u16 subx, u16 suby, u16 subw, u16 subh);
+void RADEXPLINK SmackBufferFromScreen(SmackBuf PTR4* destbuf, u16 x, u16 y);
+#else
+SmackBuf PTR4* RADEXPLINK SmackBufferOpen(HWND wnd, u16 BlitType, u16 width, u16 height, u16 ZoomW, u16 ZoomH);
+u16  RADEXPLINK SmackBufferBlit(SmackBuf PTR4* sbuf, HDC dc, u16 hwndx, u16 hwndy, u16 subx, u16 suby, u16 subw, u16 subh);
+void RADEXPLINK SmackBufferFromScreen(SmackBuf PTR4* destbuf, HWND hw, u16 x, u16 y);
+#endif
 
-  u16  RADEXPLINK SmackBufferFocused( SmackBuf PTR4* sbuf);
+char PTR4* RADEXPLINK SmackBufferString(char PTR4* dest, u16 BlitType);
+
+void RADEXPLINK SmackBufferNewPalette(SmackBuf PTR4* sbuf, void PTR4* pal, u16 paltype);
+u16  RADEXPLINK SmackBufferSetPalette(SmackBuf PTR4* sbuf);
+void RADEXPLINK SmackBufferClose(SmackBuf PTR4* sbuf);
+
+void RADEXPLINK SmackBufferClear(SmackBuf PTR4* destbuf, u16 color);
+void RADEXPLINK SmackBufferToBuffer(SmackBuf PTR4* destbuf, u16 destx, u16 desty, SmackBuf PTR4* sourcebuf, u16 sourcex, u16 sourcey, u16 sourcew, u16 sourceh);
+void RADEXPLINK SmackBufferToBufferTrans(SmackBuf PTR4* destbuf, u16 destx, u16 desty, SmackBuf PTR4* sourcebuf, u16 sourcex, u16 sourcey, u16 sourcew, u16 sourceh, u16 TransColor);
+void RADEXPLINK SmackBufferCopyPalette(SmackBuf PTR4* destbuf, SmackBuf PTR4* sourcebuf, u16 remap);
+
+u16  RADEXPLINK SmackBufferFocused(SmackBuf PTR4* sbuf);
 
 #endif
 

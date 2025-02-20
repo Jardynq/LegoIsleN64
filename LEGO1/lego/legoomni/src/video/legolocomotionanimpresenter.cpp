@@ -13,20 +13,17 @@
 DECOMP_SIZE_ASSERT(LegoLocomotionAnimPresenter, 0xd8)
 
 // FUNCTION: LEGO1 0x1006cdd0
-LegoLocomotionAnimPresenter::LegoLocomotionAnimPresenter()
-{
+LegoLocomotionAnimPresenter::LegoLocomotionAnimPresenter() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x1006d050
-LegoLocomotionAnimPresenter::~LegoLocomotionAnimPresenter()
-{
+LegoLocomotionAnimPresenter::~LegoLocomotionAnimPresenter() {
 	Destroy(TRUE);
 }
 
 // FUNCTION: LEGO1 0x1006d0b0
-void LegoLocomotionAnimPresenter::Init()
-{
+void LegoLocomotionAnimPresenter::Init() {
 	m_unk0xc0 = 0;
 	m_unk0xc4 = NULL;
 	m_unk0xcc = -1;
@@ -36,8 +33,7 @@ void LegoLocomotionAnimPresenter::Init()
 }
 
 // FUNCTION: LEGO1 0x1006d0e0
-void LegoLocomotionAnimPresenter::Destroy(MxBool p_fromDestructor)
-{
+void LegoLocomotionAnimPresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 
 	if (m_unk0xc4) {
@@ -59,16 +55,14 @@ void LegoLocomotionAnimPresenter::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x1006d140
-MxResult LegoLocomotionAnimPresenter::CreateAnim(MxStreamChunk* p_chunk)
-{
+MxResult LegoLocomotionAnimPresenter::CreateAnim(MxStreamChunk* p_chunk) {
 	MxResult result = LegoAnimPresenter::CreateAnim(p_chunk);
 	return result == SUCCESS ? SUCCESS : result;
 }
 
 // FUNCTION: LEGO1 0x1006d160
 // FUNCTION: BETA10 0x100528c7
-MxResult LegoLocomotionAnimPresenter::AddToManager()
-{
+MxResult LegoLocomotionAnimPresenter::AddToManager() {
 	m_roiMapList = new LegoROIMapList();
 
 	if (m_roiMapList == NULL) {
@@ -79,20 +73,17 @@ MxResult LegoLocomotionAnimPresenter::AddToManager()
 }
 
 // FUNCTION: LEGO1 0x1006d5b0
-void LegoLocomotionAnimPresenter::Destroy()
-{
+void LegoLocomotionAnimPresenter::Destroy() {
 	Destroy(FALSE);
 }
 
 // FUNCTION: LEGO1 0x1006d5c0
-void LegoLocomotionAnimPresenter::PutFrame()
-{
+void LegoLocomotionAnimPresenter::PutFrame() {
 	// Empty
 }
 
 // FUNCTION: LEGO1 0x1006d5d0
-void LegoLocomotionAnimPresenter::ReadyTickle()
-{
+void LegoLocomotionAnimPresenter::ReadyTickle() {
 	LegoLoopingAnimPresenter::ReadyTickle();
 
 	if (m_currentWorld != NULL && m_currentTickleState == e_starting) {
@@ -107,8 +98,7 @@ void LegoLocomotionAnimPresenter::ReadyTickle()
 
 // FUNCTION: LEGO1 0x1006d610
 // FUNCTION: BETA10 0x10052a34
-void LegoLocomotionAnimPresenter::StartingTickle()
-{
+void LegoLocomotionAnimPresenter::StartingTickle() {
 	if (m_subscriber->PeekData()) {
 		MxStreamChunk* chunk = m_subscriber->PopData();
 		m_subscriber->FreeDataChunk(chunk);
@@ -120,16 +110,14 @@ void LegoLocomotionAnimPresenter::StartingTickle()
 }
 
 // FUNCTION: LEGO1 0x1006d660
-void LegoLocomotionAnimPresenter::StreamingTickle()
-{
+void LegoLocomotionAnimPresenter::StreamingTickle() {
 	if (m_unk0xd4 == 0) {
 		EndAction();
 	}
 }
 
 // FUNCTION: LEGO1 0x1006d670
-void LegoLocomotionAnimPresenter::EndAction()
-{
+void LegoLocomotionAnimPresenter::EndAction() {
 	if (m_action) {
 		MxVideoPresenter::EndAction();
 	}
@@ -137,13 +125,12 @@ void LegoLocomotionAnimPresenter::EndAction()
 
 // FUNCTION: LEGO1 0x1006d680
 // FUNCTION: BETA10 0x10052b3d
-void LegoLocomotionAnimPresenter::FUN_1006d680(LegoAnimActor* p_actor, MxFloat p_value)
-{
+void LegoLocomotionAnimPresenter::FUN_1006d680(LegoAnimActor* p_actor, MxFloat p_value) {
 	AUTOLOCK(m_criticalSection);
 
 	MxVariableTable* variableTable = VariableTable();
 
-	const char* key = ((LegoAnimNodeData*) m_anim->GetRoot()->GetData())->GetName();
+	const char* key = ((LegoAnimNodeData*)m_anim->GetRoot()->GetData())->GetName();
 	variableTable->SetVariable(key, p_actor->GetROI()->GetName());
 
 	FUN_100695c0();

@@ -5,8 +5,7 @@
 
 // SIZE 0x08
 struct MxRegionLeftRight {
-	MxRegionLeftRight(MxS32 p_left, MxS32 p_right)
-	{
+	MxRegionLeftRight(MxS32 p_left, MxS32 p_right) {
 		m_left = p_left;
 		m_right = p_right;
 	}

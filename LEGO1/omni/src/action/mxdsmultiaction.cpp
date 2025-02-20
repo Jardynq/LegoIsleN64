@@ -6,16 +6,14 @@ DECOMP_SIZE_ASSERT(MxDSActionListCursor, 0x10);
 
 // FUNCTION: LEGO1 0x100c9b90
 // FUNCTION: BETA10 0x10159410
-MxDSMultiAction::MxDSMultiAction()
-{
+MxDSMultiAction::MxDSMultiAction() {
 	this->SetType(e_multiAction);
 	this->m_actions = new MxDSActionList;
 	this->m_actions->SetDestroy(MxDSActionList::Destroy);
 }
 
 // FUNCTION: LEGO1 0x100ca060
-MxDSMultiAction::~MxDSMultiAction()
-{
+MxDSMultiAction::~MxDSMultiAction() {
 	if (this->m_actions) {
 		delete this->m_actions;
 	}
@@ -23,8 +21,7 @@ MxDSMultiAction::~MxDSMultiAction()
 
 // FUNCTION: LEGO1 0x100ca0d0
 // FUNCTION: BETA10 0x101595ad
-void MxDSMultiAction::CopyFrom(MxDSMultiAction& p_dsMultiAction)
-{
+void MxDSMultiAction::CopyFrom(MxDSMultiAction& p_dsMultiAction) {
 	this->m_actions->DeleteAll();
 
 	MxDSActionListCursor cursor(p_dsMultiAction.m_actions);
@@ -35,8 +32,7 @@ void MxDSMultiAction::CopyFrom(MxDSMultiAction& p_dsMultiAction)
 }
 
 // FUNCTION: LEGO1 0x100ca260
-MxDSMultiAction& MxDSMultiAction::operator=(MxDSMultiAction& p_dsMultiAction)
-{
+MxDSMultiAction& MxDSMultiAction::operator=(MxDSMultiAction& p_dsMultiAction) {
 	if (this == &p_dsMultiAction) {
 		return *this;
 	}
@@ -47,8 +43,7 @@ MxDSMultiAction& MxDSMultiAction::operator=(MxDSMultiAction& p_dsMultiAction)
 }
 
 // FUNCTION: LEGO1 0x100ca290
-void MxDSMultiAction::SetUnknown90(MxLong p_unk0x90)
-{
+void MxDSMultiAction::SetUnknown90(MxLong p_unk0x90) {
 	this->m_unk0x90 = p_unk0x90;
 
 	MxDSActionListCursor cursor(this->m_actions);
@@ -59,8 +54,7 @@ void MxDSMultiAction::SetUnknown90(MxLong p_unk0x90)
 }
 
 // FUNCTION: LEGO1 0x100ca370
-void MxDSMultiAction::MergeFrom(MxDSAction& p_dsMultiAction)
-{
+void MxDSMultiAction::MergeFrom(MxDSAction& p_dsMultiAction) {
 	MxDSAction::MergeFrom(p_dsMultiAction);
 
 	MxDSActionListCursor cursor(this->m_actions);
@@ -71,8 +65,7 @@ void MxDSMultiAction::MergeFrom(MxDSAction& p_dsMultiAction)
 }
 
 // FUNCTION: LEGO1 0x100ca450
-MxBool MxDSMultiAction::HasId(MxU32 p_objectId)
-{
+MxBool MxDSMultiAction::HasId(MxU32 p_objectId) {
 	if (this->GetObjectId() == p_objectId) {
 		return TRUE;
 	}
@@ -89,8 +82,7 @@ MxBool MxDSMultiAction::HasId(MxU32 p_objectId)
 }
 
 // FUNCTION: LEGO1 0x100ca550
-MxDSAction* MxDSMultiAction::Clone()
-{
+MxDSAction* MxDSMultiAction::Clone() {
 	MxDSMultiAction* clone = new MxDSMultiAction();
 
 	if (clone) {
@@ -101,8 +93,7 @@ MxDSAction* MxDSMultiAction::Clone()
 }
 
 // FUNCTION: LEGO1 0x100ca5e0
-undefined4 MxDSMultiAction::VTable0x14()
-{
+undefined4 MxDSMultiAction::VTable0x14() {
 	undefined4 result = MxDSAction::VTable0x14();
 
 	MxDSActionListCursor cursor(this->m_actions);
@@ -115,8 +106,7 @@ undefined4 MxDSMultiAction::VTable0x14()
 }
 
 // FUNCTION: LEGO1 0x100ca6c0
-MxU32 MxDSMultiAction::GetSizeOnDisk()
-{
+MxU32 MxDSMultiAction::GetSizeOnDisk() {
 	MxU32 totalSizeOnDisk = MxDSAction::GetSizeOnDisk() + 16;
 
 	MxDSActionListCursor cursor(this->m_actions);
@@ -131,22 +121,21 @@ MxU32 MxDSMultiAction::GetSizeOnDisk()
 }
 
 // FUNCTION: LEGO1 0x100ca7b0
-void MxDSMultiAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24)
-{
+void MxDSMultiAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 	MxDSAction::Deserialize(p_source, p_unk0x24);
 
-	MxU32 extraFlag = *(MxU32*) (p_source + 4) & 1;
+	MxU32 extraFlag = *(MxU32*)(p_source + 4) & 1;
 	p_source += 12;
 
-	MxU32 count = *(MxU32*) p_source;
+	MxU32 count = *(MxU32*)p_source;
 	p_source += sizeof(count);
 
 	if (count) {
 		while (count--) {
-			MxU32 extraFlag = *(MxU32*) (p_source + 4) & 1;
+			MxU32 extraFlag = *(MxU32*)(p_source + 4) & 1;
 			p_source += 8;
 
-			MxDSAction* action = (MxDSAction*) DeserializeDSObjectDispatch(p_source, p_unk0x24);
+			MxDSAction* action = (MxDSAction*)DeserializeDSObjectDispatch(p_source, p_unk0x24);
 			p_source += extraFlag;
 
 			this->m_actions->Append(action);
@@ -157,8 +146,7 @@ void MxDSMultiAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24)
 }
 
 // FUNCTION: LEGO1 0x100ca8c0
-void MxDSMultiAction::SetAtomId(MxAtomId p_atomId)
-{
+void MxDSMultiAction::SetAtomId(MxAtomId p_atomId) {
 	MxDSAction::SetAtomId(p_atomId);
 
 	MxDSActionListCursor cursor(this->m_actions);

@@ -17,8 +17,7 @@
 DECOMP_SIZE_ASSERT(MxObjectFactory, 0x38); // 100af1db
 
 // FUNCTION: LEGO1 0x100b0d80
-MxObjectFactory::MxObjectFactory()
-{
+MxObjectFactory::MxObjectFactory() {
 #define X(V) m_id##V = MxAtomId(#V, e_exact);
 	FOR_MXOBJECTFACTORY_OBJECTS(X)
 #undef X
@@ -26,8 +25,7 @@ MxObjectFactory::MxObjectFactory()
 
 // FUNCTION: LEGO1 0x100b12c0
 // FUNCTION: BETA10 0x10143177
-MxCore* MxObjectFactory::Create(const char* p_name)
-{
+MxCore* MxObjectFactory::Create(const char* p_name) {
 	MxCore* object = NULL;
 	MxAtomId atom(p_name, e_exact);
 
@@ -40,12 +38,11 @@ MxCore* MxObjectFactory::Create(const char* p_name)
 	}
 	FOR_MXOBJECTFACTORY_OBJECTS(X)
 #undef X
-	return object;
+		return object;
 }
 
 // FUNCTION: LEGO1 0x100b1a30
 // FUNCTION: BETA10 0x10143814
-void MxObjectFactory::Destroy(MxCore* p_object)
-{
+void MxObjectFactory::Destroy(MxCore* p_object) {
 	delete p_object;
 }

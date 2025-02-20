@@ -46,9 +46,8 @@ public:
 	MxBool HasRegistered() { return m_letters[0] != NULL; }
 
 	// FUNCTION: BETA10 0x10031c10
-	InfomainScript::Script GetNextLeaveDialogue()
-	{
-		return (InfomainScript::Script) m_leaveDialogue[GameState()->GetCurrentAct()].Next();
+	InfomainScript::Script GetNextLeaveDialogue() {
+		return (InfomainScript::Script)m_leaveDialogue[GameState()->GetCurrentAct()].Next();
 	}
 
 	// TODO: These probably don't exist according to BETA

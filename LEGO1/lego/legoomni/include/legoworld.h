@@ -23,9 +23,8 @@ class LegoHideAnimPresenter;
 #endif
 
 struct CoreSetCompare {
-	MxS32 operator()(MxCore* const& p_a, MxCore* const& p_b) const
-	{
-		return (COMPARE_POINTER_TYPE) p_a < (COMPARE_POINTER_TYPE) p_b;
+	MxS32 operator()(MxCore* const& p_a, MxCore* const& p_b) const {
+		return (COMPARE_POINTER_TYPE)p_a < (COMPARE_POINTER_TYPE)p_b;
 	}
 };
 

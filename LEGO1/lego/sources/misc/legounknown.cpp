@@ -5,16 +5,14 @@
 DECOMP_SIZE_ASSERT(LegoUnknown, 0x50)
 
 // FUNCTION: LEGO1 0x1009a0f0
-LegoUnknown::LegoUnknown()
-{
+LegoUnknown::LegoUnknown() {
 	for (LegoS32 i = 0; i < sizeOfArray(m_unk0x00); i++) {
 		m_unk0x00[i].Clear();
 	}
 }
 
 // FUNCTION: LEGO1 0x1009a130
-LegoUnknown::~LegoUnknown()
-{
+LegoUnknown::~LegoUnknown() {
 }
 
 // FUNCTION: LEGO1 0x1009a140
@@ -24,8 +22,7 @@ void LegoUnknown::FUN_1009a140(
 	const Vector3& p_point2,
 	const Vector3& p_point3,
 	const Vector3& p_point4
-)
-{
+) {
 	m_unk0x00[0] = p_point1;
 	m_unk0x00[1] = p_point2;
 
@@ -37,8 +34,7 @@ void LegoUnknown::FUN_1009a140(
 
 // FUNCTION: LEGO1 0x1009a1e0
 // FUNCTION: BETA10 0x10182d61
-LegoResult LegoUnknown::FUN_1009a1e0(float p_f1, MxMatrix& p_mat, Vector3& p_v, LegoU32 p_und)
-{
+LegoResult LegoUnknown::FUN_1009a1e0(float p_f1, MxMatrix& p_mat, Vector3& p_v, LegoU32 p_und) {
 	Vector3 v1(p_mat[3]);
 	Vector3 v2(p_mat[0]);
 	Vector3 v3(p_mat[1]);

@@ -10,8 +10,7 @@ DECOMP_SIZE_ASSERT(MxStreamProvider, 0x10)
 DECOMP_SIZE_ASSERT(MxRAMStreamProvider, 0x24)
 
 // FUNCTION: LEGO1 0x100d0730
-MxRAMStreamProvider::MxRAMStreamProvider()
-{
+MxRAMStreamProvider::MxRAMStreamProvider() {
 	m_bufferSize = 0;
 	m_fileSize = 0;
 	m_pBufferOfFileSize = NULL;
@@ -20,32 +19,27 @@ MxRAMStreamProvider::MxRAMStreamProvider()
 }
 
 // FUNCTION: LEGO1 0x100d0930
-MxU32 MxRAMStreamProvider::GetFileSize()
-{
+MxU32 MxRAMStreamProvider::GetFileSize() {
 	return m_fileSize;
 }
 
 // FUNCTION: LEGO1 0x100d0940
-MxS32 MxRAMStreamProvider::GetStreamBuffersNum()
-{
+MxS32 MxRAMStreamProvider::GetStreamBuffersNum() {
 	return 1;
 }
 
 // FUNCTION: LEGO1 0x100d0950
-MxU32 MxRAMStreamProvider::GetLengthInDWords()
-{
+MxU32 MxRAMStreamProvider::GetLengthInDWords() {
 	return m_lengthInDWords;
 }
 
 // FUNCTION: LEGO1 0x100d0960
-MxU32* MxRAMStreamProvider::GetBufferForDWords()
-{
+MxU32* MxRAMStreamProvider::GetBufferForDWords() {
 	return m_bufferForDWords;
 }
 
 // FUNCTION: LEGO1 0x100d0a50
-MxRAMStreamProvider::~MxRAMStreamProvider()
-{
+MxRAMStreamProvider::~MxRAMStreamProvider() {
 	m_bufferSize = 0;
 	m_fileSize = 0;
 
@@ -59,8 +53,7 @@ MxRAMStreamProvider::~MxRAMStreamProvider()
 }
 
 // FUNCTION: LEGO1 0x100d0ae0
-MxResult MxRAMStreamProvider::SetResourceToGet(MxStreamController* p_resource)
-{
+MxResult MxRAMStreamProvider::SetResourceToGet(MxStreamController* p_resource) {
 	MxResult result = FAILURE;
 	MxString path;
 	m_pLookup = p_resource;
@@ -83,7 +76,7 @@ MxResult MxRAMStreamProvider::SetResourceToGet(MxStreamController* p_resource)
 			m_bufferSize = m_pFile->GetBufferSize();
 			m_pBufferOfFileSize = new MxU8[m_fileSize];
 			if (m_pBufferOfFileSize != NULL &&
-				m_pFile->Read((unsigned char*) m_pBufferOfFileSize, m_fileSize) == SUCCESS) {
+				m_pFile->Read((unsigned char*)m_pBufferOfFileSize, m_fileSize) == SUCCESS) {
 				m_lengthInDWords = m_pFile->GetLengthInDWords();
 				m_bufferForDWords = new MxU32[m_lengthInDWords];
 
@@ -103,8 +96,7 @@ done:
 
 // FUNCTION: LEGO1 0x100d0d80
 // FUNCTION: BETA10 0x1016492f
-MxU32 ReadData(MxU8* p_buffer, MxU32 p_size)
-{
+MxU32 ReadData(MxU8* p_buffer, MxU32 p_size) {
 	MxU32 id;
 	MxU8* data = p_buffer;
 	MxU8* data2;
@@ -158,7 +150,7 @@ MxU32 ReadData(MxU8* p_buffer, MxU32 p_size)
 	}
 
 	*MxStreamChunk::IntoFlags(data2) &= ~DS_CHUNK_SPLIT;
-	return MxDSChunk::Size(data2) + (MxU32) (data2 - p_buffer);
+	return MxDSChunk::Size(data2) + (MxU32)(data2 - p_buffer);
 
 #undef IntoType
 }

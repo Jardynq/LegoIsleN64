@@ -14,8 +14,7 @@ public:
 	void Destroy() override { Destroy(FALSE); } // vtable+0x38
 
 	// FUNCTION: BETA10 0x1008ca70
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f07a0
 		return "MxSoundPresenter";
 	}

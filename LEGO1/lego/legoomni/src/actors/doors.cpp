@@ -24,8 +24,7 @@ MxFloat g_unk0x100d8e84 = 6000.0f;
 
 // FUNCTION: LEGO1 0x10066100
 // FUNCTION: BETA10 0x10026850
-MxResult Doors::HitActor(LegoPathActor* p_actor, MxBool p_bool)
-{
+MxResult Doors::HitActor(LegoPathActor* p_actor, MxBool p_bool) {
 	assert(m_ltDoor && m_rtDoor);
 
 	if (m_unk0x154 == 1) {
@@ -40,8 +39,7 @@ MxResult Doors::HitActor(LegoPathActor* p_actor, MxBool p_bool)
 
 // FUNCTION: LEGO1 0x10066190
 // FUNCTION: BETA10 0x1002696b
-MxFloat Doors::VTable0xcc(float p_time)
-{
+MxFloat Doors::VTable0xcc(float p_time) {
 	MxFloat fVar1;
 
 	fVar1 = p_time - m_unk0x158;
@@ -65,8 +63,7 @@ MxFloat Doors::VTable0xcc(float p_time)
 
 // FUNCTION: LEGO1 0x10066250
 // FUNCTION: BETA10 0x10026a45
-void Doors::Animate(float p_time)
-{
+void Doors::Animate(float p_time) {
 	assert(m_ltDoor && m_rtDoor);
 
 	// TODO: Match
@@ -116,8 +113,7 @@ void Doors::Animate(float p_time)
 
 // FUNCTION: LEGO1 0x100664e0
 // FUNCTION: BETA10 0x10026ceb
-void Doors::ParseAction(char* p_extra)
-{
+void Doors::ParseAction(char* p_extra) {
 	LegoPathActor::ParseAction(p_extra);
 
 	assert(m_ltDoor == NULL && m_rtDoor == NULL);
@@ -127,7 +123,7 @@ void Doors::ParseAction(char* p_extra)
 	const CompoundObject* comp = m_roi->GetComp();
 
 	for (CompoundObject::const_iterator it = comp->begin(); it != comp->end(); it++) {
-		LegoROI* roi = (LegoROI*) *it;
+		LegoROI* roi = (LegoROI*)*it;
 
 		if (roi && (!strnicmp(roi->GetName(), "dor-lt", 6) || !strnicmp(roi->GetName(), "dor-sl", 6))) {
 			m_ltDoor = roi;

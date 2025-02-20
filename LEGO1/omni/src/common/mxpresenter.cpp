@@ -30,8 +30,7 @@
 DECOMP_SIZE_ASSERT(MxPresenter, 0x40);
 
 // FUNCTION: LEGO1 0x100b4d50
-void MxPresenter::Init()
-{
+void MxPresenter::Init() {
 	m_currentTickleState = e_idle;
 	m_action = NULL;
 	m_location = MxPoint32(0, 0);
@@ -42,8 +41,7 @@ void MxPresenter::Init()
 
 // FUNCTION: LEGO1 0x100b4d80
 // FUNCTION: BETA10 0x1012e120
-MxResult MxPresenter::StartAction(MxStreamController*, MxDSAction* p_action)
-{
+MxResult MxPresenter::StartAction(MxStreamController*, MxDSAction* p_action) {
 	AUTOLOCK(m_criticalSection);
 
 	m_action = p_action;
@@ -56,8 +54,7 @@ MxResult MxPresenter::StartAction(MxStreamController*, MxDSAction* p_action)
 }
 
 // FUNCTION: LEGO1 0x100b4e40
-void MxPresenter::EndAction()
-{
+void MxPresenter::EndAction() {
 	if (m_action == NULL) {
 		return;
 	}
@@ -77,8 +74,7 @@ void MxPresenter::EndAction()
 }
 
 // FUNCTION: LEGO1 0x100b4fc0
-void MxPresenter::ParseExtra()
-{
+void MxPresenter::ParseExtra() {
 	AUTOLOCK(m_criticalSection);
 
 	MxU16 extraLength;
@@ -111,8 +107,7 @@ void MxPresenter::ParseExtra()
 
 // FUNCTION: LEGO1 0x100b5120
 // FUNCTION: BETA10 0x1012e5d8
-void MxPresenter::SendToCompositePresenter(MxOmni* p_omni)
-{
+void MxPresenter::SendToCompositePresenter(MxOmni* p_omni) {
 	if (m_compositePresenter) {
 		AUTOLOCK(m_criticalSection);
 
@@ -123,8 +118,7 @@ void MxPresenter::SendToCompositePresenter(MxOmni* p_omni)
 }
 
 // FUNCTION: LEGO1 0x100b5200
-MxResult MxPresenter::Tickle()
-{
+MxResult MxPresenter::Tickle() {
 	AUTOLOCK(m_criticalSection);
 
 	switch (m_currentTickleState) {
@@ -168,8 +162,7 @@ MxResult MxPresenter::Tickle()
 }
 
 // FUNCTION: LEGO1 0x100b52d0
-void MxPresenter::Enable(MxBool p_enable)
-{
+void MxPresenter::Enable(MxBool p_enable) {
 	if (m_action && IsEnabled() != p_enable) {
 		MxU32 flags = m_action->GetFlags();
 
@@ -184,33 +177,32 @@ void MxPresenter::Enable(MxBool p_enable)
 
 // FUNCTION: LEGO1 0x100b5310
 // FUNCTION: BETA10 0x1012e8bd
-const char* PresenterNameDispatch(const MxDSAction& p_action)
-{
+const char* PresenterNameDispatch(const MxDSAction& p_action) {
 	const char* name = p_action.GetSourceName();
 	MxS32 format;
 
 	if (!name || strlen(name) == 0) {
 		switch (p_action.GetType()) {
 		case MxDSObject::e_anim:
-			format = ((MxDSAnim&) p_action).GetMediaFormat();
+			format = ((MxDSAnim&)p_action).GetMediaFormat();
 			switch (format) {
 			case FOURCC(' ', 'F', 'L', 'C'):
 				name = !p_action.IsLooping() ? MxFlcPresenter::HandlerClassName()
-											 : MxLoopingFlcPresenter::HandlerClassName();
+					: MxLoopingFlcPresenter::HandlerClassName();
 				break;
 			case FOURCC(' ', 'S', 'M', 'K'):
 				name = !p_action.IsLooping() ? MxSmkPresenter::HandlerClassName()
-											 : MxLoopingSmkPresenter::HandlerClassName();
+					: MxLoopingSmkPresenter::HandlerClassName();
 				break;
 			}
 			break;
 
 		case MxDSObject::e_sound:
-			format = ((MxDSSound&) p_action).GetMediaFormat();
+			format = ((MxDSSound&)p_action).GetMediaFormat();
 			switch (format) {
 			case FOURCC(' ', 'M', 'I', 'D'):
 				name = !p_action.IsLooping() ? MxMIDIPresenter::HandlerClassName()
-											 : MxLoopingMIDIPresenter::HandlerClassName();
+					: MxLoopingMIDIPresenter::HandlerClassName();
 				break;
 			case FOURCC(' ', 'W', 'A', 'V'):
 				name = MxWavePresenter::HandlerClassName();
@@ -238,8 +230,7 @@ const char* PresenterNameDispatch(const MxDSAction& p_action)
 }
 
 // FUNCTION: LEGO1 0x100b5410
-MxEntity* MxPresenter::CreateEntity(const char* p_defaultName)
-{
+MxEntity* MxPresenter::CreateEntity(const char* p_defaultName) {
 	// create an object from LegoObjectFactory based on OBJECT: value in extra data.
 	// If that is missing, p_defaultName is used
 
@@ -257,12 +248,11 @@ MxEntity* MxPresenter::CreateEntity(const char* p_defaultName)
 		KeyValueStringParse(objectName, g_strOBJECT, extraCopy);
 	}
 
-	return (MxEntity*) ObjectFactory()->Create(objectName);
+	return (MxEntity*)ObjectFactory()->Create(objectName);
 }
 
 // FUNCTION: LEGO1 0x100b54c0
 // FUNCTION: BETA10 0x1012ebaf
-MxBool MxPresenter::IsEnabled()
-{
+MxBool MxPresenter::IsEnabled() {
 	return m_action && m_action->GetFlags() & MxDSAction::c_enabled;
 }

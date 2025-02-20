@@ -18,15 +18,13 @@
 DECOMP_SIZE_ASSERT(ElevatorBottom, 0xfc)
 
 // FUNCTION: LEGO1 0x10017e90
-ElevatorBottom::ElevatorBottom()
-{
+ElevatorBottom::ElevatorBottom() {
 	NotificationManager()->Register(this);
 	m_destLocation = LegoGameState::e_undefined;
 }
 
 // FUNCTION: LEGO1 0x10018060
-ElevatorBottom::~ElevatorBottom()
-{
+ElevatorBottom::~ElevatorBottom() {
 	if (InputManager()->GetWorld() == this) {
 		InputManager()->ClearWorld();
 	}
@@ -35,8 +33,7 @@ ElevatorBottom::~ElevatorBottom()
 }
 
 // FUNCTION: LEGO1 0x100180f0
-MxResult ElevatorBottom::Create(MxDSAction& p_dsAction)
-{
+MxResult ElevatorBottom::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 	if (result == SUCCESS) {
 		InputManager()->SetWorld(this);
@@ -53,16 +50,15 @@ MxResult ElevatorBottom::Create(MxDSAction& p_dsAction)
 
 // FUNCTION: LEGO1 0x10018150
 // FUNCTION: BETA10 0x10027d60
-MxLong ElevatorBottom::Notify(MxParam& p_param)
-{
-	MxNotificationParam& param = (MxNotificationParam&) p_param;
+MxLong ElevatorBottom::Notify(MxParam& p_param) {
+	MxNotificationParam& param = (MxNotificationParam&)p_param;
 	MxLong ret = 0;
 	LegoWorld::Notify(p_param);
 
 	if (m_worldStarted) {
 		switch (param.GetNotification()) {
 		case c_notificationControl:
-			ret = HandleControl((LegoControlManagerNotificationParam&) p_param);
+			ret = HandleControl((LegoControlManagerNotificationParam&)p_param);
 			break;
 		case c_notificationTransitioned:
 			assert(m_destLocation != LegoGameState::e_undefined);
@@ -75,16 +71,14 @@ MxLong ElevatorBottom::Notify(MxParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x100181b0
-void ElevatorBottom::ReadyWorld()
-{
+void ElevatorBottom::ReadyWorld() {
 	LegoWorld::ReadyWorld();
 	PlayMusic(JukeboxScript::c_InformationCenter_Music);
 	FUN_10015820(FALSE, LegoOmni::c_disableInput | LegoOmni::c_disable3d | LegoOmni::c_clearScreen);
 }
 
 // FUNCTION: LEGO1 0x100181d0
-MxLong ElevatorBottom::HandleControl(LegoControlManagerNotificationParam& p_param)
-{
+MxLong ElevatorBottom::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxLong result = 0;
 
 	if (p_param.GetUnknown0x28() == 1) {
@@ -101,10 +95,10 @@ MxLong ElevatorBottom::HandleControl(LegoControlManagerNotificationParam& p_para
 			break;
 		case ElevbottScript::c_ElevBott_Elevator_Ctl:
 			LegoGameState* gs = GameState();
-			Act1State* state = (Act1State*) gs->GetState("Act1State");
+			Act1State* state = (Act1State*)gs->GetState("Act1State");
 
 			if (state == NULL) {
-				state = (Act1State*) gs->CreateState("Act1State");
+				state = (Act1State*)gs->CreateState("Act1State");
 			}
 
 			state->SetElevatorFloor(Act1State::c_floor1);
@@ -120,8 +114,7 @@ MxLong ElevatorBottom::HandleControl(LegoControlManagerNotificationParam& p_para
 }
 
 // FUNCTION: LEGO1 0x100182c0
-void ElevatorBottom::Enable(MxBool p_enable)
-{
+void ElevatorBottom::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
 	if (p_enable) {
@@ -136,8 +129,7 @@ void ElevatorBottom::Enable(MxBool p_enable)
 }
 
 // FUNCTION: LEGO1 0x10018310
-MxBool ElevatorBottom::Escape()
-{
+MxBool ElevatorBottom::Escape() {
 	DeleteObjects(&m_atomId, ElevbottScript::c_iica31in_PlayWav, 999);
 	m_destLocation = LegoGameState::e_infomain;
 	return TRUE;

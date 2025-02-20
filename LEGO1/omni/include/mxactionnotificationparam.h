@@ -11,8 +11,7 @@ class MxPresenter;
 class MxActionNotificationParam : public MxNotificationParam {
 public:
 	MxActionNotificationParam(NotificationId p_type, MxCore* p_sender, MxDSAction* p_action, MxBool p_reallocAction)
-		: MxNotificationParam(p_type, p_sender)
-	{
+		: MxNotificationParam(p_type, p_sender) {
 		MxDSAction* oldAction = p_action;
 		m_realloc = p_reallocAction;
 
@@ -30,8 +29,7 @@ public:
 	}
 
 	// FUNCTION: LEGO1 0x10051050
-	~MxActionNotificationParam() override
-	{
+	~MxActionNotificationParam() override {
 		if (!m_realloc) {
 			return;
 		}
@@ -42,8 +40,7 @@ public:
 	}
 
 	// FUNCTION: LEGO1 0x100510c0
-	MxNotificationParam* Clone() const override
-	{
+	MxNotificationParam* Clone() const override {
 		return new MxActionNotificationParam(m_type, m_sender, m_action, m_realloc);
 	} // vtable+0x04
 
@@ -65,8 +62,7 @@ public:
 		MxDSAction* p_action,
 		MxBool p_reallocAction
 	)
-		: MxActionNotificationParam(p_type, p_sender, p_action, p_reallocAction)
-	{
+		: MxActionNotificationParam(p_type, p_sender, p_action, p_reallocAction) {
 	}
 
 	MxNotificationParam* Clone() const override; // vtable+0x04
@@ -77,13 +73,11 @@ public:
 class MxEndActionNotificationParam : public MxActionNotificationParam {
 public:
 	MxEndActionNotificationParam(NotificationId p_type, MxCore* p_sender, MxDSAction* p_action, MxBool p_reallocAction)
-		: MxActionNotificationParam(p_type, p_sender, p_action, p_reallocAction)
-	{
+		: MxActionNotificationParam(p_type, p_sender, p_action, p_reallocAction) {
 	}
 
 	// FUNCTION: LEGO1 0x10051270
-	MxNotificationParam* Clone() const override
-	{
+	MxNotificationParam* Clone() const override {
 		return new MxEndActionNotificationParam(c_notificationEndAction, m_sender, m_action, m_realloc);
 	} // vtable+0x04
 };
@@ -93,8 +87,7 @@ public:
 class MxType4NotificationParam : public MxActionNotificationParam {
 public:
 	MxType4NotificationParam(MxCore* p_sender, MxDSAction* p_action, MxPresenter* p_unk0x14)
-		: MxActionNotificationParam(c_notificationType4, p_sender, p_action, FALSE)
-	{
+		: MxActionNotificationParam(c_notificationType4, p_sender, p_action, FALSE) {
 		m_unk0x14 = p_unk0x14;
 	}
 

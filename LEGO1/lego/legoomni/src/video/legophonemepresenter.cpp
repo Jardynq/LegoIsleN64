@@ -10,19 +10,16 @@
 DECOMP_SIZE_ASSERT(LegoPhonemePresenter, 0x88)
 
 // FUNCTION: LEGO1 0x1004e180
-LegoPhonemePresenter::LegoPhonemePresenter()
-{
+LegoPhonemePresenter::LegoPhonemePresenter() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x1004e340
-LegoPhonemePresenter::~LegoPhonemePresenter()
-{
+LegoPhonemePresenter::~LegoPhonemePresenter() {
 }
 
 // FUNCTION: LEGO1 0x1004e3b0
-void LegoPhonemePresenter::Init()
-{
+void LegoPhonemePresenter::Init() {
 	m_rectCount = 0;
 	m_textureInfo = NULL;
 	m_unk0x70 = FALSE;
@@ -31,8 +28,7 @@ void LegoPhonemePresenter::Init()
 
 // FUNCTION: LEGO1 0x1004e3d0
 // FUNCTION: BETA10 0x100c3646
-void LegoPhonemePresenter::StartingTickle()
-{
+void LegoPhonemePresenter::StartingTickle() {
 	MxFlcPresenter::StartingTickle();
 
 	if (m_textureInfo == NULL) {
@@ -45,7 +41,7 @@ void LegoPhonemePresenter::StartingTickle()
 			m_roiName = extraData;
 			m_roiName.ToUpperCase();
 
-			LegoROI *entityROI, *head;
+			LegoROI* entityROI, * head;
 
 			if (m_compositePresenter != NULL && m_compositePresenter->IsA("LegoAnimMMPresenter")) {
 				entityROI = FindROI(m_roiName.GetData());
@@ -89,14 +85,13 @@ void LegoPhonemePresenter::StartingTickle()
 
 // FUNCTION: LEGO1 0x1004e800
 // FUNCTION: BETA10 0x100c3ac9
-void LegoPhonemePresenter::LoadFrame(MxStreamChunk* p_chunk)
-{
+void LegoPhonemePresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	MxU8* data = p_chunk->GetData();
 
-	m_rectCount = *(MxS32*) data;
+	m_rectCount = *(MxS32*)data;
 	data += sizeof(MxS32);
 
-	MxRect32* rects = (MxRect32*) data;
+	MxRect32* rects = (MxRect32*)data;
 	data += m_rectCount * sizeof(MxRect32);
 
 	MxBool decodedColorMap;
@@ -104,15 +99,14 @@ void LegoPhonemePresenter::LoadFrame(MxStreamChunk* p_chunk)
 		&m_frameBitmap->GetBitmapInfo()->m_bmiHeader,
 		m_frameBitmap->GetImage(),
 		m_flcHeader,
-		(FLIC_FRAME*) data,
+		(FLIC_FRAME*)data,
 		&decodedColorMap
 	);
 }
 
 // FUNCTION: LEGO1 0x1004e840
 // FUNCTION: BETA10 0x100c3b5d
-void LegoPhonemePresenter::PutFrame()
-{
+void LegoPhonemePresenter::PutFrame() {
 	if (m_textureInfo != NULL && m_rectCount != 0) {
 		m_textureInfo->FUN_10066010(m_frameBitmap->GetImage());
 		m_rectCount = 0;
@@ -121,8 +115,7 @@ void LegoPhonemePresenter::PutFrame()
 
 // FUNCTION: LEGO1 0x1004e870
 // FUNCTION: BETA10 0x100c3c24
-void LegoPhonemePresenter::EndAction()
-{
+void LegoPhonemePresenter::EndAction() {
 	if (m_action != NULL) {
 		MxFlcPresenter::EndAction();
 

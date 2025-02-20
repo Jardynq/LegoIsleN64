@@ -27,8 +27,7 @@ private:
 };
 
 template <size_t BS, size_t NB>
-MxResult MxMemoryPool<BS, NB>::Allocate()
-{
+MxResult MxMemoryPool<BS, NB>::Allocate() {
 	assert(m_pool == NULL);
 	assert(m_blockSize);
 	assert(m_blockRef.Size());
@@ -40,8 +39,7 @@ MxResult MxMemoryPool<BS, NB>::Allocate()
 }
 
 template <size_t BS, size_t NB>
-MxU8* MxMemoryPool<BS, NB>::Get()
-{
+MxU8* MxMemoryPool<BS, NB>::Get() {
 	assert(m_pool != NULL);
 	assert(m_blockSize);
 	assert(m_blockRef.Size());
@@ -60,13 +58,12 @@ MxU8* MxMemoryPool<BS, NB>::Get()
 }
 
 template <size_t BS, size_t NB>
-void MxMemoryPool<BS, NB>::Release(MxU8* p_buf)
-{
+void MxMemoryPool<BS, NB>::Release(MxU8* p_buf) {
 	assert(m_pool != NULL);
 	assert(m_blockSize);
 	assert(m_blockRef.Size());
 
-	MxU32 i = (MxU32) (p_buf - m_pool) / (m_blockSize * 1024);
+	MxU32 i = (MxU32)(p_buf - m_pool) / (m_blockSize * 1024);
 
 	assert(i >= 0 && i < GetPoolSize());
 	assert(m_blockRef[i]);

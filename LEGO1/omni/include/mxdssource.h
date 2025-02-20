@@ -32,8 +32,7 @@ public:
 	virtual MxLong Close() = 0;       // vtable+0x18
 
 	// FUNCTION: LEGO1 0x100bffd0
-	virtual MxResult ReadToBuffer(MxDSBuffer* p_buffer)
-	{
+	virtual MxResult ReadToBuffer(MxDSBuffer* p_buffer) {
 		return Read(p_buffer->GetBuffer(), p_buffer->GetWriteOffset());
 	} // vtable+0x1c
 

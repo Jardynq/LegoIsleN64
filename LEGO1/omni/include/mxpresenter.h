@@ -34,8 +34,7 @@ public:
 	virtual void VTable0x14() {} // vtable+0x14
 
 	// FUNCTION: LEGO1 0x1000be40
-	virtual void ReadyTickle()
-	{
+	virtual void ReadyTickle() {
 		ParseExtra();
 		ProgressTickleState(e_starting);
 	} // vtable+0x18
@@ -58,9 +57,8 @@ protected:
 
 	virtual void ParseExtra(); // vtable+0x30
 
-	void ProgressTickleState(TickleState p_tickleState)
-	{
-		m_previousTickleStates |= 1 << (MxU8) m_currentTickleState;
+	void ProgressTickleState(TickleState p_tickleState) {
+		m_previousTickleStates |= 1 << (MxU8)m_currentTickleState;
 		m_currentTickleState = p_tickleState;
 	}
 
@@ -82,9 +80,8 @@ public:
 	virtual void SetTickleState(TickleState p_tickleState) { ProgressTickleState(p_tickleState); } // vtable+0x44
 
 	// FUNCTION: LEGO1 0x1000bfb0
-	virtual MxBool HasTickleStatePassed(TickleState p_tickleState)
-	{
-		return m_previousTickleStates & (1 << (MxU8) p_tickleState);
+	virtual MxBool HasTickleStatePassed(TickleState p_tickleState) {
+		return m_previousTickleStates & (1 << (MxU8)p_tickleState);
 	} // vtable+0x48
 
 	// FUNCTION: LEGO1 0x1000bfc0
@@ -96,8 +93,7 @@ public:
 	virtual void Enable(MxBool p_enable); // vtable+0x54
 
 	// FUNCTION: BETA10 0x1004d9e0
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f0740
 		return "MxPresenter";
 	}
@@ -130,8 +126,7 @@ public:
 
 	void SetAction(MxDSAction* p_action) { m_action = p_action; }
 
-	void SetCompositePresenter(MxCompositePresenter* p_compositePresenter)
-	{
+	void SetCompositePresenter(MxCompositePresenter* p_compositePresenter) {
 		m_compositePresenter = p_compositePresenter;
 	}
 

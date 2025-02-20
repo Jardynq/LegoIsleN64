@@ -14,8 +14,7 @@ public:
 	~LegoActionControlPresenter() override { Destroy(TRUE); } // vtable+0x00
 
 	// FUNCTION: BETA10 0x100a7840
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f05bc
 		return "LegoActionControlPresenter";
 	}

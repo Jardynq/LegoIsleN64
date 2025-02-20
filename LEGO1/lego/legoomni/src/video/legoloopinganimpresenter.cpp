@@ -11,8 +11,7 @@ DECOMP_SIZE_ASSERT(LegoLoopingAnimPresenter, 0xc0)
 
 // FUNCTION: LEGO1 0x1006caa0
 // FUNCTION: BETA10 0x1005223d
-void LegoLoopingAnimPresenter::StreamingTickle()
-{
+void LegoLoopingAnimPresenter::StreamingTickle() {
 	if (m_subscriber->PeekData()) {
 		MxStreamChunk* chunk = m_subscriber->PopData();
 		m_subscriber->FreeDataChunk(chunk);
@@ -37,8 +36,7 @@ void LegoLoopingAnimPresenter::StreamingTickle()
 
 // FUNCTION: LEGO1 0x1006cb40
 // FUNCTION: BETA10 0x1005239a
-void LegoLoopingAnimPresenter::PutFrame()
-{
+void LegoLoopingAnimPresenter::PutFrame() {
 	MxLong time;
 
 	if (m_action->GetStartTime() <= m_action->GetElapsedTime()) {

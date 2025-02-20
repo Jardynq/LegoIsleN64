@@ -34,8 +34,7 @@ public:
 	MxFloat* GetUnknown0x19c() { return &m_unk0x19c; }
 
 	// FUNCTION: BETA10 0x1001fbd0
-	void SetValid(MxBool p_valid)
-	{
+	void SetValid(MxBool p_valid) {
 		if (p_valid) {
 			m_ammoFlag |= c_valid;
 		}
@@ -51,8 +50,7 @@ public:
 	MxU32 IsDonut() { return m_ammoFlag & c_donut; }
 
 	// FUNCTION: BETA10 0x1001fcb0
-	void SetBit4(MxBool p_bit4)
-	{
+	void SetBit4(MxBool p_bit4) {
 		if (p_bit4) {
 			m_ammoFlag |= c_bit4;
 		}
@@ -64,8 +62,7 @@ public:
 	// FUNCTION: BETA10 0x10021d90
 	MxU32 IsBit4() { return m_ammoFlag & c_bit4; }
 
-	void SetSharkFood(MxBool p_sharkFood)
-	{
+	void SetSharkFood(MxBool p_sharkFood) {
 		if (p_sharkFood) {
 			m_ammoFlag |= c_sharkFood;
 		}

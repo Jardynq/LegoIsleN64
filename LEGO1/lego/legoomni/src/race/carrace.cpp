@@ -46,15 +46,15 @@ MxS32 CarRace::g_unk0x100d5d30[] = {
 
 // GLOBAL: LEGO1 0x100d5d40
 MxS32 CarRace::g_unk0x100d5d40[] =
-	{CarraceScript::c_srt015sl_RunAnim, CarraceScript::c_srt016sl_RunAnim, CarraceScript::c_srt017sl_RunAnim};
+{ CarraceScript::c_srt015sl_RunAnim, CarraceScript::c_srt016sl_RunAnim, CarraceScript::c_srt017sl_RunAnim };
 
 // GLOBAL: LEGO1 0x100d5d50
 MxS32 CarRace::g_unk0x100d5d50[] =
-	{CarraceScript::c_srt007rh_RunAnim, CarraceScript::c_srt008rh_RunAnim, CarraceScript::c_srt009rh_RunAnim};
+{ CarraceScript::c_srt007rh_RunAnim, CarraceScript::c_srt008rh_RunAnim, CarraceScript::c_srt009rh_RunAnim };
 
 // GLOBAL: LEGO1 0x100d5d60
 MxS32 CarRace::g_unk0x100d5d60[] =
-	{CarraceScript::c_srt010rh_RunAnim, CarraceScript::c_srt011rh_RunAnim, CarraceScript::c_srt012rh_RunAnim};
+{ CarraceScript::c_srt010rh_RunAnim, CarraceScript::c_srt011rh_RunAnim, CarraceScript::c_srt012rh_RunAnim };
 
 // GLOBAL: LEGO1 0x100f0c70
 // STRING: LEGO1 0x100f0c48
@@ -68,16 +68,14 @@ const LegoChar* g_strCRCEDGEY0 = "C_RCEDGEY0";
 MxS32 g_unk0x100f0c7c = 2;
 
 // FUNCTION: LEGO1 0x10016a90
-CarRace::CarRace()
-{
+CarRace::CarRace() {
 	m_skeleton = NULL;
 	m_unk0x130 = MxRect32(0x16c, 0x154, 0x1ec, 0x15e);
 }
 
 // FUNCTION: LEGO1 0x10016ce0
 // FUNCTION: BETA10 0x100c8364
-MxResult CarRace::Create(MxDSAction& p_dsAction)
-{
+MxResult CarRace::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoRace::Create(p_dsAction);
 
 	NavController()->SetDeadZone(1);
@@ -87,10 +85,10 @@ MxResult CarRace::Create(MxDSAction& p_dsAction)
 
 	LegoGameState* state = GameState();
 
-	RaceState* raceState = (RaceState*) state->GetState("CarRaceState");
+	RaceState* raceState = (RaceState*)state->GetState("CarRaceState");
 
 	if (!raceState) {
-		raceState = (RaceState*) state->CreateState("CarRaceState");
+		raceState = (RaceState*)state->CreateState("CarRaceState");
 	}
 
 	m_raceState = raceState;
@@ -112,8 +110,7 @@ MxResult CarRace::Create(MxDSAction& p_dsAction)
 
 // FUNCTION: LEGO1 0x10016dd0
 // FUNCTION: BETA10 0x100c8490
-void CarRace::ReadyWorld()
-{
+void CarRace::ReadyWorld() {
 	assert(m_hideAnim);
 	LegoWorld::ReadyWorld();
 	m_hideAnim->FUN_1006db40(0);
@@ -131,18 +128,17 @@ void CarRace::ReadyWorld()
 	AnimationManager()
 		->FUN_10060dc0(m_unk0x144, NULL, TRUE, LegoAnimationManager::e_unk0, NULL, FALSE, TRUE, FALSE, TRUE);
 
-	m_unk0x128 = (MxStillPresenter*) Find("MxPresenter", "CarLocator2");
+	m_unk0x128 = (MxStillPresenter*)Find("MxPresenter", "CarLocator2");
 	m_unk0x128->SetPosition(m_unk0x130.GetLeft(), m_unk0x130.GetTop());
 
-	m_unk0x12c = (MxStillPresenter*) Find("MxPresenter", "CarLocator3");
+	m_unk0x12c = (MxStillPresenter*)Find("MxPresenter", "CarLocator3");
 	m_unk0x12c->SetPosition(m_unk0x130.GetLeft(), m_unk0x130.GetTop());
 	VariableTable()->SetVariable("DISTANCE", "0.036");
 }
 
 // FUNCTION: LEGO1 0x10016f60
 // FUNCTION: BETA10 0x100c85eb
-MxLong CarRace::HandleEndAction(MxEndActionNotificationParam& p_param)
-{
+MxLong CarRace::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	MxLong result = 0;
 
 	if (p_param.GetAction()) {
@@ -175,12 +171,11 @@ MxLong CarRace::HandleEndAction(MxEndActionNotificationParam& p_param)
 
 // FUNCTION: LEGO1 0x100170e0
 // FUNCTION: BETA10 0x100c87ac
-MxLong CarRace::HandlePathStruct(LegoPathStructNotificationParam& p_param)
-{
+MxLong CarRace::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	MxLong result = 0;
 
 	if (p_param.GetTrigger() == 68) {
-		MxEntity* sender = (MxEntity*) p_param.GetSender();
+		MxEntity* sender = (MxEntity*)p_param.GetSender();
 		MxS32 paramData = p_param.GetData();
 
 		switch (sender->GetEntityId()) {
@@ -250,7 +245,7 @@ MxLong CarRace::HandlePathStruct(LegoPathStructNotificationParam& p_param)
 					RaceState::Entry* raceState = m_raceState->GetState(GameState()->GetActorId());
 					raceState->m_unk0x02 = position;
 
-					if (raceState->m_score < (MxS16) position) {
+					if (raceState->m_score < (MxS16)position) {
 						raceState->m_score = position;
 					}
 
@@ -333,9 +328,8 @@ MxLong CarRace::HandlePathStruct(LegoPathStructNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10017650
-MxLong CarRace::HandleClick(LegoEventNotificationParam& p_param)
-{
-	LegoControlManagerNotificationParam* param = (LegoControlManagerNotificationParam*) &p_param;
+MxLong CarRace::HandleClick(LegoEventNotificationParam& p_param) {
+	LegoControlManagerNotificationParam* param = (LegoControlManagerNotificationParam*)&p_param;
 
 	if (param->m_unk0x28 == 1) {
 		switch (param->m_clickedObjectId) {
@@ -372,8 +366,7 @@ MxLong CarRace::HandleClick(LegoEventNotificationParam& p_param)
 
 // FUNCTION: LEGO1 0x100177e0
 // FUNCTION: BETA10 0x100c8f59
-MxLong CarRace::HandleType0Notification(MxNotificationParam&)
-{
+MxLong CarRace::HandleType0Notification(MxNotificationParam&) {
 	if (m_raceState->m_unk0x28 == 2) {
 		m_destLocation = LegoGameState::e_unk21;
 		TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
@@ -383,8 +376,7 @@ MxLong CarRace::HandleType0Notification(MxNotificationParam&)
 }
 
 // FUNCTION: LEGO1 0x10017820
-void CarRace::FUN_10017820(MxS32 p_param1, MxS16 p_param2)
-{
+void CarRace::FUN_10017820(MxS32 p_param1, MxS16 p_param2) {
 	MxS32 local4;
 	MxStillPresenter* presenter;
 	MxS32 x, y;
@@ -409,8 +401,7 @@ void CarRace::FUN_10017820(MxS32 p_param1, MxS16 p_param2)
 }
 
 // FUNCTION: LEGO1 0x10017900
-MxBool CarRace::Escape()
-{
+MxBool CarRace::Escape() {
 	InvokeAction(Extra::e_stop, *g_carraceScript, CarraceScript::c_irtx08ra_PlayWav, NULL);
 
 	AnimationManager()->FUN_10061010(FALSE);

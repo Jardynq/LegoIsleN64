@@ -13,8 +13,7 @@
 DECOMP_SIZE_ASSERT(HistoryBook, 0x3e4)
 
 // FUNCTION: LEGO1 0x100822f0
-HistoryBook::HistoryBook()
-{
+HistoryBook::HistoryBook() {
 	memset(m_alphabet, 0, sizeof(m_alphabet));
 	memset(m_name, 0, sizeof(m_name));
 	memset(m_scores, 0, sizeof(m_scores));
@@ -23,8 +22,7 @@ HistoryBook::HistoryBook()
 
 // FUNCTION: LEGO1 0x100824d0
 // FUNCTION: BETA10 0x1002b63e
-HistoryBook::~HistoryBook()
-{
+HistoryBook::~HistoryBook() {
 	for (MxS16 scoreIndex = 0; scoreIndex < GameState()->m_history.GetCount(); scoreIndex++) {
 		if (m_scores[scoreIndex]) {
 			delete m_scores[scoreIndex]->GetAction();
@@ -32,7 +30,7 @@ HistoryBook::~HistoryBook()
 			m_scores[scoreIndex] = NULL;
 		}
 
-		for (MxS16 letterIndex = 0; letterIndex < (MxS16) sizeOfArray(m_name[0]); letterIndex++) {
+		for (MxS16 letterIndex = 0; letterIndex < (MxS16)sizeOfArray(m_name[0]); letterIndex++) {
 			if (m_name[scoreIndex][letterIndex]) {
 				delete m_name[scoreIndex][letterIndex]->GetAction();
 				delete m_name[scoreIndex][letterIndex];
@@ -51,8 +49,7 @@ HistoryBook::~HistoryBook()
 }
 
 // FUNCTION: LEGO1 0x10082610
-MxResult HistoryBook::Create(MxDSAction& p_dsAction)
-{
+MxResult HistoryBook::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 	if (result == SUCCESS) {
 		InputManager()->SetWorld(this);
@@ -69,9 +66,8 @@ MxResult HistoryBook::Create(MxDSAction& p_dsAction)
 
 // FUNCTION: LEGO1 0x10082680
 // FUNCTION: BETA10 0x1002b907
-MxLong HistoryBook::Notify(MxParam& p_param)
-{
-	MxNotificationParam& param = (MxNotificationParam&) p_param;
+MxLong HistoryBook::Notify(MxParam& p_param) {
+	MxNotificationParam& param = (MxNotificationParam&)p_param;
 	LegoWorld::Notify(p_param);
 
 	if (m_worldStarted) {
@@ -91,8 +87,7 @@ MxLong HistoryBook::Notify(MxParam& p_param)
 
 // FUNCTION: LEGO1 0x100826f0
 // FUNCTION: BETA10 0x1002b9b9
-void HistoryBook::ReadyWorld()
-{
+void HistoryBook::ReadyWorld() {
 	undefined2 dummy1 = 0x90, dummy2 = 0x79, dummy3 = 0xc8, dummy4 = 0x17, dummy5 = 0x1b;
 #ifndef BETA10
 	LegoWorld::ReadyWorld();
@@ -106,15 +101,15 @@ void HistoryBook::ReadyWorld()
 		// TODO: This might be an inline function.
 		// See also `RegistrationBook::ReadyWorld()`.
 		if (i < 26) {
-			m_alphabet[i] = (MxStillPresenter*) Find("MxStillPresenter", bitmap);
+			m_alphabet[i] = (MxStillPresenter*)Find("MxStillPresenter", bitmap);
 			assert(m_alphabet[i]);
 			bitmap[0]++;
 		}
 	}
 
-	MxStillPresenter* scoreboxMaster = (MxStillPresenter*) Find("MxStillPresenter", "ScoreBox");
+	MxStillPresenter* scoreboxMaster = (MxStillPresenter*)Find("MxStillPresenter", "ScoreBox");
 	MxU8 scoreColors[3] =
-		{0x76, 0x4c, 0x38}; // yellow - #FFB900, blue - #00548C, red - #CB1220, background - #CECECE, border - #74818B
+	{ 0x76, 0x4c, 0x38 }; // yellow - #FFB900, blue - #00548C, red - #CB1220, background - #CECECE, border - #74818B
 
 	MxS32 scoreY;
 
@@ -164,7 +159,7 @@ void HistoryBook::ReadyWorld()
 #ifdef BETA10
 		for (MxS16 j = 0; score->m_name.m_letters[j] != -1; j++, scoreX += 0x17)
 #else
-		for (MxS16 j = 0; j < (MxS16) sizeOfArray(m_name[0]) && score->m_name.m_letters[j] != -1; j++, scoreX += 0x17)
+		for (MxS16 j = 0; j < (MxS16)sizeOfArray(m_name[0]) && score->m_name.m_letters[j] != -1; j++, scoreX += 0x17)
 #endif
 		{
 			m_name[i][j] = m_alphabet[score->m_name.m_letters[j]]->Clone();
@@ -182,8 +177,7 @@ void HistoryBook::ReadyWorld()
 }
 
 // FUNCTION: LEGO1 0x10082a10
-MxBool HistoryBook::Escape()
-{
+MxBool HistoryBook::Escape() {
 	m_destLocation = LegoGameState::Area::e_infomain;
 	return TRUE;
 }

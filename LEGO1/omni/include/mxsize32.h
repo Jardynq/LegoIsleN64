@@ -12,8 +12,7 @@ public:
 	MxS32 GetHeight() const { return m_height; }
 
 private:
-	void CopyFrom(MxS32 p_width, MxS32 p_height)
-	{
+	void CopyFrom(MxS32 p_width, MxS32 p_height) {
 		this->m_width = p_width;
 		this->m_height = p_height;
 	}

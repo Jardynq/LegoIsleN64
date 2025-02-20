@@ -30,16 +30,14 @@ const char* g_varJSFRNTY5 = "c_jsfrnty5";
 const char* g_varJSWNSHY5 = "c_jswnshy5";
 
 // FUNCTION: LEGO1 0x1007e3b0
-Jetski::Jetski()
-{
+Jetski::Jetski() {
 	m_maxLinearVel = 25.0;
 	m_unk0x150 = 2.0;
 	m_unk0x148 = 1;
 }
 
 // FUNCTION: LEGO1 0x1007e630
-MxResult Jetski::Create(MxDSAction& p_dsAction)
-{
+MxResult Jetski::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 	m_world = CurrentWorld();
 
@@ -52,8 +50,7 @@ MxResult Jetski::Create(MxDSAction& p_dsAction)
 }
 
 // FUNCTION: LEGO1 0x1007e680
-void Jetski::Animate(float p_time)
-{
+void Jetski::Animate(float p_time) {
 	IslePathActor::Animate(p_time);
 
 	char buf[200];
@@ -65,8 +62,7 @@ void Jetski::Animate(float p_time)
 }
 
 // FUNCTION: LEGO1 0x1007e6f0
-void Jetski::Exit()
-{
+void Jetski::Exit() {
 	SpawnPlayer(LegoGameState::e_unk45, FALSE, c_spawnBit1 | c_playMusic | c_spawnBit3);
 	IslePathActor::Exit();
 	GameState()->m_currentArea = LegoGameState::e_jetski;
@@ -78,8 +74,7 @@ void Jetski::Exit()
 
 // FUNCTION: LEGO1 0x1007e750
 // FUNCTION: BETA10 0x10037621
-MxLong Jetski::HandleClick()
-{
+MxLong Jetski::HandleClick() {
 #ifndef BETA10
 	if (!FUN_1003ef60()) {
 		return 1;
@@ -87,11 +82,11 @@ MxLong Jetski::HandleClick()
 
 	FUN_10015820(TRUE, 0);
 
-	((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::Area::e_jetski);
+	((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::Area::e_jetski);
 	TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
 
 	if (GameState()->GetActorId() != UserActor()->GetActorId()) {
-		((IslePathActor*) UserActor())->Exit();
+		((IslePathActor*)UserActor())->Exit();
 	}
 #endif
 
@@ -107,7 +102,7 @@ MxLong Jetski::HandleClick()
 
 #ifdef BETA10
 	if (UserActor()->GetActorId() != GameState()->GetActorId()) {
-		((IslePathActor*) UserActor())->Exit();
+		((IslePathActor*)UserActor())->Exit();
 	}
 	Enter();
 	ControlManager()->Register(this);
@@ -125,8 +120,7 @@ MxLong Jetski::HandleClick()
 }
 
 // FUNCTION: LEGO1 0x1007e880
-void Jetski::RemoveFromWorld()
-{
+void Jetski::RemoveFromWorld() {
 	RemoveFromCurrentWorld(*g_isleScript, m_jetskiDashboardStreamId);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_JetskiArms_Ctl);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_JetskiInfo_Ctl);
@@ -135,18 +129,17 @@ void Jetski::RemoveFromWorld()
 }
 
 // FUNCTION: LEGO1 0x1007e8e0
-MxLong Jetski::HandleControl(LegoControlManagerNotificationParam& p_param)
-{
+MxLong Jetski::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	if (p_param.GetUnknown0x28() == 1 && CurrentWorld()->IsA("Isle")) {
 		switch (p_param.GetClickedObjectId()) {
 		case IsleScript::c_JetskiArms_Ctl:
 			Exit();
-			((IslePathActor*) UserActor())
+			((IslePathActor*)UserActor())
 				->SpawnPlayer(LegoGameState::e_jetraceExterior, TRUE, c_spawnBit1 | c_playMusic | c_spawnBit3);
 			GameState()->m_currentArea = LegoGameState::e_unk66;
 			return 1;
 		case IsleScript::c_JetskiInfo_Ctl:
-			((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
+			((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
 			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
 			Exit();
 			return 1;
@@ -157,11 +150,10 @@ MxLong Jetski::HandleControl(LegoControlManagerNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x1007e990
-void Jetski::ActivateSceneActions()
-{
+void Jetski::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_JetskiRace_Music);
 
-	Act1State* act1state = (Act1State*) GameState()->GetState("Act1State");
+	Act1State* act1state = (Act1State*)GameState()->GetState("Act1State");
 	if (!act1state->m_unk0x018) {
 		if (act1state->m_unk0x022) {
 			PlayCamAnim(this, FALSE, 68, TRUE);

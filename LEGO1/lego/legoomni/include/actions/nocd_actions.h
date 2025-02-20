@@ -3,19 +3,18 @@
 #ifndef NOCD_ACTIONS_H
 #define NOCD_ACTIONS_H
 
-namespace NocdScript
-{
+namespace NocdScript {
 #if __cplusplus >= 201103L
-enum Script : int {
+	enum Script : int {
 #else
-enum Script {
+	enum Script {
 #endif
-	c_noneNocd = -1,
+		c_noneNocd = -1,
 
-	c_NoCD_Movie = 0,
-	c_CDSpin1_Smk = 1,
-	c_Iicx62In_Wave = 2
-};
-} // namespace NocdScript
+		c_NoCD_Movie = 0,
+		c_CDSpin1_Smk = 1,
+		c_Iicx62In_Wave = 2
+	};
+	} // namespace NocdScript
 
 #endif // NOCD_ACTIONS_H

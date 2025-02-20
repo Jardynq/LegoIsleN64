@@ -10,14 +10,12 @@
 #include <windows.h>
 
 // FUNCTION: BETA10 0x10124cb9
-int DebugHeapState()
-{
+int DebugHeapState() {
 	return 0;
 }
 
 // FUNCTION: BETA10 0x10124cdd
-void _MxTrace(const char* format, ...)
-{
+void _MxTrace(const char* format, ...) {
 	va_list args;
 	char buffer[256];
 

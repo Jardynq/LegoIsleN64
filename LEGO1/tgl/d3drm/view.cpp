@@ -17,8 +17,7 @@ struct ViewportAppData {
 DECOMP_SIZE_ASSERT(ViewportAppData, 0x18);
 
 // FUNCTION: LEGO1 0x100a10b0
-ViewportAppData::ViewportAppData(IDirect3DRM2* pRenderer)
-{
+ViewportAppData::ViewportAppData(IDirect3DRM2* pRenderer) {
 	pRenderer->CreateFrame(NULL, &m_pLightFrame);
 	m_pCamera = NULL;
 	m_pLastRenderedFrame = NULL;
@@ -28,12 +27,11 @@ ViewportAppData::ViewportAppData(IDirect3DRM2* pRenderer)
 }
 
 // FUNCTION: LEGO1 0x100a10e0
-ViewportAppData::~ViewportAppData()
-{
+ViewportAppData::~ViewportAppData() {
 	IDirect3DRMFrameArray* pChildFrames;
 	IDirect3DRMFrame* pChildFrame = NULL;
 	m_pLightFrame->GetChildren(&pChildFrames);
-	for (int i = 0; i < (int) pChildFrames->GetSize(); i++) {
+	for (int i = 0; i < (int)pChildFrames->GetSize(); i++) {
 		pChildFrames->GetElement(i, &pChildFrame);
 		m_pLightFrame->DeleteChild(pChildFrame);
 		pChildFrame->Release(); // GetElement() does AddRef()
@@ -46,8 +44,7 @@ ViewportAppData::~ViewportAppData()
 void ViewportDestroyCallback(IDirect3DRMObject* pObject, void* pArg);
 
 // FUNCTION: LEGO1 0x100a1160
-Result ViewImpl::ViewportCreateAppData(IDirect3DRM2* pDevice, IDirect3DRMViewport* pView, IDirect3DRMFrame2* pCamera)
-{
+Result ViewImpl::ViewportCreateAppData(IDirect3DRM2* pDevice, IDirect3DRMViewport* pView, IDirect3DRMFrame2* pCamera) {
 	ViewportAppData* data = new ViewportAppData(pDevice);
 	data->m_pCamera = pCamera;
 	Result result = ResultVal(pView->SetAppData(reinterpret_cast<LPD3DRM_APPDATA>(data)));
@@ -65,8 +62,7 @@ inline Result ViewRestoreFrameAfterRender(
 	IDirect3DRMFrame* pFrame,
 	IDirect3DRMFrame* pCamera,
 	IDirect3DRMFrame* pLightFrame
-)
-{
+) {
 	Result result = Success;
 	if (pFrame) {
 		// remove camera and light frame from frame that was rendered
@@ -83,8 +79,7 @@ inline Result ViewRestoreFrameAfterRender(
 // FIXME: from LEGO1/tgl/d3drm/view.cpp
 
 // FUNCTION: LEGO1 0x100a1240
-void ViewportDestroyCallback(IDirect3DRMObject* pObject, void* pArg)
-{
+void ViewportDestroyCallback(IDirect3DRMObject* pObject, void* pArg) {
 	ViewportAppData* pViewportAppData = reinterpret_cast<ViewportAppData*>(pArg);
 
 	ViewRestoreFrameAfterRender(
@@ -105,47 +100,40 @@ Result ViewportPickImpl(
 	int groupsToPickFromCount,
 	const Group**& rppPickedGroups,
 	int& rPickedGroupCount
-)
-{
+) {
 	// Left unimplemented in shipped game.
 	return Error;
 }
 
-inline ViewportAppData* ViewportGetData(IDirect3DRMViewport* pViewport)
-{
+inline ViewportAppData* ViewportGetData(IDirect3DRMViewport* pViewport) {
 	return reinterpret_cast<ViewportAppData*>(pViewport->GetAppData());
 }
 
-inline IDirect3DRMFrame* ViewportGetLightFrame(IDirect3DRMViewport* pViewport)
-{
+inline IDirect3DRMFrame* ViewportGetLightFrame(IDirect3DRMViewport* pViewport) {
 	return ViewportGetData(pViewport)->m_pLightFrame;
 }
 
 // FUNCTION: LEGO1 0x100a2d80
-void* ViewImpl::ImplementationDataPtr()
-{
+void* ViewImpl::ImplementationDataPtr() {
 	return reinterpret_cast<void*>(&m_data);
 }
 
 // FUNCTION: LEGO1 0x100a2d90
-Result ViewImpl::Add(const Light* pLight)
-{
+Result ViewImpl::Add(const Light* pLight) {
 	const LightImpl* light = static_cast<const LightImpl*>(pLight);
 	IDirect3DRMFrame* frame = light->ImplementationData();
 	return ResultVal(ViewportGetLightFrame(m_data)->AddChild(frame));
 }
 
 // FUNCTION: LEGO1 0x100a2dc0
-Result ViewImpl::Remove(const Light* pLight)
-{
+Result ViewImpl::Remove(const Light* pLight) {
 	const LightImpl* light = static_cast<const LightImpl*>(pLight);
 	IDirect3DRMFrame* frame = light->ImplementationData();
 	return ResultVal(ViewportGetLightFrame(m_data)->DeleteChild(frame));
 }
 
 // FUNCTION: LEGO1 0x100a2df0
-Result ViewImpl::SetCamera(const Camera* pCamera)
-{
+Result ViewImpl::SetCamera(const Camera* pCamera) {
 	const CameraImpl* camera = static_cast<const CameraImpl*>(pCamera);
 	IDirect3DRMFrame2* frame = camera->ImplementationData();
 
@@ -165,14 +153,12 @@ Result ViewImpl::SetCamera(const Camera* pCamera)
 }
 
 // FUNCTION: LEGO1 0x100a2e70
-Result ViewImpl::SetProjection(ProjectionType type)
-{
+Result ViewImpl::SetProjection(ProjectionType type) {
 	return ResultVal(m_data->SetProjection(Translate(type)));
 }
 
 // FUNCTION: LEGO1 0x100a2eb0
-Result ViewImpl::SetFrustrum(float frontClippingDistance, float backClippingDistance, float degrees)
-{
+Result ViewImpl::SetFrustrum(float frontClippingDistance, float backClippingDistance, float degrees) {
 	float field = frontClippingDistance * tan(DegreesToRadians(degrees / 2));
 	Result result;
 	result = ResultVal(m_data->SetFront(frontClippingDistance));
@@ -187,8 +173,7 @@ Result ViewImpl::SetFrustrum(float frontClippingDistance, float backClippingDist
 }
 
 // FUNCTION: LEGO1 0x100a2f30
-Result ViewImpl::SetBackgroundColor(float r, float g, float b)
-{
+Result ViewImpl::SetBackgroundColor(float r, float g, float b) {
 	Result ret = Success;
 	// Note, this method in the shipped game is very diverged from
 	// the Tgl leak code.
@@ -203,8 +188,7 @@ Result ViewImpl::SetBackgroundColor(float r, float g, float b)
 }
 
 // FUNCTION: LEGO1 0x100a2f80
-Result ViewImpl::GetBackgroundColor(float* r, float* g, float* b)
-{
+Result ViewImpl::GetBackgroundColor(float* r, float* g, float* b) {
 	ViewportAppData* data = ViewportGetData(m_data);
 	*r = data->m_backgroundColorRed;
 	*g = data->m_backgroundColorGreen;
@@ -213,8 +197,7 @@ Result ViewImpl::GetBackgroundColor(float* r, float* g, float* b)
 }
 
 // FUNCTION: LEGO1 0x100a2fb0
-Result ViewImpl::Clear()
-{
+Result ViewImpl::Clear() {
 	return ResultVal(m_data->Clear());
 }
 
@@ -225,8 +208,7 @@ inline Result ViewPrepareFrameForRender(
 	float backgroundRed,
 	float backgroundGreen,
 	float backgroundBlue
-)
-{
+) {
 	Result result = Success;
 
 	if (pFrame) {
@@ -246,8 +228,7 @@ inline Result ViewPrepareFrameForRender(
 	return result;
 }
 
-inline Result ViewRender(IDirect3DRMViewport* pViewport, const IDirect3DRMFrame2* pGroup)
-{
+inline Result ViewRender(IDirect3DRMViewport* pViewport, const IDirect3DRMFrame2* pGroup) {
 	ViewportAppData* pViewportAppData;
 	Result result;
 
@@ -277,14 +258,12 @@ inline Result ViewRender(IDirect3DRMViewport* pViewport, const IDirect3DRMFrame2
 }
 
 // FUNCTION: LEGO1 0x100a2fd0
-Result ViewImpl::Render(const Group* pGroup)
-{
+Result ViewImpl::Render(const Group* pGroup) {
 	return ViewRender(m_data, static_cast<const GroupImpl*>(pGroup)->ImplementationData());
 }
 
 // FUNCTION: LEGO1 0x100a3080
-Result ViewImpl::ForceUpdate(unsigned long x, unsigned long y, unsigned long width, unsigned long height)
-{
+Result ViewImpl::ForceUpdate(unsigned long x, unsigned long y, unsigned long width, unsigned long height) {
 	return ResultVal(m_data->ForceUpdate(x, y, x + width - 1, y + height - 1));
 }
 
@@ -296,8 +275,7 @@ Result ViewImpl::Pick(
 	int groupsToPickFromCount,
 	const Group**& rppPickedGroups,
 	int& rPickedGroupCount
-)
-{
+) {
 	return ViewportPickImpl(
 		m_data,
 		x,
@@ -310,8 +288,7 @@ Result ViewImpl::Pick(
 }
 
 // FUNCTION: LEGO1 0x100a30f0
-Result ViewImpl::TransformWorldToScreen(const float world[3], float screen[4])
-{
+Result ViewImpl::TransformWorldToScreen(const float world[3], float screen[4]) {
 	D3DRMVECTOR4D d3dRMScreen;
 	D3DVECTOR d3dRMWorld;
 	d3dRMWorld.x = world[0];
@@ -332,8 +309,7 @@ Result ViewImpl::TransformWorldToScreen(const float world[3], float screen[4])
 }
 
 // FUNCTION: LEGO1 0x100a3160
-Result ViewImpl::TransformScreenToWorld(const float screen[4], float world[3])
-{
+Result ViewImpl::TransformScreenToWorld(const float screen[4], float world[3]) {
 	// 100% match minus instruction reordering.
 	D3DVECTOR d3dRMWorld;
 	D3DRMVECTOR4D d3dScreen;

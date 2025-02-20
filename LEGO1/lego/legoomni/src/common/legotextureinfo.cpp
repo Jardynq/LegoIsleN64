@@ -10,8 +10,7 @@
 DECOMP_SIZE_ASSERT(LegoTextureInfo, 0x10)
 
 // FUNCTION: LEGO1 0x10065bf0
-LegoTextureInfo::LegoTextureInfo()
-{
+LegoTextureInfo::LegoTextureInfo() {
 	m_name = NULL;
 	m_surface = NULL;
 	m_palette = NULL;
@@ -19,8 +18,7 @@ LegoTextureInfo::LegoTextureInfo()
 }
 
 // FUNCTION: LEGO1 0x10065c00
-LegoTextureInfo::~LegoTextureInfo()
-{
+LegoTextureInfo::~LegoTextureInfo() {
 	if (m_name) {
 		delete[] m_name;
 		m_name = NULL;
@@ -43,8 +41,7 @@ LegoTextureInfo::~LegoTextureInfo()
 }
 
 // FUNCTION: LEGO1 0x10065c60
-LegoTextureInfo* LegoTextureInfo::Create(const char* p_name, LegoTexture* p_texture)
-{
+LegoTextureInfo* LegoTextureInfo::Create(const char* p_name, LegoTexture* p_texture) {
 	LegoTextureInfo* textureInfo = new LegoTextureInfo();
 
 	if (p_name == NULL || p_texture == NULL) {
@@ -87,13 +84,13 @@ LegoTextureInfo* LegoTextureInfo::Create(const char* p_name, LegoTexture* p_text
 		goto done;
 	}
 
-	surface = (MxU8*) desc.lpSurface;
+	surface = (MxU8*)desc.lpSurface;
 	if (desc.dwWidth == desc.lPitch) {
 		memcpy(surface, bits, desc.dwWidth * desc.dwHeight);
 	}
 	else {
 		for (i = 0; i < desc.dwHeight; i++) {
-			*(MxU32*) surface = *(MxU32*) bits;
+			*(MxU32*)surface = *(MxU32*)bits;
 			surface += desc.lPitch;
 			bits += desc.dwWidth;
 		}
@@ -122,12 +119,12 @@ LegoTextureInfo* LegoTextureInfo::Create(const char* p_name, LegoTexture* p_text
 
 	textureInfo->m_surface->SetPalette(textureInfo->m_palette);
 
-	if (((TglImpl::RendererImpl*) VideoManager()->GetRenderer())
-			->CreateTextureFromSurface(textureInfo->m_surface, &textureInfo->m_texture) != D3DRM_OK) {
+	if (((TglImpl::RendererImpl*)VideoManager()->GetRenderer())
+		->CreateTextureFromSurface(textureInfo->m_surface, &textureInfo->m_texture) != D3DRM_OK) {
 		goto done;
 	}
 
-	textureInfo->m_texture->SetAppData((DWORD) textureInfo);
+	textureInfo->m_texture->SetAppData((DWORD)textureInfo);
 	return textureInfo;
 
 done:
@@ -154,17 +151,15 @@ done:
 }
 
 // FUNCTION: LEGO1 0x10065f60
-BOOL LegoTextureInfo::SetGroupTexture(Tgl::Mesh* pMesh, LegoTextureInfo* p_textureInfo)
-{
-	TglImpl::MeshImpl::MeshData* data = ((TglImpl::MeshImpl*) pMesh)->ImplementationData();
+BOOL LegoTextureInfo::SetGroupTexture(Tgl::Mesh* pMesh, LegoTextureInfo* p_textureInfo) {
+	TglImpl::MeshImpl::MeshData* data = ((TglImpl::MeshImpl*)pMesh)->ImplementationData();
 	data->groupMesh->SetGroupTexture(data->groupIndex, p_textureInfo->m_texture);
 	return TRUE;
 }
 
 // FUNCTION: LEGO1 0x10065f90
-BOOL LegoTextureInfo::GetGroupTexture(Tgl::Mesh* pMesh, LegoTextureInfo*& p_textureInfo)
-{
-	TglImpl::MeshImpl::MeshData* data = ((TglImpl::MeshImpl*) pMesh)->ImplementationData();
+BOOL LegoTextureInfo::GetGroupTexture(Tgl::Mesh* pMesh, LegoTextureInfo*& p_textureInfo) {
+	TglImpl::MeshImpl::MeshData* data = ((TglImpl::MeshImpl*)pMesh)->ImplementationData();
 
 	IDirect3DRMMesh* mesh = data->groupMesh;
 	D3DRMGROUPINDEX id = data->groupIndex;
@@ -172,8 +167,8 @@ BOOL LegoTextureInfo::GetGroupTexture(Tgl::Mesh* pMesh, LegoTextureInfo*& p_text
 	LPDIRECT3DRMTEXTURE2 texture = NULL;
 
 	if (mesh->GetGroupTexture(id, &returnPtr) == D3DRM_OK) {
-		if (returnPtr->QueryInterface(IID_IDirect3DRMTexture2, (LPVOID*) &texture) == D3DRM_OK) {
-			p_textureInfo = (LegoTextureInfo*) texture->GetAppData();
+		if (returnPtr->QueryInterface(IID_IDirect3DRMTexture2, (LPVOID*)&texture) == D3DRM_OK) {
+			p_textureInfo = (LegoTextureInfo*)texture->GetAppData();
 
 			texture->Release();
 			returnPtr->Release();
@@ -186,15 +181,14 @@ BOOL LegoTextureInfo::GetGroupTexture(Tgl::Mesh* pMesh, LegoTextureInfo*& p_text
 }
 
 // FUNCTION: LEGO1 0x10066010
-LegoResult LegoTextureInfo::FUN_10066010(const LegoU8* p_bits)
-{
+LegoResult LegoTextureInfo::FUN_10066010(const LegoU8* p_bits) {
 	if (m_surface != NULL && m_texture != NULL) {
 		DDSURFACEDESC desc;
 		memset(&desc, 0, sizeof(desc));
 		desc.dwSize = sizeof(desc);
 
 		if (m_surface->Lock(NULL, &desc, 0, NULL) == DD_OK) {
-			MxU8* surface = (MxU8*) desc.lpSurface;
+			MxU8* surface = (MxU8*)desc.lpSurface;
 			const LegoU8* bits = p_bits;
 
 			if (desc.dwWidth == desc.lPitch) {

@@ -5,23 +5,20 @@
 DECOMP_SIZE_ASSERT(LegoWEEdge, 0x0c)
 
 // FUNCTION: LEGO1 0x1009a550
-LegoWEEdge::LegoWEEdge()
-{
+LegoWEEdge::LegoWEEdge() {
 	m_edges = NULL;
 	m_numEdges = 0;
 }
 
 // FUNCTION: LEGO1 0x1009a590
-LegoWEEdge::~LegoWEEdge()
-{
+LegoWEEdge::~LegoWEEdge() {
 	if (m_edges) {
 		delete m_edges;
 	}
 }
 
 // FUNCTION: LEGO1 0x1009a5b0
-LegoS32 LegoWEEdge::VTable0x04()
-{
+LegoS32 LegoWEEdge::VTable0x04() {
 	for (LegoS32 i = 0; i < m_numEdges; i++) {
 		LegoUnknown100db7f4* e1 = m_edges[i];
 		LegoUnknown100db7f4* e2 = (m_numEdges - i) == 1 ? m_edges[0] : m_edges[i + 1];

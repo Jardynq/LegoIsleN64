@@ -14,8 +14,7 @@ public:
 	~LegoEntityPresenter() override; // vtable+0x00
 
 	// FUNCTION: BETA10 0x10080780
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f06b8
 		return "LegoEntityPresenter";
 	}

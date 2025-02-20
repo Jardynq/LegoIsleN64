@@ -17,25 +17,22 @@
 DECOMP_SIZE_ASSERT(BumpBouy, 0x174)
 
 // FUNCTION: LEGO1 0x10027220
-BumpBouy::BumpBouy()
-{
+BumpBouy::BumpBouy() {
 	NotificationManager()->Register(this);
 }
 
 // FUNCTION: LEGO1 0x10027360
-BumpBouy::~BumpBouy()
-{
+BumpBouy::~BumpBouy() {
 	NotificationManager()->Unregister(this);
 }
 
 // FUNCTION: LEGO1 0x10027400
 // FUNCTION: BETA10 0x100262d9
-MxLong BumpBouy::Notify(MxParam& p_param)
-{
+MxLong BumpBouy::Notify(MxParam& p_param) {
 	MxLong result = 0;
-	MxNotificationParam& param = (MxNotificationParam&) p_param;
+	MxNotificationParam& param = (MxNotificationParam&)p_param;
 
-	IslePathActor* user = (IslePathActor*) UserActor();
+	IslePathActor* user = (IslePathActor*)UserActor();
 	assert(user);
 
 	if (user->IsA("Jetski") && param.GetNotification() == c_notificationClick) {
@@ -43,11 +40,11 @@ MxLong BumpBouy::Notify(MxParam& p_param)
 		user->SetWorldSpeed(0);
 		user->Exit();
 
-		Act1State* isleState = (Act1State*) GameState()->GetState("Act1State");
+		Act1State* isleState = (Act1State*)GameState()->GetState("Act1State");
 		assert(isleState);
 		isleState->m_unk0x018 = 5;
 
-		Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
+		Isle* isle = (Isle*)FindWorld(*g_isleScript, IsleScript::c__Isle);
 		assert(isle);
 		isle->SetDestLocation(LegoGameState::e_jetrace);
 

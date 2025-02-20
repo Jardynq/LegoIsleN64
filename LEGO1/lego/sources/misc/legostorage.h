@@ -34,8 +34,7 @@ public:
 	virtual LegoBool IsReadMode() { return m_mode == c_read; } // vtable+0x18
 
 	// FUNCTION: BETA10 0x10017c80
-	LegoStorage* WriteString(const char* p_data)
-	{
+	LegoStorage* WriteString(const char* p_data) {
 		LegoS16 length = strlen(p_data);
 		WriteS16(length);
 		Write(p_data, length);
@@ -43,52 +42,45 @@ public:
 	}
 
 	// FUNCTION: BETA10 0x1004b0d0
-	LegoStorage* WriteU8(LegoU8 p_data)
-	{
+	LegoStorage* WriteU8(LegoU8 p_data) {
 		Write(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// FUNCTION: BETA10 0x10017ce0
-	LegoStorage* WriteS16(LegoS16 p_data)
-	{
+	LegoStorage* WriteS16(LegoS16 p_data) {
 		Write(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// FUNCTION: BETA10 0x1004b110
-	LegoStorage* WriteU16(LegoU16 p_data)
-	{
+	LegoStorage* WriteU16(LegoU16 p_data) {
 		Write(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// TODO: Type might be different (LegoS32). MxS32 is incompatible with LegoS32.
 	// FUNCTION: BETA10 0x10088540
-	LegoStorage* WriteS32(MxS32 p_data)
-	{
+	LegoStorage* WriteS32(MxS32 p_data) {
 		Write(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// TODO: Type might be different (LegoU32). MxU32 is incompatible with LegoU32.
 	// FUNCTION: BETA10 0x1004b150
-	LegoStorage* WriteU32(MxU32 p_data)
-	{
+	LegoStorage* WriteU32(MxU32 p_data) {
 		Write(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// FUNCTION: BETA10 0x10073610
-	LegoStorage* WriteFloat(LegoFloat p_data)
-	{
+	LegoStorage* WriteFloat(LegoFloat p_data) {
 		Write(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// FUNCTION: LEGO1 0x100343d0
-	LegoStorage* WriteVector(Mx3DPointFloat p_data)
-	{
+	LegoStorage* WriteVector(Mx3DPointFloat p_data) {
 		WriteFloat(p_data[0]);
 		WriteFloat(p_data[1]);
 		WriteFloat(p_data[2]);
@@ -97,15 +89,13 @@ public:
 
 	// FUNCTION: LEGO1 0x10006030
 	// FUNCTION: BETA10 0x10017bb0
-	LegoStorage* WriteMxString(MxString p_data)
-	{
+	LegoStorage* WriteMxString(MxString p_data) {
 		WriteString(p_data.GetData());
 		return this;
 	}
 
 	// FUNCTION: BETA10 0x10073690
-	LegoStorage* ReadString(char* p_data)
-	{
+	LegoStorage* ReadString(char* p_data) {
 		LegoS16 length;
 		ReadS16(length);
 		Read(p_data, length);
@@ -114,52 +104,45 @@ public:
 	}
 
 	// FUNCTION: BETA10 0x1004b190
-	LegoStorage* ReadU8(LegoU8& p_data)
-	{
+	LegoStorage* ReadU8(LegoU8& p_data) {
 		Read(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// FUNCTION: BETA10 0x10024680
-	LegoStorage* ReadS16(LegoS16& p_data)
-	{
+	LegoStorage* ReadS16(LegoS16& p_data) {
 		Read(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// FUNCTION: BETA10 0x1004b1d0
-	LegoStorage* ReadU16(LegoU16& p_data)
-	{
+	LegoStorage* ReadU16(LegoU16& p_data) {
 		Read(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// TODO: Type might be different (LegoS32). MxS32 is incompatible with LegoS32.
 	// FUNCTION: BETA10 0x10088580
-	LegoStorage* ReadS32(MxS32& p_data)
-	{
+	LegoStorage* ReadS32(MxS32& p_data) {
 		Read(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// TODO: Type might be different (LegoU32). MxU32 is incompatible with LegoU32.
 	// FUNCTION: BETA10 0x1004b210
-	LegoStorage* ReadU32(MxU32& p_data)
-	{
+	LegoStorage* ReadU32(MxU32& p_data) {
 		Read(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// FUNCTION: BETA10 0x10073650
-	LegoStorage* ReadFloat(LegoFloat& p_data)
-	{
+	LegoStorage* ReadFloat(LegoFloat& p_data) {
 		Read(&p_data, sizeof(p_data));
 		return this;
 	}
 
 	// FUNCTION: LEGO1 0x10034430
-	LegoStorage* ReadVector(Mx3DPointFloat& p_data)
-	{
+	LegoStorage* ReadVector(Mx3DPointFloat& p_data) {
 		ReadFloat(p_data[0]);
 		ReadFloat(p_data[1]);
 		ReadFloat(p_data[2]);
@@ -167,8 +150,7 @@ public:
 	}
 
 	// FUNCTION: LEGO1 0x10034470
-	LegoStorage* ReadMxString(MxString& p_data)
-	{
+	LegoStorage* ReadMxString(MxString& p_data) {
 		LegoS16 length;
 		ReadS16(length);
 

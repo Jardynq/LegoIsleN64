@@ -12,16 +12,14 @@ public:
 	MxVariable() {}
 
 	// FUNCTION: BETA10 0x1012a840
-	MxVariable(const char* p_key, const char* p_value)
-	{
+	MxVariable(const char* p_key, const char* p_value) {
 		m_key = p_key;
 		m_key.ToUpperCase();
 		m_value = p_value;
 	}
 
 	// FUNCTION: BETA10 0x1012aa30
-	MxVariable(const char* p_key)
-	{
+	MxVariable(const char* p_key) {
 		m_key = p_key;
 		m_key.ToUpperCase();
 	}

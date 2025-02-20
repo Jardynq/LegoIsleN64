@@ -59,8 +59,7 @@ public:
 
 	// FUNCTION: LEGO1 0x100bf740
 	// FUNCTION: BETA10 0x1012bd70
-	MxBool IsA(const char* p_name) const override
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, MxDSObject::ClassName()) || MxCore::IsA(p_name);
 	} // vtable+10;
 
@@ -74,7 +73,7 @@ public:
 	virtual void SetAtomId(MxAtomId p_atomId) { m_atomId = p_atomId; } // vtable+20;
 
 	// FUNCTION: BETA10 0x1012ef90
-	Type GetType() const { return (Type) m_type; }
+	Type GetType() const { return (Type)m_type; }
 
 	// FUNCTION: BETA10 0x1012efb0
 	const char* GetSourceName() const { return m_sourceName; }

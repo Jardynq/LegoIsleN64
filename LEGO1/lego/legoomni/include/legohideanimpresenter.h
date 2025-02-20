@@ -32,8 +32,7 @@ public:
 	void VTable0x90() override {} // vtable+0x90
 
 	// FUNCTION: BETA10 0x1005d4a0
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f06cc
 		return "LegoHideAnimPresenter";
 	}

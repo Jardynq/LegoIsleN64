@@ -8,14 +8,12 @@ DECOMP_SIZE_ASSERT(Mesh, 0x04);
 DECOMP_SIZE_ASSERT(MeshImpl, 0x08);
 
 // FUNCTION: LEGO1 0x100a3ed0
-void* MeshImpl::ImplementationDataPtr()
-{
+void* MeshImpl::ImplementationDataPtr() {
 	return reinterpret_cast<void*>(&m_data);
 }
 
 // FUNCTION: LEGO1 0x100a3ee0
-Result MeshImpl::SetColor(float r, float g, float b, float a)
-{
+Result MeshImpl::SetColor(float r, float g, float b, float a) {
 	// The first instruction makes no sense here:
 	// cmp dword ptr [esp + 0x10], 0
 	// This compares a, which we know is a float because it immediately
@@ -31,15 +29,13 @@ Result MeshImpl::SetColor(float r, float g, float b, float a)
 }
 
 // FUNCTION: LEGO1 0x100a3f50
-Result MeshImpl::SetTexture(const Texture* pTexture)
-{
+Result MeshImpl::SetTexture(const Texture* pTexture) {
 	IDirect3DRMTexture* texture = pTexture ? static_cast<const TextureImpl*>(pTexture)->ImplementationData() : NULL;
 	return ResultVal(m_data->groupMesh->SetGroupTexture(m_data->groupIndex, texture));
 }
 
 // FUNCTION: LEGO1 0x100a3f80
-Result MeshImpl::SetTextureMappingMode(TextureMappingMode mode)
-{
+Result MeshImpl::SetTextureMappingMode(TextureMappingMode mode) {
 	if (mode == PerspectiveCorrect) {
 		return ResultVal(m_data->groupMesh->SetGroupMapping(m_data->groupIndex, D3DRMMAP_PERSPCORRECT));
 	}
@@ -49,8 +45,7 @@ Result MeshImpl::SetTextureMappingMode(TextureMappingMode mode)
 }
 
 // FUNCTION: LEGO1 0x100a3fc0
-Result MeshImpl::SetShadingModel(ShadingModel model)
-{
+Result MeshImpl::SetShadingModel(ShadingModel model) {
 	D3DRMRENDERQUALITY mode;
 	switch (model) {
 	case Wireframe:
@@ -73,8 +68,7 @@ Result MeshImpl::SetShadingModel(ShadingModel model)
 }
 
 // FUNCTION: LEGO1 0x100a4030
-Mesh* MeshImpl::DeepClone(MeshBuilder* pMeshBuilder)
-{
+Mesh* MeshImpl::DeepClone(MeshBuilder* pMeshBuilder) {
 	// Create group
 	MeshImpl* newMesh = new MeshImpl();
 	MeshData* data = new MeshData();
@@ -118,8 +112,7 @@ Mesh* MeshImpl::DeepClone(MeshBuilder* pMeshBuilder)
 }
 
 // FUNCTION: LEGO1 0x100a4240
-Mesh* MeshImpl::ShallowClone(MeshBuilder* pMeshBuilder)
-{
+Mesh* MeshImpl::ShallowClone(MeshBuilder* pMeshBuilder) {
 	MeshImpl* newGroup = new MeshImpl();
 	MeshData* newData = new MeshData();
 	newGroup->m_data = newData;
@@ -135,8 +128,7 @@ Mesh* MeshImpl::ShallowClone(MeshBuilder* pMeshBuilder)
 }
 
 // FUNCTION: LEGO1 0x100a4330
-Result MeshImpl::GetTexture(Texture*& rpTexture)
-{
+Result MeshImpl::GetTexture(Texture*& rpTexture) {
 	IDirect3DRMTexture* texture;
 	TextureImpl* holder = new TextureImpl();
 	Result result = ResultVal(m_data->groupMesh->GetGroupTexture(m_data->groupIndex, &texture));

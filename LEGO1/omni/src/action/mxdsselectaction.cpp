@@ -11,15 +11,13 @@ DECOMP_SIZE_ASSERT(MxListEntry<MxString>, 0x18)
 
 // FUNCTION: LEGO1 0x100cb2b0
 // FUNCTION: BETA10 0x1015a515
-MxDSSelectAction::MxDSSelectAction()
-{
+MxDSSelectAction::MxDSSelectAction() {
 	this->SetType(e_selectAction);
 	this->m_unk0xac = new MxStringList;
 }
 
 // FUNCTION: LEGO1 0x100cb8d0
-MxDSSelectAction::~MxDSSelectAction()
-{
+MxDSSelectAction::~MxDSSelectAction() {
 	if (this->m_unk0xac) {
 		delete this->m_unk0xac;
 	}
@@ -27,8 +25,7 @@ MxDSSelectAction::~MxDSSelectAction()
 
 // FUNCTION: LEGO1 0x100cb950
 // FUNCTION: BETA10 0x1015a6ae
-void MxDSSelectAction::CopyFrom(MxDSSelectAction& p_dsSelectAction)
-{
+void MxDSSelectAction::CopyFrom(MxDSSelectAction& p_dsSelectAction) {
 	this->m_unk0x9c = p_dsSelectAction.m_unk0x9c;
 
 	this->m_unk0xac->DeleteAll();
@@ -41,8 +38,7 @@ void MxDSSelectAction::CopyFrom(MxDSSelectAction& p_dsSelectAction)
 }
 
 // FUNCTION: LEGO1 0x100cbd50
-MxDSSelectAction& MxDSSelectAction::operator=(MxDSSelectAction& p_dsSelectAction)
-{
+MxDSSelectAction& MxDSSelectAction::operator=(MxDSSelectAction& p_dsSelectAction) {
 	if (this != &p_dsSelectAction) {
 		MxDSParallelAction::operator=(p_dsSelectAction);
 		this->CopyFrom(p_dsSelectAction);
@@ -51,8 +47,7 @@ MxDSSelectAction& MxDSSelectAction::operator=(MxDSSelectAction& p_dsSelectAction
 }
 
 // FUNCTION: LEGO1 0x100cbd80
-MxDSAction* MxDSSelectAction::Clone()
-{
+MxDSAction* MxDSSelectAction::Clone() {
 	MxDSSelectAction* clone = new MxDSSelectAction();
 
 	if (clone) {
@@ -63,8 +58,7 @@ MxDSAction* MxDSSelectAction::Clone()
 }
 
 // FUNCTION: LEGO1 0x100cbe10
-MxU32 MxDSSelectAction::GetSizeOnDisk()
-{
+MxU32 MxDSSelectAction::GetSizeOnDisk() {
 	MxU32 totalSizeOnDisk = MxDSParallelAction::GetSizeOnDisk();
 
 	totalSizeOnDisk += strlen(this->m_unk0x9c.GetData()) + 1;
@@ -84,15 +78,14 @@ MxU32 MxDSSelectAction::GetSizeOnDisk()
 
 // FUNCTION: LEGO1 0x100cbf60
 // FUNCTION: BETA10 0x1015aa30
-void MxDSSelectAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24)
-{
+void MxDSSelectAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 	MxString string;
 	MxDSAction::Deserialize(p_source, p_unk0x24);
 
-	MxU32 extraFlag = *(MxU32*) (p_source + 4) & 1;
+	MxU32 extraFlag = *(MxU32*)(p_source + 4) & 1;
 	p_source += 12;
 
-	this->m_unk0x9c = (char*) p_source;
+	this->m_unk0x9c = (char*)p_source;
 
 	if (!strnicmp(this->m_unk0x9c.GetData(), "RANDOM_", strlen("RANDOM_"))) {
 		char buffer[10];
@@ -100,15 +93,15 @@ void MxDSSelectAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24)
 
 		srand(Timer()->GetTime());
 		MxS32 random = rand() % value;
-		string = itoa((MxS16) random, buffer, 10);
+		string = itoa((MxS16)random, buffer, 10);
 	}
 	else {
-		string = VariableTable()->GetVariable((char*) p_source);
+		string = VariableTable()->GetVariable((char*)p_source);
 	}
 
-	p_source += strlen((char*) p_source) + 1;
+	p_source += strlen((char*)p_source) + 1;
 
-	MxU32 count = *(MxU32*) p_source;
+	MxU32 count = *(MxU32*)p_source;
 	p_source += sizeof(MxU32);
 
 	if (count) {
@@ -117,19 +110,19 @@ void MxDSSelectAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24)
 
 		MxU32 i;
 		for (i = 0; i < count; i++) {
-			if (!strcmp(string.GetData(), (char*) p_source)) {
+			if (!strcmp(string.GetData(), (char*)p_source)) {
 				index = i;
 			}
 
-			this->m_unk0xac->Append((char*) p_source);
-			p_source += strlen((char*) p_source) + 1;
+			this->m_unk0xac->Append((char*)p_source);
+			p_source += strlen((char*)p_source) + 1;
 		}
 
 		for (i = 0; i < count; i++) {
-			MxU32 extraFlag = *(MxU32*) (p_source + 4) & 1;
+			MxU32 extraFlag = *(MxU32*)(p_source + 4) & 1;
 			p_source += 8;
 
-			MxDSAction* action = (MxDSAction*) DeserializeDSObjectDispatch(p_source, p_unk0x24);
+			MxDSAction* action = (MxDSAction*)DeserializeDSObjectDispatch(p_source, p_unk0x24);
 
 			if (index == i) {
 				this->m_actions->Append(action);

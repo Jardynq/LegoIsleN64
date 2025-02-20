@@ -13,8 +13,7 @@ public:
 	~MxSmkPresenter() override;
 
 	// FUNCTION: BETA10 0x1012f010
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x10101e38
 		return "MxSmkPresenter";
 	}

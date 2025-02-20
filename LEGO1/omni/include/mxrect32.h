@@ -10,8 +10,7 @@ public:
 	MxRect32() {}
 	MxRect32(MxS32 p_left, MxS32 p_top, MxS32 p_right, MxS32 p_bottom) { CopyFrom(p_left, p_top, p_right, p_bottom); }
 	MxRect32(const MxPoint32& p_point, const MxSize32& p_size) { CopyFrom(p_point, p_size); }
-	MxRect32(const MxRect32& p_a, const MxRect32& p_b)
-	{
+	MxRect32(const MxRect32& p_a, const MxRect32& p_b) {
 		m_left = Max(p_a.m_left, p_b.m_left);
 		m_top = Max(p_a.m_top, p_b.m_top);
 		m_right = Min(p_a.m_right, p_b.m_right);
@@ -20,44 +19,38 @@ public:
 
 	MxRect32(const MxRect32& p_rect) { CopyFrom(p_rect); }
 
-	MxRect32& operator=(const MxRect32& p_rect)
-	{
+	MxRect32& operator=(const MxRect32& p_rect) {
 		CopyFrom(p_rect);
 		return *this;
 	}
 
-	void Intersect(const MxRect32& p_rect)
-	{
+	void Intersect(const MxRect32& p_rect) {
 		m_left = Max(p_rect.m_left, m_left);
 		m_top = Max(p_rect.m_top, m_top);
 		m_right = Min(p_rect.m_right, m_right);
 		m_bottom = Min(p_rect.m_bottom, m_bottom);
 	}
 
-	void SetPoint(const MxPoint32& p_point)
-	{
+	void SetPoint(const MxPoint32& p_point) {
 		this->m_left = p_point.GetX();
 		this->m_top = p_point.GetY();
 	}
 
-	void AddPoint(const MxPoint32& p_point)
-	{
+	void AddPoint(const MxPoint32& p_point) {
 		this->m_left += p_point.GetX();
 		this->m_top += p_point.GetY();
 		this->m_right += p_point.GetX();
 		this->m_bottom += p_point.GetY();
 	}
 
-	void SubtractPoint(const MxPoint32& p_point)
-	{
+	void SubtractPoint(const MxPoint32& p_point) {
 		this->m_left -= p_point.GetX();
 		this->m_top -= p_point.GetY();
 		this->m_right -= p_point.GetX();
 		this->m_bottom -= p_point.GetY();
 	}
 
-	void UpdateBounds(const MxRect32& p_rect)
-	{
+	void UpdateBounds(const MxRect32& p_rect) {
 		m_left = Min(m_left, p_rect.m_left);
 		m_top = Min(m_top, p_rect.m_top);
 		m_right = Max(m_right, p_rect.m_right);
@@ -66,8 +59,7 @@ public:
 
 	MxBool IsValid() const { return m_left < m_right && m_top < m_bottom; }
 
-	MxBool IntersectsWith(const MxRect32& p_rect) const
-	{
+	MxBool IntersectsWith(const MxRect32& p_rect) const {
 		return m_left < p_rect.m_right && p_rect.m_left < m_right && m_top < p_rect.m_bottom && p_rect.m_top < m_bottom;
 	}
 
@@ -88,16 +80,14 @@ public:
 	void SetBottom(MxS32 p_bottom) { m_bottom = p_bottom; }
 
 private:
-	void CopyFrom(MxS32 p_left, MxS32 p_top, MxS32 p_right, MxS32 p_bottom)
-	{
+	void CopyFrom(MxS32 p_left, MxS32 p_top, MxS32 p_right, MxS32 p_bottom) {
 		this->m_left = p_left;
 		this->m_top = p_top;
 		this->m_right = p_right;
 		this->m_bottom = p_bottom;
 	}
 
-	void CopyFrom(const MxRect32& p_rect)
-	{
+	void CopyFrom(const MxRect32& p_rect) {
 		this->m_left = p_rect.m_left;
 		this->m_top = p_rect.m_top;
 		this->m_right = p_rect.m_right;
@@ -106,8 +96,7 @@ private:
 
 	// The address might also be the constructor that calls CopyFrom
 	// FUNCTION: LEGO1 0x100b6fc0
-	MxRect32* CopyFrom(const MxPoint32& p_point, const MxSize32& p_size)
-	{
+	MxRect32* CopyFrom(const MxPoint32& p_point, const MxSize32& p_size) {
 		this->m_left = p_point.GetX();
 		this->m_top = p_point.GetY();
 		this->m_right = p_size.GetWidth() + p_point.GetX() - 1;

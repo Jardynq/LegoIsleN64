@@ -6,13 +6,11 @@
 template <class T>
 class MxQueue : public MxList<T> {
 public:
-	void Enqueue(T& p_obj)
-	{
+	void Enqueue(T& p_obj) {
 		// TODO
 	}
 
-	MxBool Dequeue(T& p_obj)
-	{
+	MxBool Dequeue(T& p_obj) {
 		MxBool hasNext = (this->m_first != NULL);
 		if (this->m_first) {
 			p_obj = this->m_first->GetValue();

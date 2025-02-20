@@ -11,8 +11,7 @@ public:
 	~MxMusicPresenter() override;
 
 	// FUNCTION: BETA10 0x10143a70
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x10101e48
 		return "MxMusicPresenter";
 	}

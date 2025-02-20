@@ -14,8 +14,7 @@ public:
 	~LegoPalettePresenter() override; // vtable+0x00
 
 	// FUNCTION: BETA10 0x100ab250
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f061c
 		return "LegoPalettePresenter";
 	}

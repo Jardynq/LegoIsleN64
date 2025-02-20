@@ -26,15 +26,13 @@ DECOMP_SIZE_ASSERT(Score, 0x104)
 DECOMP_SIZE_ASSERT(ScoreState, 0x0c)
 
 // FUNCTION: LEGO1 0x10001000
-Score::Score()
-{
+Score::Score() {
 	m_destLocation = LegoGameState::e_undefined;
 	NotificationManager()->Register(this);
 }
 
 // FUNCTION: LEGO1 0x10001200
-Score::~Score()
-{
+Score::~Score() {
 	if (InputManager()->GetWorld() == this) {
 		InputManager()->ClearWorld();
 	}
@@ -45,8 +43,7 @@ Score::~Score()
 }
 
 // FUNCTION: LEGO1 0x100012a0
-MxResult Score::Create(MxDSAction& p_dsAction)
-{
+MxResult Score::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 
 	if (result == SUCCESS) {
@@ -55,8 +52,8 @@ MxResult Score::Create(MxDSAction& p_dsAction)
 		InputManager()->Register(this);
 		SetIsWorldActive(FALSE);
 		LegoGameState* gameState = GameState();
-		ScoreState* state = (ScoreState*) gameState->GetState("ScoreState");
-		m_state = state ? state : (ScoreState*) gameState->CreateState("ScoreState");
+		ScoreState* state = (ScoreState*)gameState->GetState("ScoreState");
+		m_state = state ? state : (ScoreState*)gameState->CreateState("ScoreState");
 		GameState()->m_currentArea = LegoGameState::e_infoscor;
 		GameState()->StopArea(LegoGameState::e_previousArea);
 	}
@@ -65,8 +62,7 @@ MxResult Score::Create(MxDSAction& p_dsAction)
 }
 
 // FUNCTION: LEGO1 0x10001340
-void Score::DeleteScript()
-{
+void Score::DeleteScript() {
 	if (m_state->GetTutorialFlag()) {
 		MxDSAction action;
 		action.SetObjectId(InfoscorScript::c_iicc31in_PlayWav);
@@ -79,10 +75,9 @@ void Score::DeleteScript()
 
 // FUNCTION: LEGO1 0x10001410
 // FUNCTION: BETA10 0x100f4398
-MxLong Score::Notify(MxParam& p_param)
-{
+MxLong Score::Notify(MxParam& p_param) {
 	MxLong ret = 0;
-	MxNotificationParam& param = (MxNotificationParam&) p_param;
+	MxNotificationParam& param = (MxNotificationParam&)p_param;
 
 	LegoWorld::Notify(p_param);
 
@@ -93,16 +88,16 @@ MxLong Score::Notify(MxParam& p_param)
 			ret = 1;
 			break;
 		case c_notificationEndAction:
-			ret = FUN_10001510((MxEndActionNotificationParam&) p_param);
+			ret = FUN_10001510((MxEndActionNotificationParam&)p_param);
 			break;
 		case c_notificationKeyPress:
-			if (((LegoEventNotificationParam&) p_param).GetKey() == VK_SPACE) {
+			if (((LegoEventNotificationParam&)p_param).GetKey() == VK_SPACE) {
 				DeleteScript();
 			}
 			ret = 1;
 			break;
 		case c_notificationControl:
-			ret = FUN_100016d0((LegoControlManagerNotificationParam&) p_param);
+			ret = FUN_100016d0((LegoControlManagerNotificationParam&)p_param);
 			break;
 		case c_notificationTransitioned:
 			DeleteObjects(g_infoscorScript, InfoscorScript::c_LegoBox1_Flc, InfoscorScript::c_LegoBox3_Flc);
@@ -118,8 +113,7 @@ MxLong Score::Notify(MxParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10001510
-MxLong Score::FUN_10001510(MxEndActionNotificationParam& p_param)
-{
+MxLong Score::FUN_10001510(MxEndActionNotificationParam& p_param) {
 	MxDSAction* action = p_param.GetAction();
 
 	if (m_atomId == action->GetAtomId()) {
@@ -139,8 +133,7 @@ MxLong Score::FUN_10001510(MxEndActionNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10001580
-void Score::ReadyWorld()
-{
+void Score::ReadyWorld() {
 	LegoWorld::ReadyWorld();
 
 	MxDSAction action;
@@ -163,8 +156,7 @@ void Score::ReadyWorld()
 }
 
 // FUNCTION: LEGO1 0x100016d0
-MxLong Score::FUN_100016d0(LegoControlManagerNotificationParam& p_param)
-{
+MxLong Score::FUN_100016d0(LegoControlManagerNotificationParam& p_param) {
 	MxS16 unk0x28 = p_param.GetUnknown0x28();
 
 	if (unk0x28 == 1 || p_param.GetClickedObjectId() == InfoscorScript::c_LegoBox_Ctl) {
@@ -222,8 +214,7 @@ MxLong Score::FUN_100016d0(LegoControlManagerNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10001980
-void Score::Enable(MxBool p_enable)
-{
+void Score::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
 	if (p_enable) {
@@ -237,18 +228,17 @@ void Score::Enable(MxBool p_enable)
 
 // FUNCTION: LEGO1 0x100019d0
 // FUNCTION: BETA10 0x100f47d8
-void Score::Paint()
-{
+void Score::Paint() {
 	LegoTextureInfo* cube = TextureContainer()->Get("bigcube.gif");
 
 	if (cube != NULL) {
-		JetskiRaceState* jetskiRaceState = (JetskiRaceState*) GameState()->GetState("JetskiRaceState");
-		CarRaceState* carRaceState = (CarRaceState*) GameState()->GetState("CarRaceState");
+		JetskiRaceState* jetskiRaceState = (JetskiRaceState*)GameState()->GetState("JetskiRaceState");
+		CarRaceState* carRaceState = (CarRaceState*)GameState()->GetState("CarRaceState");
 		TowTrackMissionState* towTrackMissionState =
-			(TowTrackMissionState*) GameState()->GetState("TowTrackMissionState");
-		PizzaMissionState* pizzaMissionState = (PizzaMissionState*) GameState()->GetState("PizzaMissionState");
+			(TowTrackMissionState*)GameState()->GetState("TowTrackMissionState");
+		PizzaMissionState* pizzaMissionState = (PizzaMissionState*)GameState()->GetState("PizzaMissionState");
 		AmbulanceMissionState* ambulanceMissionState =
-			(AmbulanceMissionState*) GameState()->GetState("AmbulanceMissionState");
+			(AmbulanceMissionState*)GameState()->GetState("AmbulanceMissionState");
 
 		DDSURFACEDESC desc;
 		memset(&desc, 0, sizeof(desc));
@@ -261,7 +251,7 @@ void Score::Paint()
 				return;
 			}
 
-			m_surface = (MxU8*) desc.lpSurface;
+			m_surface = (MxU8*)desc.lpSurface;
 
 			for (MxU8 actor = 1; actor <= 5; actor++) {
 				MxS16 score;
@@ -291,13 +281,12 @@ void Score::Paint()
 
 // FUNCTION: LEGO1 0x10001d20
 // FUNCTION: BETA10 0x100f4a52
-void Score::FillArea(MxS32 i_activity, MxS32 i_actor, MxS16 score)
-{
-	MxS32 local3c[] = {0x2b00, 0x5700, 0x8000, 0xab00, 0xd600};
-	MxS32 local14[] = {0x2a, 0x27, 0x29, 0x29, 0x2a};
-	MxS32 local50[] = {0x2f, 0x56, 0x81, 0xaa, 0xd4};
-	MxS32 local28[] = {0x25, 0x29, 0x27, 0x28, 0x28};
-	MxS32 colors[] = {0x11, 0x0f, 0x08, 0x05};
+void Score::FillArea(MxS32 i_activity, MxS32 i_actor, MxS16 score) {
+	MxS32 local3c[] = { 0x2b00, 0x5700, 0x8000, 0xab00, 0xd600 };
+	MxS32 local14[] = { 0x2a, 0x27, 0x29, 0x29, 0x2a };
+	MxS32 local50[] = { 0x2f, 0x56, 0x81, 0xaa, 0xd4 };
+	MxS32 local28[] = { 0x25, 0x29, 0x27, 0x28, 0x28 };
+	MxS32 colors[] = { 0x11, 0x0f, 0x08, 0x05 };
 
 	assert(i_activity >= 0 && i_activity < 5);
 	assert(i_actor >= 0 && i_actor < 5);
@@ -314,8 +303,7 @@ void Score::FillArea(MxS32 i_activity, MxS32 i_actor, MxS16 score)
 }
 
 // FUNCTION: LEGO1 0x10001e40
-MxBool Score::Escape()
-{
+MxBool Score::Escape() {
 	DeleteScript();
 	m_destLocation = LegoGameState::e_infomain;
 	return TRUE;

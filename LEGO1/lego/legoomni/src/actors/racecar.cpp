@@ -11,21 +11,18 @@
 DECOMP_SIZE_ASSERT(RaceCar, 0x164)
 
 // FUNCTION: LEGO1 0x10028200
-RaceCar::RaceCar()
-{
+RaceCar::RaceCar() {
 	m_maxLinearVel = 40.0;
 }
 
 // FUNCTION: LEGO1 0x10028420
-RaceCar::~RaceCar()
-{
+RaceCar::~RaceCar() {
 	ControlManager()->Unregister(this);
 	Exit();
 }
 
 // FUNCTION: LEGO1 0x10028490
-MxResult RaceCar::Create(MxDSAction& p_dsAction)
-{
+MxResult RaceCar::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 	m_world = CurrentWorld();
 
@@ -38,13 +35,12 @@ MxResult RaceCar::Create(MxDSAction& p_dsAction)
 }
 
 // FUNCTION: LEGO1 0x100284d0
-MxLong RaceCar::HandleClick()
-{
+MxLong RaceCar::HandleClick() {
 	if (!FUN_1003ef60()) {
 		return 1;
 	}
 
-	Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
+	Isle* isle = (Isle*)FindWorld(*g_isleScript, IsleScript::c__Isle);
 	isle->SetDestLocation(LegoGameState::Area::e_carrace);
 	TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
 	return 1;

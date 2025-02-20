@@ -20,8 +20,7 @@ public:
 
 	// FUNCTION: LEGO1 0x1007b210
 	// FUNCTION: BETA10 0x100d8340
-	MxS8 Compare(LegoPhoneme* p_a, LegoPhoneme* p_b) override
-	{
+	MxS8 Compare(LegoPhoneme* p_a, LegoPhoneme* p_b) override {
 		MxString a(p_a->GetName());
 		MxString b(p_b->GetName());
 		return a.Equal(b) ? 0 : p_a < p_b ? -1 : 1;

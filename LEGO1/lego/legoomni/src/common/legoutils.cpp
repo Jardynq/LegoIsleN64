@@ -36,31 +36,28 @@
 
 // FUNCTION: LEGO1 0x1003dd70
 // FUNCTION: BETA10 0x100d3410
-LegoROI* PickROI(MxLong p_x, MxLong p_y)
-{
+LegoROI* PickROI(MxLong p_x, MxLong p_y) {
 	LegoVideoManager* videoManager = VideoManager();
 	Lego3DView* view = videoManager->Get3DManager()->GetLego3DView();
-	return (LegoROI*) view->Pick(p_x, p_y);
+	return (LegoROI*)view->Pick(p_x, p_y);
 }
 
 // FUNCTION: LEGO1 0x1003dd90
 // FUNCTION: BETA10 0x100d3449
-LegoROI* PickRootROI(MxLong p_x, MxLong p_y)
-{
+LegoROI* PickRootROI(MxLong p_x, MxLong p_y) {
 	LegoVideoManager* videoManager = VideoManager();
 	Lego3DView* view = videoManager->Get3DManager()->GetLego3DView();
-	LegoROI* roi = (LegoROI*) view->Pick(p_x, p_y);
+	LegoROI* roi = (LegoROI*)view->Pick(p_x, p_y);
 
 	while (roi != NULL && roi->GetParentROI() != NULL) {
-		roi = (LegoROI*) roi->GetParentROI();
+		roi = (LegoROI*)roi->GetParentROI();
 	}
 
 	return roi;
 }
 
 // FUNCTION: LEGO1 0x1003ddc0
-LegoEntity* PickEntity(MxLong p_x, MxLong p_y)
-{
+LegoEntity* PickEntity(MxLong p_x, MxLong p_y) {
 	LegoROI* roi = PickRootROI(p_x, p_y);
 
 	if (roi == NULL) {
@@ -72,8 +69,7 @@ LegoEntity* PickEntity(MxLong p_x, MxLong p_y)
 
 // FUNCTION: LEGO1 0x1003dde0
 // FUNCTION: BETA10 0x100d358e
-void RotateY(LegoROI* p_roi, MxFloat p_angle)
-{
+void RotateY(LegoROI* p_roi, MxFloat p_angle) {
 	MxMatrix mat;
 	const Matrix4& local2world = p_roi->GetLocal2World();
 	mat = local2world;
@@ -90,8 +86,7 @@ void RotateY(LegoROI* p_roi, MxFloat p_angle)
 }
 
 // FUNCTION: LEGO1 0x1003de80
-MxBool SpheresIntersect(const BoundingSphere& p_sphere1, const BoundingSphere& p_sphere2)
-{
+MxBool SpheresIntersect(const BoundingSphere& p_sphere1, const BoundingSphere& p_sphere2) {
 	// This doesn't look clean, but it matches.
 	// p_sphere1.Center().GetData() doesn't work out
 	return sqrt(DISTSQRD3(&p_sphere1.Center()[0], &p_sphere2.Center()[0])) < p_sphere1.Radius() + p_sphere2.Radius();
@@ -99,8 +94,7 @@ MxBool SpheresIntersect(const BoundingSphere& p_sphere1, const BoundingSphere& p
 
 // FUNCTION: LEGO1 0x1003ded0
 // FUNCTION: BETA10 0x100d3802
-MxBool FUN_1003ded0(MxFloat p_param1[2], MxFloat p_param2[3], MxFloat p_param3[3])
-{
+MxBool FUN_1003ded0(MxFloat p_param1[2], MxFloat p_param2[3], MxFloat p_param3[3]) {
 	MxFloat local1c[4];
 	MxFloat local10[3];
 
@@ -127,16 +121,14 @@ MxBool FUN_1003ded0(MxFloat p_param1[2], MxFloat p_param2[3], MxFloat p_param3[3
 
 // FUNCTION: LEGO1 0x1003df70
 // FUNCTION: BETA10 0x100d38cb
-MxBool TransformWorldToScreen(const MxFloat p_world[3], MxFloat p_screen[4])
-{
+MxBool TransformWorldToScreen(const MxFloat p_world[3], MxFloat p_screen[4]) {
 	VideoManager()->Get3DManager()->GetLego3DView()->GetView()->TransformWorldToScreen(p_world, p_screen);
 	return TRUE;
 }
 
 // FUNCTION: LEGO1 0x1003df90
 // FUNCTION: BETA10 0x100d39a3
-MxS16 CountTotalTreeNodes(LegoTreeNode* p_node)
-{
+MxS16 CountTotalTreeNodes(LegoTreeNode* p_node) {
 	MxS16 result = 1;
 
 	for (LegoU32 i = 0; i < p_node->GetNumChildren(); i++) {
@@ -148,8 +140,7 @@ MxS16 CountTotalTreeNodes(LegoTreeNode* p_node)
 
 // FUNCTION: LEGO1 0x1003dfd0
 // FUNCTION: BETA10 0x100d3a09
-LegoTreeNode* GetTreeNode(LegoTreeNode* p_node, MxU32 p_index)
-{
+LegoTreeNode* GetTreeNode(LegoTreeNode* p_node, MxU32 p_index) {
 	LegoTreeNode* result = NULL;
 
 	if (p_index == 0) {
@@ -173,8 +164,7 @@ LegoTreeNode* GetTreeNode(LegoTreeNode* p_node, MxU32 p_index)
 
 // FUNCTION: LEGO1 0x1003e050
 // FUNCTION: BETA10 0x100d3abc
-void FUN_1003e050(LegoAnimPresenter* p_presenter)
-{
+void FUN_1003e050(LegoAnimPresenter* p_presenter) {
 	MxMatrix viewMatrix;
 	LegoTreeNode* rootNode = p_presenter->GetAnimation()->GetRoot();
 	LegoAnimNodeData* camData = NULL;
@@ -187,7 +177,7 @@ void FUN_1003e050(LegoAnimPresenter* p_presenter)
 			break;
 		}
 
-		LegoAnimNodeData* data = (LegoAnimNodeData*) GetTreeNode(rootNode, i)->GetData();
+		LegoAnimNodeData* data = (LegoAnimNodeData*)GetTreeNode(rootNode, i)->GetData();
 
 		if (!strnicmp(data->GetName(), "CAM", strlen("CAM"))) {
 			camData = data;
@@ -225,8 +215,7 @@ void FUN_1003e050(LegoAnimPresenter* p_presenter)
 }
 
 // FUNCTION: LEGO1 0x1003e300
-Extra::ActionType MatchActionString(const char* p_str)
-{
+Extra::ActionType MatchActionString(const char* p_str) {
 	Extra::ActionType result = Extra::ActionType::e_unknown;
 
 	if (!strcmpi("openram", p_str)) {
@@ -268,8 +257,7 @@ void NotifyEntity(const char* p_filename, MxS32 p_entityId, LegoEntity* p_sender
 
 // FUNCTION: LEGO1 0x1003e430
 // FUNCTION: BETA10 0x100d3fda
-void InvokeAction(Extra::ActionType p_actionId, const MxAtomId& p_pAtom, MxS32 p_streamId, LegoEntity* p_sender)
-{
+void InvokeAction(Extra::ActionType p_actionId, const MxAtomId& p_pAtom, MxS32 p_streamId, LegoEntity* p_sender) {
 	MxDSAction action;
 	action.SetAtomId(p_pAtom);
 	action.SetObjectId(p_streamId);
@@ -340,8 +328,7 @@ void InvokeAction(Extra::ActionType p_actionId, const MxAtomId& p_pAtom, MxS32 p
 
 // FUNCTION: LEGO1 0x1003e670
 // FUNCTION: BETA10 0x100d43f2
-MxBool CheckIfEntityExists(MxBool p_enable, const char* p_filename, MxS32 p_entityId)
-{
+MxBool CheckIfEntityExists(MxBool p_enable, const char* p_filename, MxS32 p_entityId) {
 	LegoWorld* world = FindWorld(MxAtomId(p_filename, e_lowerCase2), p_entityId);
 
 	if (world) {
@@ -355,8 +342,7 @@ MxBool CheckIfEntityExists(MxBool p_enable, const char* p_filename, MxS32 p_enti
 
 // FUNCTION: LEGO1 0x1003e700
 // FUNCTION: BETA10 0x100d448a
-void NotifyEntity(const char* p_filename, MxS32 p_entityId, LegoEntity* p_sender)
-{
+void NotifyEntity(const char* p_filename, MxS32 p_entityId, LegoEntity* p_sender) {
 	MxAtomId atom(p_filename, e_lowerCase2);
 	LegoEntity* entity = FindWorld(atom, p_entityId);
 
@@ -365,7 +351,7 @@ void NotifyEntity(const char* p_filename, MxS32 p_entityId, LegoEntity* p_sender
 		LegoWorld* world;
 
 		while (cursor.Next(world)) {
-			entity = (LegoEntity*) world->Find(atom, p_entityId);
+			entity = (LegoEntity*)world->Find(atom, p_entityId);
 
 			if (entity != NULL) {
 				break;
@@ -379,14 +365,12 @@ void NotifyEntity(const char* p_filename, MxS32 p_entityId, LegoEntity* p_sender
 }
 
 // FUNCTION: LEGO1 0x1003eab0
-void SetCameraControllerFromIsle()
-{
+void SetCameraControllerFromIsle() {
 	InputManager()->SetCamera(FindWorld(*g_isleScript, IsleScript::c__Isle)->GetCameraController());
 }
 
 // FUNCTION: LEGO1 0x1003eae0
-void ConvertHSVToRGB(float p_h, float p_s, float p_v, float* p_rOut, float* p_bOut, float* p_gOut)
-{
+void ConvertHSVToRGB(float p_h, float p_s, float p_v, float* p_rOut, float* p_bOut, float* p_gOut) {
 	double calc;
 	double p;
 	MxLong hueIndex;
@@ -410,7 +394,7 @@ void ConvertHSVToRGB(float p_h, float p_s, float p_v, float* p_rOut, float* p_bO
 	}
 	p = p_s * 2.0f - calc;
 	hueIndex = p_h * 6.0;
-	v9 = (p_h * 6.0 - (float) hueIndex) * ((calc - p) / calc) * calc;
+	v9 = (p_h * 6.0 - (float)hueIndex) * ((calc - p) / calc) * calc;
 	v12 = p + v9;
 	v13 = calc - v9;
 	switch (hueIndex) {
@@ -456,8 +440,7 @@ void ConvertHSVToRGB(float p_h, float p_s, float p_v, float* p_rOut, float* p_bO
 
 // FUNCTION: LEGO1 0x1003ecc0
 // FUNCTION: BETA10 0x100d4b38
-void PlayCamAnim(LegoPathActor* p_actor, MxBool p_unused, MxU32 p_location, MxBool p_bool)
-{
+void PlayCamAnim(LegoPathActor* p_actor, MxBool p_unused, MxU32 p_location, MxBool p_bool) {
 	LegoWorld* world = CurrentWorld();
 	MxLong result = 0;
 
@@ -473,8 +456,7 @@ void PlayCamAnim(LegoPathActor* p_actor, MxBool p_unused, MxU32 p_location, MxBo
 
 // FUNCTION: LEGO1 0x1003eda0
 // FUNCTION: BETA10 0x100d4bf4
-void FUN_1003eda0()
-{
+void FUN_1003eda0() {
 	Mx3DPointFloat vec;
 	vec.Clear();
 
@@ -492,8 +474,7 @@ void FUN_1003eda0()
 
 // FUNCTION: LEGO1 0x1003ee00
 // FUNCTION: BETA10 0x100d4c6f
-MxBool RemoveFromCurrentWorld(const MxAtomId& p_atomId, MxS32 p_id)
-{
+MxBool RemoveFromCurrentWorld(const MxAtomId& p_atomId, MxS32 p_id) {
 	LegoWorld* world = CurrentWorld();
 
 	if (world) {
@@ -506,11 +487,11 @@ MxBool RemoveFromCurrentWorld(const MxAtomId& p_atomId, MxS32 p_id)
 				delete object;
 			}
 			else {
-				if (((MxPresenter*) object)->GetAction()) {
-					FUN_100b7220(((MxPresenter*) object)->GetAction(), MxDSAction::c_world, FALSE);
+				if (((MxPresenter*)object)->GetAction()) {
+					FUN_100b7220(((MxPresenter*)object)->GetAction(), MxDSAction::c_world, FALSE);
 				}
 
-				((MxPresenter*) object)->EndAction();
+				((MxPresenter*)object)->EndAction();
 			}
 
 			return TRUE;
@@ -521,8 +502,7 @@ MxBool RemoveFromCurrentWorld(const MxAtomId& p_atomId, MxS32 p_id)
 }
 
 // FUNCTION: LEGO1 0x1003ee80
-MxBool RemoveFromWorld(MxAtomId& p_entityAtom, MxS32 p_entityId, MxAtomId& p_worldAtom, MxS32 p_worldEntityId)
-{
+MxBool RemoveFromWorld(MxAtomId& p_entityAtom, MxS32 p_entityId, MxAtomId& p_worldAtom, MxS32 p_worldEntityId) {
 	LegoWorld* world = FindWorld(p_worldAtom, p_worldEntityId);
 
 	if (world) {
@@ -535,11 +515,11 @@ MxBool RemoveFromWorld(MxAtomId& p_entityAtom, MxS32 p_entityId, MxAtomId& p_wor
 				delete object;
 			}
 			else {
-				if (((MxPresenter*) object)->GetAction()) {
-					FUN_100b7220(((MxPresenter*) object)->GetAction(), MxDSAction::c_world, FALSE);
+				if (((MxPresenter*)object)->GetAction()) {
+					FUN_100b7220(((MxPresenter*)object)->GetAction(), MxDSAction::c_world, FALSE);
 				}
 
-				((MxPresenter*) object)->EndAction();
+				((MxPresenter*)object)->EndAction();
 			}
 
 			return TRUE;
@@ -551,8 +531,7 @@ MxBool RemoveFromWorld(MxAtomId& p_entityAtom, MxS32 p_entityId, MxAtomId& p_wor
 
 // FUNCTION: LEGO1 0x1003ef00
 // FUNCTION: BETA10 0x100d4e1e
-void EnableAnimations(MxBool p_enable)
-{
+void EnableAnimations(MxBool p_enable) {
 	if (p_enable) {
 		AnimationManager()->Resume();
 	}
@@ -563,15 +542,13 @@ void EnableAnimations(MxBool p_enable)
 }
 
 // FUNCTION: LEGO1 0x1003ef40
-void SetAppCursor(Cursor p_cursor)
-{
+void SetAppCursor(Cursor p_cursor) {
 	PostMessageA(MxOmni::GetInstance()->GetWindowHandle(), WM_ISLE_SETCURSOR, p_cursor, 0);
 }
 
 // FUNCTION: LEGO1 0x1003ef60
-MxBool FUN_1003ef60()
-{
-	Act1State* act1State = (Act1State*) GameState()->GetState("Act1State");
+MxBool FUN_1003ef60() {
+	Act1State* act1State = (Act1State*)GameState()->GetState("Act1State");
 
 	if (GameState()->m_currentArea != LegoGameState::e_elevride &&
 		GameState()->m_currentArea != LegoGameState::e_elevride2 &&
@@ -596,8 +573,7 @@ MxBool FUN_1003ef60()
 }
 
 // FUNCTION: LEGO1 0x1003f050
-MxS32 UpdateLightPosition(MxS32 p_increase)
-{
+MxS32 UpdateLightPosition(MxS32 p_increase) {
 	MxS32 lightPosition = atoi(VariableTable()->GetVariable("lightposition"));
 
 	// Only ever increases by 1 irrespective of p_increase
@@ -625,8 +601,7 @@ MxS32 UpdateLightPosition(MxS32 p_increase)
 }
 
 // FUNCTION: LEGO1 0x1003f0d0
-void SetLightPosition(MxS32 p_index)
-{
+void SetLightPosition(MxS32 p_index) {
 	float lights[6][6] = {
 		{1.0, 0.0, 0.0, -150.0, 50.0, -50.0},
 		{0.809, -0.588, 0.0, -75.0, 50.0, -50.0},
@@ -662,8 +637,7 @@ void SetLightPosition(MxS32 p_index)
 }
 
 // FUNCTION: LEGO1 0x1003f3b0
-LegoNamedTexture* ReadNamedTexture(LegoStorage* p_storage)
-{
+LegoNamedTexture* ReadNamedTexture(LegoStorage* p_storage) {
 	LegoTexture* texture = NULL;
 	LegoNamedTexture* namedTexture = NULL;
 	MxString string;
@@ -687,8 +661,7 @@ LegoNamedTexture* ReadNamedTexture(LegoStorage* p_storage)
 }
 
 // FUNCTION: LEGO1 0x1003f540
-void WriteDefaultTexture(LegoStorage* p_storage, const char* p_name)
-{
+void WriteDefaultTexture(LegoStorage* p_storage, const char* p_name) {
 	MxString name(p_name);
 	LegoTextureInfo* textureInfo = TextureContainer()->Get(p_name);
 
@@ -708,7 +681,7 @@ void WriteDefaultTexture(LegoStorage* p_storage, const char* p_name)
 					memcpy(desc.lpSurface, image->GetBits(), desc.dwWidth * desc.dwHeight);
 				}
 				else {
-					MxU8* surface = (MxU8*) desc.lpSurface;
+					MxU8* surface = (MxU8*)desc.lpSurface;
 					const LegoU8* bits = image->GetBits();
 
 					for (MxS32 i = 0; i < desc.dwHeight; i++) {
@@ -758,15 +731,13 @@ void WriteDefaultTexture(LegoStorage* p_storage, const char* p_name)
 }
 
 // FUNCTION: LEGO1 0x1003f8a0
-void WriteNamedTexture(LegoStorage* p_storage, LegoNamedTexture* p_namedTexture)
-{
+void WriteNamedTexture(LegoStorage* p_storage, LegoNamedTexture* p_namedTexture) {
 	p_storage->WriteMxString(*p_namedTexture->GetName());
 	p_namedTexture->GetTexture()->Write(p_storage);
 }
 
 // FUNCTION: LEGO1 0x1003f930
-void FUN_1003f930(LegoNamedTexture* p_namedTexture)
-{
+void FUN_1003f930(LegoNamedTexture* p_namedTexture) {
 	LegoTextureInfo* textureInfo = TextureContainer()->Get(p_namedTexture->GetName()->GetData());
 
 	if (textureInfo != NULL) {

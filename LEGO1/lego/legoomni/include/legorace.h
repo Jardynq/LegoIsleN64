@@ -26,8 +26,7 @@ public:
 	struct Entry {
 	public:
 		// FUNCTION: LEGO1 0x10016000
-		Entry()
-		{
+		Entry() {
 			m_id = 0;
 			m_unk0x02 = 0;
 			m_score = 0;
@@ -39,8 +38,7 @@ public:
 		MxS16 GetHighScore() { return m_score; }
 
 		// FUNCTION: BETA10 0x100c96f0
-		MxResult Serialize(LegoStorage* p_storage)
-		{
+		MxResult Serialize(LegoStorage* p_storage) {
 			if (p_storage->IsReadMode()) {
 				p_storage->ReadU8(m_id);
 				p_storage->ReadS16(m_unk0x02);
@@ -109,8 +107,7 @@ public:
 	MxLong Notify(MxParam& p_param) override; // vtable+0x04
 
 	// FUNCTION: BETA10 0x100a8970
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f07c4
 		return "LegoRace";
 	}

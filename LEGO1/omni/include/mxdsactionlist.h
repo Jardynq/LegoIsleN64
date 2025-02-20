@@ -23,8 +23,7 @@ public:
 
 	// FUNCTION: LEGO1 0x100c9c90
 	// FUNCTION: BETA10 0x1015ad90
-	MxS8 Compare(MxDSAction* p_a, MxDSAction* p_b) override
-	{
+	MxS8 Compare(MxDSAction* p_a, MxDSAction* p_b) override {
 		return p_a == p_b ? 0 : p_a < p_b ? -1 : 1;
 	} // vtable+0x14
 

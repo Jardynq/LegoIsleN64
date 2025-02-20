@@ -13,8 +13,7 @@ DECOMP_SIZE_ASSERT(LegoRaceMap, 0x1b4)
 
 // FUNCTION: LEGO1 0x1005d0d0
 // FUNCTION: BETA10 0x100ca2c0
-LegoRaceMap::LegoRaceMap()
-{
+LegoRaceMap::LegoRaceMap() {
 	m_unk0x08 = FALSE;
 	m_stillPresenter = NULL;
 	m_Map_Ctl = 0;
@@ -23,8 +22,7 @@ LegoRaceMap::LegoRaceMap()
 
 // FUNCTION: LEGO1 0x1005d2b0
 // FUNCTION: BETA10 0x100ca48c
-LegoRaceMap::~LegoRaceMap()
-{
+LegoRaceMap::~LegoRaceMap() {
 	ControlManager()->Unregister(this);
 }
 
@@ -38,13 +36,12 @@ const char* g_mapGeometry = "MAP_GEOMETRY";
 
 // FUNCTION: LEGO1 0x1005d310
 // FUNCTION: BETA10 0x100ca543
-void LegoRaceMap::ParseAction(char* p_extra)
-{
+void LegoRaceMap::ParseAction(char* p_extra) {
 	char value[256];
 
 	if (KeyValueStringParse(value, g_mapLocator, p_extra)) {
 		// variable name verified by BETA10 0x100ca5ac
-		MxStillPresenter* p = (MxStillPresenter*) VideoManager()->GetPresenterByActionObjectName(value);
+		MxStillPresenter* p = (MxStillPresenter*)VideoManager()->GetPresenterByActionObjectName(value);
 
 		assert(p);
 		p->Enable(FALSE);
@@ -99,15 +96,14 @@ void LegoRaceMap::ParseAction(char* p_extra)
 		// STRING: LEGO1 0x100f67bc
 		const char* mapCtl = "Map_Ctl";
 
-		m_Map_Ctl = (MxControlPresenter*) currentWorld->Find("MxControlPresenter", mapCtl);
+		m_Map_Ctl = (MxControlPresenter*)currentWorld->Find("MxControlPresenter", mapCtl);
 		assert(m_Map_Ctl);
 	}
 }
 
 // FUNCTION: LEGO1 0x1005d4b0
 // FUNCTION: BETA10 0x100ca849
-void LegoRaceMap::FUN_1005d4b0()
-{
+void LegoRaceMap::FUN_1005d4b0() {
 	if (m_unk0x08) {
 		short xPos = (GetWorldPosition()[0] - m_unk0x14) / m_unk0x18 * m_unk0x24;
 		short yPos = (GetWorldPosition()[2] - m_unk0x1c) / m_unk0x20 * m_unk0x28;
@@ -118,19 +114,18 @@ void LegoRaceMap::FUN_1005d4b0()
 
 // FUNCTION: LEGO1 0x1005d550
 // FUNCTION: BETA10 0x100ca92d
-MxLong LegoRaceMap::Notify(MxParam& p_param)
-{
+MxLong LegoRaceMap::Notify(MxParam& p_param) {
 	if (!m_stillPresenter) {
 		return 1;
 	}
 
-	MxNotificationParam& param = (MxNotificationParam&) p_param;
+	MxNotificationParam& param = (MxNotificationParam&)p_param;
 
 	if (param.GetNotification() == c_notificationControl &&
 		m_Map_Ctl->GetAction()->GetObjectId() ==
-			((LegoControlManagerNotificationParam&) p_param).GetClickedObjectId()) {
+		((LegoControlManagerNotificationParam&)p_param).GetClickedObjectId()) {
 
-		if (((LegoControlManagerNotificationParam&) p_param).GetUnknown0x28() == 1) {
+		if (((LegoControlManagerNotificationParam&)p_param).GetUnknown0x28() == 1) {
 			m_unk0x08 = TRUE;
 			FUN_1005d4b0();
 			m_stillPresenter->Enable(TRUE);

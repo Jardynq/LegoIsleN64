@@ -12,8 +12,7 @@ class LegoPathStruct;
 struct PathWithTrigger {
 	// FUNCTION: LEGO1 0x10048280
 	// FUNCTION: BETA10 0x100bd450
-	PathWithTrigger()
-	{
+	PathWithTrigger() {
 		m_pathStruct = NULL;
 		m_data = 0;
 		m_unk0x08 = 0.0f;
@@ -57,8 +56,7 @@ public:
 	// FUNCTION: BETA10 0x1001c9b0
 	const LegoChar* GetName() { return m_name; }
 
-	void SetFlag0x10(LegoU32 p_disable)
-	{
+	void SetFlag0x10(LegoU32 p_disable) {
 		if (p_disable) {
 			m_flags &= ~c_bit5;
 		}

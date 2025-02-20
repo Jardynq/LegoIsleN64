@@ -8,8 +8,7 @@
 template <class T>
 class MxUtilityList : public list<T> {
 public:
-	MxBool PopFront(T& p_obj)
-	{
+	MxBool PopFront(T& p_obj) {
 		if (this->empty()) {
 			return FALSE;
 		}

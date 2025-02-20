@@ -7,8 +7,7 @@
 // SIZE 0x14
 class LegoNamedTexture {
 public:
-	LegoNamedTexture(const char* p_name, LegoTexture* p_texture)
-	{
+	LegoNamedTexture(const char* p_name, LegoTexture* p_texture) {
 		m_name = p_name;
 		m_texture = p_texture;
 	}

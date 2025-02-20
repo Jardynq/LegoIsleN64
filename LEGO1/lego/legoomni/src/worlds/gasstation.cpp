@@ -32,8 +32,7 @@ undefined4 g_unk0x100f0160 = 3;
 MxBool g_trackLedEnabled = FALSE;
 
 // FUNCTION: LEGO1 0x100046a0
-GasStation::GasStation()
-{
+GasStation::GasStation() {
 	m_currentActorId = LegoActor::c_none;
 	m_state = NULL;
 	m_destLocation = LegoGameState::e_undefined;
@@ -49,8 +48,7 @@ GasStation::GasStation()
 }
 
 // FUNCTION: LEGO1 0x100048c0
-GasStation::~GasStation()
-{
+GasStation::~GasStation() {
 	InputManager()->UnRegister(this);
 	if (InputManager()->GetWorld() == this) {
 		InputManager()->ClearWorld();
@@ -64,8 +62,7 @@ GasStation::~GasStation()
 
 // FUNCTION: LEGO1 0x10004990
 // FUNCTION: BETA10 0x100286c0
-MxResult GasStation::Create(MxDSAction& p_dsAction)
-{
+MxResult GasStation::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 	if (result == SUCCESS) {
 		InputManager()->SetWorld(this);
@@ -74,9 +71,9 @@ MxResult GasStation::Create(MxDSAction& p_dsAction)
 
 	InputManager()->SetCamera(NULL);
 
-	m_state = (GasStationState*) GameState()->GetState("GasStationState");
+	m_state = (GasStationState*)GameState()->GetState("GasStationState");
 	if (!m_state) {
-		m_state = (GasStationState*) GameState()->CreateState("GasStationState");
+		m_state = (GasStationState*)GameState()->CreateState("GasStationState");
 		m_state->m_unk0x14 = 1;
 	}
 	else if (m_state->m_unk0x14 == 4) {
@@ -96,25 +93,24 @@ MxResult GasStation::Create(MxDSAction& p_dsAction)
 
 // FUNCTION: LEGO1 0x10004a60
 // FUNCTION: BETA10 0x10028883
-MxLong GasStation::Notify(MxParam& p_param)
-{
-	MxNotificationParam& param = (MxNotificationParam&) p_param;
+MxLong GasStation::Notify(MxParam& p_param) {
+	MxNotificationParam& param = (MxNotificationParam&)p_param;
 	MxResult result = 0;
 	LegoWorld::Notify(p_param);
 
 	if (m_worldStarted) {
 		switch (param.GetNotification()) {
 		case c_notificationEndAction:
-			result = HandleEndAction((MxEndActionNotificationParam&) p_param);
+			result = HandleEndAction((MxEndActionNotificationParam&)p_param);
 			break;
 		case c_notificationKeyPress:
-			result = HandleKeyPress((((LegoEventNotificationParam&) p_param)).GetKey());
+			result = HandleKeyPress((((LegoEventNotificationParam&)p_param)).GetKey());
 			break;
 		case c_notificationButtonDown:
-			result = HandleButtonDown(((LegoControlManagerNotificationParam&) p_param));
+			result = HandleButtonDown(((LegoControlManagerNotificationParam&)p_param));
 			break;
 		case c_notificationControl:
-			result = HandleControl((LegoControlManagerNotificationParam&) p_param);
+			result = HandleControl((LegoControlManagerNotificationParam&)p_param);
 			break;
 		case c_notificationTransitioned:
 			assert(m_destLocation != LegoGameState::e_undefined);
@@ -128,11 +124,10 @@ MxLong GasStation::Notify(MxParam& p_param)
 
 // FUNCTION: LEGO1 0x10004b30
 // FUNCTION: BETA10 0x10028a5e
-void GasStation::ReadyWorld()
-{
+void GasStation::ReadyWorld() {
 	PlayMusic(JukeboxScript::c_JBMusic2);
 
-	m_trackLedBitmap = (MxStillPresenter*) Find("MxStillPresenter", "TrackLed_Bitmap");
+	m_trackLedBitmap = (MxStillPresenter*)Find("MxStillPresenter", "TrackLed_Bitmap");
 	m_currentActorId = UserActor()->GetActorId();
 
 	switch (m_currentActorId) {
@@ -270,8 +265,7 @@ void GasStation::ReadyWorld()
 
 // FUNCTION: LEGO1 0x10005590
 // FUNCTION: BETA10 0x10029e30
-inline void GasStation::PlayAction(GarageScript::Script p_objectId)
-{
+inline void GasStation::PlayAction(GarageScript::Script p_objectId) {
 	MxDSAction action;
 	action.SetAtomId(*g_garageScript);
 	action.SetObjectId(p_objectId);
@@ -282,8 +276,7 @@ inline void GasStation::PlayAction(GarageScript::Script p_objectId)
 }
 
 // FUNCTION: BETA10 0x10029f00
-inline void GasStation::StopAction(GarageScript::Script p_objectId)
-{
+inline void GasStation::StopAction(GarageScript::Script p_objectId) {
 	if (p_objectId != GarageScript::c_noneGarage) {
 		InvokeAction(Extra::e_stop, *g_garageScript, p_objectId, NULL);
 		BackgroundAudioManager()->RaiseVolume();
@@ -292,15 +285,14 @@ inline void GasStation::StopAction(GarageScript::Script p_objectId)
 }
 
 // FUNCTION: LEGO1 0x10005660
-MxLong GasStation::HandleEndAction(MxEndActionNotificationParam& p_param)
-{
+MxLong GasStation::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	MxLong result = m_radio.Notify(p_param);
 
 	if (result == 0) {
 		MxDSAction* action = p_param.GetAction();
 
 		if (action->GetAtomId() == m_atomId && action->GetObjectId()) {
-			m_state->StopAction((GarageScript::Script) action->GetObjectId());
+			m_state->StopAction((GarageScript::Script)action->GetObjectId());
 			m_unk0x106 = 0;
 
 			switch (m_state->m_unk0x14) {
@@ -328,7 +320,7 @@ MxLong GasStation::HandleEndAction(MxEndActionNotificationParam& p_param)
 				break;
 			case 8:
 				m_state->m_unk0x14 = 2;
-				((Act1State*) GameState()->GetState("Act1State"))->m_unk0x018 = 7;
+				((Act1State*)GameState()->GetState("Act1State"))->m_unk0x018 = 7;
 				m_destLocation = LegoGameState::e_unk28;
 				m_radio.Stop();
 				BackgroundAudioManager()->Stop();
@@ -344,8 +336,7 @@ MxLong GasStation::HandleEndAction(MxEndActionNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10005920
-MxLong GasStation::HandleKeyPress(MxS8 p_key)
-{
+MxLong GasStation::HandleKeyPress(MxS8 p_key) {
 	if (p_key == VK_SPACE && g_unk0x100f0160 == 0 && m_unk0x106 != 0) {
 		m_state->StopActions();
 		return 1;
@@ -356,8 +347,7 @@ MxLong GasStation::HandleKeyPress(MxS8 p_key)
 
 // FUNCTION: LEGO1 0x10005960
 // FUNCTION: BETA10 0x10029319
-MxLong GasStation::HandleButtonDown(LegoControlManagerNotificationParam& p_param)
-{
+MxLong GasStation::HandleButtonDown(LegoControlManagerNotificationParam& p_param) {
 	if (m_unk0x104 == 1 || m_unk0x104 == 2) {
 		LegoROI* roi = PickROI(p_param.GetX(), p_param.GetY());
 
@@ -385,8 +375,7 @@ MxLong GasStation::HandleButtonDown(LegoControlManagerNotificationParam& p_param
 
 // FUNCTION: LEGO1 0x10005b20
 // FUNCTION: BETA10 0x10029445
-MxLong GasStation::HandleControl(LegoControlManagerNotificationParam& p_param)
-{
+MxLong GasStation::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	if (p_param.GetUnknown0x28() == 1) {
 		MxDSAction action;
 
@@ -427,8 +416,7 @@ MxLong GasStation::HandleControl(LegoControlManagerNotificationParam& p_param)
 
 // FUNCTION: LEGO1 0x10005c40
 // FUNCTION: BETA10 0x10029551
-void GasStation::Enable(MxBool p_enable)
-{
+void GasStation::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
 	if (p_enable) {
@@ -444,8 +432,7 @@ void GasStation::Enable(MxBool p_enable)
 
 // FUNCTION: LEGO1 0x10005c90
 // FUNCTION: BETA10 0x100295c6
-MxResult GasStation::Tickle()
-{
+MxResult GasStation::Tickle() {
 	if (!m_worldStarted) {
 		LegoWorld::Tickle();
 		return SUCCESS;
@@ -485,8 +472,7 @@ MxResult GasStation::Tickle()
 }
 
 // FUNCTION: LEGO1 0x10005e70
-MxBool GasStation::Escape()
-{
+MxBool GasStation::Escape() {
 	m_radio.Stop();
 	m_state->StopActions();
 	m_state->m_unk0x14 = 0;
@@ -496,8 +482,7 @@ MxBool GasStation::Escape()
 
 // FUNCTION: LEGO1 0x10005eb0
 // FUNCTION: BETA10 0x100296b8
-GasStationState::GasStationState()
-{
+GasStationState::GasStationState() {
 	m_pepperAction = 0;
 	m_mamaAction = 0;
 	m_papaAction = 0;
@@ -508,8 +493,7 @@ GasStationState::GasStationState()
 
 // FUNCTION: LEGO1 0x10006300
 // FUNCTION: BETA10 0x10029754
-MxResult GasStationState::Serialize(LegoStorage* p_storage)
-{
+MxResult GasStationState::Serialize(LegoStorage* p_storage) {
 	LegoState::Serialize(p_storage);
 
 	if (p_storage->IsWriteMode()) {
@@ -531,9 +515,8 @@ MxResult GasStationState::Serialize(LegoStorage* p_storage)
 }
 
 // FUNCTION: LEGO1 0x10006430
-void GasStationState::PlayAction(GarageScript::Script p_objectId)
-{
-	for (MxS32 i = 0; i < (MxS32) sizeOfArray(m_actions); i++) {
+void GasStationState::PlayAction(GarageScript::Script p_objectId) {
+	for (MxS32 i = 0; i < (MxS32)sizeOfArray(m_actions); i++) {
 		if (m_actions[i] == GarageScript::c_noneGarage) {
 			m_actions[i] = p_objectId;
 			return;
@@ -542,9 +525,8 @@ void GasStationState::PlayAction(GarageScript::Script p_objectId)
 }
 
 // FUNCTION: LEGO1 0x10006460
-void GasStationState::StopAction(GarageScript::Script p_objectId)
-{
-	for (MxS32 i = 0; i < (MxS32) sizeOfArray(m_actions); i++) {
+void GasStationState::StopAction(GarageScript::Script p_objectId) {
+	for (MxS32 i = 0; i < (MxS32)sizeOfArray(m_actions); i++) {
 		if (m_actions[i] == p_objectId) {
 			m_actions[i] = GarageScript::c_noneGarage;
 			return;
@@ -553,9 +535,8 @@ void GasStationState::StopAction(GarageScript::Script p_objectId)
 }
 
 // FUNCTION: LEGO1 0x10006490
-void GasStationState::StopActions()
-{
-	for (MxS32 i = 0; i < (MxS32) sizeOfArray(m_actions); i++) {
+void GasStationState::StopActions() {
+	for (MxS32 i = 0; i < (MxS32)sizeOfArray(m_actions); i++) {
 		if (m_actions[i] != GarageScript::c_noneGarage) {
 			InvokeAction(Extra::e_stop, *g_garageScript, m_actions[i], NULL);
 			m_actions[i] = GarageScript::c_noneGarage;

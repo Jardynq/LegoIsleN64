@@ -20,16 +20,14 @@ struct LegoCharacterComparator {
 
 // SIZE 0x08
 struct LegoCharacter {
-	LegoCharacter(LegoROI* p_roi)
-	{
+	LegoCharacter(LegoROI* p_roi) {
 		m_roi = p_roi;
 		m_refCount = 1;
 	}
 	~LegoCharacter() { delete m_roi; }
 
 	void AddRef() { m_refCount++; }
-	MxU32 RemoveRef()
-	{
+	MxU32 RemoveRef() {
 		if (m_refCount != 0) {
 			m_refCount--;
 		}

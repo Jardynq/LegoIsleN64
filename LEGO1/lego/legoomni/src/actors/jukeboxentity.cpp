@@ -18,22 +18,19 @@
 DECOMP_SIZE_ASSERT(JukeBoxEntity, 0x6c)
 
 // FUNCTION: LEGO1 0x10085bc0
-JukeBoxEntity::JukeBoxEntity()
-{
+JukeBoxEntity::JukeBoxEntity() {
 	NotificationManager()->Register(this);
 }
 
 // FUNCTION: LEGO1 0x10085dd0
-JukeBoxEntity::~JukeBoxEntity()
-{
+JukeBoxEntity::~JukeBoxEntity() {
 	NotificationManager()->Unregister(this);
 }
 
 // FUNCTION: LEGO1 0x10085e40
 // FUNCTION: BETA10 0x10038c37
-MxLong JukeBoxEntity::Notify(MxParam& p_param)
-{
-	MxNotificationParam& param = (MxNotificationParam&) p_param;
+MxLong JukeBoxEntity::Notify(MxParam& p_param) {
+	MxNotificationParam& param = (MxNotificationParam&)p_param;
 
 	if (param.GetNotification() == c_notificationClick) {
 		if (!FUN_1003ef60()) {
@@ -41,10 +38,10 @@ MxLong JukeBoxEntity::Notify(MxParam& p_param)
 		}
 
 		if (UserActor()->GetActorId() != GameState()->GetActorId()) {
-			((IslePathActor*) UserActor())->Exit();
+			((IslePathActor*)UserActor())->Exit();
 		}
 
-		((Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle))->SetDestLocation(LegoGameState::e_jukeboxw);
+		((Isle*)FindWorld(*g_isleScript, IsleScript::c__Isle))->SetDestLocation(LegoGameState::e_jukeboxw);
 		TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
 		return 1;
 	}
@@ -53,11 +50,10 @@ MxLong JukeBoxEntity::Notify(MxParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10085ed0
-void JukeBoxEntity::StartAction()
-{
+void JukeBoxEntity::StartAction() {
 	MxDSAction action;
 	BackgroundAudioManager()->Stop();
-	JukeBoxState* state = (JukeBoxState*) GameState()->GetState("JukeBoxState");
+	JukeBoxState* state = (JukeBoxState*)GameState()->GetState("JukeBoxState");
 	state->m_active = TRUE;
 
 	switch (state->m_music) {
@@ -99,9 +95,8 @@ void JukeBoxEntity::StartAction()
 }
 
 // FUNCTION: LEGO1 0x100860f0
-void JukeBoxEntity::StopAction(JukeboxScript::Script p_script)
-{
-	JukeBoxState* state = (JukeBoxState*) GameState()->GetState("JukeBoxState");
+void JukeBoxEntity::StopAction(JukeboxScript::Script p_script) {
+	JukeBoxState* state = (JukeBoxState*)GameState()->GetState("JukeBoxState");
 
 	if (state && state->m_active) {
 		switch (p_script) {

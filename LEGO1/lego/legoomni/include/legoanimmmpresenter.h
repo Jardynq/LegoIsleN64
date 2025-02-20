@@ -34,8 +34,7 @@ public:
 	MxLong Notify(MxParam& p_param) override; // vtable+0x04
 
 	// FUNCTION: BETA10 0x1004d840
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f046c
 		return "LegoAnimMMPresenter";
 	}

@@ -27,23 +27,20 @@ float g_ambientLightRGB = 0.3;
 
 // FUNCTION: LEGO1 0x100ab510
 // FUNCTION: BETA10 0x1017bb90
-LegoView::LegoView()
-{
+LegoView::LegoView() {
 	m_pScene = 0;
 	m_pCamera = 0;
 }
 
 // FUNCTION: LEGO1 0x100ab5a0
 // FUNCTION: BETA10 0x1017bc19
-LegoView::~LegoView()
-{
+LegoView::~LegoView() {
 	Destroy();
 }
 
 // FUNCTION: LEGO1 0x100ab600
 // FUNCTION: BETA10 0x1017bc89
-BOOL LegoView::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Renderer* pRenderer)
-{
+BOOL LegoView::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Renderer* pRenderer) {
 	float viewAngle = 45;
 
 	float frontClippingDistance = 0.1;
@@ -83,8 +80,7 @@ BOOL LegoView::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Render
 
 // FUNCTION: LEGO1 0x100ab6c0
 // FUNCTION: BETA10 0x1017befd
-Tgl::View* LegoView::CreateView(Tgl::Renderer* pRenderer, Tgl::Device* pDevice)
-{
+Tgl::View* LegoView::CreateView(Tgl::Renderer* pRenderer, Tgl::Device* pDevice) {
 	assert(pRenderer);
 	assert(pDevice);
 
@@ -93,8 +89,7 @@ Tgl::View* LegoView::CreateView(Tgl::Renderer* pRenderer, Tgl::Device* pDevice)
 
 // FUNCTION: LEGO1 0x100ab6f0
 // FUNCTION: BETA10 0x1017bf96
-void LegoView::Destroy()
-{
+void LegoView::Destroy() {
 	delete m_pScene;
 	m_pScene = 0;
 
@@ -109,8 +104,7 @@ void LegoView::Destroy()
 
 // FUNCTION: LEGO1 0x100ab730
 // FUNCTION: BETA10 0x1017c028
-LegoView1::LegoView1()
-{
+LegoView1::LegoView1() {
 	m_pSunLight = 0;
 	m_pDirectionalLight = 0;
 	m_pAmbientLight = 0;
@@ -118,15 +112,13 @@ LegoView1::LegoView1()
 
 // FUNCTION: LEGO1 0x100ab7c0
 // FUNCTION: BETA10 0x1017c0be
-LegoView1::~LegoView1()
-{
+LegoView1::~LegoView1() {
 	Destroy();
 }
 
 // FUNCTION: LEGO1 0x100ab820
 // FUNCTION: BETA10 0x1017c12e
-BOOL LegoView1::AddLightsToViewport()
-{
+BOOL LegoView1::AddLightsToViewport() {
 	assert(GetView());
 	GetView()->Add(m_pSunLight);
 	GetView()->Add(m_pDirectionalLight);
@@ -136,8 +128,7 @@ BOOL LegoView1::AddLightsToViewport()
 
 // FUNCTION: LEGO1 0x100ab860
 // FUNCTION: BETA10 0x1017c1ea
-BOOL LegoView1::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Renderer* pRenderer)
-{
+BOOL LegoView1::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Renderer* pRenderer) {
 	if (!LegoView::Create(rCreateStruct, pRenderer)) {
 		return FALSE;
 	}
@@ -172,8 +163,7 @@ BOOL LegoView1::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Rende
 
 // FUNCTION: LEGO1 0x100abad0
 // FUNCTION: BETA10 0x1017c912
-void LegoView1::Destroy()
-{
+void LegoView1::Destroy() {
 	if (m_pSunLight) {
 		GetView()->Remove(m_pSunLight);
 		delete m_pSunLight;
@@ -197,8 +187,7 @@ void LegoView1::Destroy()
 
 // FUNCTION: LEGO1 0x100abb60
 // FUNCTION: BETA10 0x1017ca80
-void LegoView1::SetLightTransform(BOOL bDirectionalLight, Tgl::FloatMatrix4& rMatrix)
-{
+void LegoView1::SetLightTransform(BOOL bDirectionalLight, Tgl::FloatMatrix4& rMatrix) {
 	Tgl::Light* pLight;
 
 	if (bDirectionalLight == FALSE) {
@@ -213,15 +202,13 @@ void LegoView1::SetLightTransform(BOOL bDirectionalLight, Tgl::FloatMatrix4& rMa
 
 // FUNCTION: LEGO1 0x100abb80
 // FUNCTION: BETA10 0x1017cacf
-void LegoView1::SetLightTransform(Tgl::Light* pLight, Tgl::FloatMatrix4& rMatrix)
-{
+void LegoView1::SetLightTransform(Tgl::Light* pLight, Tgl::FloatMatrix4& rMatrix) {
 	pLight->SetTransformation(rMatrix);
 }
 
 // FUNCTION: LEGO1 0x100abba0
 // FUNCTION: BETA10 0x1017caf6
-void LegoView1::SetLightColor(BOOL bDirectionalLight, float red, float green, float blue)
-{
+void LegoView1::SetLightColor(BOOL bDirectionalLight, float red, float green, float blue) {
 	Tgl::Light* pLight;
 
 	if (bDirectionalLight == FALSE) {
@@ -236,7 +223,6 @@ void LegoView1::SetLightColor(BOOL bDirectionalLight, float red, float green, fl
 
 // FUNCTION: LEGO1 0x100abbd0
 // FUNCTION: BETA10 0x1017cb4d
-void LegoView1::SetLightColor(Tgl::Light* pLight, float red, float green, float blue)
-{
+void LegoView1::SetLightColor(Tgl::Light* pLight, float red, float green, float blue) {
 	pLight->SetColor(red, green, blue);
 }

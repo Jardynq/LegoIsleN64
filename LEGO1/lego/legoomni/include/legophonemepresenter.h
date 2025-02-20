@@ -16,8 +16,7 @@ public:
 	~LegoPhonemePresenter() override; // vtable+0x00
 
 	// FUNCTION: BETA10 0x100c4220
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f064c
 		return "LegoPhonemePresenter";
 	}

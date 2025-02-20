@@ -43,8 +43,7 @@ class LegoEventQueue : public MxQueue<LegoEventNotificationParam> {};
 class LegoNotifyList : public MxPtrList<MxCore> {
 protected:
 	// FUNCTION: LEGO1 0x10028830
-	MxS8 Compare(MxCore* p_element1, MxCore* p_element2) override
-	{
+	MxS8 Compare(MxCore* p_element1, MxCore* p_element2) override {
 		return p_element1 == p_element2 ? 0 : p_element1 < p_element2 ? -1 : 1;
 	} // vtable+0x14
 
@@ -88,8 +87,7 @@ public:
 	void UnRegister(MxCore*);
 
 	// FUNCTION: LEGO1 0x1005b8b0
-	MxResult Tickle() override
-	{
+	MxResult Tickle() override {
 		ProcessEvents();
 		return SUCCESS;
 	} // vtable+0x08
@@ -117,8 +115,7 @@ public:
 	void SetUseJoystick(MxBool p_useJoystick) { m_useJoystick = p_useJoystick; }
 	void SetJoystickIndex(MxS32 p_joystickIndex) { m_joystickIndex = p_joystickIndex; }
 
-	void DisableInputProcessing()
-	{
+	void DisableInputProcessing() {
 		m_unk0x88 = TRUE;
 		m_unk0x336 = FALSE;
 	}

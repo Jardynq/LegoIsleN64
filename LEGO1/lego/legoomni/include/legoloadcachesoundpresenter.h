@@ -14,8 +14,7 @@ public:
 	~LegoLoadCacheSoundPresenter() override;
 
 	// FUNCTION: BETA10 0x1008cf90
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f05a0
 		return "LegoLoadCacheSoundPresenter";
 	}

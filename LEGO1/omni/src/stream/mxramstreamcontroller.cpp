@@ -7,26 +7,25 @@
 DECOMP_SIZE_ASSERT(MxRAMStreamController, 0x98);
 
 // FUNCTION: LEGO1 0x100c6110
-MxResult MxRAMStreamController::Open(const char* p_filename)
-{
+MxResult MxRAMStreamController::Open(const char* p_filename) {
 	AUTOLOCK(m_criticalSection);
 	if (MxStreamController::Open(p_filename) != SUCCESS) {
 		return FAILURE;
 	}
 
 	m_provider = new MxRAMStreamProvider();
-	if (((MxRAMStreamProvider*) m_provider) != NULL) {
+	if (((MxRAMStreamProvider*)m_provider) != NULL) {
 		if (m_provider->SetResourceToGet(this) != SUCCESS) {
 			return FAILURE;
 		}
 
 		ReadData(
-			((MxRAMStreamProvider*) m_provider)->GetBufferOfFileSize(),
-			((MxRAMStreamProvider*) m_provider)->GetFileSize()
+			((MxRAMStreamProvider*)m_provider)->GetBufferOfFileSize(),
+			((MxRAMStreamProvider*)m_provider)->GetFileSize()
 		);
 		m_buffer.SetBufferPointer(
-			((MxRAMStreamProvider*) m_provider)->GetBufferOfFileSize(),
-			((MxRAMStreamProvider*) m_provider)->GetFileSize()
+			((MxRAMStreamProvider*)m_provider)->GetBufferOfFileSize(),
+			((MxRAMStreamProvider*)m_provider)->GetFileSize()
 		);
 		return SUCCESS;
 	}
@@ -35,8 +34,7 @@ MxResult MxRAMStreamController::Open(const char* p_filename)
 }
 
 // FUNCTION: LEGO1 0x100c6210
-MxResult MxRAMStreamController::VTable0x20(MxDSAction* p_action)
-{
+MxResult MxRAMStreamController::VTable0x20(MxDSAction* p_action) {
 	AUTOLOCK(m_criticalSection);
 	MxS32 unk0x24 = 0;
 	MxResult result = FAILURE;
@@ -56,7 +54,7 @@ MxResult MxRAMStreamController::VTable0x20(MxDSAction* p_action)
 	}
 
 	if (MxStreamController::VTable0x20(p_action) == SUCCESS) {
-		MxDSStreamingAction* action = (MxDSStreamingAction*) m_unk0x3c.Find(p_action);
+		MxDSStreamingAction* action = (MxDSStreamingAction*)m_unk0x3c.Find(p_action);
 		MxDSStreamingAction streamingaction(*action);
 		result = DeserializeObject(streamingaction);
 	}
@@ -64,8 +62,7 @@ MxResult MxRAMStreamController::VTable0x20(MxDSAction* p_action)
 }
 
 // FUNCTION: LEGO1 0x100c6320
-MxResult MxRAMStreamController::VTable0x24(MxDSAction* p_action)
-{
+MxResult MxRAMStreamController::VTable0x24(MxDSAction* p_action) {
 	MxDSAction action;
 	do {
 		if (m_action0x60 != NULL) {
@@ -79,8 +76,7 @@ MxResult MxRAMStreamController::VTable0x24(MxDSAction* p_action)
 }
 
 // FUNCTION: LEGO1 0x100c63c0
-MxResult MxRAMStreamController::DeserializeObject(MxDSStreamingAction& p_action)
-{
+MxResult MxRAMStreamController::DeserializeObject(MxDSStreamingAction& p_action) {
 	AUTOLOCK(m_criticalSection);
 	MxResult result;
 	MxDSStreamingAction* value = NULL;

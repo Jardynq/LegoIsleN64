@@ -102,8 +102,7 @@ const char* g_laura = "Laura";
 
 // FUNCTION: LEGO1 0x10037d00
 // FUNCTION: BETA10 0x100d5620
-void VisibilityVariable::SetValue(const char* p_value)
-{
+void VisibilityVariable::SetValue(const char* p_value) {
 	MxVariable::SetValue(p_value);
 
 	if (p_value) {
@@ -129,8 +128,7 @@ void VisibilityVariable::SetValue(const char* p_value)
 }
 
 // FUNCTION: LEGO1 0x10037d80
-void CameraLocationVariable::SetValue(const char* p_value)
-{
+void CameraLocationVariable::SetValue(const char* p_value) {
 	char buffer[256];
 	MxVariable::SetValue(p_value);
 
@@ -141,19 +139,17 @@ void CameraLocationVariable::SetValue(const char* p_value)
 
 	location = strtok(NULL, ",");
 	if (location) {
-		MxFloat pov = (MxFloat) atof(location);
+		MxFloat pov = (MxFloat)atof(location);
 		VideoManager()->Get3DManager()->SetFrustrum(pov, 0.1f, 250.0f);
 	}
 }
 
 // FUNCTION: LEGO1 0x10037e30
-void CursorVariable::SetValue(const char* p_value)
-{
+void CursorVariable::SetValue(const char* p_value) {
 }
 
 // FUNCTION: LEGO1 0x10037e40
-void WhoAmIVariable::SetValue(const char* p_value)
-{
+void WhoAmIVariable::SetValue(const char* p_value) {
 	MxVariable::SetValue(p_value);
 
 	if (!strcmpi(p_value, g_papa)) {

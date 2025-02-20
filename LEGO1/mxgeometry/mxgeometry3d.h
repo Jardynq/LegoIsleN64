@@ -14,8 +14,7 @@ public:
 	Mx3DPointFloat() : Vector3(m_elements) {}
 
 	// FUNCTION: BETA10 0x10011870
-	Mx3DPointFloat(float p_x, float p_y, float p_z) : Vector3(m_elements)
-	{
+	Mx3DPointFloat(float p_x, float p_y, float p_z) : Vector3(m_elements) {
 		m_elements[0] = p_x;
 		m_elements[1] = p_y;
 		m_elements[2] = p_z;

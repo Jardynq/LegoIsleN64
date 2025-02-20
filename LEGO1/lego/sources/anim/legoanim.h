@@ -30,8 +30,7 @@ public:
 	LegoU32 TestBit3() { return m_flags & c_bit3; }
 
 	// FUNCTION: BETA10 0x100739a0
-	void FUN_100739a0(MxS32 p_param)
-	{
+	void FUN_100739a0(MxS32 p_param) {
 		if (p_param) {
 			m_flags |= c_bit1;
 		}
@@ -175,8 +174,7 @@ public:
 	void SetNumRotationKeys(LegoU16 p_numRotationKeys) { m_numRotationKeys = p_numRotationKeys; }
 
 	// FUNCTION: BETA10 0x10073810
-	void SetRotationKeys(LegoRotationKey* p_keys)
-	{
+	void SetRotationKeys(LegoRotationKey* p_keys) {
 		m_rotationKeys = p_keys;
 		m_rotationIndex = 0;
 	}
@@ -203,8 +201,7 @@ public:
 	LegoMorphKey* GetMorphKeys() { return m_morphKeys; }
 
 	// FUNCTION: BETA10 0x10073960
-	void SetMorphKeys(LegoMorphKey* p_morphKeys)
-	{
+	void SetMorphKeys(LegoMorphKey* p_morphKeys) {
 		m_morphKeys = p_morphKeys;
 		m_morphIndex = 0;
 	}
@@ -218,11 +215,10 @@ public:
 	// FUNCTION: BETA10 0x1005f2e0
 	void SetUnknown0x22(LegoU16 p_unk0x22) { m_unk0x22 = p_unk0x22; }
 
-	LegoResult CreateLocalTransform(LegoTime p_time, Matrix4& p_matrix)
-	{
-		return CreateLocalTransform((LegoFloat) p_time, p_matrix);
+	LegoResult CreateLocalTransform(LegoTime p_time, Matrix4& p_matrix) {
+		return CreateLocalTransform((LegoFloat)p_time, p_matrix);
 	}
-	LegoBool FUN_100a0990(LegoTime p_time) { return FUN_100a0990((LegoFloat) p_time); }
+	LegoBool FUN_100a0990(LegoTime p_time) { return FUN_100a0990((LegoFloat)p_time); }
 
 	inline static void GetTranslation(
 		LegoU16 p_numTranslationKeys,

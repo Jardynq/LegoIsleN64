@@ -32,8 +32,7 @@ struct LegoNamedPlane {
 	void Reset() { m_name = ""; }
 
 	// FUNCTION: LEGO1 0x100344d0
-	MxResult Serialize(LegoStorage* p_storage)
-	{
+	MxResult Serialize(LegoStorage* p_storage) {
 		if (p_storage->IsWriteMode()) {
 			p_storage->WriteMxString(m_name);
 			p_storage->WriteVector(m_position);

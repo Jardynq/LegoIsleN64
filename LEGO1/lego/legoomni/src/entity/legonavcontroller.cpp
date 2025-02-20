@@ -123,8 +123,7 @@ MxBool g_enableMusic = TRUE;
 MxU32 g_fpsEnabled = TRUE;
 
 // FUNCTION: LEGO1 0x10054ac0
-LegoNavController::LegoNavController()
-{
+LegoNavController::LegoNavController() {
 	SetToDefaultParams();
 
 	m_linearVel = 0.0f;
@@ -146,14 +145,12 @@ LegoNavController::LegoNavController()
 }
 
 // FUNCTION: LEGO1 0x10054c30
-LegoNavController::~LegoNavController()
-{
+LegoNavController::~LegoNavController() {
 	InputManager()->UnRegister(this);
 }
 
 // FUNCTION: LEGO1 0x10054ca0
-void LegoNavController::SetControlMax(int p_hMax, int p_vMax)
-{
+void LegoNavController::SetControlMax(int p_hMax, int p_vMax) {
 	m_hMax = p_hMax;
 	m_vMax = p_vMax;
 
@@ -165,8 +162,7 @@ void LegoNavController::SetControlMax(int p_hMax, int p_vMax)
 
 // FUNCTION: LEGO1 0x10054cd0
 // FUNCTION: BETA10 0x1009ad76
-void LegoNavController::SetToDefaultParams()
-{
+void LegoNavController::SetToDefaultParams() {
 	m_deadZone = g_defdeadZone;
 	m_zeroThreshold = g_defzeroThreshold;
 	m_maxRotationalAccel = g_defmaxRotationalAccel;
@@ -194,8 +190,7 @@ void LegoNavController::GetDefaults(
 	float* p_rmina,
 	float* p_rs,
 	MxBool* p_urs
-)
-{
+) {
 	*p_dz = g_defdeadZone;
 	*p_lv = g_defmaxLinearVel;
 	*p_rv = g_defmaxRotationalVel;
@@ -222,8 +217,7 @@ void LegoNavController::SetDefaults(
 	float p_rmina,
 	float p_rs,
 	MxBool p_urs
-)
-{
+) {
 	g_defdeadZone = p_dz;
 	g_defmaxLinearVel = p_lv;
 	g_defmaxRotationalVel = p_rv;
@@ -238,8 +232,7 @@ void LegoNavController::SetDefaults(
 }
 
 // FUNCTION: LEGO1 0x10054e40
-void LegoNavController::SetTargets(int p_hPos, int p_vPos, MxBool p_accel)
-{
+void LegoNavController::SetTargets(int p_hPos, int p_vPos, MxBool p_accel) {
 	if (m_trackDefault != FALSE) {
 		SetToDefaultParams();
 	}
@@ -247,8 +240,8 @@ void LegoNavController::SetTargets(int p_hPos, int p_vPos, MxBool p_accel)
 	if (p_accel != FALSE) {
 		m_targetRotationalVel = CalculateNewTargetVel(p_hPos, m_hMax / 2, m_maxRotationalVel);
 		m_targetLinearVel = CalculateNewTargetVel(m_vMax - p_vPos, m_vMax / 2, m_maxLinearVel);
-		m_rotationalAccel = CalculateNewAccel(p_hPos, m_hMax / 2, m_maxRotationalAccel, (int) m_minRotationalAccel);
-		m_linearAccel = CalculateNewAccel(m_vMax - p_vPos, m_vMax / 2, m_maxLinearAccel, (int) m_minLinearAccel);
+		m_rotationalAccel = CalculateNewAccel(p_hPos, m_hMax / 2, m_maxRotationalAccel, (int)m_minRotationalAccel);
+		m_linearAccel = CalculateNewAccel(m_vMax - p_vPos, m_vMax / 2, m_maxLinearAccel, (int)m_minLinearAccel);
 	}
 	else {
 		m_targetRotationalVel = 0;
@@ -259,8 +252,7 @@ void LegoNavController::SetTargets(int p_hPos, int p_vPos, MxBool p_accel)
 }
 
 // FUNCTION: LEGO1 0x10054f10
-float LegoNavController::CalculateNewTargetVel(int p_pos, int p_center, float p_max)
-{
+float LegoNavController::CalculateNewTargetVel(int p_pos, int p_center, float p_max) {
 	float newVel;
 	int diff = p_pos - p_center;
 
@@ -278,23 +270,21 @@ float LegoNavController::CalculateNewTargetVel(int p_pos, int p_center, float p_
 }
 
 // FUNCTION: LEGO1 0x10054f90
-float LegoNavController::CalculateNewAccel(int p_pos, int p_center, float p_max, int p_min)
-{
+float LegoNavController::CalculateNewAccel(int p_pos, int p_center, float p_max, int p_min) {
 	float newAccel;
 	int diff = p_pos - p_center;
 
 	newAccel = Abs(diff) * p_max / p_center;
 
 	if (newAccel < p_min) {
-		newAccel = (float) p_min;
+		newAccel = (float)p_min;
 	}
 
 	return newAccel;
 }
 
 // FUNCTION: LEGO1 0x10054fe0
-float LegoNavController::CalculateNewVel(float p_targetVel, float p_currentVel, float p_accel, float p_time)
-{
+float LegoNavController::CalculateNewVel(float p_targetVel, float p_currentVel, float p_accel, float p_time) {
 	float newVel = p_currentVel;
 
 	float velDiff = p_targetVel - p_currentVel;
@@ -323,8 +313,7 @@ MxBool LegoNavController::CalculateNewPosDir(
 	Vector3& p_newPos,
 	Vector3& p_newDir,
 	const Vector3* p_und
-)
-{
+) {
 	if (!g_isWorldActive) {
 		return FALSE;
 	}
@@ -428,11 +417,10 @@ MxBool LegoNavController::CalculateNewPosDir(
 
 // FUNCTION: LEGO1 0x10055500
 // FUNCTION: BETA10 0x1009bff8
-MxResult LegoNavController::UpdateLocation(const char* p_location)
-{
+MxResult LegoNavController::UpdateLocation(const char* p_location) {
 	MxResult result = FAILURE;
 
-	for (MxS32 i = 0; i < (MxS32) sizeOfArray(g_locations); i++) {
+	for (MxS32 i = 0; i < (MxS32)sizeOfArray(g_locations); i++) {
 		if (!strcmpi(p_location, g_locations[i].m_name)) {
 			MxMatrix mat;
 			LegoROI* viewROI = VideoManager()->GetViewROI();
@@ -462,8 +450,7 @@ MxResult LegoNavController::UpdateLocation(const char* p_location)
 
 // FUNCTION: LEGO1 0x10055620
 // FUNCTION: BETA10 0x1009c145
-MxResult LegoNavController::UpdateLocation(MxU32 p_location)
-{
+MxResult LegoNavController::UpdateLocation(MxU32 p_location) {
 	MxResult result = FAILURE;
 
 	if (p_location < sizeOfArray(g_locations)) {
@@ -499,8 +486,7 @@ MxResult LegoNavController::UpdateLocation(MxU32 p_location)
 
 // FUNCTION: LEGO1 0x10055720
 // FUNCTION: BETA10 0x1009c259
-LegoLocation* LegoNavController::GetLocation(MxU32 p_location)
-{
+LegoLocation* LegoNavController::GetLocation(MxU32 p_location) {
 	if (p_location < sizeOfArray(g_locations)) {
 		return &g_locations[p_location];
 	}
@@ -509,14 +495,12 @@ LegoLocation* LegoNavController::GetLocation(MxU32 p_location)
 }
 
 // FUNCTION: LEGO1 0x10055740
-MxS32 LegoNavController::GetNumLocations()
-{
+MxS32 LegoNavController::GetNumLocations() {
 	return sizeOfArray(g_locations);
 }
 
 // FUNCTION: LEGO1 0x10055750
-MxResult LegoNavController::ProcessJoystickInput(MxBool& p_und)
-{
+MxResult LegoNavController::ProcessJoystickInput(MxBool& p_und) {
 	LegoOmni* instance = LegoOmni::GetInstance();
 
 	if (instance->GetInputManager()) {
@@ -526,17 +510,17 @@ MxResult LegoNavController::ProcessJoystickInput(MxBool& p_und)
 		MxS32 povPosition;
 
 		if (instance->GetInputManager()
-				->GetJoystickState((MxU32*) &joystickX, (MxU32*) &joystickY, &buttonState, (MxU32*) &povPosition) !=
+			->GetJoystickState((MxU32*)&joystickX, (MxU32*)&joystickY, &buttonState, (MxU32*)&povPosition) !=
 			FAILURE) {
 			MxU32 yVal = (joystickY * m_vMax) / 100;
 			MxU32 xVal = (joystickX * m_hMax) / 100;
 
 			if (joystickX <= 45 || joystickX >= 55 || joystickY <= 45 || joystickY >= 55) {
 				m_targetLinearVel = CalculateNewTargetVel(m_vMax - yVal, m_vMax / 2, m_maxLinearVel);
-				m_linearAccel = CalculateNewAccel(m_vMax - yVal, m_vMax / 2, m_maxLinearAccel, (int) m_minLinearAccel);
+				m_linearAccel = CalculateNewAccel(m_vMax - yVal, m_vMax / 2, m_maxLinearAccel, (int)m_minLinearAccel);
 				m_targetRotationalVel = CalculateNewTargetVel(xVal, m_hMax / 2, m_maxRotationalVel);
 				m_rotationalAccel =
-					CalculateNewAccel(xVal, m_hMax / 2, m_maxRotationalAccel, (int) m_minRotationalAccel);
+					CalculateNewAccel(xVal, m_hMax / 2, m_maxRotationalAccel, (int)m_minRotationalAccel);
 			}
 			else {
 				m_targetRotationalVel = 0.0;
@@ -562,8 +546,7 @@ MxResult LegoNavController::ProcessJoystickInput(MxBool& p_und)
 }
 
 // FUNCTION: LEGO1 0x100558b0
-MxResult LegoNavController::ProcessKeyboardInput()
-{
+MxResult LegoNavController::ProcessKeyboardInput() {
 	MxBool bool1 = FALSE;
 	MxBool bool2 = FALSE;
 	LegoInputManager* inputManager = LegoOmni::GetInstance()->GetInputManager();
@@ -623,13 +606,13 @@ MxResult LegoNavController::ProcessKeyboardInput()
 	if (!bool1) {
 		m_targetRotationalVel = CalculateNewTargetVel(hMax, m_hMax / 2, m_maxRotationalVel);
 		m_rotationalAccel =
-			CalculateNewAccel(hMax, m_hMax / 2, m_maxRotationalAccel / val, (int) (m_minRotationalAccel / val2));
+			CalculateNewAccel(hMax, m_hMax / 2, m_maxRotationalAccel / val, (int)(m_minRotationalAccel / val2));
 	}
 
 	if (!bool2) {
 		m_targetLinearVel = CalculateNewTargetVel(m_vMax - vMax, m_vMax / 2, m_maxLinearVel);
 		m_linearAccel =
-			CalculateNewAccel(m_vMax - vMax, m_vMax / 2, m_maxLinearAccel / val, (int) (m_minLinearAccel / val2));
+			CalculateNewAccel(m_vMax - vMax, m_vMax / 2, m_maxLinearAccel / val, (int)(m_minLinearAccel / val2));
 	}
 
 	return SUCCESS;
@@ -637,11 +620,10 @@ MxResult LegoNavController::ProcessKeyboardInput()
 
 // FUNCTION: LEGO1 0x10055a60
 // FUNCTION: BETA10 0x1009c712
-MxLong LegoNavController::Notify(MxParam& p_param)
-{
-	if (((MxNotificationParam&) p_param).GetNotification() == c_notificationKeyPress) {
+MxLong LegoNavController::Notify(MxParam& p_param) {
+	if (((MxNotificationParam&)p_param).GetNotification() == c_notificationKeyPress) {
 		m_unk0x5d = TRUE;
-		MxU8 key = ((LegoEventNotificationParam&) p_param).GetKey();
+		MxU8 key = ((LegoEventNotificationParam&)p_param).GetKey();
 
 		switch (key) {
 		case VK_PAUSE: // Pause game
@@ -655,7 +637,7 @@ MxLong LegoNavController::Notify(MxParam& p_param)
 		case VK_ESCAPE: { // Return to infocenter
 			LegoWorld* currentWorld = CurrentWorld();
 			if (currentWorld != NULL) {
-				InfocenterState* state = (InfocenterState*) GameState()->GetState("InfocenterState");
+				InfocenterState* state = (InfocenterState*)GameState()->GetState("InfocenterState");
 				assert(state);
 
 				if (state != NULL && state->m_unk0x74 != 8 && currentWorld->Escape()) {
@@ -739,7 +721,7 @@ MxLong LegoNavController::Notify(MxParam& p_param)
 			break;
 		}
 		case VK_F12: { // Saves the game
-			InfocenterState* state = (InfocenterState*) GameState()->GetState("InfocenterState");
+			InfocenterState* state = (InfocenterState*)GameState()->GetState("InfocenterState");
 			if (state && state->HasRegistered()) {
 				GameState()->Save(0);
 			}
@@ -749,7 +731,7 @@ MxLong LegoNavController::Notify(MxParam& p_param)
 			// Check if the the key is part of the debug password
 			if (!*g_currentInput) {
 				// password "protected" debug shortcuts
-				switch (((LegoEventNotificationParam&) p_param).GetKey()) {
+				switch (((LegoEventNotificationParam&)p_param).GetKey()) {
 				case VK_TAB:
 					VideoManager()->ToggleFPS(g_fpsEnabled);
 					if (g_fpsEnabled) {
@@ -848,7 +830,7 @@ MxLong LegoNavController::Notify(MxParam& p_param)
 							GameState()->SwitchArea(LegoGameState::e_act3script);
 							break;
 						case '4': {
-							Act3State* act3State = (Act3State*) GameState()->GetState("Act3State");
+							Act3State* act3State = (Act3State*)GameState()->GetState("Act3State");
 							if (act3State == NULL) {
 								act3State = new Act3State();
 								assert(act3State);
@@ -862,7 +844,7 @@ MxLong LegoNavController::Notify(MxParam& p_param)
 							break;
 						}
 						case '5': {
-							Act3State* act3State = (Act3State*) GameState()->GetState("Act3State");
+							Act3State* act3State = (Act3State*)GameState()->GetState("Act3State");
 							if (act3State == NULL) {
 								act3State = new Act3State();
 								assert(act3State);
@@ -1031,7 +1013,7 @@ MxLong LegoNavController::Notify(MxParam& p_param)
 				}
 			}
 			else {
-				if (*g_currentInput == ((LegoEventNotificationParam&) p_param).GetKey()) {
+				if (*g_currentInput == ((LegoEventNotificationParam&)p_param).GetKey()) {
 					g_currentInput++;
 				}
 				else {

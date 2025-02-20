@@ -27,8 +27,7 @@ public:
 
 	// FUNCTION: LEGO1 0x1001d210
 	// FUNCTION: BETA10 0x100dd100
-	MxS8 Compare(LegoPathController* p_a, LegoPathController* p_b) override
-	{
+	MxS8 Compare(LegoPathController* p_a, LegoPathController* p_b) override {
 		return p_a == p_b ? 0 : p_a < p_b ? -1 : 1;
 	} // vtable+0x14
 };

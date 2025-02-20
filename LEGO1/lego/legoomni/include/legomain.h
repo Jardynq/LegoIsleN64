@@ -64,14 +64,12 @@ public:
 	// SIZE 0x1c
 	struct WorldContainer {
 		// FUNCTION: LEGO1 0x1005ac40
-		WorldContainer()
-		{
+		WorldContainer() {
 			m_id = e_undefined;
 			m_atomId = NULL;
 		}
 
-		WorldContainer(World p_id, const char* p_key, MxAtomId* p_atomId)
-		{
+		WorldContainer(World p_id, const char* p_key, MxAtomId* p_atomId) {
 			m_id = p_id;
 
 			if (p_key) {
@@ -82,8 +80,7 @@ public:
 		}
 
 		// FUNCTION: LEGO1 0x1005ac50
-		WorldContainer& operator=(const WorldContainer& p_container)
-		{
+		WorldContainer& operator=(const WorldContainer& p_container) {
 			m_id = p_container.m_id;
 			strcpy(m_key, p_container.m_key);
 			m_atomId = p_container.m_atomId;
@@ -145,8 +142,8 @@ public:
 	static void CreateInstance();
 	static LegoOmni* GetInstance();
 
-	LegoVideoManager* GetVideoManager() { return (LegoVideoManager*) m_videoManager; }
-	LegoSoundManager* GetSoundManager() { return (LegoSoundManager*) m_soundManager; }
+	LegoVideoManager* GetVideoManager() { return (LegoVideoManager*)m_videoManager; }
+	LegoSoundManager* GetSoundManager() { return (LegoSoundManager*)m_soundManager; }
 
 	// FUNCTION: BETA10 0x1009e7a0
 	LegoInputManager* GetInputManager() { return m_inputManager; }

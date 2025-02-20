@@ -29,7 +29,7 @@ public:
 	Vector2(float* p_data) { SetData(p_data); }
 
 	// FUNCTION: BETA10 0x100109e0
-	Vector2(const float* p_data) { m_data = (float*) p_data; }
+	Vector2(const float* p_data) { m_data = (float*)p_data; }
 
 	inline virtual float* GetData();                                        // vtable+0x28
 	inline virtual const float* GetData() const;                            // vtable+0x24

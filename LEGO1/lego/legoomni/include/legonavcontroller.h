@@ -88,8 +88,7 @@ public:
 	void SetTrackDefault(MxS32 p_trackDefault) { m_trackDefault = p_trackDefault; }
 
 	// FUNCTION: BETA10 0x100178a0
-	void Reset()
-	{
+	void Reset() {
 		m_trackDefault = TRUE;
 		SetToDefaultParams();
 	}
@@ -99,18 +98,15 @@ public:
 	MxFloat GetMaxLinearVel() { return m_maxLinearVel; }
 	MxFloat GetMaxLinearAccel() { return m_maxLinearAccel; }
 	MxFloat GetMaxLinearDeccel() { return m_maxLinearDeccel; }
-	void ResetMaxLinearVel(MxFloat p_maxLinearVel)
-	{
+	void ResetMaxLinearVel(MxFloat p_maxLinearVel) {
 		m_maxLinearVel = p_maxLinearVel;
 		m_trackDefault = FALSE;
 	}
-	void ResetMaxLinearAccel(MxFloat p_maxLinearAccel)
-	{
+	void ResetMaxLinearAccel(MxFloat p_maxLinearAccel) {
 		m_maxLinearAccel = p_maxLinearAccel;
 		m_trackDefault = FALSE;
 	}
-	void ResetMaxLinearDeccel(MxFloat p_maxLinearDeccel)
-	{
+	void ResetMaxLinearDeccel(MxFloat p_maxLinearDeccel) {
 		m_maxLinearDeccel = p_maxLinearDeccel;
 		m_trackDefault = FALSE;
 	}

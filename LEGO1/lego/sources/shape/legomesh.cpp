@@ -6,8 +6,7 @@ DECOMP_SIZE_ASSERT(LegoMeshUnkComponent, 0x1c)
 DECOMP_SIZE_ASSERT(LegoMesh, 0x24)
 
 // FUNCTION: LEGO1 0x100d3810
-LegoMesh::LegoMesh()
-{
+LegoMesh::LegoMesh() {
 	m_alpha = 0.0F;
 	m_shading = e_flat;
 	m_unk0x14 = 0;
@@ -20,8 +19,7 @@ LegoMesh::LegoMesh()
 }
 
 // FUNCTION: LEGO1 0x100d3860
-LegoMesh::~LegoMesh()
-{
+LegoMesh::~LegoMesh() {
 	if (m_textureName != NULL) {
 		delete[] m_textureName;
 	}
@@ -36,8 +34,7 @@ LegoMesh::~LegoMesh()
 }
 
 // FUNCTION: LEGO1 0x100d38f0
-LegoResult LegoMesh::Read(LegoStorage* p_storage)
-{
+LegoResult LegoMesh::Read(LegoStorage* p_storage) {
 	LegoResult result;
 	LegoU32 textureLength, materialLength;
 	if ((result = m_color.Read(p_storage)) != SUCCESS) {

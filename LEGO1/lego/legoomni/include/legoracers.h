@@ -63,8 +63,7 @@ public:
 
 	// FUNCTION: LEGO1 0x10014150
 	MxU32 VTable0x6c(LegoPathBoundary* p_boundary, Vector3& p_v1, Vector3& p_v2, float p_f1, float p_f2, Vector3& p_v3)
-		override
-	{
+		override {
 		return LegoJetskiRaceActor::VTable0x6c(p_boundary, p_v1, p_v2, p_f1, p_f2, p_v3);
 	} // vtable+0x6c
 
@@ -72,8 +71,7 @@ public:
 	MxResult HitActor(LegoPathActor* p_actor, MxBool p_bool) override; // vtable+0x94
 
 	// FUNCTION: LEGO1 0x100141d0
-	void SwitchBoundary(LegoPathBoundary*& p_boundary, LegoUnknown100db7f4*& p_edge, float& p_unk0xe4) override
-	{
+	void SwitchBoundary(LegoPathBoundary*& p_boundary, LegoUnknown100db7f4*& p_edge, float& p_unk0xe4) override {
 		LegoJetskiRaceActor::SwitchBoundary(p_boundary, p_edge, p_unk0xe4);
 	} // vtable+0x98
 
@@ -126,8 +124,7 @@ public:
 	// FUNCTION: LEGO1 0x10014500
 	// FUNCTION: BETA10 0x100cd5e0
 	MxU32 VTable0x6c(LegoPathBoundary* p_boundary, Vector3& p_v1, Vector3& p_v2, float p_f1, float p_f2, Vector3& p_v3)
-		override
-	{
+		override {
 		return LegoCarRaceActor::VTable0x6c(p_boundary, p_v1, p_v2, p_f1, p_f2, p_v3);
 	} // vtable+0x6c
 
@@ -136,8 +133,7 @@ public:
 
 	// FUNCTION: LEGO1 0x10014560
 	// FUNCTION: BETA10 0x100cd660
-	void SwitchBoundary(LegoPathBoundary*& p_boundary, LegoUnknown100db7f4*& p_edge, float& p_unk0xe4) override
-	{
+	void SwitchBoundary(LegoPathBoundary*& p_boundary, LegoUnknown100db7f4*& p_edge, float& p_unk0xe4) override {
 		LegoCarRaceActor::SwitchBoundary(p_boundary, p_edge, p_unk0xe4);
 	} // vtable+0x98
 

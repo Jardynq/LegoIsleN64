@@ -15,8 +15,7 @@ class MxEndActionNotificationParam;
 // SIZE 0x10
 class LegoAct2State : public LegoState {
 public:
-	LegoAct2State()
-	{
+	LegoAct2State() {
 		m_unk0x08 = 0;
 		m_enabled = FALSE;
 	}

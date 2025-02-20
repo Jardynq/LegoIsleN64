@@ -15,21 +15,18 @@ DECOMP_SIZE_ASSERT(LegoNamedTextureList, 0x18)
 DECOMP_SIZE_ASSERT(LegoNamedTextureListCursor, 0x10)
 
 // FUNCTION: LEGO1 0x1004eb40
-LegoTexturePresenter::~LegoTexturePresenter()
-{
+LegoTexturePresenter::~LegoTexturePresenter() {
 	VideoManager()->UnregisterPresenter(*this);
 }
 
 // FUNCTION: LEGO1 0x1004ebb0
-MxResult LegoTexturePresenter::AddToManager()
-{
+MxResult LegoTexturePresenter::AddToManager() {
 	VideoManager()->RegisterPresenter(*this);
 	return SUCCESS;
 }
 
 // FUNCTION: LEGO1 0x1004ebd0
-MxResult LegoTexturePresenter::Read(MxDSChunk& p_chunk)
-{
+MxResult LegoTexturePresenter::Read(MxDSChunk& p_chunk) {
 	MxResult result = FAILURE;
 	LegoMemory storage(p_chunk.GetData());
 	LegoChar* textureName = NULL;
@@ -86,8 +83,7 @@ done:
 }
 
 // FUNCTION: LEGO1 0x1004f290
-MxResult LegoTexturePresenter::Store()
-{
+MxResult LegoTexturePresenter::Store() {
 	LegoNamedTextureListCursor cursor(m_textures);
 	LegoNamedTexture* namedTexture;
 	VideoManager();
@@ -117,8 +113,7 @@ MxResult LegoTexturePresenter::Store()
 }
 
 // FUNCTION: LEGO1 0x1004fc60
-MxResult LegoTexturePresenter::PutData()
-{
+MxResult LegoTexturePresenter::PutData() {
 	MxResult result = SUCCESS;
 
 	if (MxPresenter::IsEnabled() && m_currentChunk != NULL) {
@@ -137,8 +132,7 @@ MxResult LegoTexturePresenter::PutData()
 }
 
 // FUNCTION: LEGO1 0x1004fcb0
-void LegoTexturePresenter::DoneTickle()
-{
+void LegoTexturePresenter::DoneTickle() {
 	if (this->m_compositePresenter && !this->m_compositePresenter->VTable0x64(2)) {
 		SetTickleState(e_idle);
 		return;

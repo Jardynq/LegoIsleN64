@@ -55,32 +55,28 @@ public:
 	void LeftDrag(int p_x, int p_y) override; // vtable+0x10
 
 	// FUNCTION: LEGO1 0x10011e40
-	void LeftUp(int p_x, int p_y) override
-	{
+	void LeftUp(int p_x, int p_y) override {
 		LegoMouseController::LeftUp(p_x, p_y);
 		AffectPointOfView();
 	}
 	// vtable+0x14
 
 	// FUNCTION: LEGO1 0x10011e60
-	void RightDown(int p_x, int p_y) override
-	{
+	void RightDown(int p_x, int p_y) override {
 		LegoMouseController::RightDown(p_x, p_y);
 		AffectPointOfView();
 	}
 	// vtable+0x20
 
 	// FUNCTION: LEGO1 0x10011e80
-	void RightDrag(int p_x, int p_y) override
-	{
+	void RightDrag(int p_x, int p_y) override {
 		LegoMouseController::RightDrag(p_x, p_y);
 		AffectPointOfView();
 	}
 	// vtable+0x24
 
 	// FUNCTION: LEGO1 0x10011ea0
-	void RightUp(int p_x, int p_y) override
-	{
+	void RightUp(int p_x, int p_y) override {
 		LegoMouseController::RightUp(p_x, p_y);
 		AffectPointOfView();
 	}                                             // vtable+0x28

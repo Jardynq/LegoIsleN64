@@ -10,11 +10,10 @@
 DECOMP_SIZE_ASSERT(LegoActor, 0x78)
 
 // GLOBAL: LEGO1 0x100f32d0
-const char* g_actorNames[] = {"none", "pepper", "mama", "papa", "nick", "laura", "The_Brickster!"};
+const char* g_actorNames[] = { "none", "pepper", "mama", "papa", "nick", "laura", "The_Brickster!" };
 
 // FUNCTION: LEGO1 0x1002d110
-LegoActor::LegoActor()
-{
+LegoActor::LegoActor() {
 	m_frequencyFactor = 0.0f;
 	m_sound = NULL;
 	m_unk0x70 = 0.0f;
@@ -23,16 +22,14 @@ LegoActor::LegoActor()
 }
 
 // FUNCTION: LEGO1 0x1002d320
-LegoActor::~LegoActor()
-{
+LegoActor::~LegoActor() {
 	if (m_sound) {
 		m_sound->Stop();
 	}
 }
 
 // FUNCTION: LEGO1 0x1002d390
-void LegoActor::ParseAction(char* p_extra)
-{
+void LegoActor::ParseAction(char* p_extra) {
 	MxFloat speed = 0.0F;
 	char value[256];
 	value[0] = '\0';
@@ -116,14 +113,12 @@ void LegoActor::ParseAction(char* p_extra)
 }
 
 // FUNCTION: LEGO1 0x1002d660
-const char* LegoActor::GetActorName(MxU8 p_id)
-{
+const char* LegoActor::GetActorName(MxU8 p_id) {
 	return g_actorNames[p_id];
 }
 
 // FUNCTION: LEGO1 0x1002d670
-void LegoActor::SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2)
-{
+void LegoActor::SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2) {
 	if (p_roi) {
 		const char* name = p_roi->GetName();
 
@@ -141,8 +136,7 @@ void LegoActor::SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2)
 
 // FUNCTION: LEGO1 0x1002d6e0
 // FUNCTION: BETA10 0x1003d6f2
-void LegoActor::Mute(MxBool p_muted)
-{
+void LegoActor::Mute(MxBool p_muted) {
 	if (m_sound != NULL) {
 		m_sound->MuteStop(p_muted);
 	}

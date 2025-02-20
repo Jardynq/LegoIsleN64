@@ -21,22 +21,19 @@ MxS32 g_partPresenterConfig1 = 1;
 MxS32 g_partPresenterConfig2 = 100;
 
 // FUNCTION: LEGO1 0x1007c990
-void LegoPartPresenter::configureLegoPartPresenter(MxS32 p_partPresenterConfig1, MxS32 p_partPresenterConfig2)
-{
+void LegoPartPresenter::configureLegoPartPresenter(MxS32 p_partPresenterConfig1, MxS32 p_partPresenterConfig2) {
 	g_partPresenterConfig1 = p_partPresenterConfig1;
 	g_partPresenterConfig2 = p_partPresenterConfig2;
 }
 
 // FUNCTION: LEGO1 0x1007c9b0
-MxResult LegoPartPresenter::AddToManager()
-{
+MxResult LegoPartPresenter::AddToManager() {
 	VideoManager()->RegisterPresenter(*this);
 	return SUCCESS;
 }
 
 // FUNCTION: LEGO1 0x1007c9d0
-void LegoPartPresenter::Destroy(MxBool p_fromDestructor)
-{
+void LegoPartPresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 	VideoManager()->UnregisterPresenter(*this);
 
@@ -53,8 +50,7 @@ void LegoPartPresenter::Destroy(MxBool p_fromDestructor)
 }
 
 // FUNCTION: LEGO1 0x1007ca30
-MxResult LegoPartPresenter::Read(MxDSChunk& p_chunk)
-{
+MxResult LegoPartPresenter::Read(MxDSChunk& p_chunk) {
 	MxResult result = FAILURE;
 	LegoU32 numROIs, numLODs;
 	LegoMemory storage(p_chunk.GetData());
@@ -220,8 +216,7 @@ done:
 }
 
 // FUNCTION: LEGO1 0x1007deb0
-void LegoPartPresenter::ReadyTickle()
-{
+void LegoPartPresenter::ReadyTickle() {
 	MxStreamChunk* chunk = m_subscriber->PeekData();
 
 	if (chunk != NULL && chunk->GetTime() <= m_action->GetElapsedTime()) {
@@ -241,8 +236,7 @@ void LegoPartPresenter::ReadyTickle()
 }
 
 // FUNCTION: LEGO1 0x1007df20
-void LegoPartPresenter::Store()
-{
+void LegoPartPresenter::Store() {
 	LegoNamedPartListCursor partCursor(m_parts);
 	LegoNamedPart* part;
 

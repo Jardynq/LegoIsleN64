@@ -10,19 +10,19 @@
 #ifndef _D3DCAPS_H
 #define _D3DCAPS_H
 
-/* 
- *  Pull in DirectDraw include file automatically:
- */
+ /*
+  *  Pull in DirectDraw include file automatically:
+  */
 #include <ddraw.h>
 
 #pragma pack(4)
 
-/* Description of capabilities of transform */
+  /* Description of capabilities of transform */
 
 typedef struct _D3DTRANSFORMCAPS {
     DWORD dwSize;
     DWORD dwCaps;
-} D3DTRANSFORMCAPS, *LPD3DTRANSFORMCAPS;
+} D3DTRANSFORMCAPS, * LPD3DTRANSFORMCAPS;
 
 #define D3DTRANSFORMCAPS_CLIP		0x00000001L /* Will clip whilst transforming */
 
@@ -33,7 +33,7 @@ typedef struct _D3DLIGHTINGCAPS {
     DWORD dwCaps;                   /* Lighting caps */
     DWORD dwLightingModel;          /* Lighting model - RGB or mono */
     DWORD dwNumLights;              /* Number of lights that can be handled */
-} D3DLIGHTINGCAPS, *LPD3DLIGHTINGCAPS;
+} D3DLIGHTINGCAPS, * LPD3DLIGHTINGCAPS;
 
 #define D3DLIGHTINGMODEL_RGB		0x00000001L
 #define D3DLIGHTINGMODEL_MONO		0x00000002L
@@ -60,7 +60,7 @@ typedef struct _D3DPrimCaps {
     DWORD dwTextureAddressCaps;
     DWORD dwStippleWidth;             /* maximum width and height of */
     DWORD dwStippleHeight;            /* of supported stipple (up to 32x32) */
-} D3DPRIMCAPS, *LPD3DPRIMCAPS;
+} D3DPRIMCAPS, * LPD3DPRIMCAPS;
 
 /* D3DPRIMCAPS dwMiscCaps */
 
@@ -209,11 +209,11 @@ typedef struct _D3DDeviceDesc {
     DWORD        dwMaxTextureWidth, dwMaxTextureHeight;
     DWORD        dwMinStippleWidth, dwMaxStippleWidth;
     DWORD        dwMinStippleHeight, dwMaxStippleHeight;
-} D3DDEVICEDESC, *LPD3DDEVICEDESC;
+} D3DDEVICEDESC, * LPD3DDEVICEDESC;
 
 #define D3DDEVICEDESCSIZE (sizeof(D3DDEVICEDESC))
 
-typedef HRESULT (FAR PASCAL * LPD3DENUMDEVICESCALLBACK)(LPGUID lpGuid, LPSTR lpDeviceDescription, LPSTR lpDeviceName, LPD3DDEVICEDESC, LPD3DDEVICEDESC, LPVOID);
+typedef HRESULT(FAR PASCAL* LPD3DENUMDEVICESCALLBACK)(LPGUID lpGuid, LPSTR lpDeviceDescription, LPSTR lpDeviceName, LPD3DDEVICEDESC, LPD3DDEVICEDESC, LPVOID);
 
 /* D3DDEVICEDESC dwFlags indicating valid fields */
 
@@ -275,14 +275,14 @@ typedef struct _D3DFINDDEVICESEARCH {
     GUID		guid;
     DWORD		dwCaps;
     D3DPRIMCAPS		dpcPrimCaps;
-} D3DFINDDEVICESEARCH, *LPD3DFINDDEVICESEARCH;
+} D3DFINDDEVICESEARCH, * LPD3DFINDDEVICESEARCH;
 
 typedef struct _D3DFINDDEVICERESULT {
     DWORD		dwSize;
     GUID		guid;		/* guid which matched */
     D3DDEVICEDESC       ddHwDesc;       /* hardware D3DDEVICEDESC */
     D3DDEVICEDESC       ddSwDesc;       /* software D3DDEVICEDESC */
-} D3DFINDDEVICERESULT, *LPD3DFINDDEVICERESULT;
+} D3DFINDDEVICERESULT, * LPD3DFINDDEVICERESULT;
 
 
 /*
@@ -294,7 +294,7 @@ typedef struct _D3DExecuteBufferDesc {
     DWORD		dwCaps;		/* capabilities of execute buffer */
     DWORD		dwBufferSize;	/* size of execute buffer data */
     LPVOID		lpData;		/* pointer to actual data */
-} D3DEXECUTEBUFFERDESC, *LPD3DEXECUTEBUFFERDESC;
+} D3DEXECUTEBUFFERDESC, * LPD3DEXECUTEBUFFERDESC;
 
 /* D3DEXECUTEBUFFER dwFlags indicating valid fields */
 

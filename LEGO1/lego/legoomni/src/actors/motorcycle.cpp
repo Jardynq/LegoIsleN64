@@ -19,8 +19,7 @@
 DECOMP_SIZE_ASSERT(Motocycle, 0x16c)
 
 // FUNCTION: LEGO1 0x100357b0
-Motocycle::Motocycle()
-{
+Motocycle::Motocycle() {
 	m_maxLinearVel = 40.0;
 	m_unk0x150 = 1.75;
 	m_unk0x148 = 1;
@@ -28,8 +27,7 @@ Motocycle::Motocycle()
 }
 
 // FUNCTION: LEGO1 0x10035a40
-MxResult Motocycle::Create(MxDSAction& p_dsAction)
-{
+MxResult Motocycle::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 	m_world = CurrentWorld();
 
@@ -44,8 +42,7 @@ MxResult Motocycle::Create(MxDSAction& p_dsAction)
 }
 
 // FUNCTION: LEGO1 0x10035ad0
-void Motocycle::Animate(float p_time)
-{
+void Motocycle::Animate(float p_time) {
 	IslePathActor::Animate(p_time);
 
 	if (UserActor() == this) {
@@ -69,8 +66,7 @@ void Motocycle::Animate(float p_time)
 }
 
 // FUNCTION: LEGO1 0x10035bc0
-void Motocycle::Exit()
-{
+void Motocycle::Exit() {
 	IslePathActor::Exit();
 	GameState()->m_currentArea = LegoGameState::e_motocycle;
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_MotoBikeDashboard_Bitmap);
@@ -82,19 +78,18 @@ void Motocycle::Exit()
 }
 
 // FUNCTION: LEGO1 0x10035c50
-MxLong Motocycle::HandleClick()
-{
+MxLong Motocycle::HandleClick() {
 	if (!FUN_1003ef60()) {
 		return 1;
 	}
 
 	FUN_10015820(TRUE, 0);
 
-	((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::Area::e_motocycle);
+	((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::Area::e_motocycle);
 	TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
 
 	if (GameState()->GetActorId() != UserActor()->GetActorId()) {
-		((IslePathActor*) UserActor())->Exit();
+		((IslePathActor*)UserActor())->Exit();
 	}
 
 	m_time = Timer()->GetTime();
@@ -111,8 +106,7 @@ MxLong Motocycle::HandleClick()
 }
 
 // FUNCTION: LEGO1 0x10035d70
-MxLong Motocycle::HandleControl(LegoControlManagerNotificationParam& p_param)
-{
+MxLong Motocycle::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxLong result = 0;
 
 	if (p_param.GetUnknown0x28() == 1) {
@@ -123,7 +117,7 @@ MxLong Motocycle::HandleControl(LegoControlManagerNotificationParam& p_param)
 			result = 1;
 			break;
 		case IsleScript::c_MotoBikeInfo_Ctl:
-			((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
+			((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
 			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
 			Exit();
 			result = 1;
@@ -135,8 +129,7 @@ MxLong Motocycle::HandleControl(LegoControlManagerNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10035df0
-MxLong Motocycle::HandlePathStruct(LegoPathStructNotificationParam& p_param)
-{
+MxLong Motocycle::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	// 0x168 corresponds to the path at the gas station
 	if (p_param.GetData() == 0x168) {
 		m_fuel = 1.0f;
@@ -146,11 +139,10 @@ MxLong Motocycle::HandlePathStruct(LegoPathStructNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10035e10
-void Motocycle::ActivateSceneActions()
-{
+void Motocycle::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_PoliceStation_Music);
 
-	Act1State* act1state = (Act1State*) GameState()->GetState("Act1State");
+	Act1State* act1state = (Act1State*)GameState()->GetState("Act1State");
 	if (!act1state->m_unk0x022) {
 		act1state->m_unk0x022 = TRUE;
 

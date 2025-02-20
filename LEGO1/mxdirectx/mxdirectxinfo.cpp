@@ -13,15 +13,13 @@ DECOMP_SIZE_ASSERT(DeviceModesInfo::Mode, 0x0c)
 
 // FUNCTION: LEGO1 0x1009b8b0
 // FUNCTION: BETA10 0x1011c05e
-MxAssignedDevice::MxAssignedDevice()
-{
+MxAssignedDevice::MxAssignedDevice() {
 	memset(this, 0, sizeof(*this));
 }
 
 // FUNCTION: LEGO1 0x1009b8d0
 // FUNCTION: BETA10 0x1011c08a
-MxAssignedDevice::~MxAssignedDevice()
-{
+MxAssignedDevice::~MxAssignedDevice() {
 	if (m_deviceInfo) {
 		delete m_deviceInfo;
 		m_deviceInfo = NULL;
@@ -29,8 +27,7 @@ MxAssignedDevice::~MxAssignedDevice()
 }
 
 // FUNCTION: BETA10 0x1011d7f0
-MxDriver::MxDriver(LPGUID p_guid)
-{
+MxDriver::MxDriver(LPGUID p_guid) {
 	m_guid = NULL;
 	m_driverDesc = NULL;
 	m_driverName = NULL;
@@ -41,8 +38,7 @@ MxDriver::MxDriver(LPGUID p_guid)
 // FUNCTION: CONFIG 0x00401180
 // FUNCTION: LEGO1 0x1009ba80
 // FUNCTION: BETA10 0x1011d8b6
-MxDriver::MxDriver(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName)
-{
+MxDriver::MxDriver(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName) {
 	m_guid = NULL;
 	m_driverDesc = NULL;
 	m_driverName = NULL;
@@ -54,8 +50,7 @@ MxDriver::MxDriver(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName)
 // FUNCTION: CONFIG 0x401280
 // FUNCTION: LEGO1 0x1009bb80
 // FUNCTION: BETA10 0x1011d992
-MxDriver::~MxDriver()
-{
+MxDriver::~MxDriver() {
 	if (m_guid) {
 		delete m_guid;
 	}
@@ -70,8 +65,7 @@ MxDriver::~MxDriver()
 // FUNCTION: CONFIG 0x00401330
 // FUNCTION: LEGO1 0x1009bc30
 // FUNCTION: BETA10 0x1011da89
-void MxDriver::Init(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName)
-{
+void MxDriver::Init(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName) {
 	if (m_driverDesc) {
 		delete[] m_driverDesc;
 		m_driverDesc = NULL;
@@ -107,8 +101,7 @@ Direct3DDeviceInfo::Direct3DDeviceInfo(
 	LPSTR p_deviceName,
 	LPD3DDEVICEDESC p_HWDesc,
 	LPD3DDEVICEDESC p_HELDesc
-)
-{
+) {
 	memset(this, 0, sizeof(*this));
 
 	Initialize(p_guid, p_deviceDesc, p_deviceName, p_HWDesc, p_HELDesc);
@@ -117,8 +110,7 @@ Direct3DDeviceInfo::Direct3DDeviceInfo(
 // FUNCTION: CONFIG 0x401460
 // FUNCTION: LEGO1 0x1009bd60
 // FUNCTION: BETA10 0x1011dc1a
-Direct3DDeviceInfo::~Direct3DDeviceInfo()
-{
+Direct3DDeviceInfo::~Direct3DDeviceInfo() {
 	if (m_guid) {
 		delete m_guid;
 	}
@@ -139,8 +131,7 @@ void Direct3DDeviceInfo::Initialize(
 	LPSTR p_deviceName,
 	LPD3DDEVICEDESC p_HWDesc,
 	LPD3DDEVICEDESC p_HELDesc
-)
-{
+) {
 	if (m_deviceDesc) {
 		delete[] m_deviceDesc;
 		m_deviceDesc = NULL;
@@ -179,23 +170,20 @@ void Direct3DDeviceInfo::Initialize(
 // FUNCTION: CONFIG 0x004015c0
 // FUNCTION: LEGO1 0x1009bec0
 // FUNCTION: BETA10 0x1011ddf8
-MxDeviceEnumerate::MxDeviceEnumerate()
-{
+MxDeviceEnumerate::MxDeviceEnumerate() {
 	m_initialized = FALSE;
 }
 
 // FUNCTION: CONFIG 0x401710
 // FUNCTION: LEGO1 0x1009c010
 // FUNCTION: BETA10 0x1011de74
-MxDeviceEnumerate::~MxDeviceEnumerate()
-{
+MxDeviceEnumerate::~MxDeviceEnumerate() {
 }
 
 // FUNCTION: CONFIG 0x00401770
 // FUNCTION: LEGO1 0x1009c070
 // FUNCTION: BETA10 0x1011dedf
-BOOL MxDeviceEnumerate::EnumDirectDrawCallback(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName)
-{
+BOOL MxDeviceEnumerate::EnumDirectDrawCallback(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName) {
 	MxDriver driver(p_guid, p_driverDesc, p_driverName);
 	m_list.push_back(driver);
 
@@ -223,7 +211,7 @@ BOOL MxDeviceEnumerate::EnumDirectDrawCallback(LPGUID p_guid, LPSTR p_driverDesc
 			BuildErrorString("GetCaps failed: %s\n", EnumerateErrorToString(result));
 		}
 		else {
-			result = lpDD->QueryInterface(IID_IDirect3D2, (LPVOID*) &lpDirect3d2);
+			result = lpDD->QueryInterface(IID_IDirect3D2, (LPVOID*)&lpDirect3d2);
 
 			if (result != DD_OK) {
 				BuildErrorString("D3D creation failed: %s\n", EnumerateErrorToString(result));
@@ -257,8 +245,7 @@ BOOL MxDeviceEnumerate::EnumDirectDrawCallback(LPGUID p_guid, LPSTR p_driverDesc
 // FUNCTION: CONFIG 0x00401bc0
 // FUNCTION: LEGO1 0x1009c4c0
 // FUNCTION: BETA10 0x1011e193
-void MxDeviceEnumerate::BuildErrorString(const char* p_format, ...)
-{
+void MxDeviceEnumerate::BuildErrorString(const char* p_format, ...) {
 	va_list args;
 	char buf[512];
 
@@ -272,13 +259,12 @@ void MxDeviceEnumerate::BuildErrorString(const char* p_format, ...)
 // FUNCTION: CONFIG 0x00401bf0
 // FUNCTION: LEGO1 0x1009c4f0
 // FUNCTION: BETA10 0x1011e1dd
-HRESULT CALLBACK MxDeviceEnumerate::DisplayModesEnumerateCallback(LPDDSURFACEDESC p_ddsd, LPVOID p_context)
-{
+HRESULT CALLBACK MxDeviceEnumerate::DisplayModesEnumerateCallback(LPDDSURFACEDESC p_ddsd, LPVOID p_context) {
 	if (p_context == NULL) {
 		assert(0);
 	}
 
-	return ((MxDeviceEnumerate*) p_context)->EnumDisplayModesCallback(p_ddsd);
+	return ((MxDeviceEnumerate*)p_context)->EnumDisplayModesCallback(p_ddsd);
 }
 
 // FUNCTION: CONFIG 0x00401c10
@@ -291,21 +277,19 @@ HRESULT CALLBACK MxDeviceEnumerate::DevicesEnumerateCallback(
 	LPD3DDEVICEDESC p_HWDesc,
 	LPD3DDEVICEDESC p_HELDesc,
 	LPVOID p_context
-)
-{
+) {
 	if (p_context == NULL) {
 		assert(0);
 	}
 
-	return ((MxDeviceEnumerate*) p_context)
+	return ((MxDeviceEnumerate*)p_context)
 		->EnumDevicesCallback(p_guid, p_deviceDesc, p_deviceName, p_HWDesc, p_HELDesc);
 }
 
 // FUNCTION: CONFIG 0x00401c40
 // FUNCTION: LEGO1 0x1009c540
 // FUNCTION: BETA10 0x1011e27f
-HRESULT MxDeviceEnumerate::EnumDisplayModesCallback(LPDDSURFACEDESC p_ddsd)
-{
+HRESULT MxDeviceEnumerate::EnumDisplayModesCallback(LPDDSURFACEDESC p_ddsd) {
 	assert(m_list.size() > 0);
 	assert(p_ddsd);
 
@@ -323,8 +307,7 @@ HRESULT MxDeviceEnumerate::EnumDevicesCallback(
 	LPSTR p_deviceName,
 	LPD3DDEVICEDESC p_HWDesc,
 	LPD3DDEVICEDESC p_HELDesc
-)
-{
+) {
 	Direct3DDeviceInfo device(p_guid, p_deviceDesc, p_deviceName, p_HWDesc, p_HELDesc);
 	m_list.back().m_devices.push_back(device);
 	memset(&device, 0, sizeof(device));
@@ -334,8 +317,7 @@ HRESULT MxDeviceEnumerate::EnumDevicesCallback(
 // FUNCTION: CONFIG 0x00401dc0
 // FUNCTION: LEGO1 0x1009c6c0
 // FUNCTION: BETA10 0x1011e3fa
-int MxDeviceEnumerate::DoEnumerate()
-{
+int MxDeviceEnumerate::DoEnumerate() {
 	if (IsInitialized()) {
 		return -1;
 	}
@@ -354,20 +336,18 @@ int MxDeviceEnumerate::DoEnumerate()
 // FUNCTION: LEGO1 0x1009c710
 // FUNCTION: BETA10 0x1011e476
 BOOL CALLBACK
-MxDeviceEnumerate::DirectDrawEnumerateCallback(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName, LPVOID p_context)
-{
+MxDeviceEnumerate::DirectDrawEnumerateCallback(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName, LPVOID p_context) {
 	if (p_context == NULL) {
 		assert(0);
 	}
 
-	return ((MxDeviceEnumerate*) p_context)->EnumDirectDrawCallback(p_guid, p_driverDesc, p_driverName);
+	return ((MxDeviceEnumerate*)p_context)->EnumDirectDrawCallback(p_guid, p_driverDesc, p_driverName);
 }
 
 // FUNCTION: CONFIG 0x00401e30
 // FUNCTION: LEGO1 0x1009c730
 // FUNCTION: BETA10 0x1011e4c7
-const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error)
-{
+const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error) {
 	switch (p_error) {
 	case DD_OK:
 		return "No error.";
@@ -409,7 +389,7 @@ const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error)
 		return "Rectangle provided was invalid.";
 	case DDERR_NOALPHAHW:
 		return "Operation could not be carried out because there is no alpha accleration hardware present or "
-			   "available.";
+			"available.";
 	case DDERR_NO3D:
 		return "There is no 3D present.";
 	case DDERR_NOCOLORCONVHW:
@@ -422,7 +402,7 @@ const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error)
 		return "Create function called without DirectDraw object method SetCooperativeLevel being called.";
 	case DDERR_NOEXCLUSIVEMODE:
 		return "Operation requires the application to have exclusive mode but the application does not have exclusive "
-			   "mode.";
+			"mode.";
 	case DDERR_NOCOLORKEYHW:
 		return "Operation could not be carried out because there is no hardware support of the destination color key.";
 	case DDERR_NOGDI:
@@ -435,7 +415,7 @@ const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error)
 		return "Operation could not be carried out because there is no hardware present or available.";
 	case DDERR_NORASTEROPHW:
 		return "Operation could not be carried out because there is no appropriate raster op hardware present or "
-			   "available.";
+			"available.";
 	case DDERR_NOOVERLAYHW:
 		return "Operation could not be carried out because there is no overlay hardware present or available.";
 	case DDERR_NOSTRETCHHW:
@@ -446,22 +426,22 @@ const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error)
 		return "Operation could not be carried out because there is no texture mapping hardware present or available.";
 	case DDERR_NOT4BITCOLOR:
 		return "DirectDrawSurface is not in 4 bit color palette and the requested operation requires 4 bit color "
-			   "palette.";
+			"palette.";
 	case DDERR_NOT4BITCOLORINDEX:
 		return "DirectDrawSurface is not in 4 bit color index palette and the requested operation requires 4 bit color "
-			   "index palette.";
+			"index palette.";
 	case DDERR_NOT8BITCOLOR:
 		return "DirectDrawSurface is not in 8 bit color mode and the requested operation requires 8 bit color.";
 	case DDERR_NOZBUFFERHW:
 		return "Operation could not be carried out because there is no hardware support for zbuffer blitting.";
 	case DDERR_NOVSYNCHW:
 		return "Operation could not be carried out because there is no hardware support for vertical blank "
-			   "synchronized operations.";
+			"synchronized operations.";
 	case DDERR_OUTOFCAPS:
 		return "The hardware needed for the requested operation has already been allocated.";
 	case DDERR_NOZOVERLAYHW:
 		return "Overlay surfaces could not be z layered based on their BltOrder because the hardware does not support "
-			   "z layering of overlays.";
+			"z layering of overlays.";
 	case DDERR_COLORKEYNOTSET:
 		return "No src color key specified for this operation.";
 	case DDERR_OUTOFVIDEOMEMORY:
@@ -484,7 +464,7 @@ const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error)
 		return "The requested surface is not attached.";
 	case DDERR_SURFACELOST:
 		return "Access to this surface is being refused because the surface memory is gone. The DirectDrawSurface "
-			   "object representing this surface should have Restore called on it.";
+			"object representing this surface should have Restore called on it.";
 	case DDERR_TOOBIGSIZE:
 		return "Size requested by DirectDraw is too large, but the individual height and width are OK.";
 	case DDERR_TOOBIGHEIGHT:
@@ -501,7 +481,7 @@ const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error)
 		return "Rectangle provided was not horizontally aligned on required boundary.";
 	case DDERR_WASSTILLDRAWING:
 		return "Informs DirectDraw that the previous Blt which is transfering information to or from this Surface is "
-			   "incomplete.";
+			"incomplete.";
 	case DDERR_INVALIDDIRECTDRAWGUID:
 		return "The GUID passed to DirectDrawCreate is not a valid DirectDraw driver identifier.";
 	case DDERR_DIRECTDRAWALREADYCREATED:
@@ -522,10 +502,10 @@ const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error)
 		return "Clipper notification requires an HWND or no HWND has previously been set as the CooperativeLevel HWND.";
 	case DDERR_HWNDSUBCLASSED:
 		return "HWND used by DirectDraw CooperativeLevel has been subclassed, this prevents DirectDraw from restoring "
-			   "state.";
+			"state.";
 	case DDERR_HWNDALREADYSET:
 		return "The CooperativeLevel HWND has already been set. It can not be reset while the process has surfaces or "
-			   "palettes created.";
+			"palettes created.";
 	case DDERR_NOPALETTEATTACHED:
 		return "No palette object attached to this surface.";
 	case DDERR_NOPALETTEHW:
@@ -540,7 +520,7 @@ const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error)
 		return "Returned when GetOverlayPosition is called on a hidden overlay.";
 	case DDERR_NOOVERLAYDEST:
 		return "Returned when GetOverlayPosition is called on an overlay that UpdateOverlay has never been called on "
-			   "to establish a destination.";
+			"to establish a destination.";
 	case DDERR_INVALIDPOSITION:
 		return "Returned when the position of the overlay on the destination is no longer legal for that destination.";
 	case DDERR_NOTAOVERLAYSURFACE:
@@ -553,7 +533,7 @@ const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error)
 		return "Can't duplicate primary & 3D surfaces, or surfaces that are implicitly created.";
 	case DDERR_NOTLOCKED:
 		return "Surface was not locked.  An attempt to unlock a surface that was not locked at all, or by this "
-			   "process, has been attempted.";
+			"process, has been attempted.";
 	case DDERR_CANTCREATEDC:
 		return "Windows can not create any more DCs.";
 	case DDERR_NODC:
@@ -571,15 +551,13 @@ const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error)
 
 // FUNCTION: LEGO1 0x1009efb0
 // FUNCTION: BETA10 0x10122ee2
-DeviceModesInfo::DeviceModesInfo()
-{
+DeviceModesInfo::DeviceModesInfo() {
 	memset(this, 0, sizeof(*this));
 }
 
 // FUNCTION: LEGO1 0x1009efd0
 // FUNCTION: BETA10 0x10122f0e
-DeviceModesInfo::~DeviceModesInfo()
-{
+DeviceModesInfo::~DeviceModesInfo() {
 	if (m_guid != NULL) {
 		delete m_guid;
 	}

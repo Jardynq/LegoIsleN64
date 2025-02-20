@@ -11,26 +11,22 @@
 DECOMP_SIZE_ASSERT(MxEventPresenter, 0x54);
 
 // FUNCTION: LEGO1 0x100c2b70
-MxEventPresenter::MxEventPresenter()
-{
+MxEventPresenter::MxEventPresenter() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x100c2d40
-MxEventPresenter::~MxEventPresenter()
-{
+MxEventPresenter::~MxEventPresenter() {
 	Destroy();
 }
 
 // FUNCTION: LEGO1 0x100c2da0
-void MxEventPresenter::Init()
-{
+void MxEventPresenter::Init() {
 	m_data = NULL;
 }
 
 // FUNCTION: LEGO1 0x100c2db0
-MxResult MxEventPresenter::AddToManager()
-{
+MxResult MxEventPresenter::AddToManager() {
 	MxResult ret = FAILURE;
 
 	if (EventManager()) {
@@ -42,8 +38,7 @@ MxResult MxEventPresenter::AddToManager()
 }
 
 // FUNCTION: LEGO1 0x100c2de0
-void MxEventPresenter::Destroy()
-{
+void MxEventPresenter::Destroy() {
 	if (EventManager()) {
 		EventManager()->UnregisterPresenter(*this);
 	}
@@ -60,15 +55,13 @@ void MxEventPresenter::Destroy()
 }
 
 // FUNCTION: LEGO1 0x100c2e30
-void MxEventPresenter::CopyData(MxStreamChunk* p_chunk)
-{
+void MxEventPresenter::CopyData(MxStreamChunk* p_chunk) {
 	m_data = new MxU8[p_chunk->GetLength()];
 	memcpy(m_data, p_chunk->GetData(), p_chunk->GetLength());
 }
 
 // FUNCTION: LEGO1 0x100c2e70
-void MxEventPresenter::ReadyTickle()
-{
+void MxEventPresenter::ReadyTickle() {
 	MxStreamChunk* chunk = NextChunk();
 
 	if (chunk) {
@@ -80,8 +73,7 @@ void MxEventPresenter::ReadyTickle()
 }
 
 // FUNCTION: LEGO1 0x100c2eb0
-void MxEventPresenter::StartingTickle()
-{
+void MxEventPresenter::StartingTickle() {
 	MxStreamChunk* chunk = CurrentChunk();
 
 	if (chunk && m_action->GetElapsedTime() >= chunk->GetTime()) {
@@ -90,8 +82,7 @@ void MxEventPresenter::StartingTickle()
 }
 
 // FUNCTION: LEGO1 0x100c2ef0
-MxResult MxEventPresenter::PutData()
-{
+MxResult MxEventPresenter::PutData() {
 	AUTOLOCK(m_criticalSection);
 
 	if (IsEnabled()) {
@@ -99,7 +90,7 @@ MxResult MxEventPresenter::PutData()
 			(m_currentTickleState <= e_repeating || m_currentTickleState == e_done)) {
 			if (m_currentChunk && m_currentChunk->GetLength()) {
 				if (m_data[12] == 2) {
-					const char* data = (const char*) m_currentChunk->GetData();
+					const char* data = (const char*)m_currentChunk->GetData();
 					MxVariableTable* variableTable = VariableTable();
 
 					const char* key = data;

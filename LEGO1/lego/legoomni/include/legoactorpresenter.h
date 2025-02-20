@@ -13,8 +13,7 @@ public:
 	~LegoActorPresenter() override {}
 
 	// FUNCTION: BETA10 0x100a6f10
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f06a4
 		return "LegoActorPresenter";
 	}

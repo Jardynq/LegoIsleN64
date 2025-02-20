@@ -7,13 +7,11 @@
 // SIZE 0x14
 class LegoNamedPart {
 public:
-	LegoNamedPart(const char* p_name, LegoLODList* p_list)
-	{
+	LegoNamedPart(const char* p_name, LegoLODList* p_list) {
 		m_name = p_name;
 		m_list = p_list;
 	}
-	~LegoNamedPart()
-	{
+	~LegoNamedPart() {
 		LegoLODListCursor cursor(m_list);
 		LegoLOD* lod;
 

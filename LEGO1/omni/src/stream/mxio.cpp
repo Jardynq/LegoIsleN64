@@ -21,22 +21,19 @@ DECOMP_SIZE_ASSERT(MXIOINFO, sizeof(MMIOINFO));
 
 // FUNCTION: LEGO1 0x100cc800
 // FUNCTION: BETA10 0x1015e140
-MXIOINFO::MXIOINFO()
-{
+MXIOINFO::MXIOINFO() {
 	memset(&m_info, 0, sizeof(m_info));
 }
 
 // FUNCTION: LEGO1 0x100cc820
 // FUNCTION: BETA10 0x1015e169
-MXIOINFO::~MXIOINFO()
-{
+MXIOINFO::~MXIOINFO() {
 	Close(0);
 }
 
 // FUNCTION: LEGO1 0x100cc830
 // FUNCTION: BETA10 0x1015e189
-MxU16 MXIOINFO::Open(const char* p_filename, MxULong p_flags)
-{
+MxU16 MXIOINFO::Open(const char* p_filename, MxULong p_flags) {
 	OFSTRUCT unused;
 	MxU16 result = MMSYSERR_NOERROR;
 
@@ -44,7 +41,7 @@ MxU16 MXIOINFO::Open(const char* p_filename, MxULong p_flags)
 
 	// DECOMP: Cast of p_flags to u16 forces the `movzx` instruction
 	// original: m_info.hmmio = OpenFile(p_filename, &unused, (MxU16) p_flags);
-	ASSIGN_M_FILE(OpenFile(p_filename, &unused, (MxU16) p_flags));
+	ASSIGN_M_FILE(OpenFile(p_filename, &unused, (MxU16)p_flags));
 
 	if (M_FILE != HFILE_ERROR) {
 		m_info.dwFlags = p_flags;
@@ -66,7 +63,7 @@ MxU16 MXIOINFO::Open(const char* p_filename, MxULong p_flags)
 			}
 			else {
 				m_info.cchBuffer = len;
-				m_info.pchBuffer = (HPSTR) buf;
+				m_info.pchBuffer = (HPSTR)buf;
 			}
 
 			m_info.pchNext = m_info.pchEndRead = m_info.pchBuffer;
@@ -82,8 +79,7 @@ MxU16 MXIOINFO::Open(const char* p_filename, MxULong p_flags)
 
 // FUNCTION: LEGO1 0x100cc8e0
 // FUNCTION: BETA10 0x1015e30b
-MxU16 MXIOINFO::Close(MxLong p_unused)
-{
+MxU16 MXIOINFO::Close(MxLong p_unused) {
 	MxU16 result = MMSYSERR_NOERROR;
 
 	if (RAW_M_FILE) {
@@ -104,8 +100,7 @@ MxU16 MXIOINFO::Close(MxLong p_unused)
 
 // FUNCTION: LEGO1 0x100cc930
 // FUNCTION: BETA10 0x1015e3b2
-MxLong MXIOINFO::Read(void* p_buf, MxLong p_len)
-{
+MxLong MXIOINFO::Read(void* p_buf, MxLong p_len) {
 	MxLong bytesRead = 0;
 
 	if (m_info.pchBuffer) {
@@ -154,8 +149,7 @@ MxLong MXIOINFO::Read(void* p_buf, MxLong p_len)
 }
 
 // FUNCTION: BETA10 0x1015e4fc
-MxLong MXIOINFO::Write(void* p_buf, MxLong p_len)
-{
+MxLong MXIOINFO::Write(void* p_buf, MxLong p_len) {
 	MxLong bytesWritten = 0;
 
 	if (m_info.pchBuffer) {
@@ -192,7 +186,7 @@ MxLong MXIOINFO::Write(void* p_buf, MxLong p_len)
 		}
 	}
 	else if (RAW_M_FILE && p_len > 0) {
-		bytesWritten = _hwrite(M_FILE, (const char*) p_buf, p_len);
+		bytesWritten = _hwrite(M_FILE, (const char*)p_buf, p_len);
 
 		if (bytesWritten == -1) {
 			bytesWritten = 0;
@@ -212,8 +206,7 @@ MxLong MXIOINFO::Write(void* p_buf, MxLong p_len)
 
 // FUNCTION: LEGO1 0x100cca00
 // FUNCTION: BETA10 0x1015e6c4
-MxLong MXIOINFO::Seek(MxLong p_offset, MxLong p_origin)
-{
+MxLong MXIOINFO::Seek(MxLong p_offset, MxLong p_origin) {
 	MxLong result = -1;
 	MxLong bytesRead;
 
@@ -315,8 +308,7 @@ MxLong MXIOINFO::Seek(MxLong p_offset, MxLong p_origin)
 
 // FUNCTION: LEGO1 0x100ccbc0
 // FUNCTION: BETA10 0x1015e9ad
-MxU16 MXIOINFO::SetBuffer(char* p_buf, MxLong p_len, MxLong p_unused)
-{
+MxU16 MXIOINFO::SetBuffer(char* p_buf, MxLong p_len, MxLong p_unused) {
 	MxU16 result = MMSYSERR_NOERROR;
 	result = Flush(0);
 
@@ -335,8 +327,7 @@ MxU16 MXIOINFO::SetBuffer(char* p_buf, MxLong p_len, MxLong p_unused)
 
 // FUNCTION: LEGO1 0x100ccc10
 // FUNCTION: BETA10 0x1015ea3e
-MxU16 MXIOINFO::Flush(MxU16 p_unused)
-{
+MxU16 MXIOINFO::Flush(MxU16 p_unused) {
 	MxU16 result = MMSYSERR_NOERROR;
 	MxLong bytesWritten;
 
@@ -387,8 +378,7 @@ MxU16 MXIOINFO::Flush(MxU16 p_unused)
 
 // FUNCTION: LEGO1 0x100ccd00
 // FUNCTION: BETA10 0x1015eb8f
-MxU16 MXIOINFO::Advance(MxU16 p_option)
-{
+MxU16 MXIOINFO::Advance(MxU16 p_option) {
 	MxU16 result = MMSYSERR_NOERROR;
 	MxULong rwmode = m_info.dwFlags & MMIO_RWMODE;
 
@@ -461,8 +451,7 @@ MxU16 MXIOINFO::Advance(MxU16 p_option)
 
 // FUNCTION: LEGO1 0x100cce60
 // FUNCTION: BETA10 0x1015edef
-MxU16 MXIOINFO::Descend(MMCKINFO* p_chunkInfo, const MMCKINFO* p_parentInfo, MxU16 p_descend)
-{
+MxU16 MXIOINFO::Descend(MMCKINFO* p_chunkInfo, const MMCKINFO* p_parentInfo, MxU16 p_descend) {
 	MxU16 result = MMSYSERR_NOERROR;
 	MxULong ofs;
 	BOOL readOk;
@@ -550,8 +539,7 @@ MxU16 MXIOINFO::Descend(MMCKINFO* p_chunkInfo, const MMCKINFO* p_parentInfo, MxU
 }
 
 // FUNCTION: BETA10 0x1015f08b
-MxU16 MXIOINFO::Ascend(MMCKINFO* p_chunkInfo, MxU16 p_ascend)
-{
+MxU16 MXIOINFO::Ascend(MMCKINFO* p_chunkInfo, MxU16 p_ascend) {
 	MxLong ofs;
 	MxULong size;
 	MxU16 result = MMSYSERR_NOERROR;
@@ -562,7 +550,7 @@ MxU16 MXIOINFO::Ascend(MMCKINFO* p_chunkInfo, MxU16 p_ascend)
 
 	if (m_info.dwFlags & MMIO_RWMODE) {
 		if (m_info.pchBuffer) {
-			size = (MxULong) (m_info.pchNext - m_info.pchBuffer) + m_info.lBufOffset - p_chunkInfo->dwDataOffset;
+			size = (MxULong)(m_info.pchNext - m_info.pchBuffer) + m_info.lBufOffset - p_chunkInfo->dwDataOffset;
 		}
 		else {
 			size = m_info.lDiskOffset - p_chunkInfo->dwDataOffset;
@@ -581,14 +569,14 @@ MxU16 MXIOINFO::Ascend(MMCKINFO* p_chunkInfo, MxU16 p_ascend)
 
 			// Now write the corrected size
 			if (m_info.pchBuffer && ofs >= m_info.lBufOffset && m_info.cchBuffer + m_info.lBufOffset > ofs) {
-				memcpy(m_info.pchBuffer + (ofs - m_info.lBufOffset), (char*) &size, 4);
+				memcpy(m_info.pchBuffer + (ofs - m_info.lBufOffset), (char*)&size, 4);
 				m_info.dwFlags |= MMIO_DIRTY;
 			}
 			else {
 				m_info.lDiskOffset = _llseek(M_FILE, ofs, SEEK_SET);
 
 				if (m_info.lDiskOffset == ofs) {
-					if (_lwrite(M_FILE, (char*) &size, 4) != 4) {
+					if (_lwrite(M_FILE, (char*)&size, 4) != 4) {
 						m_info.lDiskOffset = _llseek(M_FILE, 0, SEEK_CUR);
 						result = MMIOERR_CANNOTWRITE;
 					}
@@ -614,8 +602,7 @@ MxU16 MXIOINFO::Ascend(MMCKINFO* p_chunkInfo, MxU16 p_ascend)
 }
 
 // FUNCTION: BETA10 0x1015f28b
-MxU16 MXIOINFO::CreateChunk(MMCKINFO* p_chunkInfo, MxU16 p_create)
-{
+MxU16 MXIOINFO::CreateChunk(MMCKINFO* p_chunkInfo, MxU16 p_create) {
 	MxU16 result = MMSYSERR_NOERROR;
 
 	if (p_chunkInfo == NULL) {

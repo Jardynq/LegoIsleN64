@@ -4,10 +4,9 @@
 #include "assert.h"
 #include "lego3dview.h"
 
-namespace Tgl
-{
-class Renderer;
-class Group;
+namespace Tgl {
+	class Renderer;
+	class Group;
 } // namespace Tgl
 
 class ViewROI;
@@ -74,57 +73,49 @@ private:
 // Lego3DManager implementaion
 
 // FUNCTION: BETA10 0x10079bd0
-inline BOOL Lego3DManager::Add(ViewROI& rROI)
-{
+inline BOOL Lego3DManager::Add(ViewROI& rROI) {
 	assert(m_pLego3DView);
 
 	return m_pLego3DView->Add(rROI);
 }
 
 // FUNCTION: BETA10 0x10037430
-inline BOOL Lego3DManager::Remove(ViewROI& rROI)
-{
+inline BOOL Lego3DManager::Remove(ViewROI& rROI) {
 	assert(m_pLego3DView);
 
 	return m_pLego3DView->Remove(rROI);
 }
 
 // FUNCTION: BETA10 0x100d8990
-inline BOOL Lego3DManager::SetPointOfView(ViewROI& rROI)
-{
+inline BOOL Lego3DManager::SetPointOfView(ViewROI& rROI) {
 	assert(m_pLego3DView);
 
 	return m_pLego3DView->SetPointOfView(rROI);
 }
 
 // FUNCTION: BETA10 0x1004af70
-inline BOOL Lego3DManager::Moved(ViewROI& rROI)
-{
+inline BOOL Lego3DManager::Moved(ViewROI& rROI) {
 	assert(m_pLego3DView);
 
 	return m_pLego3DView->Moved(rROI);
 }
 
-inline Tgl::Renderer* Lego3DManager::GetRenderer()
-{
+inline Tgl::Renderer* Lego3DManager::GetRenderer() {
 	return m_pRenderer;
 }
 
-inline Tgl::Group* Lego3DManager::GetScene()
-{
+inline Tgl::Group* Lego3DManager::GetScene() {
 	assert(m_pLego3DView);
 
 	return m_pLego3DView->GetScene();
 }
 
 // FUNCTION: BETA10 0x10011840
-inline Lego3DView* Lego3DManager::GetLego3DView()
-{
+inline Lego3DView* Lego3DManager::GetLego3DView() {
 	return m_pLego3DView;
 }
 
-inline ViewLODListManager* Lego3DManager::GetViewLODListManager()
-{
+inline ViewLODListManager* Lego3DManager::GetViewLODListManager() {
 	return m_pViewLODListManager;
 }
 

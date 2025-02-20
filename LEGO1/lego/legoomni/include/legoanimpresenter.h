@@ -42,8 +42,7 @@ public:
 	~LegoAnimPresenter() override;
 
 	// FUNCTION: BETA10 0x10055300
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f071c
 		return "LegoAnimPresenter";
 	}
@@ -78,8 +77,7 @@ public:
 	virtual MxResult VTable0x98(LegoPathBoundary* p_boundary);                                     // vtable+0x98
 
 	// FUNCTION: LEGO1 0x1000c990
-	virtual LegoROI** GetROIMap(MxU32& p_roiMapSize)
-	{
+	virtual LegoROI** GetROIMap(MxU32& p_roiMapSize) {
 		p_roiMapSize = m_roiMapSize;
 		return m_roiMap;
 	} // vtable+0x9c

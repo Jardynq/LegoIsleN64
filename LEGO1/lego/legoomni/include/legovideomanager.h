@@ -14,9 +14,8 @@ class MxDirect3D;
 class MxStopWatch;
 struct ViewportAppData;
 
-namespace Tgl
-{
-class Renderer;
+namespace Tgl {
+	class Renderer;
 }
 
 // VTABLE: LEGO1 0x100d9c88

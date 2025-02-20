@@ -10,8 +10,7 @@
 class Lego3DWavePresenter : public MxWavePresenter {
 public:
 	// FUNCTION: BETA10 0x100a8670
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f058c
 		return "Lego3DWavePresenter";
 	}

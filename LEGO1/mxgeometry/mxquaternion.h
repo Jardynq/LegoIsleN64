@@ -34,8 +34,7 @@ private:
 };
 
 // FUNCTION: LEGO1 0x10004520
-long MxQuaternionTransformer::NormalizeDirection()
-{
+long MxQuaternionTransformer::NormalizeDirection() {
 	if (!m_flags) {
 		return -1;
 	}
@@ -57,44 +56,38 @@ long MxQuaternionTransformer::NormalizeDirection()
 }
 
 // FUNCTION: BETA10 0x1004a9b0
-void MxQuaternionTransformer::SetStartEnd(Matrix4& p_m1, Matrix4& p_m2)
-{
+void MxQuaternionTransformer::SetStartEnd(Matrix4& p_m1, Matrix4& p_m2) {
 	SetStart(p_m1);
 	SetEnd(p_m2);
 }
 
 // FUNCTION: BETA10 0x1004a9f0
-void MxQuaternionTransformer::SetStart(Matrix4& p_m)
-{
+void MxQuaternionTransformer::SetStart(Matrix4& p_m) {
 	p_m.ToQuaternion(m_startQuat);
 	m_flags |= c_startSet;
 }
 
 // FUNCTION: LEGO1 0x10004620
 // FUNCTION: BETA10 0x1004aa30
-void MxQuaternionTransformer::SetEnd(Matrix4& p_m)
-{
+void MxQuaternionTransformer::SetEnd(Matrix4& p_m) {
 	p_m.ToQuaternion(m_endQuat);
 	m_flags |= c_endSet;
 }
 
 // FUNCTION: BETA10 0x10180b80
-void MxQuaternionTransformer::SetStart(Vector4& p_v)
-{
+void MxQuaternionTransformer::SetStart(Vector4& p_v) {
 	m_startQuat = p_v;
 	m_flags |= c_startSet;
 }
 
 // FUNCTION: BETA10 0x10180bc0
-void MxQuaternionTransformer::SetEnd(Vector4& p_v)
-{
+void MxQuaternionTransformer::SetEnd(Vector4& p_v) {
 	m_endQuat = p_v;
 	m_flags |= c_endSet;
 }
 
 // FUNCTION: BETA10 0x1004aaa0
-int MxQuaternionTransformer::InterpolateToMatrix(Matrix4& p_matrix, float p_f)
-{
+int MxQuaternionTransformer::InterpolateToMatrix(Matrix4& p_matrix, float p_f) {
 	float data[4];
 	Vector4 v(data);
 
@@ -107,17 +100,16 @@ int MxQuaternionTransformer::InterpolateToMatrix(Matrix4& p_matrix, float p_f)
 
 // FUNCTION: LEGO1 0x100040a0
 // FUNCTION: BETA10 0x1004ab10
-int MxQuaternionTransformer::Interpolate(Vector4& p_v, float p_f)
-{
+int MxQuaternionTransformer::Interpolate(Vector4& p_v, float p_f) {
 	if (m_flags == c_startSet) {
 		p_v = m_startQuat;
-		p_v[3] = (float) ((1.0 - p_f) * acos((double) p_v[3]) * 2.0);
+		p_v[3] = (float)((1.0 - p_f) * acos((double)p_v[3]) * 2.0);
 		return p_v.NormalizeQuaternion();
 	}
 
 	if (m_flags == c_endSet) {
 		p_v = m_endQuat;
-		p_v[3] = (float) (p_f * acos((double) p_v[3]) * 2.0);
+		p_v[3] = (float)(p_f * acos((double)p_v[3]) * 2.0);
 		return p_v.NormalizeQuaternion();
 	}
 
@@ -140,7 +132,7 @@ int MxQuaternionTransformer::Interpolate(Vector4& p_v, float p_f)
 			}
 
 			for (i = 0; i < 4; i++) {
-				p_v[i] = (float) (m_startQuat[i] * a + m_endQuat[i] * b);
+				p_v[i] = (float)(m_startQuat[i] * a + m_endQuat[i] * b);
 			}
 		}
 		else {
@@ -152,7 +144,7 @@ int MxQuaternionTransformer::Interpolate(Vector4& p_v, float p_f)
 			b = sin(p_f * 1.570796326794895);
 
 			for (i = 0; i < 3; i++) {
-				p_v[i] = (float) (m_startQuat[i] * a + p_v[i] * b);
+				p_v[i] = (float)(m_startQuat[i] * a + p_v[i] * b);
 			}
 		}
 

@@ -46,8 +46,7 @@ public:
 	virtual MxFloat GetSoundFrequencyFactor() { return m_frequencyFactor; } // vtable+0x50
 
 	// FUNCTION: LEGO1 0x10002cd0
-	virtual void SetSoundFrequencyFactor(MxFloat p_frequencyFactor)
-	{
+	virtual void SetSoundFrequencyFactor(MxFloat p_frequencyFactor) {
 		m_frequencyFactor = p_frequencyFactor;
 	} // vtable+0x54
 

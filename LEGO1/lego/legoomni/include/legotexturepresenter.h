@@ -12,8 +12,7 @@ public:
 	~LegoTexturePresenter() override;
 
 	// FUNCTION: BETA10 0x100a73c0
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f0664
 		return "LegoTexturePresenter";
 	}

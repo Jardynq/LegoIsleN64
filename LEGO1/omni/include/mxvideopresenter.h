@@ -54,8 +54,7 @@ public:
 	virtual MxS32 GetHeight() { return m_alpha ? m_alpha->m_height : m_frameBitmap->GetBmiHeightAbs(); } // vtable+0x84
 
 	// FUNCTION: BETA10 0x100551b0
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f0760
 		return "MxVideoPresenter";
 	}

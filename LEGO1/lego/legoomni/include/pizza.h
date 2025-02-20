@@ -28,8 +28,7 @@ public:
 			MxLong* p_finishTimes,
 			IsleScript::Script* p_actions,
 			MxS16 p_numActions
-		)
-		{
+		) {
 			m_numActions = p_numActions;
 			m_actorId = p_actorId;
 			m_unk0x04 = p_unk0x04;
@@ -44,8 +43,7 @@ public:
 		}
 
 		// FUNCTION: LEGO1 0x10039230
-		Mission& operator=(const Mission& p_mission)
-		{
+		Mission& operator=(const Mission& p_mission) {
 			m_actorId = p_mission.m_actorId;
 			m_unk0x04 = p_mission.m_unk0x04;
 			m_unk0x06 = p_mission.m_unk0x06;
@@ -76,8 +74,7 @@ public:
 		MxLong GetBlueFinishTime() { return m_finishTimes[1]; }
 
 		// FUNCTION: BETA10 0x100ef700
-		void UpdateScore(ScoreColor p_score)
-		{
+		void UpdateScore(ScoreColor p_score) {
 			m_score = p_score;
 			if (m_hiScore < p_score) {
 				m_hiScore = p_score;

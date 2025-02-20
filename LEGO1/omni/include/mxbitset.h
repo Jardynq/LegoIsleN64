@@ -18,8 +18,7 @@ public:
 		friend class MxBitset<N>;
 
 	public:
-		Reference& Flip()
-		{
+		Reference& Flip() {
 			m_bitset->Flip(m_offset);
 			return (*this);
 		}
@@ -34,8 +33,7 @@ public:
 
 	Reference operator[](size_t p_bit) { return (Reference(*this, p_bit)); }
 
-	MxBitset<N>& Flip(size_t p_bit)
-	{
+	MxBitset<N>& Flip(size_t p_bit) {
 		if (N <= p_bit) {
 			Xran();
 		}
@@ -43,14 +41,12 @@ public:
 		return (*this);
 	}
 
-	size_t Count()
-	{
+	size_t Count() {
 		// debug only, intentionally unimplemented
 		return 0;
 	}
 
-	bool Test(MxU32 p_bit)
-	{
+	bool Test(MxU32 p_bit) {
 		if (p_bit >= N) {
 			Xran();
 		}
@@ -61,8 +57,7 @@ public:
 	MxU32 Size() const { return N; }
 
 private:
-	void Tidy(MxU32 p_value = 0)
-	{
+	void Tidy(MxU32 p_value = 0) {
 		for (MxS32 i = e_blocksRequired; i >= 0; --i) {
 			m_blocks[i] = p_value;
 		}
@@ -74,8 +69,7 @@ private:
 	}
 
 	// Apply bit mask to most significant block
-	void Trim()
-	{
+	void Trim() {
 		if (N % e_bitsPerBlock != 0) {
 			m_blocks[e_blocksRequired] &= ((1 << (N % e_bitsPerBlock)) - 1);
 		}

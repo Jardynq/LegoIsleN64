@@ -19,8 +19,7 @@ class MxAtom {
 public:
 	// always inlined
 	// FUNCTION: BETA10 0x10123720
-	MxAtom(const char* p_str)
-	{
+	MxAtom(const char* p_str) {
 		m_key = p_str;
 		m_value = 0;
 	}
@@ -42,8 +41,7 @@ private:
 struct MxAtomCompare {
 	// FUNCTION: LEGO1 0x100ad120
 	// FUNCTION: BETA10 0x10123980
-	int operator()(MxAtom* const& p_val0, MxAtom* const& p_val1) const
-	{
+	int operator()(MxAtom* const& p_val0, MxAtom* const& p_val1) const {
 		return strcmp(p_val0->GetKey().GetData(), p_val1->GetKey().GetData()) > 0;
 	}
 };
@@ -89,8 +87,7 @@ public:
 
 private:
 	// FUNCTION: BETA10 0x101236f0
-	MxAtomId& operator=(const MxString& p_key)
-	{
+	MxAtomId& operator=(const MxString& p_key) {
 		m_internal = p_key.GetData();
 		return *this;
 	}

@@ -10,8 +10,7 @@ DECOMP_SIZE_ASSERT(MxCriticalSection, 0x1c)
 BOOL g_useMutex = FALSE;
 
 // FUNCTION: LEGO1 0x100b6d20
-MxCriticalSection::MxCriticalSection()
-{
+MxCriticalSection::MxCriticalSection() {
 	HANDLE mutex;
 
 	if (g_useMutex) {
@@ -25,8 +24,7 @@ MxCriticalSection::MxCriticalSection()
 }
 
 // FUNCTION: LEGO1 0x100b6d60
-MxCriticalSection::~MxCriticalSection()
-{
+MxCriticalSection::~MxCriticalSection() {
 	if (m_mutex != NULL) {
 		CloseHandle(m_mutex);
 	}
@@ -37,8 +35,7 @@ MxCriticalSection::~MxCriticalSection()
 
 // FUNCTION: LEGO1 0x100b6d80
 // FUNCTION: BETA10 0x1013c725
-void MxCriticalSection::Enter()
-{
+void MxCriticalSection::Enter() {
 	DWORD result;
 	FILE* file;
 
@@ -60,8 +57,7 @@ void MxCriticalSection::Enter()
 }
 
 // FUNCTION: LEGO1 0x100b6de0
-void MxCriticalSection::Leave()
-{
+void MxCriticalSection::Leave() {
 	if (m_mutex != NULL) {
 		ReleaseMutex(m_mutex);
 	}
@@ -71,7 +67,6 @@ void MxCriticalSection::Leave()
 }
 
 // FUNCTION: LEGO1 0x100b6e00
-void MxCriticalSection::SetDoMutex()
-{
+void MxCriticalSection::SetDoMutex() {
 	g_useMutex = TRUE;
 }

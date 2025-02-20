@@ -20,8 +20,7 @@ DECOMP_SIZE_ASSERT(IslePathActor, 0x160)
 DECOMP_SIZE_ASSERT(IslePathActor::SpawnLocation, 0x38)
 
 // FUNCTION: LEGO1 0x1001a200
-IslePathActor::IslePathActor()
-{
+IslePathActor::IslePathActor() {
 	m_world = NULL;
 	m_maxLinearVel = 6.0;
 	m_previousVel = 1.0;
@@ -29,14 +28,12 @@ IslePathActor::IslePathActor()
 }
 
 // FUNCTION: LEGO1 0x1001a280
-MxResult IslePathActor::Create(MxDSAction& p_dsAction)
-{
+MxResult IslePathActor::Create(MxDSAction& p_dsAction) {
 	return MxEntity::Create(p_dsAction);
 }
 
 // FUNCTION: LEGO1 0x1001a2a0
-void IslePathActor::Destroy(MxBool p_fromDestructor)
-{
+void IslePathActor::Destroy(MxBool p_fromDestructor) {
 	if (!p_fromDestructor) {
 		LegoPathActor::Destroy(FALSE);
 	}
@@ -44,10 +41,9 @@ void IslePathActor::Destroy(MxBool p_fromDestructor)
 
 // FUNCTION: LEGO1 0x1001a2c0
 // FUNCTION: BETA10 0x100364ca
-MxLong IslePathActor::Notify(MxParam& p_param)
-{
+MxLong IslePathActor::Notify(MxParam& p_param) {
 	MxLong result = 0;
-	MxNotificationParam& param = (MxNotificationParam&) p_param;
+	MxNotificationParam& param = (MxNotificationParam&)p_param;
 
 	switch (param.GetNotification()) {
 	case c_notificationType0:
@@ -57,13 +53,13 @@ MxLong IslePathActor::Notify(MxParam& p_param)
 		result = HandleClick();
 		break;
 	case c_notificationControl:
-		result = HandleControl((LegoControlManagerNotificationParam&) p_param);
+		result = HandleControl((LegoControlManagerNotificationParam&)p_param);
 		break;
 	case c_notificationEndAnim:
-		result = HandleEndAnim((LegoEndAnimNotificationParam&) p_param);
+		result = HandleEndAnim((LegoEndAnimNotificationParam&)p_param);
 		break;
 	case c_notificationPathStruct:
-		result = HandlePathStruct((LegoPathStructNotificationParam&) p_param);
+		result = HandlePathStruct((LegoPathStructNotificationParam&)p_param);
 		break;
 	}
 
@@ -72,8 +68,7 @@ MxLong IslePathActor::Notify(MxParam& p_param)
 
 // FUNCTION: LEGO1 0x1001a350
 // FUNCTION: BETA10 0x100365ad
-void IslePathActor::Enter()
-{
+void IslePathActor::Enter() {
 	m_roi->SetVisibility(FALSE);
 	if (UserActor() != this) {
 		m_previousVel = NavController()->GetMaxLinearVel();
@@ -99,8 +94,7 @@ void IslePathActor::Enter()
 
 // FUNCTION: LEGO1 0x1001a3f0
 // FUNCTION: BETA10 0x1003669f
-void IslePathActor::Exit()
-{
+void IslePathActor::Exit() {
 	SetActorState(c_initial);
 	m_roi->SetVisibility(TRUE);
 
@@ -119,7 +113,7 @@ void IslePathActor::Exit()
 
 		MxS32 i;
 		for (i = 0; i < m_boundary->GetNumEdges(); i++) {
-			LegoUnknown100db7f4* e = (LegoUnknown100db7f4*) m_boundary->GetEdges()[i];
+			LegoUnknown100db7f4* e = (LegoUnknown100db7f4*)m_boundary->GetEdges()[i];
 			assert(e);
 
 			Mx3DPointFloat local20;
@@ -160,8 +154,7 @@ void IslePathActor::Exit()
 IslePathActor::SpawnLocation g_spawnLocations[IslePathActor::c_LOCATIONS_NUM];
 
 // FUNCTION: LEGO1 0x1001a700
-void IslePathActor::RegisterSpawnLocations()
-{
+void IslePathActor::RegisterSpawnLocations() {
 	g_spawnLocations[0] = SpawnLocation(
 		LegoGameState::e_pizzeriaExterior,
 		g_isleScript,
@@ -514,8 +507,7 @@ void IslePathActor::RegisterSpawnLocations()
 
 // FUNCTION: LEGO1 0x1001b2a0
 // FUNCTION: BETA10 0x100369c6
-void IslePathActor::SpawnPlayer(LegoGameState::Area p_area, MxBool p_enter, MxU8 p_flags)
-{
+void IslePathActor::SpawnPlayer(LegoGameState::Area p_area, MxBool p_enter, MxU8 p_flags) {
 	MxS16 i;
 
 	for (i = 0; i < c_LOCATIONS_NUM && g_spawnLocations[i].m_area != p_area; i++) {
@@ -563,19 +555,19 @@ void IslePathActor::SpawnPlayer(LegoGameState::Area p_area, MxBool p_enter, MxU8
 			case 0x44:
 				break;
 			case 0x0a:
-				state = (LegoVehicleBuildState*) GameState()->GetState("LegoDuneCarBuildState");
+				state = (LegoVehicleBuildState*)GameState()->GetState("LegoDuneCarBuildState");
 				anim = IsleScript::c_igs008na_RunAnim;
 				break;
 			case 0x18:
-				state = (LegoVehicleBuildState*) GameState()->GetState("LegoJetskiBuildState");
+				state = (LegoVehicleBuildState*)GameState()->GetState("LegoJetskiBuildState");
 				anim = IsleScript::c_ijs006sn_RunAnim;
 				break;
 			case 0x23:
-				state = (LegoVehicleBuildState*) GameState()->GetState("LegoCopterBuildState");
+				state = (LegoVehicleBuildState*)GameState()->GetState("LegoCopterBuildState");
 				anim = IsleScript::c_ips002ro_RunAnim;
 				break;
 			case 0x34:
-				state = (LegoVehicleBuildState*) GameState()->GetState("LegoRaceCarBuildState");
+				state = (LegoVehicleBuildState*)GameState()->GetState("LegoRaceCarBuildState");
 				anim = IsleScript::c_irt007in_RunAnim;
 				break;
 			default:
@@ -585,7 +577,7 @@ void IslePathActor::SpawnPlayer(LegoGameState::Area p_area, MxBool p_enter, MxU8
 
 			if (state != NULL && state->m_unk0x4d && !state->m_unk0x4e) {
 				if (AnimationManager()
-						->FUN_10060dc0(anim, NULL, TRUE, LegoAnimationManager::e_unk0, NULL, FALSE, TRUE, TRUE, TRUE) ==
+					->FUN_10060dc0(anim, NULL, TRUE, LegoAnimationManager::e_unk0, NULL, FALSE, TRUE, TRUE, TRUE) ==
 					SUCCESS) {
 					state->m_unk0x4e = TRUE;
 					camAnim = FALSE;
@@ -611,8 +603,7 @@ void IslePathActor::SpawnPlayer(LegoGameState::Area p_area, MxBool p_enter, MxU8
 }
 
 // FUNCTION: LEGO1 0x1001b5b0
-void IslePathActor::VTable0xec(MxMatrix p_transform, LegoPathBoundary* p_boundary, MxBool p_reset)
-{
+void IslePathActor::VTable0xec(MxMatrix p_transform, LegoPathBoundary* p_boundary, MxBool p_reset) {
 	if (m_world) {
 		m_world->RemoveActor(this);
 		m_world->Remove(this);
@@ -639,8 +630,7 @@ void IslePathActor::VTable0xec(MxMatrix p_transform, LegoPathBoundary* p_boundar
 
 // FUNCTION: LEGO1 0x1001b660
 // FUNCTION: BETA10 0x10036ea2
-void IslePathActor::FUN_1001b660()
-{
+void IslePathActor::FUN_1001b660() {
 	MxMatrix transform(m_roi->GetLocal2World());
 	Vector3 position(transform[0]);
 	Vector3 direction(transform[1]);

@@ -8,16 +8,14 @@ DECOMP_SIZE_ASSERT(LegoPaletteEntry, 0x03);
 DECOMP_SIZE_ASSERT(LegoImage, 0x310);
 
 // FUNCTION: LEGO1 0x100994c0
-LegoPaletteEntry::LegoPaletteEntry()
-{
+LegoPaletteEntry::LegoPaletteEntry() {
 	m_red = 0;
 	m_green = 0;
 	m_blue = 0;
 }
 
 // FUNCTION: LEGO1 0x100994d0
-LegoResult LegoPaletteEntry::Read(LegoStorage* p_storage)
-{
+LegoResult LegoPaletteEntry::Read(LegoStorage* p_storage) {
 	LegoResult result;
 	if ((result = p_storage->Read(&m_red, sizeof(m_red))) != SUCCESS) {
 		return result;
@@ -32,8 +30,7 @@ LegoResult LegoPaletteEntry::Read(LegoStorage* p_storage)
 }
 
 // FUNCTION: LEGO1 0x10099520
-LegoResult LegoPaletteEntry::Write(LegoStorage* p_storage)
-{
+LegoResult LegoPaletteEntry::Write(LegoStorage* p_storage) {
 	LegoResult result;
 	if ((result = p_storage->Write(&m_red, sizeof(m_red))) != SUCCESS) {
 		return result;
@@ -48,8 +45,7 @@ LegoResult LegoPaletteEntry::Write(LegoStorage* p_storage)
 }
 
 // FUNCTION: LEGO1 0x10099570
-LegoImage::LegoImage()
-{
+LegoImage::LegoImage() {
 	m_width = 0;
 	m_height = 0;
 	m_count = 0;
@@ -57,8 +53,7 @@ LegoImage::LegoImage()
 }
 
 // FUNCTION: LEGO1 0x100995a0
-LegoImage::LegoImage(LegoU32 p_width, LegoU32 p_height)
-{
+LegoImage::LegoImage(LegoU32 p_width, LegoU32 p_height) {
 	m_width = p_width;
 	m_height = p_height;
 	m_count = 0;
@@ -66,16 +61,14 @@ LegoImage::LegoImage(LegoU32 p_width, LegoU32 p_height)
 }
 
 // FUNCTION: LEGO1 0x100995f0
-LegoImage::~LegoImage()
-{
+LegoImage::~LegoImage() {
 	if (m_bits) {
 		delete[] m_bits;
 	}
 }
 
 // FUNCTION: LEGO1 0x10099610
-LegoResult LegoImage::Read(LegoStorage* p_storage, LegoU32 p_square)
-{
+LegoResult LegoImage::Read(LegoStorage* p_storage, LegoU32 p_square) {
 	LegoResult result;
 	if ((result = p_storage->Read(&m_width, sizeof(m_width))) != SUCCESS) {
 		return result;
@@ -150,8 +143,7 @@ LegoResult LegoImage::Read(LegoStorage* p_storage, LegoU32 p_square)
 }
 
 // FUNCTION: LEGO1 0x100997e0
-LegoResult LegoImage::Write(LegoStorage* p_storage)
-{
+LegoResult LegoImage::Write(LegoStorage* p_storage) {
 	LegoResult result;
 	if ((result = p_storage->Write(&m_width, sizeof(m_width))) != SUCCESS) {
 		return result;

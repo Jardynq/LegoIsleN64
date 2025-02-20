@@ -33,8 +33,7 @@ MxBool g_copLedEnabled = FALSE;
 MxBool g_pizzaLedEnabled = FALSE;
 
 // FUNCTION: LEGO1 0x100745e0
-Hospital::Hospital()
-{
+Hospital::Hospital() {
 	m_currentActorId = LegoActor::c_none;
 	m_unk0x100 = 0;
 	m_hospitalState = NULL;
@@ -51,8 +50,7 @@ Hospital::Hospital()
 }
 
 // FUNCTION: LEGO1 0x100747f0
-Hospital::~Hospital()
-{
+Hospital::~Hospital() {
 	InputManager()->UnRegister(this);
 	if (InputManager()->GetWorld() == this) {
 		InputManager()->ClearWorld();
@@ -68,8 +66,7 @@ Hospital::~Hospital()
 }
 
 // FUNCTION: LEGO1 0x100748c0
-MxResult Hospital::Create(MxDSAction& p_dsAction)
-{
+MxResult Hospital::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 	if (result == SUCCESS) {
 		InputManager()->SetWorld(this);
@@ -78,9 +75,9 @@ MxResult Hospital::Create(MxDSAction& p_dsAction)
 
 	SetIsWorldActive(FALSE);
 
-	m_hospitalState = (HospitalState*) GameState()->GetState("HospitalState");
+	m_hospitalState = (HospitalState*)GameState()->GetState("HospitalState");
 	if (!m_hospitalState) {
-		m_hospitalState = (HospitalState*) GameState()->CreateState("HospitalState");
+		m_hospitalState = (HospitalState*)GameState()->CreateState("HospitalState");
 		m_hospitalState->m_unk0x08 = 1;
 	}
 	else if (m_hospitalState->m_unk0x08 == 4) {
@@ -101,25 +98,24 @@ MxResult Hospital::Create(MxDSAction& p_dsAction)
 
 // FUNCTION: LEGO1 0x10074990
 // FUNCTION: BETA10 0x1002ca3b
-MxLong Hospital::Notify(MxParam& p_param)
-{
+MxLong Hospital::Notify(MxParam& p_param) {
 	MxLong result = 0;
-	MxNotificationParam& param = (MxNotificationParam&) p_param;
+	MxNotificationParam& param = (MxNotificationParam&)p_param;
 	LegoWorld::Notify(p_param);
 
 	if (m_worldStarted) {
 		switch (param.GetNotification()) {
 		case c_notificationEndAction:
-			result = HandleEndAction((MxEndActionNotificationParam&) p_param);
+			result = HandleEndAction((MxEndActionNotificationParam&)p_param);
 			break;
 		case c_notificationKeyPress:
-			result = HandleKeyPress((((LegoEventNotificationParam&) p_param)).GetKey());
+			result = HandleKeyPress((((LegoEventNotificationParam&)p_param)).GetKey());
 			break;
 		case c_notificationButtonDown:
-			result = HandleButtonDown(((LegoControlManagerNotificationParam&) p_param));
+			result = HandleButtonDown(((LegoControlManagerNotificationParam&)p_param));
 			break;
 		case c_notificationControl:
-			result = HandleControl((LegoControlManagerNotificationParam&) p_param);
+			result = HandleControl((LegoControlManagerNotificationParam&)p_param);
 			break;
 		case c_notificationTransitioned:
 			if (m_destLocation != LegoGameState::e_undefined) {
@@ -133,12 +129,11 @@ MxLong Hospital::Notify(MxParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10074a60
-void Hospital::ReadyWorld()
-{
+void Hospital::ReadyWorld() {
 	PlayMusic(JukeboxScript::c_Hospital_Music);
 
-	m_copLedBitmap = (MxStillPresenter*) Find("MxStillPresenter", "CopLed_Bitmap");
-	m_pizzaLedBitmap = (MxStillPresenter*) Find("MxStillPresenter", "PizzaLed_Bitmap");
+	m_copLedBitmap = (MxStillPresenter*)Find("MxStillPresenter", "CopLed_Bitmap");
+	m_pizzaLedBitmap = (MxStillPresenter*)Find("MxStillPresenter", "PizzaLed_Bitmap");
 
 	if (UserActor() == NULL) {
 		m_currentActorId = LegoActor::c_laura;
@@ -218,8 +213,7 @@ void Hospital::ReadyWorld()
 }
 
 // FUNCTION: LEGO1 0x10074dd0
-MxLong Hospital::HandleKeyPress(MxS8 p_key)
-{
+MxLong Hospital::HandleKeyPress(MxS8 p_key) {
 	MxLong result = 0;
 
 	if (p_key == VK_SPACE && g_unk0x100f7918 == 0) {
@@ -231,8 +225,7 @@ MxLong Hospital::HandleKeyPress(MxS8 p_key)
 }
 
 // FUNCTION: LEGO1 0x10074e00
-MxLong Hospital::HandleEndAction(MxEndActionNotificationParam& p_param)
-{
+MxLong Hospital::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	MxLong result = 0;
 	MxDSAction* action = p_param.GetAction();
 	Act1State* act1State;
@@ -364,7 +357,7 @@ MxLong Hospital::HandleEndAction(MxEndActionNotificationParam& p_param)
 		break;
 	case 12:
 		m_hospitalState->m_unk0x08 = 9;
-		act1State = (Act1State*) GameState()->GetState("Act1State");
+		act1State = (Act1State*)GameState()->GetState("Act1State");
 		act1State->SetUnknown18(9);
 	case 14:
 		if (m_unk0x128 == 0) {
@@ -393,8 +386,7 @@ MxLong Hospital::HandleEndAction(MxEndActionNotificationParam& p_param)
 
 // FUNCTION: LEGO1 0x10075710
 // FUNCTION: BETA10 0x1002d2b1
-MxLong Hospital::HandleButtonDown(LegoControlManagerNotificationParam& p_param)
-{
+MxLong Hospital::HandleButtonDown(LegoControlManagerNotificationParam& p_param) {
 	if (m_unk0x100 == 1) {
 		LegoROI* roi = PickROI(p_param.GetX(), p_param.GetY());
 		if (roi != NULL) {
@@ -416,7 +408,7 @@ MxLong Hospital::HandleButtonDown(LegoControlManagerNotificationParam& p_param)
 						TickleManager()->UnregisterClient(this);
 
 						m_hospitalState->m_unk0x08 = 9;
-						Act1State* act1State = (Act1State*) GameState()->GetState("Act1State");
+						Act1State* act1State = (Act1State*)GameState()->GetState("Act1State");
 						assert(act1State);
 
 						act1State->m_unk0x018 = 9;
@@ -551,8 +543,7 @@ MxLong Hospital::HandleButtonDown(LegoControlManagerNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10075f90
-MxBool Hospital::HandleControl(LegoControlManagerNotificationParam& p_param)
-{
+MxBool Hospital::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	if (p_param.GetUnknown0x28() == 1) {
 		switch (p_param.GetClickedObjectId()) {
 		case HospitalScript::c_Info_Ctl:
@@ -604,8 +595,7 @@ MxBool Hospital::HandleControl(LegoControlManagerNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10076220
-void Hospital::Enable(MxBool p_enable)
-{
+void Hospital::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
 	if (p_enable) {
@@ -619,8 +609,7 @@ void Hospital::Enable(MxBool p_enable)
 	}
 }
 
-inline void Hospital::PlayAction(MxU32 p_objectId)
-{
+inline void Hospital::PlayAction(MxU32 p_objectId) {
 	MxDSAction action;
 	action.SetAtomId(*g_hospitalScript);
 	action.SetObjectId(p_objectId);
@@ -630,8 +619,7 @@ inline void Hospital::PlayAction(MxU32 p_objectId)
 }
 
 // FUNCTION: LEGO1 0x10076270
-MxResult Hospital::Tickle()
-{
+MxResult Hospital::Tickle() {
 	if (!m_worldStarted) {
 		LegoWorld::Tickle();
 		return SUCCESS;
@@ -661,8 +649,7 @@ MxResult Hospital::Tickle()
 }
 
 // FUNCTION: LEGO1 0x10076330
-MxBool Hospital::Escape()
-{
+MxBool Hospital::Escape() {
 	DeleteObjects(&m_atomId, HospitalScript::c_hho002cl_RunAnim, 999);
 	m_hospitalState->m_unk0x08 = 0;
 
@@ -672,8 +659,7 @@ MxBool Hospital::Escape()
 }
 
 // FUNCTION: LEGO1 0x10076370
-HospitalState::HospitalState()
-{
+HospitalState::HospitalState() {
 	m_unk0x0c = 0;
 	m_unk0x0e = 0;
 	m_unk0x10 = 0;
@@ -684,8 +670,7 @@ HospitalState::HospitalState()
 
 // FUNCTION: LEGO1 0x10076530
 // FUNCTION: BETA10 0x1002db26
-MxResult HospitalState::Serialize(LegoStorage* p_storage)
-{
+MxResult HospitalState::Serialize(LegoStorage* p_storage) {
 	LegoState::Serialize(p_storage);
 
 	if (p_storage->IsWriteMode()) {

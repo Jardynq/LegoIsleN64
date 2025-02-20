@@ -21,23 +21,20 @@ Mx3DPointFloat Act3Ammo::g_unk0x10104f08 = Mx3DPointFloat(0.0, 5.0, 0.0);
 
 // FUNCTION: LEGO1 0x100537f0
 // FUNCTION: BETA10 0x1001d648
-Act3Ammo::Act3Ammo()
-{
+Act3Ammo::Act3Ammo() {
 	m_ammoFlag = 0;
 	m_world = NULL;
 }
 
 // FUNCTION: LEGO1 0x100538a0
 // FUNCTION: BETA10 0x1001d6e7
-Act3Ammo::~Act3Ammo()
-{
+Act3Ammo::~Act3Ammo() {
 	Destroy(TRUE);
 }
 
 // FUNCTION: LEGO1 0x10053900
 // FUNCTION: BETA10 0x1001d759
-void Act3Ammo::Destroy(MxBool p_fromDestructor)
-{
+void Act3Ammo::Destroy(MxBool p_fromDestructor) {
 	if (!p_fromDestructor) {
 		assert(0);
 	}
@@ -49,8 +46,7 @@ void Act3Ammo::Destroy(MxBool p_fromDestructor)
 
 // FUNCTION: LEGO1 0x10053930
 // FUNCTION: BETA10 0x1001d7d0
-MxResult Act3Ammo::Remove()
-{
+MxResult Act3Ammo::Remove() {
 	assert(IsValid());
 	assert(m_roi && m_pathController);
 
@@ -68,8 +64,7 @@ MxResult Act3Ammo::Remove()
 
 // FUNCTION: LEGO1 0x10053980
 // FUNCTION: BETA10 0x1001d8b3
-MxResult Act3Ammo::Create(Act3* p_world, MxU32 p_isPizza, MxS32 p_index)
-{
+MxResult Act3Ammo::Create(Act3* p_world, MxU32 p_isPizza, MxS32 p_index) {
 	assert(m_ammoFlag);
 	char name[12];
 
@@ -109,8 +104,7 @@ MxResult Act3Ammo::Create(Act3* p_world, MxU32 p_isPizza, MxS32 p_index)
 
 // FUNCTION: LEGO1 0x10053b40
 // FUNCTION: BETA10 0x1001db2a
-MxResult Act3Ammo::FUN_10053b40(const Vector3& p_srcLoc, const Vector3& p_srcDir, const Vector3& p_srcUp)
-{
+MxResult Act3Ammo::FUN_10053b40(const Vector3& p_srcLoc, const Vector3& p_srcDir, const Vector3& p_srcUp) {
 	assert(p_srcDir[1] != 0);
 
 	MxFloat local1c = -(p_srcLoc[1] / p_srcDir[1]);
@@ -145,8 +139,7 @@ MxResult Act3Ammo::FUN_10053b40(const Vector3& p_srcLoc, const Vector3& p_srcDir
 
 // FUNCTION: LEGO1 0x10053cb0
 // FUNCTION: BETA10 0x1001ddf4
-MxResult Act3Ammo::FUN_10053cb0(LegoPathController* p_p, LegoPathBoundary* p_boundary, MxFloat p_unk0x19c)
-{
+MxResult Act3Ammo::FUN_10053cb0(LegoPathController* p_p, LegoPathBoundary* p_boundary, MxFloat p_unk0x19c) {
 	assert(p_p);
 	assert(IsValid());
 
@@ -171,8 +164,7 @@ MxResult Act3Ammo::FUN_10053cb0(LegoPathController* p_p, LegoPathBoundary* p_bou
 
 // FUNCTION: LEGO1 0x10053d30
 // FUNCTION: BETA10 0x1001df73
-MxResult Act3Ammo::FUN_10053d30(LegoPathController* p_p, MxFloat p_unk0x19c)
-{
+MxResult Act3Ammo::FUN_10053d30(LegoPathController* p_p, MxFloat p_unk0x19c) {
 	assert(p_p);
 	assert(IsValid());
 
@@ -198,8 +190,7 @@ MxResult Act3Ammo::FUN_10053d30(LegoPathController* p_p, MxFloat p_unk0x19c)
 
 // FUNCTION: LEGO1 0x10053db0
 // FUNCTION: BETA10 0x1001e0f0
-MxResult Act3Ammo::FUN_10053db0(float p_param1, const Matrix4& p_param2)
-{
+MxResult Act3Ammo::FUN_10053db0(float p_param1, const Matrix4& p_param2) {
 	float local34 = p_param1 * p_param1;
 
 	Vector3 local14(p_param2[0]);
@@ -246,8 +237,7 @@ MxResult Act3Ammo::FUN_10053db0(float p_param1, const Matrix4& p_param2)
 
 // FUNCTION: LEGO1 0x10054050
 // FUNCTION: BETA10 0x1001e362
-void Act3Ammo::Animate(float p_time)
-{
+void Act3Ammo::Animate(float p_time) {
 	assert(IsValid());
 
 	switch (m_actorState & c_maxState) {

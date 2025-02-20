@@ -59,7 +59,7 @@ public:
 	void PlaceActors();
 
 	MxU32 GetUnknown18() { return m_unk0x018; }
-	ElevatorFloor GetElevatorFloor() { return (ElevatorFloor) m_elevFloor; }
+	ElevatorFloor GetElevatorFloor() { return (ElevatorFloor)m_elevFloor; }
 	MxU8 GetUnknown21() { return m_unk0x021; }
 
 	void SetUnknown18(MxU32 p_unk0x18) { m_unk0x018 = p_unk0x18; }

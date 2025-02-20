@@ -9,8 +9,7 @@ DECOMP_SIZE_ASSERT(LegoTree, 0x08)
 
 // FUNCTION: LEGO1 0x10099d60
 // FUNCTION: BETA10 0x10187dd0
-LegoTreeNode::LegoTreeNode()
-{
+LegoTreeNode::LegoTreeNode() {
 	m_data = NULL;
 	m_numChildren = 0;
 	m_children = NULL;
@@ -18,8 +17,7 @@ LegoTreeNode::LegoTreeNode()
 
 // FUNCTION: LEGO1 0x10099da0
 // FUNCTION: BETA10 0x10187e10
-LegoTreeNode::~LegoTreeNode()
-{
+LegoTreeNode::~LegoTreeNode() {
 	if (m_data) {
 		delete m_data;
 	}
@@ -29,34 +27,29 @@ LegoTreeNode::~LegoTreeNode()
 }
 
 // FUNCTION: LEGO1 0x10099dd0
-LegoTree::LegoTree()
-{
+LegoTree::LegoTree() {
 	m_root = NULL;
 }
 
 // FUNCTION: LEGO1 0x10099e00
-LegoTree::~LegoTree()
-{
+LegoTree::~LegoTree() {
 	if (m_root) {
 		Delete(m_root);
 	}
 }
 
 // FUNCTION: LEGO1 0x10099e20
-LegoResult LegoTree::Read(LegoStorage* p_storage)
-{
+LegoResult LegoTree::Read(LegoStorage* p_storage) {
 	return Read(p_storage, m_root);
 }
 
 // FUNCTION: LEGO1 0x10099e40
-LegoResult LegoTree::Write(LegoStorage* p_storage)
-{
+LegoResult LegoTree::Write(LegoStorage* p_storage) {
 	return Write(p_storage, m_root);
 }
 
 // FUNCTION: LEGO1 0x10099e60
-LegoResult LegoTree::Read(LegoStorage* p_storage, LegoTreeNode*& p_node)
-{
+LegoResult LegoTree::Read(LegoStorage* p_storage, LegoTreeNode*& p_node) {
 	LegoResult result;
 	p_node = new LegoTreeNode();
 	p_node->SetData(CreateData());
@@ -68,7 +61,7 @@ LegoResult LegoTree::Read(LegoStorage* p_storage, LegoTreeNode*& p_node)
 		return result;
 	}
 	if (numChildren) {
-		p_node->SetChildren(new LegoTreeNode*[numChildren]);
+		p_node->SetChildren(new LegoTreeNode * [numChildren]);
 		for (LegoU32 i = 0; i < numChildren; i++) {
 			LegoTreeNode* node;
 			if ((result = Read(p_storage, node)) != SUCCESS) {
@@ -82,8 +75,7 @@ LegoResult LegoTree::Read(LegoStorage* p_storage, LegoTreeNode*& p_node)
 }
 
 // FUNCTION: LEGO1 0x1009a020
-LegoResult LegoTree::Write(LegoStorage* p_storage, LegoTreeNode* p_node)
-{
+LegoResult LegoTree::Write(LegoStorage* p_storage, LegoTreeNode* p_node) {
 	LegoResult result;
 	if (p_node->GetData()) {
 		if ((result = p_node->GetData()->Write(p_storage)) != SUCCESS) {
@@ -103,8 +95,7 @@ LegoResult LegoTree::Write(LegoStorage* p_storage, LegoTreeNode* p_node)
 }
 
 // FUNCTION: LEGO1 0x1009a0a0
-void LegoTree::Delete(LegoTreeNode* p_node)
-{
+void LegoTree::Delete(LegoTreeNode* p_node) {
 	for (LegoU32 i = 0; i < p_node->GetNumChildren(); i++) {
 		Delete(p_node->GetChild(i));
 	}

@@ -23,8 +23,7 @@ extern MxU32 g_isleFlags;
 MxBool g_unk0x100f119c = FALSE;
 
 // FUNCTION: LEGO1 0x1001b700
-void LegoPathStruct::HandleTrigger(LegoPathActor* p_actor, MxBool p_direction, MxU32 p_data)
-{
+void LegoPathStruct::HandleTrigger(LegoPathActor* p_actor, MxBool p_direction, MxU32 p_data) {
 	if (!HandleTrigger(p_actor, p_direction, p_data, FALSE) && g_unk0x100f119c) {
 		HandleTrigger(p_actor, p_direction, p_data, TRUE);
 	}
@@ -32,8 +31,7 @@ void LegoPathStruct::HandleTrigger(LegoPathActor* p_actor, MxBool p_direction, M
 
 // FUNCTION: LEGO1 0x1001b740
 // FUNCTION: BETA10 0x100c26c5
-MxBool LegoPathStruct::HandleTrigger(LegoPathActor* p_actor, MxBool p_direction, MxU32 p_data, MxBool p_bool)
-{
+MxBool LegoPathStruct::HandleTrigger(LegoPathActor* p_actor, MxBool p_direction, MxU32 p_data, MxBool p_bool) {
 	MxBool triggered = FALSE;
 	MxBool bool2 = p_bool ? !p_direction : p_direction;
 
@@ -107,8 +105,7 @@ MxBool LegoPathStruct::HandleTrigger(LegoPathActor* p_actor, MxBool p_direction,
 
 // FUNCTION: LEGO1 0x1001bc40
 // FUNCTION: BETA10 0x100c2a6c
-void LegoPathStruct::FUN_1001bc40(const char* p_name, MxU32 p_data, MxBool p_bool)
-{
+void LegoPathStruct::FUN_1001bc40(const char* p_name, MxU32 p_data, MxBool p_bool) {
 	MxDSAction action;
 	action.SetObjectId(p_data);
 	action.SetAtomId(m_atomId);
@@ -125,9 +122,8 @@ void LegoPathStruct::FUN_1001bc40(const char* p_name, MxU32 p_data, MxBool p_boo
 
 // FUNCTION: LEGO1 0x1001bd10
 // FUNCTION: BETA10 0x100c2b4a
-void LegoPathStruct::PlayMusic(MxBool p_direction, MxU32 p_data)
-{
-	JukeBoxState* state = (JukeBoxState*) GameState()->GetState("JukeBoxState");
+void LegoPathStruct::PlayMusic(MxBool p_direction, MxU32 p_data) {
+	JukeBoxState* state = (JukeBoxState*)GameState()->GetState("JukeBoxState");
 	if (state != NULL && state->m_active) {
 		return;
 	}
@@ -149,9 +145,9 @@ void LegoPathStruct::PlayMusic(MxBool p_direction, MxU32 p_data)
 		JukeboxScript::c_Quiet_Audio
 	};
 
-	MxS16 triggersReff[24][2] = {{11, 10}, {6, 10}, {3, 1},  {4, 1},   {1, 4},   {1, 4},   {13, 2}, {13, 2},
+	MxS16 triggersReff[24][2] = { {11, 10}, {6, 10}, {3, 1},  {4, 1},   {1, 4},   {1, 4},   {13, 2}, {13, 2},
 								 {13, 2},  {4, 10}, {11, 9}, {9, 7},   {8, 7},   {8, 5},   {5, 2},  {2, 4},
-								 {4, 2},   {4, 5},  {11, 4}, {12, 10}, {10, 12}, {10, 12}, {14, 2}, {14, 2}};
+								 {4, 2},   {4, 5},  {11, 4}, {12, 10}, {10, 12}, {10, 12}, {14, 2}, {14, 2} };
 
 	MxDSAction action;
 	action.SetAtomId(*g_jukeboxScript);

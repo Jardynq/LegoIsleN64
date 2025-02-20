@@ -115,8 +115,7 @@ public:
 	MxLong GetDataSize() const { return AlignToFourByte(m_bmiHeader->biWidth) * GetBmiHeightAbs(); }
 
 	// FUNCTION: BETA10 0x1002c4b0
-	MxBool IsTopDown()
-	{
+	MxBool IsTopDown() {
 		if (m_bmiHeader->biCompression == BI_RGB_TOPDOWN) {
 			return TRUE;
 		}
@@ -130,11 +129,10 @@ public:
 						   : -p_bitmap->AlignToFourByte(p_bitmap->GetBmiWidth()))
 
 	// FUNCTION: BETA10 0x1002c320
-	MxU8* GetStart(MxS32 p_left, MxS32 p_top)
-	{
+	MxU8* GetStart(MxS32 p_left, MxS32 p_top) {
 		if (m_bmiHeader->biCompression == BI_RGB) {
 			return m_data + p_left +
-				   AlignToFourByte(GetBmiWidth()) * (IsTopDown() ? p_top : (GetBmiHeightAbs() - 1) - p_top);
+				AlignToFourByte(GetBmiWidth()) * (IsTopDown() ? p_top : (GetBmiHeightAbs() - 1) - p_top);
 		}
 		else if (m_bmiHeader->biCompression == BI_RGB_TOPDOWN) {
 			return m_data;
@@ -153,8 +151,7 @@ private:
 	MxLong MxBitmapInfoSize() const { return sizeof(MxBITMAPINFO); }
 
 	// FUNCTION: BETA10 0x1013dd30
-	MxBool IsBottomUp()
-	{
+	MxBool IsBottomUp() {
 		if (m_bmiHeader->biCompression == BI_RGB_TOPDOWN) {
 			return FALSE;
 		}

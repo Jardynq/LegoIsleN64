@@ -23,8 +23,7 @@ class MxStreamerNotification : public MxNotificationParam {
 public:
 	// FUNCTION: BETA10 0x10146e40
 	MxStreamerNotification(NotificationId p_type, MxCore* p_sender, MxStreamController* p_ctrlr)
-		: MxNotificationParam(p_type, p_sender)
-	{
+		: MxNotificationParam(p_type, p_sender) {
 		m_controller = p_ctrlr;
 	}
 
@@ -80,8 +79,7 @@ public:
 	MxResult DeleteObject(MxDSAction* p_dsAction);
 
 	// FUNCTION: BETA10 0x10158db0
-	MxU8* GetMemoryBlock(MxU32 p_blockSize)
-	{
+	MxU8* GetMemoryBlock(MxU32 p_blockSize) {
 		switch (p_blockSize) {
 		case 0x40:
 			return m_pool64.Get();
@@ -98,8 +96,7 @@ public:
 	}
 
 	// FUNCTION: BETA10 0x10158570
-	void ReleaseMemoryBlock(MxU8* p_block, MxU32 p_blockSize)
-	{
+	void ReleaseMemoryBlock(MxU8* p_block, MxU32 p_blockSize) {
 		switch (p_blockSize) {
 		case 0x40:
 			m_pool64.Release(p_block);

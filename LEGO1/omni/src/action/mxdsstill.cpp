@@ -4,24 +4,20 @@ DECOMP_SIZE_ASSERT(MxDSStill, 0xb8)
 
 // FUNCTION: LEGO1 0x100c98c0
 // FUNCTION: BETA10 0x1015d54f
-MxDSStill::MxDSStill()
-{
+MxDSStill::MxDSStill() {
 	this->SetType(e_still);
 }
 
 // FUNCTION: LEGO1 0x100c9a70
-MxDSStill::~MxDSStill()
-{
+MxDSStill::~MxDSStill() {
 }
 
 // FUNCTION: LEGO1 0x100c9ac0
-void MxDSStill::CopyFrom(MxDSStill& p_dsStill)
-{
+void MxDSStill::CopyFrom(MxDSStill& p_dsStill) {
 }
 
 // FUNCTION: LEGO1 0x100c9ad0
-MxDSStill& MxDSStill::operator=(MxDSStill& p_dsStill)
-{
+MxDSStill& MxDSStill::operator=(MxDSStill& p_dsStill) {
 	if (this == &p_dsStill) {
 		return *this;
 	}
@@ -32,8 +28,7 @@ MxDSStill& MxDSStill::operator=(MxDSStill& p_dsStill)
 }
 
 // FUNCTION: LEGO1 0x100c9b00
-MxDSAction* MxDSStill::Clone()
-{
+MxDSAction* MxDSStill::Clone() {
 	MxDSStill* clone = new MxDSStill();
 
 	if (clone) {

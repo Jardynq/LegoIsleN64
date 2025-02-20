@@ -11,8 +11,7 @@ MxLong MxTimer::g_lastTimeTimerStarted = 0;
 
 // FUNCTION: LEGO1 0x100ae060
 // FUNCTION: BETA10 0x1012bea0
-MxTimer::MxTimer()
-{
+MxTimer::MxTimer() {
 	m_isRunning = FALSE;
 	m_startTime = timeGetTime();
 	InitLastTimeCalculated();
@@ -20,22 +19,19 @@ MxTimer::MxTimer()
 
 // FUNCTION: LEGO1 0x100ae140
 // FUNCTION: BETA10 0x1012bf23
-MxLong MxTimer::GetRealTime()
-{
+MxLong MxTimer::GetRealTime() {
 	MxTimer::g_lastTimeCalculated = timeGetTime();
 	return MxTimer::g_lastTimeCalculated - m_startTime;
 }
 
 // FUNCTION: LEGO1 0x100ae160
-void MxTimer::Start()
-{
+void MxTimer::Start() {
 	g_lastTimeTimerStarted = GetRealTime();
 	m_isRunning = TRUE;
 }
 
 // FUNCTION: LEGO1 0x100ae180
-void MxTimer::Stop()
-{
+void MxTimer::Stop() {
 	MxLong elapsed = GetRealTime();
 	MxLong startTime = elapsed - MxTimer::g_lastTimeTimerStarted;
 	m_isRunning = FALSE;

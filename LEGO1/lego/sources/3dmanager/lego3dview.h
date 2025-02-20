@@ -47,13 +47,11 @@ private:
 // Lego3DView implementation
 
 // FUNCTION: BETA10 0x10011810
-inline ViewManager* Lego3DView::GetViewManager()
-{
+inline ViewManager* Lego3DView::GetViewManager() {
 	return m_pViewManager;
 }
 
-inline ViewROI* Lego3DView::GetPointOfView()
-{
+inline ViewROI* Lego3DView::GetPointOfView() {
 	return m_pPointOfView;
 }
 

@@ -21,8 +21,7 @@
 DECOMP_SIZE_ASSERT(LegoEntity, 0x68)
 
 // FUNCTION: LEGO1 0x100105f0
-void LegoEntity::Init()
-{
+void LegoEntity::Init() {
 	m_worldLocation.Fill(0);
 	m_worldDirection.Fill(0);
 	m_worldSpeed = 0;
@@ -38,8 +37,7 @@ void LegoEntity::Init()
 
 // FUNCTION: LEGO1 0x10010650
 // FUNCTION: BETA10 0x1007e39a
-void LegoEntity::ResetWorldTransform(MxBool p_cameraFlag)
-{
+void LegoEntity::ResetWorldTransform(MxBool p_cameraFlag) {
 	LegoWorld* world = CurrentWorld();
 
 	if (world != NULL && world->GetCameraController() != NULL) {
@@ -68,8 +66,7 @@ void LegoEntity::ResetWorldTransform(MxBool p_cameraFlag)
 
 // FUNCTION: LEGO1 0x10010790
 // FUNCTION: BETA10 0x1007e4f6
-void LegoEntity::SetWorldTransform(const Vector3& p_location, const Vector3& p_direction, const Vector3& p_up)
-{
+void LegoEntity::SetWorldTransform(const Vector3& p_location, const Vector3& p_direction, const Vector3& p_up) {
 	LegoWorld* world = CurrentWorld();
 
 	if (world != NULL && world->GetCameraController() != NULL) {
@@ -81,8 +78,7 @@ void LegoEntity::SetWorldTransform(const Vector3& p_location, const Vector3& p_d
 
 // FUNCTION: LEGO1 0x100107e0
 // FUNCTION: BETA10 0x1007e572
-MxResult LegoEntity::Create(MxDSAction& p_dsAction)
-{
+MxResult LegoEntity::Create(MxDSAction& p_dsAction) {
 	m_entityId = p_dsAction.GetObjectId();
 	m_atomId = p_dsAction.GetAtomId();
 	SetWorld();
@@ -91,8 +87,7 @@ MxResult LegoEntity::Create(MxDSAction& p_dsAction)
 
 // FUNCTION: LEGO1 0x10010810
 // FUNCTION: BETA10 0x1007e5b9
-void LegoEntity::Destroy(MxBool p_fromDestructor)
-{
+void LegoEntity::Destroy(MxBool p_fromDestructor) {
 	if (m_roi) {
 		if (m_flags & c_bit1) {
 			if (m_roi->GetEntity() == this) {
@@ -113,19 +108,17 @@ void LegoEntity::Destroy(MxBool p_fromDestructor)
 
 // FUNCTION: LEGO1 0x10010880
 // FUNCTION: BETA10 0x1007e6e1
-void LegoEntity::SetWorld()
-{
+void LegoEntity::SetWorld() {
 	LegoWorld* world = CurrentWorld();
 
-	if (world != NULL && world != (LegoWorld*) this) {
+	if (world != NULL && world != (LegoWorld*)this) {
 		world->Add(this);
 	}
 }
 
 // FUNCTION: LEGO1 0x100108a0
 // FUNCTION: BETA10 0x1007e724
-void LegoEntity::SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2)
-{
+void LegoEntity::SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2) {
 	m_roi = p_roi;
 
 	if (m_roi != NULL) {
@@ -155,8 +148,7 @@ void LegoEntity::SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2)
 
 // FUNCTION: LEGO1 0x100109b0
 // FUNCTION: BETA10 0x1007e8b8
-void LegoEntity::SetLocation(const Vector3& p_location, const Vector3& p_direction, const Vector3& p_up, MxBool p_und)
-{
+void LegoEntity::SetLocation(const Vector3& p_location, const Vector3& p_direction, const Vector3& p_up, MxBool p_und) {
 	Mx3DPointFloat direction;
 	Mx3DPointFloat up;
 
@@ -189,8 +181,7 @@ void LegoEntity::SetLocation(const Vector3& p_location, const Vector3& p_directi
 }
 
 // FUNCTION: LEGO1 0x10010c30
-void LegoEntity::FUN_10010c30()
-{
+void LegoEntity::FUN_10010c30() {
 	LegoWorld* world = CurrentWorld();
 
 	if (m_cameraFlag && world && world->GetCameraController() && m_roi) {
@@ -199,8 +190,7 @@ void LegoEntity::FUN_10010c30()
 }
 
 // FUNCTION: LEGO1 0x10010c60
-Mx3DPointFloat LegoEntity::GetWorldDirection()
-{
+Mx3DPointFloat LegoEntity::GetWorldDirection() {
 	if (m_roi != NULL) {
 		m_worldDirection =
 			Mx3DPointFloat(m_roi->GetWorldDirection()[0], m_roi->GetWorldDirection()[1], m_roi->GetWorldDirection()[2]);
@@ -210,8 +200,7 @@ Mx3DPointFloat LegoEntity::GetWorldDirection()
 }
 
 // FUNCTION: LEGO1 0x10010cf0
-Mx3DPointFloat LegoEntity::GetWorldUp()
-{
+Mx3DPointFloat LegoEntity::GetWorldUp() {
 	if (m_roi != NULL) {
 		m_worldUp = Mx3DPointFloat(m_roi->GetWorldUp()[0], m_roi->GetWorldUp()[1], m_roi->GetWorldUp()[2]);
 	}
@@ -221,8 +210,7 @@ Mx3DPointFloat LegoEntity::GetWorldUp()
 
 // FUNCTION: LEGO1 0x10010d80
 // FUNCTION: BETA10 0x1007ebbe
-Mx3DPointFloat LegoEntity::GetWorldPosition()
-{
+Mx3DPointFloat LegoEntity::GetWorldPosition() {
 	if (m_roi != NULL) {
 		m_worldLocation =
 			Mx3DPointFloat(m_roi->GetWorldPosition()[0], m_roi->GetWorldPosition()[1], m_roi->GetWorldPosition()[2]);
@@ -233,8 +221,7 @@ Mx3DPointFloat LegoEntity::GetWorldPosition()
 
 // FUNCTION: LEGO1 0x10010e10
 // FUNCTION: BETA10 0x1007ec97
-void LegoEntity::ParseAction(char* p_extra)
-{
+void LegoEntity::ParseAction(char* p_extra) {
 	char copy[1024];
 	char actionValue[1024];
 	strcpy(copy, p_extra);
@@ -263,8 +250,7 @@ void LegoEntity::ParseAction(char* p_extra)
 
 // FUNCTION: LEGO1 0x10010f10
 // FUNCTION: BETA10 0x1007ee87
-void LegoEntity::ClickSound(MxBool p_und)
-{
+void LegoEntity::ClickSound(MxBool p_und) {
 	if (!GetUnknown0x10IsSet(c_altBit1)) {
 		MxU32 objectId = 0;
 		const char* name = m_roi->GetName();
@@ -295,8 +281,7 @@ void LegoEntity::ClickSound(MxBool p_und)
 
 // FUNCTION: LEGO1 0x10011070
 // FUNCTION: BETA10 0x1007f062
-void LegoEntity::ClickAnimation()
-{
+void LegoEntity::ClickAnimation() {
 	if (!GetUnknown0x10IsSet(c_altBit1)) {
 		MxU32 objectId = 0;
 		MxDSAction action;
@@ -336,8 +321,7 @@ void LegoEntity::ClickAnimation()
 
 // FUNCTION: LEGO1 0x10011300
 // FUNCTION: BETA10 0x1007f35a
-void LegoEntity::SwitchVariant()
-{
+void LegoEntity::SwitchVariant() {
 	switch (m_type) {
 	case e_actor:
 		CharacterManager()->SwitchVariant(m_roi);
@@ -360,8 +344,7 @@ void LegoEntity::SwitchVariant()
 
 // FUNCTION: LEGO1 0x10011360
 // FUNCTION: BETA10 0x1007f411
-void LegoEntity::SwitchSound()
-{
+void LegoEntity::SwitchSound() {
 	switch (m_type) {
 	case e_actor:
 		CharacterManager()->SwitchSound(m_roi);
@@ -384,8 +367,7 @@ void LegoEntity::SwitchSound()
 
 // FUNCTION: LEGO1 0x100113c0
 // FUNCTION: BETA10 0x1007f4c8
-void LegoEntity::SwitchMove()
-{
+void LegoEntity::SwitchMove() {
 	switch (m_type) {
 	case e_actor:
 		CharacterManager()->SwitchMove(m_roi);
@@ -408,8 +390,7 @@ void LegoEntity::SwitchMove()
 
 // FUNCTION: LEGO1 0x10011420
 // FUNCTION: BETA10 0x1007f57f
-void LegoEntity::SwitchColor(LegoROI* p_roi)
-{
+void LegoEntity::SwitchColor(LegoROI* p_roi) {
 	switch (m_type) {
 	case e_actor:
 		CharacterManager()->SwitchColor(m_roi, p_roi);
@@ -431,8 +412,7 @@ void LegoEntity::SwitchColor(LegoROI* p_roi)
 
 // FUNCTION: LEGO1 0x10011470
 // FUNCTION: BETA10 0x1007f62c
-void LegoEntity::SwitchMood()
-{
+void LegoEntity::SwitchMood() {
 	switch (m_type) {
 	case e_actor:
 		CharacterManager()->SwitchMood(m_roi);
@@ -456,16 +436,14 @@ void LegoEntity::SwitchMood()
 
 // FUNCTION: LEGO1 0x100114e0
 // FUNCTION: BETA10 0x1007f6f0
-void LegoEntity::SetType(MxU8 p_type)
-{
+void LegoEntity::SetType(MxU8 p_type) {
 	m_type = p_type;
 }
 
 // FUNCTION: LEGO1 0x100114f0
 // FUNCTION: BETA10 0x1007f711
-MxLong LegoEntity::Notify(MxParam& p_param)
-{
-	LegoEventNotificationParam& param = (LegoEventNotificationParam&) p_param;
+MxLong LegoEntity::Notify(MxParam& p_param) {
+	LegoEventNotificationParam& param = (LegoEventNotificationParam&)p_param;
 
 	if (param.GetNotification() != c_notificationClick) {
 		return 0;

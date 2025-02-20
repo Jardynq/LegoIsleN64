@@ -40,34 +40,33 @@ IsleScript::Script g_nextChestAction = IsleScript::c_nca001ca_RunAnim;
 IsleScript::Script g_nextCavedoorAction = IsleScript::c_Avo900Ps_PlayWav;
 
 // FUNCTION: LEGO1 0x100150c0
-MxLong InfoCenterEntity::HandleClick(LegoEventNotificationParam& p_param)
-{
+MxLong InfoCenterEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	switch (GameState()->GetCurrentAct()) {
 	case LegoGameState::Act::e_act1: {
 		if (UserActor()->GetActorId() != GameState()->GetActorId()) {
-			((IslePathActor*) UserActor())->Exit();
+			((IslePathActor*)UserActor())->Exit();
 		}
 
-		Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
+		Isle* isle = (Isle*)FindWorld(*g_isleScript, IsleScript::c__Isle);
 		isle->FUN_10033350();
 		isle->SetDestLocation(LegoGameState::Area::e_infomain);
 
-		Act1State* act1state = (Act1State*) GameState()->GetState("Act1State");
+		Act1State* act1state = (Act1State*)GameState()->GetState("Act1State");
 		act1state->SetUnknown18(0);
 		break;
 	}
 	case LegoGameState::Act::e_act2: {
-		LegoAct2* act2 = (LegoAct2*) FindWorld(*g_act2mainScript, Act2mainScript::c__Act2Main);
+		LegoAct2* act2 = (LegoAct2*)FindWorld(*g_act2mainScript, Act2mainScript::c__Act2Main);
 		act2->SetDestLocation(LegoGameState::e_infomain);
 
-		LegoAct2State* act2state = (LegoAct2State*) GameState()->GetState("LegoAct2State");
+		LegoAct2State* act2state = (LegoAct2State*)GameState()->GetState("LegoAct2State");
 		if (act2state) {
 			act2state->m_enabled = FALSE;
 		}
 		break;
 	}
 	case LegoGameState::Act::e_act3:
-		Act3* act3 = (Act3*) FindWorld(*g_act3Script, Act3Script::c__Act3);
+		Act3* act3 = (Act3*)FindWorld(*g_act3Script, Act3Script::c__Act3);
 		act3->SetDestLocation(LegoGameState::e_infomain);
 		break;
 	}
@@ -78,19 +77,18 @@ MxLong InfoCenterEntity::HandleClick(LegoEventNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x100151d0
-MxLong GasStationEntity::HandleClick(LegoEventNotificationParam& p_param)
-{
+MxLong GasStationEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
-		Act1State* state = (Act1State*) GameState()->GetState("Act1State");
+		Act1State* state = (Act1State*)GameState()->GetState("Act1State");
 
 		if (state->GetUnknown18() != 8) {
 			state->SetUnknown18(0);
 
 			if (UserActor()->GetActorId() != GameState()->GetActorId()) {
-				((IslePathActor*) UserActor())->Exit();
+				((IslePathActor*)UserActor())->Exit();
 			}
 
-			Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
+			Isle* isle = (Isle*)FindWorld(*g_isleScript, IsleScript::c__Isle);
 			isle->SetDestLocation(LegoGameState::Area::e_garage);
 
 			AnimationManager()->FUN_10061010(FALSE);
@@ -102,19 +100,18 @@ MxLong GasStationEntity::HandleClick(LegoEventNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10015270
-MxLong HospitalEntity::HandleClick(LegoEventNotificationParam& p_param)
-{
+MxLong HospitalEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
-		Act1State* act1State = (Act1State*) GameState()->GetState("Act1State");
+		Act1State* act1State = (Act1State*)GameState()->GetState("Act1State");
 
 		if (act1State->GetUnknown18() != 10) {
 			act1State->SetUnknown18(0);
 
 			if (UserActor()->GetActorId() != GameState()->GetActorId()) {
-				((IslePathActor*) UserActor())->Exit();
+				((IslePathActor*)UserActor())->Exit();
 			}
 
-			Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
+			Isle* isle = (Isle*)FindWorld(*g_isleScript, IsleScript::c__Isle);
 			isle->SetDestLocation(LegoGameState::Area::e_hospital);
 
 			AnimationManager()->FUN_10061010(FALSE);
@@ -126,19 +123,18 @@ MxLong HospitalEntity::HandleClick(LegoEventNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10015310
-MxLong PoliceEntity::HandleClick(LegoEventNotificationParam& p_param)
-{
+MxLong PoliceEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
-		Act1State* state = (Act1State*) GameState()->GetState("Act1State");
+		Act1State* state = (Act1State*)GameState()->GetState("Act1State");
 
 		if (state->GetUnknown18() != 10) {
 			state->SetUnknown18(0);
 
 			if (UserActor()->GetActorId() != GameState()->GetActorId()) {
-				((IslePathActor*) UserActor())->Exit();
+				((IslePathActor*)UserActor())->Exit();
 			}
 
-			Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
+			Isle* isle = (Isle*)FindWorld(*g_isleScript, IsleScript::c__Isle);
 			isle->SetDestLocation(LegoGameState::Area::e_police);
 
 			AnimationManager()->FUN_10061010(FALSE);
@@ -150,17 +146,16 @@ MxLong PoliceEntity::HandleClick(LegoEventNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x100153b0
-MxLong BeachHouseEntity::HandleClick(LegoEventNotificationParam& p_param)
-{
+MxLong BeachHouseEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
-		Act1State* state = (Act1State*) GameState()->GetState("Act1State");
+		Act1State* state = (Act1State*)GameState()->GetState("Act1State");
 		state->SetUnknown18(0);
 
 		if (UserActor()->GetActorId() != GameState()->GetActorId()) {
-			((IslePathActor*) UserActor())->Exit();
+			((IslePathActor*)UserActor())->Exit();
 		}
 
-		Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
+		Isle* isle = (Isle*)FindWorld(*g_isleScript, IsleScript::c__Isle);
 		isle->SetDestLocation(LegoGameState::Area::e_jetskibuild);
 
 		AnimationManager()->FUN_10061010(FALSE);
@@ -171,17 +166,16 @@ MxLong BeachHouseEntity::HandleClick(LegoEventNotificationParam& p_param)
 }
 
 // FUNCTION: LEGO1 0x10015450
-MxLong RaceStandsEntity::HandleClick(LegoEventNotificationParam& p_param)
-{
+MxLong RaceStandsEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
-		Act1State* state = (Act1State*) GameState()->GetState("Act1State");
+		Act1State* state = (Act1State*)GameState()->GetState("Act1State");
 		state->SetUnknown18(0);
 
 		if (UserActor()->GetActorId() != GameState()->GetActorId()) {
-			((IslePathActor*) UserActor())->Exit();
+			((IslePathActor*)UserActor())->Exit();
 		}
 
-		Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
+		Isle* isle = (Isle*)FindWorld(*g_isleScript, IsleScript::c__Isle);
 		isle->SetDestLocation(LegoGameState::Area::e_racecarbuild);
 
 		AnimationManager()->FUN_10061010(FALSE);
@@ -193,8 +187,7 @@ MxLong RaceStandsEntity::HandleClick(LegoEventNotificationParam& p_param)
 
 // FUNCTION: LEGO1 0x100154f0
 // FUNCTION: BETA10 0x100256e8
-MxLong JailEntity::HandleClick(LegoEventNotificationParam& p_param)
-{
+MxLong JailEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
 		PlayCamAnim(UserActor(), FALSE, 18, TRUE);
 	}
@@ -204,8 +197,7 @@ MxLong JailEntity::HandleClick(LegoEventNotificationParam& p_param)
 
 // FUNCTION: LEGO1 0x10015520
 // FUNCTION: BETA10 0x10025719
-MxLong CaveEntity::HandleClick(LegoEventNotificationParam& p_param)
-{
+MxLong CaveEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	LegoROI* roi = p_param.GetROI();
 
 	if (!strncmp(roi->GetName(), g_chest, strlen(g_chest))) {

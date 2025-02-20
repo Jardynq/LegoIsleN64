@@ -63,7 +63,7 @@ extern "C++"
 #include <new.h>
 
 #include "smrtheap.h"
-   
+
 #if defined(new)
 #if defined(MEM_DEBUG)
 #undef new
@@ -76,44 +76,49 @@ extern "C++"
 #define SHI_ARRAY_NEW 1
 #endif
 
-void MEM_FAR * MEM_ENTRY_ANSI shi_New(unsigned long sz, unsigned flags=0, MEM_POOL pool=0);
+   void MEM_FAR* MEM_ENTRY_ANSI shi_New(unsigned long sz, unsigned flags = 0, MEM_POOL pool = 0);
 
-// operator new variants:
+   // operator new variants:
 
 
-// version of new that passes memory allocation flags
-// (e.g. MEM_ZEROINIT to zero-initialize memory)
-// call with syntax 'ptr = new (flags) <type>'
-inline void MEM_FAR *operator new(size_t sz, unsigned flags)
-   { return shi_New(sz, flags); }
+   // version of new that passes memory allocation flags
+   // (e.g. MEM_ZEROINIT to zero-initialize memory)
+   // call with syntax 'ptr = new (flags) <type>'
+   inline void MEM_FAR* operator new(size_t sz, unsigned flags) {
+      return shi_New(sz, flags);
+   }
 
-// version of new that allocates from a specified memory pool with alloc flags
-// call with the syntax 'ptr = new (pool, [flags=0]) <type>'
-inline void MEM_FAR *operator new(size_t sz, MEM_POOL pool, unsigned flags=0)
-   { return shi_New(sz, flags, pool); }
+   // version of new that allocates from a specified memory pool with alloc flags
+   // call with the syntax 'ptr = new (pool, [flags=0]) <type>'
+   inline void MEM_FAR* operator new(size_t sz, MEM_POOL pool, unsigned flags = 0) {
+      return shi_New(sz, flags, pool);
+   }
 #ifdef SHI_ARRAY_NEW
-inline void MEM_FAR *operator new[](size_t sz, MEM_POOL pool, unsigned flags=0)
-   { return shi_New(sz, flags, pool); }
+   inline void MEM_FAR* operator new[](size_t sz, MEM_POOL pool, unsigned flags = 0) {
+      return shi_New(sz, flags, pool);
+   }
 #endif
 
-// version of new that changes the size of a memory block previously allocated
-// from an SmartHeap memory pool
-// call with the syntax 'ptr = new (ptr, flags) <type>'
+   // version of new that changes the size of a memory block previously allocated
+   // from an SmartHeap memory pool
+   // call with the syntax 'ptr = new (ptr, flags) <type>'
 #if !defined(MEM_DEBUG) || !defined(__HIGHC__)
 /* bug in MetaWare High C++ parser confuses this with new(file,line) */
-inline void MEM_FAR *operator new(size_t new_sz, void MEM_FAR *lpMem,
-                                  unsigned flags)
-   { return MemReAllocPtr(lpMem, new_sz, flags); }
+   inline void MEM_FAR* operator new(size_t new_sz, void MEM_FAR* lpMem,
+      unsigned flags) {
+      return MemReAllocPtr(lpMem, new_sz, flags);
+   }
 #ifdef SHI_ARRAY_NEW
-inline void MEM_FAR *operator new[](size_t new_sz, void MEM_FAR *lpMem,
-                                  unsigned flags)
-   { return MemReAllocPtr(lpMem, new_sz, flags); }
+   inline void MEM_FAR* operator new[](size_t new_sz, void MEM_FAR* lpMem,
+      unsigned flags) {
+      return MemReAllocPtr(lpMem, new_sz, flags);
+   }
 #endif // SHI_ARRAY_NEW
 #endif
 
 
-// new_handler prototypes: note that MSC/C++ prototype differs from the
-// protosed ANSI standard prototype for set_new_handler
+   // new_handler prototypes: note that MSC/C++ prototype differs from the
+   // protosed ANSI standard prototype for set_new_handler
 #ifdef __MWERKS__
 #define MEM_CPP_THROW throw()
 #else
@@ -123,14 +128,14 @@ inline void MEM_FAR *operator new[](size_t new_sz, void MEM_FAR *lpMem,
 #define _CRTIMP
 #endif // _CRTIMP
 #ifdef _MSC_VER
-_CRTIMP _PNH MEM_ENTRY_ANSI _set_new_handler(_PNH);
+   _CRTIMP _PNH MEM_ENTRY_ANSI _set_new_handler(_PNH);
 #if UINT_MAX == 0xFFFFu
-_PNH MEM_ENTRY_ANSI _set_fnew_handler(_PNH);
-_PNHH MEM_ENTRY_ANSI _set_hnew_handler(_PNHH);
+   _PNH MEM_ENTRY_ANSI _set_fnew_handler(_PNH);
+   _PNHH MEM_ENTRY_ANSI _set_hnew_handler(_PNHH);
 #endif // UINT_MAX
 #endif // _MSC_VER
-typedef void (MEM_ENTRY_ANSI * pnh)();
-_CRTIMP pnh MEM_ENTRY_ANSI set_new_handler(pnh) MEM_CPP_THROW;
+   typedef void (MEM_ENTRY_ANSI* pnh)();
+   _CRTIMP pnh MEM_ENTRY_ANSI set_new_handler(pnh) MEM_CPP_THROW;
 
 #ifndef DBG_FORMAL
 #define DBG_FORMAL

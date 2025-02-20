@@ -17,16 +17,14 @@ DECOMP_SIZE_ASSERT(LegoRaceActor, 0x180)
 Mx3DPointFloat LegoRaceActor::g_unk0x10102b08 = Mx3DPointFloat(0.0, 2.0, 0.0);
 
 // FUNCTION: LEGO1 0x100145d0
-LegoRaceActor::LegoRaceActor()
-{
+LegoRaceActor::LegoRaceActor() {
 	m_unk0x70 = 0;
 	m_unk0x08 = 0;
 }
 
 // FUNCTION: LEGO1 0x10014750
 // FUNCTION: BETA10 0x100c9bba
-MxS32 LegoRaceActor::VTable0x68(Vector3& p_v1, Vector3& p_v2, Vector3& p_v3)
-{
+MxS32 LegoRaceActor::VTable0x68(Vector3& p_v1, Vector3& p_v2, Vector3& p_v3) {
 	MxS32 result = LegoPathActor::VTable0x68(p_v1, p_v2, p_v3);
 
 	if (m_userNavFlag && result) {
@@ -46,8 +44,7 @@ MxS32 LegoRaceActor::VTable0x68(Vector3& p_v1, Vector3& p_v2, Vector3& p_v3)
 
 // FUNCTION: LEGO1 0x100147f0
 // FUNCTION: BETA10 0x100c9c93
-MxU32 LegoRaceActor::VTable0x90(float p_time, Matrix4& p_transform)
-{
+MxU32 LegoRaceActor::VTable0x90(float p_time, Matrix4& p_transform) {
 	// Note: Code duplication with LegoExtraActor::VTable0x90
 	switch (m_actorState) {
 	case c_initial:
@@ -94,8 +91,7 @@ MxU32 LegoRaceActor::VTable0x90(float p_time, Matrix4& p_transform)
 
 // FUNCTION: LEGO1 0x10014a00
 // FUNCTION: BETA10 0x100c9f5c
-MxResult LegoRaceActor::HitActor(LegoPathActor* p_actor, MxBool p_bool)
-{
+MxResult LegoRaceActor::HitActor(LegoPathActor* p_actor, MxBool p_bool) {
 	if (!p_actor->GetUserNavFlag()) {
 		if (p_actor->GetActorState() != c_initial) {
 			return FAILURE;
@@ -120,7 +116,6 @@ MxResult LegoRaceActor::HitActor(LegoPathActor* p_actor, MxBool p_bool)
 
 // FUNCTION: LEGO1 0x10014aa0
 // FUNCTION: BETA10 0x100ca038
-MxResult LegoRaceActor::FUN_10014aa0()
-{
+MxResult LegoRaceActor::FUN_10014aa0() {
 	return SUCCESS;
 }

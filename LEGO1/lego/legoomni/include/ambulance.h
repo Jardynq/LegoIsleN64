@@ -15,8 +15,7 @@ public:
 
 	// FUNCTION: LEGO1 0x10037440
 	// FUNCTION: BETA10 0x10024480
-	MxResult Serialize(LegoStorage* p_storage) override
-	{
+	MxResult Serialize(LegoStorage* p_storage) override {
 		LegoState::Serialize(p_storage);
 
 		if (p_storage->IsReadMode()) {
@@ -62,8 +61,7 @@ public:
 	}
 
 	// FUNCTION: BETA10 0x10088770
-	MxS16 GetHighScore(MxU8 p_actorId)
-	{
+	MxS16 GetHighScore(MxU8 p_actorId) {
 		switch (p_actorId) {
 		case LegoActor::c_pepper:
 			return m_peHighScore;
@@ -86,8 +84,7 @@ public:
 	}
 
 	// FUNCTION: BETA10 0x100242d0
-	void UpdateScore(ScoreColor p_score, MxS16 p_actorId)
-	{
+	void UpdateScore(ScoreColor p_score, MxS16 p_actorId) {
 		switch (p_actorId) {
 		case LegoActor::c_pepper:
 			m_peScore = p_score;

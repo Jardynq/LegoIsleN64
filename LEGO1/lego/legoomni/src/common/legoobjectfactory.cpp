@@ -105,8 +105,7 @@ DECOMP_SIZE_ASSERT(LegoObjectFactory, 0x1c8)
 
 // FUNCTION: LEGO1 0x10006e40
 // FUNCTION: BETA10 0x1009e930
-LegoObjectFactory::LegoObjectFactory()
-{
+LegoObjectFactory::LegoObjectFactory() {
 	m_idLegoEntityPresenter = MxAtomId("LegoEntityPresenter", e_exact);
 	m_idLegoActorPresenter = MxAtomId("LegoActorPresenter", e_exact);
 	m_idLegoWorldPresenter = MxAtomId("LegoWorldPresenter", e_exact);
@@ -212,8 +211,7 @@ LegoObjectFactory::LegoObjectFactory()
 
 // FUNCTION: LEGO1 0x10009a90
 // FUNCTION: BETA10 0x100a1021
-MxCore* LegoObjectFactory::Create(const char* p_name)
-{
+MxCore* LegoObjectFactory::Create(const char* p_name) {
 	MxCore* object = NULL;
 	MxAtomId atom(p_name, e_exact);
 
@@ -392,7 +390,7 @@ MxCore* LegoObjectFactory::Create(const char* p_name)
 	}
 	else if (m_idAct2Actor == atom) {
 		Act2Actor* actor = new Act2Actor();
-		((LegoAct2*) CurrentWorld())->SetUnknown0x1138(actor);
+		((LegoAct2*)CurrentWorld())->SetUnknown0x1138(actor);
 		object = actor;
 	}
 	else if (m_idAct2Brick == atom) {
@@ -520,14 +518,13 @@ MxCore* LegoObjectFactory::Create(const char* p_name)
 	}
 
 	// clang-format off
-	assert(object!=NULL);
+	assert(object != NULL);
 	// clang-format on
 
 	return object;
 }
 
 // FUNCTION: LEGO1 0x1000fb30
-void LegoObjectFactory::Destroy(MxCore* p_object)
-{
+void LegoObjectFactory::Destroy(MxCore* p_object) {
 	delete p_object;
 }

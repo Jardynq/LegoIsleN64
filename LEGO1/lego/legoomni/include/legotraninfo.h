@@ -17,8 +17,7 @@ struct LegoTranInfo {
 		c_bit2 = 0x02
 	};
 
-	LegoTranInfo()
-	{
+	LegoTranInfo() {
 		m_index = 0;
 		m_unk0x08 = NULL;
 		m_unk0x0c = NULL;

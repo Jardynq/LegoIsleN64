@@ -9,8 +9,7 @@ DECOMP_SIZE_ASSERT(MxVideoParam, 0x24)
 
 // FUNCTION: LEGO1 0x100bec70
 // FUNCTION: BETA10 0x1012db3e
-MxVideoParam::MxVideoParam()
-{
+MxVideoParam::MxVideoParam() {
 	m_rect = MxRect32(0, 0, 640, 480);
 	m_palette = NULL;
 	m_backBuffers = 0;
@@ -20,8 +19,7 @@ MxVideoParam::MxVideoParam()
 
 // FUNCTION: LEGO1 0x100beca0
 // FUNCTION: BETA10 0x1012dbb1
-MxVideoParam::MxVideoParam(MxRect32& p_rect, MxPalette* p_palette, MxULong p_backBuffers, MxVideoParamFlags& p_flags)
-{
+MxVideoParam::MxVideoParam(MxRect32& p_rect, MxPalette* p_palette, MxULong p_backBuffers, MxVideoParamFlags& p_flags) {
 	m_rect = p_rect;
 	m_palette = p_palette;
 	m_backBuffers = p_backBuffers;
@@ -32,8 +30,7 @@ MxVideoParam::MxVideoParam(MxRect32& p_rect, MxPalette* p_palette, MxULong p_bac
 
 // FUNCTION: LEGO1 0x100becf0
 // FUNCTION: BETA10 0x1012dc1e
-MxVideoParam::MxVideoParam(MxVideoParam& p_videoParam)
-{
+MxVideoParam::MxVideoParam(MxVideoParam& p_videoParam) {
 	m_rect = p_videoParam.m_rect;
 	m_palette = p_videoParam.m_palette;
 	m_backBuffers = p_videoParam.m_backBuffers;
@@ -45,8 +42,7 @@ MxVideoParam::MxVideoParam(MxVideoParam& p_videoParam)
 
 // FUNCTION: LEGO1 0x100bed50
 // FUNCTION: BETA10 0x1012dca3
-MxVideoParam::~MxVideoParam()
-{
+MxVideoParam::~MxVideoParam() {
 	if (m_deviceId != NULL) {
 		delete[] m_deviceId;
 	}
@@ -54,8 +50,7 @@ MxVideoParam::~MxVideoParam()
 
 // FUNCTION: LEGO1 0x100bed70
 // FUNCTION: BETA10 0x1012dce1
-void MxVideoParam::SetDeviceName(char* p_deviceId)
-{
+void MxVideoParam::SetDeviceName(char* p_deviceId) {
 	if (m_deviceId != NULL) {
 		delete[] m_deviceId;
 	}
@@ -74,8 +69,7 @@ void MxVideoParam::SetDeviceName(char* p_deviceId)
 
 // FUNCTION: LEGO1 0x100bede0
 // FUNCTION: BETA10 0x1012dd76
-MxVideoParam& MxVideoParam::operator=(const MxVideoParam& p_videoParam)
-{
+MxVideoParam& MxVideoParam::operator=(const MxVideoParam& p_videoParam) {
 	m_rect = p_videoParam.m_rect;
 	m_palette = p_videoParam.m_palette;
 	m_backBuffers = p_videoParam.m_backBuffers;

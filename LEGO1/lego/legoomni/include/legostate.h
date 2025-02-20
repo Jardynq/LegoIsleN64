@@ -28,8 +28,7 @@ public:
 
 		// FUNCTION: LEGO1 0x10017c00
 		// FUNCTION: BETA10 0x10031dc0
-		Playlist()
-		{
+		Playlist() {
 			m_objectIds = NULL;
 			m_length = 0;
 			m_mode = e_loop;
@@ -37,8 +36,7 @@ public:
 		}
 
 		// FUNCTION: BETA10 0x10031e10
-		Playlist(MxU32* p_objectIds, MxS16 p_length, MxS16 p_mode)
-		{
+		Playlist(MxU32* p_objectIds, MxS16 p_length, MxS16 p_mode) {
 			m_objectIds = p_objectIds;
 			m_length = p_length;
 			m_mode = p_mode;
@@ -47,8 +45,7 @@ public:
 
 		// FUNCTION: LEGO1 0x10071800
 		// FUNCTION: BETA10 0x10031e70
-		Playlist& operator=(const Playlist& p_playlist)
-		{
+		Playlist& operator=(const Playlist& p_playlist) {
 			m_objectIds = p_playlist.m_objectIds;
 			m_length = p_playlist.m_length;
 			m_nextIndex = p_playlist.m_nextIndex;
@@ -76,8 +73,7 @@ public:
 
 	// FUNCTION: LEGO1 0x10005fb0
 	// FUNCTION: BETA10 0x10017af0
-	virtual MxResult Serialize(LegoStorage* p_storage)
-	{
+	virtual MxResult Serialize(LegoStorage* p_storage) {
 		if (p_storage->IsWriteMode()) {
 			p_storage->WriteMxString(ClassName());
 		}

@@ -40,21 +40,18 @@ private:
 };
 
 // FUNCTION: BETA10 0x100d8ba0
-inline MxStopWatch::MxStopWatch()
-{
+inline MxStopWatch::MxStopWatch() {
 	Reset();
 	m_ticksPerSeconds = TicksPerSeconds();
 }
 
 // FUNCTION: BETA10 0x100d8be0
-inline void MxStopWatch::Start()
-{
+inline void MxStopWatch::Start() {
 	QueryPerformanceCounter(&m_startTick);
 }
 
 // FUNCTION: BETA10 0x100d8f50
-inline void MxStopWatch::Stop()
-{
+inline void MxStopWatch::Stop() {
 	LARGE_INTEGER endTick;
 	BOOL result;
 
@@ -66,21 +63,19 @@ inline void MxStopWatch::Stop()
 		m_elapsedSeconds = HUGE_VAL_IMMEDIATE;
 	}
 	else {
-		m_elapsedSeconds += ((endTick.LowPart - m_startTick.LowPart) / (double) m_ticksPerSeconds);
+		m_elapsedSeconds += ((endTick.LowPart - m_startTick.LowPart) / (double)m_ticksPerSeconds);
 	}
 }
 
 // FUNCTION: BETA10 0x100d8c10
-inline void MxStopWatch::Reset()
-{
+inline void MxStopWatch::Reset() {
 	m_startTick.LowPart = 0;
 	m_startTick.HighPart = 0;
 	m_elapsedSeconds = 0;
 }
 
 // FUNCTION: BETA10 0x100d8c60
-inline unsigned long MxStopWatch::TicksPerSeconds() const
-{
+inline unsigned long MxStopWatch::TicksPerSeconds() const {
 	LARGE_INTEGER ticksPerSeconds;
 	BOOL result;
 
@@ -99,8 +94,7 @@ inline unsigned long MxStopWatch::TicksPerSeconds() const
 }
 
 // FUNCTION: BETA10 0x100d9020
-inline double MxStopWatch::ElapsedSeconds() const
-{
+inline double MxStopWatch::ElapsedSeconds() const {
 	return m_elapsedSeconds;
 }
 
@@ -139,25 +133,21 @@ private:
 //
 
 // FUNCTION: BETA10 0x1017dd80
-inline MxFrequencyMeter::MxFrequencyMeter() : m_operationCount(0)
-{
+inline MxFrequencyMeter::MxFrequencyMeter() : m_operationCount(0) {
 }
 
 // FUNCTION: BETA10 0x1017deb0
-inline void MxFrequencyMeter::StartOperation()
-{
+inline void MxFrequencyMeter::StartOperation() {
 	m_stopWatch.Start();
 }
 
 // FUNCTION: BETA10 0x1017df10
-inline void MxFrequencyMeter::EndOperation()
-{
+inline void MxFrequencyMeter::EndOperation() {
 	m_stopWatch.Stop();
 	m_operationCount++;
 }
 
-inline double MxFrequencyMeter::Frequency() const
-{
+inline double MxFrequencyMeter::Frequency() const {
 	double elapsedSeconds = m_stopWatch.ElapsedSeconds();
 
 	if (elapsedSeconds > 0) {
@@ -176,26 +166,22 @@ inline double MxFrequencyMeter::Frequency() const
 }
 
 // FUNCTION: BETA10 0x1017dee0
-inline void MxFrequencyMeter::Reset()
-{
+inline void MxFrequencyMeter::Reset() {
 	m_stopWatch.Reset();
 	m_operationCount = 0;
 }
 
-inline unsigned long MxFrequencyMeter::OperationCount() const
-{
+inline unsigned long MxFrequencyMeter::OperationCount() const {
 	return m_operationCount;
 }
 
 // FUNCTION: BETA10 0x1017df40
-inline void MxFrequencyMeter::IncreaseOperationCount(unsigned long delta)
-{
+inline void MxFrequencyMeter::IncreaseOperationCount(unsigned long delta) {
 	m_operationCount += delta;
 }
 
 // FUNCTION: BETA10 0x1017df60
-inline double MxFrequencyMeter::ElapsedSeconds() const
-{
+inline double MxFrequencyMeter::ElapsedSeconds() const {
 	return m_stopWatch.ElapsedSeconds();
 }
 

@@ -24,8 +24,7 @@ public:
 	static void configureLegoModelPresenter(MxS32 p_modelPresenterConfig);
 
 	// FUNCTION: BETA10 0x100a7180
-	static const char* HandlerClassName()
-	{
+	static const char* HandlerClassName() {
 		// STRING: LEGO1 0x100f067c
 		return "LegoModelPresenter";
 	}
@@ -48,8 +47,7 @@ public:
 
 	MxResult FUN_1007ff70(MxDSChunk& p_chunk, LegoEntity* p_entity, MxBool p_roiVisible, LegoWorld* p_world);
 
-	void Reset()
-	{
+	void Reset() {
 		m_roi = NULL;
 		m_addedToView = FALSE;
 	}

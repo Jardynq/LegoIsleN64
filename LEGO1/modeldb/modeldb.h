@@ -30,8 +30,7 @@ public:
 	ModelDbPartList() { m_unk0x18 = 1; }
 
 	// FUNCTION: LEGO1 0x10027c40
-	MxS8 Compare(ModelDbPart* p_a, ModelDbPart* p_b) override
-	{
+	MxS8 Compare(ModelDbPart* p_a, ModelDbPart* p_b) override {
 		MxS32 compare = strcmpi(p_a->m_roiName.GetData(), p_b->m_roiName.GetData());
 
 		if (compare == 0) {

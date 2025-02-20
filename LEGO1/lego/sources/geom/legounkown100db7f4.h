@@ -22,8 +22,7 @@ public:
 
 	// FUNCTION: LEGO1 0x1002ddc0
 	// FUNCTION: BETA10 0x100372a0
-	LegoResult FUN_1002ddc0(LegoWEEdge& p_f, Vector3& p_point) const
-	{
+	LegoResult FUN_1002ddc0(LegoWEEdge& p_f, Vector3& p_point) const {
 		if (p_f.IsEqual(m_faceA)) {
 			p_point[0] = -m_unk0x28[0];
 			p_point[1] = -m_unk0x28[1];
@@ -31,7 +30,7 @@ public:
 		}
 		else {
 			// clang-format off
-			assert(p_f.IsEqual( m_faceB ));
+			assert(p_f.IsEqual(m_faceB));
 			// clang-format on
 			p_point = m_unk0x28;
 		}
@@ -40,25 +39,22 @@ public:
 	}
 
 	// FUNCTION: BETA10 0x1004a830
-	LegoU32 BETA_1004a830(LegoWEGEdge& p_face, LegoU8 p_mask)
-	{
+	LegoU32 BETA_1004a830(LegoWEGEdge& p_face, LegoU8 p_mask) {
 		assert(p_face.IsEqual(m_faceA) || p_face.IsEqual(m_faceB));
 		return (p_face.IsEqual(m_faceB) && (m_flags & c_bit1) && (p_face.GetMask0x03() & p_mask) == p_mask) ||
-			   (p_face.IsEqual(m_faceA) && (m_flags & c_bit2) && (p_face.GetMask0x03() & p_mask) == p_mask);
+			(p_face.IsEqual(m_faceA) && (m_flags & c_bit2) && (p_face.GetMask0x03() & p_mask) == p_mask);
 	}
 
 	// FUNCTION: BETA10 0x100b53b0
-	LegoU32 BETA_100b53b0(LegoWEGEdge& p_face)
-	{
+	LegoU32 BETA_100b53b0(LegoWEGEdge& p_face) {
 		// clang-format off
-		assert(p_face.IsEqual( m_faceA ) || p_face.IsEqual( m_faceB ));
+		assert(p_face.IsEqual(m_faceA) || p_face.IsEqual(m_faceB));
 		// clang-format on
 		return (p_face.IsEqual(m_faceA) && (m_flags & c_bit1)) || (p_face.IsEqual(m_faceB) && (m_flags & c_bit2));
 	}
 
 	// FUNCTION: BETA10 0x1001cbe0
-	LegoWEEdge* OtherFace(LegoWEEdge* p_other)
-	{
+	LegoWEEdge* OtherFace(LegoWEEdge* p_other) {
 		if (m_faceA == p_other) {
 			return m_faceB;
 		}
@@ -68,18 +64,16 @@ public:
 	}
 
 	// FUNCTION: BETA10 0x100bd4a0
-	LegoFloat DistanceToMidpoint(const Vector3& p_vec)
-	{
+	LegoFloat DistanceToMidpoint(const Vector3& p_vec) {
 		Mx3DPointFloat point(*m_pointA);
 		point += *m_pointB;
 		point *= 0.5f;
 		point -= p_vec;
-		return sqrt((double) point.LenSquared());
+		return sqrt((double)point.LenSquared());
 	}
 
 	// FUNCTION: BETA10 0x100bd540
-	LegoFloat DistanceBetweenMidpoints(const LegoUnknown100db7f4& p_other)
-	{
+	LegoFloat DistanceBetweenMidpoints(const LegoUnknown100db7f4& p_other) {
 		Mx3DPointFloat point1(*m_pointA);
 		Mx3DPointFloat point2(*p_other.m_pointA);
 		point1 += *m_pointB;
@@ -87,7 +81,7 @@ public:
 		point2 += *p_other.m_pointB;
 		point2 *= 0.5f;
 		point1 -= point2;
-		return sqrt((double) point1.LenSquared());
+		return sqrt((double)point1.LenSquared());
 	}
 
 	// FUNCTION: BETA10 0x1001cc60
@@ -108,8 +102,7 @@ public:
 
 // FUNCTION: LEGO1 0x10048c40
 // FUNCTION: BETA10 0x1001cc90
-inline LegoU32 LegoUnknown100db7f4::FUN_10048c40(const Vector3& p_position)
-{
+inline LegoU32 LegoUnknown100db7f4::FUN_10048c40(const Vector3& p_position) {
 	LegoFloat localc, local10;
 	LegoU32 result = FALSE;
 

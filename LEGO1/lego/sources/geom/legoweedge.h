@@ -25,8 +25,7 @@ public:
 	// FUNCTION: BETA10 0x100373f0
 	LegoU32 IsEqual(LegoWEEdge* p_other) { return this == p_other; }
 
-	void SetEdges(LegoUnknown100db7f4** p_edges, LegoU8 p_numEdges)
-	{
+	void SetEdges(LegoUnknown100db7f4** p_edges, LegoU8 p_numEdges) {
 		m_edges = p_edges;
 		m_numEdges = p_numEdges;
 	}

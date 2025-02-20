@@ -24,9 +24,8 @@ class Vector3;
 struct LegoPathCtrlEdge : public LegoUnknown100db7f4 {};
 
 struct LegoPathCtrlEdgeCompare {
-	MxU32 operator()(const LegoPathCtrlEdge* p_lhs, const LegoPathCtrlEdge* p_rhs) const
-	{
-		return (COMPARE_POINTER_TYPE) p_lhs < (COMPARE_POINTER_TYPE) p_rhs;
+	MxU32 operator()(const LegoPathCtrlEdge* p_lhs, const LegoPathCtrlEdge* p_rhs) const {
+		return (COMPARE_POINTER_TYPE)p_lhs < (COMPARE_POINTER_TYPE)p_rhs;
 	}
 };
 
@@ -40,8 +39,7 @@ public:
 	// SIZE 0x08
 	struct CtrlBoundary {
 		// FUNCTION: LEGO1 0x10046dc0
-		CtrlBoundary()
-		{
+		CtrlBoundary() {
 			m_controller = NULL;
 			m_boundary = NULL;
 		}
@@ -53,8 +51,7 @@ public:
 	// SIZE 0x08
 	struct CtrlEdge {
 		// FUNCTION: LEGO1 0x10046dd0
-		CtrlEdge()
-		{
+		CtrlEdge() {
 			m_controller = NULL;
 			m_edge = NULL;
 		}
@@ -163,8 +160,7 @@ private:
 	static MxResult ReadVector(LegoStorage* p_storage, Mx4DPointFloat& p_vec);
 
 	// FUNCTION: BETA10 0x100c16f0
-	static MxU32 IsBetween(MxFloat p_v, MxFloat p_a, MxFloat p_b)
-	{
+	static MxU32 IsBetween(MxFloat p_v, MxFloat p_a, MxFloat p_b) {
 		if (p_a <= p_b) {
 			return p_v >= p_a && p_v <= p_b;
 		}
@@ -174,8 +170,7 @@ private:
 	}
 
 	// FUNCTION: BETA10 0x100c17a0
-	static MxU32 FUN_100c17a0(MxFloat p_v1, MxFloat p_v2, MxFloat p_a, MxFloat p_b)
-	{
+	static MxU32 FUN_100c17a0(MxFloat p_v1, MxFloat p_v2, MxFloat p_a, MxFloat p_b) {
 		assert(IsBetween(p_v1, p_a, p_b));
 		assert(IsBetween(p_v2, p_a, p_b));
 
