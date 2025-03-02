@@ -4,7 +4,7 @@
 #include <iostream>
 #include <mxdirectx/legodxinfo.h>
 #include <mxdirectx/mxdirect3d.h>
-#include "../ISLE/MockRegistry.h"
+#include "MockRegistry.h"
 #include <process.h> // _spawnl
 #include <stdio.h>
 #include <windows.h>

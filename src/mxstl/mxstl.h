@@ -3,7 +3,6 @@
 #ifndef MXSTL_H
 #define MXSTL_H
 
-#include <use_ansi.h>
 #include <algorithm>
 #include <deque>
 #include <functional>
@@ -17,15 +16,6 @@
 #include <stack>
 #include <utility>
 #include <vector>
-
-
-#ifdef  _MSC_VER
-/*
- * Currently, all MS C compilers for Win32 platforms default to 8 byte
- * alignment.
- */
-#pragma pack(push,8)
-#endif // _MSC_VER
 
 template<class _TYPE>
 class Deque : public deque<_TYPE, allocator<_TYPE> > {
@@ -191,10 +181,4 @@ class Stack : public stack<_C::value_type, _C, _C::allocator_type> {
 #define queue Queue
 #define stack Stack
 
-#ifdef _MSC_VER
-#pragma pack(pop)
-#endif
-
 #endif // MXSTL_H
-
-// clang-format on
