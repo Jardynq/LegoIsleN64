@@ -820,7 +820,7 @@ void MxDisplaySurface::Display(MxS32 p_left, MxS32 p_top, MxS32 p_left2, MxS32 p
 					m_ddSurface2->Unlock(ddsd.lpSurface);
 				}
 				else {
-					OutputDebugString("MxDisplaySurface::Display error\n");
+					_MxTrace("MxDisplaySurface::Display error\n");
 				}
 			}
 			m_ddSurface1->Flip(NULL, DDFLIP_WAIT);

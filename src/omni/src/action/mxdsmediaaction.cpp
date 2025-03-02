@@ -69,6 +69,7 @@ MxDSAction* MxDSMediaAction::Clone() {
 // FUNCTION: BETA10 0x1015cacb
 void MxDSMediaAction::CopyMediaSrcPath(const char* p_mediaSrcPath) {
 	if (m_mediaSrcPath == p_mediaSrcPath) {
+		MxTrace("MxDSMediaAction: name allocation SUCCESS: %s.\n", p_mediaSrcPath);
 		return;
 	}
 

@@ -289,6 +289,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 	HRESULT result;
 
 	if (m_bFullScreen) {
+		printf("DDSetMode: Not using flip surfaces");
 		LPDIRECTDRAW lpDD;
 
 		EnableResizing(m_hWndMain, FALSE);
@@ -365,6 +366,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 	FUN_1009e020();
 
 	if (!GetDDSurfaceDesc(&ddsd, m_pBackBuffer)) {
+		Error("GetDDSurfaceDesc failed to get back buffer", result);
 		return FALSE;
 	}
 
@@ -426,6 +428,7 @@ BOOL MxDirectDraw::DDCreateSurfaces() {
 	DDSCAPS ddscaps;
 
 	if (m_bFlipSurfaces) {
+		printf("Using flip surfaces");
 		memset(&ddsd, 0, sizeof(DDSURFACEDESC));
 		ddsd.dwSize = sizeof(ddsd);
 		ddsd.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;
@@ -446,10 +449,12 @@ BOOL MxDirectDraw::DDCreateSurfaces() {
 			return FALSE;
 		}
 		if (!GetDDSurfaceDesc(&ddsd, m_pBackBuffer)) {
+			Error("GetDDSurfaceDesc failed to get back buffer", result);
 			return FALSE;
 		}
 	}
 	else {
+		printf("Not using flip surfaces");
 		memset(&ddsd, 0, sizeof(DDSURFACEDESC));
 		ddsd.dwSize = sizeof(DDSURFACEDESC);
 		ddsd.dwFlags = DDSD_CAPS;
@@ -472,6 +477,7 @@ BOOL MxDirectDraw::DDCreateSurfaces() {
 			return FALSE;
 		}
 		if (!GetDDSurfaceDesc(&ddsd, m_pBackBuffer)) {
+			Error("GetDDSurfaceDesc failed to get back buffer", result);
 			return FALSE;
 		}
 

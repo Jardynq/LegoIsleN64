@@ -1,5 +1,153 @@
 #include "mxdirect3d.h"
+#include "mxdebug.h"
 #include <stdio.h>
+
+
+void printDDPixelFormat(const DDPIXELFORMAT* pf) {
+	printf("DDPIXELFORMAT:\n");
+	printf("  Size:              %u bytes\n", pf->dwSize);
+	printf("  Flags:             0x%08X\n", pf->dwFlags);
+	printf("  FourCC:            0x%08X ('%c%c%c%c')\n",
+		pf->dwFourCC,
+		(pf->dwFourCC) & 0xFF,
+		(pf->dwFourCC >> 8) & 0xFF,
+		(pf->dwFourCC >> 16) & 0xFF,
+		(pf->dwFourCC >> 24) & 0xFF);
+
+	printf("  Bit Depths:\n");
+	printf("    RGB Bit Count:   %u\n", pf->dwRGBBitCount);
+	printf("    YUV Bit Count:   %u\n", pf->dwYUVBitCount);
+	printf("    ZBuffer Depth:   %u\n", pf->dwZBufferBitDepth);
+	printf("    Alpha Depth:     %u\n", pf->dwAlphaBitDepth);
+
+	printf("  Bit Masks:\n");
+	printf("    Red (R) Mask:    0x%08X\n", pf->dwRBitMask);
+	printf("    Green (G) Mask:  0x%08X\n", pf->dwGBitMask);
+	printf("    Blue (B) Mask:   0x%08X\n", pf->dwBBitMask);
+	printf("    Alpha Mask:      0x%08X\n", pf->dwRGBAlphaBitMask);
+
+	printf("\n");
+}
+
+
+void printDDSurfaceDesc(const DDSURFACEDESC* desc) {
+	printf("DDSURFACEDESC:\n");
+	printf("  Size:                %u bytes\n", desc->dwSize);
+	printf("  Flags:               0x%08X\n", desc->dwFlags);
+	printf("  Dimensions:          %u x %u\n", desc->dwWidth, desc->dwHeight);
+
+	printf("  Pitch/LinearSize:    %d (0x%08X)\n", desc->lPitch, desc->dwLinearSize);
+	printf("  Back Buffer Count:   %u\n", desc->dwBackBufferCount);
+
+	printf("  MipMap Count:        %u\n", desc->dwMipMapCount);
+	printf("  Z-Buffer Bit Depth:  %u\n", desc->dwZBufferBitDepth);
+	printf("  Refresh Rate:        %u Hz\n", desc->dwRefreshRate);
+
+	printf("  Alpha Bit Depth:     %u\n", desc->dwAlphaBitDepth);
+	printf("  Reserved:            0x%08X\n", desc->dwReserved);
+	printf("  Surface Pointer:     %p\n", desc->lpSurface);
+
+	printf("  Color Keys:\n");
+	printf("    Dest Overlay:      Low: 0x%08X  High: 0x%08X\n",
+		desc->ddckCKDestOverlay.dwColorSpaceLowValue, desc->ddckCKDestOverlay.dwColorSpaceHighValue);
+	printf("    Dest Blt:          Low: 0x%08X  High: 0x%08X\n",
+		desc->ddckCKDestBlt.dwColorSpaceLowValue, desc->ddckCKDestBlt.dwColorSpaceHighValue);
+	printf("    Src Overlay:       Low: 0x%08X  High: 0x%08X\n",
+		desc->ddckCKSrcOverlay.dwColorSpaceLowValue, desc->ddckCKSrcOverlay.dwColorSpaceHighValue);
+	printf("    Src Blt:           Low: 0x%08X  High: 0x%08X\n",
+		desc->ddckCKSrcBlt.dwColorSpaceLowValue, desc->ddckCKSrcBlt.dwColorSpaceHighValue);
+
+	printf("  Pixel Format:\n");
+	printf("    Size:              %u bytes\n", desc->ddpfPixelFormat.dwSize);
+	printf("    Flags:             0x%08X\n", desc->ddpfPixelFormat.dwFlags);
+	printf("    FourCC:            0x%08X ('%c%c%c%c')\n",
+		desc->ddpfPixelFormat.dwFourCC,
+		(desc->ddpfPixelFormat.dwFourCC) & 0xFF,
+		(desc->ddpfPixelFormat.dwFourCC >> 8) & 0xFF,
+		(desc->ddpfPixelFormat.dwFourCC >> 16) & 0xFF,
+		(desc->ddpfPixelFormat.dwFourCC >> 24) & 0xFF);
+	printf("    Bit Depth:         %u\n", desc->ddpfPixelFormat.dwRGBBitCount);
+
+	printf("    Red Mask:          0x%08X\n", desc->ddpfPixelFormat.dwRBitMask);
+	printf("    Green Mask:        0x%08X\n", desc->ddpfPixelFormat.dwGBitMask);
+	printf("    Blue Mask:         0x%08X\n", desc->ddpfPixelFormat.dwBBitMask);
+	printf("    Alpha Mask:        0x%08X\n", desc->ddpfPixelFormat.dwRGBAlphaBitMask);
+
+	printf("  Surface Capabilities:\n");
+	printf("    Caps:              0x%08X\n", desc->ddsCaps.dwCaps);
+
+	printf("\n");
+}
+
+void printDDSCaps(DWORD dwCaps) {
+	printf("  Surface Capabilities (ddsCaps.dwCaps):\n");
+
+	if (dwCaps & 0x00000001) printf("    - DDSCAPS_ALPHA: Surface contains alpha channel\n");
+	if (dwCaps & 0x00000002) printf("    - DDSCAPS_BACKBUFFER: Surface is a back buffer\n");
+	if (dwCaps & 0x00000004) printf("    - DDSCAPS_COMPLEX: Surface is complex (e.g., mipmaps)\n");
+	if (dwCaps & 0x00000008) printf("    - DDSCAPS_FLIP: Surface supports flipping\n");
+	if (dwCaps & 0x00000010) printf("    - DDSCAPS_FRONTBUFFER: Surface is a front buffer\n");
+	if (dwCaps & 0x00000020) printf("    - DDSCAPS_OFFSCREENPLAIN: Offscreen surface\n");
+	if (dwCaps & 0x00000040) printf("    - DDSCAPS_OVERLAY: Surface is an overlay\n");
+	if (dwCaps & 0x00000080) printf("    - DDSCAPS_PALETTE: Surface has an attached palette\n");
+	if (dwCaps & 0x00000100) printf("    - DDSCAPS_PRIMARYSURFACE: Surface is the primary display\n");
+	if (dwCaps & 0x00000200) printf("    - DDSCAPS_SYSTEMMEMORY: Surface is stored in system memory\n");
+	if (dwCaps & 0x00000400) printf("    - DDSCAPS_TEXTURE: Surface is used as a texture\n");
+	if (dwCaps & 0x00000800) printf("    - DDSCAPS_VIDEOMEMORY: Surface is stored in video memory\n");
+	if (dwCaps & 0x00001000) printf("    - DDSCAPS_WRITEONLY: Surface is write-only\n");
+	if (dwCaps & 0x00002000) printf("    - DDSCAPS_ZBUFFER: Surface is a Z-buffer\n");
+	if (dwCaps & 0x00004000) printf("    - DDSCAPS_OWNDC: Surface has its own device context (DC)\n");
+	if (dwCaps & 0x00008000) printf("    - DDSCAPS_LIVEVIDEO: Surface is receiving live video\n");
+	if (dwCaps & 0x00010000) printf("    - DDSCAPS_HWCODEC: Hardware-accelerated codec surface\n");
+	if (dwCaps & 0x00020000) printf("    - DDSCAPS_MODEX: ModeX surface\n");
+	if (dwCaps & 0x00040000) printf("    - DDSCAPS_MIPMAP: Surface is one level of a mipmap chain\n");
+	if (dwCaps & 0x00080000) printf("    - DDSCAPS_RESERVED2\n");
+	if (dwCaps & 0x00100000) printf("    - DDSCAPS_ALLOCONLOAD: Allocated when loaded\n");
+	if (dwCaps & 0x00200000) printf("    - DDSCAPS_VIDEOPORT: Surface is part of a video port\n");
+	if (dwCaps & 0x00400000) printf("    - DDSCAPS_LOCALVIDMEM: Surface is in local video memory\n");
+	if (dwCaps & 0x00800000) printf("    - DDSCAPS_NONLOCALVIDMEM: Surface is in non-local video memory\n");
+	if (dwCaps & 0x01000000) printf("    - DDSCAPS_STANDARDVGAMODE: Supports standard VGA mode\n");
+	if (dwCaps & 0x02000000) printf("    - DDSCAPS_OPTIMIZED: Optimized surface\n");
+	if (dwCaps & 0x04000000) printf("    - DDSCAPS2_HARDWAREDEINTERLACE: Supports hardware deinterlacing\n");
+	if (dwCaps == 0) printf("    - (No specific capabilities set)\n");
+}
+
+void printDDCaps(const DDCAPS* caps, const char* label) {
+	printf("\n--- %s ---\n", label);
+	printf("  Size:                  %u bytes\n", caps->dwSize);
+	printf("  Max Surface Width:     %u\n", caps->dwMaxVisibleOverlays);
+	printf("  Max Overlay Stretch:   %u%%\n", caps->dwMinOverlayStretch);
+	printf("  Max Video Memory:      %u KB\n", caps->dwVidMemTotal / 1024);
+	printf("  Free Video Memory:     %u KB\n", caps->dwVidMemFree / 1024);
+
+	printf("\n  Hardware Capabilities:\n");
+	if (caps->dwCaps & DDCAPS_3D)               printf("    - Supports 3D acceleration\n");
+	if (caps->dwCaps & DDCAPS_BLT)              printf("    - Supports BLT (Bit Block Transfer)\n");
+	if (caps->dwCaps & DDCAPS_BLTQUEUE)         printf("    - Supports queued BLTs\n");
+	if (caps->dwCaps & DDCAPS_BLTCOLORFILL)     printf("    - Supports color fill BLTs\n");
+	if (caps->dwCaps & DDCAPS_GDI)              printf("    - Can render with GDI\n");
+	if (caps->dwCaps & DDCAPS_OVERLAY)          printf("    - Supports hardware overlay\n");
+	if (caps->dwCaps & DDCAPS_OVERLAYCANTCLIP)  printf("    - Cannot clip overlays\n");
+	if (caps->dwCaps & DDCAPS_OVERLAYSTRETCH)   printf("    - Supports overlay stretching\n");
+	if (caps->dwCaps & DDCAPS_ALPHA)            printf("    - Supports alpha blending\n");
+	if (caps->dwCaps & DDCAPS_COLORKEY)         printf("    - Supports colorkeying\n");
+	if (caps->dwCaps & DDCAPS_CANCLIP)          printf("    - Supports surface clipping\n");
+	if (caps->dwCaps & DDCAPS_CANBLTSYSMEM)     printf("    - Can BLT from system memory\n");
+	if (caps->dwCaps & DDCAPS_READSCANLINE)     printf("    - Can read the current scanline\n");
+
+	printf("\n  Memory Alignment:\n");
+	printf("    - Align Boundary:   %u bytes\n", caps->dwAlignBoundarySrc);
+	printf("    - Align Size Src:   %u bytes\n", caps->dwAlignSizeSrc);
+	printf("    - Align Boundary Dest: %u bytes\n", caps->dwAlignBoundaryDest);
+	printf("    - Align Size Dest:  %u bytes\n", caps->dwAlignSizeDest);
+
+	printf("\n  Overlay Capabilities:\n");
+	if (caps->dwCaps2 & DDCAPS2_CANBOBINTERLEAVED) printf("    - Supports interleaved bob deinterlacing\n");
+	if (caps->dwCaps2 & DDCAPS2_CANBOBNONINTERLEAVED) printf("    - Supports non-interleaved bob deinterlacing\n");
+	if (caps->dwCaps2 & DDCAPS2_WIDESURFACES) printf("    - Supports wide surfaces\n");
+
+	printf("\n");
+}
 
 
 #if !defined(MXDIRECTX_FOR_CONFIG)
@@ -136,8 +284,47 @@ BOOL MxDirect3D::D3DSetMode() {
 		}
 	}
 
-	HRESULT result = m_pDirect3d->CreateDevice(m_assignedDevice->m_guid, m_pBackBuffer, &m_pDirect3dDevice);
+	DDSCAPS caps;
+	DDCAPS capsa;
+	DDCAPS capsb;
+	DDPIXELFORMAT pixfmt;
+	DDSURFACEDESC sdesc;
+	DDSURFACEDESC sdesc2;
+	HDC hdc;
+	if (DD_OK != m_pBackBuffer->GetCaps(&caps)) {
+		printf("Failed to get caps\n");
+	}
+	else {
+		printDDSCaps(caps.dwCaps);
+	}
+	if (DD_OK != m_pBackBuffer->GetPixelFormat(&pixfmt)) {
+		printf("Failed to get pixel format\n");
+	}
+	else {
+		printDDPixelFormat(&pixfmt);
+	}
+	if (DD_OK != m_pBackBuffer->GetSurfaceDesc(&sdesc)) {
+		printf("Failed to get surface descriptor\n");
+	}
+	else {
+		printDDSurfaceDesc(&sdesc);
+	}
+	if (DD_OK != m_pDirectDraw->GetCaps(&capsa, &capsb)) {
+		printf("Failed to get d3d caps\n");
+	}
+	else {
+		printDDCaps(&capsa, "First caps");
+		printDDCaps(&capsb, "Second caps");
+	}
+	if (DD_OK != m_pDirectDraw->GetDisplayMode(&sdesc2)) {
+		printf("Failed to get d3d surface descriptor\n");
+	}
+	else {
+		printDDSurfaceDesc(&sdesc);
+	}
 
+
+	HRESULT result = m_pDirect3d->CreateDevice(m_assignedDevice->m_guid, m_pBackBuffer, &m_pDirect3dDevice);
 	if (result != DD_OK) {
 		Error("Create D3D device failed", result);
 		return FALSE;
@@ -170,7 +357,7 @@ BOOL MxDirect3D::D3DSetMode() {
 		backBuffer->Unlock(desc.lpSurface);
 	}
 	else {
-		OutputDebugString("MxDirect3D::D3DSetMode() back lock failed\n");
+		_MxTrace("MxDirect3D::D3DSetMode() back lock failed\n");
 	}
 
 	if (m_bFullScreen) {
@@ -188,7 +375,7 @@ BOOL MxDirect3D::D3DSetMode() {
 			frontBuffer->Unlock(desc.lpSurface);
 		}
 		else {
-			OutputDebugString("MxDirect3D::D3DSetMode() front lock failed\n");
+			_MxTrace("MxDirect3D::D3DSetMode() front lock failed\n");
 		}
 	}
 

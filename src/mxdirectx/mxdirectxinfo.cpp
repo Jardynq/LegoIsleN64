@@ -3,7 +3,6 @@
 #include <assert.h>
 #include <stdio.h> // for vsprintf
 
-
 // FUNCTION: LEGO1 0x1009b8b0
 // FUNCTION: BETA10 0x1011c05e
 MxAssignedDevice::MxAssignedDevice() {
@@ -246,7 +245,7 @@ void MxDeviceEnumerate::BuildErrorString(const char* p_format, ...) {
 	vsprintf(buf, p_format, args);
 	va_end(args);
 
-	OutputDebugString(buf);
+	printf("DebugString: %s", buf);
 }
 
 // FUNCTION: CONFIG 0x00401bf0

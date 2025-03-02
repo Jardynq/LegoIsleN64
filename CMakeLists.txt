@@ -127,10 +127,11 @@ if(ISLE_BUILD_APP)
     src/mxdirectx/mxdirectxinfo.cpp
     src/mxdirectx/legodxinfo.cpp
     src/mxdirectx/mxdirectdraw.cpp
+    src/mxdirectx/mxdirectdraw.cpp
   )
   list(APPEND list_targets mxdirectx)
   set_property(TARGET mxdirectx PROPERTY ARCHIVE_OUTPUT_NAME "MxDirectX$<$<CONFIG:Debug>:d>")
-  target_include_directories(mxdirectx PRIVATE "${PROJECT_SOURCE_DIR}/src")
+  target_include_directories(mxdirectx PRIVATE "${PROJECT_SOURCE_DIR}/src/omni/include" "${PROJECT_SOURCE_DIR}/src")
   target_link_libraries(mxdirectx PRIVATE ddraw)
 
   add_library(roi STATIC

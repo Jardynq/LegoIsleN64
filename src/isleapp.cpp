@@ -210,6 +210,9 @@ void IsleApp::SetupVideoFlags(
 
 // FUNCTION: ISLE 0x401610
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
+	AllocConsole();
+	freopen("CON", "w", stdout);
+
 	// Look for another instance, if we find one, bring it to the foreground instead
 	if (!FindExistingInstance()) {
 		return 0;
@@ -511,10 +514,6 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 // FUNCTION: ISLE 0x4023e0
 MxResult IsleApp::SetupWindow(HINSTANCE hInstance, LPSTR lpCmdLine) {
-	AllocConsole();
-	freopen("CON", "w", stdout);
-	printf("Window setup started :)\n");
-
 	WNDCLASSA wndclass;
 	ZeroMemory(&wndclass, sizeof(WNDCLASSA));
 

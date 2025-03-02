@@ -21,7 +21,8 @@ void _MxTrace(const char* format, ...) {
 
 	va_start(args, format);
 	_vsnprintf(buffer, 256, format, args);
-	OutputDebugString(buffer);
+	printf("DebugString: ");
+	printf(buffer);
 	va_end(args);
 }
 
