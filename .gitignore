@@ -1,3 +1,5 @@
 /build/
 /legobin/
 /.cache/
+*.z64
+

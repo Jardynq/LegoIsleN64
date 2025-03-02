@@ -38,6 +38,16 @@
                 "isDefault": true,
             },
             "problemMatcher": []
-        }
+        },
+        {
+			"label": "build-n64",
+			"type": "shell",
+			"command": "libdragon make",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"problemMatcher": []
+		}
 	]
 }
