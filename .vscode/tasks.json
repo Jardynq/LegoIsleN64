@@ -13,7 +13,6 @@
 		{
             "label": "configure",
             "type": "shell",
-            "dependsOn": ["clean"],
             "command": "cmake",
             "args": [
                 ".",
