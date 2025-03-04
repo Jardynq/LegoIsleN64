@@ -1,0 +1,9 @@
+Index:
+  Background: Build
+  External: None
+
+Hover:
+  ShowAKA: Yes
+
+Completion:
+  AllScopes: Yes

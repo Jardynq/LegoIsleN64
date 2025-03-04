@@ -1,9 +1,11 @@
 {
     "files.associations": {
-        "clang-*": "yaml",
         "*.cpp": "cpp",
         "*.h": "cpp",
         "*.cmake": "cmake",
+        ".clang-tidy": "yaml",
+        ".clang-format": "yaml",
+        ".clangd": "yaml",
         "CMakeLists.txt": "cmake",
 
         "*.sql": "sql",
