@@ -164,7 +164,7 @@ BOOL MxDeviceEnumerate::EnumDirectDrawCallback(
 	HRESULT result = DirectDrawCreate(newDevice.m_guid, &lpDD, NULL);
 
 	if (result != DD_OK) {
-		BuildErrorString(
+		log_error(
 			"DirectDraw Create failed: %s\n",
 			EnumerateErrorToString(result)
 		);
@@ -174,16 +174,13 @@ BOOL MxDeviceEnumerate::EnumDirectDrawCallback(
 		result = lpDD->GetCaps(&newDevice.m_ddCaps, NULL);
 
 		if (result != DD_OK) {
-			BuildErrorString(
-				"GetCaps failed: %s\n",
-				EnumerateErrorToString(result)
-			);
+			log_error("GetCaps failed: %s\n", EnumerateErrorToString(result));
 		} else {
 			result =
 				lpDD->QueryInterface(IID_IDirect3D2, (LPVOID*) &lpDirect3d2);
 
 			if (result != DD_OK) {
-				BuildErrorString(
+				log_error(
 					"D3D creation failed: %s\n",
 					EnumerateErrorToString(result)
 				);
@@ -192,7 +189,7 @@ BOOL MxDeviceEnumerate::EnumDirectDrawCallback(
 					lpDirect3d2->EnumDevices(DevicesEnumerateCallback, this);
 
 				if (result != DD_OK) {
-					BuildErrorString(
+					log_error(
 						"D3D enum devices failed: %s\n",
 						EnumerateErrorToString(result)
 					);
@@ -214,17 +211,6 @@ BOOL MxDeviceEnumerate::EnumDirectDrawCallback(
 	}
 
 	return DDENUMRET_OK;
-}
-
-void MxDeviceEnumerate::BuildErrorString(const char* p_format, ...) {
-	va_list args;
-	char buf[512];
-
-	va_start(args, p_format);
-	vsprintf(buf, p_format, args);
-	va_end(args);
-
-	printf("DebugString: %s", buf);
 }
 
 HRESULT CALLBACK MxDeviceEnumerate::DisplayModesEnumerateCallback(
@@ -294,7 +280,7 @@ int MxDeviceEnumerate::DoEnumerate() {
 
 	HRESULT ret = DirectDrawEnumerate(DirectDrawEnumerateCallback, this);
 	if (ret != DD_OK) {
-		BuildErrorString(
+		log_error(
 			"DirectDrawEnumerate returned error %s\n",
 			EnumerateErrorToString(ret)
 		);

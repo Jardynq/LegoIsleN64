@@ -9,7 +9,6 @@
 #include "legoworld.h"
 #include "misc.h"
 #include "misc/legostorage.h"
-#include "mxdebug.h"
 #include "mxmisc.h"
 #include "mxticklemanager.h"
 #include "mxtimer.h"
@@ -766,7 +765,7 @@ MxResult LegoBuildingManager::FUN_10030630() {
 					if (position.Dot(*normal, position) +
 							(*normal).index_operator(3) <
 						-0.001) {
-						MxTrace(
+						log_warn(
 							"Building %d shot location (%g, %g, %g) is not in "
 							"boundary %s.\n",
 							i,
@@ -797,7 +796,7 @@ MxResult LegoBuildingManager::FUN_10030630() {
 							   position[2] * unk0x14.index_operator(2)) /
 							  unk0x14.index_operator(1));
 
-						MxTrace(
+						log_warn(
 							"Building %d shot location (%g, %g, %g) is not on "
 							"plane of boundary %s...adjusting to (%g, "
 							"%g, "
@@ -814,7 +813,7 @@ MxResult LegoBuildingManager::FUN_10030630() {
 					}
 				}
 			} else {
-				MxTrace(
+				log_warn(
 					"Building %d is in boundary %s that does not exist.\n",
 					i,
 					g_buildingInfo[i].m_boundaryName

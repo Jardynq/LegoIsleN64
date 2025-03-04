@@ -83,7 +83,7 @@ MxResult LegoVideoManager::Create(
 		p_videoParam.SetPalette(palette);
 
 		if (!p_videoParam.GetPalette()) {
-			printf("Failed to get pallete\n");
+			log_error("Failed to get pallete\n");
 			goto done;
 		}
 		paletteCreated = TRUE;
@@ -93,12 +93,12 @@ MxResult LegoVideoManager::Create(
 	p_videoParam.GetPalette()->GetEntries(paletteEntries);
 
 	if (CreateDirect3D() != SUCCESS) {
-		printf("Failed to create d3d\n");
+		log_error("Failed to create d3d\n");
 		goto done;
 	}
 
 	if (deviceEnumerate.DoEnumerate() != SUCCESS) {
-		printf("Failed to enumerate devices\n");
+		log_error("Failed to enumerate devices\n");
 		goto done;
 	}
 
@@ -141,7 +141,7 @@ MxResult LegoVideoManager::Create(
 			paletteEntries,
 			sizeof(paletteEntries) / sizeof(paletteEntries[0])
 		)) {
-		printf("Failed to initialize d3d\n");
+		log_error("Failed to initialize d3d\n");
 		goto done;
 	}
 
@@ -155,21 +155,21 @@ MxResult LegoVideoManager::Create(
 			p_frequencyMS,
 			p_createThread
 		) != SUCCESS) {
-		printf("Failed to initialize mx video manager\n");
+		log_error("Failed to initialize mx video manager\n");
 		goto done;
 	}
 
 	m_renderer = Tgl::CreateRenderer();
 
 	if (!m_renderer) {
-		printf("Failed to create tgl renderer\n");
+		log_error("Failed to create tgl renderer\n");
 		goto done;
 	}
 
 	m_3dManager = new Lego3DManager;
 
 	if (!m_3dManager) {
-		printf("Failed to create 3d manager\n");
+		log_error("Failed to create 3d manager\n");
 		goto done;
 	}
 
@@ -186,14 +186,14 @@ MxResult LegoVideoManager::Create(
 	createStruct.m_d3dDevice = m_direct3d->Direct3DDevice();
 
 	if (!m_3dManager->Create(createStruct)) {
-		printf("Failed to initialize 3d manager\n");
+		log_error("Failed to initialize 3d manager\n");
 		goto done;
 	}
 
 	ViewLODList* pLODList;
 
 	if (ConfigureD3DRM() != SUCCESS) {
-		printf("Failed to configure d3drm\n");
+		log_error("Failed to configure d3drm\n");
 		goto done;
 	}
 

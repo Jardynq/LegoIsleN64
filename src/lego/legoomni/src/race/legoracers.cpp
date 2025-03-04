@@ -11,7 +11,6 @@
 #include "legoracers.h"
 #include "legosoundmanager.h"
 #include "misc.h"
-#include "mxdebug.h"
 #include "mxmisc.h"
 #include "mxnotificationmanager.h"
 #include "mxtimer.h"
@@ -27,7 +26,8 @@ EdgeReference g_skBMap[] = {
 	{"EDG03_774", NULL},
 	{"EDG03_775", NULL},
 	{"EDG03_776", NULL},
-	{"EDG03_777", NULL}};
+	{"EDG03_777", NULL}
+};
 
 const SkeletonKickPhase g_skeletonKickPhases[] = {
 	{&g_skBMap[0], 0.1, 0.2, LEGORACECAR_KICK2},
@@ -62,7 +62,8 @@ const char* g_playerHitStudsSounds[] = {
 	"srt026sl",
 	"srt027sl",
 	"srt028sl",
-	"srt029sl"};
+	"srt029sl"
+};
 
 const char* g_studsHitPlayerSounds[] =
 	{"srt006sl", "srt007sl", "srt008sl", "srt009sl", "srt010sl"};
@@ -291,7 +292,7 @@ MxU32 LegoRaceCar::HandleSkeletonKicks(float p_param1) {
 	}
 
 	if (m_userState != LEGORACECAR_KICK1 && m_userState != LEGORACECAR_KICK2) {
-		MxTrace(
+		log_warn(
 
 			"Got kicked in boundary %s %d %g:%g %g\n",
 			m_boundary->GetName(),

@@ -1,7 +1,6 @@
 #include "mxstreamcontroller.h"
 
 #include "mxautolock.h"
-#include "mxdebug.h"
 #include "mxdsmultiaction.h"
 #include "mxdsstreamingaction.h"
 #include "mxmisc.h"
@@ -18,7 +17,7 @@ MxStreamController::MxStreamController() {
 }
 
 MxStreamController::~MxStreamController() {
-	MxTrace("Destroy %s controller.\n", m_atom.GetInternal());
+	log_info("Destroy %s controller.\n", m_atom.GetInternal());
 	AUTOLOCK(m_criticalSection);
 
 	MxDSSubscriber* subscriber;
@@ -288,7 +287,7 @@ MxBool MxStreamController::IsStoped(MxDSObject* p_obj) {
 	MxDSSubscriber* subscriber = m_subscribers.Find(p_obj);
 
 	if (subscriber) {
-		MxTrace(
+		log_warn(
 			"Subscriber for action (stream %d, instance %d) from %s is still "
 			"here.\n",
 			subscriber->GetObjectId(),

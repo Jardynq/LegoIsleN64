@@ -199,7 +199,6 @@ if(ISLE_BUILD_APP)
 
   add_library(omni STATIC
     src/omni/src/notify/mxnotificationmanager.cpp
-    src/omni/src/common/mxdebug.cpp
     src/omni/src/common/mxmisc.cpp
     src/omni/src/common/mxatom.cpp
     src/omni/src/action/mxdsaction.cpp

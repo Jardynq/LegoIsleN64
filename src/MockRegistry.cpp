@@ -17,7 +17,10 @@ void RegReset() {
 int RegReadKey(const char* key, enum RegType type, void* output, int size) {
 	FILE* file = fopen(REGISTRY_FILE, "r");
 	if (file == NULL) {
-		printf("Failed to open registry for reading:\n%s\n", strerror(errno));
+		log_error(
+			"Failed to open registry for reading:\n%s\n",
+			strerror(errno)
+		);
 		return -1;
 	}
 
@@ -52,7 +55,10 @@ int RegReadKey(const char* key, enum RegType type, void* output, int size) {
 int RegWriteKey(const char* key, enum RegType type, const void* input) {
 	FILE* file = fopen(REGISTRY_FILE, "a");
 	if (file == NULL) {
-		printf("Failed to open registry for writing:\n%s\n", strerror(errno));
+		log_error(
+			"Failed to open registry for writing:\n%s\n",
+			strerror(errno)
+		);
 		return -1;
 	}
 

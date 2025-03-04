@@ -1,6 +1,5 @@
 #include "mxdsmediaaction.h"
 
-#include "mxdebug.h"
 #include "mxutilities.h"
 
 MxDSMediaAction::MxDSMediaAction() {
@@ -56,7 +55,7 @@ MxDSAction* MxDSMediaAction::Clone() {
 
 void MxDSMediaAction::CopyMediaSrcPath(const char* p_mediaSrcPath) {
 	if (m_mediaSrcPath == p_mediaSrcPath) {
-		MxTrace(
+		log_info(
 			"MxDSMediaAction: name allocation SUCCESS: %s.\n",
 			p_mediaSrcPath
 		);
@@ -71,7 +70,7 @@ void MxDSMediaAction::CopyMediaSrcPath(const char* p_mediaSrcPath) {
 			strcpy(m_mediaSrcPath, p_mediaSrcPath);
 		}
 
-		MxTrace(
+		log_warn(
 			"MxDSMediaAction: name allocation failed: %s.\n",
 			p_mediaSrcPath
 		);

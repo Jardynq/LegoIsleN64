@@ -161,7 +161,6 @@ public:
 		LPD3DDEVICEDESC p_HELDesc
 	);
 	const char* EnumerateErrorToString(HRESULT p_error);
-	static void BuildErrorString(const char*, ...);
 	static BOOL CALLBACK DirectDrawEnumerateCallback(
 		LPGUID p_guid,
 		LPSTR p_driverDesc,

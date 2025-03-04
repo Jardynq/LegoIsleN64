@@ -149,36 +149,36 @@ MxResult LegoOmni::Create(MxOmniCreateParam& p_param) {
 	p_param.CreateFlags().CreateTickleManager(FALSE);
 
 	if (!(m_tickleManager = new MxTickleManager())) {
-		printf("Failed to create tickle manager\n");
+		log_error("Failed to create tickle manager\n");
 		goto done;
 	}
 
 	if (MxOmni::Create(p_param) != SUCCESS) {
-		printf("Failed to create omni\n");
+		log_error("Failed to create omni\n");
 		goto done;
 	}
 
 	if (!(m_objectFactory = new LegoObjectFactory())) {
-		printf("Failed to create object factory\n");
+		log_error("Failed to create object factory\n");
 		goto done;
 	}
 
 	if (!(m_soundManager = new LegoSoundManager()) ||
 		m_soundManager->Create(10, 0) != SUCCESS) {
-		printf("Failed to create sound manager\n");
+		log_error("Failed to create sound manager\n");
 		delete m_soundManager;
 		m_soundManager = NULL;
 		goto done;
 	}
 
 	if (!(m_videoManager = new LegoVideoManager())) {
-		printf("Failed to create video manager\n");
+		log_error("Failed to create video manager\n");
 		delete m_videoManager;
 		m_videoManager = NULL;
 		goto done;
 	}
 	if (m_videoManager->Create(p_param.GetVideoParam(), 100, 0) != SUCCESS) {
-		printf("Failed to initialize video manager\n");
+		log_error("Failed to initialize video manager\n");
 		delete m_videoManager;
 		m_videoManager = NULL;
 		goto done;
@@ -186,7 +186,7 @@ MxResult LegoOmni::Create(MxOmniCreateParam& p_param) {
 
 	if (!(m_inputManager = new LegoInputManager()) ||
 		m_inputManager->Create(p_param.GetWindowHandle()) != SUCCESS) {
-		printf("Failed to create input manager\n");
+		log_error("Failed to create input manager\n");
 		delete m_inputManager;
 		m_inputManager = NULL;
 		goto done;
@@ -207,32 +207,32 @@ MxResult LegoOmni::Create(MxOmniCreateParam& p_param) {
 	if (!m_viewLODListManager || !m_textureContainer || !m_worldList ||
 		!m_characterManager || !m_plantManager || !m_animationManager ||
 		!m_buildingManager) {
-		printf("Failed to create REMAINING STUFF\n");
+		log_error("Failed to create REMAINING STUFF\n");
 		goto done;
 	}
 
 	MxVariable* variable;
 
 	if (!(variable = new VisibilityVariable())) {
-		printf("Failed to create visibility var\n");
+		log_error("Failed to create visibility var\n");
 		goto done;
 	}
 	m_variableTable->SetVariable(variable);
 
 	if (!(variable = new CameraLocationVariable())) {
-		printf("Failed to create camera location var\n");
+		log_error("Failed to create camera location var\n");
 		goto done;
 	}
 	m_variableTable->SetVariable(variable);
 
 	if (!(variable = new CursorVariable())) {
-		printf("Failed to create cursor var\n");
+		log_error("Failed to create cursor var\n");
 		goto done;
 	}
 	m_variableTable->SetVariable(variable);
 
 	if (!(variable = new WhoAmIVariable())) {
-		printf("Failed to create who am i var\n");
+		log_error("Failed to create who am i var\n");
 		goto done;
 	}
 	m_variableTable->SetVariable(variable);
@@ -242,22 +242,22 @@ MxResult LegoOmni::Create(MxOmniCreateParam& p_param) {
 	result = RegisterWorlds();
 
 	if (result != SUCCESS) {
-		printf("Failed to register worlds\n");
+		log_error("Failed to register worlds\n");
 		goto done;
 	}
 
 	if (!(m_bkgAudioManager = new MxBackgroundAudioManager())) {
-		printf("Failed to create background audio manager\n");
+		log_error("Failed to create background audio manager\n");
 		goto done;
 	}
 
 	if (!(m_transitionManager = new MxTransitionManager())) {
-		printf("Failed to create transition manager\n");
+		log_error("Failed to create transition manager\n");
 		goto done;
 	}
 
 	if (m_transitionManager->GetDDrawSurfaceFromVideoManager() != SUCCESS) {
-		printf("Failed to setup draw surface\n");
+		log_error("Failed to setup draw surface\n");
 		goto done;
 	}
 

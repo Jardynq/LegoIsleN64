@@ -14,31 +14,22 @@
 #include "legovideomanager.h"
 #include "legoworld.h"
 #include "misc.h"
-#include "mxdebug.h"
 #include "roi/legoroi.h"
 #include "viewmanager/viewmanager.h"
 
 #include <vec.h>
 
 Act2Actor::Location g_brickstrLocations[] = {
-	{{-47.92, 7.0699968, -31.58},
-	 {-0.999664, 0.0, -0.025916},
-	 "edg01_27",
-	 FALSE},
-	{{-70.393349, 8.07, 3.151935},
-	 {-0.90653503, 0.0, 0.422131},
-	 "int06",
-	 FALSE},
+	{{-47.92, 7.0699968, -31.58}, {-0.999664, 0.0, -0.025916}, "edg01_27", FALSE
+	},
+	{{-70.393349, 8.07, 3.151935}, {-0.90653503, 0.0, 0.422131}, "int06", FALSE
+	},
 	{{-47.74, 4.079995, -52.3}, {-0.98293, 0.0, -0.18398}, "edg01_08", FALSE},
-	{{-26.273487, 0.069, 12.170015},
-	 {0.987199, 0.0, -0.159491},
-	 "INT14",
-	 FALSE},
+	{{-26.273487, 0.069, 12.170015}, {0.987199, 0.0, -0.159491}, "INT14", FALSE
+	},
 	{{26.16499, 0.069, 5.61}, {0.027719, 0.0, 0.999616}, "INT22", FALSE},
-	{{66.383446, 4.07, 32.387417},
-	 {0.979487, 0.0, -0.201506},
-	 "edg02_27",
-	 FALSE},
+	{{66.383446, 4.07, 32.387417}, {0.979487, 0.0, -0.201506}, "edg02_27", FALSE
+	},
 	{{71.843285, 0.069, -49.524852},
 	 {0.99031502, 0.0, 0.13884},
 	 "edg02_39",
@@ -517,7 +508,7 @@ MxU32 Act2Actor::FUN_10019700(MxFloat p_param) {
 	}
 
 	if (!m_unk0x4c) {
-		MxTrace("nothing left to destroy at location %d\n", m_unk0x1d);
+		log_info("nothing left to destroy at location %d\n", m_unk0x1d);
 		m_unk0x1e = 1;
 
 		if (m_unk0x1d == 8) {

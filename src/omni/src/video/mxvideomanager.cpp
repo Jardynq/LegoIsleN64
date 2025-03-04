@@ -216,7 +216,7 @@ MxResult MxVideoManager::Create(
 	m_unk0x60 = TRUE;
 
 	if (MxMediaManager::Create() != SUCCESS) {
-		printf("Failed to create MX media manager\n");
+		log_error("Failed to create MX media manager\n");
 		goto done;
 	}
 
@@ -227,12 +227,12 @@ MxResult MxVideoManager::Create(
 	m_region = new MxRegion();
 
 	if (!m_region) {
-		printf("Failed to create MX region\n");
+		log_error("Failed to create MX region\n");
 		goto done;
 	}
 
 	if (DirectDrawCreate(NULL, &m_pDirectDraw, NULL) != DD_OK) {
-		printf("Failed to create direct draw\n");
+		log_error("Failed to create direct draw\n");
 		goto done;
 	}
 
@@ -240,7 +240,7 @@ MxResult MxVideoManager::Create(
 			MxOmni::GetInstance()->GetWindowHandle(),
 			DDSCL_NORMAL
 		) != DD_OK) {
-		printf("Failed to set direct draw cooperative level\n");
+		log_error("Failed to set direct draw cooperative level\n");
 		goto done;
 	}
 
@@ -250,7 +250,7 @@ MxResult MxVideoManager::Create(
 		m_videoParam.SetPalette(palette);
 
 		if (!palette) {
-			printf("Failed to set palette\n");
+			log_error("Failed to set palette\n");
 			goto done;
 		}
 	} else {
@@ -258,7 +258,7 @@ MxResult MxVideoManager::Create(
 		m_videoParam.SetPalette(palette);
 
 		if (!palette) {
-			printf("Failed to set palette\n");
+			log_error("Failed to set palette\n");
 			goto done;
 		}
 	}
@@ -271,7 +271,7 @@ MxResult MxVideoManager::Create(
 			m_thread = new MxTickleThread(this, p_frequencyMS);
 
 			if (!m_thread || m_thread->Start(0, 0) != SUCCESS) {
-				printf("Failed to start tickle thread\n");
+				log_error("Failed to start tickle thread\n");
 				goto done;
 			}
 		} else {

@@ -4,7 +4,6 @@
 #include "mxdirectxinfo.h"
 
 #include <ddraw.h>
-#include <windows.h>
 
 class MxDirectDraw {
 public:
@@ -74,8 +73,6 @@ protected:
 		IDirectDrawSurface* pSurface,
 		SIZE& textSizeOnSurface
 	);
-
-	void Error(const char* p_message, int p_error);
 
 	BOOL RecreateDirectDraw(GUID** a2);
 	void FUN_1009e020();

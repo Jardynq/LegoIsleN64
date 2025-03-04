@@ -13,7 +13,6 @@
 #include "legoutils.h"
 #include "legoworld.h"
 #include "misc.h"
-#include "mxdebug.h"
 #include "mxmisc.h"
 #include "mxtimer.h"
 #include "mxtransitionmanager.h"
@@ -271,7 +270,7 @@ MxLong Helicopter::HandleControl(LegoControlManagerNotificationParam& p_param) {
 								direction,
 								up
 							) != SUCCESS) {
-						MxTrace("Shoot pizza failed\n");
+						log_warn("Shoot pizza failed\n");
 						break;
 					}
 				} else {
@@ -282,7 +281,7 @@ MxLong Helicopter::HandleControl(LegoControlManagerNotificationParam& p_param) {
 								direction,
 								up
 							) != SUCCESS) {
-						MxTrace("Shoot donut failed\n");
+						log_warn("Shoot donut failed\n");
 						break;
 					}
 				}

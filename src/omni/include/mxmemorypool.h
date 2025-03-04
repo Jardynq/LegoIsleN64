@@ -2,7 +2,6 @@
 #define MXMEMORYPOOL_H
 
 #include "mxbitset.h"
-#include "mxdebug.h"
 
 #include <assert.h>
 
@@ -46,7 +45,7 @@ MxU8* MxMemoryPool<BS, NB>::Get() {
 		if (!m_blockRef[i]) {
 			m_blockRef[i].Flip();
 
-			MxTrace(
+			log_info(
 				"Get> %d pool: busy %d blocks\n",
 				m_blockSize,
 				m_blockRef.Count()
@@ -74,7 +73,7 @@ void MxMemoryPool<BS, NB>::Release(MxU8* p_buf) {
 		m_blockRef[i].Flip();
 	}
 
-	MxTrace(
+	log_info(
 		"Release> %d pool: busy %d blocks\n",
 		m_blockSize,
 		m_blockRef.Count()

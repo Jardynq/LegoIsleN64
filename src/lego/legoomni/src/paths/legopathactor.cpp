@@ -16,7 +16,6 @@
 #include "mxutilities.h"
 #include "mxvariabletable.h"
 
-#include <mxdebug.h>
 #include <vec.h>
 
 #ifndef M_PI
@@ -25,7 +24,7 @@
 #ifdef DTOR
 #undef DTOR
 #endif
-#define DTOR(angle) ((angle) *M_PI / 180.)
+#define DTOR(angle) ((angle) * M_PI / 180.)
 
 const char* g_strHIT_WALL_SOUND = "HIT_WALL_SOUND";
 
@@ -245,7 +244,7 @@ MxS32 LegoPathActor::VTable0x8c(float p_time, MxMatrix& p_transform) {
 				m_destEdge
 			);
 			if (m_unk0xe9 == -1) {
-				MxTrace("Intersect returned -1\n");
+				log_warn("Intersect returned -1\n");
 				return -1;
 			} else {
 				if (m_unk0xe9 != 0) {

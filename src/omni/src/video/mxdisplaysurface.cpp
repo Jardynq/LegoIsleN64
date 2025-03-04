@@ -1,7 +1,6 @@
 #include "mxdisplaysurface.h"
 
 #include "mxbitmap.h"
-#include "mxdebug.h"
 #include "mxmisc.h"
 #include "mxomni.h"
 #include "mxpalette.h"
@@ -9,6 +8,7 @@
 #include "mxvideomanager.h"
 
 #include <assert.h>
+#include <stdio.h>
 #include <windows.h>
 
 #define RGB555_CREATE(R, G, B) (((R) << 10) | (G) << 5 | (B) << 0)
@@ -773,7 +773,7 @@ void MxDisplaySurface::VTable0x34(
 		switch (m_surfaceDesc.ddpfPixelFormat.dwRGBBitCount) {
 		case 8: {
 			if (p_bpp == 16) {
-				MxTrace("16 bit source to 8 bit display NOT_IMPLEMENTED");
+				log_warn("16 bit source to 8 bit display NOT_IMPLEMENTED");
 				assert(0);
 				return;
 			}
@@ -858,7 +858,7 @@ void MxDisplaySurface::Display(
 
 					m_ddSurface2->Unlock(ddsd.lpSurface);
 				} else {
-					_MxTrace("MxDisplaySurface::Display error\n");
+					log_error("Surface lock failed\n");
 				}
 			}
 			m_ddSurface1->Flip(NULL, DDFLIP_WAIT);

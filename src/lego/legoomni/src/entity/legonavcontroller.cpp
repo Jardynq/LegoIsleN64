@@ -17,7 +17,6 @@
 #include "legoworld.h"
 #include "misc.h"
 #include "mxbackgroundaudiomanager.h"
-#include "mxdebug.h"
 #include "mxmisc.h"
 #include "mxtimer.h"
 #include "mxtransitionmanager.h"
@@ -41,7 +40,7 @@
 #ifdef DTOR
 #undef DTOR
 #endif
-#define DTOR(angle) ((angle) *M_PI / 180.)
+#define DTOR(angle) ((angle) * M_PI / 180.)
 
 //////////////////////////////////////////////////////////////////////
 
@@ -1026,7 +1025,7 @@ MxLong LegoNavController::Notify(MxParam& p_param) {
 					const float* direction = roi->GetWorldDirection();
 					const float* up = roi->GetWorldUp();
 
-					MxTrace(
+					log_info(
 						"pos: %f, %f, %f\ndir: %f, %f, %f\nup: %f, %f, %f\n",
 						EXPAND3(position),
 						EXPAND3(direction),

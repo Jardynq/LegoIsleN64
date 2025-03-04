@@ -8,7 +8,6 @@
 #include "legoworld.h"
 #include "misc.h"
 #include "mxautolock.h"
-#include "mxdebug.h"
 #include "roi/legoroi.h"
 
 MxS32 g_unk0x100f31b0 = -1;
@@ -100,7 +99,7 @@ void LegoInputManager::CreateAndAcquireKeyboard(HWND p_hwnd) {
 			);
 			m_directInputDevice->SetDataFormat(&c_dfDIKeyboard);
 			if (m_directInputDevice->Acquire()) {
-				MxTrace("Can't acquire the keyboard!\n");
+				log_warn("Can't acquire the keyboard!\n");
 			}
 		}
 	}

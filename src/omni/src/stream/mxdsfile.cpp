@@ -1,7 +1,5 @@
 #include "mxdsfile.h"
 
-#include "mxdebug.h"
-
 #include <stdio.h>
 
 #define SI_MAJOR_VERSION 2
@@ -43,13 +41,16 @@ MxResult MxDSFile::ReadChunks() {
 
 	topChunk.fccType = FOURCC('O', 'M', 'N', 'I');
 	if (m_io.Descend(&topChunk, NULL, MMIO_FINDRIFF) != 0) {
-		MxTrace("Unable to find Streamer RIFF chunk in file: %s\n", m_filename);
+		log_warn(
+			"Unable to find Streamer RIFF chunk in file: %s\n",
+			m_filename
+		);
 		return FAILURE;
 	}
 
 	childChunk.ckid = FOURCC('M', 'x', 'H', 'd');
 	if (m_io.Descend(&childChunk, &topChunk, 0) != 0) {
-		MxTrace("Unable to find Header chunk in file: %s\n", m_filename);
+		log_warn("Unable to find Header chunk in file: %s\n", m_filename);
 		return FAILURE;
 	}
 
@@ -68,7 +69,7 @@ MxResult MxDSFile::ReadChunks() {
 
 	childChunk.ckid = FOURCC('M', 'x', 'O', 'f');
 	if (m_io.Descend(&childChunk, &topChunk, 0) != 0) {
-		MxTrace("Unable to find Header chunk in file: %s\n", m_filename);
+		log_warn("Unable to find Header chunk in file: %s\n", m_filename);
 		return FAILURE;
 	}
 

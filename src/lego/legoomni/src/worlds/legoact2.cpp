@@ -19,7 +19,6 @@
 #include "misc.h"
 #include "mxactionnotificationparam.h"
 #include "mxbackgroundaudiomanager.h"
-#include "mxdebug.h"
 #include "mxmisc.h"
 #include "mxnotificationmanager.h"
 #include "mxticklemanager.h"
@@ -39,7 +38,8 @@ MxS32 g_unk0x100f43f0[] = {
 	Act2mainScript::c_snsx35ro_RunAnim,
 	Act2mainScript::c_snsx36ro_RunAnim,
 	Act2mainScript::c_snsx37ro_RunAnim,
-	Act2mainScript::c_snsx48cl_RunAnim};
+	Act2mainScript::c_snsx48cl_RunAnim
+};
 
 const LegoChar* g_unk0x100f4410[] = {"bd", "pg", "rd", "sy", "ro", "cl"};
 
@@ -55,7 +55,8 @@ MxS32 g_unk0x100f4428[] = {
 	0,
 	0,
 	0,
-	0};
+	0
+};
 
 const LegoChar* g_unk0x100f4458[] =
 	{"papa", "nick", "laura", "cl", "pg", "rd", "sy"};
@@ -236,7 +237,8 @@ MxResult LegoAct2::Tickle() {
 				);
 				m_unk0x1144 = Act2mainScript::c_Avo906In_PlayWav;
 			}
-		} else if (m_unk0x10d0 >= 90000 && m_unk0x10d0 % 90000 == 0 && m_unk0x1144 == (Act2mainScript::Script) 0) {
+		} else if (m_unk0x10d0 >= 90000 && m_unk0x10d0 % 90000 == 0 &&
+				   m_unk0x1144 == (Act2mainScript::Script) 0) {
 			FUN_10052560(
 				Act2mainScript::c_Avo908In_PlayWav,
 				FALSE,
@@ -290,7 +292,7 @@ MxLong LegoAct2::Notify(MxParam& p_param) {
 			result = HandleEndAction((MxEndActionNotificationParam&) p_param);
 			break;
 		case c_notificationPathStruct: {
-			MxTrace(
+			log_info(
 				"trigger %d\n",
 				((LegoPathStructNotificationParam&) p_param).GetData()
 			);
@@ -864,11 +866,11 @@ void LegoAct2::SpawnBricks() {
 	if ((MxS16) (rand() % 2) == 1) {
 		m_firstBrick = 0;
 		location = infobridge;
-		MxTrace("infobridge\n");
+		log_info("infobridge\n");
 	} else {
 		m_firstBrick = 1;
 		location = palmTreeInPark;
-		MxTrace("palm tree in park\n");
+		log_info("palm tree in park\n");
 	}
 
 	SET3(local2world[3], location);
@@ -887,11 +889,11 @@ void LegoAct2::SpawnBricks() {
 	if ((MxS16) (rand() % 2) == 1) {
 		m_secondBrick = 2;
 		location = store;
-		MxTrace("store\n");
+		log_info("store\n");
 	} else {
 		m_secondBrick = 3;
 		location = postOffice;
-		MxTrace("p.o.\n");
+		log_info("p.o.\n");
 	}
 
 	SET3(local2world[3], location);
@@ -910,11 +912,11 @@ void LegoAct2::SpawnBricks() {
 	if ((MxS16) (rand() % 2) == 1) {
 		m_thirdBrick = 4;
 		location = h3;
-		MxTrace("h3\n");
+		log_info("h3\n");
 	} else {
 		m_thirdBrick = 5;
 		location = ht;
-		MxTrace("ht\n");
+		log_info("ht\n");
 	}
 
 	SET3(local2world[3], location);
@@ -934,21 +936,21 @@ void LegoAct2::SpawnBricks() {
 		if ((MxS16) (rand() % 2) == 1) {
 			m_fourthBrick = 6;
 			location = posta;
-			MxTrace("po.sta.\n");
+			log_info("po.sta.\n");
 		} else {
 			m_fourthBrick = 7;
 			location = ptree;
-			MxTrace("p.tree\n");
+			log_info("p.tree\n");
 		}
 	} else {
 		if ((MxS16) (rand() % 2) == 1) {
 			m_fourthBrick = 8;
 			location = jail;
-			MxTrace("jail\n");
+			log_info("jail\n");
 		} else {
 			m_fourthBrick = 9;
 			location = hospital;
-			MxTrace("hospi\n");
+			log_info("hospi\n");
 		}
 	}
 
@@ -974,7 +976,7 @@ MxResult LegoAct2::BadEnding() {
 	TransitionManager()
 		->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
 
-	MxTrace("Bad End of Act2\n");
+	log_warn("Bad End of Act2\n");
 	m_unk0x10c4 = 14;
 	return SUCCESS;
 }

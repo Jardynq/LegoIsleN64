@@ -13,7 +13,6 @@
 #include "misc.h"
 #include "mxactionnotificationparam.h"
 #include "mxbackgroundaudiomanager.h"
-#include "mxdebug.h"
 #include "mxmisc.h"
 #include "mxticklemanager.h"
 #include "mxtimer.h"
@@ -38,7 +37,8 @@ IsleScript::Script PizzaMissionState::g_pepperActions[] = {
 	IsleScript::c_ppz119ma_RunAnim,
 	IsleScript::c_nja001pr_RunAnim,
 	IsleScript::c_nja001pr_RunAnim,
-	IsleScript::c_nja001pr_RunAnim};
+	IsleScript::c_nja001pr_RunAnim
+};
 
 MxLong PizzaMissionState::g_pepperFinishTimes[] =
 	{100000, 200000, 300000, 350000};
@@ -56,7 +56,8 @@ IsleScript::Script PizzaMissionState::g_lauraActions[] = {
 	IsleScript::c_ppz095pe_RunAnim,
 	IsleScript::c_pho104re_RunAnim,
 	IsleScript::c_pho105re_RunAnim,
-	IsleScript::c_pho106re_RunAnim};
+	IsleScript::c_pho106re_RunAnim
+};
 
 MxLong PizzaMissionState::g_lauraFinishTimes[] =
 	{100000, 200000, 300000, 350000};
@@ -74,7 +75,8 @@ IsleScript::Script PizzaMissionState::g_nickActions[] = {
 	IsleScript::c_ppz037ma_RunAnim,
 	IsleScript::c_pgs050nu_RunAnim,
 	IsleScript::c_pgs051nu_RunAnim,
-	IsleScript::c_pgs052nu_RunAnim};
+	IsleScript::c_pgs052nu_RunAnim
+};
 
 MxLong PizzaMissionState::g_nickFinishTimes[] =
 	{100000, 200000, 300000, 350000};
@@ -92,7 +94,8 @@ IsleScript::Script PizzaMissionState::g_mamaActions[] = {
 	IsleScript::c_ppz016pe_RunAnim,
 	IsleScript::c_pps025ni_RunAnim,
 	IsleScript::c_pps026ni_RunAnim,
-	IsleScript::c_pps027ni_RunAnim};
+	IsleScript::c_pps027ni_RunAnim
+};
 
 MxLong PizzaMissionState::g_mamaFinishTimes[] =
 	{100000, 200000, 300000, 350000};
@@ -110,7 +113,8 @@ IsleScript::Script PizzaMissionState::g_papaActions[] = {
 	IsleScript::c_ppz064ma_RunAnim,
 	IsleScript::c_prt072sl_RunAnim,
 	IsleScript::c_prt073sl_RunAnim,
-	IsleScript::c_prt074sl_RunAnim};
+	IsleScript::c_prt074sl_RunAnim
+};
 
 MxLong PizzaMissionState::g_papaFinishTimes[] =
 	{100000, 200000, 300000, 350000};
@@ -189,7 +193,7 @@ void Pizza::FUN_100382b0() {
 		m_unk0x90 = INT_MIN;
 		m_skateBoard->EnableScenePresentation(FALSE);
 		m_skateBoard->SetPizzaVisible(FALSE);
-		MxTrace("Pizza mission: idle\n");
+		log_info("Pizza mission: idle\n");
 	}
 }
 
@@ -278,7 +282,7 @@ MxLong Pizza::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 				m_mission->UpdateScore(LegoState::e_yellow);
 			}
 
-			MxTrace("Pizza mission: ending\n");
+			log_info("Pizza mission: ending\n");
 		} else if ((p_param.GetTrigger() == LegoPathStruct::c_camAnim &&
 					(((p_param.GetData() == 0x24 || p_param.GetData() == 0x22
 					  ) &&
@@ -338,7 +342,7 @@ MxLong Pizza::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 			m_state->m_unk0x0c = 5;
 			PlayAction(action, TRUE);
 
-			MxTrace("Pizza mission: ending\n");
+			log_info("Pizza mission: ending\n");
 		} else if (p_param.GetTrigger() == LegoPathStruct::c_w) {
 			if (p_param.GetData() == 0x15e &&
 				GameState()->GetActorId() == LegoActor::c_pepper) {
@@ -351,7 +355,9 @@ MxLong Pizza::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 						NULL
 					);
 				}
-			} else if (p_param.GetData() == 0x15f && GameState()->GetActorId() == LegoActor::c_papa && !m_unk0x98) {
+			} else if (p_param.GetData() == 0x15f &&
+					   GameState()->GetActorId() == LegoActor::c_papa &&
+					   !m_unk0x98) {
 				m_unk0x98 = TRUE;
 				InvokeAction(
 					Extra::e_start,
@@ -391,8 +397,9 @@ MxResult Pizza::Tickle() {
 					IsleScript::c_Avo917In_PlayWav,
 					NULL
 				);
-				MxTrace("Pizza mission: timeout, stop\n");
-			} else if (time >= m_mission->m_startTime + 35000 && m_unk0x8c == IsleScript::c_noneIsle) {
+				log_info("Pizza mission: timeout, stop\n");
+			} else if (time >= m_mission->m_startTime + 35000 &&
+					   m_unk0x8c == IsleScript::c_noneIsle) {
 				switch (GameState()->GetActorId()) {
 				case LegoActor::c_pepper:
 					m_unk0x8c = IsleScript::c_Avo914In_PlayWav;
@@ -433,7 +440,7 @@ MxResult Pizza::Tickle() {
 				m_state->m_unk0x0c = 9;
 				AnimationManager()->FUN_1005f6d0(TRUE);
 				PlayAction(m_mission->GetUnknownFinishAction(), TRUE);
-				MxTrace("Pizza mission: timeout, declining\n");
+				log_info("Pizza mission: timeout, declining\n");
 			}
 		}
 	}
@@ -456,7 +463,7 @@ MxLong Pizza::HandleEndAction(MxEndActionNotificationParam& p_param) {
 			m_state->m_unk0x0c = 2;
 			m_mission->m_startTime = Timer()->GetTime();
 			TickleManager()->RegisterClient(this, 200);
-			MxTrace("Pizza mission: proposed\n");
+			log_info("Pizza mission: proposed\n");
 		}
 		break;
 	case 3:
@@ -483,7 +490,7 @@ MxLong Pizza::HandleEndAction(MxEndActionNotificationParam& p_param) {
 				param(c_notificationClick, NULL, 0, 0, 0, 0);
 			m_skateBoard->Notify(param);
 
-			MxTrace("Pizza mission: continues\n");
+			log_info("Pizza mission: continues\n");
 			result = 1;
 		}
 		break;
@@ -500,7 +507,7 @@ MxLong Pizza::HandleEndAction(MxEndActionNotificationParam& p_param) {
 						action = IsleScript::c_pja126br_RunAnim;
 						m_mission->m_unk0x14++;
 						m_state->m_unk0x0c = 6;
-						MxTrace("Pizza mission: succeeds\n");
+						log_info("Pizza mission: succeeds\n");
 						break;
 					case 2:
 						action = IsleScript::c_pja129br_RunAnim;
@@ -508,7 +515,7 @@ MxLong Pizza::HandleEndAction(MxEndActionNotificationParam& p_param) {
 						m_unk0x94 = 500;
 						m_mission->m_unk0x14++;
 						m_state->m_unk0x0c = 6;
-						MxTrace("Pizza mission: succeeds\n");
+						log_info("Pizza mission: succeeds\n");
 						break;
 					case 3:
 						action = IsleScript::c_pja131br_RunAnim;
@@ -524,7 +531,7 @@ MxLong Pizza::HandleEndAction(MxEndActionNotificationParam& p_param) {
 					m_state->m_unk0x0c = 8;
 					InputManager()->DisableInputProcessing();
 					InputManager()->SetUnknown336(TRUE);
-					MxTrace("Pizza mission: go to Act2\n");
+					log_info("Pizza mission: go to Act2\n");
 				}
 
 				PlayAction(action, TRUE);

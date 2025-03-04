@@ -180,7 +180,7 @@ BOOL MxDirectDraw::SetPaletteEntries(
 			m_paletteEntries
 		);
 		if (result != DD_OK) {
-			Error("SetEntries failed", result);
+			log_error("SetEntries failed", result);
 			return FALSE;
 		}
 	}
@@ -247,7 +247,7 @@ BOOL MxDirectDraw::DDInit(BOOL fullscreen) {
 	}
 
 	if (result != DD_OK) {
-		Error("SetCooperativeLevel failed", result);
+		log_error("SetCooperativeLevel failed", result);
 		return FALSE;
 	}
 
@@ -289,7 +289,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 	HRESULT result;
 
 	if (m_bFullScreen) {
-		printf("DDSetMode: Not using flip surfaces");
+		log_info("DDSetMode: Not using flip surfaces");
 		LPDIRECTDRAW lpDD;
 
 		EnableResizing(m_hWndMain, FALSE);
@@ -318,7 +318,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 		result = m_pDirectDraw->SetDisplayMode(width, height, bpp);
 		m_bIgnoreWMSIZE = FALSE;
 		if (result != DD_OK) {
-			Error("SetDisplayMode failed", result);
+			log_error("SetDisplayMode failed", result);
 			return FALSE;
 		}
 	} else {
@@ -326,7 +326,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 		DWORD dwStyle;
 
 		if (!m_bIsOnPrimaryDevice) {
-			Error(
+			log_error(
 				"Attempt made enter a windowed mode on a DirectDraw device "
 				"that is not the primary display",
 				DDERR_GENERIC
@@ -380,7 +380,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 	FUN_1009e020();
 
 	if (!GetDDSurfaceDesc(&ddsd, m_pBackBuffer)) {
-		Error("GetDDSurfaceDesc failed to get back buffer", result);
+		log_error("GetDDSurfaceDesc failed to get back buffer", result);
 		return FALSE;
 	}
 
@@ -398,14 +398,14 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 			NULL
 		);
 		if (result != DD_OK) {
-			Error("CreatePalette failed", result);
+			log_error("CreatePalette failed", result);
 			return 0;
 		}
 		result = m_pBackBuffer->SetPalette(m_pPalette
 		); // TODO: add FIX_BUGS define and fix this
 		result = m_pFrontBuffer->SetPalette(m_pPalette);
 		if (result != DD_OK) {
-			Error("SetPalette failed", result);
+			log_error("SetPalette failed", result);
 			return FALSE;
 		}
 	}
@@ -433,7 +433,7 @@ BOOL MxDirectDraw::GetDDSurfaceDesc(
 	lpDDSurfDesc->dwSize = sizeof(DDSURFACEDESC);
 	result = lpDDSurf->GetSurfaceDesc(lpDDSurfDesc);
 	if (result != DD_OK) {
-		Error("Error getting a surface description", result);
+		log_error("Error getting a surface description", result);
 	}
 
 	return (result == DD_OK);
@@ -445,7 +445,7 @@ BOOL MxDirectDraw::DDCreateSurfaces() {
 	DDSCAPS ddscaps;
 
 	if (m_bFlipSurfaces) {
-		printf("Using flip surfaces");
+		log_info("Using flip surfaces");
 		memset(&ddsd, 0, sizeof(DDSURFACEDESC));
 		ddsd.dwSize = sizeof(ddsd);
 		ddsd.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;
@@ -457,7 +457,7 @@ BOOL MxDirectDraw::DDCreateSurfaces() {
 		ddsd.dwBackBufferCount = 1;
 		result = CreateDDSurface(&ddsd, &m_pFrontBuffer, NULL);
 		if (result != DD_OK) {
-			Error(
+			log_error(
 				"CreateSurface for front/back fullScreen buffer failed",
 				result
 			);
@@ -466,22 +466,22 @@ BOOL MxDirectDraw::DDCreateSurfaces() {
 		ddscaps.dwCaps = DDSCAPS_BACKBUFFER;
 		result = m_pFrontBuffer->GetAttachedSurface(&ddscaps, &m_pBackBuffer);
 		if (result != DD_OK) {
-			Error("GetAttachedSurface failed to get back buffer", result);
+			log_error("GetAttachedSurface failed to get back buffer", result);
 			return FALSE;
 		}
 		if (!GetDDSurfaceDesc(&ddsd, m_pBackBuffer)) {
-			Error("GetDDSurfaceDesc failed to get back buffer", result);
+			log_error("GetDDSurfaceDesc failed to get back buffer", result);
 			return FALSE;
 		}
 	} else {
-		printf("Not using flip surfaces");
+		log_info("Not using flip surfaces");
 		memset(&ddsd, 0, sizeof(DDSURFACEDESC));
 		ddsd.dwSize = sizeof(DDSURFACEDESC);
 		ddsd.dwFlags = DDSD_CAPS;
 		ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
 		result = CreateDDSurface(&ddsd, &m_pFrontBuffer, NULL);
 		if (result != DD_OK) {
-			Error("CreateSurface for window front buffer failed", result);
+			log_error("CreateSurface for window front buffer failed", result);
 			return FALSE;
 		}
 		ddsd.dwFlags = DDSD_WIDTH | DDSD_HEIGHT | DDSD_CAPS;
@@ -493,27 +493,27 @@ BOOL MxDirectDraw::DDCreateSurfaces() {
 		}
 		result = CreateDDSurface(&ddsd, &m_pBackBuffer, NULL);
 		if (result != DD_OK) {
-			Error("CreateSurface for window back buffer failed", result);
+			log_error("CreateSurface for window back buffer failed", result);
 			return FALSE;
 		}
 		if (!GetDDSurfaceDesc(&ddsd, m_pBackBuffer)) {
-			Error("GetDDSurfaceDesc failed to get back buffer", result);
+			log_error("GetDDSurfaceDesc failed to get back buffer", result);
 			return FALSE;
 		}
 
 		result = m_pDirectDraw->CreateClipper(0, &m_pClipper, NULL);
 		if (result != DD_OK) {
-			Error("CreateClipper failed", result);
+			log_error("CreateClipper failed", result);
 			return FALSE;
 		}
 		result = m_pClipper->SetHWnd(0, m_hWndMain);
 		if (result != DD_OK) {
-			Error("Clipper SetHWnd failed", result);
+			log_error("Clipper SetHWnd failed", result);
 			return FALSE;
 		}
 		result = m_pFrontBuffer->SetClipper(m_pClipper);
 		if (result != DD_OK) {
-			Error("SetClipper failed", result);
+			log_error("SetClipper failed", result);
 			return FALSE;
 		}
 	}
@@ -574,7 +574,7 @@ BOOL MxDirectDraw::TextToTextSurface(
 
 	result = pSurface->GetDC(&hdc);
 	if (result != DD_OK) {
-		Error("GetDC for text surface failed", result);
+		log_error("GetDC for text surface failed", result);
 		return FALSE;
 	}
 
@@ -650,7 +650,7 @@ BOOL MxDirectDraw::CreateTextSurfaces() {
 	ddsd.dwWidth = m_text1SizeOnSurface.cx;
 	result = CreateDDSurface(&ddsd, &m_pText1Surface, NULL);
 	if (result != DD_OK) {
-		Error("CreateSurface for text surface 1 failed", result);
+		log_error("CreateSurface for text surface 1 failed", result);
 		return FALSE;
 	}
 	memset(&ddck, 0, sizeof(ddck));
@@ -670,7 +670,7 @@ BOOL MxDirectDraw::CreateTextSurfaces() {
 	ddsd.dwWidth = m_text2SizeOnSurface.cx;
 	result = CreateDDSurface(&ddsd, &m_pText2Surface, NULL);
 	if (result != DD_OK) {
-		Error("CreateSurface for text surface 2 failed", result);
+		log_error("CreateSurface for text surface 2 failed", result);
 		return FALSE;
 	}
 	memset(&ddck, 0, sizeof(ddck));
@@ -689,7 +689,7 @@ BOOL MxDirectDraw::RestoreSurfaces() {
 		if (m_pFrontBuffer->IsLost() == DDERR_SURFACELOST) {
 			result = m_pFrontBuffer->Restore();
 			if (result != DD_OK) {
-				Error("Restore of front buffer failed", result);
+				log_error("Restore of front buffer failed", result);
 				return FALSE;
 			}
 		}
@@ -699,7 +699,7 @@ BOOL MxDirectDraw::RestoreSurfaces() {
 		if (m_pBackBuffer->IsLost() == DDERR_SURFACELOST) {
 			result = m_pBackBuffer->Restore();
 			if (result != DD_OK) {
-				Error("Restore of back buffer failed", result);
+				log_error("Restore of back buffer failed", result);
 				return FALSE;
 			}
 		}
@@ -709,7 +709,7 @@ BOOL MxDirectDraw::RestoreSurfaces() {
 		if (m_pZBuffer->IsLost() == DDERR_SURFACELOST) {
 			result = m_pZBuffer->Restore();
 			if (result != DD_OK) {
-				Error("Restore of Z-buffer failed", result);
+				log_error("Restore of Z-buffer failed", result);
 				return FALSE;
 			}
 		}
@@ -719,7 +719,7 @@ BOOL MxDirectDraw::RestoreSurfaces() {
 		if (m_pText1Surface->IsLost() == DDERR_SURFACELOST) {
 			result = m_pText1Surface->Restore();
 			if (result != DD_OK) {
-				Error("Restore of text surface 1 failed", result);
+				log_error("Restore of text surface 1 failed", result);
 				return FALSE;
 			}
 		}
@@ -729,7 +729,7 @@ BOOL MxDirectDraw::RestoreSurfaces() {
 		if (m_pText2Surface->IsLost() == DDERR_SURFACELOST) {
 			result = m_pText2Surface->Restore();
 			if (result != DD_OK) {
-				Error("Restore of text surface 2 failed", result);
+				log_error("Restore of text surface 2 failed", result);
 				return FALSE;
 			}
 		}
@@ -753,13 +753,13 @@ BOOL MxDirectDraw::CreateZBuffer(DWORD memorytype, DWORD depth) {
 	result = CreateDDSurface(&ddsd, &lpZBuffer, 0);
 
 	if (result != DD_OK) {
-		Error("CreateSurface for fullScreen Z-buffer failed", result);
+		log_error("CreateSurface for fullScreen Z-buffer failed", result);
 		return FALSE;
 	}
 
 	result = m_pBackBuffer->AddAttachedSurface(lpZBuffer);
 	if (result != DD_OK) {
-		Error("AddAttachedBuffer failed for Z-Buffer", result);
+		log_error("AddAttachedBuffer failed for Z-Buffer", result);
 		return FALSE;
 	}
 
@@ -819,7 +819,7 @@ BOOL MxDirectDraw::RestorePaletteEntries() {
 				m_paletteEntries
 			);
 			if (result != DD_OK) {
-				Error("SetEntries failed", result);
+				log_error("SetEntries failed", result);
 				return FALSE;
 			}
 		}
@@ -841,7 +841,7 @@ BOOL MxDirectDraw::RestoreOriginalPaletteEntries() {
 				m_originalPaletteEntries
 			);
 			if (result != DD_OK) {
-				Error("SetEntries failed", result);
+				log_error("SetEntries failed", result);
 				return FALSE;
 			}
 		}
@@ -857,26 +857,12 @@ int MxDirectDraw::FlipToGDISurface() {
 
 		result = m_pDirectDraw->FlipToGDISurface();
 		if (result != DD_OK) {
-			Error("FlipToGDISurface failed", result);
+			log_error("FlipToGDISurface failed", result);
 		}
 		return (result == DD_OK);
 	}
 
 	return TRUE;
-}
-
-void MxDirectDraw::Error(const char* p_message, int p_error) {
-	// at LEGO1 0x10100c70, needs no annotation
-	static BOOL g_isInsideError = FALSE;
-	printf("MxDirectDraw::Error %s\n\t%s\n", p_message, ErrorToString(p_error));
-	if (!g_isInsideError) {
-		g_isInsideError = TRUE;
-		Destroy();
-		if (m_pErrorHandler) {
-			m_pErrorHandler(p_message, p_error, m_pErrorHandlerArg);
-		}
-		g_isInsideError = FALSE;
-	}
 }
 
 const char* MxDirectDraw::ErrorToString(HRESULT p_error) {

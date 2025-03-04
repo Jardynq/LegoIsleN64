@@ -26,7 +26,7 @@ MxResult MxMediaManager::Create() {
 	this->m_presenters = new MxPresenterList;
 
 	if (!this->m_presenters) {
-		printf("Failed to get presenters for MX media manager\n");
+		log_error("Failed to get presenters for MX media manager\n");
 		this->Destroy();
 		return FAILURE;
 	}

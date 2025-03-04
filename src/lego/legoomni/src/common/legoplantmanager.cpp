@@ -8,7 +8,6 @@
 #include "legoworld.h"
 #include "misc.h"
 #include "misc/legostorage.h"
-#include "mxdebug.h"
 #include "mxmisc.h"
 #include "mxticklemanager.h"
 #include "mxtimer.h"
@@ -23,7 +22,8 @@ const char* g_plantLodNames[4][5] = {
 	{"flwrwht", "flwrblk", "flwryel", "flwrred", "flwrgrn"},
 	{"treewht", "treeblk", "treeyel", "treered", "tree"},
 	{"bushwht", "bushblk", "bushyel", "bushred", "bush"},
-	{"palmwht", "palmblk", "palmyel", "palmred", "palm"}};
+	{"palmwht", "palmblk", "palmyel", "palmred", "palm"}
+};
 
 float g_unk0x100f16b0[] = {0.1f, 0.7f, 0.5f, 0.9f};
 
@@ -124,7 +124,7 @@ MxResult LegoPlantManager::FUN_10026410() {
 					if (position.Dot(*normal, position) +
 							(*normal).index_operator(3) <
 						-0.001) {
-						MxTrace(
+						log_warn(
 							"Plant %d shot location (%g, %g, %g) is not in "
 							"boundary %s.\n",
 							i,
@@ -155,7 +155,7 @@ MxResult LegoPlantManager::FUN_10026410() {
 							   position[2] * unk0x14.index_operator(2)) /
 							  unk0x14.index_operator(1));
 
-						MxTrace(
+						log_warn(
 							"Plant %d shot location (%g, %g, %g) is not on "
 							"plane of boundary %s...adjusting to (%g, "
 							"%g, "
@@ -172,7 +172,7 @@ MxResult LegoPlantManager::FUN_10026410() {
 					}
 				}
 			} else {
-				MxTrace(
+				log_warn(
 					"Plant %d is in boundary %s that does not exist.\n",
 					i,
 					g_plantInfo[i].m_name

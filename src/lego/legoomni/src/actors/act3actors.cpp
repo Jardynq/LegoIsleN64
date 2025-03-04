@@ -12,7 +12,6 @@
 #include "legoplants.h"
 #include "legosoundmanager.h"
 #include "misc.h"
-#include "mxdebug.h"
 #include "mxmisc.h"
 #include "mxtimer.h"
 #include "mxutilities.h"
@@ -77,7 +76,8 @@ Act3Cop::Act3CopDest g_copDest[5] = {
 		 0.47999999,
 		 0.0,
 		 -0.87699997,
-	 }}};
+	 }}
+};
 
 // Initialized at LEGO1 0x1003fa20
 
@@ -216,7 +216,7 @@ void Act3Cop::ParseAction(char* p_extra) {
 				if (point.Dot(*edgeNormal, point) +
 						edgeNormal->index_operator(3) <
 					-0.001) {
-					MxTrace("Bad Act3 cop destination %d\n", i);
+					log_warn("Bad Act3 cop destination %d\n", i);
 					break;
 				}
 			}
@@ -238,7 +238,7 @@ void Act3Cop::ParseAction(char* p_extra) {
 				  boundary0x14->index_operator(2) * point[2]) /
 				boundary0x14->index_operator(1);
 
-			MxTrace(
+			log_warn(
 				"Act3 cop destination %d (%g, %g, %g) is not on plane of "
 				"boundary %s...adjusting to (%g, %g, %g)\n",
 				i,

@@ -385,7 +385,8 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 				PostMessageA(g_isle->GetWindowHandle(), WM_CLOSE, 0, 0);
 				return 0;
 			}
-		} else if (g_isle && g_isle->GetFullScreen() && (wParam == SC_MOVE || wParam == SC_KEYMENU)) {
+		} else if (g_isle && g_isle->GetFullScreen() &&
+				   (wParam == SC_MOVE || wParam == SC_KEYMENU)) {
 			return 0;
 		}
 		return DefWindowProcA(hWnd, uMsg, wParam, lParam);
@@ -543,7 +544,7 @@ MxResult IsleApp::SetupWindow(HINSTANCE hInstance, LPSTR /*lpCmdLine*/) {
 	wndclass.lpszClassName = WNDCLASS_NAME;
 
 	if (!RegisterClassA(&wndclass)) {
-		printf("Failed to register window class\n");
+		log_error("Failed to register window class\n");
 		return FAILURE;
 	}
 
@@ -594,7 +595,7 @@ MxResult IsleApp::SetupWindow(HINSTANCE hInstance, LPSTR /*lpCmdLine*/) {
 	}
 
 	if (!m_windowHandle) {
-		printf("Failed to create window\n");
+		log_error("Failed to create window\n");
 		return FAILURE;
 	}
 
@@ -612,7 +613,7 @@ MxResult IsleApp::SetupWindow(HINSTANCE hInstance, LPSTR /*lpCmdLine*/) {
 	ShowWindow(m_windowHandle, SW_SHOWNORMAL);
 	UpdateWindow(m_windowHandle);
 	if (!SetupLegoOmni()) {
-		printf("Failed to setup omni\n");
+		log_error("Failed to setup omni\n");
 		return FAILURE;
 	}
 
@@ -668,10 +669,16 @@ MxResult IsleApp::SetupWindow(HINSTANCE hInstance, LPSTR /*lpCmdLine*/) {
 BOOL IsleApp::ReadReg(LPCSTR name, LPSTR outValue, DWORD outSize) {
 	int result = RegReadKey(name, RegString, (char*) outValue, outSize);
 	if (result == 0) {
-		printf("Read str %d, %s : [%d] %s\n", result, name, outSize, outValue);
+		log_info(
+			"Read str %d, %s : [%d] %s\n",
+			result,
+			name,
+			outSize,
+			outValue
+		);
 		return 1;
 	} else {
-		printf("Read str %d, %s\n", result, name);
+		log_info("Read str %d, %s\n", result, name);
 		return 0;
 	}
 }
@@ -679,10 +686,10 @@ BOOL IsleApp::ReadReg(LPCSTR name, LPSTR outValue, DWORD outSize) {
 BOOL IsleApp::ReadRegBool(LPCSTR name, BOOL* out) {
 	int result = RegReadKey(name, RegBool, out, 16);
 	if (result == 0) {
-		printf("Read bol %d, %s : %d\n", result, name, *out);
+		log_info("Read bol %d, %s : %d\n", result, name, *out);
 		return 1;
 	} else {
-		printf("Read bol %d, %s\n", result, name);
+		log_info("Read bol %d, %s\n", result, name);
 		return 0;
 	}
 	return result;
@@ -691,10 +698,10 @@ BOOL IsleApp::ReadRegBool(LPCSTR name, BOOL* out) {
 BOOL IsleApp::ReadRegInt(LPCSTR name, int* out) {
 	int result = RegReadKey(name, RegInt, out, 16);
 	if (result == 0) {
-		printf("Read int %d, %s : %d\n", result, name, *out);
+		log_info("Read int %d, %s : %d\n", result, name, *out);
 		return 1;
 	} else {
-		printf("Read int %d, %s\n", result, name);
+		log_info("Read int %d, %s\n", result, name);
 		return 0;
 	}
 	return result;
