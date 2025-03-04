@@ -15,7 +15,6 @@
 #include "police_actions.h"
 #include "scripts.h"
 
-
 // FUNCTION: LEGO1 0x1005e130
 Police::Police() {
 	m_policeState = NULL;
@@ -46,9 +45,10 @@ MxResult Police::Create(MxDSAction& p_dsAction) {
 	InputManager()->Register(this);
 
 	LegoGameState* gameState = GameState();
-	PoliceState* policeState = (PoliceState*)gameState->GetState("PoliceState");
+	PoliceState* policeState =
+		(PoliceState*) gameState->GetState("PoliceState");
 	if (!policeState) {
-		policeState = (PoliceState*)gameState->CreateState("PoliceState");
+		policeState = (PoliceState*) gameState->CreateState("PoliceState");
 	}
 
 	m_policeState = policeState;
@@ -61,19 +61,20 @@ MxResult Police::Create(MxDSAction& p_dsAction) {
 // FUNCTION: BETA10 0x100f04a3
 MxLong Police::Notify(MxParam& p_param) {
 	MxLong result = 0;
-	MxNotificationParam& param = (MxNotificationParam&)p_param;
+	MxNotificationParam& param = (MxNotificationParam&) p_param;
 	LegoWorld::Notify(p_param);
 
 	if (m_worldStarted) {
 		switch (param.GetNotification()) {
 		case c_notificationEndAction:
-			result = HandleEndAction((MxEndActionNotificationParam&)p_param);
+			result = HandleEndAction((MxEndActionNotificationParam&) p_param);
 			break;
 		case c_notificationKeyPress:
-			result = HandleKeyPress(((LegoEventNotificationParam&)p_param));
+			result = HandleKeyPress(((LegoEventNotificationParam&) p_param));
 			break;
 		case c_notificationControl:
-			result = HandleControl((LegoControlManagerNotificationParam&)p_param);
+			result =
+				HandleControl((LegoControlManagerNotificationParam&) p_param);
 			break;
 		case c_notificationTransitioned:
 			GameState()->SwitchArea(m_destLocation);
@@ -88,7 +89,11 @@ MxLong Police::Notify(MxParam& p_param) {
 void Police::ReadyWorld() {
 	LegoWorld::ReadyWorld();
 	PlayMusic(JukeboxScript::c_PoliceStation_Music);
-	FUN_10015820(FALSE, LegoOmni::c_disableInput | LegoOmni::c_disable3d | LegoOmni::c_clearScreen);
+	FUN_10015820(
+		FALSE,
+		LegoOmni::c_disableInput | LegoOmni::c_disable3d |
+			LegoOmni::c_clearScreen
+	);
 }
 
 // FUNCTION: LEGO1 0x1005e550
@@ -98,30 +103,57 @@ MxLong Police::HandleControl(LegoControlManagerNotificationParam& p_param) {
 		case PoliceScript::c_LeftArrow_Ctl:
 		case PoliceScript::c_RightArrow_Ctl:
 			if (m_policeState->GetUnknown0x0c() == 1) {
-				DeleteObjects(&m_atomId, PoliceScript::c_nps001ni_RunAnim, PoliceScript::c_nps002la_RunAnim);
+				DeleteObjects(
+					&m_atomId,
+					PoliceScript::c_nps001ni_RunAnim,
+					PoliceScript::c_nps002la_RunAnim
+				);
 			}
 
 			BackgroundAudioManager()->Stop();
 			m_destLocation = LegoGameState::Area::e_polidoor;
-			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+			TransitionManager()->StartTransition(
+				MxTransitionManager::e_mosaic,
+				50,
+				FALSE,
+				FALSE
+			);
 			break;
 		case PoliceScript::c_Info_Ctl:
 			if (m_policeState->GetUnknown0x0c() == 1) {
-				DeleteObjects(&m_atomId, PoliceScript::c_nps001ni_RunAnim, PoliceScript::c_nps002la_RunAnim);
+				DeleteObjects(
+					&m_atomId,
+					PoliceScript::c_nps001ni_RunAnim,
+					PoliceScript::c_nps002la_RunAnim
+				);
 			}
 
 			BackgroundAudioManager()->Stop();
 			m_destLocation = LegoGameState::Area::e_infomain;
-			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+			TransitionManager()->StartTransition(
+				MxTransitionManager::e_mosaic,
+				50,
+				FALSE,
+				FALSE
+			);
 			break;
 		case PoliceScript::c_Door_Ctl:
 			if (m_policeState->GetUnknown0x0c() == 1) {
-				DeleteObjects(&m_atomId, PoliceScript::c_nps001ni_RunAnim, PoliceScript::c_nps002la_RunAnim);
+				DeleteObjects(
+					&m_atomId,
+					PoliceScript::c_nps001ni_RunAnim,
+					PoliceScript::c_nps002la_RunAnim
+				);
 			}
 
 			BackgroundAudioManager()->Stop();
 			m_destLocation = LegoGameState::Area::e_copterbuild;
-			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+			TransitionManager()->StartTransition(
+				MxTransitionManager::e_mosaic,
+				50,
+				FALSE,
+				FALSE
+			);
 			break;
 		case PoliceScript::c_Donut_Ctl:
 			m_policeState->FUN_1005ea40();
@@ -152,7 +184,11 @@ MxLong Police::HandleKeyPress(LegoEventNotificationParam& p_param) {
 	MxLong result = 0;
 
 	if (p_param.GetKey() == VK_SPACE && m_policeState->GetUnknown0x0c() == 1) {
-		DeleteObjects(&m_atomId, PoliceScript::c_nps001ni_RunAnim, PoliceScript::c_nps002la_RunAnim);
+		DeleteObjects(
+			&m_atomId,
+			PoliceScript::c_nps001ni_RunAnim,
+			PoliceScript::c_nps002la_RunAnim
+		);
 		m_policeState->SetUnknown0x0c(0);
 		return 1;
 	}
@@ -167,8 +203,7 @@ void Police::Enable(MxBool p_enable) {
 	if (p_enable) {
 		InputManager()->SetWorld(this);
 		SetIsWorldActive(FALSE);
-	}
-	else {
+	} else {
 		if (InputManager()->GetWorld() == this) {
 			InputManager()->ClearWorld();
 		}
@@ -185,7 +220,8 @@ MxBool Police::Escape() {
 // FUNCTION: LEGO1 0x1005e7c0
 PoliceState::PoliceState() {
 	m_unk0x0c = 0;
-	m_policeScript = (rand() % 2 == 0) ? PoliceScript::c_nps002la_RunAnim : PoliceScript::c_nps001ni_RunAnim;
+	m_policeScript = (rand() % 2 == 0) ? PoliceScript::c_nps002la_RunAnim
+									   : PoliceScript::c_nps001ni_RunAnim;
 }
 
 // FUNCTION: LEGO1 0x1005e990
@@ -194,9 +230,8 @@ MxResult PoliceState::Serialize(LegoStorage* p_storage) {
 	LegoState::Serialize(p_storage);
 
 	if (p_storage->IsReadMode()) {
-		p_storage->ReadS32((MxS32&)m_policeScript);
-	}
-	else {
+		p_storage->ReadS32((MxS32&) m_policeScript);
+	} else {
 		p_storage->WriteS32(m_policeScript);
 	}
 
@@ -222,8 +257,9 @@ void PoliceState::FUN_1005ea40() {
 		break;
 	default:
 		policeScript = m_policeScript;
-		m_policeScript = policeScript == PoliceScript::c_nps002la_RunAnim ? PoliceScript::c_nps001ni_RunAnim
-			: PoliceScript::c_nps002la_RunAnim;
+		m_policeScript = policeScript == PoliceScript::c_nps002la_RunAnim
+							 ? PoliceScript::c_nps001ni_RunAnim
+							 : PoliceScript::c_nps002la_RunAnim;
 	}
 
 	{

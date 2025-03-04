@@ -1,7 +1,5 @@
 #include "mxvideoparamflags.h"
 
-
-
 // FUNCTION: LEGO1 0x100bec40
 // FUNCTION: BETA10 0x1012dadb
 MxVideoParamFlags::MxVideoParamFlags() {

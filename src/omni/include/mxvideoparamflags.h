@@ -1,7 +1,6 @@
 #ifndef MXVIDEOPARAMFLAGS_H
 #define MXVIDEOPARAMFLAGS_H
 
-
 class MxVideoParamFlags {
 public:
 	MxVideoParamFlags();

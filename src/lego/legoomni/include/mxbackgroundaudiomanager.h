@@ -29,14 +29,19 @@ public:
 	// FUNCTION: LEGO1 0x1007eb80
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxBackgroundAudioManager::ClassName()) || MxCore::IsA(p_name);
+		return !strcmp(p_name, MxBackgroundAudioManager::ClassName()) ||
+			   MxCore::IsA(p_name);
 	}
 
 	MxBool GetEnabled() { return m_enabled; }
 
 	void StartAction(MxParam& p_param);
 	void StopAction(MxParam& p_param);
-	MxResult PlayMusic(MxDSAction& p_action, undefined4 p_speed, MxPresenter::TickleState p_tickleState);
+	MxResult PlayMusic(
+		MxDSAction& p_action,
+		undefined4 p_speed,
+		MxPresenter::TickleState p_tickleState
+	);
 
 	void FUN_1007ee70();
 	void FUN_1007ef40();
@@ -49,7 +54,11 @@ public:
 	void Stop();
 	void LowerVolume();
 	void RaiseVolume();
-	undefined4 FUN_1007f610(MxPresenter* p_unk0x138, MxS32 p_speed, MxPresenter::TickleState p_tickleState);
+	undefined4 FUN_1007f610(
+		MxPresenter* p_unk0x138,
+		MxS32 p_speed,
+		MxPresenter::TickleState p_tickleState
+	);
 
 	// SYNTHETIC: LEGO1 0x1007ec00
 	// MxBackgroundAudioManager::`scalar deleting destructor'

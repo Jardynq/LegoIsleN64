@@ -3,8 +3,9 @@
 // Headers need to be included in a certain order to match the original binary.
 // Some of the following headers were probably not directly included,
 // but were included from one of the higher level classes. We should attempt
-// to reverse engineer the inclusion "graph" at some point. Until then, to maintain
-// correct order in the binary, we include them in the order we want here.
+// to reverse engineer the inclusion "graph" at some point. Until then, to
+// maintain correct order in the binary, we include them in the order we want
+// here.
 // clang-format off
 #include "mxpresenter.h"
 #include "legoentity.h"
@@ -100,7 +101,6 @@
 #include "skateboard.h"
 #include "towtrack.h"
 
-
 // FUNCTION: LEGO1 0x10006e40
 // FUNCTION: BETA10 0x1009e930
 LegoObjectFactory::LegoObjectFactory() {
@@ -116,14 +116,19 @@ LegoObjectFactory::LegoObjectFactory() {
 	m_idLegoPalettePresenter = MxAtomId("LegoPalettePresenter", e_exact);
 	m_idLegoPathPresenter = MxAtomId("LegoPathPresenter", e_exact);
 	m_idLegoAnimPresenter = MxAtomId("LegoAnimPresenter", e_exact);
-	m_idLegoLoopingAnimPresenter = MxAtomId("LegoLoopingAnimPresenter", e_exact);
-	m_idLegoLocomotionAnimPresenter = MxAtomId("LegoLocomotionAnimPresenter", e_exact);
+	m_idLegoLoopingAnimPresenter =
+		MxAtomId("LegoLoopingAnimPresenter", e_exact);
+	m_idLegoLocomotionAnimPresenter =
+		MxAtomId("LegoLocomotionAnimPresenter", e_exact);
 	m_idLegoHideAnimPresenter = MxAtomId("LegoHideAnimPresenter", e_exact);
 	m_idLegoPartPresenter = MxAtomId("LegoPartPresenter", e_exact);
-	m_idLegoCarBuildAnimPresenter = MxAtomId("LegoCarBuildAnimPresenter", e_exact);
-	m_idLegoActionControlPresenter = MxAtomId("LegoActionControlPresenter", e_exact);
+	m_idLegoCarBuildAnimPresenter =
+		MxAtomId("LegoCarBuildAnimPresenter", e_exact);
+	m_idLegoActionControlPresenter =
+		MxAtomId("LegoActionControlPresenter", e_exact);
 	m_idLegoMeterPresenter = MxAtomId("LegoMeterPresenter", e_exact);
-	m_idLegoLoadCacheSoundPresenter = MxAtomId("LegoLoadCacheSoundPresenter", e_exact);
+	m_idLegoLoadCacheSoundPresenter =
+		MxAtomId("LegoLoadCacheSoundPresenter", e_exact);
 	m_idLego3DWavePresenter = MxAtomId("Lego3DWavePresenter", e_exact);
 	m_idLegoActor = MxAtomId("LegoActor", e_exact);
 	m_idLegoPathActor = MxAtomId("LegoPathActor", e_exact);
@@ -200,7 +205,8 @@ LegoObjectFactory::LegoObjectFactory() {
 	m_idRadioState = MxAtomId("RadioState", e_exact);
 	m_idCaveEntity = MxAtomId("CaveEntity", e_exact);
 	m_idJailEntity = MxAtomId("JailEntity", e_exact);
-	m_idMxCompositeMediaPresenter = MxAtomId("MxCompositeMediaPresenter", e_exact);
+	m_idMxCompositeMediaPresenter =
+		MxAtomId("MxCompositeMediaPresenter", e_exact);
 	m_idJukeBox = MxAtomId("JukeBox", e_exact);
 	m_idJukeBoxState = MxAtomId("JukeBoxState", e_exact);
 	m_idRaceSkel = MxAtomId("RaceSkel", e_exact);
@@ -215,149 +221,101 @@ MxCore* LegoObjectFactory::Create(const char* p_name) {
 
 	if (m_idLegoModelPresenter == atom) {
 		object = new LegoModelPresenter();
-	}
-	else if (m_idLegoTexturePresenter == atom) {
+	} else if (m_idLegoTexturePresenter == atom) {
 		object = new LegoTexturePresenter();
-	}
-	else if (m_idLegoPhonemePresenter == atom) {
+	} else if (m_idLegoPhonemePresenter == atom) {
 		object = new LegoPhonemePresenter();
-	}
-	else if (m_idLegoFlcTexturePresenter == atom) {
+	} else if (m_idLegoFlcTexturePresenter == atom) {
 		object = new LegoFlcTexturePresenter();
-	}
-	else if (m_idLegoEntityPresenter == atom) {
+	} else if (m_idLegoEntityPresenter == atom) {
 		object = new LegoEntityPresenter();
-	}
-	else if (m_idLegoActorPresenter == atom) {
+	} else if (m_idLegoActorPresenter == atom) {
 		object = new LegoActorPresenter();
-	}
-	else if (m_idLegoWorldPresenter == atom) {
+	} else if (m_idLegoWorldPresenter == atom) {
 		object = new LegoWorldPresenter();
-	}
-	else if (m_idLegoWorld == atom) {
+	} else if (m_idLegoWorld == atom) {
 		object = new LegoWorld();
-	}
-	else if (m_idLegoPalettePresenter == atom) {
+	} else if (m_idLegoPalettePresenter == atom) {
 		object = new LegoPalettePresenter();
-	}
-	else if (m_idLegoPathPresenter == atom) {
+	} else if (m_idLegoPathPresenter == atom) {
 		object = new LegoPathPresenter();
-	}
-	else if (m_idLegoAnimPresenter == atom) {
+	} else if (m_idLegoAnimPresenter == atom) {
 		object = new LegoAnimPresenter();
-	}
-	else if (m_idLegoLoopingAnimPresenter == atom) {
+	} else if (m_idLegoLoopingAnimPresenter == atom) {
 		object = new LegoLoopingAnimPresenter();
-	}
-	else if (m_idLegoLocomotionAnimPresenter == atom) {
+	} else if (m_idLegoLocomotionAnimPresenter == atom) {
 		object = new LegoLocomotionAnimPresenter();
-	}
-	else if (m_idLegoHideAnimPresenter == atom) {
+	} else if (m_idLegoHideAnimPresenter == atom) {
 		object = new LegoHideAnimPresenter();
-	}
-	else if (m_idLegoPartPresenter == atom) {
+	} else if (m_idLegoPartPresenter == atom) {
 		object = new LegoPartPresenter();
-	}
-	else if (m_idLegoCarBuildAnimPresenter == atom) {
+	} else if (m_idLegoCarBuildAnimPresenter == atom) {
 		object = new LegoCarBuildAnimPresenter();
-	}
-	else if (m_idLegoActionControlPresenter == atom) {
+	} else if (m_idLegoActionControlPresenter == atom) {
 		object = new LegoActionControlPresenter();
-	}
-	else if (m_idLegoMeterPresenter == atom) {
+	} else if (m_idLegoMeterPresenter == atom) {
 		object = new LegoMeterPresenter();
-	}
-	else if (m_idLegoLoadCacheSoundPresenter == atom) {
+	} else if (m_idLegoLoadCacheSoundPresenter == atom) {
 		object = new LegoLoadCacheSoundPresenter();
-	}
-	else if (m_idLego3DWavePresenter == atom) {
+	} else if (m_idLego3DWavePresenter == atom) {
 		object = new Lego3DWavePresenter();
-	}
-	else if (m_idLegoActor == atom) {
+	} else if (m_idLegoActor == atom) {
 		object = new LegoActor();
-	}
-	else if (m_idLegoPathActor == atom) {
+	} else if (m_idLegoPathActor == atom) {
 		object = new LegoPathActor();
-	}
-	else if (m_idJetskiRace == atom) {
+	} else if (m_idJetskiRace == atom) {
 		object = new JetskiRace();
-	}
-	else if (m_idLegoEntity == atom) {
+	} else if (m_idLegoEntity == atom) {
 		object = new LegoEntity();
-	}
-	else if (m_idLegoRaceCar == atom) {
+	} else if (m_idLegoRaceCar == atom) {
 		object = new LegoRaceCar();
-	}
-	else if (m_idLegoJetski == atom) {
+	} else if (m_idLegoJetski == atom) {
 		object = new LegoJetski();
-	}
-	else if (m_idLegoCarRaceActor == atom) {
+	} else if (m_idLegoCarRaceActor == atom) {
 		object = new LegoCarRaceActor();
-	}
-	else if (m_idLegoJetskiRaceActor == atom) {
+	} else if (m_idLegoJetskiRaceActor == atom) {
 		object = new LegoJetskiRaceActor();
-	}
-	else if (m_idLegoCarBuild == atom) {
+	} else if (m_idLegoCarBuild == atom) {
 		object = new LegoCarBuild();
-	}
-	else if (m_idInfocenter == atom) {
+	} else if (m_idInfocenter == atom) {
 		object = new Infocenter();
-	}
-	else if (m_idLegoAnimActor == atom) {
+	} else if (m_idLegoAnimActor == atom) {
 		object = new LegoAnimActor();
-	}
-	else if (m_idMxControlPresenter == atom) {
+	} else if (m_idMxControlPresenter == atom) {
 		object = new MxControlPresenter();
-	}
-	else if (m_idRegistrationBook == atom) {
+	} else if (m_idRegistrationBook == atom) {
 		object = new RegistrationBook();
-	}
-	else if (m_idHistoryBook == atom) {
+	} else if (m_idHistoryBook == atom) {
 		object = new HistoryBook();
-	}
-	else if (m_idElevatorBottom == atom) {
+	} else if (m_idElevatorBottom == atom) {
 		object = new ElevatorBottom();
-	}
-	else if (m_idInfocenterDoor == atom) {
+	} else if (m_idInfocenterDoor == atom) {
 		object = new InfocenterDoor();
-	}
-	else if (m_idScore == atom) {
+	} else if (m_idScore == atom) {
 		object = new Score();
-	}
-	else if (m_idScoreState == atom) {
+	} else if (m_idScoreState == atom) {
 		object = new ScoreState();
-	}
-	else if (m_idHospital == atom) {
+	} else if (m_idHospital == atom) {
 		object = new Hospital();
-	}
-	else if (m_idIsle == atom) {
+	} else if (m_idIsle == atom) {
 		object = new Isle();
-	}
-	else if (m_idPolice == atom) {
+	} else if (m_idPolice == atom) {
 		object = new Police();
-	}
-	else if (m_idGasStation == atom) {
+	} else if (m_idGasStation == atom) {
 		object = new GasStation();
-	}
-	else if (m_idLegoAct2 == atom) {
+	} else if (m_idLegoAct2 == atom) {
 		object = new LegoAct2();
-	}
-	else if (m_idLegoAct2State == atom) {
+	} else if (m_idLegoAct2State == atom) {
 		object = new LegoAct2State();
-	}
-	else if (m_idCarRace == atom) {
+	} else if (m_idCarRace == atom) {
 		object = new CarRace();
-	}
-	else if (m_idLegoRaceCarBuildState == atom || m_idLegoCopterBuildState == atom || m_idLegoDuneCarBuildState == atom || m_idLegoJetskiBuildState == atom) {
+	} else if (m_idLegoRaceCarBuildState == atom || m_idLegoCopterBuildState == atom || m_idLegoDuneCarBuildState == atom || m_idLegoJetskiBuildState == atom) {
 		object = new LegoVehicleBuildState(p_name);
-	}
-	else if (m_idHospitalState == atom) {
+	} else if (m_idHospitalState == atom) {
 		object = new HospitalState();
-	}
-	else if (m_idInfocenterState == atom) {
+	} else if (m_idInfocenterState == atom) {
 		object = new InfocenterState();
-	}
-	else if (m_idPoliceState == atom) {
+	} else if (m_idPoliceState == atom) {
 		object = new PoliceState();
 	}
 
@@ -367,151 +325,103 @@ MxCore* LegoObjectFactory::Create(const char* p_name) {
 
 	if (m_idGasStationState == atom) {
 		object = new GasStationState();
-	}
-	else if (m_idSkateBoard == atom) {
+	} else if (m_idSkateBoard == atom) {
 		object = new SkateBoard();
-	}
-	else if (m_idHelicopter == atom) {
+	} else if (m_idHelicopter == atom) {
 		object = new Helicopter();
-	}
-	else if (m_idHelicopterState == atom) {
+	} else if (m_idHelicopterState == atom) {
 		object = new HelicopterState();
-	}
-	else if (m_idDuneBuggy == atom) {
+	} else if (m_idDuneBuggy == atom) {
 		object = new DuneBuggy();
-	}
-	else if (m_idPizza == atom) {
+	} else if (m_idPizza == atom) {
 		object = new Pizza();
-	}
-	else if (m_idPizzaMissionState == atom) {
+	} else if (m_idPizzaMissionState == atom) {
 		object = new PizzaMissionState();
-	}
-	else if (m_idAct2Actor == atom) {
+	} else if (m_idAct2Actor == atom) {
 		Act2Actor* actor = new Act2Actor();
-		((LegoAct2*)CurrentWorld())->SetUnknown0x1138(actor);
+		((LegoAct2*) CurrentWorld())->SetUnknown0x1138(actor);
 		object = actor;
-	}
-	else if (m_idAct2Brick == atom) {
+	} else if (m_idAct2Brick == atom) {
 		object = new Act2Brick();
-	}
-	else if (m_idAct2GenActor == atom) {
+	} else if (m_idAct2GenActor == atom) {
 		object = new Act2GenActor();
-	}
-	else if (m_idAct2PoliceStation == atom) {
+	} else if (m_idAct2PoliceStation == atom) {
 		object = new Act2PoliceStation();
-	}
-	else if (m_idAct3 == atom) {
+	} else if (m_idAct3 == atom) {
 		object = new Act3();
-	}
-	else if (m_idAct3State == atom) {
+	} else if (m_idAct3State == atom) {
 		object = new Act3State();
-	}
-	else if (m_idDoors == atom) {
+	} else if (m_idDoors == atom) {
 		object = new Doors();
-	}
-	else if (m_idLegoAnimMMPresenter == atom) {
+	} else if (m_idLegoAnimMMPresenter == atom) {
 		object = new LegoAnimMMPresenter();
-	}
-	else if (m_idRaceCar == atom) {
+	} else if (m_idRaceCar == atom) {
 		object = new RaceCar();
-	}
-	else if (m_idJetski == atom) {
+	} else if (m_idJetski == atom) {
 		object = new Jetski();
-	}
-	else if (m_idBike == atom) {
+	} else if (m_idBike == atom) {
 		object = new Bike();
-	}
-	else if (m_idMotocycle == atom) {
+	} else if (m_idMotocycle == atom) {
 		object = new Motocycle();
-	}
-	else if (m_idAmbulance == atom) {
+	} else if (m_idAmbulance == atom) {
 		object = new Ambulance();
-	}
-	else if (m_idAmbulanceMissionState == atom) {
+	} else if (m_idAmbulanceMissionState == atom) {
 		object = new AmbulanceMissionState();
-	}
-	else if (m_idTowTrack == atom) {
+	} else if (m_idTowTrack == atom) {
 		object = new TowTrack();
-	}
-	else if (m_idTowTrackMissionState == atom) {
+	} else if (m_idTowTrackMissionState == atom) {
 		object = new TowTrackMissionState();
-	}
-	else if (m_idAct3Cop == atom) {
+	} else if (m_idAct3Cop == atom) {
 		object = new Act3Cop();
-	}
-	else if (m_idAct3Brickster == atom) {
+	} else if (m_idAct3Brickster == atom) {
 		object = new Act3Brickster();
-	}
-	else if (m_idAct3Shark == atom) {
+	} else if (m_idAct3Shark == atom) {
 		object = new Act3Shark();
-	}
-	else if (m_idAct3Actor == atom) {
+	} else if (m_idAct3Actor == atom) {
 		object = new Act3Actor();
-	}
-	else if (m_idBumpBouy == atom) {
+	} else if (m_idBumpBouy == atom) {
 		object = new BumpBouy();
-	}
-	else if (m_idJetskiRaceState == atom) {
+	} else if (m_idJetskiRaceState == atom) {
 		object = new JetskiRaceState();
-	}
-	else if (m_idCarRaceState == atom) {
+	} else if (m_idCarRaceState == atom) {
 		object = new CarRaceState();
-	}
-	else if (m_idAct1State == atom) {
+	} else if (m_idAct1State == atom) {
 		object = new Act1State();
-	}
-	else if (m_idPizzeria == atom) {
+	} else if (m_idPizzeria == atom) {
 		object = new Pizzeria();
-	}
-	else if (m_idPizzeriaState == atom) {
+	} else if (m_idPizzeriaState == atom) {
 		object = new PizzeriaState();
-	}
-	else if (m_idInfoCenterEntity == atom) {
+	} else if (m_idInfoCenterEntity == atom) {
 		object = new InfoCenterEntity();
-	}
-	else if (m_idHospitalEntity == atom) {
+	} else if (m_idHospitalEntity == atom) {
 		object = new HospitalEntity();
-	}
-	else if (m_idGasStationEntity == atom) {
+	} else if (m_idGasStationEntity == atom) {
 		object = new GasStationEntity();
-	}
-	else if (m_idPoliceEntity == atom) {
+	} else if (m_idPoliceEntity == atom) {
 		object = new PoliceEntity();
-	}
-	else if (m_idBeachHouseEntity == atom) {
+	} else if (m_idBeachHouseEntity == atom) {
 		object = new BeachHouseEntity();
-	}
-	else if (m_idJukeBoxEntity == atom) {
+	} else if (m_idJukeBoxEntity == atom) {
 		object = new JukeBoxEntity();
-	}
-	else if (m_idRaceStandsEntity == atom) {
+	} else if (m_idRaceStandsEntity == atom) {
 		object = new RaceStandsEntity();
-	}
-	else if (m_idRadioState == atom) {
+	} else if (m_idRadioState == atom) {
 		object = new RadioState();
-	}
-	else if (m_idCaveEntity == atom) {
+	} else if (m_idCaveEntity == atom) {
 		object = new CaveEntity();
-	}
-	else if (m_idJailEntity == atom) {
+	} else if (m_idJailEntity == atom) {
 		object = new JailEntity();
-	}
-	else if (m_idMxCompositeMediaPresenter == atom) {
+	} else if (m_idMxCompositeMediaPresenter == atom) {
 		object = new MxCompositeMediaPresenter();
-	}
-	else if (m_idJukeBox == atom) {
+	} else if (m_idJukeBox == atom) {
 		object = new JukeBox();
-	}
-	else if (m_idJukeBoxState == atom) {
+	} else if (m_idJukeBoxState == atom) {
 		object = new JukeBoxState();
-	}
-	else if (m_idRaceSkel == atom) {
+	} else if (m_idRaceSkel == atom) {
 		object = new RaceSkel();
-	}
-	else if (m_idAnimState == atom) {
+	} else if (m_idAnimState == atom) {
 		object = new AnimState();
-	}
-	else {
+	} else {
 		object = MxObjectFactory::Create(p_name);
 	}
 

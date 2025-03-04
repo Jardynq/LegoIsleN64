@@ -16,7 +16,6 @@
 #include "mxtransitionmanager.h"
 #include "mxvariabletable.h"
 
-
 // FUNCTION: LEGO1 0x100357b0
 Motocycle::Motocycle() {
 	m_maxLinearVel = 40.0;
@@ -68,7 +67,10 @@ void Motocycle::Animate(float p_time) {
 void Motocycle::Exit() {
 	IslePathActor::Exit();
 	GameState()->m_currentArea = LegoGameState::e_motocycle;
-	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_MotoBikeDashboard_Bitmap);
+	RemoveFromCurrentWorld(
+		*g_isleScript,
+		IsleScript::c_MotoBikeDashboard_Bitmap
+	);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_MotoBikeArms_Ctl);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_MotoBikeInfo_Ctl);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_MotoBikeSpeedMeter);
@@ -84,17 +86,23 @@ MxLong Motocycle::HandleClick() {
 
 	FUN_10015820(TRUE, 0);
 
-	((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::Area::e_motocycle);
-	TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
+	((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::Area::e_motocycle);
+	TransitionManager()
+		->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
 
 	if (GameState()->GetActorId() != UserActor()->GetActorId()) {
-		((IslePathActor*)UserActor())->Exit();
+		((IslePathActor*) UserActor())->Exit();
 	}
 
 	m_time = Timer()->GetTime();
 
 	Enter();
-	InvokeAction(Extra::ActionType::e_start, *g_isleScript, IsleScript::c_MotoBikeDashboard, NULL);
+	InvokeAction(
+		Extra::ActionType::e_start,
+		*g_isleScript,
+		IsleScript::c_MotoBikeDashboard,
+		NULL
+	);
 	GetCurrentAction().SetObjectId(-1);
 
 	Vector3 position = m_roi->GetWorldPosition();
@@ -116,8 +124,14 @@ MxLong Motocycle::HandleControl(LegoControlManagerNotificationParam& p_param) {
 			result = 1;
 			break;
 		case IsleScript::c_MotoBikeInfo_Ctl:
-			((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
-			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+			((Isle*) CurrentWorld())
+				->SetDestLocation(LegoGameState::e_infomain);
+			TransitionManager()->StartTransition(
+				MxTransitionManager::e_mosaic,
+				50,
+				FALSE,
+				FALSE
+			);
 			Exit();
 			result = 1;
 			break;
@@ -141,7 +155,7 @@ MxLong Motocycle::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 void Motocycle::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_PoliceStation_Music);
 
-	Act1State* act1state = (Act1State*)GameState()->GetState("Act1State");
+	Act1State* act1state = (Act1State*) GameState()->GetState("Act1State");
 	if (!act1state->m_unk0x022) {
 		act1state->m_unk0x022 = TRUE;
 

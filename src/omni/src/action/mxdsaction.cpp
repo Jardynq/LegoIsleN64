@@ -8,7 +8,6 @@
 #include <float.h>
 #include <limits.h>
 
-
 // GLOBAL: LEGO1 0x10101410
 // GLOBAL: BETA10 0x10201f5c
 MxU16 g_sep = TWOCC(',', ' ');
@@ -213,24 +212,27 @@ void MxDSAction::AppendExtra(MxU16 p_extraLength, const char* p_extraData) {
 
 	if (p_extraData) {
 		if (m_extraLength) {
-			char* newExtra = new char[p_extraLength + m_extraLength + sizeof(g_sep)];
+			char* newExtra =
+				new char[p_extraLength + m_extraLength + sizeof(g_sep)];
 			assert(newExtra);
 			memcpy(newExtra, m_extraData, m_extraLength);
 			memcpy(&newExtra[m_extraLength], &g_sep, sizeof(g_sep));
-			memcpy(&newExtra[m_extraLength + sizeof(g_sep)], p_extraData, p_extraLength);
+			memcpy(
+				&newExtra[m_extraLength + sizeof(g_sep)],
+				p_extraData,
+				p_extraLength
+			);
 
 			m_extraLength += p_extraLength + sizeof(g_sep);
 			delete[] m_extraData;
 			m_extraData = newExtra;
-		}
-		else {
+		} else {
 			m_extraData = new char[p_extraLength];
 
 			if (m_extraData) {
 				m_extraLength = p_extraLength;
 				memcpy(m_extraData, p_extraData, p_extraLength);
-			}
-			else {
+			} else {
 				assert(0);
 			}
 		}
@@ -261,7 +263,7 @@ void MxDSAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 	// clang-format on
 
 	if (extraLength) {
-		AppendExtra(extraLength, (char*)p_source);
+		AppendExtra(extraLength, (char*) p_source);
 		p_source += extraLength;
 	}
 }

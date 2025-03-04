@@ -2,7 +2,6 @@
 
 #include "mxdsmediaaction.h"
 
-
 // FUNCTION: LEGO1 0x100ca9d0
 // FUNCTION: BETA10 0x10159cf3
 MxDSSerialAction::MxDSSerialAction() {
@@ -30,7 +29,8 @@ void MxDSSerialAction::CopyFrom(MxDSSerialAction& p_dsSerialAction) {
 }
 
 // FUNCTION: LEGO1 0x100caca0
-MxDSSerialAction& MxDSSerialAction::operator=(MxDSSerialAction& p_dsSerialAction) {
+MxDSSerialAction& MxDSSerialAction::operator=(MxDSSerialAction& p_dsSerialAction
+) {
 	if (this == &p_dsSerialAction) {
 		return *this;
 	}
@@ -68,7 +68,7 @@ MxLong MxDSSerialAction::GetDuration() {
 		this->m_duration += action->GetDuration() + action->GetStartTime();
 
 		if (action->IsA("MxDSMediaAction")) {
-			MxLong sustainTime = ((MxDSMediaAction*)action)->GetSustainTime();
+			MxLong sustainTime = ((MxDSMediaAction*) action)->GetSustainTime();
 
 			if (sustainTime && sustainTime != -1) {
 				this->m_duration += sustainTime;

@@ -1,6 +1,5 @@
 #include "mxdsmultiaction.h"
 
-
 // FUNCTION: LEGO1 0x100c9b90
 // FUNCTION: BETA10 0x10159410
 MxDSMultiAction::MxDSMultiAction() {
@@ -121,18 +120,19 @@ MxU32 MxDSMultiAction::GetSizeOnDisk() {
 void MxDSMultiAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 	MxDSAction::Deserialize(p_source, p_unk0x24);
 
-	MxU32 extraFlag = *(MxU32*)(p_source + 4) & 1;
+	MxU32 extraFlag = *(MxU32*) (p_source + 4) & 1;
 	p_source += 12;
 
-	MxU32 count = *(MxU32*)p_source;
+	MxU32 count = *(MxU32*) p_source;
 	p_source += sizeof(count);
 
 	if (count) {
 		while (count--) {
-			MxU32 extraFlag = *(MxU32*)(p_source + 4) & 1;
+			MxU32 extraFlag = *(MxU32*) (p_source + 4) & 1;
 			p_source += 8;
 
-			MxDSAction* action = (MxDSAction*)DeserializeDSObjectDispatch(p_source, p_unk0x24);
+			MxDSAction* action =
+				(MxDSAction*) DeserializeDSObjectDispatch(p_source, p_unk0x24);
 			p_source += extraFlag;
 
 			this->m_actions->Append(action);

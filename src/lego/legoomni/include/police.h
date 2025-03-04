@@ -29,7 +29,8 @@ public:
 	// FUNCTION: LEGO1 0x1005e870
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, PoliceState::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, PoliceState::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	MxResult Serialize(LegoStorage* p_storage) override; // vtable+0x1c

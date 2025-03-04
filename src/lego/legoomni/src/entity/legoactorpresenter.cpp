@@ -3,13 +3,16 @@
 #include "legoentity.h"
 #include "misc.h"
 
-
 // FUNCTION: LEGO1 0x10076c30
 void LegoActorPresenter::ReadyTickle() {
 	if (CurrentWorld()) {
-		m_entity = (LegoEntity*)CreateEntity("LegoActor");
+		m_entity = (LegoEntity*) CreateEntity("LegoActor");
 		if (m_entity) {
-			SetEntityLocation(m_action->GetLocation(), m_action->GetDirection(), m_action->GetUp());
+			SetEntityLocation(
+				m_action->GetLocation(),
+				m_action->GetDirection(),
+				m_action->GetUp()
+			);
 			m_entity->Create(*m_action);
 		}
 		ProgressTickleState(e_starting);

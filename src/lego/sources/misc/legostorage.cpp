@@ -1,13 +1,11 @@
 #include "legostorage.h"
 
-
 #include <memory.h>
 #include <string.h>
 
-
 // FUNCTION: LEGO1 0x10099080
 LegoMemory::LegoMemory(void* p_buffer) : LegoStorage() {
-	m_buffer = (LegoU8*)p_buffer;
+	m_buffer = (LegoU8*) p_buffer;
 	m_position = 0;
 }
 
@@ -102,8 +100,7 @@ LegoResult LegoFile::Open(const char* p_name, LegoU32 p_mode) {
 	}
 	if ((p_mode & c_text) != 0) {
 		strcat(mode, "t");
-	}
-	else {
+	} else {
 		strcat(mode, "b");
 	}
 

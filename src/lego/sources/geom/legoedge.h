@@ -1,7 +1,6 @@
 #ifndef __LEGOEDGE_H
 #define __LEGOEDGE_H
 
-
 class LegoWEEdge;
 class Vector3;
 

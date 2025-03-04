@@ -1,6 +1,5 @@
 #include "legophoneme.h"
 
-
 // FUNCTION: LEGO1 0x10044e50
 LegoPhoneme::~LegoPhoneme() {
 }

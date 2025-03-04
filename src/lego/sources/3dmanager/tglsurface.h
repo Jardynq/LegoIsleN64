@@ -5,10 +5,10 @@
 #include "tgl/tgl.h"
 
 namespace Tgl {
-	class Renderer;
-	class Device;
-	class View;
-	class Group;
+class Renderer;
+class Device;
+class View;
+class Group;
 } // namespace Tgl
 
 /////////////////////////////////////////////////////////////////////////////
@@ -37,8 +37,12 @@ public:
 	TglSurface();
 	virtual ~TglSurface();
 
-	virtual BOOL Create(const CreateStruct&, Tgl::Renderer*, Tgl::Group* pScene); // vtable+0x04
-	virtual void Destroy();                                                       // vtable+0x08
+	virtual BOOL Create(
+		const CreateStruct&,
+		Tgl::Renderer*,
+		Tgl::Group* pScene
+	);                       // vtable+0x04
+	virtual void Destroy();  // vtable+0x08
 	virtual double Render(); // render time in seconds // vtable+0x0c
 
 	Tgl::Renderer* GetRenderer() const { return m_pRenderer; }
@@ -60,8 +64,9 @@ public:
 	unsigned int GetFrameCount() const { return m_frameCount; }
 
 protected:
-	virtual Tgl::View* CreateView(Tgl::Renderer*, Tgl::Device*) = 0; // vtable+0x10
-	virtual void DestroyView();                                      // vtable+0x14
+	virtual Tgl::View*
+	CreateView(Tgl::Renderer*, Tgl::Device*) = 0; // vtable+0x10
+	virtual void DestroyView();                   // vtable+0x14
 
 private:
 	Tgl::Renderer* m_pRenderer; // 0x08
@@ -78,7 +83,7 @@ private:
 	// statistics
 	MxFrequencyMeter m_renderingRateMeter; // 0x28
 	MxFrequencyMeter m_frameRateMeter;     // 0x48
-	unsigned int m_frameCount;            // 0x68
+	unsigned int m_frameCount;             // 0x68
 };
 
 /////////////////////////////////////////////////////////////////////////////

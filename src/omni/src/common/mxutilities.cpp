@@ -78,7 +78,11 @@ void MakeSourceName(char* p_output, const char* p_input) {
 }
 
 // FUNCTION: LEGO1 0x100b7050
-MxBool KeyValueStringParse(char* p_output, const char* p_command, const char* p_string) {
+MxBool KeyValueStringParse(
+	char* p_output,
+	const char* p_command,
+	const char* p_string
+) {
 	MxBool didMatch = FALSE;
 	assert(p_string);
 	assert(p_command);
@@ -88,7 +92,8 @@ MxBool KeyValueStringParse(char* p_output, const char* p_command, const char* p_
 	assert(string);
 	strcpy(string, p_string);
 
-	for (char* token = strtok(string, ", \t\r\n:"); token; token = strtok(NULL, ", \t\r\n:")) {
+	for (char* token = strtok(string, ", \t\r\n:"); token;
+		 token = strtok(NULL, ", \t\r\n:")) {
 		len -= (strlen(token) + 1);
 
 		if (strcmpi(token, p_command) == 0) {
@@ -96,7 +101,8 @@ MxBool KeyValueStringParse(char* p_output, const char* p_command, const char* p_
 				char* output = p_output;
 				char* cur = &token[strlen(p_command)];
 				cur++;
-				while (*cur != ',' && *cur != ' ' && *cur != '\0' && *cur != '\t' && *cur != '\n' && *cur != '\r') {
+				while (*cur != ',' && *cur != ' ' && *cur != '\0' &&
+					   *cur != '\t' && *cur != '\n' && *cur != '\r') {
 					*output++ = *cur++;
 				}
 				*output = '\0';
@@ -112,10 +118,19 @@ MxBool KeyValueStringParse(char* p_output, const char* p_command, const char* p_
 }
 
 // FUNCTION: LEGO1 0x100b7170
-MxBool ContainsPresenter(MxCompositePresenterList& p_presenterList, MxPresenter* p_presenter) {
-	for (MxCompositePresenterList::iterator it = p_presenterList.begin(); it != p_presenterList.end(); it++) {
-		if (p_presenter == *it || ((*it)->IsA("MxCompositePresenter") &&
-			ContainsPresenter(*((MxCompositePresenter*)*it)->GetList(), p_presenter))) {
+MxBool ContainsPresenter(
+	MxCompositePresenterList& p_presenterList,
+	MxPresenter* p_presenter
+) {
+	for (MxCompositePresenterList::iterator it = p_presenterList.begin();
+		 it != p_presenterList.end();
+		 it++) {
+		if (p_presenter == *it ||
+			((*it)->IsA("MxCompositePresenter") &&
+			 ContainsPresenter(
+				 *((MxCompositePresenter*) *it)->GetList(),
+				 p_presenter
+			 ))) {
 			return TRUE;
 		}
 	}
@@ -127,8 +142,7 @@ MxBool ContainsPresenter(MxCompositePresenterList& p_presenterList, MxPresenter*
 void OmniError(const char* p_message, MxS32 p_status) {
 	if (g_omniUserMessage) {
 		g_omniUserMessage(p_message, p_status);
-	}
-	else if (p_status) {
+	} else if (p_status) {
 		abort();
 	}
 }
@@ -140,10 +154,15 @@ void SetOmniUserMessage(void (*p_omniUserMessage)(const char*, MxS32)) {
 
 // FUNCTION: LEGO1 0x100b7220
 void FUN_100b7220(MxDSAction* p_action, MxU32 p_newFlags, MxBool p_setFlags) {
-	p_action->SetFlags(!p_setFlags ? p_action->GetFlags() & ~p_newFlags : p_action->GetFlags() | p_newFlags);
+	p_action->SetFlags(
+		!p_setFlags ? p_action->GetFlags() & ~p_newFlags
+					: p_action->GetFlags() | p_newFlags
+	);
 
 	if (p_action->IsA("MxDSMultiAction")) {
-		MxDSActionListCursor cursor(((MxDSMultiAction*)p_action)->GetActionList());
+		MxDSActionListCursor cursor(
+			((MxDSMultiAction*) p_action)->GetActionList()
+		);
 		MxDSAction* action;
 
 		while (cursor.Next(action)) {

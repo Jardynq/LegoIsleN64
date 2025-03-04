@@ -80,7 +80,7 @@ void Matrix4::operator=(const Matrix4& p_matrix) {
 // FUNCTION: BETA10 0x1000ff50
 Matrix4& Matrix4::operator+=(float (*p_data)[4]) {
 	for (int i = 0; i < 16; i++) {
-		((float*)m_data)[i] += ((float*)p_data)[i];
+		((float*) m_data)[i] += ((float*) p_data)[i];
 	}
 
 	return *this;
@@ -88,7 +88,11 @@ Matrix4& Matrix4::operator+=(float (*p_data)[4]) {
 
 // FUNCTION: LEGO1 0x10002460
 // FUNCTION: BETA10 0x1000ffc0
-void Matrix4::TranslateBy(const float& p_x, const float& p_y, const float& p_z) {
+void Matrix4::TranslateBy(
+	const float& p_x,
+	const float& p_y,
+	const float& p_z
+) {
 	m_data[3][0] += p_x;
 	m_data[3][1] += p_y;
 	m_data[3][2] += p_z;
@@ -96,7 +100,11 @@ void Matrix4::TranslateBy(const float& p_x, const float& p_y, const float& p_z) 
 
 // FUNCTION: LEGO1 0x100024a0
 // FUNCTION: BETA10 0x10010040
-void Matrix4::SetTranslation(const float& p_x, const float& p_y, const float& p_z) {
+void Matrix4::SetTranslation(
+	const float& p_x,
+	const float& p_y,
+	const float& p_z
+) {
 	m_data[3][0] = p_x;
 	m_data[3][1] = p_y;
 	m_data[3][2] = p_z;
@@ -105,7 +113,7 @@ void Matrix4::SetTranslation(const float& p_x, const float& p_y, const float& p_
 // FUNCTION: LEGO1 0x100024d0
 // FUNCTION: BETA10 0x100100a0
 void Matrix4::Product(float (*p_a)[4], float (*p_b)[4]) {
-	float* cur = (float*)m_data;
+	float* cur = (float*) m_data;
 
 	for (int row = 0; row < 4; row++) {
 		for (int col = 0; col < 4; col++) {
@@ -127,20 +135,19 @@ void Matrix4::Product(const Matrix4& p_a, const Matrix4& p_b) {
 // FUNCTION: LEGO1 0x10002550
 // FUNCTION: BETA10 0x100101c0
 void Matrix4::ToQuaternion(Vector4& p_outQuat) {
-	float trace;
+	float trace = NAN;
 	float localc = m_data[0][0] + m_data[1][1] + m_data[2][2];
 
 	if (localc > 0) {
-		trace = (float)sqrt(localc + 1.0);
+		trace = (float) sqrt(localc + 1.0);
 		p_outQuat[3] = trace * 0.5f;
 		trace = 0.5f / trace;
 		p_outQuat[0] = (m_data[2][1] - m_data[1][2]) * trace;
 		p_outQuat[1] = (m_data[0][2] - m_data[2][0]) * trace;
 		p_outQuat[2] = (m_data[1][0] - m_data[0][1]) * trace;
-	}
-	else {
+	} else {
 		// GLOBAL: LEGO1 0x100d4090
-		static int rotateIndex[] = { 1, 2, 0 };
+		static int rotateIndex[] = {1, 2, 0};
 
 		// Largest element along the trace
 		int largest = 0;
@@ -154,14 +161,20 @@ void Matrix4::ToQuaternion(Vector4& p_outQuat) {
 		int next = rotateIndex[largest];
 		int nextNext = rotateIndex[next];
 
-		trace = (float)sqrt(*Element(largest, largest) - (*Element(nextNext, nextNext) + *Element(next, next)) + 1.0);
+		trace = (float) sqrt(
+			*Element(largest, largest) -
+			(*Element(nextNext, nextNext) + *Element(next, next)) + 1.0
+		);
 
 		p_outQuat[largest] = trace * 0.5f;
 		trace = 0.5f / trace;
 
-		p_outQuat[3] = (*Element(nextNext, next) - *Element(next, nextNext)) * trace;
-		p_outQuat[next] = (*Element(largest, next) + *Element(next, largest)) * trace;
-		p_outQuat[nextNext] = (*Element(largest, nextNext) + *Element(nextNext, largest)) * trace;
+		p_outQuat[3] =
+			(*Element(nextNext, next) - *Element(next, nextNext)) * trace;
+		p_outQuat[next] =
+			(*Element(largest, next) + *Element(next, largest)) * trace;
+		p_outQuat[nextNext] =
+			(*Element(largest, nextNext) + *Element(nextNext, largest)) * trace;
 	}
 }
 
@@ -210,8 +223,7 @@ int Matrix4::FromQuaternion(const Vector4& p_vec) {
 		m_data[1][3] = 0.0f;
 		m_data[2][3] = 0.0f;
 		return 0;
-	}
-	else {
+	} else {
 		return -1;
 	}
 }
@@ -270,12 +282,12 @@ int Matrix4::BETA_1005a590(Matrix4& p_mat) {
 	float local5c[4][4];
 	Matrix4 localc(local5c);
 
-	((Matrix4&)localc) = *this;
+	((Matrix4&) localc) = *this;
 	p_mat.SetIdentity();
 
 	for (int i = 0; i < 4; i++) {
 		int local1c = i;
-		int local10;
+		int local10 = 0;
 
 		for (local10 = i + 1; local10 < 4; local10++) {
 			if (fabs(localc[local1c][i]) < fabs(localc[local10][i])) {
@@ -293,7 +305,7 @@ int Matrix4::BETA_1005a590(Matrix4& p_mat) {
 		}
 
 		float local60 = localc[i][i];
-		int local18;
+		int local18 = 0;
 
 		for (local18 = 0; local18 < 4; local18++) {
 			p_mat[i][local18] /= local60;
@@ -316,7 +328,8 @@ int Matrix4::BETA_1005a590(Matrix4& p_mat) {
 				}
 
 				for (local18 = 0; local18 < 4; local18++) {
-					afStack70[local18] = localc[i][local18] * localc[local10][i];
+					afStack70[local18] =
+						localc[i][local18] * localc[local10][i];
 				}
 
 				for (local18 = 0; local18 < 4; local18++) {

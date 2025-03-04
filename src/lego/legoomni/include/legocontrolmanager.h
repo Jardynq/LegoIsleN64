@@ -23,8 +23,12 @@ public:
 	const char* GetClickedAtom() const { return m_clickedAtom; }
 	MxS16 GetUnknown0x28() const { return m_unk0x28; }
 
-	void SetClickedObjectId(MxS32 p_clickedObjectId) { m_clickedObjectId = p_clickedObjectId; }
-	void SetClickedAtom(const char* p_clickedAtom) { m_clickedAtom = p_clickedAtom; }
+	void SetClickedObjectId(MxS32 p_clickedObjectId) {
+		m_clickedObjectId = p_clickedObjectId;
+	}
+	void SetClickedAtom(const char* p_clickedAtom) {
+		m_clickedAtom = p_clickedAtom;
+	}
 	void SetUnknown0x28(MxS16 p_unk0x28) { m_unk0x28 = p_unk0x28; }
 
 	MxS32 m_clickedObjectId;   // 0x20
@@ -63,13 +67,15 @@ public:
 	// FUNCTION: LEGO1 0x10028cc0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoControlManager::ClassName()) || MxCore::IsA(p_name);
+		return !strcmp(p_name, LegoControlManager::ClassName()) ||
+			   MxCore::IsA(p_name);
 	}
 
 	void FUN_10028df0(MxPresenterList* p_presenterList);
 	void Register(MxCore* p_listener);
 	void Unregister(MxCore* p_listener);
-	MxBool FUN_10029210(LegoEventNotificationParam& p_param, MxPresenter* p_presenter);
+	MxBool
+	FUN_10029210(LegoEventNotificationParam& p_param, MxPresenter* p_presenter);
 	void FUN_100293c0(MxU32 p_objectId, const char* p_atom, MxS16 p_unk0x4e);
 	MxControlPresenter* FUN_100294e0(MxS32 p_x, MxS32 p_y);
 	MxBool FUN_10029630();

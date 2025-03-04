@@ -32,7 +32,8 @@ public:
 	// FUNCTION: LEGO1 0x10076e20
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, RegistrationBook::ClassName()) || LegoWorld::IsA(p_name);
+		return !strcmp(p_name, RegistrationBook::ClassName()) ||
+			   LegoWorld::IsA(p_name);
 	}
 
 	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18

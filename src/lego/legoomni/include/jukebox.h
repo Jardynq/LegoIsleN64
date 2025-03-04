@@ -37,7 +37,8 @@ public:
 	// FUNCTION: LEGO1 0x1000f320
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, JukeBoxState::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, JukeBoxState::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	// SYNTHETIC: LEGO1 0x1000f3d0

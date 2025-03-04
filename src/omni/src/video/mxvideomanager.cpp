@@ -11,14 +11,18 @@
 #include "mxticklethread.h"
 #include "stdio.h"
 
-
 // FUNCTION: LEGO1 0x100be1f0
 MxVideoManager::MxVideoManager() {
 	Init();
 }
 
 // FUNCTION: LEGO1 0x100be270
-void MxVideoManager::UpdateView(MxU32 p_x, MxU32 p_y, MxU32 p_width, MxU32 p_height) {
+void MxVideoManager::UpdateView(
+	MxU32 p_x,
+	MxU32 p_y,
+	MxU32 p_width,
+	MxU32 p_height
+) {
 }
 
 // FUNCTION: LEGO1 0x100be2a0
@@ -42,8 +46,7 @@ void MxVideoManager::Destroy(MxBool p_fromDestructor) {
 	if (m_thread) {
 		m_thread->Terminate();
 		delete m_thread;
-	}
-	else {
+	} else {
 		TickleManager()->UnregisterClient(this);
 	}
 
@@ -84,8 +87,14 @@ void MxVideoManager::UpdateRegion() {
 		MxRect32 rect(m_region->GetRect());
 		rect.Intersect(m_videoParam.GetRect());
 
-		m_displaySurface
-			->Display(rect.GetLeft(), rect.GetTop(), rect.GetLeft(), rect.GetTop(), rect.GetWidth(), rect.GetHeight());
+		m_displaySurface->Display(
+			rect.GetLeft(),
+			rect.GetTop(),
+			rect.GetLeft(),
+			rect.GetTop(),
+			rect.GetWidth(),
+			rect.GetHeight()
+		);
 	}
 }
 
@@ -107,7 +116,7 @@ void MxVideoManager::SortPresenterList() {
 
 			finished = TRUE;
 			for (MxU32 i = count; i != 0; i--) {
-				MxPresenter* presenterA, * presenterB;
+				MxPresenter *presenterA, *presenterB;
 
 				a.Next(presenterA);
 				b.Next(presenterB);
@@ -163,8 +172,7 @@ MxResult MxVideoManager::VTable0x28(
 		if (!palette) {
 			goto done;
 		}
-	}
-	else {
+	} else {
 		palette = p_videoParam.GetPalette()->Clone();
 		m_videoParam.SetPalette(palette);
 
@@ -174,7 +182,10 @@ MxResult MxVideoManager::VTable0x28(
 	}
 
 	m_displaySurface = new MxDisplaySurface();
-	if (m_displaySurface && m_displaySurface->Init(m_videoParam, p_ddSurface1, p_ddSurface2, p_ddClipper) == SUCCESS) {
+	if (m_displaySurface &&
+		m_displaySurface
+				->Init(m_videoParam, p_ddSurface1, p_ddSurface2, p_ddClipper) ==
+			SUCCESS) {
 		m_displaySurface->SetPalette(m_videoParam.GetPalette());
 
 		if (p_createThread) {
@@ -183,8 +194,7 @@ MxResult MxVideoManager::VTable0x28(
 			if (!m_thread || m_thread->Start(0, 0) != SUCCESS) {
 				goto done;
 			}
-		}
-		else {
+		} else {
 			TickleManager()->RegisterClient(this, p_frequencyMS);
 		}
 
@@ -204,7 +214,11 @@ done:
 }
 
 // FUNCTION: LEGO1 0x100be820
-MxResult MxVideoManager::Create(MxVideoParam& p_videoParam, MxU32 p_frequencyMS, MxBool p_createThread) {
+MxResult MxVideoManager::Create(
+	MxVideoParam& p_videoParam,
+	MxU32 p_frequencyMS,
+	MxBool p_createThread
+) {
 	MxBool locked = FALSE;
 	MxResult status = FAILURE;
 
@@ -231,7 +245,10 @@ MxResult MxVideoManager::Create(MxVideoParam& p_videoParam, MxU32 p_frequencyMS,
 		goto done;
 	}
 
-	if (m_pDirectDraw->SetCooperativeLevel(MxOmni::GetInstance()->GetWindowHandle(), DDSCL_NORMAL) != DD_OK) {
+	if (m_pDirectDraw->SetCooperativeLevel(
+			MxOmni::GetInstance()->GetWindowHandle(),
+			DDSCL_NORMAL
+		) != DD_OK) {
 		printf("Failed to set direct draw cooperative level\n");
 		goto done;
 	}
@@ -245,8 +262,7 @@ MxResult MxVideoManager::Create(MxVideoParam& p_videoParam, MxU32 p_frequencyMS,
 			printf("Failed to set palette\n");
 			goto done;
 		}
-	}
-	else {
+	} else {
 		palette = p_videoParam.GetPalette()->Clone();
 		m_videoParam.SetPalette(palette);
 
@@ -267,8 +283,7 @@ MxResult MxVideoManager::Create(MxVideoParam& p_videoParam, MxU32 p_frequencyMS,
 				printf("Failed to start tickle thread\n");
 				goto done;
 			}
-		}
-		else {
+		} else {
 			TickleManager()->RegisterClient(this, p_frequencyMS);
 		}
 

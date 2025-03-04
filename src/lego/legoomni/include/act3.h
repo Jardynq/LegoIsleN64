@@ -25,8 +25,7 @@ struct Act3ListElement {
 	Act3ListElement() {}
 
 	Act3ListElement(MxU32 p_objectId, undefined4 p_unk0x04, undefined p_unk0x08)
-		: m_objectId(p_objectId), m_unk0x04(p_unk0x04), m_unk0x08(p_unk0x08) {
-	}
+		: m_objectId(p_objectId), m_unk0x04(p_unk0x04), m_unk0x08(p_unk0x08) {}
 
 	int operator==(Act3ListElement) const { return 0; }
 	int operator<(Act3ListElement) const { return 0; }
@@ -67,7 +66,8 @@ public:
 	// FUNCTION: LEGO1 0x1000e310
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, Act3State::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, Act3State::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	// SYNTHETIC: LEGO1 0x1000e3c0
@@ -117,7 +117,9 @@ public:
 
 	void SetHelicopter(Helicopter* p_copter) { m_copter = p_copter; }
 	void SetShark(Act3Shark* p_shark) { m_shark = p_shark; }
-	void SetDestLocation(LegoGameState::Area p_destLocation) { m_destLocation = p_destLocation; }
+	void SetDestLocation(LegoGameState::Area p_destLocation) {
+		m_destLocation = p_destLocation;
+	}
 
 	// SYNTHETIC: LEGO1 0x10072630
 	// Act3::`scalar deleting destructor'
@@ -126,8 +128,18 @@ public:
 	void EatDonut(MxS32 p_index);
 	void RemovePizza(Act3Ammo& p_p);
 	void RemoveDonut(Act3Ammo& p_p);
-	MxResult ShootPizza(LegoPathController* p_controller, Vector3& p_location, Vector3& p_direction, Vector3& p_up);
-	MxResult ShootDonut(LegoPathController* p_controller, Vector3& p_location, Vector3& p_direction, Vector3& p_up);
+	MxResult ShootPizza(
+		LegoPathController* p_controller,
+		Vector3& p_location,
+		Vector3& p_direction,
+		Vector3& p_up
+	);
+	MxResult ShootDonut(
+		LegoPathController* p_controller,
+		Vector3& p_location,
+		Vector3& p_direction,
+		Vector3& p_up
+	);
 	void FUN_10072ad0(undefined4 p_param1);
 	MxResult FUN_10073360(Act3Ammo& p_ammo, const Vector3& p_param2);
 	MxResult FUN_10073390(Act3Ammo& p_ammo, const Vector3& p_param2);
@@ -139,7 +151,8 @@ public:
 	void BadEnding(const Matrix4& p_destination);
 	void FUN_10073a60();
 
-	// BETA indicates that the following classes access certain members directly.
+	// BETA indicates that the following classes access certain members
+	// directly.
 	friend class Act3Ammo;
 	friend class Act3Brickster;
 	friend class Act3Cop;
@@ -190,7 +203,8 @@ protected:
 // list<Act3ListElement,allocator<Act3ListElement> >::erase
 
 // TEMPLATE: LEGO1 0x10072440
-// list<Act3ListElement,allocator<Act3ListElement> >::~list<Act3ListElement,allocator<Act3ListElement> >
+// list<Act3ListElement,allocator<Act3ListElement>
+// >::~list<Act3ListElement,allocator<Act3ListElement> >
 
 // TEMPLATE: LEGO1 0x100724b0
 // List<Act3ListElement>::~List<Act3ListElement>

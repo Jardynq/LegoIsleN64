@@ -13,7 +13,6 @@
 #include <assert.h>
 #include <stdio.h>
 
-
 // Initialized at LEGO1 0x100537c0
 // GLOBAL: LEGO1 0x10104f08
 Mx3DPointFloat Act3Ammo::g_unk0x10104f08 = Mx3DPointFloat(0.0, 5.0, 0.0);
@@ -36,8 +35,7 @@ Act3Ammo::~Act3Ammo() {
 void Act3Ammo::Destroy(MxBool p_fromDestructor) {
 	if (!p_fromDestructor) {
 		assert(0);
-	}
-	else if (m_roi != NULL) {
+	} else if (m_roi != NULL) {
 		CharacterManager()->ReleaseActor(m_roi->GetName());
 		m_roi = NULL;
 	}
@@ -80,8 +78,7 @@ MxResult Act3Ammo::Create(Act3* p_world, MxU32 p_isPizza, MxS32 p_index) {
 
 		m_ammoFlag = c_pizza;
 		assert(m_roi);
-	}
-	else {
+	} else {
 		sprintf(name, "dammo%d", p_index);
 		m_roi = CharacterManager()->CreateAutoROI(name, "donut", FALSE);
 		m_roi->SetVisibility(TRUE);
@@ -103,7 +100,11 @@ MxResult Act3Ammo::Create(Act3* p_world, MxU32 p_isPizza, MxS32 p_index) {
 
 // FUNCTION: LEGO1 0x10053b40
 // FUNCTION: BETA10 0x1001db2a
-MxResult Act3Ammo::FUN_10053b40(const Vector3& p_srcLoc, const Vector3& p_srcDir, const Vector3& p_srcUp) {
+MxResult Act3Ammo::FUN_10053b40(
+	const Vector3& p_srcLoc,
+	const Vector3& p_srcDir,
+	const Vector3& p_srcUp
+) {
 	assert(p_srcDir[1] != 0);
 
 	MxFloat local1c = -(p_srcLoc[1] / p_srcDir[1]);
@@ -127,7 +128,9 @@ MxResult Act3Ammo::FUN_10053b40(const Vector3& p_srcLoc, const Vector3& p_srcDir
 			return FAILURE;
 		}
 
-		m_eq[0][i] = (local48[i] * local48[i] + local48[i] * m_eq[1][i] * 2.0f) / ((local18[i] - p_srcLoc[i]) * 4.0f);
+		m_eq[0][i] =
+			(local48[i] * local48[i] + local48[i] * m_eq[1][i] * 2.0f) /
+			((local18[i] - p_srcLoc[i]) * 4.0f);
 	}
 
 	assert(m_eq[0][0] > 0.000001 || m_eq[0][0] < -0.000001);
@@ -138,15 +141,18 @@ MxResult Act3Ammo::FUN_10053b40(const Vector3& p_srcLoc, const Vector3& p_srcDir
 
 // FUNCTION: LEGO1 0x10053cb0
 // FUNCTION: BETA10 0x1001ddf4
-MxResult Act3Ammo::FUN_10053cb0(LegoPathController* p_p, LegoPathBoundary* p_boundary, MxFloat p_unk0x19c) {
+MxResult Act3Ammo::FUN_10053cb0(
+	LegoPathController* p_p,
+	LegoPathBoundary* p_boundary,
+	MxFloat p_unk0x19c
+) {
 	assert(p_p);
 	assert(IsValid());
 
 	if (IsPizza()) {
 		assert(SoundManager()->GetCacheSoundManager());
 		SoundManager()->GetCacheSoundManager()->Play("shootpz", NULL, FALSE);
-	}
-	else {
+	} else {
 		assert(SoundManager()->GetCacheSoundManager());
 		SoundManager()->GetCacheSoundManager()->Play("shootdn", NULL, FALSE);
 	}
@@ -172,8 +178,7 @@ MxResult Act3Ammo::FUN_10053d30(LegoPathController* p_p, MxFloat p_unk0x19c) {
 	if (IsPizza()) {
 		assert(SoundManager()->GetCacheSoundManager());
 		SoundManager()->GetCacheSoundManager()->Play("shootpz", NULL, FALSE);
-	}
-	else {
+	} else {
 		assert(SoundManager()->GetCacheSoundManager());
 		SoundManager()->GetCacheSoundManager()->Play("shootdn", NULL, FALSE);
 	}
@@ -263,8 +268,7 @@ void Act3Ammo::Animate(float p_time) {
 			m_roi->FUN_100a58f0(transform);
 			m_roi->VTable0x14();
 			return;
-		}
-		else {
+		} else {
 			m_actorState = c_initial;
 			m_unk0x158 = 0;
 
@@ -298,8 +302,7 @@ void Act3Ammo::Animate(float p_time) {
 		m_actorTime = (p_time - m_lastTime) * m_worldSpeed + m_actorTime;
 		m_unk0x7c = (p_time - m_lastTime) * m_worldSpeed + m_unk0x7c;
 		m_lastTime = p_time;
-	}
-	else {
+	} else {
 		localb8 = TRUE;
 		m_unk0x7c = m_BADuration;
 		m_lastTime = p_time;
@@ -307,15 +310,15 @@ void Act3Ammo::Animate(float p_time) {
 
 	local104.SetIdentity();
 
-	MxResult r = FUN_10053db0((m_unk0x7c / m_BADuration) * m_unk0x19c, local104);
+	MxResult r =
+		FUN_10053db0((m_unk0x7c / m_BADuration) * m_unk0x19c, local104);
 	assert(r == 0); // SUCCESS
 
 	local60.SetIdentity();
 
 	if (IsPizza()) {
 		local60.Scale(2.0f, 2.0f, 2.0f);
-	}
-	else {
+	} else {
 		local60.Scale(5.0f, 5.0f, 5.0f);
 	}
 
@@ -332,8 +335,7 @@ void Act3Ammo::Animate(float p_time) {
 				local174.EqualsCross(local17c, local184);
 				local174.Unitize();
 				local17c.EqualsCross(local184, local174);
-			}
-			else {
+			} else {
 				local17c = *m_boundary->GetUnknown0x14();
 				local184[0] = 1.0f;
 				local184[1] = local184[2] = 0.0f;
@@ -344,8 +346,7 @@ void Act3Ammo::Animate(float p_time) {
 		}
 
 		m_actorState = c_initial;
-	}
-	else {
+	} else {
 		local60.RotateX(m_actorTime / 10.0f);
 		local60.RotateY(m_actorTime / 6.0f);
 	}
@@ -366,26 +367,33 @@ void Act3Ammo::Animate(float p_time) {
 			if (IsPizza()) {
 				m_world->RemovePizza(*this);
 				m_world->FUN_10072ad0(2);
-			}
-			else {
+			} else {
 				m_world->RemoveDonut(*this);
 				m_world->FUN_10072ad0(4);
 			}
-		}
-		else {
+		} else {
 			if (IsPizza()) {
 				assert(SoundManager()->GetCacheSoundManager());
-				SoundManager()->GetCacheSoundManager()->Play("stickpz", NULL, FALSE);
-			}
-			else {
+				SoundManager()->GetCacheSoundManager()->Play(
+					"stickpz",
+					NULL,
+					FALSE
+				);
+			} else {
 				assert(SoundManager()->GetCacheSoundManager());
-				SoundManager()->GetCacheSoundManager()->Play("stickdn", NULL, FALSE);
+				SoundManager()->GetCacheSoundManager()->Play(
+					"stickdn",
+					NULL,
+					FALSE
+				);
 			}
 
 			LegoPathActorSet& plpas = m_boundary->GetActors();
 			LegoPathActorSet lpas(plpas);
 
-			for (LegoPathActorSet::iterator itpa = lpas.begin(); itpa != lpas.end(); itpa++) {
+			for (LegoPathActorSet::iterator itpa = lpas.begin();
+				 itpa != lpas.end();
+				 itpa++) {
 				if (plpas.find(*itpa) != plpas.end() && this != *itpa) {
 					LegoROI* r = (*itpa)->GetROI();
 					assert(r);
@@ -408,21 +416,25 @@ void Act3Ammo::Animate(float p_time) {
 
 							assert(m_world);
 
-							if (m_world->m_pizzas[index].IsValid() && !m_world->m_pizzas[index].IsSharkFood()) {
+							if (m_world->m_pizzas[index].IsValid() &&
+								!m_world->m_pizzas[index].IsSharkFood()) {
 								m_world->EatPizza(index);
 								m_world->m_brickster->FUN_100417c0();
 							}
 
 							if (IsDonut()) {
 								assert(SoundManager()->GetCacheSoundManager());
-								SoundManager()->GetCacheSoundManager()->Play("dnhitpz", NULL, FALSE);
+								SoundManager()->GetCacheSoundManager()->Play(
+									"dnhitpz",
+									NULL,
+									FALSE
+								);
 								m_world->RemoveDonut(*this);
 								local14 = TRUE;
 								break;
 							}
 						}
-					}
-					else if (!strncmp(r->GetName(), "dammo", 5)) {
+					} else if (!strncmp(r->GetName(), "dammo", 5)) {
 						Mx3DPointFloat local1f8;
 						Mx3DPointFloat local1e4;
 
@@ -444,7 +456,11 @@ void Act3Ammo::Animate(float p_time) {
 
 							if (IsPizza()) {
 								assert(SoundManager()->GetCacheSoundManager());
-								SoundManager()->GetCacheSoundManager()->Play("pzhitdn", NULL, FALSE);
+								SoundManager()->GetCacheSoundManager()->Play(
+									"pzhitdn",
+									NULL,
+									FALSE
+								);
 								m_world->RemovePizza(*this);
 								local14 = TRUE;
 								break;
@@ -457,8 +473,7 @@ void Act3Ammo::Animate(float p_time) {
 			if (!local14) {
 				if (IsPizza()) {
 					m_world->FUN_10073360(*this, local68);
-				}
-				else {
+				} else {
 					m_world->FUN_10073390(*this, local68);
 				}
 

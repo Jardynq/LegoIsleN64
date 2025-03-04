@@ -1,7 +1,6 @@
 #ifndef MXMISC_H
 #define MXMISC_H
 
-
 class MxAtomSet;
 class MxDSAction;
 class MxEventManager;

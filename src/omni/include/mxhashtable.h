@@ -12,12 +12,13 @@ class MxHashTableCursor;
 template <class T>
 class MxHashTableNode {
 public:
-	MxHashTableNode<T>(T p_obj, MxU32 p_hash, MxHashTableNode* p_prev, MxHashTableNode* p_next) {
-		m_obj = p_obj;
-		m_hash = p_hash;
-		m_prev = p_prev;
-		m_next = p_next;
-	}
+	MxHashTableNode<T>(
+		T p_obj,
+		MxU32 p_hash,
+		MxHashTableNode* p_prev,
+		MxHashTableNode* p_next
+	)
+		: m_obj(p_obj), m_hash(p_hash), m_prev(p_prev), m_next(p_next) {}
 
 	// DECOMP: Should use getter and setter methods here per the style guide.
 	// However, LEGO1D (with no functions inlined) does not use them.
@@ -36,12 +37,12 @@ public:
 		e_expandMultiply,
 	};
 
-	MxHashTable() {
-		m_numSlots = HASH_TABLE_INIT_SIZE;
+	MxHashTable()
+		: m_numSlots(HASH_TABLE_INIT_SIZE), m_resizeOption(e_noExpand) {
+
 		MxU32 unused = 0;
 		m_slots = new MxHashTableNode<T>*[m_numSlots];
 		memset(m_slots, 0, sizeof(MxHashTableNode<T>*) * m_numSlots);
-		m_resizeOption = e_noExpand;
 	}
 
 	~MxHashTable() override;
@@ -73,10 +74,8 @@ protected:
 template <class T>
 class MxHashTableCursor : public MxCore {
 public:
-	MxHashTableCursor(MxHashTable<T>* p_table) {
-		m_table = p_table;
-		m_match = NULL;
-	}
+	MxHashTableCursor(MxHashTable<T>* p_table)
+		: m_table(p_table), m_match(NULL) {}
 
 	MxBool Find(T p_obj);
 	MxBool Current(T& p_obj);
@@ -91,7 +90,9 @@ template <class T>
 MxBool MxHashTableCursor<T>::Find(T p_obj) {
 	MxU32 hash = m_table->Hash(p_obj);
 
-	for (MxHashTableNode<T>* t = m_table->m_slots[hash % m_table->m_numSlots]; t; t = t->m_next) {
+	for (MxHashTableNode<T>* t = m_table->m_slots[hash % m_table->m_numSlots];
+		 t;
+		 t = t->m_next) {
 		if (t->m_hash == hash && !m_table->Compare(t->m_obj, p_obj)) {
 			m_match = t;
 		}
@@ -116,10 +117,10 @@ void MxHashTableCursor<T>::DeleteMatch() {
 	if (m_match) {
 		if (m_match->m_prev) {
 			m_match->m_prev->m_next = m_match->m_next;
-		}
-		else {
+		} else {
 			// No "prev" node, so move "next" to the head of the list.
-			m_table->m_slots[m_match->m_hash % m_table->m_numSlots] = m_match->m_next;
+			m_table->m_slots[m_match->m_hash % m_table->m_numSlots] =
+				m_match->m_next;
 		}
 
 		if (m_match->m_next) {
@@ -141,7 +142,7 @@ MxHashTable<T>::~MxHashTable() {
 template <class T>
 void MxHashTable<T>::DeleteAll() {
 	for (MxS32 i = 0; i < m_numSlots; i++) {
-		MxHashTableNode<T>* next;
+		MxHashTableNode<T>* next = nullptr;
 		for (MxHashTableNode<T>* t = m_slots[i]; t != NULL; t = next) {
 			next = t->m_next;
 			this->m_customDestructor(t->m_obj);
@@ -175,7 +176,7 @@ inline void MxHashTable<T>::Resize() {
 	this->m_count = 0;
 
 	for (MxS32 i = 0; i < oldSize; i++) {
-		MxHashTableNode<T>* next;
+		MxHashTableNode<T>* next = nullptr;
 		for (MxHashTableNode<T>* t = oldTable[i]; t != NULL; t = next) {
 			next = t->m_next;
 			NodeInsert(t);
@@ -201,14 +202,16 @@ inline void MxHashTable<T>::NodeInsert(MxHashTableNode<T>* p_node) {
 
 template <class T>
 inline void MxHashTable<T>::Add(T p_newobj) {
-	if (m_resizeOption && ((this->m_count + 1) / m_numSlots) > m_autoResizeRatio) {
+	if (m_resizeOption &&
+		((this->m_count + 1) / m_numSlots) > m_autoResizeRatio) {
 		MxHashTable<T>::Resize();
 	}
 
 	MxU32 hash = Hash(p_newobj);
 	MxU32 unused = 0;
 
-	MxHashTableNode<T>* node = new MxHashTableNode<T>(p_newobj, hash, NULL, NULL);
+	MxHashTableNode<T>* node =
+		new MxHashTableNode<T>(p_newobj, hash, NULL, NULL);
 
 	MxHashTable<T>::NodeInsert(node);
 }

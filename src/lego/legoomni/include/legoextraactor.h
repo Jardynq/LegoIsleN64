@@ -12,12 +12,7 @@
 // SIZE 0x1dc
 class LegoExtraActor : public virtual LegoAnimActor {
 public:
-	enum Axis {
-		e_posz,
-		e_negz,
-		e_posx,
-		e_negx
-	};
+	enum Axis { e_posz, e_negz, e_posx, e_negx };
 
 	LegoExtraActor();
 	~LegoExtraActor() override;
@@ -33,11 +28,13 @@ public:
 	// FUNCTION: LEGO1 0x1002b7d0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoExtraActor::ClassName()) || LegoAnimActor::IsA(p_name);
+		return !strcmp(p_name, LegoExtraActor::ClassName()) ||
+			   LegoAnimActor::IsA(p_name);
 	}
 
-	void SetWorldSpeed(MxFloat p_worldSpeed) override;                                  // vtable+0x30
-	MxS32 VTable0x68(Vector3& p_point1, Vector3& p_point2, Vector3& p_point3) override; // vtable+0x68
+	void SetWorldSpeed(MxFloat p_worldSpeed) override; // vtable+0x30
+	MxS32 VTable0x68(Vector3& p_point1, Vector3& p_point2, Vector3& p_point3)
+		override; // vtable+0x68
 	inline MxU32 VTable0x6c(
 		LegoPathBoundary* p_boundary,
 		Vector3& p_v1,
@@ -45,14 +42,15 @@ public:
 		float p_f1,
 		float p_f2,
 		Vector3& p_v3
-	) override;                                                        // vtable+0x6c
-	void Animate(float p_time) override;                               // vtable+0x70
-	void VTable0x74(Matrix4& p_transform) override;                    // vtable+0x74
-	MxU32 VTable0x90(float p_time, Matrix4& p_matrix) override;        // vtable+0x90
-	MxResult HitActor(LegoPathActor* p_actor, MxBool p_bool) override; // vtable+0x94
-	MxResult VTable0x9c() override;                                    // vtable+0x9c
-	void VTable0xa4(MxBool& p_und1, MxS32& p_und2) override;           // vtable+0xa4
-	void VTable0xc4() override;                                        // vtable+0xc4
+	) override;                                                 // vtable+0x6c
+	void Animate(float p_time) override;                        // vtable+0x70
+	void VTable0x74(Matrix4& p_transform) override;             // vtable+0x74
+	MxU32 VTable0x90(float p_time, Matrix4& p_matrix) override; // vtable+0x90
+	MxResult
+	HitActor(LegoPathActor* p_actor, MxBool p_bool) override; // vtable+0x94
+	MxResult VTable0x9c() override;                           // vtable+0x9c
+	void VTable0xa4(MxBool& p_und1, MxS32& p_und2) override;  // vtable+0xa4
+	void VTable0xc4() override;                               // vtable+0xc4
 
 	virtual MxResult FUN_1002aae0();
 
@@ -84,7 +82,8 @@ private:
 // LegoExtraActor::`vbtable'{for `LegoExtraActor'}
 
 // TEMPLATE: LEGO1 0x1002b200
-// vector<unsigned char *,allocator<unsigned char *> >::vector<unsigned char *,allocator<unsigned char *> >
+// vector<unsigned char *,allocator<unsigned char *> >::vector<unsigned char
+// *,allocator<unsigned char *> >
 
 // TEMPLATE: LEGO1 0x1002b270
 // vector<unsigned char *,allocator<unsigned char *> >::size

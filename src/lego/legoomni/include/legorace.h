@@ -41,13 +41,11 @@ public:
 				p_storage->ReadU8(m_id);
 				p_storage->ReadS16(m_unk0x02);
 				p_storage->ReadS16(m_score);
-			}
-			else if (p_storage->IsWriteMode()) {
+			} else if (p_storage->IsWriteMode()) {
 				p_storage->WriteU8(m_id);
 				p_storage->WriteS16(m_unk0x02);
 				p_storage->WriteS16(m_score);
-			}
-			else {
+			} else {
 				return FAILURE;
 			}
 
@@ -75,7 +73,8 @@ public:
 	// FUNCTION: BETA10 0x100a8fd0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, RaceState::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, RaceState::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	MxResult Serialize(LegoStorage* p_storage) override; // vtable+0x1c
@@ -115,10 +114,14 @@ public:
 	virtual MxLong HandleClick(LegoEventNotificationParam&) = 0; // vtable+0x6c
 
 	// FUNCTION: LEGO1 0x10015b70
-	virtual MxLong HandlePathStruct(LegoPathStructNotificationParam&) { return 0; } // vtable+0x70
+	virtual MxLong HandlePathStruct(LegoPathStructNotificationParam&) {
+		return 0;
+	} // vtable+0x70
 
 	// FUNCTION: LEGO1 0x10015b80
-	virtual MxLong HandleEndAction(MxEndActionNotificationParam&) { return 0; } // vtable+0x74
+	virtual MxLong HandleEndAction(MxEndActionNotificationParam&) {
+		return 0;
+	} // vtable+0x74
 
 	// FUNCTION: LEGO1 0x10015b90
 	MxBool Escape() override { return FALSE; } // vtable+0x64
@@ -138,7 +141,9 @@ public:
 	}
 
 	// FUNCTION: LEGO1 0x1000dab0
-	virtual MxLong HandleType0Notification(MxNotificationParam&) { return 0; } // vtable+0x78
+	virtual MxLong HandleType0Notification(MxNotificationParam&) {
+		return 0;
+	} // vtable+0x78
 
 	// FUNCTION: LEGO1 0x1000dac0
 	// FUNCTION: BETA10 0x100a87d0

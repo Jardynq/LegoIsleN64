@@ -5,7 +5,6 @@
 
 #include <assert.h>
 
-
 // FUNCTION: LEGO1 0x100acf90
 // FUNCTION: BETA10 0x1012308b
 MxAtomId::MxAtomId(const char* p_str, LookupMode p_mode) {
@@ -50,7 +49,7 @@ void MxAtomId::Destroy() {
 	}
 	assert(it != AtomSet()->end());
 
-	MxAtom* atom = (MxAtom*)(*it);
+	MxAtom* atom = (MxAtom*) (*it);
 	atom->Dec();
 }
 
@@ -95,8 +94,7 @@ MxAtom* MxAtomId::GetAtom(const char* p_str, LookupMode p_mode) {
 		// Atom already in the set. Delete temp value and return it.
 		delete atom;
 		atom = *it;
-	}
-	else {
+	} else {
 		// Atom is not in the set. Add it.
 		AtomSet()->insert(atom);
 	}

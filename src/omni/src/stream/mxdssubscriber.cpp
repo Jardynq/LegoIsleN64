@@ -2,7 +2,6 @@
 
 #include "mxstreamcontroller.h"
 
-
 // FUNCTION: LEGO1 0x100b7bb0
 MxDSSubscriber::MxDSSubscriber() {
 	m_unk0x48 = -1;
@@ -31,7 +30,11 @@ MxDSSubscriber::~MxDSSubscriber() {
 }
 
 // FUNCTION: LEGO1 0x100b7ed0
-MxResult MxDSSubscriber::Create(MxStreamController* p_controller, MxU32 p_objectId, MxS16 p_unk0x48) {
+MxResult MxDSSubscriber::Create(
+	MxStreamController* p_controller,
+	MxU32 p_objectId,
+	MxS16 p_unk0x48
+) {
 	m_objectId = p_objectId;
 	m_unk0x48 = p_unk0x48;
 
@@ -76,8 +79,7 @@ MxResult MxDSSubscriber::AddData(MxStreamChunk* p_chunk, MxBool p_append) {
 	if (m_pendingChunkCursor) {
 		if (p_append) {
 			m_pendingChunks.Append(p_chunk);
-		}
-		else {
+		} else {
 			m_pendingChunks.Prepend(p_chunk);
 		}
 	}
@@ -120,8 +122,7 @@ void MxDSSubscriber::FreeDataChunk(MxStreamChunk* p_chunk) {
 			if (p_chunk) {
 				delete p_chunk;
 			}
-		}
-		else if (p_chunk->GetChunkFlags() & DS_CHUNK_BIT1 && p_chunk) {
+		} else if (p_chunk->GetChunkFlags() & DS_CHUNK_BIT1 && p_chunk) {
 			delete p_chunk;
 		}
 	}
@@ -131,8 +132,10 @@ void MxDSSubscriber::FreeDataChunk(MxStreamChunk* p_chunk) {
 // FUNCTION: BETA10 0x10134c1d
 MxDSSubscriber* MxDSSubscriberList::Find(MxDSObject* p_object) {
 	for (iterator it = begin(); it != end(); it++) {
-		if (p_object->GetObjectId() == -1 || p_object->GetObjectId() == (*it)->GetObjectId()) {
-			if (p_object->GetUnknown24() == -2 || p_object->GetUnknown24() == (*it)->GetUnknown48()) {
+		if (p_object->GetObjectId() == -1 ||
+			p_object->GetObjectId() == (*it)->GetObjectId()) {
+			if (p_object->GetUnknown24() == -2 ||
+				p_object->GetUnknown24() == (*it)->GetUnknown48()) {
 				return *it;
 			}
 		}

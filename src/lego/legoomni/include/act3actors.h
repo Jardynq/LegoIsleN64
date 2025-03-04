@@ -57,8 +57,10 @@ class Act3Actor : public LegoAnimActor {
 public:
 	Act3Actor();
 
-	MxU32 VTable0x90(float p_time, Matrix4& p_transform) override;     // vtable+0x90
-	MxResult HitActor(LegoPathActor* p_actor, MxBool p_bool) override; // vtable+0x94
+	MxU32
+	VTable0x90(float p_time, Matrix4& p_transform) override; // vtable+0x90
+	MxResult
+	HitActor(LegoPathActor* p_actor, MxBool p_bool) override; // vtable+0x94
 
 	// FUNCTION: LEGO1 0x100431b0
 	// FUNCTION: BETA10 0x1001d320
@@ -135,9 +137,10 @@ public:
 	Act3Brickster();
 	~Act3Brickster() override;
 
-	void ParseAction(char* p_extra) override;                          // vtable+0x20
-	void Animate(float p_time) override;                               // vtable+0x70
-	MxResult HitActor(LegoPathActor* p_actor, MxBool p_bool) override; // vtable+0x94
+	void ParseAction(char* p_extra) override; // vtable+0x20
+	void Animate(float p_time) override;      // vtable+0x70
+	MxResult
+	HitActor(LegoPathActor* p_actor, MxBool p_bool) override; // vtable+0x94
 	void SwitchBoundary(
 		LegoPathBoundary*& p_boundary,
 		LegoUnknown100db7f4*& p_edge,
@@ -179,7 +182,8 @@ private:
 // Act3Actor::`vbase destructor'
 
 // TEMPLATE: LEGO1 0x10042c20
-// list<Act3Ammo *,allocator<Act3Ammo *> >::~list<Act3Ammo *,allocator<Act3Ammo *> >
+// list<Act3Ammo *,allocator<Act3Ammo *> >::~list<Act3Ammo *,allocator<Act3Ammo
+// *> >
 
 // TEMPLATE: LEGO1 0x10042c90
 // List<Act3Ammo *>::~List<Act3Ammo *>

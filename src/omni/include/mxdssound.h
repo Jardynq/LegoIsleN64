@@ -25,7 +25,8 @@ public:
 	// FUNCTION: LEGO1 0x100c9340
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxDSSound::ClassName()) || MxDSMediaAction::IsA(p_name);
+		return !strcmp(p_name, MxDSSound::ClassName()) ||
+			   MxDSMediaAction::IsA(p_name);
 	}
 
 	MxU32 GetSizeOnDisk() override;                              // vtable+18;

@@ -1,7 +1,6 @@
 #ifndef LEGOACTORS_H
 #define LEGOACTORS_H
 
-
 class LegoExtraActor;
 class LegoROI;
 
@@ -28,10 +27,7 @@ struct LegoActorInfo {
 
 // SIZE 0x58
 struct LegoActorLOD {
-	enum {
-		c_flag1 = 0x01,
-		c_flag2 = 0x02
-	};
+	enum { c_flag1 = 0x01, c_flag2 = 0x02 };
 
 	const char* m_name;        // 0x00
 	const char* m_parentName;  // 0x04

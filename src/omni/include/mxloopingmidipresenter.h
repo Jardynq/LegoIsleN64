@@ -23,7 +23,8 @@ public:
 	// FUNCTION: LEGO1 0x100b1840
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxLoopingMIDIPresenter::ClassName()) || MxMIDIPresenter::IsA(p_name);
+		return !strcmp(p_name, MxLoopingMIDIPresenter::ClassName()) ||
+			   MxMIDIPresenter::IsA(p_name);
 	}
 
 	void StreamingTickle() override; // vtable+0x20

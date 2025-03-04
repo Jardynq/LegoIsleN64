@@ -20,13 +20,20 @@ public:
 
 	// FUNCTION: LEGO1 0x10028690
 	MxNotificationParam* Clone() const override {
-		LegoEventNotificationParam* clone =
-			new LegoEventNotificationParam(m_type, m_sender, m_modifier, m_x, m_y, m_key);
+		LegoEventNotificationParam* clone = new LegoEventNotificationParam(
+			m_type,
+			m_sender,
+			m_modifier,
+			m_x,
+			m_y,
+			m_key
+		);
 		clone->m_roi = m_roi;
 		return clone;
 	} // vtable+0x04
 
-	LegoEventNotificationParam() : MxNotificationParam(c_notificationType0, NULL) {}
+	LegoEventNotificationParam()
+		: MxNotificationParam(c_notificationType0, NULL) {}
 	LegoEventNotificationParam(
 		NotificationId p_type,
 		MxCore* p_sender,
@@ -35,8 +42,8 @@ public:
 		MxS32 p_y,
 		MxU8 p_key
 	)
-		: MxNotificationParam(p_type, p_sender), m_modifier(p_modifier), m_x(p_x), m_y(p_y), m_key(p_key), m_roi(NULL) {
-	}
+		: MxNotificationParam(p_type, p_sender), m_modifier(p_modifier),
+		  m_x(p_x), m_y(p_y), m_key(p_key), m_roi(NULL) {}
 
 	LegoROI* GetROI() { return m_roi; }
 	MxU8 GetModifier() { return m_modifier; }

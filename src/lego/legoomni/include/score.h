@@ -35,11 +35,14 @@ public:
 	// FUNCTION: LEGO1 0x1000de50
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, ScoreState::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, ScoreState::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	MxBool GetTutorialFlag() { return m_playCubeTutorial; }
-	void SetTutorialFlag(MxBool p_playCubeTutorial) { m_playCubeTutorial = p_playCubeTutorial; }
+	void SetTutorialFlag(MxBool p_playCubeTutorial) {
+		m_playCubeTutorial = p_playCubeTutorial;
+	}
 
 	// SYNTHETIC: LEGO1 0x1000df00
 	// ScoreState::`scalar deleting destructor'

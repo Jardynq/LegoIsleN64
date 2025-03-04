@@ -1,7 +1,6 @@
 #ifndef MXSIZE32_H
 #define MXSIZE32_H
 
-
 class MxSize32 {
 public:
 	MxSize32() {}

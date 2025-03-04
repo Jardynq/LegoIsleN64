@@ -7,7 +7,12 @@ class LegoAnim;
 
 // SIZE 0x20
 struct LegoAnimActorStruct {
-	LegoAnimActorStruct(float p_unk0x00, LegoAnim* p_AnimTreePtr, LegoROI** p_roiMap, MxU32 p_numROIs);
+	LegoAnimActorStruct(
+		float p_unk0x00,
+		LegoAnim* p_AnimTreePtr,
+		LegoROI** p_roiMap,
+		MxU32 p_numROIs
+	);
 	~LegoAnimActorStruct();
 
 	float GetDuration();
@@ -48,7 +53,12 @@ public:
 
 	virtual MxResult FUN_1001c1f0(float& p_und);
 	virtual MxResult FUN_1001c360(float, Matrix4& p_transform);
-	virtual MxResult FUN_1001c450(LegoAnim* p_AnimTreePtr, float p_unk0x00, LegoROI** p_roiMap, MxU32 p_numROIs);
+	virtual MxResult FUN_1001c450(
+		LegoAnim* p_AnimTreePtr,
+		float p_unk0x00,
+		LegoROI** p_roiMap,
+		MxU32 p_numROIs
+	);
 	virtual void ClearMaps();
 
 	// FUNCTION: LEGO1 0x1000fba0
@@ -63,7 +73,8 @@ public:
 	// FUNCTION: BETA10 0x10012440
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoAnimActor::ClassName()) || LegoPathActor::IsA(p_name);
+		return !strcmp(p_name, LegoAnimActor::ClassName()) ||
+			   LegoPathActor::IsA(p_name);
 	}
 
 	// SYNTHETIC: LEGO1 0x1000fb60

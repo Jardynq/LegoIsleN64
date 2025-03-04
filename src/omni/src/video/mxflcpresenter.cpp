@@ -6,7 +6,6 @@
 #include "mxpalette.h"
 #include "mxvideomanager.h"
 
-
 // FUNCTION: LEGO1 0x100b3310
 MxFlcPresenter::MxFlcPresenter() {
 	m_flcHeader = NULL;
@@ -34,7 +33,8 @@ void MxFlcPresenter::CreateBitmap() {
 	}
 
 	m_frameBitmap = new MxBitmap;
-	m_frameBitmap->SetSize(m_flcHeader->width, m_flcHeader->height, NULL, FALSE);
+	m_frameBitmap
+		->SetSize(m_flcHeader->width, m_flcHeader->height, NULL, FALSE);
 }
 
 // FUNCTION: LEGO1 0x100b3570
@@ -42,10 +42,10 @@ void MxFlcPresenter::CreateBitmap() {
 void MxFlcPresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	MxU8* data = p_chunk->GetData();
 
-	MxS32 rectCount = *(MxS32*)data;
+	MxS32 rectCount = *(MxS32*) data;
 	data += sizeof(MxS32);
 
-	MxRect32* rects = (MxRect32*)data;
+	MxRect32* rects = (MxRect32*) data;
 	data += rectCount * sizeof(MxRect32);
 
 	MxBool decodedColorMap;
@@ -53,11 +53,12 @@ void MxFlcPresenter::LoadFrame(MxStreamChunk* p_chunk) {
 		&m_frameBitmap->GetBitmapInfo()->m_bmiHeader,
 		m_frameBitmap->GetImage(),
 		m_flcHeader,
-		(FLIC_FRAME*)data,
+		(FLIC_FRAME*) data,
 		&decodedColorMap
 	);
 
-	if (((MxDSMediaAction*)m_action)->GetPaletteManagement() && decodedColorMap) {
+	if (((MxDSMediaAction*) m_action)->GetPaletteManagement() &&
+		decodedColorMap) {
 		RealizePalette();
 	}
 

@@ -2,7 +2,6 @@
 
 #include "mxdsmediaaction.h"
 
-
 // FUNCTION: LEGO1 0x100cae80
 // FUNCTION: BETA10 0x1015a14d
 MxDSParallelAction::MxDSParallelAction() {
@@ -18,7 +17,8 @@ void MxDSParallelAction::CopyFrom(MxDSParallelAction& p_dsParallelAction) {
 }
 
 // FUNCTION: LEGO1 0x100cb0a0
-MxDSParallelAction& MxDSParallelAction::operator=(MxDSParallelAction& p_dsParallelAction) {
+MxDSParallelAction&
+MxDSParallelAction::operator=(MxDSParallelAction& p_dsParallelAction) {
 	if (this == &p_dsParallelAction) {
 		return *this;
 	}
@@ -61,12 +61,11 @@ MxLong MxDSParallelAction::GetDuration() {
 
 		duration += action->GetStartTime();
 		if (action->IsA("MxDSMediaAction")) {
-			MxLong sustainTime = ((MxDSMediaAction*)action)->GetSustainTime();
+			MxLong sustainTime = ((MxDSMediaAction*) action)->GetSustainTime();
 
 			if (sustainTime == -1) {
 				duration = -1;
-			}
-			else if (sustainTime) {
+			} else if (sustainTime) {
 				duration += sustainTime;
 			}
 		}

@@ -10,7 +10,9 @@ struct MxRegionLeftRight {
 		m_right = p_right;
 	}
 
-	MxRegionLeftRight* Clone() { return new MxRegionLeftRight(m_left, m_right); }
+	MxRegionLeftRight* Clone() {
+		return new MxRegionLeftRight(m_left, m_right);
+	}
 
 	MxS32 GetLeft() { return m_left; }
 	MxS32 GetRight() { return m_right; }
@@ -18,7 +20,9 @@ struct MxRegionLeftRight {
 	void SetLeft(MxS32 p_left) { m_left = p_left; }
 	void SetRight(MxS32 p_right) { m_right = p_right; }
 
-	MxBool IntersectsWith(MxRect32& p_rect) { return m_left < p_rect.GetRight() && p_rect.GetTop() < m_right; }
+	MxBool IntersectsWith(MxRect32& p_rect) {
+		return m_left < p_rect.GetRight() && p_rect.GetTop() < m_right;
+	}
 
 private:
 	MxS32 m_left;  // 0x00
@@ -63,7 +67,8 @@ public:
 class MxRegionLeftRightListCursor : public MxPtrListCursor<MxRegionLeftRight> {
 public:
 	// FUNCTION: BETA10 0x1014ba10
-	MxRegionLeftRightListCursor(MxRegionLeftRightList* p_list) : MxPtrListCursor<MxRegionLeftRight>(p_list) {}
+	MxRegionLeftRightListCursor(MxRegionLeftRightList* p_list)
+		: MxPtrListCursor<MxRegionLeftRight>(p_list) {}
 };
 
 // SIZE 0x0c
@@ -82,7 +87,9 @@ struct MxRegionTopBottom {
 	void SetTop(MxS32 p_top) { m_top = p_top; }
 	void SetBottom(MxS32 p_bottom) { m_bottom = p_bottom; }
 
-	MxBool IntersectsWith(MxRect32& p_rect) { return m_top < p_rect.GetBottom() && p_rect.GetTop() < m_bottom; }
+	MxBool IntersectsWith(MxRect32& p_rect) {
+		return m_top < p_rect.GetBottom() && p_rect.GetTop() < m_bottom;
+	}
 
 	friend class MxRegionTopBottomList;
 	friend class MxRegionCursor;
@@ -126,8 +133,8 @@ public:
 // VTABLE: BETA10 0x101c2540
 // class MxListCursor<MxRegionTopBottom *>
 
-// TODO: The initialize list param type should be MxRegionTopBottomList, but doing that
-// drastically reduced the match percentage for MxRegion::VTable0x18.
+// TODO: The initialize list param type should be MxRegionTopBottomList, but
+// doing that drastically reduced the match percentage for MxRegion::VTable0x18.
 // It also works with MxPtrList, so we'll do that until we figure this out.
 
 // VTABLE: LEGO1 0x100dcb88
@@ -135,7 +142,8 @@ public:
 class MxRegionTopBottomListCursor : public MxPtrListCursor<MxRegionTopBottom> {
 public:
 	// FUNCTION: BETA10 0x1014b470
-	MxRegionTopBottomListCursor(MxPtrList<MxRegionTopBottom>* p_list) : MxPtrListCursor<MxRegionTopBottom>(p_list) {}
+	MxRegionTopBottomListCursor(MxPtrList<MxRegionTopBottom>* p_list)
+		: MxPtrListCursor<MxRegionTopBottom>(p_list) {}
 };
 
 // TEMPLATE: LEGO1 0x100c32e0

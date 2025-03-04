@@ -17,7 +17,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 // FUNCTION: LEGO1 0x100bf6a0
 // FUNCTION: BETA10 0x101478c0
 MxDSObject::MxDSObject() {
@@ -80,8 +79,7 @@ void MxDSObject::SetObjectName(const char* p_objectName) {
 		if (m_objectName) {
 			strcpy(m_objectName, p_objectName);
 		}
-	}
-	else {
+	} else {
 		m_objectName = NULL;
 	}
 }
@@ -101,8 +99,7 @@ void MxDSObject::SetSourceName(const char* p_sourceName) {
 		if (m_sourceName) {
 			strcpy(m_sourceName, p_sourceName);
 		}
-	}
-	else {
+	} else {
 		m_sourceName = NULL;
 	}
 }
@@ -123,8 +120,7 @@ MxU32 MxDSObject::GetSizeOnDisk() {
 
 	if (m_sourceName) {
 		sizeOnDisk += strlen(m_sourceName) + 1;
-	}
-	else {
+	} else {
 		sizeOnDisk++;
 	}
 
@@ -132,8 +128,7 @@ MxU32 MxDSObject::GetSizeOnDisk() {
 
 	if (m_objectName) {
 		sizeOnDisk += strlen(m_objectName) + 1;
-	}
-	else {
+	} else {
 		sizeOnDisk++;
 	}
 
@@ -146,16 +141,16 @@ MxU32 MxDSObject::GetSizeOnDisk() {
 // FUNCTION: LEGO1 0x100bfa20
 // FUNCTION: BETA10 0x10147d73
 void MxDSObject::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
-	SetSourceName((char*)p_source);
+	SetSourceName((char*) p_source);
 	p_source += strlen(m_sourceName) + 1;
 
-	m_unk0x14 = *(undefined4*)p_source;
+	m_unk0x14 = *(undefined4*) p_source;
 	p_source += sizeof(m_unk0x14);
 
-	SetObjectName((char*)p_source);
+	SetObjectName((char*) p_source);
 	p_source += strlen(m_objectName) + 1;
 
-	m_objectId = *(MxU32*)p_source;
+	m_objectId = *(MxU32*) p_source;
 	p_source += sizeof(m_objectId);
 
 	m_unk0x24 = p_unk0x24;
@@ -163,15 +158,18 @@ void MxDSObject::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 
 // FUNCTION: LEGO1 0x100bfa80
 // FUNCTION: BETA10 0x10147e02
-MxDSObject* MxDSObjectList::FindInternal(MxDSObject* p_action, MxBool p_delete) {
+MxDSObject*
+MxDSObjectList::FindInternal(MxDSObject* p_action, MxBool p_delete) {
 	// DECOMP ALPHA 0x1008b99d ?
 
 	MxDSObject* found = NULL;
 
 	iterator it;
 	for (it = begin(); it != end(); it++) {
-		if (p_action->GetObjectId() == -1 || p_action->GetObjectId() == (*it)->GetObjectId()) {
-			if (p_action->GetUnknown24() == -2 || p_action->GetUnknown24() == -3 ||
+		if (p_action->GetObjectId() == -1 ||
+			p_action->GetObjectId() == (*it)->GetObjectId()) {
+			if (p_action->GetUnknown24() == -2 ||
+				p_action->GetUnknown24() == -3 ||
 				p_action->GetUnknown24() == (*it)->GetUnknown24()) {
 				found = *it;
 				if (p_action->GetUnknown24() != -3) {
@@ -193,7 +191,7 @@ MxDSObject* MxDSObjectList::FindInternal(MxDSObject* p_action, MxBool p_delete) 
 MxDSObject* DeserializeDSObjectDispatch(MxU8*& p_source, MxS16 p_flags) {
 	MxDSObject* obj = NULL;
 
-	MxU16 type = *(MxU16*)p_source;
+	MxU16 type = *(MxU16*) p_source;
 	p_source += 2;
 
 	switch (type) {
@@ -249,12 +247,14 @@ MxDSObject* CreateStreamObject(MxDSFile* p_file, MxS16 p_ofs) {
 	MxU8* buf;
 	_MMCKINFO tmpChunk;
 
-	if (p_file->Seek(((MxLong*)p_file->GetBuffer())[p_ofs], SEEK_SET)) {
+	if (p_file->Seek(((MxLong*) p_file->GetBuffer())[p_ofs], SEEK_SET)) {
 		return NULL;
 	}
 
-	if (p_file->Read((MxU8*)&tmpChunk.ckid, 8) == 0 && tmpChunk.ckid == FOURCC('M', 'x', 'S', 't')) {
-		if (p_file->Read((MxU8*)&tmpChunk.ckid, 8) == 0 && tmpChunk.ckid == FOURCC('M', 'x', 'O', 'b')) {
+	if (p_file->Read((MxU8*) &tmpChunk.ckid, 8) == 0 &&
+		tmpChunk.ckid == FOURCC('M', 'x', 'S', 't')) {
+		if (p_file->Read((MxU8*) &tmpChunk.ckid, 8) == 0 &&
+			tmpChunk.ckid == FOURCC('M', 'x', 'O', 'b')) {
 
 			buf = new MxU8[tmpChunk.cksize];
 			if (!buf) {

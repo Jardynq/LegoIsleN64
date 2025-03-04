@@ -5,7 +5,6 @@
 #include "viewmanager/viewlodlist.h"
 #include "viewmanager/viewmanager.h"
 
-
 //////////////////////////////////////////////////////////////////////////////
 
 // FUNCTION: LEGO1 0x100ab2d0

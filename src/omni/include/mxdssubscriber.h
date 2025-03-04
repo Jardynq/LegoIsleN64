@@ -34,10 +34,12 @@ public:
 	// FUNCTION: LEGO1 0x100b7d60
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxDSSubscriber::ClassName()) || MxCore::IsA(p_name);
+		return !strcmp(p_name, MxDSSubscriber::ClassName()) ||
+			   MxCore::IsA(p_name);
 	}
 
-	MxResult Create(MxStreamController* p_controller, MxU32 p_objectId, MxS16 p_unk0x48);
+	MxResult
+	Create(MxStreamController* p_controller, MxU32 p_objectId, MxS16 p_unk0x48);
 	void DestroyData();
 	MxResult AddData(MxStreamChunk* p_chunk, MxBool p_append);
 	MxStreamChunk* PopData();

@@ -3,7 +3,6 @@
 #include "mxdsaction.h"
 #include "mxdssubscriber.h"
 
-
 // FUNCTION: LEGO1 0x100b4310
 MxLoopingFlcPresenter::MxLoopingFlcPresenter() {
 	Init();
@@ -38,8 +37,7 @@ void MxLoopingFlcPresenter::NextFrame() {
 
 	if (chunk->GetChunkFlags() & DS_CHUNK_END_OF_STREAM) {
 		ProgressTickleState(e_repeating);
-	}
-	else {
+	} else {
 		LoadFrame(chunk);
 		LoopChunk(chunk);
 		m_elapsedDuration += m_flcHeader->speed;
@@ -52,8 +50,7 @@ void MxLoopingFlcPresenter::NextFrame() {
 void MxLoopingFlcPresenter::VTable0x88() {
 	if (m_action->GetDuration() < m_elapsedDuration) {
 		ProgressTickleState(e_freezing);
-	}
-	else {
+	} else {
 		MxStreamChunk* chunk;
 		m_loopingChunkCursor->Current(chunk);
 		LoadFrame(chunk);

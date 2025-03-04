@@ -1,6 +1,5 @@
 #include "legobox.h"
 
-
 // FUNCTION: LEGO1 0x100d3740
 // FUNCTION: BETA10 0x1018f83c
 LegoResult LegoBox::Read(LegoStorage* p_storage) {

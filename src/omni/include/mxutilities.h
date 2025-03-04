@@ -1,7 +1,6 @@
 #ifndef MXUTILITIES_H
 #define MXUTILITIES_H
 
-
 #include <string.h>
 
 class MxDSFile;
@@ -27,7 +26,7 @@ inline T Max(T p_t1, T p_t2) {
 
 template <class T>
 inline void GetScalar(MxU8*& p_source, T& p_dest) {
-	p_dest = *(T*)p_source;
+	p_dest = *(T*) p_source;
 	p_source += sizeof(T);
 }
 
@@ -40,13 +39,18 @@ inline T GetScalar(T*& p_source) {
 
 template <class T>
 inline void GetDouble(MxU8*& p_source, T& p_dest) {
-	p_dest = *(double*)p_source;
+	p_dest = *(double*) p_source;
 	p_source += sizeof(double);
 }
 
 template <class T>
-inline void GetString(MxU8*& p_source, char*& p_dest, T* p_obj, void (T::* p_setter)(const char*)) {
-	(p_obj->*p_setter)((char*)p_source);
+inline void GetString(
+	MxU8*& p_source,
+	char*& p_dest,
+	T* p_obj,
+	void (T::*p_setter)(const char*)
+) {
+	(p_obj->*p_setter)((char*) p_source);
 	p_source += strlen(p_dest) + 1;
 }
 
@@ -66,7 +70,10 @@ MxBool GetRectIntersection(
 void MakeSourceName(char*, const char*);
 void OmniError(const char* p_message, MxS32 p_status);
 void SetOmniUserMessage(void (*p_omniUserMessage)(const char*, MxS32));
-MxBool ContainsPresenter(MxCompositePresenterList& p_presenterList, MxPresenter* p_presenter);
+MxBool ContainsPresenter(
+	MxCompositePresenterList& p_presenterList,
+	MxPresenter* p_presenter
+);
 void FUN_100b7220(MxDSAction* p_action, MxU32 p_newFlags, MxBool p_setFlags);
 MxBool KeyValueStringParse(char*, const char*, const char*);
 

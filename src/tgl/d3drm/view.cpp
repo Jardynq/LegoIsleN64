@@ -14,7 +14,6 @@ struct ViewportAppData {
 	float m_backgroundColorBlue;
 };
 
-
 // FUNCTION: LEGO1 0x100a10b0
 ViewportAppData::ViewportAppData(IDirect3DRM2* pRenderer) {
 	pRenderer->CreateFrame(NULL, &m_pLightFrame);
@@ -30,7 +29,7 @@ ViewportAppData::~ViewportAppData() {
 	IDirect3DRMFrameArray* pChildFrames;
 	IDirect3DRMFrame* pChildFrame = NULL;
 	m_pLightFrame->GetChildren(&pChildFrames);
-	for (int i = 0; i < (int)pChildFrames->GetSize(); i++) {
+	for (int i = 0; i < (int) pChildFrames->GetSize(); i++) {
 		pChildFrames->GetElement(i, &pChildFrame);
 		m_pLightFrame->DeleteChild(pChildFrame);
 		pChildFrame->Release(); // GetElement() does AddRef()
@@ -43,12 +42,18 @@ ViewportAppData::~ViewportAppData() {
 void ViewportDestroyCallback(IDirect3DRMObject* pObject, void* pArg);
 
 // FUNCTION: LEGO1 0x100a1160
-Result ViewImpl::ViewportCreateAppData(IDirect3DRM2* pDevice, IDirect3DRMViewport* pView, IDirect3DRMFrame2* pCamera) {
+Result ViewImpl::ViewportCreateAppData(
+	IDirect3DRM2* pDevice,
+	IDirect3DRMViewport* pView,
+	IDirect3DRMFrame2* pCamera
+) {
 	ViewportAppData* data = new ViewportAppData(pDevice);
 	data->m_pCamera = pCamera;
-	Result result = ResultVal(pView->SetAppData(reinterpret_cast<LPD3DRM_APPDATA>(data)));
+	Result result =
+		ResultVal(pView->SetAppData(reinterpret_cast<LPD3DRM_APPDATA>(data)));
 	if (Succeeded(result)) {
-		result = ResultVal(pView->AddDestroyCallback(ViewportDestroyCallback, data));
+		result =
+			ResultVal(pView->AddDestroyCallback(ViewportDestroyCallback, data));
 	}
 	if (!Succeeded(result)) {
 		delete data;
@@ -65,11 +70,13 @@ inline Result ViewRestoreFrameAfterRender(
 	Result result = Success;
 	if (pFrame) {
 		// remove camera and light frame from frame that was rendered
-		// this doesn't destroy the camera as it is still the camera of the viewport...
+		// this doesn't destroy the camera as it is still the camera of the
+		// viewport...
 		result = ResultVal(pFrame->DeleteChild(pCamera));
 		result = ResultVal(pFrame->DeleteChild(pLightFrame));
 
-		// decrease frame's ref count (it was increased in ViewPrepareFrameForRender())
+		// decrease frame's ref count (it was increased in
+		// ViewPrepareFrameForRender())
 		pFrame->Release();
 	}
 	return result;
@@ -79,7 +86,8 @@ inline Result ViewRestoreFrameAfterRender(
 
 // FUNCTION: LEGO1 0x100a1240
 void ViewportDestroyCallback(IDirect3DRMObject* pObject, void* pArg) {
-	ViewportAppData* pViewportAppData = reinterpret_cast<ViewportAppData*>(pArg);
+	ViewportAppData* pViewportAppData =
+		reinterpret_cast<ViewportAppData*>(pArg);
 
 	ViewRestoreFrameAfterRender(
 		pViewportAppData->m_pLastRenderedFrame,
@@ -157,7 +165,11 @@ Result ViewImpl::SetProjection(ProjectionType type) {
 }
 
 // FUNCTION: LEGO1 0x100a2eb0
-Result ViewImpl::SetFrustrum(float frontClippingDistance, float backClippingDistance, float degrees) {
+Result ViewImpl::SetFrustrum(
+	float frontClippingDistance,
+	float backClippingDistance,
+	float degrees
+) {
 	float field = frontClippingDistance * tan(DegreesToRadians(degrees / 2));
 	Result result;
 	result = ResultVal(m_data->SetFront(frontClippingDistance));
@@ -181,7 +193,9 @@ Result ViewImpl::SetBackgroundColor(float r, float g, float b) {
 	data->m_backgroundColorGreen = g;
 	data->m_backgroundColorBlue = b;
 	if (data->m_pLastRenderedFrame) {
-		ret = ResultVal(data->m_pLastRenderedFrame->SetSceneBackgroundRGB(r, g, b));
+		ret =
+			ResultVal(data->m_pLastRenderedFrame->SetSceneBackgroundRGB(r, g, b)
+			);
 	}
 	return ret;
 }
@@ -212,7 +226,11 @@ inline Result ViewPrepareFrameForRender(
 
 	if (pFrame) {
 		// set background color
-		result = ResultVal(pFrame->SetSceneBackgroundRGB(backgroundRed, backgroundGreen, backgroundBlue));
+		result = ResultVal(pFrame->SetSceneBackgroundRGB(
+			backgroundRed,
+			backgroundGreen,
+			backgroundBlue
+		));
 
 		// add camera to frame to be rendered
 		result = ResultVal(pFrame->AddChild(pCamera));
@@ -220,18 +238,21 @@ inline Result ViewPrepareFrameForRender(
 		// add light frame to frame to be rendered
 		result = ResultVal(pFrame->AddChild(pLightFrame));
 
-		// increase ref count of frame to ensure it does not get deleted underneath us
+		// increase ref count of frame to ensure it does not get deleted
+		// underneath us
 		pFrame->AddRef();
 	}
 
 	return result;
 }
 
-inline Result ViewRender(IDirect3DRMViewport* pViewport, const IDirect3DRMFrame2* pGroup) {
+inline Result
+ViewRender(IDirect3DRMViewport* pViewport, const IDirect3DRMFrame2* pGroup) {
 	ViewportAppData* pViewportAppData;
 	Result result;
 
-	pViewportAppData = reinterpret_cast<ViewportAppData*>(pViewport->GetAppData());
+	pViewportAppData =
+		reinterpret_cast<ViewportAppData*>(pViewport->GetAppData());
 
 	if (pViewportAppData->m_pLastRenderedFrame != pGroup) {
 		result = ViewRestoreFrameAfterRender(
@@ -240,7 +261,8 @@ inline Result ViewRender(IDirect3DRMViewport* pViewport, const IDirect3DRMFrame2
 			pViewportAppData->m_pLightFrame
 		);
 
-		pViewportAppData->m_pLastRenderedFrame = const_cast<IDirect3DRMFrame2*>(pGroup);
+		pViewportAppData->m_pLastRenderedFrame =
+			const_cast<IDirect3DRMFrame2*>(pGroup);
 
 		result = ViewPrepareFrameForRender(
 			pViewportAppData->m_pLastRenderedFrame,
@@ -252,17 +274,26 @@ inline Result ViewRender(IDirect3DRMViewport* pViewport, const IDirect3DRMFrame2
 		);
 	}
 
-	result = ResultVal(pViewport->Render(const_cast<IDirect3DRMFrame2*>(pGroup)));
+	result =
+		ResultVal(pViewport->Render(const_cast<IDirect3DRMFrame2*>(pGroup)));
 	return result;
 }
 
 // FUNCTION: LEGO1 0x100a2fd0
 Result ViewImpl::Render(const Group* pGroup) {
-	return ViewRender(m_data, static_cast<const GroupImpl*>(pGroup)->ImplementationData());
+	return ViewRender(
+		m_data,
+		static_cast<const GroupImpl*>(pGroup)->ImplementationData()
+	);
 }
 
 // FUNCTION: LEGO1 0x100a3080
-Result ViewImpl::ForceUpdate(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {
+Result ViewImpl::ForceUpdate(
+	unsigned int x,
+	unsigned int y,
+	unsigned int width,
+	unsigned int height
+) {
 	return ResultVal(m_data->ForceUpdate(x, y, x + width - 1, y + height - 1));
 }
 

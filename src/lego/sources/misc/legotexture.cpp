@@ -3,7 +3,6 @@
 #include "legoimage.h"
 #include "legostorage.h"
 
-
 // FUNCTION: LEGO1 0x10098fb0
 LegoTexture::LegoTexture() {
 	m_image = new LegoImage();

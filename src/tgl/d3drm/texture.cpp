@@ -2,7 +2,6 @@
 
 using namespace TglImpl;
 
-
 inline TglD3DRMIMAGE* TextureGetImage(IDirect3DRMTexture* pTexture) {
 	return reinterpret_cast<TglD3DRMIMAGE*>(pTexture->GetAppData());
 }
@@ -21,9 +20,10 @@ Result TextureImpl::SetImage(IDirect3DRMTexture* pSelf, TglD3DRMIMAGE* pImage) {
 	// on the return value being NULL.
 	TextureGetImage(pSelf);
 
-	result = ResultVal(pSelf->SetAppData((LPD3DRM_APPDATA)appData));
+	result = ResultVal(pSelf->SetAppData((LPD3DRM_APPDATA) appData));
 	if (Succeeded(result) && pImage) {
-		result = ResultVal(pSelf->AddDestroyCallback(TextureDestroyCallback, NULL));
+		result =
+			ResultVal(pSelf->AddDestroyCallback(TextureDestroyCallback, NULL));
 		if (!Succeeded(result)) {
 			pSelf->SetAppData(0);
 		}
@@ -33,7 +33,8 @@ Result TextureImpl::SetImage(IDirect3DRMTexture* pSelf, TglD3DRMIMAGE* pImage) {
 
 // FUNCTION: LEGO1 0x100a1300
 void TextureDestroyCallback(IDirect3DRMObject* pObject, void* pArg) {
-	TglD3DRMIMAGE* pImage = reinterpret_cast<TglD3DRMIMAGE*>(pObject->GetAppData());
+	TglD3DRMIMAGE* pImage =
+		reinterpret_cast<TglD3DRMIMAGE*>(pObject->GetAppData());
 	delete pImage;
 	pObject->SetAppData(0);
 }
@@ -75,7 +76,7 @@ TglD3DRMIMAGE::TglD3DRMIMAGE(
 // FUNCTION: LEGO1 0x100a13b0
 void TglD3DRMIMAGE::Destroy() {
 	if (m_texelsAllocatedByClient == 0) {
-		delete[]((char*)m_image.buffer1);
+		delete[]((char*) m_image.buffer1);
 	}
 	delete m_image.palette;
 }
@@ -92,7 +93,13 @@ inline static int IsPowerOfTwo(int v) {
 }
 
 // FUNCTION: LEGO1 0x100a13e0
-Result TglD3DRMIMAGE::CreateBuffer(int width, int height, int depth, void* pBuffer, int useBuffer) {
+Result TglD3DRMIMAGE::CreateBuffer(
+	int width,
+	int height,
+	int depth,
+	void* pBuffer,
+	int useBuffer
+) {
 	if (!(IsPowerOfTwo(width) && IsPowerOfTwo(height) && width % 4 == 0)) {
 		return Error;
 	}
@@ -103,15 +110,14 @@ Result TglD3DRMIMAGE::CreateBuffer(int width, int height, int depth, void* pBuff
 	m_image.bytes_per_line = width;
 
 	if (!m_texelsAllocatedByClient) {
-		delete[]((char*)m_image.buffer1);
+		delete[]((char*) m_image.buffer1);
 		m_image.buffer1 = NULL;
 	}
 
 	if (useBuffer) {
 		m_texelsAllocatedByClient = 1;
-		m_image.buffer1 = (char*)pBuffer;
-	}
-	else {
+		m_image.buffer1 = (char*) pBuffer;
+	} else {
 		m_image.buffer1 = new char[width * height];
 		memcpy(m_image.buffer1, pBuffer, width * height);
 		m_texelsAllocatedByClient = 0;
@@ -123,12 +129,17 @@ Result TglD3DRMIMAGE::CreateBuffer(int width, int height, int depth, void* pBuff
 // FUNCTION: LEGO1 0x100a1510
 Result TglD3DRMIMAGE::FillRowsOfTexture(int y, int height, char* pContent) {
 	// The purpose is clearly this but I can't get the assembly to line up.
-	memcpy((char*)m_image.buffer1 + (y * m_image.bytes_per_line), pContent, height * m_image.bytes_per_line);
+	memcpy(
+		(char*) m_image.buffer1 + (y * m_image.bytes_per_line),
+		pContent,
+		height * m_image.bytes_per_line
+	);
 	return Success;
 }
 
 // FUNCTION: LEGO1 0x100a1550
-Result TglD3DRMIMAGE::InitializePalette(int paletteSize, PaletteEntry* pEntries) {
+Result
+TglD3DRMIMAGE::InitializePalette(int paletteSize, PaletteEntry* pEntries) {
 	// This function is a 100% match if the PaletteEntry class is copied
 	// into into the TglD3DRMIMAGE class instead of being a global struct.
 	if (m_image.palette_size != paletteSize) {
@@ -154,9 +165,11 @@ Result TglD3DRMIMAGE::InitializePalette(int paletteSize, PaletteEntry* pEntries)
 }
 
 // FUNCTION: LEGO1 0x100a3c10
-Result TextureImpl::SetTexels(int width, int height, int bitsPerTexel, void* pTexels) {
+Result
+TextureImpl::SetTexels(int width, int height, int bitsPerTexel, void* pTexels) {
 	TglD3DRMIMAGE* image = TextureGetImage(m_data);
-	Result result = image->CreateBuffer(width, height, bitsPerTexel, pTexels, TRUE);
+	Result result =
+		image->CreateBuffer(width, height, bitsPerTexel, pTexels, TRUE);
 	if (Succeeded(result)) {
 		result = ResultVal(m_data->Changed(TRUE, FALSE));
 	}
@@ -166,7 +179,7 @@ Result TextureImpl::SetTexels(int width, int height, int bitsPerTexel, void* pTe
 // FUNCTION: LEGO1 0x100a3c60
 void TextureImpl::FillRowsOfTexture(int y, int height, void* pBuffer) {
 	TglD3DRMIMAGE* image = TextureGetImage(m_data);
-	image->FillRowsOfTexture(y, height, (char*)pBuffer);
+	image->FillRowsOfTexture(y, height, (char*) pBuffer);
 }
 
 // FUNCTION: LEGO1 0x100a3c90

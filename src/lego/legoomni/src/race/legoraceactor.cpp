@@ -9,7 +9,6 @@
 #include "mxvariabletable.h"
 #include "roi/legoroi.h"
 
-
 // Initialized at LEGO1 0x100145a0
 // GLOBAL: LEGO1 0x10102b08
 // GLOBAL: BETA10 0x102114a8
@@ -30,10 +29,15 @@ MxS32 LegoRaceActor::VTable0x68(Vector3& p_v1, Vector3& p_v2, Vector3& p_v3) {
 		MxLong time = Timer()->GetTime();
 		if (time - g_unk0x100f3308 > 1000) {
 			g_unk0x100f3308 = time;
-			const char* soundKey = VariableTable()->GetVariable(g_strHIT_ACTOR_SOUND);
+			const char* soundKey =
+				VariableTable()->GetVariable(g_strHIT_ACTOR_SOUND);
 
 			if (soundKey && *soundKey) {
-				SoundManager()->GetCacheSoundManager()->Play(soundKey, NULL, FALSE);
+				SoundManager()->GetCacheSoundManager()->Play(
+					soundKey,
+					NULL,
+					FALSE
+				);
 			}
 		}
 	}
@@ -74,8 +78,7 @@ MxU32 LegoRaceActor::VTable0x90(float p_time, Matrix4& p_transform) {
 
 			VTable0x74(p_transform);
 			return FALSE;
-		}
-		else {
+		} else {
 			m_actorState = c_initial;
 			m_unk0x08 = 0;
 
@@ -98,7 +101,8 @@ MxResult LegoRaceActor::HitActor(LegoPathActor* p_actor, MxBool p_bool) {
 
 		if (p_bool) {
 			MxMatrix matr;
-			LegoROI* roi = p_actor->GetROI(); // name verified by BETA10 0x100c9fcf
+			LegoROI* roi =
+				p_actor->GetROI(); // name verified by BETA10 0x100c9fcf
 			assert(roi);
 			matr = roi->GetLocal2World();
 

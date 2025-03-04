@@ -34,7 +34,8 @@ public:
 	// FUNCTION: LEGO1 0x1000e0e0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, HelicopterState::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, HelicopterState::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	// SYNTHETIC: LEGO1 0x1000e190
@@ -63,16 +64,19 @@ public:
 	// FUNCTION: BETA10 0x1002b330
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, Helicopter::ClassName()) || IslePathActor::IsA(p_name);
+		return !strcmp(p_name, Helicopter::ClassName()) ||
+			   IslePathActor::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override;                            // vtable+0x18
-	void Animate(float p_time) override;                                         // vtable+0x70
-	void VTable0x74(Matrix4& p_transform) override;                              // vtable+0x74
-	MxLong HandleClick() override;                                               // vtable+0xcc
-	MxLong HandleControl(LegoControlManagerNotificationParam& p_param) override; // vtable+0xd4
-	MxLong HandleEndAnim(LegoEndAnimNotificationParam& p_param) override;        // vtable+0xd8
-	void Exit() override;                                                        // vtable+0xe4
+	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
+	void Animate(float p_time) override;              // vtable+0x70
+	void VTable0x74(Matrix4& p_transform) override;   // vtable+0x74
+	MxLong HandleClick() override;                    // vtable+0xcc
+	MxLong HandleControl(LegoControlManagerNotificationParam& p_param
+	) override; // vtable+0xd4
+	MxLong HandleEndAnim(LegoEndAnimNotificationParam& p_param
+	) override;           // vtable+0xd8
+	void Exit() override; // vtable+0xe4
 
 	void CreateState();
 	void FUN_10004640(const Matrix4& p_matrix);

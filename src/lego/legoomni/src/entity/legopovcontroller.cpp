@@ -11,7 +11,6 @@
 #include "realtime/realtime.h"
 #include "roi/legoroi.h"
 
-
 // GLOBAL: LEGO1 0x100f75ac
 MxBool g_unk0x100f75ac = FALSE;
 
@@ -135,7 +134,7 @@ MxResult LegoPointOfViewController::Tickle() {
 			MxMatrix mat;
 
 			CalcLocalTransform(newPos, newDir, pov->GetWorldUp(), mat);
-			((TimeROI*)pov)->FUN_100a9b40(mat, Timer()->GetTime());
+			((TimeROI*) pov)->FUN_100a9b40(mat, Timer()->GetTime());
 			pov->WrappedSetLocalTransform(mat);
 			m_lego3DView->Moved(*pov);
 
@@ -147,8 +146,7 @@ MxResult LegoPointOfViewController::Tickle() {
 			);
 
 			g_unk0x100f75ac = FALSE;
-		}
-		else {
+		} else {
 			if (g_unk0x100f75ac == FALSE) {
 				Mx3DPointFloat vel;
 
@@ -192,8 +190,7 @@ void LegoPointOfViewController::SetEntity(LegoEntity* p_entity) {
 		);
 
 		pov->WrappedSetLocalTransform(mat);
-	}
-	else {
+	} else {
 		TickleManager()->RegisterClient(this, 10);
 	}
 }

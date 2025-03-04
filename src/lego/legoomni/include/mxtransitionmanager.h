@@ -29,7 +29,8 @@ public:
 	// FUNCTION: LEGO1 0x1004b960
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxTransitionManager::ClassName()) || MxCore::IsA(p_name);
+		return !strcmp(p_name, MxTransitionManager::ClassName()) ||
+			   MxCore::IsA(p_name);
 	}
 
 	virtual MxResult GetDDrawSurfaceFromVideoManager(); // vtable+0x14
@@ -44,7 +45,12 @@ public:
 		e_broken // Unknown what this is supposed to be, it locks the game up
 	};
 
-	MxResult StartTransition(TransitionType p_animationType, MxS32 p_speed, MxBool p_doCopy, MxBool p_playMusicInAnim);
+	MxResult StartTransition(
+		TransitionType p_animationType,
+		MxS32 p_speed,
+		MxBool p_doCopy,
+		MxBool p_playMusicInAnim
+	);
 
 	TransitionType GetTransitionType() { return m_mode; }
 

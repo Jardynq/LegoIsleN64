@@ -9,7 +9,6 @@
 #include "mxdirectx/mxdirect3d.h"
 #include "mxdssubscriber.h"
 
-
 // FUNCTION: LEGO1 0x1004eb40
 LegoTexturePresenter::~LegoTexturePresenter() {
 	VideoManager()->UnregisterPresenter(*this);
@@ -26,7 +25,8 @@ MxResult LegoTexturePresenter::Read(MxDSChunk& p_chunk) {
 	MxResult result = FAILURE;
 	LegoMemory storage(p_chunk.GetData());
 	LegoChar* textureName = NULL;
-	LegoS32 hardwareMode = VideoManager()->GetDirect3D()->AssignedDevice()->GetHardwareMode();
+	LegoS32 hardwareMode =
+		VideoManager()->GetDirect3D()->AssignedDevice()->GetHardwareMode();
 
 	m_textures = new LegoNamedTextureList();
 
@@ -40,7 +40,8 @@ MxResult LegoTexturePresenter::Read(MxDSChunk& p_chunk) {
 		LegoTexture* texture;
 		LegoNamedTexture* namedTexture;
 
-		if (storage.Read(&textureNameLength, sizeof(textureNameLength)) != SUCCESS) {
+		if (storage.Read(&textureNameLength, sizeof(textureNameLength)) !=
+			SUCCESS) {
 			goto done;
 		}
 
@@ -86,16 +87,22 @@ MxResult LegoTexturePresenter::Store() {
 
 	while (cursor.Next(namedTexture)) {
 		LegoTexture* texture = namedTexture->GetTexture();
-		LegoTextureInfo* textureInfo = TextureContainer()->Get(namedTexture->GetName()->GetData());
+		LegoTextureInfo* textureInfo =
+			TextureContainer()->Get(namedTexture->GetName()->GetData());
 
 		if (textureInfo == NULL) {
-			textureInfo = LegoTextureInfo::Create(namedTexture->GetName()->GetData(), texture);
+			textureInfo = LegoTextureInfo::Create(
+				namedTexture->GetName()->GetData(),
+				texture
+			);
 
 			if (textureInfo != NULL) {
-				TextureContainer()->Add(namedTexture->GetName()->GetData(), textureInfo);
+				TextureContainer()->Add(
+					namedTexture->GetName()->GetData(),
+					textureInfo
+				);
 			}
-		}
-		else {
+		} else {
 			textureInfo->FUN_10066010(texture->GetImage()->GetBits());
 		}
 	}
@@ -129,7 +136,8 @@ MxResult LegoTexturePresenter::PutData() {
 
 // FUNCTION: LEGO1 0x1004fcb0
 void LegoTexturePresenter::DoneTickle() {
-	if (this->m_compositePresenter && !this->m_compositePresenter->VTable0x64(2)) {
+	if (this->m_compositePresenter &&
+		!this->m_compositePresenter->VTable0x64(2)) {
 		SetTickleState(e_idle);
 		return;
 	}

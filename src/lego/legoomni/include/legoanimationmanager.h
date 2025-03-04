@@ -66,14 +66,19 @@ public:
 	// FUNCTION: LEGO1 0x10065080
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, AnimState::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, AnimState::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	MxBool Reset() override;                             // vtable+0x18
 	MxResult Serialize(LegoStorage* p_storage) override; // vtable+0x1c
 
 	void CopyToAnims(MxU32, AnimInfo* p_anims, MxU32& p_outExtraCharacterId);
-	void InitFromAnims(MxU32 p_animsLength, AnimInfo* p_anims, MxU32 p_extraCharacterId);
+	void InitFromAnims(
+		MxU32 p_animsLength,
+		AnimInfo* p_anims,
+		MxU32 p_extraCharacterId
+	);
 
 	// SYNTHETIC: LEGO1 0x10065130
 	// AnimState::`scalar deleting destructor'
@@ -130,11 +135,7 @@ public:
 		MxBool m_unk0x14;    // 0x14
 	};
 
-	enum PlayMode {
-		e_unk0 = 0,
-		e_unk1,
-		e_unk2
-	};
+	enum PlayMode { e_unk0 = 0, e_unk1, e_unk2 };
 
 	LegoAnimationManager();
 	~LegoAnimationManager() override;
@@ -165,7 +166,8 @@ public:
 	MxBool FindVehicle(const char* p_name, MxU32& p_index);
 	MxResult ReadAnimInfo(LegoStorage* p_storage, AnimInfo* p_info);
 	MxResult ReadModelInfo(LegoStorage* p_storage, ModelInfo* p_info);
-	void FUN_10060480(const LegoChar* p_characterNames[], MxU32 p_numCharacterNames);
+	void
+	FUN_10060480(const LegoChar* p_characterNames[], MxU32 p_numCharacterNames);
 	void FUN_100604d0(MxBool p_unk0x08);
 	void FUN_100604f0(MxS32 p_objectIds[], MxU32 p_numObjectIds);
 	void FUN_10060540(MxBool p_unk0x29);
@@ -182,7 +184,12 @@ public:
 		MxBool p_param8,
 		MxBool p_param9
 	);
-	void CameraTriggerFire(LegoPathActor* p_actor, MxBool, MxU32 p_location, MxBool p_bool);
+	void CameraTriggerFire(
+		LegoPathActor* p_actor,
+		MxBool,
+		MxU32 p_location,
+		MxBool p_bool
+	);
 	void FUN_10061010(MxBool p_und);
 	LegoTranInfo* GetTranInfo(MxU32 p_index);
 	void FUN_10062770();
@@ -195,7 +202,8 @@ public:
 	MxResult FUN_10064880(const char* p_name, MxS32 p_unk0x0c, MxS32 p_unk0x10);
 	MxBool FUN_10064ee0(MxU32 p_objectId);
 
-	static void configureLegoAnimationManager(MxS32 p_legoAnimationManagerConfig);
+	static void configureLegoAnimationManager(MxS32 p_legoAnimationManagerConfig
+	);
 
 	// SYNTHETIC: LEGO1 0x1005ed10
 	// LegoAnimationManager::`scalar deleting destructor'
@@ -213,7 +221,12 @@ private:
 		MxBool p_bool4,
 		MxBool p_bool5
 	);
-	MxResult FUN_100609f0(MxU32 p_objectId, MxMatrix* p_matrix, MxBool p_und1, MxBool p_und2);
+	MxResult FUN_100609f0(
+		MxU32 p_objectId,
+		MxMatrix* p_matrix,
+		MxBool p_und1,
+		MxBool p_und2
+	);
 	void DeleteAnimations();
 	void FUN_10061530();
 	MxResult FUN_100617c0(MxS32 p_unk0x08, MxU16& p_unk0x0e, MxU16& p_unk0x10);
@@ -235,12 +248,25 @@ private:
 	MxBool FUN_10062e20(LegoROI* p_roi, LegoAnimPresenter* p_presenter);
 	void FUN_10063950(LegoROI* p_roi);
 	void FUN_10063aa0();
-	MxBool FUN_10063b90(LegoWorld* p_world, LegoExtraActor* p_actor, MxU8 p_mood, MxU32 p_characterId);
+	MxBool FUN_10063b90(
+		LegoWorld* p_world,
+		LegoExtraActor* p_actor,
+		MxU8 p_mood,
+		MxU32 p_characterId
+	);
 	void FUN_10063d10();
 	void FUN_10063e40(LegoAnimPresenter* p_presenter);
 	MxBool FUN_10063fb0(LegoLocation::Boundary* p_boundary, LegoWorld* p_world);
-	MxBool FUN_10064010(LegoPathBoundary* p_boundary, LegoUnknown100db7f4* p_edge, float p_destScale);
-	MxBool FUN_10064120(LegoLocation::Boundary* p_boundary, MxBool p_bool1, MxBool p_bool2);
+	MxBool FUN_10064010(
+		LegoPathBoundary* p_boundary,
+		LegoUnknown100db7f4* p_edge,
+		float p_destScale
+	);
+	MxBool FUN_10064120(
+		LegoLocation::Boundary* p_boundary,
+		MxBool p_bool1,
+		MxBool p_bool2
+	);
 	MxResult FUN_10064380(
 		const char* p_name,
 		const char* p_boundaryName,

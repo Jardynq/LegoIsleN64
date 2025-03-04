@@ -12,19 +12,24 @@
 #endif
 
 struct LegoPathActorSetCompare {
-	MxU32 operator()(const LegoPathActor* p_lhs, const LegoPathActor* p_rhs) const {
-		return (COMPARE_POINTER_TYPE)p_lhs < (COMPARE_POINTER_TYPE)p_rhs;
+	MxU32
+	operator()(const LegoPathActor* p_lhs, const LegoPathActor* p_rhs) const {
+		return (COMPARE_POINTER_TYPE) p_lhs < (COMPARE_POINTER_TYPE) p_rhs;
 	}
 };
 
 struct LegoAnimPresenterSetCompare {
-	MxBool operator()(const LegoAnimPresenter* p_lhs, const LegoAnimPresenter* p_rhs) const {
-		return (COMPARE_POINTER_TYPE)p_lhs < (COMPARE_POINTER_TYPE)p_rhs;
+	MxBool operator()(
+		const LegoAnimPresenter* p_lhs,
+		const LegoAnimPresenter* p_rhs
+	) const {
+		return (COMPARE_POINTER_TYPE) p_lhs < (COMPARE_POINTER_TYPE) p_rhs;
 	}
 };
 
 typedef set<LegoPathActor*, LegoPathActorSetCompare> LegoPathActorSet;
-typedef set<LegoAnimPresenter*, LegoAnimPresenterSetCompare> LegoAnimPresenterSet;
+typedef set<LegoAnimPresenter*, LegoAnimPresenterSetCompare>
+	LegoAnimPresenterSet;
 
 // VTABLE: LEGO1 0x100d8618
 // SIZE 0x74
@@ -35,7 +40,8 @@ public:
 
 	MxResult AddActor(LegoPathActor* p_actor);
 	MxResult RemoveActor(LegoPathActor* p_actor);
-	void FUN_100575b0(Vector3& p_point1, Vector3& p_point2, LegoPathActor* p_actor);
+	void
+	FUN_100575b0(Vector3& p_point1, Vector3& p_point2, LegoPathActor* p_actor);
 	void SwitchBoundary(
 		LegoPathActor* p_actor,
 		LegoPathBoundary*& p_boundary,

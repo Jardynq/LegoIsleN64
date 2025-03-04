@@ -1,7 +1,6 @@
 #ifndef __LEGOCOLOR_H
 #define __LEGOCOLOR_H
 
-
 class LegoStorage;
 
 // SIZE 0x03

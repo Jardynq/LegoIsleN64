@@ -21,15 +21,18 @@ public:
 	// FUNCTION: LEGO1 0x10067c40
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, DuneBuggy::ClassName()) || IslePathActor::IsA(p_name);
+		return !strcmp(p_name, DuneBuggy::ClassName()) ||
+			   IslePathActor::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override;                            // vtable+0x18
-	void Animate(float p_time) override;                                         // vtable+0x70
-	MxLong HandleClick() override;                                               // vtable+0xcc
-	MxLong HandleControl(LegoControlManagerNotificationParam& p_param) override; // vtable+0xd4
-	MxLong HandlePathStruct(LegoPathStructNotificationParam& p_param) override;  // vtable+0xdc
-	void Exit() override;                                                        // vtable+0xe4
+	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
+	void Animate(float p_time) override;              // vtable+0x70
+	MxLong HandleClick() override;                    // vtable+0xcc
+	MxLong HandleControl(LegoControlManagerNotificationParam& p_param
+	) override; // vtable+0xd4
+	MxLong HandlePathStruct(LegoPathStructNotificationParam& p_param
+	) override;           // vtable+0xdc
+	void Exit() override; // vtable+0xe4
 
 	void ActivateSceneActions();
 

@@ -1,9 +1,7 @@
 #include "mxvideoparam.h"
 
-
 #include <stdlib.h>
 #include <string.h>
-
 
 // FUNCTION: LEGO1 0x100bec70
 // FUNCTION: BETA10 0x1012db3e
@@ -17,7 +15,12 @@ MxVideoParam::MxVideoParam() {
 
 // FUNCTION: LEGO1 0x100beca0
 // FUNCTION: BETA10 0x1012dbb1
-MxVideoParam::MxVideoParam(MxRect32& p_rect, MxPalette* p_palette, MxULong p_backBuffers, MxVideoParamFlags& p_flags) {
+MxVideoParam::MxVideoParam(
+	MxRect32& p_rect,
+	MxPalette* p_palette,
+	MxULong p_backBuffers,
+	MxVideoParamFlags& p_flags
+) {
 	m_rect = p_rect;
 	m_palette = p_palette;
 	m_backBuffers = p_backBuffers;
@@ -59,8 +62,7 @@ void MxVideoParam::SetDeviceName(char* p_deviceId) {
 		if (m_deviceId != NULL) {
 			strcpy(m_deviceId, p_deviceId);
 		}
-	}
-	else {
+	} else {
 		m_deviceId = NULL;
 	}
 }

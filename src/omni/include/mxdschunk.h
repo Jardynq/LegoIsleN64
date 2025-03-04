@@ -35,7 +35,9 @@ public:
 	static MxU32 GetHeaderSize();
 
 	// FUNCTION: BETA10 0x101641f0
-	static MxU32 Size(MxU8* p_buffer) { return (*(MxU32*)(p_buffer + 4) & 1) + *(MxU32*)(p_buffer + 4) + 8; }
+	static MxU32 Size(MxU8* p_buffer) {
+		return (*(MxU32*) (p_buffer + 4) & 1) + *(MxU32*) (p_buffer + 4) + 8;
+	}
 
 	// FUNCTION: BETA10 0x10164220
 	static MxU8* End(MxU8* p_buffer) { return p_buffer + Size(p_buffer); }

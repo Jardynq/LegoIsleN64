@@ -1,7 +1,6 @@
 #ifndef MXSCHEDULER_H
 #define MXSCHEDULER_H
 
-
 class MxScheduler {
 public:
 	static MxScheduler* GetInstance();

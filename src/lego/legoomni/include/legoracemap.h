@@ -43,15 +43,19 @@ private:
 
 	// likely an x-offset of the race map in world space
 	float m_unk0x14; // 0x14
-	// inversely scales the map in x direction (either convert world->screen space or to control the size)
+	// inversely scales the map in x direction (either convert world->screen
+	// space or to control the size)
 	float m_unk0x18; // 0x18
 	// likely a y-offset of the race map in world space
 	float m_unk0x1c; // 0x1c
-	// inversely scales the map in y direction (either convert world->screen space or to control the size)
+	// inversely scales the map in y direction (either convert world->screen
+	// space or to control the size)
 	float m_unk0x20; // 0x20
-	// scales the map in x direction (either convert world->screen space or to change the size)
+	// scales the map in x direction (either convert world->screen space or to
+	// change the size)
 	float m_unk0x24; // 0x24
-	// scales the map in y direction (either convert world->screen space or to change the size)
+	// scales the map in y direction (either convert world->screen space or to
+	// change the size)
 	float m_unk0x28; // 0x28
 	// likely an x-offset of the race map in screen space
 	float m_unk0x2c; // 0x2c

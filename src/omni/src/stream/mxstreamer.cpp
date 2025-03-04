@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <assert.h>
 
-
 // FUNCTION: LEGO1 0x100b8f00
 // FUNCTION: BETA10 0x10145150
 MxStreamer::MxStreamer() {
@@ -46,7 +45,11 @@ MxStreamer::~MxStreamer() {
 // FUNCTION: LEGO1 0x100b92c0
 // FUNCTION: BETA10 0x1014542d
 MxStreamController* MxStreamer::Open(const char* p_name, MxU16 p_lookupType) {
-	MxTrace("Open %s as %s controller\n", p_name, !p_lookupType ? "disk" : "RAM");
+	MxTrace(
+		"Open %s as %s controller\n",
+		p_name,
+		!p_lookupType ? "disk" : "RAM"
+	);
 	MxTrace("Heap before: %d\n", DebugHeapState());
 
 	MxStreamController* stream = NULL;
@@ -68,7 +71,8 @@ MxStreamController* MxStreamer::Open(const char* p_name, MxU16 p_lookupType) {
 		goto done;
 	}
 
-	if (stream->Open(p_name) != SUCCESS || AddStreamControllerToOpenList(stream) != SUCCESS) {
+	if (stream->Open(p_name) != SUCCESS ||
+		AddStreamControllerToOpenList(stream) != SUCCESS) {
 		delete stream;
 		stream = NULL;
 	}
@@ -84,7 +88,9 @@ MxLong MxStreamer::Close(const char* p_name) {
 	MxDSAction ds;
 	ds.SetUnknown24(-2);
 
-	for (list<MxStreamController*>::iterator it = m_controllers.begin(); it != m_controllers.end(); it++) {
+	for (list<MxStreamController*>::iterator it = m_controllers.begin();
+		 it != m_controllers.end();
+		 it++) {
 		MxStreamController* c = *it;
 
 		if (!p_name || c->GetAtom() == p_name) {
@@ -92,9 +98,11 @@ MxLong MxStreamer::Close(const char* p_name) {
 
 			if (c->IsStoped(&ds)) {
 				delete c;
-			}
-			else {
-				NotificationManager()->Send(this, MxStreamerNotification(c_notificationStreamer, NULL, c));
+			} else {
+				NotificationManager()->Send(
+					this,
+					MxStreamerNotification(c_notificationStreamer, NULL, c)
+				);
 			}
 
 			return SUCCESS;
@@ -113,7 +121,9 @@ MxNotificationParam* MxStreamerNotification::Clone() const {
 // FUNCTION: LEGO1 0x100b9870
 // FUNCTION: BETA10 0x1014584b
 MxStreamController* MxStreamer::GetOpenStream(const char* p_name) {
-	for (list<MxStreamController*>::iterator it = m_controllers.begin(); it != m_controllers.end(); it++) {
+	for (list<MxStreamController*>::iterator it = m_controllers.begin();
+		 it != m_controllers.end();
+		 it++) {
 		if ((*it)->GetAtom() == p_name) {
 			return *it;
 		}
@@ -124,20 +134,24 @@ MxStreamController* MxStreamer::GetOpenStream(const char* p_name) {
 
 // FUNCTION: LEGO1 0x100b98f0
 void MxStreamer::FUN_100b98f0(MxDSAction* p_action) {
-	MxStreamController* controller = GetOpenStream(p_action->GetAtomId().GetInternal());
+	MxStreamController* controller =
+		GetOpenStream(p_action->GetAtomId().GetInternal());
 	if (controller && controller->IsA("MxDiskStreamController")) {
-		((MxDiskStreamController*)controller)->FUN_100c8120(p_action);
+		((MxDiskStreamController*) controller)->FUN_100c8120(p_action);
 	}
 }
 
 // FUNCTION: LEGO1 0x100b9930
 // FUNCTION: BETA10 0x101458e5
-MxResult MxStreamer::AddStreamControllerToOpenList(MxStreamController* p_stream) {
-	list<MxStreamController*>::iterator i = find(m_controllers.begin(), m_controllers.end(), p_stream);
+MxResult MxStreamer::AddStreamControllerToOpenList(MxStreamController* p_stream
+) {
+	list<MxStreamController*>::iterator i =
+		find(m_controllers.begin(), m_controllers.end(), p_stream);
 
 	assert(i == m_controllers.end());
 
-	// DECOMP: Retail is missing the optimization that skips this check if find() reaches the end.
+	// DECOMP: Retail is missing the optimization that skips this check if
+	// find() reaches the end.
 	if (i == m_controllers.end()) {
 		m_controllers.push_back(p_stream);
 		return SUCCESS;
@@ -150,11 +164,13 @@ MxResult MxStreamer::AddStreamControllerToOpenList(MxStreamController* p_stream)
 // FUNCTION: BETA10 0x101459ad
 MxResult MxStreamer::FUN_100b99b0(MxDSAction* p_action) {
 	// TODO: MxAtomId operator== used here for NULL test. BETA10 0x1007dc20
-	if (p_action == NULL || p_action->GetAtomId().GetInternal() == NULL || p_action->GetObjectId() == -1) {
+	if (p_action == NULL || p_action->GetAtomId().GetInternal() == NULL ||
+		p_action->GetObjectId() == -1) {
 		return FAILURE;
 	}
 
-	MxStreamController* controller = GetOpenStream(p_action->GetAtomId().GetInternal());
+	MxStreamController* controller =
+		GetOpenStream(p_action->GetAtomId().GetInternal());
 	if (controller == NULL) {
 		return FAILURE;
 	}
@@ -171,15 +187,17 @@ MxResult MxStreamer::DeleteObject(MxDSAction* p_dsAction) {
 		tempAction.SetObjectId(p_dsAction->GetObjectId());
 		tempAction.SetAtomId(p_dsAction->GetAtomId());
 		tempAction.SetUnknown24(p_dsAction->GetUnknown24());
-	}
-	else {
+	} else {
 		tempAction.SetUnknown24(-2);
 	}
 
 	MxResult result = FAILURE;
-	for (list<MxStreamController*>::iterator it = m_controllers.begin(); it != m_controllers.end(); it++) {
+	for (list<MxStreamController*>::iterator it = m_controllers.begin();
+		 it != m_controllers.end();
+		 it++) {
 		// TODO: MxAtomId operator== used here for NULL test. BETA10 0x1007dc20
-		if (p_dsAction->GetAtomId().GetInternal() == NULL || p_dsAction->GetAtomId() == (*it)->GetAtom()) {
+		if (p_dsAction->GetAtomId().GetInternal() == NULL ||
+			p_dsAction->GetAtomId() == (*it)->GetAtom()) {
 			tempAction.SetAtomId((*it)->GetAtom());
 			result = (*it)->VTable0x24(&tempAction);
 		}
@@ -191,7 +209,8 @@ MxResult MxStreamer::DeleteObject(MxDSAction* p_dsAction) {
 // FUNCTION: LEGO1 0x100b9b30
 // FUNCTION: BETA10 0x10145d01
 MxBool MxStreamer::FUN_100b9b30(MxDSObject& p_dsObject) {
-	MxStreamController* controller = GetOpenStream(p_dsObject.GetAtomId().GetInternal());
+	MxStreamController* controller =
+		GetOpenStream(p_dsObject.GetAtomId().GetInternal());
 	if (controller) {
 		return controller->IsStoped(&p_dsObject);
 	}
@@ -213,9 +232,11 @@ MxLong MxStreamer::Notify(MxParam& p_param) {
 
 		if (c->IsStoped(&ds)) {
 			delete c;
-		}
-		else {
-			NotificationManager()->Send(this, MxStreamerNotification(c_notificationStreamer, NULL, c));
+		} else {
+			NotificationManager()->Send(
+				this,
+				MxStreamerNotification(c_notificationStreamer, NULL, c)
+			);
 		}
 
 		break;

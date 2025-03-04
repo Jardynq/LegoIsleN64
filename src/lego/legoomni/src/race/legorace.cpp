@@ -7,7 +7,6 @@
 #include "mxmisc.h"
 #include "mxnotificationmanager.h"
 
-
 // Defined in legopathstruct.cpp
 extern MxBool g_unk0x100f119c;
 
@@ -37,7 +36,7 @@ MxResult LegoRace::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 
 	if (result == SUCCESS) {
-		m_act1State = (Act1State*)GameState()->GetState("Act1State");
+		m_act1State = (Act1State*) GameState()->GetState("Act1State");
 		ControlManager()->Register(this);
 		m_pathActor = UserActor();
 		m_pathActor->SetWorldSpeed(0);
@@ -64,22 +63,23 @@ LegoRace::~LegoRace() {
 // FUNCTION: BETA10 0x100c7b3d
 MxLong LegoRace::Notify(MxParam& p_param) {
 	LegoWorld::Notify(p_param);
-	MxNotificationParam& param = (MxNotificationParam&)p_param;
+	MxNotificationParam& param = (MxNotificationParam&) p_param;
 
 	MxLong result = 0;
 	if (m_worldStarted) {
 		switch (param.GetNotification()) {
 		case c_notificationType0:
-			HandleType0Notification((MxNotificationParam&)p_param);
+			HandleType0Notification((MxNotificationParam&) p_param);
 			break;
 		case c_notificationEndAction:
-			result = HandleEndAction((MxEndActionNotificationParam&)p_param);
+			result = HandleEndAction((MxEndActionNotificationParam&) p_param);
 			break;
 		case c_notificationClick:
-			result = HandleClick((LegoEventNotificationParam&)p_param);
+			result = HandleClick((LegoEventNotificationParam&) p_param);
 			break;
 		case c_notificationPathStruct:
-			result = HandlePathStruct((LegoPathStructNotificationParam&)p_param);
+			result =
+				HandlePathStruct((LegoPathStructNotificationParam&) p_param);
 			break;
 		case c_notificationTransitioned:
 			GameState()->SwitchArea(m_destLocation);

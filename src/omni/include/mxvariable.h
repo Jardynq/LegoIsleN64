@@ -12,17 +12,14 @@ public:
 	MxVariable() {}
 
 	// FUNCTION: BETA10 0x1012a840
-	MxVariable(const char* p_key, const char* p_value) {
-		m_key = p_key;
+	MxVariable(const char* p_key, const char* p_value)
+		: m_key(p_key), m_value(p_value) {
+
 		m_key.ToUpperCase();
-		m_value = p_value;
 	}
 
 	// FUNCTION: BETA10 0x1012aa30
-	MxVariable(const char* p_key) {
-		m_key = p_key;
-		m_key.ToUpperCase();
-	}
+	MxVariable(const char* p_key) : m_key(p_key) { m_key.ToUpperCase(); }
 
 	// FUNCTION: LEGO1 0x1003bea0
 	// FUNCTION: BETA10 0x1007b810
@@ -30,7 +27,9 @@ public:
 
 	// FUNCTION: LEGO1 0x1003beb0
 	// FUNCTION: BETA10 0x1007b840
-	virtual void SetValue(const char* p_value) { m_value = p_value; } // vtable+0x04
+	virtual void SetValue(const char* p_value) {
+		m_value = p_value;
+	} // vtable+0x04
 
 	// FUNCTION: LEGO1 0x1003bec0
 	// FUNCTION: BETA10 0x1007b870

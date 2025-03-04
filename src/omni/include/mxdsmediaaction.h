@@ -27,7 +27,8 @@ public:
 	// FUNCTION: BETA10 0x1015c6a0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxDSMediaAction::ClassName()) || MxDSAction::IsA(p_name);
+		return !strcmp(p_name, MxDSMediaAction::ClassName()) ||
+			   MxDSAction::IsA(p_name);
 	}
 
 	// SYNTHETIC: LEGO1 0x100c8cd0

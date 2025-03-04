@@ -12,10 +12,13 @@
 
 #include <vec.h>
 
-
 // FUNCTION: LEGO1 0x10011d50
 LegoCameraController::LegoCameraController() {
-	SetWorldTransform(Mx3DPointFloat(0, 0, 0), Mx3DPointFloat(0, 0, 1), Mx3DPointFloat(0, 1, 0));
+	SetWorldTransform(
+		Mx3DPointFloat(0, 0, 0),
+		Mx3DPointFloat(0, 0, 1),
+		Mx3DPointFloat(0, 1, 0)
+	);
 }
 
 // FUNCTION: LEGO1 0x10011f70
@@ -30,46 +33,50 @@ LegoCameraController::~LegoCameraController() {
 // FUNCTION: LEGO1 0x10011ff0
 MxResult LegoCameraController::Create() {
 	InputManager()->SetCamera(this);
-	return LegoPointOfViewController::Create(VideoManager()->Get3DManager()->GetLego3DView());
+	return LegoPointOfViewController::Create(
+		VideoManager()->Get3DManager()->GetLego3DView()
+	);
 }
 
 // FUNCTION: LEGO1 0x10012020
 // FUNCTION: BETA10 0x10067852
 MxLong LegoCameraController::Notify(MxParam& p_param) {
-	switch (((MxNotificationParam&)p_param).GetNotification()) {
+	switch (((MxNotificationParam&) p_param).GetNotification()) {
 	case c_notificationDragEnd: {
-		if (((((LegoEventNotificationParam&)p_param).GetModifier()) & LegoEventNotificationParam::c_lButtonState) ==
-			0) {
+		if (((((LegoEventNotificationParam&) p_param).GetModifier()) &
+			 LegoEventNotificationParam::c_lButtonState) == 0) {
 			OnLButtonUp(MxPoint32(
-				((LegoEventNotificationParam&)p_param).GetX(),
-				((LegoEventNotificationParam&)p_param).GetY()
+				((LegoEventNotificationParam&) p_param).GetX(),
+				((LegoEventNotificationParam&) p_param).GetY()
 			));
-		}
-		else if (((((LegoEventNotificationParam&)p_param).GetModifier()) & LegoEventNotificationParam::c_rButtonState) == 0) {
+		} else if (((((LegoEventNotificationParam&) p_param).GetModifier()) & LegoEventNotificationParam::c_rButtonState) == 0) {
 			OnRButtonUp(MxPoint32(
-				((LegoEventNotificationParam&)p_param).GetX(),
-				((LegoEventNotificationParam&)p_param).GetY()
+				((LegoEventNotificationParam&) p_param).GetX(),
+				((LegoEventNotificationParam&) p_param).GetY()
 			));
 		}
 	} break;
 	case c_notificationDragStart: {
-		if ((((LegoEventNotificationParam&)p_param).GetModifier()) & LegoEventNotificationParam::c_lButtonState) {
+		if ((((LegoEventNotificationParam&) p_param).GetModifier()) &
+			LegoEventNotificationParam::c_lButtonState) {
 			OnLButtonDown(MxPoint32(
-				((LegoEventNotificationParam&)p_param).GetX(),
-				((LegoEventNotificationParam&)p_param).GetY()
+				((LegoEventNotificationParam&) p_param).GetX(),
+				((LegoEventNotificationParam&) p_param).GetY()
 			));
-		}
-		else if ((((LegoEventNotificationParam&)p_param).GetModifier()) & LegoEventNotificationParam::c_rButtonState) {
+		} else if ((((LegoEventNotificationParam&) p_param).GetModifier()) & LegoEventNotificationParam::c_rButtonState) {
 			OnRButtonDown(MxPoint32(
-				((LegoEventNotificationParam&)p_param).GetX(),
-				((LegoEventNotificationParam&)p_param).GetY()
+				((LegoEventNotificationParam&) p_param).GetX(),
+				((LegoEventNotificationParam&) p_param).GetY()
 			));
 		}
 	} break;
 	case c_notificationDrag: {
 		OnMouseMove(
-			((LegoEventNotificationParam&)p_param).GetModifier(),
-			MxPoint32(((LegoEventNotificationParam&)p_param).GetX(), ((LegoEventNotificationParam&)p_param).GetY())
+			((LegoEventNotificationParam&) p_param).GetModifier(),
+			MxPoint32(
+				((LegoEventNotificationParam&) p_param).GetX(),
+				((LegoEventNotificationParam&) p_param).GetY()
+			)
 		);
 	} break;
 	}
@@ -101,14 +108,17 @@ void LegoCameraController::OnRButtonUp(MxPoint32 p_point) {
 void LegoCameraController::OnMouseMove(MxU8 p_modifier, MxPoint32 p_point) {
 	if (p_modifier & LegoEventNotificationParam::c_lButtonState) {
 		LeftDrag(p_point.GetX(), p_point.GetY());
-	}
-	else if (p_modifier & LegoEventNotificationParam::c_rButtonState) {
+	} else if (p_modifier & LegoEventNotificationParam::c_rButtonState) {
 		RightDrag(p_point.GetX(), p_point.GetY());
 	}
 }
 
 // FUNCTION: LEGO1 0x10012260
-void LegoCameraController::SetWorldTransform(const Vector3& p_at, const Vector3& p_dir, const Vector3& p_up) {
+void LegoCameraController::SetWorldTransform(
+	const Vector3& p_at,
+	const Vector3& p_dir,
+	const Vector3& p_up
+) {
 	CalcLocalTransform(p_at, p_dir, p_up, m_matrix1);
 	m_matrix2 = m_matrix1;
 }
@@ -142,7 +152,10 @@ MxResult LegoCameraController::FUN_100123b0(Matrix4& p_matrix) {
 
 // FUNCTION: LEGO1 0x100123e0
 // FUNCTION: BETA10 0x10068cb2
-void LegoCameraController::FUN_100123e0(const Matrix4& p_transform, MxU32 p_und) {
+void LegoCameraController::FUN_100123e0(
+	const Matrix4& p_transform,
+	MxU32 p_und
+) {
 	if (m_lego3DView != NULL) {
 		ViewROI* pov = m_lego3DView->GetPointOfView();
 
@@ -151,12 +164,11 @@ void LegoCameraController::FUN_100123e0(const Matrix4& p_transform, MxU32 p_und)
 
 			if (p_und) {
 				MXM4(mat, m_matrix1, p_transform);
-			}
-			else {
+			} else {
 				mat = p_transform;
 			}
 
-			((TimeROI*)pov)->FUN_100a9b40(mat, Timer()->GetTime());
+			((TimeROI*) pov)->FUN_100a9b40(mat, Timer()->GetTime());
 			pov->WrappedSetLocalTransform(mat);
 			m_lego3DView->Moved(*pov);
 
@@ -176,8 +188,7 @@ Mx3DPointFloat LegoCameraController::GetWorldUp() {
 		Mx3DPointFloat vec;
 		vec = m_lego3DView->GetPointOfView()->GetWorldUp();
 		return Mx3DPointFloat(vec[0], vec[1], vec[2]);
-	}
-	else {
+	} else {
 		return Mx3DPointFloat(0, 0, 0);
 	}
 }
@@ -188,8 +199,7 @@ Mx3DPointFloat LegoCameraController::GetWorldLocation() {
 		Mx3DPointFloat vec;
 		vec = m_lego3DView->GetPointOfView()->GetWorldPosition();
 		return Mx3DPointFloat(vec[0], vec[1] - m_entityOffsetUp, vec[2]);
-	}
-	else {
+	} else {
 		return Mx3DPointFloat(0, 0, 0);
 	}
 }
@@ -200,8 +210,7 @@ Mx3DPointFloat LegoCameraController::GetWorldDirection() {
 		Mx3DPointFloat vec;
 		vec = m_lego3DView->GetPointOfView()->GetWorldDirection();
 		return Mx3DPointFloat(vec[0], vec[1], vec[2]);
-	}
-	else {
+	} else {
 		return Mx3DPointFloat(0, 0, 0);
 	}
 }

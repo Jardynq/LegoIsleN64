@@ -5,7 +5,6 @@
 #include "legoworld.h"
 #include "misc.h"
 
-
 // FUNCTION: LEGO1 0x1006d7e0
 LegoHideAnimPresenter::LegoHideAnimPresenter() {
 	Init();
@@ -58,7 +57,8 @@ void LegoHideAnimPresenter::ReadyTickle() {
 	LegoLoopingAnimPresenter::ReadyTickle();
 
 	if (m_currentWorld) {
-		if (m_currentTickleState == e_starting && m_compositePresenter != NULL) {
+		if (m_currentTickleState == e_starting &&
+			m_compositePresenter != NULL) {
 			SendToCompositePresenter(Lego());
 		}
 
@@ -85,8 +85,11 @@ void LegoHideAnimPresenter::FUN_1006db40(LegoTime p_time) {
 
 // FUNCTION: LEGO1 0x1006db60
 // FUNCTION: BETA10 0x100531de
-void LegoHideAnimPresenter::FUN_1006db60(LegoTreeNode* p_node, LegoTime p_time) {
-	LegoAnimNodeData* data = (LegoAnimNodeData*)p_node->GetData();
+void LegoHideAnimPresenter::FUN_1006db60(
+	LegoTreeNode* p_node,
+	LegoTime p_time
+) {
+	LegoAnimNodeData* data = (LegoAnimNodeData*) p_node->GetData();
 	MxBool newB = FALSE;
 	MxBool previousB = FALSE;
 
@@ -127,10 +130,12 @@ void LegoHideAnimPresenter::FUN_1006dc10() {
 		delete[] m_boundaryMap;
 	}
 
-	m_boundaryMap = new LegoPathBoundary * [anims.size() + 1];
+	m_boundaryMap = new LegoPathBoundary*[anims.size() + 1];
 	m_boundaryMap[0] = NULL;
 
-	for (LegoHideAnimStructMap::iterator it = anims.begin(); !(it == anims.end()); it++) {
+	for (LegoHideAnimStructMap::iterator it = anims.begin();
+		 !(it == anims.end());
+		 it++) {
 		m_boundaryMap[(*it).second.m_index] = (*it).second.m_boundary;
 		delete[] const_cast<char*>((*it).first);
 	}
@@ -138,8 +143,11 @@ void LegoHideAnimPresenter::FUN_1006dc10() {
 
 // FUNCTION: LEGO1 0x1006e3f0
 // FUNCTION: BETA10 0x1005345e
-void LegoHideAnimPresenter::FUN_1006e3f0(LegoHideAnimStructMap& p_map, LegoTreeNode* p_node) {
-	LegoAnimNodeData* data = (LegoAnimNodeData*)p_node->GetData();
+void LegoHideAnimPresenter::FUN_1006e3f0(
+	LegoHideAnimStructMap& p_map,
+	LegoTreeNode* p_node
+) {
+	LegoAnimNodeData* data = (LegoAnimNodeData*) p_node->GetData();
 	const char* name = data->GetName();
 
 	if (name != NULL) {
@@ -147,8 +155,7 @@ void LegoHideAnimPresenter::FUN_1006e3f0(LegoHideAnimStructMap& p_map, LegoTreeN
 
 		if (boundary != NULL) {
 			FUN_1006e470(p_map, data, name, boundary);
-		}
-		else {
+		} else {
 			data->SetUnknown0x22(0);
 		}
 	}
@@ -181,8 +188,7 @@ void LegoHideAnimPresenter::FUN_1006e470(
 		strcpy(name, p_name);
 
 		p_map[name] = animStruct;
-	}
-	else {
+	} else {
 		p_data->SetUnknown0x22((*it).second.m_index);
 	}
 }

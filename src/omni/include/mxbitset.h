@@ -3,7 +3,6 @@
 
 #pragma warning(disable : 4237)
 
-
 #include <assert.h>
 #include <limits.h> // CHAR_BIT
 
@@ -25,7 +24,8 @@ public:
 		operator bool() const { return (m_bitset->Test(m_offset)); }
 
 	private:
-		Reference(MxBitset<N>& p_bitset, size_t p_offset) : m_bitset(&p_bitset), m_offset(p_offset) {}
+		Reference(MxBitset<N>& p_bitset, size_t p_offset)
+			: m_bitset(&p_bitset), m_offset(p_offset) {}
 		MxBitset<N>* m_bitset; // 0x00
 		size_t m_offset;       // 0x04
 	};
@@ -50,7 +50,8 @@ public:
 			Xran();
 		}
 
-		return (m_blocks[p_bit / e_bitsPerBlock] & (1 << p_bit % e_bitsPerBlock)) != 0;
+		return (m_blocks[p_bit / e_bitsPerBlock] & (1 << p_bit % e_bitsPerBlock)
+			   ) != 0;
 	}
 
 	MxU32 Size() const { return N; }

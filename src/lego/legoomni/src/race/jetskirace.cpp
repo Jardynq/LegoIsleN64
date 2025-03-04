@@ -32,7 +32,6 @@ extern const char* g_varJSWNSHY5;
 // Defined in legopathactor.cpp
 extern const char* g_strHIT_WALL_SOUND;
 
-
 // GLOBAL: LEGO1 0x100f0c78
 MxS32 JetskiRace::g_unk0x100f0c78 = 2;
 
@@ -44,10 +43,12 @@ MxResult JetskiRace::Create(MxDSAction& p_dsAction) {
 	GameState()->m_currentArea = LegoGameState::e_jetrace;
 	GameState()->StopArea(LegoGameState::e_undefined);
 	LegoGameState* gameState = GameState();
-	RaceState* jetskiRaceState = (RaceState*)gameState->GetState("JetskiRaceState");
+	RaceState* jetskiRaceState =
+		(RaceState*) gameState->GetState("JetskiRaceState");
 
 	if (!jetskiRaceState) {
-		jetskiRaceState = (RaceState*)gameState->CreateState("JetskiRaceState");
+		jetskiRaceState =
+			(RaceState*) gameState->CreateState("JetskiRaceState");
 	}
 
 	m_raceState = jetskiRaceState;
@@ -65,10 +66,16 @@ MxResult JetskiRace::Create(MxDSAction& p_dsAction) {
 	InvokeAction(
 		Extra::e_start,
 		m_atomId,
-		DuneBuggy::GetColorOffset(g_varJSFRNTY5) + (DuneBuggy::GetColorOffset(g_varJSWNSHY5) * 5 + 0xf) * 2,
+		DuneBuggy::GetColorOffset(g_varJSFRNTY5) +
+			(DuneBuggy::GetColorOffset(g_varJSWNSHY5) * 5 + 0xf) * 2,
 		NULL
 	);
-	InvokeAction(Extra::e_start, m_atomId, JetraceScript::c_JetskiDashboard, NULL);
+	InvokeAction(
+		Extra::e_start,
+		m_atomId,
+		JetraceScript::c_JetskiDashboard,
+		NULL
+	);
 	g_unk0x100f119c = TRUE;
 
 	return result;
@@ -88,23 +95,33 @@ void JetskiRace::ReadyWorld() {
 
 	AnimationManager()->Resume();
 
-	m_unk0x128 = (MxStillPresenter*)Find("MxPresenter", "JetskiLocator2");
+	m_unk0x128 = (MxStillPresenter*) Find("MxPresenter", "JetskiLocator2");
 	m_unk0x128->SetPosition(m_unk0x130.GetLeft(), m_unk0x130.GetTop());
-	m_unk0x12c = (MxStillPresenter*)Find("MxPresenter", "JetskiLocator3");
+	m_unk0x12c = (MxStillPresenter*) Find("MxPresenter", "JetskiLocator3");
 	m_unk0x12c->SetPosition(m_unk0x130.GetLeft(), m_unk0x130.GetTop());
 
-	FUN_10015820(FALSE, LegoOmni::c_disableInput | LegoOmni::c_disable3d | LegoOmni::c_clearScreen);
+	FUN_10015820(
+		FALSE,
+		LegoOmni::c_disableInput | LegoOmni::c_disable3d |
+			LegoOmni::c_clearScreen
+	);
 
 	VariableTable()->SetVariable("DISTANCE", "0.036");
 
-	InvokeAction(Extra::e_start, *g_jetraceScript, JetraceScript::c_AirHorn_PlayWav, NULL);
+	InvokeAction(
+		Extra::e_start,
+		*g_jetraceScript,
+		JetraceScript::c_AirHorn_PlayWav,
+		NULL
+	);
 }
 
 // FUNCTION: LEGO1 0x10016520
 MxLong JetskiRace::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	MxLong result = 0;
 
-	if ((p_param.GetAction()) && (p_param.GetAction()->GetObjectId() == JetraceScript::c_AirHorn_PlayWav)) {
+	if ((p_param.GetAction()) && (p_param.GetAction()->GetObjectId() ==
+								  JetraceScript::c_AirHorn_PlayWav)) {
 		m_maps[0]->Mute(FALSE);
 		m_maps[1]->Mute(FALSE);
 		m_maps[2]->Mute(FALSE);
@@ -120,15 +137,22 @@ MxLong JetskiRace::HandleEndAction(MxEndActionNotificationParam& p_param) {
 MxLong JetskiRace::HandleClick(LegoEventNotificationParam& p_param) {
 	MxLong result = 0;
 
-	if (((LegoControlManagerNotificationParam*)&p_param)->m_unk0x28 == 1) {
-		switch (((LegoControlManagerNotificationParam*)&p_param)->m_clickedObjectId) {
+	if (((LegoControlManagerNotificationParam*) &p_param)->m_unk0x28 == 1) {
+		switch (
+			((LegoControlManagerNotificationParam*) &p_param)->m_clickedObjectId
+		) {
 		case JetraceScript::c_JetskiArms_Ctl:
 			m_act1State->m_unk0x018 = 0;
 			VariableTable()->SetVariable(g_raceState, "");
 			VariableTable()->SetVariable(g_strHIT_WALL_SOUND, "");
 			LegoRaceCar::FUN_10012de0();
 			m_destLocation = LegoGameState::e_jetraceExterior;
-			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+			TransitionManager()->StartTransition(
+				MxTransitionManager::e_mosaic,
+				50,
+				FALSE,
+				FALSE
+			);
 			break;
 		case JetraceScript::c_JetskiInfo_Ctl:
 			m_act1State->m_unk0x018 = 0;
@@ -137,7 +161,12 @@ MxLong JetskiRace::HandleClick(LegoEventNotificationParam& p_param) {
 			LegoRaceCar::FUN_10012de0();
 			m_destLocation = LegoGameState::e_infomain;
 			result = 1;
-			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+			TransitionManager()->StartTransition(
+				MxTransitionManager::e_mosaic,
+				50,
+				FALSE,
+				FALSE
+			);
 			break;
 		default:
 			break;
@@ -151,7 +180,7 @@ MxLong JetskiRace::HandleClick(LegoEventNotificationParam& p_param) {
 // FUNCTION: BETA10 0x100c8085
 MxLong JetskiRace::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	MxLong result = 0;
-	MxEntity* sender = (MxEntity*)p_param.GetSender();
+	MxEntity* sender = (MxEntity*) p_param.GetSender();
 
 	if (p_param.GetTrigger() == 68) {
 		MxS32 paramData = p_param.GetData();
@@ -164,7 +193,12 @@ MxLong JetskiRace::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 
 			m_unk0x104 = paramData;
 			LegoChar buffer[20];
-			sprintf(buffer, "%g", 0.032 + 0.936 * (m_unk0xf8 * 20.0 + m_unk0x104) / (g_unk0x100f0c78 * 20.0));
+			sprintf(
+				buffer,
+				"%g",
+				0.032 + 0.936 * (m_unk0xf8 * 20.0 + m_unk0x104) /
+							(g_unk0x100f0c78 * 20.0)
+			);
 			VariableTable()->SetVariable("DISTANCE", buffer);
 
 			if (m_unk0x104 == 0x14) {
@@ -176,11 +210,9 @@ MxLong JetskiRace::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 
 					if (m_unk0xfc < m_unk0xf8 && m_unk0x100 < m_unk0xf8) {
 						position = 3;
-					}
-					else if (m_unk0xfc < m_unk0xf8 || m_unk0x100 < m_unk0xf8) {
+					} else if (m_unk0xfc < m_unk0xf8 || m_unk0x100 < m_unk0xf8) {
 						position = 2;
-					}
-					else {
+					} else {
 						position = 1;
 					}
 
@@ -189,21 +221,26 @@ MxLong JetskiRace::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 					LegoRaceCar::FUN_10012de0();
 					m_raceState->m_unk0x28 = 2;
 
-					RaceState::Entry* raceStateEntry = m_raceState->GetState(GameState()->GetActorId());
+					RaceState::Entry* raceStateEntry =
+						m_raceState->GetState(GameState()->GetActorId());
 					raceStateEntry->m_unk0x02 = position;
 
-					if (raceStateEntry->m_score < (MxS16)position) {
+					if (raceStateEntry->m_score < (MxS16) position) {
 						raceStateEntry->m_score = position;
 					}
 
 					m_destLocation = LegoGameState::e_jetrace2;
 
-					TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+					TransitionManager()->StartTransition(
+						MxTransitionManager::e_mosaic,
+						50,
+						FALSE,
+						FALSE
+					);
 				}
 
 				result = 1;
-			}
-			else if (m_unk0x104 == 0xf) {
+			} else if (m_unk0x104 == 0xf) {
 				m_hideAnim->FUN_1006db40(m_unk0xf8 * 200 + 100);
 				result = 1;
 			}
@@ -222,7 +259,8 @@ MxLong JetskiRace::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 				m_unk0xfc++;
 
 				if (g_unk0x100f0c78 == m_unk0xfc) {
-					((LegoPathActor*)p_param.GetSender())->SetMaxLinearVel(0.1);
+					((LegoPathActor*) p_param.GetSender())
+						->SetMaxLinearVel(0.1);
 				}
 			}
 
@@ -241,7 +279,8 @@ MxLong JetskiRace::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 				m_unk0x100++;
 
 				if (g_unk0x100f0c78 == m_unk0x100) {
-					((LegoPathActor*)p_param.GetSender())->SetMaxLinearVel(0.1);
+					((LegoPathActor*) p_param.GetSender())
+						->SetMaxLinearVel(0.1);
 				}
 			}
 
@@ -261,17 +300,18 @@ void JetskiRace::FUN_10016930(MxS32 p_param1, MxS16 p_param2) {
 	if (p_param1 == 11) {
 		presenter = m_unk0x128;
 		local4 = m_unk0xfc;
-	}
-	else if (p_param1 == 12) {
+	} else if (p_param1 == 12) {
 		presenter = m_unk0x12c;
 		local4 = m_unk0x100;
 	}
 
 	if (presenter) {
 		x = m_unk0x130.GetLeft() + 0.5 +
-			(m_unk0x130.GetRight() - m_unk0x130.GetLeft() + 1) * (local4 * 20.0 + p_param2) / (g_unk0x100f0c78 * 20.0);
+			(m_unk0x130.GetRight() - m_unk0x130.GetLeft() + 1) *
+				(local4 * 20.0 + p_param2) / (g_unk0x100f0c78 * 20.0);
 		y = m_unk0x130.GetTop() + 0.5 +
-			(m_unk0x130.GetBottom() - m_unk0x130.GetTop() + 1) * (local4 * 20.0 + p_param2) / (g_unk0x100f0c78 * 20.0);
+			(m_unk0x130.GetBottom() - m_unk0x130.GetTop() + 1) *
+				(local4 * 20.0 + p_param2) / (g_unk0x100f0c78 * 20.0);
 
 		presenter->SetPosition(x, y);
 	}

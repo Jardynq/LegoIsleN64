@@ -32,7 +32,8 @@ public:
 	// FUNCTION: BETA10 0x100aa9e0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoCarRaceActor::ClassName()) || LegoRaceActor::IsA(p_name);
+		return !strcmp(p_name, LegoCarRaceActor::ClassName()) ||
+			   LegoRaceActor::IsA(p_name);
 	}
 
 	inline MxU32 VTable0x6c(
@@ -44,8 +45,11 @@ public:
 		Vector3& p_v3
 	) override;                          // vtable+0x6c
 	void Animate(float p_time) override; // vtable+0x70
-	void SwitchBoundary(LegoPathBoundary*& p_boundary, LegoUnknown100db7f4*& p_edge, float& p_unk0xe4)
-		override;                   // vtable+0x98
+	void SwitchBoundary(
+		LegoPathBoundary*& p_boundary,
+		LegoUnknown100db7f4*& p_edge,
+		float& p_unk0xe4
+	) override;                     // vtable+0x98
 	MxResult VTable0x9c() override; // vtable+0x9c
 
 	// LegoCarRaceActor vtable
@@ -53,24 +57,31 @@ public:
 	virtual void FUN_10080590(float p_time); // vtable+0x00
 
 	// FUNCTION: LEGO1 0x10012bb0
-	virtual void FUN_10012bb0(float p_unk0x14) { m_unk0x14 = p_unk0x14; } // vtable+0x04
+	virtual void FUN_10012bb0(float p_unk0x14) {
+		m_unk0x14 = p_unk0x14;
+	} // vtable+0x04
 
 	// FUNCTION: LEGO1 0x10012bc0
 	virtual float FUN_10012bc0() { return m_unk0x14; } // vtable+0x08
 
 	// FUNCTION: LEGO1 0x10012bd0
-	virtual void FUN_10012bd0(float p_unk0x10) { m_unk0x10 = p_unk0x10; } // vtable+0x0c
+	virtual void FUN_10012bd0(float p_unk0x10) {
+		m_unk0x10 = p_unk0x10;
+	} // vtable+0x0c
 
 	// FUNCTION: LEGO1 0x10012be0
 	virtual float FUN_10012be0() { return m_unk0x10; } // vtable+0x10
 
 	// FUNCTION: LEGO1 0x10012bf0
-	virtual void FUN_10012bf0(float p_unk0x18) { m_unk0x18 = p_unk0x18; } // vtable+0x14
+	virtual void FUN_10012bf0(float p_unk0x18) {
+		m_unk0x18 = p_unk0x18;
+	} // vtable+0x14
 
 	// FUNCTION: LEGO1 0x10012c00
 	virtual float FUN_10012c00() { return m_unk0x18; } // vtable+0x18
 
-	virtual MxS32 VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_edge); // vtable+0x1c
+	virtual MxS32
+	VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_edge); // vtable+0x1c
 
 	// SYNTHETIC: LEGO1 0x10012c30
 	// LegoCarRaceActor::`vbase destructor'
@@ -124,7 +135,8 @@ public:
 	// FUNCTION: BETA10 0x100aa960
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoJetskiRaceActor::ClassName()) || LegoCarRaceActor::IsA(p_name);
+		return !strcmp(p_name, LegoJetskiRaceActor::ClassName()) ||
+			   LegoCarRaceActor::IsA(p_name);
 	}
 
 	inline MxU32 VTable0x6c(
@@ -134,9 +146,10 @@ public:
 		float p_f1,
 		float p_f2,
 		Vector3& p_v3
-	) override;                                                                // vtable+0x6c
-	void Animate(float p_time) override;                                       // vtable+0x70
-	MxS32 VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_edge) override; // vtable+0x1c
+	) override;                          // vtable+0x6c
+	void Animate(float p_time) override; // vtable+0x70
+	MxS32 VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_edge)
+		override; // vtable+0x1c
 
 	// SYNTHETIC: LEGO1 0x10013a80
 	// LegoJetskiRaceActor::`vbase destructor'

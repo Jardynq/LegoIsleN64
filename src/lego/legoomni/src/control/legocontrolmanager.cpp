@@ -9,7 +9,6 @@
 #include "mxpresenter.h"
 #include "mxticklemanager.h"
 
-
 // FUNCTION: LEGO1 0x10028520
 LegoControlManager::LegoControlManager() {
 	m_presenterList = NULL;
@@ -48,7 +47,10 @@ void LegoControlManager::Unregister(MxCore* p_listener) {
 }
 
 // FUNCTION: LEGO1 0x10029210
-MxBool LegoControlManager::FUN_10029210(LegoEventNotificationParam& p_param, MxPresenter* p_presenter) {
+MxBool LegoControlManager::FUN_10029210(
+	LegoEventNotificationParam& p_param,
+	MxPresenter* p_presenter
+) {
 	if (m_presenterList != NULL && m_presenterList->GetCount() != 0) {
 		m_unk0x14 = p_presenter;
 
@@ -70,27 +72,23 @@ MxBool LegoControlManager::FUN_10029210(LegoEventNotificationParam& p_param, MxP
 				if (g_unk0x100f31b0 != -1 && g_unk0x100f31b4 != NULL) {
 					if (m_unk0x08 == 2) {
 						return FUN_10029750();
-					}
-					else {
+					} else {
 						m_unk0x0c = 1;
 						return TRUE;
 					}
 				}
-			}
-			else if (p_param.GetNotification() == c_notificationButtonDown) {
+			} else if (p_param.GetNotification() == c_notificationButtonDown) {
 				if (m_unk0x0c == 1) {
 					m_unk0x10 = TRUE;
 					return TRUE;
-				}
-				else {
+				} else {
 					return FUN_10029630();
 				}
 			}
 		}
 
 		return FALSE;
-	}
-	else {
+	} else {
 		g_unk0x100f31b0 = -1;
 		g_unk0x100f31b4 = NULL;
 
@@ -111,7 +109,11 @@ void LegoControlManager::FUN_100292e0() {
 }
 
 // FUNCTION: LEGO1 0x100293c0
-void LegoControlManager::FUN_100293c0(MxU32 p_objectId, const char* p_atom, MxS16 p_unk0x4e) {
+void LegoControlManager::FUN_100293c0(
+	MxU32 p_objectId,
+	const char* p_atom,
+	MxS16 p_unk0x4e
+) {
 	if (m_presenterList) {
 		MxPresenterListCursor cursor(m_presenterList);
 		MxPresenter* control;
@@ -119,10 +121,11 @@ void LegoControlManager::FUN_100293c0(MxU32 p_objectId, const char* p_atom, MxS1
 		while (cursor.Next(control)) {
 			MxDSAction* action = control->GetAction();
 
-			if (action->GetObjectId() == p_objectId && action->GetAtomId().GetInternal() == p_atom) {
-				((MxControlPresenter*)control)->VTable0x6c(p_unk0x4e);
+			if (action->GetObjectId() == p_objectId &&
+				action->GetAtomId().GetInternal() == p_atom) {
+				((MxControlPresenter*) control)->VTable0x6c(p_unk0x4e);
 
-				if (((MxControlPresenter*)control)->GetUnknown0x4e() == 0) {
+				if (((MxControlPresenter*) control)->GetUnknown0x4e() == 0) {
 					g_unk0x100f31b0 = -1;
 					g_unk0x100f31b4 = NULL;
 					break;
@@ -137,12 +140,14 @@ MxControlPresenter* LegoControlManager::FUN_100294e0(MxS32 p_x, MxS32 p_y) {
 	if (m_presenterList) {
 		MxPresenterListCursor cursor(m_presenterList);
 		MxPresenter* control;
-		MxVideoPresenter* presenter = (MxVideoPresenter*)VideoManager()->GetPresenterAt(p_x, p_y);
+		MxVideoPresenter* presenter =
+			(MxVideoPresenter*) VideoManager()->GetPresenterAt(p_x, p_y);
 
 		if (presenter) {
 			while (cursor.Next(control)) {
-				if (((MxControlPresenter*)control)->FUN_10044270(p_x, p_y, presenter)) {
-					return (MxControlPresenter*)control;
+				if (((MxControlPresenter*) control)
+						->FUN_10044270(p_x, p_y, presenter)) {
+					return (MxControlPresenter*) control;
 				}
 			}
 		}
@@ -157,8 +162,7 @@ MxResult LegoControlManager::Tickle() {
 		m_event.SetNotification(c_notificationButtonUp);
 		FUN_10029750();
 		return 0;
-	}
-	else if (m_unk0x08 == 1) {
+	} else if (m_unk0x08 == 1) {
 		m_unk0x08 = 2;
 	}
 	return 0;
@@ -170,7 +174,8 @@ MxBool LegoControlManager::FUN_10029630() {
 	MxPresenter* presenter;
 
 	while (cursor.Next(presenter)) {
-		if (((MxControlPresenter*)presenter)->FUN_10044480(&m_event, m_unk0x14)) {
+		if (((MxControlPresenter*) presenter)
+				->FUN_10044480(&m_event, m_unk0x14)) {
 			g_unk0x100f31b0 = m_event.GetClickedObjectId();
 			g_unk0x100f31b4 = m_event.GetClickedAtom();
 			FUN_100292e0();
@@ -188,9 +193,12 @@ MxBool LegoControlManager::FUN_10029750() {
 	MxPresenter* presenter;
 
 	while (cursor.Next(presenter)) {
-		if (presenter->GetAction() && presenter->GetAction()->GetObjectId() == g_unk0x100f31b0 &&
-			presenter->GetAction()->GetAtomId().GetInternal() == g_unk0x100f31b4) {
-			if (((MxControlPresenter*)presenter)->FUN_10044480(&m_event, m_unk0x14)) {
+		if (presenter->GetAction() &&
+			presenter->GetAction()->GetObjectId() == g_unk0x100f31b0 &&
+			presenter->GetAction()->GetAtomId().GetInternal() ==
+				g_unk0x100f31b4) {
+			if (((MxControlPresenter*) presenter)
+					->FUN_10044480(&m_event, m_unk0x14)) {
 				FUN_100292e0();
 			}
 

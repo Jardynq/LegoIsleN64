@@ -6,7 +6,6 @@
 #include "mxnotificationparam.h"
 #include "scripts.h"
 
-
 // FUNCTION: LEGO1 0x1002c780
 MxResult IsleActor::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoEntity::Create(p_dsAction);
@@ -26,20 +25,21 @@ MxResult IsleActor::Create(MxDSAction& p_dsAction) {
 // FUNCTION: BETA10 0x1003622e
 MxLong IsleActor::Notify(MxParam& p_param) {
 	MxLong result = 0;
-	MxNotificationParam& param = (MxNotificationParam&)p_param;
+	MxNotificationParam& param = (MxNotificationParam&) p_param;
 
 	switch (param.GetNotification()) {
 	case c_notificationType0:
 		result = VTable0x6c();
 		break;
 	case c_notificationEndAction:
-		result = HandleEndAction((MxEndActionNotificationParam&)p_param);
+		result = HandleEndAction((MxEndActionNotificationParam&) p_param);
 		break;
 	case c_notificationButtonUp:
-		result = HandleButtonUp((LegoControlManagerNotificationParam&)p_param);
+		result = HandleButtonUp((LegoControlManagerNotificationParam&) p_param);
 		break;
 	case c_notificationButtonDown:
-		result = HandleButtonDown((LegoControlManagerNotificationParam&)p_param);
+		result =
+			HandleButtonDown((LegoControlManagerNotificationParam&) p_param);
 		break;
 	case c_notificationClick:
 		result = HandleClick();
@@ -48,7 +48,7 @@ MxLong IsleActor::Notify(MxParam& p_param) {
 		result = HandleEndAnim();
 		break;
 	case c_notificationPathStruct:
-		result = HandlePathStruct((LegoPathStructNotificationParam&)p_param);
+		result = HandlePathStruct((LegoPathStructNotificationParam&) p_param);
 		break;
 	}
 

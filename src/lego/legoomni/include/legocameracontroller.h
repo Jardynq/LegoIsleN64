@@ -37,7 +37,11 @@ public:
 	virtual void OnMouseMove(MxU8 p_modifier, MxPoint32 p_point); // vtable+0x40
 	virtual MxResult Create();                                    // vtable+0x44
 
-	void SetWorldTransform(const Vector3& p_at, const Vector3& p_dir, const Vector3& p_up);
+	void SetWorldTransform(
+		const Vector3& p_at,
+		const Vector3& p_dir,
+		const Vector3& p_up
+	);
 	void FUN_10012290(float p_angle);
 	void FUN_10012320(float p_angle);
 	MxResult FUN_100123b0(Matrix4& p_matrix);

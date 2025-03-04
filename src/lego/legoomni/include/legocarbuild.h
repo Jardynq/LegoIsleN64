@@ -84,10 +84,7 @@ public:
 		undefined4 m_unk0x18; // 0x18
 	};
 
-	enum Unknown0xf8 {
-		c_unknownminusone = -1,
-		c_unknown8 = 8
-	};
+	enum Unknown0xf8 { c_unknownminusone = -1, c_unknown8 = 8 };
 
 	LegoCarBuild();
 	~LegoCarBuild() override;
@@ -110,18 +107,22 @@ public:
 	// FUNCTION: LEGO1 0x10022950
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoCarBuild::ClassName()) || LegoWorld::IsA(p_name);
+		return !strcmp(p_name, LegoCarBuild::ClassName()) ||
+			   LegoWorld::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override;                  // vtable+0x18
-	void ReadyWorld() override;                                        // vtable+0x50
-	MxBool Escape() override;                                          // vtable+0x64
-	void Enable(MxBool p_enable) override;                             // vtable+0x68
-	virtual void VTable0x6c();                                         // vtable+0x6c
-	virtual void VTable0x70();                                         // vtable+0x70
-	virtual void VTable0x74(MxFloat p_param1[2], MxFloat p_param2[3]); // vtable+0x74
-	virtual void VTable0x78(MxFloat p_param1[2], MxFloat p_param2[3]); // vtable+0x78
-	virtual void VTable0x7c(MxFloat p_param1[2], MxFloat p_param2[3]); // vtable+0x7c
+	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
+	void ReadyWorld() override;                       // vtable+0x50
+	MxBool Escape() override;                         // vtable+0x64
+	void Enable(MxBool p_enable) override;            // vtable+0x68
+	virtual void VTable0x6c();                        // vtable+0x6c
+	virtual void VTable0x70();                        // vtable+0x70
+	virtual void
+	VTable0x74(MxFloat p_param1[2], MxFloat p_param2[3]); // vtable+0x74
+	virtual void
+	VTable0x78(MxFloat p_param1[2], MxFloat p_param2[3]); // vtable+0x78
+	virtual void
+	VTable0x7c(MxFloat p_param1[2], MxFloat p_param2[3]); // vtable+0x7c
 	virtual void VTable0x80(
 		MxFloat p_param1[2],
 		MxFloat p_param2[2],
@@ -161,7 +162,9 @@ public:
 	MxS32 FUN_10025ee0(undefined4 p_param1);
 
 	// FUNCTION: BETA10 0x100735b0
-	void SetUnknown0x258(LegoCarBuildAnimPresenter* p_unk0x258) { m_unk0x258 = p_unk0x258; }
+	void SetUnknown0x258(LegoCarBuildAnimPresenter* p_unk0x258) {
+		m_unk0x258 = p_unk0x258;
+	}
 
 	// SYNTHETIC: LEGO1 0x10022a60
 	// LegoCarBuild::`scalar deleting destructor'

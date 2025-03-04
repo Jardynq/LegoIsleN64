@@ -19,20 +19,18 @@
 #include <stdio.h>
 #include <vec.h>
 
-
 // GLOBAL: LEGO1 0x100f1660
 const char* g_plantLodNames[4][5] = {
 	{"flwrwht", "flwrblk", "flwryel", "flwrred", "flwrgrn"},
 	{"treewht", "treeblk", "treeyel", "treered", "tree"},
 	{"bushwht", "bushblk", "bushyel", "bushred", "bush"},
-	{"palmwht", "palmblk", "palmyel", "palmred", "palm"}
-};
+	{"palmwht", "palmblk", "palmyel", "palmred", "palm"}};
 
 // GLOBAL: LEGO1 0x100f16b0
-float g_unk0x100f16b0[] = { 0.1f, 0.7f, 0.5f, 0.9f };
+float g_unk0x100f16b0[] = {0.1f, 0.7f, 0.5f, 0.9f};
 
 // GLOBAL: LEGO1 0x100f16c0
-MxU8 g_unk0x100f16c0[] = { 1, 2, 2, 3 };
+MxU8 g_unk0x100f16c0[] = {1, 2, 2, 3};
 
 // GLOBAL: LEGO1 0x100f315c
 MxU32 LegoPlantManager::g_maxSound = 8;
@@ -44,10 +42,10 @@ MxU32 g_unk0x100f3160 = 56;
 MxU32 g_unk0x100f3164 = 66;
 
 // GLOBAL: LEGO1 0x100f3168
-MxS32 LegoPlantManager::g_maxMove[4] = { 3, 3, 3, 3 };
+MxS32 LegoPlantManager::g_maxMove[4] = {3, 3, 3, 3};
 
 // GLOBAL: LEGO1 0x100f3178
-MxU32 g_plantAnimationId[4] = { 30, 33, 36, 39 };
+MxU32 g_plantAnimationId[4] = {30, 33, 36, 39};
 
 // GLOBAL: LEGO1 0x100f3188
 // GLOBAL: BETA10 0x101f4e70
@@ -99,7 +97,11 @@ void LegoPlantManager::LoadWorldInfo(LegoOmni::World p_worldId) {
 // FUNCTION: BETA10 0x100c5093
 void LegoPlantManager::Reset(LegoOmni::World p_worldId) {
 	MxU32 i;
-	DeleteObjects(g_sndAnimScript, SndanimScript::c_AnimC1, SndanimScript::c_AnimBld18);
+	DeleteObjects(
+		g_sndAnimScript,
+		SndanimScript::c_AnimC1,
+		SndanimScript::c_AnimBld18
+	);
 
 	for (i = 0; i < m_numEntries; i++) {
 		delete m_entries[i];
@@ -128,18 +130,26 @@ MxResult LegoPlantManager::FUN_10026410() {
 
 	for (MxS32 i = 0; i < sizeOfArray(g_plantInfo); i++) {
 		if (g_plantInfo[i].m_entity != NULL && g_plantInfo[i].m_name != NULL) {
-			g_plantInfo[i].m_boundary = world->FindPathBoundary(g_plantInfo[i].m_name);
+			g_plantInfo[i].m_boundary =
+				world->FindPathBoundary(g_plantInfo[i].m_name);
 
 			if (g_plantInfo[i].m_boundary != NULL) {
-				Mx3DPointFloat position(g_plantInfo[i].m_x, g_plantInfo[i].m_y, g_plantInfo[i].m_z);
+				Mx3DPointFloat position(
+					g_plantInfo[i].m_x,
+					g_plantInfo[i].m_y,
+					g_plantInfo[i].m_z
+				);
 				LegoPathBoundary* boundary = g_plantInfo[i].m_boundary;
 
 				for (MxS32 j = 0; j < boundary->GetNumEdges(); j++) {
 					Mx4DPointFloat* normal = boundary->GetEdgeNormal(j);
 
-					if (position.Dot(*normal, position) + (*normal).index_operator(3) < -0.001) {
+					if (position.Dot(*normal, position) +
+							(*normal).index_operator(3) <
+						-0.001) {
 						MxTrace(
-							"Plant %d shot location (%g, %g, %g) is not in boundary %s.\n",
+							"Plant %d shot location (%g, %g, %g) is not in "
+							"boundary %s.\n",
 							i,
 							position[0],
 							position[1],
@@ -152,18 +162,25 @@ MxResult LegoPlantManager::FUN_10026410() {
 				}
 
 				if (g_plantInfo[i].m_boundary != NULL) {
-					Mx4DPointFloat& unk0x14 = *g_plantInfo[i].m_boundary->GetUnknown0x14();
+					Mx4DPointFloat& unk0x14 =
+						*g_plantInfo[i].m_boundary->GetUnknown0x14();
 
-					if (position.Dot(position, unk0x14) + unk0x14.index_operator(3) > 0.001 ||
-						position.Dot(position, unk0x14) + unk0x14.index_operator(3) < -0.001) {
+					if (position.Dot(position, unk0x14) +
+								unk0x14.index_operator(3) >
+							0.001 ||
+						position.Dot(position, unk0x14) +
+								unk0x14.index_operator(3) <
+							-0.001) {
 
 						g_plantInfo[i].m_y =
-							-((position[0] * unk0x14.index_operator(0) + unk0x14.index_operator(3) +
-								position[2] * unk0x14.index_operator(2)) /
-								unk0x14.index_operator(1));
+							-((position[0] * unk0x14.index_operator(0) +
+							   unk0x14.index_operator(3) +
+							   position[2] * unk0x14.index_operator(2)) /
+							  unk0x14.index_operator(1));
 
 						MxTrace(
-							"Plant %d shot location (%g, %g, %g) is not on plane of boundary %s...adjusting to (%g, "
+							"Plant %d shot location (%g, %g, %g) is not on "
+							"plane of boundary %s...adjusting to (%g, "
 							"%g, "
 							"%g)\n",
 							i,
@@ -177,9 +194,12 @@ MxResult LegoPlantManager::FUN_10026410() {
 						);
 					}
 				}
-			}
-			else {
-				MxTrace("Plant %d is in boundary %s that does not exist.\n", i, g_plantInfo[i].m_name);
+			} else {
+				MxTrace(
+					"Plant %d is in boundary %s that does not exist.\n",
+					i,
+					g_plantInfo[i].m_name
+				);
 			}
 		}
 	}
@@ -201,21 +221,32 @@ LegoPlantInfo* LegoPlantManager::GetInfoArray(MxS32& p_length) {
 
 // FUNCTION: LEGO1 0x10026590
 // FUNCTION: BETA10 0x100c561e
-LegoEntity* LegoPlantManager::CreatePlant(MxS32 p_index, LegoWorld* p_world, LegoOmni::World p_worldId) {
+LegoEntity* LegoPlantManager::CreatePlant(
+	MxS32 p_index,
+	LegoWorld* p_world,
+	LegoOmni::World p_worldId
+) {
 	LegoEntity* entity = NULL;
 
 	if (p_index < sizeOfArray(g_plantInfo)) {
-		MxU32 world = 1 << (MxU8)p_worldId;
+		MxU32 world = 1 << (MxU8) p_worldId;
 
-		if (g_plantInfo[p_index].m_worlds & world && g_plantInfo[p_index].m_unk0x16 != 0) {
+		if (g_plantInfo[p_index].m_worlds & world &&
+			g_plantInfo[p_index].m_unk0x16 != 0) {
 			if (g_plantInfo[p_index].m_entity == NULL) {
 				char name[256];
 				char lodName[256];
 
 				sprintf(name, "plant%d", p_index);
-				sprintf(lodName, "%s", g_plantLodNames[g_plantInfo[p_index].m_variant][g_plantInfo[p_index].m_color]);
+				sprintf(
+					lodName,
+					"%s",
+					g_plantLodNames[g_plantInfo[p_index].m_variant]
+								   [g_plantInfo[p_index].m_color]
+				);
 
-				LegoROI* roi = CharacterManager()->CreateAutoROI(name, lodName, TRUE);
+				LegoROI* roi =
+					CharacterManager()->CreateAutoROI(name, lodName, TRUE);
 				roi->SetVisibility(TRUE);
 
 				entity = roi->GetEntity();
@@ -227,8 +258,7 @@ LegoEntity* LegoPlantManager::CreatePlant(MxS32 p_index, LegoWorld* p_world, Leg
 				);
 				entity->SetType(LegoEntity::e_plant);
 				g_plantInfo[p_index].m_entity = entity;
-			}
-			else {
+			} else {
 				entity = g_plantInfo[p_index].m_entity;
 			}
 		}
@@ -241,10 +271,13 @@ LegoEntity* LegoPlantManager::CreatePlant(MxS32 p_index, LegoWorld* p_world, Leg
 // FUNCTION: BETA10 0x100c5859
 void LegoPlantManager::RemovePlant(MxS32 p_index, LegoOmni::World p_worldId) {
 	if (p_index < sizeOfArray(g_plantInfo)) {
-		MxU32 world = 1 << (MxU8)p_worldId;
+		MxU32 world = 1 << (MxU8) p_worldId;
 
-		if (g_plantInfo[p_index].m_worlds & world && g_plantInfo[p_index].m_entity != NULL) {
-			CharacterManager()->ReleaseAutoROI(g_plantInfo[p_index].m_entity->GetROI());
+		if (g_plantInfo[p_index].m_worlds & world &&
+			g_plantInfo[p_index].m_entity != NULL) {
+			CharacterManager()->ReleaseAutoROI(
+				g_plantInfo[p_index].m_entity->GetROI()
+			);
 			g_plantInfo[p_index].m_entity = NULL;
 		}
 	}
@@ -258,10 +291,12 @@ MxResult LegoPlantManager::Write(LegoStorage* p_storage) {
 	for (MxS32 i = 0; i < sizeOfArray(g_plantInfo); i++) {
 		LegoPlantInfo* info = &g_plantInfo[i];
 
-		if (p_storage->Write(&info->m_variant, sizeof(info->m_variant)) != SUCCESS) {
+		if (p_storage->Write(&info->m_variant, sizeof(info->m_variant)) !=
+			SUCCESS) {
 			goto done;
 		}
-		if (p_storage->Write(&info->m_sound, sizeof(info->m_sound)) != SUCCESS) {
+		if (p_storage->Write(&info->m_sound, sizeof(info->m_sound)) !=
+			SUCCESS) {
 			goto done;
 		}
 		if (p_storage->Write(&info->m_move, sizeof(info->m_move)) != SUCCESS) {
@@ -270,10 +305,14 @@ MxResult LegoPlantManager::Write(LegoStorage* p_storage) {
 		if (p_storage->Write(&info->m_mood, sizeof(info->m_mood)) != SUCCESS) {
 			goto done;
 		}
-		if (p_storage->Write(&info->m_color, sizeof(info->m_color)) != SUCCESS) {
+		if (p_storage->Write(&info->m_color, sizeof(info->m_color)) !=
+			SUCCESS) {
 			goto done;
 		}
-		if (p_storage->Write(&info->m_initialUnk0x16, sizeof(info->m_initialUnk0x16)) != SUCCESS) {
+		if (p_storage->Write(
+				&info->m_initialUnk0x16,
+				sizeof(info->m_initialUnk0x16)
+			) != SUCCESS) {
 			goto done;
 		}
 	}
@@ -292,7 +331,8 @@ MxResult LegoPlantManager::Read(LegoStorage* p_storage) {
 	for (MxS32 i = 0; i < sizeOfArray(g_plantInfo); i++) {
 		LegoPlantInfo* info = &g_plantInfo[i];
 
-		if (p_storage->Read(&info->m_variant, sizeof(info->m_variant)) != SUCCESS) {
+		if (p_storage->Read(&info->m_variant, sizeof(info->m_variant)) !=
+			SUCCESS) {
 			goto done;
 		}
 		if (p_storage->Read(&info->m_sound, sizeof(info->m_sound)) != SUCCESS) {
@@ -307,7 +347,8 @@ MxResult LegoPlantManager::Read(LegoStorage* p_storage) {
 		if (p_storage->Read(&info->m_color, sizeof(info->m_color)) != SUCCESS) {
 			goto done;
 		}
-		if (p_storage->Read(&info->m_unk0x16, sizeof(info->m_unk0x16)) != SUCCESS) {
+		if (p_storage->Read(&info->m_unk0x16, sizeof(info->m_unk0x16)) !=
+			SUCCESS) {
 			goto done;
 		}
 
@@ -328,10 +369,12 @@ void LegoPlantManager::FUN_10026860(MxS32 p_index) {
 
 	if (g_plantInfo[p_index].m_unk0x16 >= 0) {
 		float value = g_unk0x100f16c0[variant] - g_plantInfo[p_index].m_unk0x16;
-		g_plantInfo[p_index].m_position[1] = g_plantInfoInit[p_index].m_position[1] - value * g_unk0x100f16b0[variant];
-	}
-	else {
-		g_plantInfo[p_index].m_position[1] = g_plantInfoInit[p_index].m_position[1];
+		g_plantInfo[p_index].m_position[1] =
+			g_plantInfoInit[p_index].m_position[1] -
+			value * g_unk0x100f16b0[variant];
+	} else {
+		g_plantInfo[p_index].m_position[1] =
+			g_plantInfoInit[p_index].m_position[1];
 	}
 }
 
@@ -375,10 +418,16 @@ MxBool LegoPlantManager::SwitchColor(LegoEntity* p_entity) {
 		info->m_color = LegoPlantInfo::e_white;
 	}
 
-	ViewLODList* lodList = GetViewLODListManager()->Lookup(g_plantLodNames[info->m_variant][info->m_color]);
+	ViewLODList* lodList = GetViewLODListManager()->Lookup(
+		g_plantLodNames[info->m_variant][info->m_color]
+	);
 
 	if (roi->GetUnknown0xe0() >= 0) {
-		VideoManager()->Get3DManager()->GetLego3DView()->GetViewManager()->RemoveROIDetailFromScene(roi);
+		VideoManager()
+			->Get3DManager()
+			->GetLego3DView()
+			->GetViewManager()
+			->RemoveROIDetailFromScene(roi);
 	}
 
 	roi->SetLODList(lodList);
@@ -403,10 +452,16 @@ MxBool LegoPlantManager::SwitchVariant(LegoEntity* p_entity) {
 		info->m_variant = LegoPlantInfo::e_flower;
 	}
 
-	ViewLODList* lodList = GetViewLODListManager()->Lookup(g_plantLodNames[info->m_variant][info->m_color]);
+	ViewLODList* lodList = GetViewLODListManager()->Lookup(
+		g_plantLodNames[info->m_variant][info->m_color]
+	);
 
 	if (roi->GetUnknown0xe0() >= 0) {
-		VideoManager()->Get3DManager()->GetLego3DView()->GetViewManager()->RemoveROIDetailFromScene(roi);
+		VideoManager()
+			->Get3DManager()
+			->GetLego3DView()
+			->GetViewManager()
+			->RemoveROIDetailFromScene(roi);
 	}
 
 	roi->SetLODList(lodList);
@@ -518,8 +573,7 @@ void LegoPlantManager::SetCustomizeAnimFile(const char* p_value) {
 		if (g_customizeAnimFile != NULL) {
 			strcpy(g_customizeAnimFile, p_value);
 		}
-	}
-	else {
+	} else {
 		g_customizeAnimFile = NULL;
 	}
 }
@@ -565,13 +619,16 @@ MxBool LegoPlantManager::FUN_10026c80(MxS32 p_index) {
 
 		if (info->m_unk0x16 == 0) {
 			roi->SetVisibility(FALSE);
-		}
-		else {
+		} else {
 			FUN_10026860(info - g_plantInfo);
-			info->m_entity->SetLocation(info->m_position, info->m_direction, info->m_up, FALSE);
+			info->m_entity->SetLocation(
+				info->m_position,
+				info->m_direction,
+				info->m_up,
+				FALSE
+			);
 		}
-	}
-	else {
+	} else {
 		result = FALSE;
 	}
 
@@ -579,7 +636,10 @@ MxBool LegoPlantManager::FUN_10026c80(MxS32 p_index) {
 }
 
 // FUNCTION: LEGO1 0x10026d70
-void LegoPlantManager::ScheduleAnimation(LegoEntity* p_entity, MxLong p_length) {
+void LegoPlantManager::ScheduleAnimation(
+	LegoEntity* p_entity,
+	MxLong p_length
+) {
 	m_world = CurrentWorld();
 
 	if (m_numEntries == 0) {
@@ -632,8 +692,10 @@ MxResult LegoPlantManager::Tickle() {
 
 			ZEROVEC3(locald8[3]);
 
-			locald8[1][0] = sin(((entry->m_time - time) * 2) * 0.0062832f) * 0.2;
-			locald8[1][2] = sin(((entry->m_time - time) * 4) * 0.0062832f) * 0.2;
+			locald8[1][0] =
+				sin(((entry->m_time - time) * 2) * 0.0062832f) * 0.2;
+			locald8[1][2] =
+				sin(((entry->m_time - time) * 4) * 0.0062832f) * 0.2;
 			locald8.Scale(1.03f, 0.95f, 1.03f);
 
 			SET3(locald8[3], localec);
@@ -646,10 +708,14 @@ MxResult LegoPlantManager::Tickle() {
 
 				if (info->m_unk0x16 == 0) {
 					entry->m_roi->SetVisibility(FALSE);
-				}
-				else {
+				} else {
 					FUN_10026860(info - g_plantInfo);
-					info->m_entity->SetLocation(info->m_position, info->m_direction, info->m_up, FALSE);
+					info->m_entity->SetLocation(
+						info->m_position,
+						info->m_direction,
+						info->m_up,
+						FALSE
+					);
 				}
 
 				delete entry;
@@ -662,8 +728,7 @@ MxResult LegoPlantManager::Tickle() {
 				}
 			}
 		}
-	}
-	else {
+	} else {
 		TickleManager()->UnregisterClient(this);
 	}
 

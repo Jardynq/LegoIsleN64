@@ -10,16 +10,14 @@
 // SIZE 0xdc
 class OrientableROI : public ROI {
 public:
-	enum {
-		c_bit1 = 0x01,
-		c_bit2 = 0x02
-	};
+	enum { c_bit1 = 0x01, c_bit2 = 0x02 };
 
 	OrientableROI();
 
-	const float* GetWorldVelocity() const override;                // vtable+0x08
-	const BoundingBox& GetWorldBoundingBox() const override;       // vtable+0x0c
-	const BoundingSphere& GetWorldBoundingSphere() const override; // vtable+0x10
+	const float* GetWorldVelocity() const override;          // vtable+0x08
+	const BoundingBox& GetWorldBoundingBox() const override; // vtable+0x0c
+	const BoundingSphere&
+	GetWorldBoundingSphere() const override; // vtable+0x10
 
 	// FUNCTION: LEGO1 0x100a5db0
 	virtual void VTable0x14() { VTable0x1c(); } // vtable+0x14
@@ -59,8 +57,7 @@ public:
 	void ToggleUnknown0xd8(BOOL p_enable) {
 		if (p_enable) {
 			m_unk0xd8 |= c_bit1 | c_bit2;
-		}
-		else {
+		} else {
 			m_unk0xd8 &= ~c_bit1;
 		}
 	}

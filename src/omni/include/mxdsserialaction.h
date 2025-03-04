@@ -25,7 +25,8 @@ public:
 	// FUNCTION: LEGO1 0x100caae0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxDSSerialAction::ClassName()) || MxDSMultiAction::IsA(p_name);
+		return !strcmp(p_name, MxDSSerialAction::ClassName()) ||
+			   MxDSMultiAction::IsA(p_name);
 	}
 
 	MxLong GetDuration() override;                // vtable+24;

@@ -33,7 +33,8 @@ public:
 // SIZE 0x10
 class LegoNamedPartListCursor : public MxPtrListCursor<LegoNamedPart> {
 public:
-	LegoNamedPartListCursor(LegoNamedPartList* p_list) : MxPtrListCursor<LegoNamedPart>(p_list) {}
+	LegoNamedPartListCursor(LegoNamedPartList* p_list)
+		: MxPtrListCursor<LegoNamedPart>(p_list) {}
 };
 
 // SYNTHETIC: LEGO1 0x1007e170

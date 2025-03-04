@@ -14,7 +14,6 @@
 #include "mxtimer.h"
 #include "scripts.h"
 
-
 // GLOBAL: LEGO1 0x100f3218
 JukeboxScript::Script g_unk0x100f3218[] = {
 	JukeboxScript::c_sns002ra_Audio,
@@ -22,8 +21,7 @@ JukeboxScript::Script g_unk0x100f3218[] = {
 	JukeboxScript::c_snsc01js_Audio,
 	JukeboxScript::c_snsb01js_Audio,
 	JukeboxScript::c_snsa01js_Audio,
-	JukeboxScript::c_sns009ra_Audio
-};
+	JukeboxScript::c_sns009ra_Audio};
 
 // GLOBAL: LEGO1 0x100f3230
 JukeboxScript::Script g_unk0x100f3230[] = {
@@ -82,13 +80,14 @@ MxLong Radio::Notify(MxParam& p_param) {
 	MxLong result = 0;
 
 	if (m_unk0x0c) {
-		MxNotificationParam& param = (MxNotificationParam&)p_param;
+		MxNotificationParam& param = (MxNotificationParam&) p_param;
 		switch (param.GetNotification()) {
 		case c_notificationEndAction:
-			result = HandleEndAction((MxEndActionNotificationParam&)p_param);
+			result = HandleEndAction((MxEndActionNotificationParam&) p_param);
 			break;
 		case c_notificationControl:
-			result = HandleControl((LegoControlManagerNotificationParam&)p_param);
+			result =
+				HandleControl((LegoControlManagerNotificationParam&) p_param);
 			break;
 		}
 	}
@@ -111,7 +110,8 @@ void Radio::Play() {
 			BackgroundAudioManager()->Enable(TRUE);
 		}
 
-		BackgroundAudioManager()->PlayMusic(action, 3, MxPresenter::e_repeating);
+		BackgroundAudioManager()
+			->PlayMusic(action, 3, MxPresenter::e_repeating);
 		m_state->SetActive(TRUE);
 	}
 }
@@ -121,7 +121,9 @@ void Radio::Stop() {
 	if (m_state->IsActive()) {
 		LegoWorld* world = CurrentWorld();
 
-		MxControlPresenter* presenter = (MxControlPresenter*)world->Find(world->GetAtomId(), IsleScript::c_Radio_Ctl);
+		MxControlPresenter* presenter =
+			(MxControlPresenter*)
+				world->Find(world->GetAtomId(), IsleScript::c_Radio_Ctl);
 
 		if (presenter) {
 			presenter->VTable0x6c(0);
@@ -141,8 +143,7 @@ MxLong Radio::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	if (objectId == IsleScript::c_Radio_Ctl) {
 		if (m_state->IsActive()) {
 			Stop();
-		}
-		else {
+		} else {
 			Play();
 		}
 
@@ -159,15 +160,18 @@ MxLong Radio::HandleControl(LegoControlManagerNotificationParam& p_param) {
 
 // FUNCTION: LEGO1 0x1002ccc0
 MxLong Radio::HandleEndAction(MxEndActionNotificationParam& p_param) {
-	if (m_state->IsActive() &&
-		m_state->FUN_1002d0c0(p_param.GetAction()->GetAtomId(), p_param.GetAction()->GetObjectId())) {
+	if (m_state->IsActive() && m_state->FUN_1002d0c0(
+								   p_param.GetAction()->GetAtomId(),
+								   p_param.GetAction()->GetObjectId()
+							   )) {
 
 		MxDSAction action;
 		action.SetAtomId(*g_jukeboxScript);
 		action.SetObjectId(m_state->FUN_1002d090());
 		action.SetLoopCount(1);
 
-		BackgroundAudioManager()->PlayMusic(action, 3, MxPresenter::e_repeating);
+		BackgroundAudioManager()
+			->PlayMusic(action, 3, MxPresenter::e_repeating);
 		return 1;
 	}
 
@@ -185,9 +189,9 @@ void Radio::Initialize(MxBool p_und) {
 // FUNCTION: LEGO1 0x1002cde0
 void Radio::CreateState() {
 	LegoGameState* gameState = GameState();
-	RadioState* state = (RadioState*)gameState->GetState("RadioState");
+	RadioState* state = (RadioState*) gameState->GetState("RadioState");
 	if (state == NULL) {
-		state = (RadioState*)gameState->CreateState("RadioState");
+		state = (RadioState*) gameState->CreateState("RadioState");
 	}
 
 	m_state = state;
@@ -201,13 +205,25 @@ RadioState::RadioState() {
 	MxS32 random = rand();
 	m_unk0x2c = random % 3;
 
-	m_unk0x08[0] = Playlist((MxU32*)g_unk0x100f3218, sizeOfArray(g_unk0x100f3218), Playlist::e_loop);
+	m_unk0x08[0] = Playlist(
+		(MxU32*) g_unk0x100f3218,
+		sizeOfArray(g_unk0x100f3218),
+		Playlist::e_loop
+	);
 	m_unk0x08[0].m_nextIndex = (rand() % sizeOfArray(g_unk0x100f3218));
 
-	m_unk0x08[1] = Playlist((MxU32*)g_unk0x100f3230, sizeOfArray(g_unk0x100f3230), Playlist::e_loop);
+	m_unk0x08[1] = Playlist(
+		(MxU32*) g_unk0x100f3230,
+		sizeOfArray(g_unk0x100f3230),
+		Playlist::e_loop
+	);
 	m_unk0x08[1].m_nextIndex = (rand() % sizeOfArray(g_unk0x100f3230));
 
-	m_unk0x08[2] = Playlist((MxU32*)g_unk0x100f3268, sizeOfArray(g_unk0x100f3268), Playlist::e_loop);
+	m_unk0x08[2] = Playlist(
+		(MxU32*) g_unk0x100f3268,
+		sizeOfArray(g_unk0x100f3268),
+		Playlist::e_loop
+	);
 	m_unk0x08[2].m_nextIndex = (rand() % sizeOfArray(g_unk0x100f3268));
 
 	m_active = FALSE;
@@ -217,8 +233,7 @@ RadioState::RadioState() {
 MxU32 RadioState::FUN_1002d090() {
 	if (m_unk0x2c == 2) {
 		m_unk0x2c = 0;
-	}
-	else {
+	} else {
 		m_unk0x2c++;
 	}
 

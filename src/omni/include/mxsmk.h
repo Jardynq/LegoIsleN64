@@ -9,20 +9,19 @@ struct MxBITMAPINFO;
 
 // These functions are not part of the public interface,
 // but present in SMACK.LIB and used directly by Mindscape.
-extern "C"
-{
-	u32 SmackGetSizeTables();
-	void SmackDoTables(
-		u8* p_huffmanTrees,
-		u8* p_huffmanTables,
-		u32 p_codeSize,
-		u32 p_abSize,
-		u32 p_detailSize,
-		u32 p_typeSize
-	);
-	void SmackDoFrameToBuffer(u8* p_source, u8* p_huffmanTables, u8* p_unk0x6b4);
-	u32 SmackGetSizeDeltas(u32 p_width, u32 p_height);
-	u8 SmackGetRect(u8* p_unk0x6b4, u32* p_rect);
+extern "C" {
+u32 SmackGetSizeTables();
+void SmackDoTables(
+	u8* p_huffmanTrees,
+	u8* p_huffmanTables,
+	u32 p_codeSize,
+	u32 p_abSize,
+	u32 p_detailSize,
+	u32 p_typeSize
+);
+void SmackDoFrameToBuffer(u8* p_source, u8* p_huffmanTables, u8* p_unk0x6b4);
+u32 SmackGetSizeDeltas(u32 p_width, u32 p_height);
+u8 SmackGetRect(u8* p_unk0x6b4, u32* p_rect);
 }
 
 // SIZE 0x6b8
@@ -46,7 +45,8 @@ struct MxSmk {
 		MxBool p_paletteChanged,
 		MxRectList* p_list
 	);
-	static MxBool GetRect(MxU8* p_unk0x6b4, MxU16* p_und, u32* p_smackRect, MxRect32* p_rect);
+	static MxBool
+	GetRect(MxU8* p_unk0x6b4, MxU16* p_und, u32* p_smackRect, MxRect32* p_rect);
 };
 
 #endif // MXSMK_H

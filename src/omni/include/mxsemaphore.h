@@ -1,7 +1,6 @@
 #ifndef MXSEMAPHORE_H
 #define MXSEMAPHORE_H
 
-
 #include <windows.h>
 
 // VTABLE: LEGO1 0x100dccf0

@@ -5,8 +5,8 @@
 #include "lego3dview.h"
 
 namespace Tgl {
-	class Renderer;
-	class Group;
+class Renderer;
+class Group;
 } // namespace Tgl
 
 class ViewROI;

@@ -33,7 +33,6 @@ Checks: >
   cppcoreguidelines-init-variables,
   cppcoreguidelines-non-private-member-variables-in-classes,
   cppcoreguidelines-prefer-member-initializer,
-  cppcoreguidelines-pro-bounds-pointer-arithmetic,
   misc-unused-alias-decls,
   misc-unused-parameters,
   misc-unused-using-decls,

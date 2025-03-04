@@ -1,7 +1,6 @@
 #ifndef LEGOLOCATIONS_H
 #define LEGOLOCATIONS_H
 
-
 // SIZE 0x60
 struct LegoLocation {
 	// SIZE 0x18

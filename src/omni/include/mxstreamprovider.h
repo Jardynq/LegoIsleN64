@@ -24,7 +24,8 @@ public:
 	// FUNCTION: LEGO1 0x100d07f0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxStreamProvider::ClassName()) || MxCore::IsA(p_name);
+		return !strcmp(p_name, MxStreamProvider::ClassName()) ||
+			   MxCore::IsA(p_name);
 	}
 
 	// FUNCTION: LEGO1 0x100d07c0

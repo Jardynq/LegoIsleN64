@@ -9,7 +9,6 @@
 #include "mxsoundmanager.h"
 #include "mxutilities.h"
 
-
 // FUNCTION: LEGO1 0x100b1ad0
 void MxWavePresenter::Init() {
 	m_waveFormat = NULL;
@@ -37,7 +36,7 @@ void MxWavePresenter::Destroy(MxBool p_fromDestructor) {
 	}
 
 	if (m_waveFormat) {
-		delete[]((MxU8*)m_waveFormat);
+		delete[]((MxU8*) m_waveFormat);
 	}
 
 	Init();
@@ -52,7 +51,10 @@ MxS8 MxWavePresenter::GetPlayedChunks() {
 	DWORD dwCurrentPlayCursor, dwCurrentWriteCursor;
 	MxS8 playedChunks = -1;
 
-	if (m_dsBuffer->GetCurrentPosition(&dwCurrentPlayCursor, &dwCurrentWriteCursor) == DS_OK) {
+	if (m_dsBuffer->GetCurrentPosition(
+			&dwCurrentPlayCursor,
+			&dwCurrentWriteCursor
+		) == DS_OK) {
 		playedChunks = dwCurrentPlayCursor / m_chunkLength;
 	}
 
@@ -85,18 +87,29 @@ void MxWavePresenter::WriteToSoundBuffer(void* p_audioPtr, MxU32 p_length) {
 		if (m_action->GetFlags() & MxDSAction::c_looping) {
 			m_writtenChunks++;
 			m_lockSize = p_length;
-		}
-		else {
+		} else {
 			m_writtenChunks = 1 - m_writtenChunks;
 			m_lockSize = m_chunkLength;
 		}
 
-		if (m_dsBuffer->Lock(dwOffset, m_lockSize, &pvAudioPtr1, &dwAudioBytes1, &pvAudioPtr2, &dwAudioBytes2, 0) ==
-			DS_OK) {
+		if (m_dsBuffer->Lock(
+				dwOffset,
+				m_lockSize,
+				&pvAudioPtr1,
+				&dwAudioBytes1,
+				&pvAudioPtr2,
+				&dwAudioBytes2,
+				0
+			) == DS_OK) {
 			memcpy(pvAudioPtr1, p_audioPtr, p_length);
 
-			if (m_lockSize > p_length && !(m_action->GetFlags() & MxDSAction::c_looping)) {
-				memset((MxU8*)pvAudioPtr1 + p_length, m_silenceData, m_lockSize - p_length);
+			if (m_lockSize > p_length &&
+				!(m_action->GetFlags() & MxDSAction::c_looping)) {
+				memset(
+					(MxU8*) pvAudioPtr1 + p_length,
+					m_silenceData,
+					m_lockSize - p_length
+				);
 			}
 
 			m_dsBuffer->Unlock(pvAudioPtr1, m_lockSize, pvAudioPtr2, 0);
@@ -130,10 +143,13 @@ void MxWavePresenter::StartingTickle() {
 
 		waveFormatEx.wFormatTag = m_waveFormat->m_pcmWaveFormat.wf.wFormatTag;
 		waveFormatEx.nChannels = m_waveFormat->m_pcmWaveFormat.wf.nChannels;
-		waveFormatEx.nSamplesPerSec = m_waveFormat->m_pcmWaveFormat.wf.nSamplesPerSec;
-		waveFormatEx.nAvgBytesPerSec = m_waveFormat->m_pcmWaveFormat.wf.nAvgBytesPerSec;
+		waveFormatEx.nSamplesPerSec =
+			m_waveFormat->m_pcmWaveFormat.wf.nSamplesPerSec;
+		waveFormatEx.nAvgBytesPerSec =
+			m_waveFormat->m_pcmWaveFormat.wf.nAvgBytesPerSec;
 		waveFormatEx.nBlockAlign = m_waveFormat->m_pcmWaveFormat.wf.nBlockAlign;
-		waveFormatEx.wBitsPerSample = m_waveFormat->m_pcmWaveFormat.wBitsPerSample;
+		waveFormatEx.wBitsPerSample =
+			m_waveFormat->m_pcmWaveFormat.wBitsPerSample;
 
 		if (waveFormatEx.wBitsPerSample == 8) {
 			m_silenceData = 0x7F;
@@ -148,27 +164,29 @@ void MxWavePresenter::StartingTickle() {
 		desc.dwSize = sizeof(desc);
 
 		if (m_is3d) {
-			desc.dwFlags = DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRL3D | DSBCAPS_CTRLVOLUME;
-		}
-		else {
-			desc.dwFlags = DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME;
+			desc.dwFlags =
+				DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRL3D | DSBCAPS_CTRLVOLUME;
+		} else {
+			desc.dwFlags =
+				DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME;
 		}
 
 		if (m_action->GetFlags() & MxDSAction::c_looping) {
-			desc.dwBufferBytes = m_waveFormat->m_pcmWaveFormat.wf.nAvgBytesPerSec *
+			desc.dwBufferBytes =
+				m_waveFormat->m_pcmWaveFormat.wf.nAvgBytesPerSec *
 				(m_action->GetDuration() / m_action->GetLoopCount()) / 1000;
-		}
-		else {
+		} else {
 			desc.dwBufferBytes = 2 * length;
 		}
 
 		desc.lpwfxFormat = &waveFormatEx;
 
-		if (MSoundManager()->GetDirectSound()->CreateSoundBuffer(&desc, &m_dsBuffer, NULL) != DS_OK) {
+		if (MSoundManager()
+				->GetDirectSound()
+				->CreateSoundBuffer(&desc, &m_dsBuffer, NULL) != DS_OK) {
 			EndAction();
-		}
-		else {
-			SetVolume(((MxDSSound*)m_action)->GetVolume());
+		} else {
+			SetVolume(((MxDSSound*) m_action)->GetVolume());
 			ProgressTickleState(e_streaming);
 		}
 	}
@@ -204,16 +222,21 @@ void MxWavePresenter::StreamingTickle() {
 void MxWavePresenter::DoneTickle() {
 	if (m_dsBuffer) {
 		DWORD dwCurrentPlayCursor, dwCurrentWriteCursor;
-		m_dsBuffer->GetCurrentPosition(&dwCurrentPlayCursor, &dwCurrentWriteCursor);
+		m_dsBuffer->GetCurrentPosition(
+			&dwCurrentPlayCursor,
+			&dwCurrentWriteCursor
+		);
 
 		MxS8 playedChunks = dwCurrentPlayCursor / m_chunkLength;
-		if (m_action->GetFlags() & MxDSAction::c_bit7 || m_action->GetFlags() & MxDSAction::c_looping ||
+		if (m_action->GetFlags() & MxDSAction::c_bit7 ||
+			m_action->GetFlags() & MxDSAction::c_looping ||
 			(!(m_action->GetFlags() & MxDSAction::c_looping) &&
-				(m_writtenChunks != playedChunks || m_lockSize + (m_chunkLength * playedChunks) <= dwCurrentPlayCursor))) {
+			 (m_writtenChunks != playedChunks ||
+			  m_lockSize + (m_chunkLength * playedChunks) <= dwCurrentPlayCursor
+			 ))) {
 			MxMediaPresenter::DoneTickle();
 		}
-	}
-	else {
+	} else {
 		MxMediaPresenter::DoneTickle();
 	}
 }
@@ -234,7 +257,10 @@ MxResult MxWavePresenter::PutData() {
 		switch (m_currentTickleState) {
 		case e_streaming:
 			if (m_currentChunk && FUN_100b1ba0()) {
-				WriteToSoundBuffer(m_currentChunk->GetData(), m_currentChunk->GetLength());
+				WriteToSoundBuffer(
+					m_currentChunk->GetData(),
+					m_currentChunk->GetLength()
+				);
 				m_subscriber->FreeDataChunk(m_currentChunk);
 				m_currentChunk = NULL;
 			}
@@ -281,8 +307,11 @@ void MxWavePresenter::SetVolume(MxS32 p_volume) {
 
 	m_volume = p_volume;
 	if (m_dsBuffer != NULL) {
-		MxS32 volume = p_volume * MxOmni::GetInstance()->GetSoundManager()->GetVolume() / 100;
-		MxS32 attenuation = MxOmni::GetInstance()->GetSoundManager()->GetAttenuation(volume);
+		MxS32 volume = p_volume *
+					   MxOmni::GetInstance()->GetSoundManager()->GetVolume() /
+					   100;
+		MxS32 attenuation =
+			MxOmni::GetInstance()->GetSoundManager()->GetAttenuation(volume);
 		m_dsBuffer->SetVolume(attenuation);
 	}
 
@@ -297,8 +326,7 @@ void MxWavePresenter::Enable(MxBool p_enable) {
 		if (p_enable) {
 			m_writtenChunks = 0;
 			m_started = FALSE;
-		}
-		else if (m_dsBuffer) {
+		} else if (m_dsBuffer) {
 			m_dsBuffer->Stop();
 		}
 	}

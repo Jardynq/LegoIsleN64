@@ -33,7 +33,8 @@ public:
 // SIZE 0x10
 class LegoNamedTextureListCursor : public MxPtrListCursor<LegoNamedTexture> {
 public:
-	LegoNamedTextureListCursor(LegoNamedTextureList* p_list) : MxPtrListCursor<LegoNamedTexture>(p_list) {}
+	LegoNamedTextureListCursor(LegoNamedTextureList* p_list)
+		: MxPtrListCursor<LegoNamedTexture>(p_list) {}
 };
 
 // SYNTHETIC: LEGO1 0x1004f500

@@ -6,7 +6,6 @@
 #include "mxticklemanager.h"
 #include "stdio.h"
 
-
 // FUNCTION: LEGO1 0x100b84c0
 MxMediaManager::MxMediaManager() {
 	Init();

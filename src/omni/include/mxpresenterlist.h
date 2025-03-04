@@ -11,7 +11,8 @@
 // SIZE 0x18
 class MxPresenterList : public MxPtrList<MxPresenter> {
 public:
-	MxPresenterList(MxBool p_ownership = FALSE) : MxPtrList<MxPresenter>(p_ownership) {}
+	MxPresenterList(MxBool p_ownership = FALSE)
+		: MxPtrList<MxPresenter>(p_ownership) {}
 
 	// FUNCTION: LEGO1 0x1001cd00
 	MxS8 Compare(MxPresenter* p_a, MxPresenter* p_b) override {
@@ -33,7 +34,8 @@ public:
 class MxPresenterListCursor : public MxPtrListCursor<MxPresenter> {
 public:
 	// FUNCTION: BETA10 0x1007d130
-	MxPresenterListCursor(MxPresenterList* p_list) : MxPtrListCursor<MxPresenter>(p_list) {}
+	MxPresenterListCursor(MxPresenterList* p_list)
+		: MxPtrListCursor<MxPresenter>(p_list) {}
 };
 
 // VTABLE: LEGO1 0x100d6350

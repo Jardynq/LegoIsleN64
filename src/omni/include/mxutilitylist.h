@@ -1,7 +1,6 @@
 #ifndef MXUTILITYLIST_H
 #define MXUTILITYLIST_H
 
-
 // Probably should be defined somewhere else
 
 template <class T>

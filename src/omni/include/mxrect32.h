@@ -8,14 +8,16 @@
 class MxRect32 {
 public:
 	MxRect32() {}
-	MxRect32(MxS32 p_left, MxS32 p_top, MxS32 p_right, MxS32 p_bottom) { CopyFrom(p_left, p_top, p_right, p_bottom); }
-	MxRect32(const MxPoint32& p_point, const MxSize32& p_size) { CopyFrom(p_point, p_size); }
-	MxRect32(const MxRect32& p_a, const MxRect32& p_b) {
-		m_left = Max(p_a.m_left, p_b.m_left);
-		m_top = Max(p_a.m_top, p_b.m_top);
-		m_right = Min(p_a.m_right, p_b.m_right);
-		m_bottom = Min(p_a.m_bottom, p_b.m_bottom);
+	MxRect32(MxS32 p_left, MxS32 p_top, MxS32 p_right, MxS32 p_bottom) {
+		CopyFrom(p_left, p_top, p_right, p_bottom);
 	}
+	MxRect32(const MxPoint32& p_point, const MxSize32& p_size) {
+		CopyFrom(p_point, p_size);
+	}
+	MxRect32(const MxRect32& p_a, const MxRect32& p_b)
+		: m_left(Max(p_a.m_left, p_b.m_left)), m_top(Max(p_a.m_top, p_b.m_top)),
+		  m_right(Min(p_a.m_right, p_b.m_right)),
+		  m_bottom(Min(p_a.m_bottom, p_b.m_bottom)) {}
 
 	MxRect32(const MxRect32& p_rect) { CopyFrom(p_rect); }
 
@@ -60,7 +62,8 @@ public:
 	MxBool IsValid() const { return m_left < m_right && m_top < m_bottom; }
 
 	MxBool IntersectsWith(const MxRect32& p_rect) const {
-		return m_left < p_rect.m_right && p_rect.m_left < m_right && m_top < p_rect.m_bottom && p_rect.m_top < m_bottom;
+		return m_left < p_rect.m_right && p_rect.m_left < m_right &&
+			   m_top < p_rect.m_bottom && p_rect.m_top < m_bottom;
 	}
 
 	MxS32 GetWidth() const { return (m_right - m_left) + 1; }

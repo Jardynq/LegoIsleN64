@@ -19,7 +19,10 @@ public:
 
 	virtual void FUN_10071c80(Vector3& p_vec);
 
-	void GetCurrentAnimData(float* p_outCurAnimPosition, float* p_outCurAnimDuration);
+	void GetCurrentAnimData(
+		float* p_outCurAnimPosition,
+		float* p_outCurAnimDuration
+	);
 
 	// SYNTHETIC: LEGO1 0x10071cf0
 	// RaceSkel::`scalar deleting destructor'

@@ -6,9 +6,11 @@
 #include "mxparam.h"
 #include "mxticklemanager.h"
 
-
 // FUNCTION: LEGO1 0x100ac220
-MxNotification::MxNotification(MxCore* p_target, const MxNotificationParam& p_param) {
+MxNotification::MxNotification(
+	MxCore* p_target,
+	const MxNotificationParam& p_param
+) {
 	m_target = p_target;
 	m_param = p_param.Clone();
 }
@@ -20,7 +22,8 @@ MxNotification::~MxNotification() {
 
 // FUNCTION: LEGO1 0x100ac250
 // FUNCTION: BETA10 0x10125805
-MxNotificationManager::MxNotificationManager() : MxCore(), m_lock(), m_listenerIds() {
+MxNotificationManager::MxNotificationManager()
+	: MxCore(), m_lock(), m_listenerIds() {
 	m_unk0x2c = 0;
 	m_queue = NULL;
 	m_active = TRUE;
@@ -38,14 +41,14 @@ MxNotificationManager::~MxNotificationManager() {
 }
 
 // FUNCTION: LEGO1 0x100ac600
-MxResult MxNotificationManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
+MxResult
+MxNotificationManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 	MxResult result = SUCCESS;
 	m_queue = new MxNotificationPtrList();
 
 	if (m_queue == NULL) {
 		result = FAILURE;
-	}
-	else {
+	} else {
 		TickleManager()->RegisterClient(this, 10);
 	}
 
@@ -54,14 +57,18 @@ MxResult MxNotificationManager::Create(MxU32 p_frequencyMS, MxBool p_createThrea
 
 // FUNCTION: LEGO1 0x100ac6c0
 // FUNCTION: BETA10 0x10125b57
-MxResult MxNotificationManager::Send(MxCore* p_listener, const MxNotificationParam& p_param) {
+MxResult MxNotificationManager::Send(
+	MxCore* p_listener,
+	const MxNotificationParam& p_param
+) {
 	AUTOLOCK(m_lock);
 
 	if (!m_active) {
 		return FAILURE;
 	}
 
-	MxIdList::iterator it = find(m_listenerIds.begin(), m_listenerIds.end(), p_listener->GetId());
+	MxIdList::iterator it =
+		find(m_listenerIds.begin(), m_listenerIds.end(), p_listener->GetId());
 	if (it == m_listenerIds.end()) {
 		return FAILURE;
 	}
@@ -80,8 +87,7 @@ MxResult MxNotificationManager::Tickle() {
 	m_sendList = new MxNotificationPtrList();
 	if (m_sendList == NULL) {
 		return FAILURE;
-	}
-	else {
+	} else {
 		{
 			AUTOLOCK(m_lock);
 			MxNotificationPtrList* temp1 = m_queue;
@@ -117,12 +123,12 @@ void MxNotificationManager::FlushPending(MxCore* p_listener) {
 			while (it != m_sendList->end()) {
 				notif = *it;
 				if (notif->GetTarget()->GetId() == p_listener->GetId() ||
-					(notif->GetParam()->GetSender() && notif->GetParam()->GetSender()->GetId() == p_listener->GetId()
-						)) {
+					(notif->GetParam()->GetSender() &&
+					 notif->GetParam()->GetSender()->GetId() ==
+						 p_listener->GetId())) {
 					m_sendList->erase(it++);
 					pending.push_back(notif);
-				}
-				else {
+				} else {
 					it++;
 				}
 			}
@@ -132,11 +138,12 @@ void MxNotificationManager::FlushPending(MxCore* p_listener) {
 		while (it != m_queue->end()) {
 			notif = *it;
 			if (notif->GetTarget()->GetId() == p_listener->GetId() ||
-				(notif->GetParam()->GetSender() && notif->GetParam()->GetSender()->GetId() == p_listener->GetId())) {
+				(notif->GetParam()->GetSender() &&
+				 notif->GetParam()->GetSender()->GetId() == p_listener->GetId()
+				)) {
 				m_queue->erase(it++);
 				pending.push_back(notif);
-			}
-			else {
+			} else {
 				it++;
 			}
 		}
@@ -155,7 +162,8 @@ void MxNotificationManager::FlushPending(MxCore* p_listener) {
 void MxNotificationManager::Register(MxCore* p_listener) {
 	AUTOLOCK(m_lock);
 
-	MxIdList::iterator it = find(m_listenerIds.begin(), m_listenerIds.end(), p_listener->GetId());
+	MxIdList::iterator it =
+		find(m_listenerIds.begin(), m_listenerIds.end(), p_listener->GetId());
 	if (it != m_listenerIds.end()) {
 		return;
 	}
@@ -168,7 +176,8 @@ void MxNotificationManager::Register(MxCore* p_listener) {
 void MxNotificationManager::Unregister(MxCore* p_listener) {
 	AUTOLOCK(m_lock);
 
-	MxIdList::iterator it = find(m_listenerIds.begin(), m_listenerIds.end(), p_listener->GetId());
+	MxIdList::iterator it =
+		find(m_listenerIds.begin(), m_listenerIds.end(), p_listener->GetId());
 
 	if (it != m_listenerIds.end()) {
 		m_listenerIds.erase(it);

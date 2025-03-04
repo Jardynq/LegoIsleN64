@@ -15,15 +15,9 @@ class LegoPathStructNotificationParam;
 // SIZE 0x160
 class IslePathActor : public LegoPathActor {
 public:
-	enum {
-		c_LOCATIONS_NUM = 29
-	};
+	enum { c_LOCATIONS_NUM = 29 };
 
-	enum {
-		c_spawnBit1 = 0x01,
-		c_playMusic = 0x02,
-		c_spawnBit3 = 0x04
-	};
+	enum { c_spawnBit1 = 0x01, c_playMusic = 0x02, c_spawnBit3 = 0x04 };
 
 	// SIZE 0x38
 	struct SpawnLocation {
@@ -91,18 +85,32 @@ public:
 	virtual MxLong HandleNotification0() { return 0; } // vtable+0xd0
 
 	// FUNCTION: LEGO1 0x10002e80
-	virtual MxLong HandleControl(LegoControlManagerNotificationParam&) { return 0; } // vtable+0xd4
+	virtual MxLong HandleControl(LegoControlManagerNotificationParam&) {
+		return 0;
+	} // vtable+0xd4
 
 	// FUNCTION: LEGO1 0x10002e90
-	virtual MxLong HandleEndAnim(LegoEndAnimNotificationParam&) { return 0; } // vtable+0xd8
+	virtual MxLong HandleEndAnim(LegoEndAnimNotificationParam&) {
+		return 0;
+	} // vtable+0xd8
 
 	// FUNCTION: LEGO1 0x10002e00
-	virtual MxLong HandlePathStruct(LegoPathStructNotificationParam&) { return 0; } // vtable+0xdc
+	virtual MxLong HandlePathStruct(LegoPathStructNotificationParam&) {
+		return 0;
+	} // vtable+0xdc
 
-	virtual void Enter();                                                                        // vtable+0xe0
-	virtual void Exit();                                                                         // vtable+0xe4
-	virtual void SpawnPlayer(LegoGameState::Area p_area, MxBool p_enter, MxU8 p_flags);          // vtable+0xe8
-	virtual void VTable0xec(MxMatrix p_transform, LegoPathBoundary* p_boundary, MxBool p_reset); // vtable+0xec
+	virtual void Enter(); // vtable+0xe0
+	virtual void Exit();  // vtable+0xe4
+	virtual void SpawnPlayer(
+		LegoGameState::Area p_area,
+		MxBool p_enter,
+		MxU8 p_flags
+	); // vtable+0xe8
+	virtual void VTable0xec(
+		MxMatrix p_transform,
+		LegoPathBoundary* p_boundary,
+		MxBool p_reset
+	); // vtable+0xec
 
 	// FUNCTION: LEGO1 0x10002e10
 	~IslePathActor() override { IslePathActor::Destroy(TRUE); }
@@ -120,7 +128,8 @@ public:
 	// FUNCTION: LEGO1 0x10002eb0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, IslePathActor::ClassName()) || LegoPathActor::IsA(p_name);
+		return !strcmp(p_name, IslePathActor::ClassName()) ||
+			   LegoPathActor::IsA(p_name);
 	}
 
 	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18

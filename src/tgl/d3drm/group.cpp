@@ -24,15 +24,17 @@ Result GroupImpl::SetColor(float r, float g, float b, float a) {
 	if (*reinterpret_cast<int*>(&a) > 0) {
 		D3DCOLOR color = D3DRMCreateColorRGBA(r, g, b, a);
 		return ResultVal(m_data->SetColor(color));
-	}
-	else {
+	} else {
 		return ResultVal(m_data->SetColorRGB(r, a, b));
 	}
 }
 
 // FUNCTION: LEGO1 0x100a32b0
 Result GroupImpl::SetTexture(const Texture* pTexture) {
-	IDirect3DRMTexture* pD3DTexture = pTexture ? static_cast<const TextureImpl*>(pTexture)->ImplementationData() : NULL;
+	IDirect3DRMTexture* pD3DTexture =
+		pTexture
+			? static_cast<const TextureImpl*>(pTexture)->ImplementationData()
+			: NULL;
 	return ResultVal(m_data->SetTexture(pD3DTexture));
 }
 
@@ -80,14 +82,17 @@ Result GroupImpl::Add(const Group* pGroup) {
 
 // FUNCTION: LEGO1 0x100a3430
 Result GroupImpl::Add(const MeshBuilder* pMeshBuilder) {
-	const MeshBuilderImpl* pMeshBuilderImpl = static_cast<const MeshBuilderImpl*>(pMeshBuilder);
+	const MeshBuilderImpl* pMeshBuilderImpl =
+		static_cast<const MeshBuilderImpl*>(pMeshBuilder);
 	return ResultVal(m_data->AddVisual(pMeshBuilderImpl->ImplementationData()));
 }
 
 // FUNCTION: LEGO1 0x100a3450
 Result GroupImpl::Remove(const MeshBuilder* pMeshBuilder) {
-	const MeshBuilderImpl* pMeshBuilderImpl = static_cast<const MeshBuilderImpl*>(pMeshBuilder);
-	return ResultVal(m_data->DeleteVisual(pMeshBuilderImpl->ImplementationData()));
+	const MeshBuilderImpl* pMeshBuilderImpl =
+		static_cast<const MeshBuilderImpl*>(pMeshBuilder);
+	return ResultVal(m_data->DeleteVisual(pMeshBuilderImpl->ImplementationData()
+	));
 }
 
 // FUNCTION: LEGO1 0x100a3480
@@ -100,13 +105,13 @@ Result GroupImpl::Remove(const Group* pGroup) {
 Result GroupImpl::RemoveAll() {
 	IDirect3DRMVisualArray* visuals;
 	IDirect3DRMFrame2* frame = m_data;
-	Result result = (Result)SUCCEEDED(frame->GetVisuals(&visuals));
+	Result result = (Result) SUCCEEDED(frame->GetVisuals(&visuals));
 
 	if (result == Success) {
-		for (int i = 0; i < (int)visuals->GetSize(); i++) {
+		for (int i = 0; i < (int) visuals->GetSize(); i++) {
 			IDirect3DRMVisual* visual;
 
-			result = (Result)SUCCEEDED(visuals->GetElement(i, &visual));
+			result = (Result) SUCCEEDED(visuals->GetElement(i, &visual));
 			frame->DeleteVisual(visual);
 			visual->Release();
 		}
@@ -130,11 +135,11 @@ Result GroupImpl::Bounds(D3DVECTOR* p_min, D3DVECTOR* p_max) {
 	size.max.z = -88888.f;
 
 	IDirect3DRMVisualArray* visuals;
-	Result result = (Result)SUCCEEDED(frame->GetVisuals(&visuals));
+	Result result = (Result) SUCCEEDED(frame->GetVisuals(&visuals));
 
 	if (result == Success) {
 		int i;
-		for (i = 0; i < (int)visuals->GetSize(); i++) {
+		for (i = 0; i < (int) visuals->GetSize(); i++) {
 			IDirect3DRMVisual* visual;
 			visuals->GetElement(i, &visual);
 			IDirect3DRMMesh* mesh;
@@ -142,11 +147,14 @@ Result GroupImpl::Bounds(D3DVECTOR* p_min, D3DVECTOR* p_max) {
 			 * BUG: should be:
 			 *  visual->QueryInterface(IID_IDirect3DRMMesh, (void**)&mesh));
 			 */
-			result = (Result)SUCCEEDED(visual->QueryInterface(IID_IDirect3DRMMeshBuilder, (void**)&mesh));
+			result = (Result) SUCCEEDED(visual->QueryInterface(
+				IID_IDirect3DRMMeshBuilder,
+				(void**) &mesh
+			));
 
 			if (result == Success) {
 				D3DRMBOX box;
-				result = (Result)SUCCEEDED(mesh->GetBox(&box));
+				result = (Result) SUCCEEDED(mesh->GetBox(&box));
 
 				if (size.max.y < box.max.y) {
 					size.max.y = box.max.y;

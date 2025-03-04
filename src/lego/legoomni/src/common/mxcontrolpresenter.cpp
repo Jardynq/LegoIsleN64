@@ -9,7 +9,6 @@
 #include "mxutilities.h"
 #include "mxvideopresenter.h"
 
-
 // FUNCTION: LEGO1 0x10043f50
 MxControlPresenter::MxControlPresenter() {
 	m_unk0x4c = 0;
@@ -34,15 +33,23 @@ MxResult MxControlPresenter::AddToManager() {
 }
 
 // FUNCTION: LEGO1 0x10044190
-MxResult MxControlPresenter::StartAction(MxStreamController* p_controller, MxDSAction* p_action) {
+MxResult MxControlPresenter::StartAction(
+	MxStreamController* p_controller,
+	MxDSAction* p_action
+) {
 	MxResult result = MxCompositePresenter::StartAction(p_controller, p_action);
 
 	FUN_100b7220(m_action, MxDSAction::c_world | MxDSAction::c_looping, TRUE);
 	ParseExtra();
 
 	MxS16 i = 0;
-	for (MxCompositePresenterList::iterator it = m_list.begin(); it != m_list.end(); it++) {
-		(*it)->Enable((m_unk0x4c != 3 || m_unk0x4e) && IsEnabled() ? m_unk0x4e == i : FALSE);
+	for (MxCompositePresenterList::iterator it = m_list.begin();
+		 it != m_list.end();
+		 it++) {
+		(*it)->Enable(
+			(m_unk0x4c != 3 || m_unk0x4e) && IsEnabled() ? m_unk0x4e == i
+														 : FALSE
+		);
 		i++;
 	}
 
@@ -66,11 +73,16 @@ void MxControlPresenter::EndAction() {
 
 // FUNCTION: LEGO1 0x10044270
 // FUNCTION: BETA10 0x100eae68
-MxBool MxControlPresenter::FUN_10044270(MxS32 p_x, MxS32 p_y, MxVideoPresenter* p_presenter) {
+MxBool MxControlPresenter::FUN_10044270(
+	MxS32 p_x,
+	MxS32 p_y,
+	MxVideoPresenter* p_presenter
+) {
 	if (m_unk0x4c == 3) {
-		MxVideoPresenter* frontPresenter = (MxVideoPresenter*)m_list.front();
+		MxVideoPresenter* frontPresenter = (MxVideoPresenter*) m_list.front();
 
-		if (p_presenter == frontPresenter || frontPresenter->GetDisplayZ() < p_presenter->GetDisplayZ()) {
+		if (p_presenter == frontPresenter ||
+			frontPresenter->GetDisplayZ() < p_presenter->GetDisplayZ()) {
 			if (p_presenter->VTable0x7c()) {
 				MxS32 height = frontPresenter->GetHeight();
 				MxS32 width = frontPresenter->GetWidth();
@@ -86,8 +98,7 @@ MxBool MxControlPresenter::FUN_10044270(MxS32 p_x, MxS32 p_y, MxVideoPresenter* 
 							p_x - frontPresenter->GetLocation().GetX(),
 							p_y - frontPresenter->GetLocation().GetY()
 						);
-					}
-					else {
+					} else {
 						start = NULL;
 					}
 
@@ -96,8 +107,7 @@ MxBool MxControlPresenter::FUN_10044270(MxS32 p_x, MxS32 p_y, MxVideoPresenter* 
 						if (*start != 0) {
 							m_unk0x56 = 1;
 						}
-					}
-					else {
+					} else {
 						for (MxS16 i = 1; i <= *m_unk0x58; i++) {
 							if (m_unk0x58[i] == *start) {
 								m_unk0x56 = i;
@@ -112,8 +122,7 @@ MxBool MxControlPresenter::FUN_10044270(MxS32 p_x, MxS32 p_y, MxVideoPresenter* 
 				}
 			}
 		}
-	}
-	else {
+	} else {
 		if (ContainsPresenter(m_list, p_presenter)) {
 			if (m_unk0x4c == 2) {
 				MxS32 width = p_presenter->GetWidth();
@@ -123,7 +132,8 @@ MxBool MxControlPresenter::FUN_10044270(MxS32 p_x, MxS32 p_y, MxVideoPresenter* 
 					MxS16 val;
 					if (p_x < p_presenter->GetLocation().GetX() + width / 2) {
 						val = 3;
-						if (p_y < p_presenter->GetLocation().GetY() + height / 2) {
+						if (p_y <
+							p_presenter->GetLocation().GetY() + height / 2) {
 							val = 1;
 						}
 						m_unk0x56 = val;
@@ -138,8 +148,7 @@ MxBool MxControlPresenter::FUN_10044270(MxS32 p_x, MxS32 p_y, MxVideoPresenter* 
 					m_unk0x56 = val;
 					return TRUE;
 				}
-			}
-			else {
+			} else {
 				m_unk0x56 = -1;
 			}
 
@@ -151,7 +160,10 @@ MxBool MxControlPresenter::FUN_10044270(MxS32 p_x, MxS32 p_y, MxVideoPresenter* 
 }
 
 // FUNCTION: LEGO1 0x10044480
-MxBool MxControlPresenter::FUN_10044480(LegoControlManagerNotificationParam* p_param, MxPresenter* p_presenter) {
+MxBool MxControlPresenter::FUN_10044480(
+	LegoControlManagerNotificationParam* p_param,
+	MxPresenter* p_presenter
+) {
 	if (IsEnabled()) {
 		switch (p_param->GetNotification()) {
 		case c_notificationButtonUp:
@@ -165,7 +177,11 @@ MxBool MxControlPresenter::FUN_10044480(LegoControlManagerNotificationParam* p_p
 			}
 			break;
 		case c_notificationButtonDown:
-			if (FUN_10044270(p_param->GetX(), p_param->GetY(), (MxVideoPresenter*)p_presenter)) {
+			if (FUN_10044270(
+					p_param->GetX(),
+					p_param->GetY(),
+					(MxVideoPresenter*) p_presenter
+				)) {
 				p_param->SetClickedObjectId(m_action->GetObjectId());
 				p_param->SetClickedAtom(m_action->GetAtomId().GetInternal());
 				VTable0x6c(m_unk0x56);
@@ -183,22 +199,28 @@ MxBool MxControlPresenter::FUN_10044480(LegoControlManagerNotificationParam* p_p
 // FUNCTION: LEGO1 0x10044540
 void MxControlPresenter::VTable0x6c(MxS16 p_unk0x4e) {
 	if (p_unk0x4e == -1) {
-		if ((MxS16)((MxDSMultiAction*)m_action)->GetActionList()->GetCount() - m_unk0x4e == 1) {
+		if ((MxS16) ((MxDSMultiAction*) m_action)->GetActionList()->GetCount() -
+				m_unk0x4e ==
+			1) {
 			m_unk0x4e = 0;
-		}
-		else {
+		} else {
 			m_unk0x4e++;
 		}
-	}
-	else {
+	} else {
 		m_unk0x4e = p_unk0x4e;
 	}
 
 	m_action->SetUnknown90(Timer()->GetTime());
 
 	MxS16 i = 0;
-	for (MxCompositePresenterList::iterator it = m_list.begin(); it != m_list.end(); it++) {
-		(*it)->Enable(((m_unk0x4c == 3 && m_unk0x4e == 0) || !IsEnabled()) ? FALSE : m_unk0x4e == i);
+	for (MxCompositePresenterList::iterator it = m_list.begin();
+		 it != m_list.end();
+		 it++) {
+		(*it)->Enable(
+			((m_unk0x4c == 3 && m_unk0x4e == 0) || !IsEnabled())
+				? FALSE
+				: m_unk0x4e == i
+		);
 		i++;
 	}
 }
@@ -227,13 +249,11 @@ void MxControlPresenter::ParseExtra() {
 
 			if (!strcmpi(str, g_strTOGGLE)) {
 				m_unk0x4c = 1;
-			}
-			else if (!strcmpi(str, g_strGRID)) {
+			} else if (!strcmpi(str, g_strGRID)) {
 				m_unk0x4c = 2;
 				m_unk0x52 = atoi(strtok(NULL, g_parseExtraTokens));
 				m_unk0x54 = atoi(strtok(NULL, g_parseExtraTokens));
-			}
-			else if (!strcmpi(str, g_strMAP)) {
+			} else if (!strcmpi(str, g_strMAP)) {
 				m_unk0x4c = 3;
 				str = strtok(NULL, g_parseExtraTokens);
 
@@ -246,8 +266,7 @@ void MxControlPresenter::ParseExtra() {
 						m_unk0x58[i] = atoi(strtok(NULL, g_parseExtraTokens));
 					}
 				}
-			}
-			else {
+			} else {
 				m_unk0x4c = 0;
 			}
 		}
@@ -266,7 +285,9 @@ void MxControlPresenter::Enable(MxBool p_enable) {
 		MxPresenter::Enable(p_enable);
 
 		MxS16 i = 0;
-		for (MxCompositePresenterList::iterator it = m_list.begin(); it != m_list.end(); it++) {
+		for (MxCompositePresenterList::iterator it = m_list.begin();
+			 it != m_list.end();
+			 it++) {
 			if (i == m_unk0x4e) {
 				(*it)->Enable((m_unk0x4c != 3 || i != 0) ? p_enable : 0);
 				break;

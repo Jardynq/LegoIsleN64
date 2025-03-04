@@ -3,7 +3,6 @@
 #include "mxmisc.h"
 #include "mxtimer.h"
 
-
 // FUNCTION: LEGO1 0x100b8bb0
 MxTickleThread::MxTickleThread(MxCore* p_target, MxS32 p_frequencyMS) {
 	m_target = p_target;

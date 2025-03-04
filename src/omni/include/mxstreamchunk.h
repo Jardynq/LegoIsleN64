@@ -27,14 +27,19 @@ public:
 	// FUNCTION: LEGO1 0x100b1ff0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxStreamChunk::ClassName()) || MxDSChunk::IsA(p_name);
+		return !strcmp(p_name, MxStreamChunk::ClassName()) ||
+			   MxDSChunk::IsA(p_name);
 	}
 
 	MxDSBuffer* GetBuffer() { return m_buffer; }
 
 	MxResult ReadChunk(MxDSBuffer* p_buffer, MxU8* p_chunkData);
 	MxU32 ReadChunkHeader(MxU8* p_chunkData);
-	MxResult SendChunk(MxDSSubscriberList& p_subscriberList, MxBool p_append, MxS16 p_obj24val);
+	MxResult SendChunk(
+		MxDSSubscriberList& p_subscriberList,
+		MxBool p_append,
+		MxS16 p_obj24val
+	);
 	void SetBuffer(MxDSBuffer* p_buffer);
 
 	static MxU16* IntoFlags(MxU8* p_buffer);

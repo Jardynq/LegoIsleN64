@@ -1,7 +1,5 @@
 #include "mxomnicreateflags.h"
 
-
-
 // FUNCTION: LEGO1 0x100b0a30
 // FUNCTION: BETA10 0x10130a1c
 MxOmniCreateFlags::MxOmniCreateFlags() {

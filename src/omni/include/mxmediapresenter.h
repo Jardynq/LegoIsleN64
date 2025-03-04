@@ -36,17 +36,19 @@ public:
 	// FUNCTION: LEGO1 0x1000c5d0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxMediaPresenter::ClassName()) || MxPresenter::IsA(p_name);
+		return !strcmp(p_name, MxMediaPresenter::ClassName()) ||
+			   MxPresenter::IsA(p_name);
 	}
 
 	void StreamingTickle() override; // vtable+0x20
 	void RepeatingTickle() override; // vtable+0x24
 	void DoneTickle() override;      // vtable+0x2c
 
-	MxResult StartAction(MxStreamController*, MxDSAction*) override; // vtable+0x3c
-	void EndAction() override;                                       // vtable+0x40
-	void Enable(MxBool p_enable) override;                           // vtable+0x54
-	virtual void LoopChunk(MxStreamChunk* p_chunk);                  // vtable+0x58
+	MxResult
+	StartAction(MxStreamController*, MxDSAction*) override; // vtable+0x3c
+	void EndAction() override;                              // vtable+0x40
+	void Enable(MxBool p_enable) override;                  // vtable+0x54
+	virtual void LoopChunk(MxStreamChunk* p_chunk);         // vtable+0x58
 
 	MxStreamChunk* CurrentChunk();
 	MxStreamChunk* NextChunk();

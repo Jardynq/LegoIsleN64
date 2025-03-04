@@ -46,7 +46,11 @@ MxU8* MxMemoryPool<BS, NB>::Get() {
 		if (!m_blockRef[i]) {
 			m_blockRef[i].Flip();
 
-			MxTrace("Get> %d pool: busy %d blocks\n", m_blockSize, m_blockRef.Count());
+			MxTrace(
+				"Get> %d pool: busy %d blocks\n",
+				m_blockSize,
+				m_blockRef.Count()
+			);
 
 			return &m_pool[i * m_blockSize * 1024];
 		}
@@ -61,7 +65,7 @@ void MxMemoryPool<BS, NB>::Release(MxU8* p_buf) {
 	assert(m_blockSize);
 	assert(m_blockRef.Size());
 
-	MxU32 i = (MxU32)(p_buf - m_pool) / (m_blockSize * 1024);
+	MxU32 i = (MxU32) (p_buf - m_pool) / (m_blockSize * 1024);
 
 	assert(i >= 0 && i < GetPoolSize());
 	assert(m_blockRef[i]);
@@ -70,7 +74,11 @@ void MxMemoryPool<BS, NB>::Release(MxU8* p_buf) {
 		m_blockRef[i].Flip();
 	}
 
-	MxTrace("Release> %d pool: busy %d blocks\n", m_blockSize, m_blockRef.Count());
+	MxTrace(
+		"Release> %d pool: busy %d blocks\n",
+		m_blockSize,
+		m_blockRef.Count()
+	);
 }
 
 // TEMPLATE: BETA10 0x101464a0

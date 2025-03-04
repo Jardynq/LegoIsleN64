@@ -30,12 +30,7 @@ struct PathWithTrigger {
 // SIZE 0x54
 class LegoWEGEdge : public LegoWEEdge {
 public:
-	enum {
-		c_bit1 = 0x01,
-		c_bit2 = 0x02,
-		c_bit3 = 0x04,
-		c_bit5 = 0x10
-	};
+	enum { c_bit1 = 0x01, c_bit2 = 0x02, c_bit3 = 0x04, c_bit5 = 0x10 };
 
 	LegoWEGEdge();
 	~LegoWEGEdge() override;
@@ -58,8 +53,7 @@ public:
 	void SetFlag0x10(LegoU32 p_disable) {
 		if (p_disable) {
 			m_flags &= ~c_bit5;
-		}
-		else {
+		} else {
 			m_flags |= c_bit5;
 		}
 	}

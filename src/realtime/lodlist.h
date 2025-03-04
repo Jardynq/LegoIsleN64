@@ -7,7 +7,8 @@
 
 class LODObject;
 
-// disable: identifier was truncated to '255' characters in the debug information
+// disable: identifier was truncated to '255' characters in the debug
+// information
 #pragma warning(disable : 4786)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -76,7 +77,8 @@ public:
 
 // FUNCTION: BETA10 0x1017b390
 inline LODListBase::LODListBase(size_t capacity)
-	: m_capacity(capacity), m_size(0), m_ppLODObject(new const LODObject* [capacity]) {
+	: m_ppLODObject(new const LODObject*[capacity]), m_capacity(capacity),
+	  m_size(0) {
 }
 
 // FUNCTION: LEGO1 0x100a77e0
@@ -100,7 +102,7 @@ inline size_t LODListBase::Capacity() const {
 
 // FUNCTION: BETA10 0x1007b6a0
 inline const LODObject* LODListBase::operator[](int i) const {
-	assert((0 <= i) && (i < (int)m_size));
+	assert((0 <= i) && (i < (int) m_size));
 
 	return m_ppLODObject[i];
 }
@@ -115,7 +117,7 @@ inline const LODObject* LODListBase::PushBack(const LODObject* pLOD) {
 
 // FUNCTION: BETA10 0x10178b60
 inline const LODObject* LODListBase::PopBack() {
-	const LODObject* pLOD;
+	const LODObject* pLOD = nullptr;
 
 	assert(m_size > 0);
 
@@ -123,7 +125,6 @@ inline const LODObject* LODListBase::PopBack() {
 
 	return pLOD;
 }
-
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -169,7 +170,8 @@ inline const T* LODList<T>::PopBack() {
 // TEMPLATE: BETA10 0x1007bae0
 // LODList<ViewLOD>::operator[]
 
-// re-enable: identifier was truncated to '255' characters in the debug information
+// re-enable: identifier was truncated to '255' characters in the debug
+// information
 #pragma warning(default : 4786)
 
 #endif // LODLIST_H

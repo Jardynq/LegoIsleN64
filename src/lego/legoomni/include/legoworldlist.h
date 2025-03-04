@@ -18,10 +18,13 @@ class LegoWorld;
 // SIZE 0x18
 class LegoWorldList : public MxPtrList<LegoWorld> {
 public:
-	LegoWorldList(MxBool p_ownership = FALSE) : MxPtrList<LegoWorld>(p_ownership) {}
+	LegoWorldList(MxBool p_ownership = FALSE)
+		: MxPtrList<LegoWorld>(p_ownership) {}
 
 	// FUNCTION: LEGO1 0x100598d0
-	MxS8 Compare(LegoWorld* p_a, LegoWorld* p_b) override { return p_a == p_b ? 0 : p_a < p_b ? -1 : 1; } // vtable+0x14
+	MxS8 Compare(LegoWorld* p_a, LegoWorld* p_b) override {
+		return p_a == p_b ? 0 : p_a < p_b ? -1 : 1;
+	} // vtable+0x14
 
 	// SYNTHETIC: LEGO1 0x10059a00
 	// LegoWorldList::`scalar deleting destructor'
@@ -37,7 +40,8 @@ public:
 // SIZE 0x10
 class LegoWorldListCursor : public MxPtrListCursor<LegoWorld> {
 public:
-	LegoWorldListCursor(LegoWorldList* p_list) : MxPtrListCursor<LegoWorld>(p_list) {}
+	LegoWorldListCursor(LegoWorldList* p_list)
+		: MxPtrListCursor<LegoWorld>(p_list) {}
 };
 
 // SYNTHETIC: LEGO1 0x1003e870

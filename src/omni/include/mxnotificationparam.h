@@ -41,11 +41,14 @@ public:
 	MxNotificationParam() : m_type(c_notificationType0), m_sender(NULL) {}
 
 	// FUNCTION: BETA10 0x10013490
-	MxNotificationParam(NotificationId p_type, MxCore* p_sender) : MxParam(), m_type(p_type), m_sender(p_sender) {}
+	MxNotificationParam(NotificationId p_type, MxCore* p_sender)
+		: MxParam(), m_type(p_type), m_sender(p_sender) {}
 
 	// FUNCTION: LEGO1 0x10010390
 	// FUNCTION: BETA10 0x100135f0
-	virtual MxNotificationParam* Clone() const { return new MxNotificationParam(m_type, m_sender); } // vtable+0x04
+	virtual MxNotificationParam* Clone() const {
+		return new MxNotificationParam(m_type, m_sender);
+	} // vtable+0x04
 
 	// FUNCTION: BETA10 0x100135c0
 	NotificationId GetNotification() const { return m_type; }

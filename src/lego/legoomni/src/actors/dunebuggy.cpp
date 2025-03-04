@@ -17,7 +17,6 @@
 #include "mxtransitionmanager.h"
 #include "mxvariabletable.h"
 
-
 // GLOBAL: LEGO1 0x100f7660
 // STRING: LEGO1 0x100f7634
 const char* g_varDBFRFNY4 = "C_DBFRFNY4";
@@ -87,18 +86,25 @@ MxLong DuneBuggy::HandleClick() {
 
 	FUN_10015820(TRUE, 0);
 
-	((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::Area::e_dunecar);
-	TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
+	((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::Area::e_dunecar);
+	TransitionManager()
+		->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
 
 	if (GameState()->GetActorId() != UserActor()->GetActorId()) {
-		((IslePathActor*)UserActor())->Exit();
+		((IslePathActor*) UserActor())->Exit();
 	}
 
 	m_time = Timer()->GetTime();
-	m_dashboard = IsleScript::c_DuneCarSpeedMeter + GetColorOffset(g_varDBFRFNY4);
+	m_dashboard =
+		IsleScript::c_DuneCarSpeedMeter + GetColorOffset(g_varDBFRFNY4);
 
 	InvokeAction(Extra::ActionType::e_start, *g_isleScript, m_dashboard, NULL);
-	InvokeAction(Extra::ActionType::e_start, *g_isleScript, IsleScript::c_DuneCarDashboard, NULL);
+	InvokeAction(
+		Extra::ActionType::e_start,
+		*g_isleScript,
+		IsleScript::c_DuneCarDashboard,
+		NULL
+	);
 	GetCurrentAction().SetObjectId(-1);
 
 	Vector3 position = m_roi->GetWorldPosition();
@@ -121,14 +127,23 @@ MxLong DuneBuggy::HandleControl(LegoControlManagerNotificationParam& p_param) {
 			result = 1;
 			break;
 		case IsleScript::c_DuneCarInfo_Ctl:
-			((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
-			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+			((Isle*) CurrentWorld())
+				->SetDestLocation(LegoGameState::e_infomain);
+			TransitionManager()->StartTransition(
+				MxTransitionManager::e_mosaic,
+				50,
+				FALSE,
+				FALSE
+			);
 			Exit();
 			result = 1;
 			break;
 		case IsleScript::c_DuneCarHorn_Ctl:
 			MxSoundPresenter* presenter =
-				(MxSoundPresenter*)CurrentWorld()->Find("MxSoundPresenter", "DuneCarHorn_Sound");
+				(MxSoundPresenter*) CurrentWorld()->Find(
+					"MxSoundPresenter",
+					"DuneCarHorn_Sound"
+				);
 			presenter->Enable(p_param.GetUnknown0x28());
 			break;
 		}
@@ -156,20 +171,15 @@ MxS32 DuneBuggy::GetColorOffset(const char* p_variable) {
 
 	if (!strcmpi(color, "lego green")) {
 		offset = 1;
-	}
-	else if (!strcmpi(color, "lego red")) {
+	} else if (!strcmpi(color, "lego red")) {
 		offset = 2;
-	}
-	else if (!strcmpi(color, "lego yellow")) {
+	} else if (!strcmpi(color, "lego yellow")) {
 		offset = 3;
-	}
-	else if (!strcmpi(color, "lego black")) {
+	} else if (!strcmpi(color, "lego black")) {
 		offset = 4;
-	}
-	else if (!strcmpi(color, "lego blue")) {
+	} else if (!strcmpi(color, "lego blue")) {
 		offset = 5;
-	}
-	else if (!strcmpi(color, "lego white")) {
+	} else if (!strcmpi(color, "lego white")) {
 		offset = 6;
 	}
 
@@ -180,7 +190,7 @@ MxS32 DuneBuggy::GetColorOffset(const char* p_variable) {
 void DuneBuggy::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_GarageArea_Music);
 
-	Act1State* act1state = (Act1State*)GameState()->GetState("Act1State");
+	Act1State* act1state = (Act1State*) GameState()->GetState("Act1State");
 	if (!act1state->m_unk0x022) {
 		act1state->m_unk0x022 = TRUE;
 

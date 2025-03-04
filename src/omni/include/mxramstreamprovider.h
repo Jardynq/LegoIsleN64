@@ -22,14 +22,16 @@ public:
 	// FUNCTION: LEGO1 0x100d0980
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxRAMStreamProvider::ClassName()) || MxStreamProvider::IsA(p_name);
+		return !strcmp(p_name, MxRAMStreamProvider::ClassName()) ||
+			   MxStreamProvider::IsA(p_name);
 	}
 
-	MxResult SetResourceToGet(MxStreamController* p_resource) override; // vtable+0x14
-	MxU32 GetFileSize() override;                                       // vtable+0x18
-	MxS32 GetStreamBuffersNum() override;                               // vtable+0x1c
-	MxU32 GetLengthInDWords() override;                                 // vtable+0x24
-	MxU32* GetBufferForDWords() override;                               // vtable+0x28
+	MxResult SetResourceToGet(MxStreamController* p_resource
+	) override;                           // vtable+0x14
+	MxU32 GetFileSize() override;         // vtable+0x18
+	MxS32 GetStreamBuffersNum() override; // vtable+0x1c
+	MxU32 GetLengthInDWords() override;   // vtable+0x24
+	MxU32* GetBufferForDWords() override; // vtable+0x28
 
 	MxU8* GetBufferOfFileSize() { return m_pBufferOfFileSize; }
 

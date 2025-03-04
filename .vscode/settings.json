@@ -1,5 +1,11 @@
 {
     "files.associations": {
+        "clang-*": "yaml",
+        "*.cpp": "cpp",
+        "*.h": "cpp",
+        "*.cmake": "cmake",
+        "CMakeLists.txt": "cmake",
+
         "*.sql": "sql",
         "random": "cpp",
         "limits": "cpp",
@@ -48,6 +54,6 @@
         "ranges": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
     }
 }

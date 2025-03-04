@@ -29,8 +29,7 @@ void MxVariableTable::SetVariable(const char* p_key, const char* p_value) {
 		delete var;
 		cursor.Current(var);
 		var->SetValue(p_value);
-	}
-	else {
+	} else {
 		MxHashTable<MxVariable*>::Add(var);
 	}
 }

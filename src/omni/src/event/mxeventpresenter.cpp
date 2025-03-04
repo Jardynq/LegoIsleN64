@@ -7,7 +7,6 @@
 #include "mxmisc.h"
 #include "mxvariabletable.h"
 
-
 // FUNCTION: LEGO1 0x100c2b70
 MxEventPresenter::MxEventPresenter() {
 	Init();
@@ -85,10 +84,11 @@ MxResult MxEventPresenter::PutData() {
 
 	if (IsEnabled()) {
 		if (m_currentTickleState >= e_streaming &&
-			(m_currentTickleState <= e_repeating || m_currentTickleState == e_done)) {
+			(m_currentTickleState <= e_repeating ||
+			 m_currentTickleState == e_done)) {
 			if (m_currentChunk && m_currentChunk->GetLength()) {
 				if (m_data[12] == 2) {
-					const char* data = (const char*)m_currentChunk->GetData();
+					const char* data = (const char*) m_currentChunk->GetData();
 					MxVariableTable* variableTable = VariableTable();
 
 					const char* key = data;

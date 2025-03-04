@@ -41,16 +41,24 @@ public:
 	void Destroy() override { Destroy(FALSE); } // vtable+0x38
 
 	// FUNCTION: LEGO1 0x1000c7b0
-	virtual LPDIRECTDRAWSURFACE VTable0x78() { return m_unk0x58; } // vtable+0x78
+	virtual LPDIRECTDRAWSURFACE VTable0x78() {
+		return m_unk0x58;
+	} // vtable+0x78
 
 	// FUNCTION: LEGO1 0x1000c7c0
-	virtual MxBool VTable0x7c() { return m_frameBitmap != NULL || m_alpha != NULL; } // vtable+0x7c
+	virtual MxBool VTable0x7c() {
+		return m_frameBitmap != NULL || m_alpha != NULL;
+	} // vtable+0x7c
 
 	// FUNCTION: LEGO1 0x1000c7e0
-	virtual MxS32 GetWidth() { return m_alpha ? m_alpha->m_width : m_frameBitmap->GetBmiWidth(); } // vtable+0x80
+	virtual MxS32 GetWidth() {
+		return m_alpha ? m_alpha->m_width : m_frameBitmap->GetBmiWidth();
+	} // vtable+0x80
 
 	// FUNCTION: LEGO1 0x1000c800
-	virtual MxS32 GetHeight() { return m_alpha ? m_alpha->m_height : m_frameBitmap->GetBmiHeightAbs(); } // vtable+0x84
+	virtual MxS32 GetHeight() {
+		return m_alpha ? m_alpha->m_height : m_frameBitmap->GetBmiHeightAbs();
+	} // vtable+0x84
 
 	// FUNCTION: BETA10 0x100551b0
 	static const char* HandlerClassName() {
@@ -68,7 +76,8 @@ public:
 	// FUNCTION: LEGO1 0x1000c830
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxVideoPresenter::ClassName()) || MxMediaPresenter::IsA(p_name);
+		return !strcmp(p_name, MxVideoPresenter::ClassName()) ||
+			   MxMediaPresenter::IsA(p_name);
 	}
 
 	void ReadyTickle() override;                 // vtable+0x18
@@ -103,7 +112,9 @@ public:
 	AlphaMask* GetAlphaMask() { return m_alpha; }
 
 	// FUNCTION: BETA10 0x1002c2e0
-	MxU8* GetBitmapStart(MxS32 p_left, MxS32 p_top) { return m_frameBitmap->GetStart(p_left, p_top); }
+	MxU8* GetBitmapStart(MxS32 p_left, MxS32 p_top) {
+		return m_frameBitmap->GetStart(p_left, p_top);
+	}
 
 	void SetBit0(BOOL p_e) { m_flags.m_bit0 = p_e; }
 	void SetBit1(BOOL p_e) { m_flags.m_bit1 = p_e; }

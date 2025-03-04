@@ -17,10 +17,7 @@ class MxAtom {
 public:
 	// always inlined
 	// FUNCTION: BETA10 0x10123720
-	MxAtom(const char* p_str) {
-		m_key = p_str;
-		m_value = 0;
-	}
+	MxAtom(const char* p_str) : m_key(p_str), m_value(0) {}
 
 	void Inc();
 	void Dec();
@@ -40,7 +37,8 @@ struct MxAtomCompare {
 	// FUNCTION: LEGO1 0x100ad120
 	// FUNCTION: BETA10 0x10123980
 	int operator()(MxAtom* const& p_val0, MxAtom* const& p_val1) const {
-		return strcmp(p_val0->GetKey().GetData(), p_val1->GetKey().GetData()) > 0;
+		return strcmp(p_val0->GetKey().GetData(), p_val1->GetKey().GetData()) >
+			   0;
 	}
 };
 
@@ -62,21 +60,28 @@ public:
 	MxAtomId& operator=(const MxAtomId& p_atomId);
 
 	// FUNCTION: BETA10 0x100178d0
-	MxBool operator==(const MxAtomId& p_atomId) const { return this->m_internal == p_atomId.m_internal; }
+	MxBool operator==(const MxAtomId& p_atomId) const {
+		return this->m_internal == p_atomId.m_internal;
+	}
 
 	// Required for modern compilers.
-	// MSVC 4.20 uses a synthetic function from INCLUDE/UTILITY that inverts operator==
-	MxBool operator!=(const MxAtomId& p_atomId) const { return this->m_internal != p_atomId.m_internal; }
+	// MSVC 4.20 uses a synthetic function from INCLUDE/UTILITY that inverts
+	// operator==
+	MxBool operator!=(const MxAtomId& p_atomId) const {
+		return this->m_internal != p_atomId.m_internal;
+	}
 
 	// TODO:
 	// BETA10 0x1007dc20 operator==
 	// BETA10 0x10096970 operator!=
 
 	// FUNCTION: BETA10 0x10146dd0
-	MxBool operator==(const char* p_internal) const { return p_internal && !strcmp(m_internal, p_internal); }
+	MxBool operator==(const char* p_internal) const {
+		return p_internal && !strcmp(m_internal, p_internal);
+	}
 
 	// FUNCTION: BETA10 0x10025d40
-	MxAtomId() { this->m_internal = 0; }
+	MxAtomId() : m_internal(0) {}
 
 	void Clear();
 

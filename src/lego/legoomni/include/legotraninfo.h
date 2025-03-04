@@ -10,25 +10,14 @@ class MxPresenter;
 
 // SIZE 0x78
 struct LegoTranInfo {
-	enum {
-		c_bit1 = 0x01,
-		c_bit2 = 0x02
-	};
+	enum { c_bit1 = 0x01, c_bit2 = 0x02 };
 
-	LegoTranInfo() {
-		m_index = 0;
-		m_unk0x08 = NULL;
-		m_unk0x0c = NULL;
-		m_unk0x10 = 0;
-		m_location = -1;
-		m_unk0x14 = FALSE;
-		m_unk0x1c = NULL;
-		m_unk0x20 = NULL;
-		m_presenter = NULL;
-		m_unk0x15 = TRUE;
-		m_unk0x28 = TRUE;
-		m_unk0x29 = TRUE;
-		m_flags = 0;
+	LegoTranInfo()
+		: m_index(0), m_unk0x08(NULL), m_unk0x0c(NULL), m_unk0x10(0),
+		  m_location(-1), m_unk0x14(FALSE), m_unk0x1c(NULL), m_unk0x20(NULL),
+		  m_presenter(NULL), m_unk0x15(TRUE), m_unk0x28(TRUE), m_unk0x29(TRUE),
+		  m_flags(0) {
+
 		m_unk0x2c.SetIdentity();
 	}
 

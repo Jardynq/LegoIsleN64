@@ -25,7 +25,8 @@ public:
 	// FUNCTION: LEGO1 0x100caf10
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxDSParallelAction::ClassName()) || MxDSMultiAction::IsA(p_name);
+		return !strcmp(p_name, MxDSParallelAction::ClassName()) ||
+			   MxDSMultiAction::IsA(p_name);
 	}
 
 	// SYNTHETIC: LEGO1 0x100cb020
@@ -34,7 +35,9 @@ public:
 	MxLong GetDuration() override; // vtable+24;
 
 	// FUNCTION: LEGO1 0x100caef0
-	void SetDuration(MxLong p_duration) override { m_duration = p_duration; } // vtable+0x28
+	void SetDuration(MxLong p_duration) override {
+		m_duration = p_duration;
+	} // vtable+0x28
 
 	MxDSAction* Clone() override; // vtable+2c;
 };

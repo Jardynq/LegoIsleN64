@@ -13,16 +13,10 @@ template <class T>
 class MxListEntry {
 public:
 	MxListEntry() {}
-	MxListEntry(T p_obj, MxListEntry* p_prev) {
-		m_obj = p_obj;
-		m_prev = p_prev;
-		m_next = NULL;
-	}
-	MxListEntry(T p_obj, MxListEntry* p_prev, MxListEntry* p_next) {
-		m_obj = p_obj;
-		m_prev = p_prev;
-		m_next = p_next;
-	}
+	MxListEntry(T p_obj, MxListEntry* p_prev)
+		: m_obj(p_obj), m_prev(p_prev), m_next(NULL) {}
+	MxListEntry(T p_obj, MxListEntry* p_prev, MxListEntry* p_next)
+		: m_obj(p_obj), m_prev(p_prev), m_next(p_next) {}
 
 	T GetValue() { return this->m_obj; }
 	MxListEntry* GetNext() { return m_next; }
@@ -71,7 +65,9 @@ public:
 	static void Destroy(T* p_obj) { delete p_obj; }
 
 	void SetOwnership(MxBool p_ownership) {
-		MxCollection<T*>::SetDestroy(p_ownership ? MxPtrList<T>::Destroy : MxCollection<T*>::Destroy);
+		MxCollection<T*>::SetDestroy(
+			p_ownership ? MxPtrList<T>::Destroy : MxCollection<T*>::Destroy
+		);
 	}
 };
 
@@ -79,10 +75,7 @@ public:
 template <class T>
 class MxListCursor : public MxCore {
 public:
-	MxListCursor(MxList<T>* p_list) {
-		m_list = p_list;
-		m_match = NULL;
-	}
+	MxListCursor(MxList<T>* p_list) : m_list(p_list), m_match(NULL) {}
 
 	MxBool Find(T p_obj);
 	void Detach();
@@ -122,7 +115,7 @@ public:
 // Delete entries and values
 template <class T>
 inline void MxList<T>::DeleteAll() {
-	MxListEntry<T>* next;
+	MxListEntry<T>* next = nullptr;
 	for (MxListEntry<T>* t = m_first; t; t = next) {
 		next = t->GetNext();
 		this->m_customDestructor(t->GetValue());
@@ -136,7 +129,7 @@ inline void MxList<T>::DeleteAll() {
 // Delete entries only
 template <class T>
 inline void MxList<T>::Empty() {
-	MxListEntry<T>* next;
+	MxListEntry<T>* next = nullptr;
 	for (MxListEntry<T>* t = m_first; t; t = next) {
 		next = t->GetNext();
 		delete t;
@@ -147,20 +140,22 @@ inline void MxList<T>::Empty() {
 }
 
 template <class T>
-inline MxListEntry<T>* MxList<T>::InsertEntry(T p_newobj, MxListEntry<T>* p_prev, MxListEntry<T>* p_next) {
+inline MxListEntry<T>* MxList<T>::InsertEntry(
+	T p_newobj,
+	MxListEntry<T>* p_prev,
+	MxListEntry<T>* p_next
+) {
 	MxListEntry<T>* newEntry = new MxListEntry<T>(p_newobj, p_prev, p_next);
 
 	if (p_prev) {
 		p_prev->SetNext(newEntry);
-	}
-	else {
+	} else {
 		this->m_first = newEntry;
 	}
 
 	if (p_next) {
 		p_next->SetPrev(newEntry);
-	}
-	else {
+	} else {
 		this->m_last = newEntry;
 	}
 
@@ -172,15 +167,13 @@ template <class T>
 inline void MxList<T>::DeleteEntry(MxListEntry<T>* p_match) {
 	if (p_match->GetPrev()) {
 		p_match->GetPrev()->SetNext(p_match->GetNext());
-	}
-	else {
+	} else {
 		m_first = p_match->GetNext();
 	}
 
 	if (p_match->GetNext()) {
 		p_match->GetNext()->SetPrev(p_match->GetPrev());
-	}
-	else {
+	} else {
 		m_last = p_match->GetPrev();
 	}
 
@@ -190,8 +183,9 @@ inline void MxList<T>::DeleteEntry(MxListEntry<T>* p_match) {
 
 template <class T>
 inline MxBool MxListCursor<T>::Find(T p_obj) {
-	for (m_match = m_list->m_first; m_match && m_list->Compare(m_match->GetValue(), p_obj);
-		m_match = m_match->GetNext()) {
+	for (m_match = m_list->m_first;
+		 m_match && m_list->Compare(m_match->GetValue(), p_obj);
+		 m_match = m_match->GetNext()) {
 	}
 
 	return m_match != NULL;
@@ -218,8 +212,7 @@ template <class T>
 inline MxBool MxListCursor<T>::Next() {
 	if (!m_match) {
 		m_match = m_list->m_first;
-	}
-	else {
+	} else {
 		m_match = m_match->GetNext();
 	}
 
@@ -230,8 +223,7 @@ template <class T>
 inline MxBool MxListCursor<T>::Next(T& p_obj) {
 	if (!m_match) {
 		m_match = m_list->m_first;
-	}
-	else {
+	} else {
 		m_match = m_match->GetNext();
 	}
 
@@ -246,8 +238,7 @@ template <class T>
 inline MxBool MxListCursor<T>::Prev() {
 	if (!m_match) {
 		m_match = m_list->m_last;
-	}
-	else {
+	} else {
 		m_match = m_match->GetPrev();
 	}
 
@@ -258,8 +249,7 @@ template <class T>
 inline MxBool MxListCursor<T>::Prev(T& p_obj) {
 	if (!m_match) {
 		m_match = m_list->m_last;
-	}
-	else {
+	} else {
 		m_match = m_match->GetPrev();
 	}
 

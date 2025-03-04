@@ -25,7 +25,6 @@
 #include "mxutilities.h"
 #include "viewmanager/viewmanager.h"
 
-
 // FUNCTION: LEGO1 0x1001ca40
 LegoWorld::LegoWorld() : m_list0x68(TRUE) {
 	m_startupTicks = e_four;
@@ -107,15 +106,15 @@ void LegoWorld::Destroy(MxBool p_fromDestructor) {
 		MxDSAction* action = presenter->GetAction();
 		if (action) {
 			if (presenter->IsA("LegoLocomotionAnimPresenter")) {
-				LegoLocomotionAnimPresenter* animPresenter = (LegoLocomotionAnimPresenter*)presenter;
+				LegoLocomotionAnimPresenter* animPresenter =
+					(LegoLocomotionAnimPresenter*) presenter;
 
 				animPresenter->DecrementUnknown0xd4();
 				if (animPresenter->GetUnknown0xd4() == 0) {
 					FUN_100b7220(action, MxDSAction::c_world, FALSE);
 					presenter->EndAction();
 				}
-			}
-			else {
+			} else {
 				FUN_100b7220(action, MxDSAction::c_world, FALSE);
 				presenter->EndAction();
 			}
@@ -128,15 +127,14 @@ void LegoWorld::Destroy(MxBool p_fromDestructor) {
 		m_set0xa8.erase(it);
 
 		if (object->IsA("MxPresenter")) {
-			MxPresenter* presenter = (MxPresenter*)object;
+			MxPresenter* presenter = (MxPresenter*) object;
 			MxDSAction* action = presenter->GetAction();
 
 			if (action) {
 				FUN_100b7220(action, MxDSAction::c_world, FALSE);
 				presenter->EndAction();
 			}
-		}
-		else {
+		} else {
 			delete object;
 		}
 	}
@@ -203,9 +201,11 @@ void LegoWorld::Destroy(MxBool p_fromDestructor) {
 MxLong LegoWorld::Notify(MxParam& p_param) {
 	MxLong result = 0;
 
-	switch (((MxNotificationParam&)p_param).GetNotification()) {
+	switch (((MxNotificationParam&) p_param).GetNotification()) {
 	case c_notificationEndAction: {
-		MxPresenter* presenter = (MxPresenter*)((MxEndActionNotificationParam&)p_param).GetSender();
+		MxPresenter* presenter =
+			(MxPresenter*) ((MxEndActionNotificationParam&) p_param)
+				.GetSender();
 		Remove(presenter);
 		result = 1;
 		break;
@@ -265,7 +265,14 @@ MxResult LegoWorld::PlaceActor(
 	LegoPathController* controller;
 
 	while (cursor.Next(controller)) {
-		if (controller->PlaceActor(p_actor, p_name, p_src, p_srcScale, p_dest, p_destScale) == SUCCESS) {
+		if (controller->PlaceActor(
+				p_actor,
+				p_name,
+				p_src,
+				p_srcScale,
+				p_dest,
+				p_destScale
+			) == SUCCESS) {
 			return SUCCESS;
 		}
 	}
@@ -298,7 +305,9 @@ MxResult LegoWorld::PlaceActor(
 	LegoPathController* controller;
 
 	while (cursor.Next(controller)) {
-		if (controller->PlaceActor(p_actor, p_presenter, p_position, p_direction) == SUCCESS) {
+		if (controller
+				->PlaceActor(p_actor, p_presenter, p_position, p_direction) ==
+			SUCCESS) {
 			return SUCCESS;
 		}
 	}
@@ -379,7 +388,8 @@ LegoPathBoundary* LegoWorld::FindPathBoundary(const char* p_name) {
 }
 
 // FUNCTION: LEGO1 0x10020120
-MxResult LegoWorld::GetCurrPathInfo(LegoPathBoundary** p_boundaries, MxS32& p_numL) {
+MxResult
+LegoWorld::GetCurrPathInfo(LegoPathBoundary** p_boundaries, MxS32& p_numL) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
 	LegoPathController* controller;
 
@@ -395,17 +405,23 @@ MxResult LegoWorld::GetCurrPathInfo(LegoPathBoundary** p_boundaries, MxS32& p_nu
 // FUNCTION: LEGO1 0x10020220
 // FUNCTION: BETA10 0x100da90b
 void LegoWorld::Add(MxCore* p_object) {
-	if (p_object == NULL || p_object->IsA("LegoWorld") || p_object->IsA("LegoWorldPresenter")) {
+	if (p_object == NULL || p_object->IsA("LegoWorld") ||
+		p_object->IsA("LegoWorldPresenter")) {
 		return;
 	}
 
 #ifndef BETA10
 	if (p_object->IsA("LegoAnimPresenter")) {
-		if (!strcmpi(((LegoAnimPresenter*)p_object)->GetAction()->GetObjectName(), "ConfigAnimation")) {
-			FUN_1003e050((LegoAnimPresenter*)p_object);
-			((LegoAnimPresenter*)p_object)
+		if (!strcmpi(
+				((LegoAnimPresenter*) p_object)->GetAction()->GetObjectName(),
+				"ConfigAnimation"
+			)) {
+			FUN_1003e050((LegoAnimPresenter*) p_object);
+			((LegoAnimPresenter*) p_object)
 				->GetAction()
-				->SetDuration(((LegoAnimPresenter*)p_object)->GetAnimation()->GetDuration());
+				->SetDuration(((LegoAnimPresenter*) p_object)
+								  ->GetAnimation()
+								  ->GetDuration());
 		}
 	}
 #endif
@@ -413,48 +429,47 @@ void LegoWorld::Add(MxCore* p_object) {
 	if (p_object->IsA("MxControlPresenter")) {
 		MxPresenterListCursor cursor(&m_controlPresenters);
 
-		if (cursor.Find((MxPresenter*)p_object)) {
+		if (cursor.Find((MxPresenter*) p_object)) {
 			assert(0);
 			return;
 		}
 
-		m_controlPresenters.Append((MxPresenter*)p_object);
-	}
-	else if (p_object->IsA("MxEntity")) {
+		m_controlPresenters.Append((MxPresenter*) p_object);
+	} else if (p_object->IsA("MxEntity")) {
 		LegoEntityListCursor cursor(m_entityList);
 
-		if (cursor.Find((LegoEntity*)p_object)) {
+		if (cursor.Find((LegoEntity*) p_object)) {
 			assert(0);
 			return;
 		}
 
-		m_entityList->Append((LegoEntity*)p_object);
+		m_entityList->Append((LegoEntity*) p_object);
 	}
 	else if (p_object->IsA("LegoLocomotionAnimPresenter") || p_object->IsA("LegoHideAnimPresenter") || p_object->IsA("LegoLoopingAnimPresenter")) {
 		MxPresenterListCursor cursor(&m_animPresenters);
 
-		if (cursor.Find((MxPresenter*)p_object)) {
+		if (cursor.Find((MxPresenter*) p_object)) {
 			assert(0);
 			return;
 		}
 
-		((MxPresenter*)p_object)->SendToCompositePresenter(Lego());
-		m_animPresenters.Append(((MxPresenter*)p_object));
+		((MxPresenter*) p_object)->SendToCompositePresenter(Lego());
+		m_animPresenters.Append(((MxPresenter*) p_object));
 
 		if (p_object->IsA("LegoHideAnimPresenter")) {
-			m_hideAnim = (LegoHideAnimPresenter*)p_object;
+			m_hideAnim = (LegoHideAnimPresenter*) p_object;
 		}
 	}
 #ifndef BETA10
 	else if (p_object->IsA("LegoCacheSound")) {
 		LegoCacheSoundListCursor cursor(m_cacheSoundList);
 
-		if (cursor.Find((LegoCacheSound*)p_object)) {
+		if (cursor.Find((LegoCacheSound*) p_object)) {
 			assert(0); // ?
 			return;
 		}
 
-		m_cacheSoundList->Append((LegoCacheSound*)p_object);
+		m_cacheSoundList->Append((LegoCacheSound*) p_object);
 	}
 #endif
 	else {
@@ -467,15 +482,14 @@ void LegoWorld::Add(MxCore* p_object) {
 #endif
 
 			m_set0xa8.insert(p_object);
-		}
-		else {
+		} else {
 			assert(0);
 		}
 	}
 
 	if (m_set0xd0.size() != 0 && p_object->IsA("MxPresenter")) {
-		if (((MxPresenter*)p_object)->IsEnabled()) {
-			((MxPresenter*)p_object)->Enable(FALSE);
+		if (((MxPresenter*) p_object)->IsEnabled()) {
+			((MxPresenter*) p_object)->Enable(FALSE);
 			m_set0xd0.insert(p_object);
 		}
 	}
@@ -493,32 +507,31 @@ void LegoWorld::Remove(MxCore* p_object) {
 	if (p_object->IsA("MxControlPresenter")) {
 		MxPresenterListCursor cursor(&m_controlPresenters);
 
-		if (cursor.Find((MxControlPresenter*)p_object)) {
+		if (cursor.Find((MxControlPresenter*) p_object)) {
 			cursor.Detach();
-			((MxControlPresenter*)p_object)->GetAction()->SetOrigin(Lego());
-			((MxControlPresenter*)p_object)->VTable0x68(TRUE);
+			((MxControlPresenter*) p_object)->GetAction()->SetOrigin(Lego());
+			((MxControlPresenter*) p_object)->VTable0x68(TRUE);
 		}
 	}
 	else if (p_object->IsA("LegoLocomotionAnimPresenter") || p_object->IsA("LegoHideAnimPresenter") || p_object->IsA("LegoLoopingAnimPresenter")) {
 		MxPresenterListCursor cursor(&m_animPresenters);
 
-		if (cursor.Find((MxPresenter*)p_object)) {
+		if (cursor.Find((MxPresenter*) p_object)) {
 			cursor.Detach();
 		}
 
 		if (p_object->IsA("LegoHideAnimPresenter")) {
 			m_hideAnim = NULL;
 		}
-	}
-	else if (p_object->IsA("MxEntity")) {
+	} else if (p_object->IsA("MxEntity")) {
 		if (p_object->IsA("LegoPathActor")) {
-			RemoveActor((LegoPathActor*)p_object);
+			RemoveActor((LegoPathActor*) p_object);
 		}
 
 		if (m_entityList) {
 			LegoEntityListCursor cursor(m_entityList);
 
-			if (cursor.Find((LegoEntity*)p_object)) {
+			if (cursor.Find((LegoEntity*) p_object)) {
 				cursor.Detach();
 			}
 		}
@@ -527,7 +540,7 @@ void LegoWorld::Remove(MxCore* p_object) {
 	else if (p_object->IsA("LegoCacheSound")) {
 		LegoCacheSoundListCursor cursor(m_cacheSoundList);
 
-		if (cursor.Find((LegoCacheSound*)p_object)) {
+		if (cursor.Find((LegoCacheSound*) p_object)) {
 			cursor.Detach();
 		}
 	}
@@ -584,7 +597,10 @@ MxCore* LegoWorld::Find(const char* p_class, const char* p_name) {
 		MxPresenter* presenter;
 
 		while (cursor.Next(presenter)) {
-			if (!strcmpi(((LegoAnimPresenter*)presenter)->GetActionObjectName(), p_name)) {
+			if (!strcmpi(
+					((LegoAnimPresenter*) presenter)->GetActionObjectName(),
+					p_name
+				)) {
 				return presenter;
 			}
 		}
@@ -594,9 +610,12 @@ MxCore* LegoWorld::Find(const char* p_class, const char* p_name) {
 
 	for (MxCoreSet::iterator i = m_set0xa8.begin(); i != m_set0xa8.end(); i++) {
 		if ((*i)->IsA(p_class) && (*i)->IsA("MxPresenter")) {
-			assert(((MxPresenter*)(*i))->GetAction());
+			assert(((MxPresenter*) (*i))->GetAction());
 
-			if (!strcmp(((MxPresenter*)(*i))->GetAction()->GetObjectName(), p_name)) {
+			if (!strcmp(
+					((MxPresenter*) (*i))->GetAction()->GetObjectName(),
+					p_name
+				)) {
 				return *i;
 			}
 		}
@@ -611,7 +630,8 @@ MxCore* LegoWorld::Find(const MxAtomId& p_atom, MxS32 p_entityId) {
 	LegoEntity* entity;
 
 	while (entityCursor.Next(entity)) {
-		if (entity->GetAtomId() == p_atom && entity->GetEntityId() == p_entityId) {
+		if (entity->GetAtomId() == p_atom &&
+			entity->GetEntityId() == p_entityId) {
 			return entity;
 		}
 	}
@@ -622,7 +642,8 @@ MxCore* LegoWorld::Find(const MxAtomId& p_atom, MxS32 p_entityId) {
 	while (controlPresenterCursor.Next(presenter)) {
 		MxDSAction* action = presenter->GetAction();
 
-		if (action->GetAtomId() == p_atom && action->GetObjectId() == p_entityId) {
+		if (action->GetAtomId() == p_atom &&
+			action->GetObjectId() == p_entityId) {
 			return presenter;
 		}
 	}
@@ -632,19 +653,22 @@ MxCore* LegoWorld::Find(const MxAtomId& p_atom, MxS32 p_entityId) {
 	while (animPresenterCursor.Next(presenter)) {
 		MxDSAction* action = presenter->GetAction();
 
-		if (action && action->GetAtomId() == p_atom && action->GetObjectId() == p_entityId) {
+		if (action && action->GetAtomId() == p_atom &&
+			action->GetObjectId() == p_entityId) {
 			return presenter;
 		}
 	}
 
-	for (MxCoreSet::iterator it = m_set0xa8.begin(); it != m_set0xa8.end(); it++) {
+	for (MxCoreSet::iterator it = m_set0xa8.begin(); it != m_set0xa8.end();
+		 it++) {
 		MxCore* core = *it;
 
 		if (core->IsA("MxPresenter")) {
-			MxPresenter* presenter = (MxPresenter*)*it;
+			MxPresenter* presenter = (MxPresenter*) *it;
 			MxDSAction* action = presenter->GetAction();
 
-			if (action->GetAtomId() == p_atom && action->GetObjectId() == p_entityId) {
+			if (action->GetAtomId() == p_atom &&
+				action->GetObjectId() == p_entityId) {
 				return *it;
 			}
 		}
@@ -685,10 +709,9 @@ void LegoWorld::Enable(MxBool p_enable) {
 			it = m_set0xd0.begin();
 
 			if ((*it)->IsA("MxPresenter")) {
-				((MxPresenter*)*it)->Enable(TRUE);
-			}
-			else if ((*it)->IsA("LegoPathController")) {
-				((LegoPathController*)*it)->Enable(TRUE);
+				((MxPresenter*) *it)->Enable(TRUE);
+			} else if ((*it)->IsA("LegoPathController")) {
+				((LegoPathController*) *it)->Enable(TRUE);
 			}
 
 			m_set0xd0.erase(it);
@@ -714,8 +737,7 @@ void LegoWorld::Enable(MxBool p_enable) {
 #ifndef BETA10
 		SetIsWorldActive(TRUE);
 #endif
-	}
-	else if (!p_enable && m_set0xd0.size() == 0) {
+	} else if (!p_enable && m_set0xd0.size() == 0) {
 		MxPresenter* presenter;
 		LegoPathController* controller;
 		LegoPathActor* actor = UserActor();
@@ -743,11 +765,13 @@ void LegoWorld::Enable(MxBool p_enable) {
 			}
 		}
 
-		for (MxCoreSet::iterator it = m_set0xa8.begin(); it != m_set0xa8.end(); it++) {
+		for (MxCoreSet::iterator it = m_set0xa8.begin(); it != m_set0xa8.end();
+			 it++) {
 			if ((*it)->IsA("LegoActionControlPresenter") ||
-				((*it)->IsA("MxPresenter") && ((MxPresenter*)*it)->IsEnabled())) {
+				((*it)->IsA("MxPresenter") && ((MxPresenter*) *it)->IsEnabled()
+				)) {
 				m_set0xd0.insert(*it);
-				((MxPresenter*)*it)->Enable(FALSE);
+				((MxPresenter*) *it)->Enable(FALSE);
 			}
 		}
 
@@ -806,7 +830,8 @@ MxBool LegoWorld::PresentersPending() {
 	MxPresenter* presenter;
 
 	while (controlPresenterCursor.Next(presenter)) {
-		if (presenter->IsEnabled() && !presenter->HasTickleStatePassed(MxPresenter::e_starting)) {
+		if (presenter->IsEnabled() &&
+			!presenter->HasTickleStatePassed(MxPresenter::e_starting)) {
 			return TRUE;
 		}
 	}
@@ -819,8 +844,7 @@ MxBool LegoWorld::PresentersPending() {
 				if (!presenter->HasTickleStatePassed(MxPresenter::e_ready)) {
 					return TRUE;
 				}
-			}
-			else {
+			} else {
 				if (!presenter->HasTickleStatePassed(MxPresenter::e_starting)) {
 					return TRUE;
 				}
@@ -828,11 +852,13 @@ MxBool LegoWorld::PresentersPending() {
 		}
 	}
 
-	for (MxCoreSet::iterator it = m_set0xa8.begin(); it != m_set0xa8.end(); it++) {
+	for (MxCoreSet::iterator it = m_set0xa8.begin(); it != m_set0xa8.end();
+		 it++) {
 		if ((*it)->IsA("MxPresenter")) {
-			presenter = (MxPresenter*)*it;
+			presenter = (MxPresenter*) *it;
 
-			if (presenter->IsEnabled() && !presenter->HasTickleStatePassed(MxPresenter::e_starting)) {
+			if (presenter->IsEnabled() &&
+				!presenter->HasTickleStatePassed(MxPresenter::e_starting)) {
 				return TRUE;
 			}
 		}

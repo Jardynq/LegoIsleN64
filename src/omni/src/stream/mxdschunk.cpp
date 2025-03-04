@@ -1,6 +1,5 @@
 #include "mxdschunk.h"
 
-
 // FUNCTION: LEGO1 0x100be050
 // FUNCTION: BETA10 0x10147290
 MxDSChunk::MxDSChunk() {

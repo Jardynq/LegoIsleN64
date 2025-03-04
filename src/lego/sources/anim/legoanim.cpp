@@ -5,7 +5,6 @@
 
 #include <limits.h>
 
-
 // FUNCTION: LEGO1 0x1009f000
 LegoUnknownKey::LegoUnknownKey() {
 	m_z = 0.0f;
@@ -198,7 +197,13 @@ LegoResult LegoAnimScene::FUN_1009f490(LegoFloat p_time, Matrix4& p_matrix) {
 	LegoU32 local60;
 	if (m_unk0x08 != 0) {
 		local60 = GetUnknown0x18();
-		LegoAnimNodeData::GetTranslation(m_unk0x08, m_unk0x0c, p_time, localb0, local60);
+		LegoAnimNodeData::GetTranslation(
+			m_unk0x08,
+			m_unk0x0c,
+			p_time,
+			localb0,
+			local60
+		);
 		SetUnknown0x18(local60);
 		localcc = localb8;
 		localb8.Clear();
@@ -206,7 +211,13 @@ LegoResult LegoAnimScene::FUN_1009f490(LegoFloat p_time, Matrix4& p_matrix) {
 
 	if (m_unk0x00 != 0) {
 		local60 = GetUnknown0x1c();
-		LegoAnimNodeData::GetTranslation(m_unk0x00, m_unk0x04, p_time, localb0, local60);
+		LegoAnimNodeData::GetTranslation(
+			m_unk0x00,
+			m_unk0x04,
+			p_time,
+			localb0,
+			local60
+		);
 		SetUnknown0x1c(local60);
 	}
 
@@ -222,15 +233,22 @@ LegoResult LegoAnimScene::FUN_1009f490(LegoFloat p_time, Matrix4& p_matrix) {
 			localcc = p_matrix[3];
 			localcc += localb0[3];
 
-			p_matrix[3][0] = p_matrix[3][1] = p_matrix[3][2] = localb0[3][0] = localb0[3][1] = localb0[3][2] = 0;
+			p_matrix[3][0] = p_matrix[3][1] = p_matrix[3][2] = localb0[3][0] =
+				localb0[3][1] = localb0[3][2] = 0;
 
 			if (m_unk0x10 != 0) {
 				LegoU32 locald0 = -1;
 				LegoU32 locald8;
 				locald0 = GetUnknown0x20();
 
-				LegoU32 localdc =
-					LegoAnimNodeData::FindKeys(p_time, m_unk0x10, m_unk0x14, sizeof(*m_unk0x14), locald8, locald0);
+				LegoU32 localdc = LegoAnimNodeData::FindKeys(
+					p_time,
+					m_unk0x10,
+					m_unk0x14,
+					sizeof(*m_unk0x14),
+					locald8,
+					locald0
+				);
 
 				SetUnknown0x20(locald0);
 
@@ -275,11 +293,12 @@ LegoResult LegoAnimKey::Read(LegoStorage* p_storage) {
 	LegoResult result;
 	LegoS32 timeAndFlags;
 
-	if ((result = p_storage->Read(&timeAndFlags, sizeof(timeAndFlags))) != SUCCESS) {
+	if ((result = p_storage->Read(&timeAndFlags, sizeof(timeAndFlags))) !=
+		SUCCESS) {
 		return result;
 	}
 
-	m_flags = (LegoU32)timeAndFlags >> 24;
+	m_flags = (LegoU32) timeAndFlags >> 24;
 	m_time = timeAndFlags & 0xffffff;
 	return SUCCESS;
 }
@@ -288,9 +307,10 @@ LegoResult LegoAnimKey::Read(LegoStorage* p_storage) {
 // FUNCTION: BETA10 0x1017e018
 LegoResult LegoAnimKey::Write(LegoStorage* p_storage) {
 	LegoResult result;
-	LegoS32 timeAndFlags = (LegoS32)m_time | (m_flags << 24);
+	LegoS32 timeAndFlags = (LegoS32) m_time | (m_flags << 24);
 
-	if ((result = p_storage->Write(&timeAndFlags, sizeof(timeAndFlags))) != SUCCESS) {
+	if ((result = p_storage->Write(&timeAndFlags, sizeof(timeAndFlags))) !=
+		SUCCESS) {
 		return result;
 	}
 
@@ -324,7 +344,8 @@ LegoResult LegoTranslationKey::Read(LegoStorage* p_storage) {
 		return result;
 	}
 
-	if (m_x > 1e-05F || m_x < -1e-05F || m_y > 1e-05F || m_y < -1e-05F || m_z > 1e-05F || m_z < -1e-05F) {
+	if (m_x > 1e-05F || m_x < -1e-05F || m_y > 1e-05F || m_y < -1e-05F ||
+		m_z > 1e-05F || m_z < -1e-05F) {
 		m_flags |= c_bit1;
 	}
 
@@ -450,7 +471,8 @@ LegoResult LegoScaleKey::Read(LegoStorage* p_storage) {
 		return result;
 	}
 
-	if (m_x > 1.00001 || m_x < 0.99999 || m_y > 1.00001 || m_y < 0.99999 || m_z > 1.00001 || m_z < 0.99999) {
+	if (m_x > 1.00001 || m_x < 0.99999 || m_y > 1.00001 || m_y < 0.99999 ||
+		m_z > 1.00001 || m_z < 0.99999) {
 		m_flags |= c_bit1;
 	}
 
@@ -545,7 +567,10 @@ LegoResult LegoAnimNodeData::Read(LegoStorage* p_storage) {
 
 	LegoU32 i;
 
-	if ((result = p_storage->Read(&m_numTranslationKeys, sizeof(m_numTranslationKeys))) != SUCCESS) {
+	if ((result = p_storage->Read(
+			 &m_numTranslationKeys,
+			 sizeof(m_numTranslationKeys)
+		 )) != SUCCESS) {
 		return result;
 	}
 	if (m_translationKeys) {
@@ -561,7 +586,8 @@ LegoResult LegoAnimNodeData::Read(LegoStorage* p_storage) {
 		}
 	}
 
-	if ((result = p_storage->Read(&m_numRotationKeys, sizeof(m_numRotationKeys))) != SUCCESS) {
+	if ((result = p_storage->Read(&m_numRotationKeys, sizeof(m_numRotationKeys))
+		) != SUCCESS) {
 		return result;
 	}
 	if (m_rotationKeys) {
@@ -577,7 +603,8 @@ LegoResult LegoAnimNodeData::Read(LegoStorage* p_storage) {
 		}
 	}
 
-	if ((result = p_storage->Read(&m_numScaleKeys, sizeof(m_numScaleKeys))) != SUCCESS) {
+	if ((result = p_storage->Read(&m_numScaleKeys, sizeof(m_numScaleKeys))) !=
+		SUCCESS) {
 		return result;
 	}
 	if (m_scaleKeys) {
@@ -593,7 +620,8 @@ LegoResult LegoAnimNodeData::Read(LegoStorage* p_storage) {
 		}
 	}
 
-	if ((result = p_storage->Read(&m_numMorphKeys, sizeof(m_numMorphKeys))) != SUCCESS) {
+	if ((result = p_storage->Read(&m_numMorphKeys, sizeof(m_numMorphKeys))) !=
+		SUCCESS) {
 		return result;
 	}
 	if (m_morphKeys) {
@@ -627,11 +655,15 @@ LegoResult LegoAnimNodeData::Write(LegoStorage* p_storage) {
 		return result;
 	}
 
-	if (m_name != NULL && (result = p_storage->Write(m_name, length)) != SUCCESS) {
+	if (m_name != NULL &&
+		(result = p_storage->Write(m_name, length)) != SUCCESS) {
 		return result;
 	}
 
-	if ((result = p_storage->Write(&m_numTranslationKeys, sizeof(m_numTranslationKeys))) != SUCCESS) {
+	if ((result = p_storage->Write(
+			 &m_numTranslationKeys,
+			 sizeof(m_numTranslationKeys)
+		 )) != SUCCESS) {
 		return result;
 	}
 	if (m_numTranslationKeys != 0) {
@@ -642,7 +674,9 @@ LegoResult LegoAnimNodeData::Write(LegoStorage* p_storage) {
 		}
 	}
 
-	if ((result = p_storage->Write(&m_numRotationKeys, sizeof(m_numRotationKeys))) != SUCCESS) {
+	if ((result =
+			 p_storage->Write(&m_numRotationKeys, sizeof(m_numRotationKeys))) !=
+		SUCCESS) {
 		return result;
 	}
 	if (m_numRotationKeys != 0) {
@@ -653,7 +687,8 @@ LegoResult LegoAnimNodeData::Write(LegoStorage* p_storage) {
 		}
 	}
 
-	if ((result = p_storage->Write(&m_numScaleKeys, sizeof(m_numScaleKeys))) != SUCCESS) {
+	if ((result = p_storage->Write(&m_numScaleKeys, sizeof(m_numScaleKeys))) !=
+		SUCCESS) {
 		return result;
 	}
 	if (m_numScaleKeys != 0) {
@@ -664,7 +699,8 @@ LegoResult LegoAnimNodeData::Write(LegoStorage* p_storage) {
 		}
 	}
 
-	if ((result = p_storage->Write(&m_numMorphKeys, sizeof(m_numMorphKeys))) != SUCCESS) {
+	if ((result = p_storage->Write(&m_numMorphKeys, sizeof(m_numMorphKeys))) !=
+		SUCCESS) {
 		return result;
 	}
 	if (m_numMorphKeys != 0) {
@@ -690,7 +726,8 @@ void LegoAnimNodeData::SetName(LegoChar* p_name) {
 }
 
 // FUNCTION: LEGO1 0x100a03c0
-LegoResult LegoAnimNodeData::CreateLocalTransform(LegoFloat p_time, Matrix4& p_matrix) {
+LegoResult
+LegoAnimNodeData::CreateLocalTransform(LegoFloat p_time, Matrix4& p_matrix) {
 	LegoU32 index;
 
 	if (m_scaleKeys != NULL) {
@@ -709,8 +746,7 @@ LegoResult LegoAnimNodeData::CreateLocalTransform(LegoFloat p_time, Matrix4& p_m
 			b = p_matrix;
 			p_matrix.Product(b, a);
 		}
-	}
-	else if (m_rotationKeys != NULL) {
+	} else if (m_rotationKeys != NULL) {
 		index = GetRotationIndex();
 		GetRotation(m_numRotationKeys, m_rotationKeys, p_time, p_matrix, index);
 		SetRotationIndex(index);
@@ -718,7 +754,13 @@ LegoResult LegoAnimNodeData::CreateLocalTransform(LegoFloat p_time, Matrix4& p_m
 
 	if (m_translationKeys != NULL) {
 		index = GetTranslationIndex();
-		GetTranslation(m_numTranslationKeys, m_translationKeys, p_time, p_matrix, index);
+		GetTranslation(
+			m_numTranslationKeys,
+			m_translationKeys,
+			p_time,
+			p_matrix,
+			index
+		);
 		SetTranslationIndex(index);
 	}
 
@@ -757,7 +799,8 @@ inline void LegoAnimNodeData::GetTranslation(
 		z = p_translationKeys[i].GetZ();
 		break;
 	case 2:
-		if (!p_translationKeys[i].TestBit1() && !p_translationKeys[i + 1].TestBit1()) {
+		if (!p_translationKeys[i].TestBit1() &&
+			!p_translationKeys[i + 1].TestBit1()) {
 			return;
 		}
 
@@ -797,7 +840,14 @@ inline void LegoAnimNodeData::GetTranslation(
 	LegoU32& p_old_index
 ) {
 	LegoU32 i, n;
-	n = FindKeys(p_time, p_numRotationKeys & USHRT_MAX, p_rotationKeys, sizeof(*p_rotationKeys), i, p_old_index);
+	n = FindKeys(
+		p_time,
+		p_numRotationKeys & USHRT_MAX,
+		p_rotationKeys,
+		sizeof(*p_rotationKeys),
+		i,
+		p_old_index
+	);
 
 	switch (n) {
 	case 0:
@@ -833,8 +883,7 @@ inline void LegoAnimNodeData::GetTranslation(
 				c[1] = -p_rotationKeys[i + 1].GetY();
 				c[2] = -p_rotationKeys[i + 1].GetZ();
 				c[3] = -p_rotationKeys[i + 1].GetAngle();
-			}
-			else {
+			} else {
 				c[0] = p_rotationKeys[i + 1].GetX();
 				c[1] = p_rotationKeys[i + 1].GetY();
 				c[2] = p_rotationKeys[i + 1].GetZ();
@@ -845,7 +894,9 @@ inline void LegoAnimNodeData::GetTranslation(
 			b.SetEnd(c);
 			b.InterpolateToMatrix(
 				p_matrix,
-				(p_time - p_rotationKeys[i].GetTime()) / (p_rotationKeys[i + 1].GetTime() - p_rotationKeys[i].GetTime())
+				(p_time - p_rotationKeys[i].GetTime()) /
+					(p_rotationKeys[i + 1].GetTime() -
+					 p_rotationKeys[i].GetTime())
 			);
 		}
 	}
@@ -860,7 +911,14 @@ inline void LegoAnimNodeData::GetScale(
 ) {
 	LegoU32 i, n;
 	LegoFloat x, y, z;
-	n = FindKeys(p_time, p_numScaleKeys & USHRT_MAX, p_scaleKeys, sizeof(*p_scaleKeys), i, p_old_index);
+	n = FindKeys(
+		p_time,
+		p_numScaleKeys & USHRT_MAX,
+		p_scaleKeys,
+		sizeof(*p_scaleKeys),
+		i,
+		p_old_index
+	);
 
 	switch (n) {
 	case 0:
@@ -871,9 +929,27 @@ inline void LegoAnimNodeData::GetScale(
 		z = p_scaleKeys[i].GetZ();
 		break;
 	case 2:
-		x = Interpolate(p_time, p_scaleKeys[i], p_scaleKeys[i].GetX(), p_scaleKeys[i + 1], p_scaleKeys[i + 1].GetX());
-		y = Interpolate(p_time, p_scaleKeys[i], p_scaleKeys[i].GetY(), p_scaleKeys[i + 1], p_scaleKeys[i + 1].GetY());
-		z = Interpolate(p_time, p_scaleKeys[i], p_scaleKeys[i].GetZ(), p_scaleKeys[i + 1], p_scaleKeys[i + 1].GetZ());
+		x = Interpolate(
+			p_time,
+			p_scaleKeys[i],
+			p_scaleKeys[i].GetX(),
+			p_scaleKeys[i + 1],
+			p_scaleKeys[i + 1].GetX()
+		);
+		y = Interpolate(
+			p_time,
+			p_scaleKeys[i],
+			p_scaleKeys[i].GetY(),
+			p_scaleKeys[i + 1],
+			p_scaleKeys[i + 1].GetY()
+		);
+		z = Interpolate(
+			p_time,
+			p_scaleKeys[i],
+			p_scaleKeys[i].GetZ(),
+			p_scaleKeys[i + 1],
+			p_scaleKeys[i + 1].GetZ()
+		);
 		break;
 	}
 
@@ -886,7 +962,14 @@ LegoBool LegoAnimNodeData::FUN_100a0990(LegoFloat p_time) {
 	LegoU32 index = GetMorphIndex();
 	LegoBool result;
 
-	n = FindKeys(p_time, m_numMorphKeys, m_morphKeys, sizeof(*m_morphKeys), i, index);
+	n = FindKeys(
+		p_time,
+		m_numMorphKeys,
+		m_morphKeys,
+		sizeof(*m_morphKeys),
+		i,
+		index
+	);
 	SetMorphIndex(index);
 
 	switch (n) {
@@ -914,36 +997,32 @@ LegoU32 LegoAnimNodeData::FindKeys(
 	LegoU32 numKeys;
 	if (p_numKeys == 0) {
 		numKeys = 0;
-	}
-	else if (p_time < GetKey(0, p_keys, p_size).GetTime()) {
+	} else if (p_time < GetKey(0, p_keys, p_size).GetTime()) {
 		numKeys = 0;
-	}
-	else if (p_time > GetKey(p_numKeys - 1, p_keys, p_size).GetTime()) {
+	} else if (p_time > GetKey(p_numKeys - 1, p_keys, p_size).GetTime()) {
 		p_new_index = p_numKeys - 1;
 		numKeys = 1;
-	}
-	else {
+	} else {
 		if (GetKey(p_old_index, p_keys, p_size).GetTime() <= p_time) {
 			for (p_new_index = p_old_index;
-				p_new_index < p_numKeys - 1 && p_time >= GetKey(p_new_index + 1, p_keys, p_size).GetTime();
-				p_new_index++) {
+				 p_new_index < p_numKeys - 1 &&
+				 p_time >= GetKey(p_new_index + 1, p_keys, p_size).GetTime();
+				 p_new_index++) {
 			}
-		}
-		else {
+		} else {
 			for (p_new_index = 0;
-				p_new_index < p_numKeys - 1 && p_time >= GetKey(p_new_index + 1, p_keys, p_size).GetTime();
-				p_new_index++) {
+				 p_new_index < p_numKeys - 1 &&
+				 p_time >= GetKey(p_new_index + 1, p_keys, p_size).GetTime();
+				 p_new_index++) {
 			}
 		}
 
 		p_old_index = p_new_index;
 		if (p_time == GetKey(p_new_index, p_keys, p_size).GetTime()) {
 			numKeys = 1;
-		}
-		else if (p_new_index < p_numKeys - 1) {
+		} else if (p_new_index < p_numKeys - 1) {
 			numKeys = 2;
-		}
-		else {
+		} else {
 			numKeys = 0;
 		}
 	}
@@ -959,11 +1038,13 @@ inline LegoFloat LegoAnimNodeData::Interpolate(
 	LegoAnimKey& p_key2,
 	LegoFloat p_value2
 ) {
-	return p_value1 + (p_value2 - p_value1) * (p_time - p_key1.GetTime()) / (p_key2.GetTime() - p_key1.GetTime());
+	return p_value1 + (p_value2 - p_value1) * (p_time - p_key1.GetTime()) /
+						  (p_key2.GetTime() - p_key1.GetTime());
 }
 
-inline LegoAnimKey& LegoAnimNodeData::GetKey(LegoU32 p_i, LegoAnimKey* p_keys, LegoU32 p_size) {
-	return *((LegoAnimKey*)(((LegoU8*)p_keys) + (p_i * p_size)));
+inline LegoAnimKey&
+LegoAnimNodeData::GetKey(LegoU32 p_i, LegoAnimKey* p_keys, LegoU32 p_size) {
+	return *((LegoAnimKey*) (((LegoU8*) p_keys) + (p_i * p_size)));
 }
 
 // FUNCTION: LEGO1 0x100a0b30
@@ -1016,7 +1097,10 @@ LegoResult LegoAnim::Read(LegoStorage* p_storage, LegoS32 p_parseScene) {
 
 			m_modelList[i].m_name[length] = '\0';
 
-			if (p_storage->Read(&m_modelList[i].m_unk0x04, sizeof(m_modelList[i].m_unk0x04)) != SUCCESS) {
+			if (p_storage->Read(
+					&m_modelList[i].m_unk0x04,
+					sizeof(m_modelList[i].m_unk0x04)
+				) != SUCCESS) {
 				goto done;
 			}
 		}
@@ -1024,7 +1108,8 @@ LegoResult LegoAnim::Read(LegoStorage* p_storage, LegoS32 p_parseScene) {
 		m_numActors++;
 	}
 
-	if ((result = p_storage->Read(&m_duration, sizeof(m_duration))) != SUCCESS) {
+	if ((result = p_storage->Read(&m_duration, sizeof(m_duration))) !=
+		SUCCESS) {
 		goto done;
 	}
 
@@ -1076,7 +1161,10 @@ LegoResult LegoAnim::Write(LegoStorage* p_storage) {
 				goto done;
 			}
 
-			if (p_storage->Write(&m_modelList[i].m_unk0x04, sizeof(m_modelList[i].m_unk0x04)) != SUCCESS) {
+			if (p_storage->Write(
+					&m_modelList[i].m_unk0x04,
+					sizeof(m_modelList[i].m_unk0x04)
+				) != SUCCESS) {
 				goto done;
 			}
 		}

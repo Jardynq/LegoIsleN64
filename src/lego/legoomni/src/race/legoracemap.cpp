@@ -9,7 +9,6 @@
 #include "mxstillpresenter.h"
 #include "mxutilities.h"
 
-
 // FUNCTION: LEGO1 0x1005d0d0
 // FUNCTION: BETA10 0x100ca2c0
 LegoRaceMap::LegoRaceMap() {
@@ -40,7 +39,10 @@ void LegoRaceMap::ParseAction(char* p_extra) {
 
 	if (KeyValueStringParse(value, g_mapLocator, p_extra)) {
 		// variable name verified by BETA10 0x100ca5ac
-		MxStillPresenter* p = (MxStillPresenter*)VideoManager()->GetPresenterByActionObjectName(value);
+		MxStillPresenter* p =
+			(MxStillPresenter*) VideoManager()->GetPresenterByActionObjectName(
+				value
+			);
 
 		assert(p);
 		p->Enable(FALSE);
@@ -95,7 +97,8 @@ void LegoRaceMap::ParseAction(char* p_extra) {
 		// STRING: LEGO1 0x100f67bc
 		const char* mapCtl = "Map_Ctl";
 
-		m_Map_Ctl = (MxControlPresenter*)currentWorld->Find("MxControlPresenter", mapCtl);
+		m_Map_Ctl = (MxControlPresenter*)
+						currentWorld->Find("MxControlPresenter", mapCtl);
 		assert(m_Map_Ctl);
 	}
 }
@@ -104,8 +107,10 @@ void LegoRaceMap::ParseAction(char* p_extra) {
 // FUNCTION: BETA10 0x100ca849
 void LegoRaceMap::FUN_1005d4b0() {
 	if (m_unk0x08) {
-		short xPos = (GetWorldPosition()[0] - m_unk0x14) / m_unk0x18 * m_unk0x24;
-		short yPos = (GetWorldPosition()[2] - m_unk0x1c) / m_unk0x20 * m_unk0x28;
+		short xPos =
+			(GetWorldPosition()[0] - m_unk0x14) / m_unk0x18 * m_unk0x24;
+		short yPos =
+			(GetWorldPosition()[2] - m_unk0x1c) / m_unk0x20 * m_unk0x28;
 
 		m_stillPresenter->SetPosition(xPos + m_unk0x2c, m_unk0x30 - yPos);
 	}
@@ -118,18 +123,19 @@ MxLong LegoRaceMap::Notify(MxParam& p_param) {
 		return 1;
 	}
 
-	MxNotificationParam& param = (MxNotificationParam&)p_param;
+	MxNotificationParam& param = (MxNotificationParam&) p_param;
 
 	if (param.GetNotification() == c_notificationControl &&
 		m_Map_Ctl->GetAction()->GetObjectId() ==
-		((LegoControlManagerNotificationParam&)p_param).GetClickedObjectId()) {
+			((LegoControlManagerNotificationParam&) p_param)
+				.GetClickedObjectId()) {
 
-		if (((LegoControlManagerNotificationParam&)p_param).GetUnknown0x28() == 1) {
+		if (((LegoControlManagerNotificationParam&) p_param).GetUnknown0x28() ==
+			1) {
 			m_unk0x08 = TRUE;
 			FUN_1005d4b0();
 			m_stillPresenter->Enable(TRUE);
-		}
-		else {
+		} else {
 			m_unk0x08 = FALSE;
 			m_stillPresenter->Enable(FALSE);
 		}

@@ -45,7 +45,11 @@ public:
 		MxDSAction* p_action,
 		MxDSStreamingAction** p_streamingAction
 	);
-	MxResult StartPresenterFromAction(MxStreamController* p_controller, MxDSAction* p_action1, MxDSAction* p_action2);
+	MxResult StartPresenterFromAction(
+		MxStreamController* p_controller,
+		MxDSAction* p_action1,
+		MxDSAction* p_action2
+	);
 	MxResult ParseChunk(
 		MxStreamController* p_controller,
 		MxU32* p_data,
@@ -61,7 +65,8 @@ public:
 	MxU8* FUN_100c6fa0(MxU8* p_data);
 	MxResult FUN_100c7090(MxDSBuffer* p_buf);
 
-	static MxCore* ReadChunk(MxDSBuffer* p_buffer, MxU32* p_chunkData, MxU16 p_flags);
+	static MxCore*
+	ReadChunk(MxDSBuffer* p_buffer, MxU32* p_chunkData, MxU16 p_flags);
 	static MxResult Append(MxU8* p_buffer1, MxU8* p_buffer2);
 
 	// FUNCTION: BETA10 0x10148c60

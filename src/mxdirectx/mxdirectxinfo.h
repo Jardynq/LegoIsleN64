@@ -1,7 +1,6 @@
 #ifndef MXDIRECTXINFO_H
 #define MXDIRECTXINFO_H
 
-
 #include <d3d.h>
 
 // SIZE 0x17c
@@ -9,7 +8,10 @@ struct DeviceModesInfo {
 	// SIZE 0x0c
 	struct Mode {
 		int operator==(const Mode& p_mode) const {
-			return ((width == p_mode.width) && (height == p_mode.height) && (bitsPerPixel == p_mode.bitsPerPixel));
+			return (
+				(width == p_mode.width) && (height == p_mode.height) &&
+				(bitsPerPixel == p_mode.bitsPerPixel)
+			);
 		}
 
 		int width;        // 0x00
@@ -33,16 +35,13 @@ struct DeviceModesInfo {
 // SIZE 0xe4
 class MxAssignedDevice {
 public:
-	enum {
-		c_hardwareMode = 0x01,
-		c_primaryDevice = 0x02
-	};
+	enum { c_hardwareMode = 0x01, c_primaryDevice = 0x02 };
 
 	MxAssignedDevice();
 	~MxAssignedDevice();
 
 	unsigned int GetFlags() { return m_flags; }
-	BOOL GetHardwareMode() { return ((int)m_flags << 31) >> 31; }
+	BOOL GetHardwareMode() { return ((int) m_flags << 31) >> 31; }
 	D3DDEVICEDESC& GetDesc() { return m_desc; }
 
 	friend class MxDirect3D;
@@ -83,18 +82,17 @@ struct Direct3DDeviceInfo {
 	D3DDEVICEDESC m_HWDesc;  // 0x0c
 	D3DDEVICEDESC m_HELDesc; // 0xd8
 
-	int operator==(Direct3DDeviceInfo) const { return 0; }
-	int operator<(Direct3DDeviceInfo) const { return 0; }
+	int operator==(const Direct3DDeviceInfo&) const { return 0; }
+	int operator<(const Direct3DDeviceInfo&) const { return 0; }
 };
 
 // SIZE 0x0c
 struct MxDisplayMode {
 	MxDisplayMode() {}
 	// FUNCTION: BETA10 0x1011f920
-	MxDisplayMode(DWORD p_width, DWORD p_height, DWORD p_bitsPerPixel) {
-		m_width = p_width;
-		m_height = p_height;
-		m_bitsPerPixel = p_bitsPerPixel;
+	MxDisplayMode(DWORD p_width, DWORD p_height, DWORD p_bitsPerPixel)
+		: m_width(p_width), m_height(p_height), m_bitsPerPixel(p_bitsPerPixel) {
+
 	}
 
 	int operator==(MxDisplayMode) const { return 0; }
@@ -121,19 +119,21 @@ struct MxDriver {
 	list<Direct3DDeviceInfo> m_devices; // 0x178
 	list<MxDisplayMode> m_displayModes; // 0x184
 
-	int operator==(MxDriver) const { return 0; }
-	int operator<(MxDriver) const { return 0; }
+	int operator==(const MxDriver&) const { return 0; }
+	int operator<(const MxDriver&) const { return 0; }
 };
 
 // TEMPLATE: CONFIG 0x401000
 // TEMPLATE: LEGO1 0x1009b900
 // TEMPLATE: BETA10 0x1011ee40
-// list<Direct3DDeviceInfo,allocator<Direct3DDeviceInfo> >::~list<Direct3DDeviceInfo,allocator<Direct3DDeviceInfo> >
+// list<Direct3DDeviceInfo,allocator<Direct3DDeviceInfo>
+// >::~list<Direct3DDeviceInfo,allocator<Direct3DDeviceInfo> >
 
 // TEMPLATE: CONFIG 0x401070
 // TEMPLATE: LEGO1 0x1009b970
 // TEMPLATE: BETA10 0x1011f0a0
-// list<MxDisplayMode,allocator<MxDisplayMode> >::~list<MxDisplayMode,allocator<MxDisplayMode> >
+// list<MxDisplayMode,allocator<MxDisplayMode>
+// >::~list<MxDisplayMode,allocator<MxDisplayMode> >
 
 // TEMPLATE: CONFIG 0x4010e0
 // TEMPLATE: LEGO1 0x1009b9e0
@@ -189,7 +189,11 @@ public:
 
 	virtual int DoEnumerate(); // vtable+0x00
 
-	BOOL EnumDirectDrawCallback(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName);
+	BOOL EnumDirectDrawCallback(
+		LPGUID p_guid,
+		LPSTR p_driverDesc,
+		LPSTR p_driverName
+	);
 	HRESULT EnumDisplayModesCallback(LPDDSURFACEDESC p_ddsd);
 	HRESULT EnumDevicesCallback(
 		LPGUID p_guid,
@@ -200,9 +204,14 @@ public:
 	);
 	const char* EnumerateErrorToString(HRESULT p_error);
 	static void BuildErrorString(const char*, ...);
-	static BOOL CALLBACK
-		DirectDrawEnumerateCallback(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName, LPVOID p_context);
-	static HRESULT CALLBACK DisplayModesEnumerateCallback(LPDDSURFACEDESC p_ddsd, LPVOID p_context);
+	static BOOL CALLBACK DirectDrawEnumerateCallback(
+		LPGUID p_guid,
+		LPSTR p_driverDesc,
+		LPSTR p_driverName,
+		LPVOID p_context
+	);
+	static HRESULT CALLBACK
+	DisplayModesEnumerateCallback(LPDDSURFACEDESC p_ddsd, LPVOID p_context);
 	static HRESULT CALLBACK DevicesEnumerateCallback(
 		LPGUID p_guid,
 		LPSTR p_deviceDesc,
@@ -225,8 +234,8 @@ public:
 
 		// FUNCTION: BETA10 0x1011d340
 		static unsigned char Compare(const GUID4& p_a, const GUID4& p_b) {
-			return p_a.m_data1 == p_b.m_data1 && p_a.m_data2 == p_b.m_data2 && p_a.m_data3 == p_b.m_data3 &&
-				p_a.m_data4 == p_b.m_data4;
+			return p_a.m_data1 == p_b.m_data1 && p_a.m_data2 == p_b.m_data2 &&
+				   p_a.m_data3 == p_b.m_data3 && p_a.m_data4 == p_b.m_data4;
 		}
 	};
 

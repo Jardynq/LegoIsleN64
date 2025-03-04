@@ -1,7 +1,6 @@
 #ifndef __LEGOTREE_H
 #define __LEGOTREE_H
 
-
 class LegoStorage;
 
 // VTABLE: LEGO1 0x100db778
@@ -14,10 +13,14 @@ public:
 	virtual ~LegoTreeNodeData() {}
 
 	// FUNCTION: LEGO1 0x10099fe0
-	virtual LegoResult Read(LegoStorage* p_storage) { return SUCCESS; } // vtable+0x04
+	virtual LegoResult Read(LegoStorage* p_storage) {
+		return SUCCESS;
+	} // vtable+0x04
 
 	// FUNCTION: LEGO1 0x10099ff0
-	virtual LegoResult Write(LegoStorage* p_storage) { return SUCCESS; } // vtable+0x08
+	virtual LegoResult Write(LegoStorage* p_storage) {
+		return SUCCESS;
+	} // vtable+0x08
 
 	// SYNTHETIC: LEGO1 0x1009a000
 	// LegoTreeNodeData::`scalar deleting destructor'
@@ -41,12 +44,16 @@ public:
 	LegoU32 GetNumChildren() { return m_numChildren; }
 
 	// FUNCTION: BETA10 0x10073370
-	void SetNumChildren(LegoU32 p_numChildren) { m_numChildren = p_numChildren; }
+	void SetNumChildren(LegoU32 p_numChildren) {
+		m_numChildren = p_numChildren;
+	}
 
 	// FUNCTION: BETA10 0x10012180
 	LegoTreeNode* GetChild(LegoU32 p_i) { return m_children[p_i]; }
 
-	void SetChild(LegoU32 p_i, LegoTreeNode* p_child) { m_children[p_i] = p_child; }
+	void SetChild(LegoU32 p_i, LegoTreeNode* p_child) {
+		m_children[p_i] = p_child;
+	}
 
 	// FUNCTION: BETA10 0x100733a0
 	LegoTreeNode** GetChildren() { return m_children; }
@@ -89,7 +96,9 @@ protected:
 	void Delete(LegoTreeNode* p_node);
 
 	// FUNCTION: LEGO1 0x10099f70
-	virtual LegoTreeNodeData* CreateData() { return new LegoTreeNodeData(); } // vtable+0x0c
+	virtual LegoTreeNodeData* CreateData() {
+		return new LegoTreeNodeData();
+	} // vtable+0x0c
 
 	LegoTreeNode* m_root; // 0x04
 };

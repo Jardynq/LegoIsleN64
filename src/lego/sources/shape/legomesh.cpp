@@ -2,7 +2,6 @@
 
 #include "misc/legostorage.h"
 
-
 // FUNCTION: LEGO1 0x100d3810
 LegoMesh::LegoMesh() {
 	m_alpha = 0.0F;
@@ -54,13 +53,15 @@ LegoResult LegoMesh::Read(LegoStorage* p_storage) {
 		return result;
 	}
 
-	if ((result = p_storage->Read(&textureLength, sizeof(textureLength))) != SUCCESS) {
+	if ((result = p_storage->Read(&textureLength, sizeof(textureLength))) !=
+		SUCCESS) {
 		return result;
 	}
 	if (textureLength) {
 		m_textureName = new LegoChar[textureLength + 1];
 
-		if ((result = p_storage->Read(m_textureName, textureLength)) != SUCCESS) {
+		if ((result = p_storage->Read(m_textureName, textureLength)) !=
+			SUCCESS) {
 			return result;
 		}
 
@@ -68,13 +69,15 @@ LegoResult LegoMesh::Read(LegoStorage* p_storage) {
 		strlwr(m_textureName);
 	}
 
-	if ((result = p_storage->Read(&materialLength, sizeof(materialLength))) != SUCCESS) {
+	if ((result = p_storage->Read(&materialLength, sizeof(materialLength))) !=
+		SUCCESS) {
 		return result;
 	}
 	if (materialLength) {
 		m_materialName = new LegoChar[materialLength + 1];
 
-		if ((result = p_storage->Read(m_materialName, materialLength)) != SUCCESS) {
+		if ((result = p_storage->Read(m_materialName, materialLength)) !=
+			SUCCESS) {
 			return result;
 		}
 

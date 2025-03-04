@@ -25,15 +25,18 @@ public:
 	// FUNCTION: BETA10 0x100a8860
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, JetskiRace::ClassName()) || LegoRace::IsA(p_name);
+		return !strcmp(p_name, JetskiRace::ClassName()) ||
+			   LegoRace::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override;                   // vtable+0x18
-	void ReadyWorld() override;                                         // vtable+0x50
-	MxBool Escape() override;                                           // vtable+0x64
-	MxLong HandleClick(LegoEventNotificationParam&) override;           // vtable+0x6c
-	MxLong HandlePathStruct(LegoPathStructNotificationParam&) override; // vtable+0x70
-	MxLong HandleEndAction(MxEndActionNotificationParam&) override;     // vtable+0x74
+	MxResult Create(MxDSAction& p_dsAction) override;         // vtable+0x18
+	void ReadyWorld() override;                               // vtable+0x50
+	MxBool Escape() override;                                 // vtable+0x64
+	MxLong HandleClick(LegoEventNotificationParam&) override; // vtable+0x6c
+	MxLong
+	HandlePathStruct(LegoPathStructNotificationParam&) override; // vtable+0x70
+	MxLong
+	HandleEndAction(MxEndActionNotificationParam&) override; // vtable+0x74
 
 	void FUN_10016930(MxS32 p_param1, MxS16 p_param2);
 
@@ -59,7 +62,8 @@ public:
 	// FUNCTION: BETA10 0x100a8f60
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, JetskiRaceState::ClassName()) || RaceState::IsA(p_name);
+		return !strcmp(p_name, JetskiRaceState::ClassName()) ||
+			   RaceState::IsA(p_name);
 	}
 
 	// SYNTHETIC: LEGO1 0x1000f680

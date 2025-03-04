@@ -12,15 +12,15 @@
 // SIZE 0x0c
 class ViewLOD : public LODObject {
 public:
-	enum {
-		c_bit4 = 0x10
-	};
+	enum { c_bit4 = 0x10 };
 
-	ViewLOD(Tgl::Renderer* pRenderer) : m_meshBuilder(NULL), m_unk0x08(3) {}
+	ViewLOD(Tgl::Renderer* /*pRenderer*/) : m_meshBuilder(NULL), m_unk0x08(3) {}
 	~ViewLOD() override;
 
 	// FUNCTION: LEGO1 0x100a6f30
-	double AveragePolyArea() const override { return 2 * 3.14159 * 10.0 / NumPolys(); } // vtable+0x04
+	double AveragePolyArea() const override {
+		return 2 * 3.14159 * 10.0 / NumPolys();
+	} // vtable+0x04
 
 	// FUNCTION: LEGO1 0x100a6f50
 	int NVerts() const override { return NumPolys() * 2; } // vtable+0x08

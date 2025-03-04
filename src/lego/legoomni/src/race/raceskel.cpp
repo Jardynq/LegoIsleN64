@@ -6,7 +6,6 @@
 
 #include <assert.h>
 
-
 // FUNCTION: LEGO1 0x100719b0
 // FUNCTION: BETA10 0x100f1240
 RaceSkel::RaceSkel() {
@@ -35,7 +34,7 @@ void RaceSkel::ParseAction(char* p_extra) {
 	LegoAnimActor::ParseAction(p_extra);
 
 	// name verified by BETA10 0x100f147d
-	CarRace* w = (CarRace*)CurrentWorld();
+	CarRace* w = (CarRace*) CurrentWorld();
 	assert(w);
 	w->SetSkeleton(this);
 
@@ -55,7 +54,10 @@ void RaceSkel::FUN_10071c80(Vector3& p_vec) {
 
 // FUNCTION: LEGO1 0x10071cb0
 // FUNCTION: BETA10 0x100f158b
-void RaceSkel::GetCurrentAnimData(float* p_outCurAnimPosition, float* p_outCurAnimDuration) {
+void RaceSkel::GetCurrentAnimData(
+	float* p_outCurAnimPosition,
+	float* p_outCurAnimDuration
+) {
 	*p_outCurAnimPosition = m_animPosition;
 
 	assert(m_curAnim >= 0);

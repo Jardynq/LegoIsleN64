@@ -1,7 +1,6 @@
 #ifndef LEGOPLANTS_H
 #define LEGOPLANTS_H
 
-
 class LegoEntity;
 class LegoPathBoundary;
 
@@ -17,20 +16,9 @@ struct LegoPlantInfo {
 		c_act3 = 1 << 16
 	};
 
-	enum Variant {
-		e_flower = 0,
-		e_tree,
-		e_bush,
-		e_palm
-	};
+	enum Variant { e_flower = 0, e_tree, e_bush, e_palm };
 
-	enum Color {
-		e_white = 0,
-		e_black,
-		e_yellow,
-		e_red,
-		e_green
-	};
+	enum Color { e_white = 0, e_black, e_yellow, e_red, e_green };
 
 	LegoEntity* m_entity;         // 0x00
 	MxU32 m_worlds;               // 0x04 - see enum for possible bit flags

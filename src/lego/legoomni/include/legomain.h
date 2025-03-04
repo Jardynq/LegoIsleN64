@@ -31,11 +31,7 @@ class ViewLODListManager;
 // SIZE 0x140
 class LegoOmni : public MxOmni {
 public:
-	enum {
-		c_disableInput = 0x01,
-		c_disable3d = 0x02,
-		c_clearScreen = 0x04
-	};
+	enum { c_disableInput = 0x01, c_disable3d = 0x02, c_clearScreen = 0x04 };
 
 	enum World {
 		e_undefined = -1,
@@ -63,13 +59,10 @@ public:
 	// SIZE 0x1c
 	struct WorldContainer {
 		// FUNCTION: LEGO1 0x1005ac40
-		WorldContainer() {
-			m_id = e_undefined;
-			m_atomId = NULL;
-		}
+		WorldContainer() : m_id(e_undefined), m_atomId(NULL) {}
 
-		WorldContainer(World p_id, const char* p_key, MxAtomId* p_atomId) {
-			m_id = p_id;
+		WorldContainer(World p_id, const char* p_key, MxAtomId* p_atomId)
+			: m_id(p_id) {
 
 			if (p_key) {
 				strcpy(m_key, p_key);
@@ -113,16 +106,19 @@ public:
 		return !strcmp(p_name, LegoOmni::ClassName()) || MxOmni::IsA(p_name);
 	}
 
-	void Init() override;                                                                        // vtable+0x14
-	MxResult Create(MxOmniCreateParam& p_param) override;                                        // vtable+0x18
-	void Destroy() override;                                                                     // vtable+0x1c
-	MxResult Start(MxDSAction* p_dsAction) override;                                             // vtable+0x20
-	void DeleteObject(MxDSAction& p_dsAction) override;                                          // vtable+0x24
-	MxBool DoesEntityExist(MxDSAction& p_dsAction) override;                                     // vtable+0x28
-	MxEntity* AddToWorld(const char* p_id, MxS32 p_entityId, MxPresenter* p_presenter) override; // vtable+0x30
-	void NotifyCurrentEntity(const MxNotificationParam& p_param) override;                       // vtable+0x34
-	void Pause() override;                                                                       // vtable+0x38
-	void Resume() override;                                                                      // vtable+0x3c
+	void Init() override;                                    // vtable+0x14
+	MxResult Create(MxOmniCreateParam& p_param) override;    // vtable+0x18
+	void Destroy() override;                                 // vtable+0x1c
+	MxResult Start(MxDSAction* p_dsAction) override;         // vtable+0x20
+	void DeleteObject(MxDSAction& p_dsAction) override;      // vtable+0x24
+	MxBool DoesEntityExist(MxDSAction& p_dsAction) override; // vtable+0x28
+	MxEntity*
+	AddToWorld(const char* p_id, MxS32 p_entityId, MxPresenter* p_presenter)
+		override; // vtable+0x30
+	void NotifyCurrentEntity(const MxNotificationParam& p_param
+	) override;             // vtable+0x34
+	void Pause() override;  // vtable+0x38
+	void Resume() override; // vtable+0x3c
 
 	LegoWorld* FindWorld(const MxAtomId& p_atom, MxS32 p_entityid);
 	LegoROI* FindROI(const char* p_name);
@@ -141,8 +137,12 @@ public:
 	static void CreateInstance();
 	static LegoOmni* GetInstance();
 
-	LegoVideoManager* GetVideoManager() { return (LegoVideoManager*)m_videoManager; }
-	LegoSoundManager* GetSoundManager() { return (LegoSoundManager*)m_soundManager; }
+	LegoVideoManager* GetVideoManager() {
+		return (LegoVideoManager*) m_videoManager;
+	}
+	LegoSoundManager* GetSoundManager() {
+		return (LegoSoundManager*) m_soundManager;
+	}
 
 	// FUNCTION: BETA10 0x1009e7a0
 	LegoInputManager* GetInputManager() { return m_inputManager; }
@@ -165,21 +165,29 @@ public:
 	LegoGameState* GetGameState() { return m_gameState; }
 
 	// FUNCTION: BETA10 0x100e5280
-	MxBackgroundAudioManager* GetBackgroundAudioManager() { return m_bkgAudioManager; }
+	MxBackgroundAudioManager* GetBackgroundAudioManager() {
+		return m_bkgAudioManager;
+	}
 
 	MxTransitionManager* GetTransitionManager() { return m_transitionManager; }
 	MxDSAction& GetCurrentAction() { return m_action; }
 	LegoCharacterManager* GetCharacterManager() { return m_characterManager; }
 	LegoWorldList* GetWorldList() { return m_worldList; }
 
-	void SetNavController(LegoNavController* p_navController) { m_navController = p_navController; }
+	void SetNavController(LegoNavController* p_navController) {
+		m_navController = p_navController;
+	}
 	void SetUserActor(LegoPathActor* p_userActor) { m_userActor = p_userActor; }
-	void SetCurrentWorld(LegoWorld* p_currentWorld) { m_currentWorld = p_currentWorld; }
+	void SetCurrentWorld(LegoWorld* p_currentWorld) {
+		m_currentWorld = p_currentWorld;
+	}
 
 	// FUNCTION: BETA10 0x100d55c0
 	void SetExit(MxBool p_exit) { m_exit = p_exit; }
 
-	MxResult StartActionIfUnknown0x13c(MxDSAction& p_dsAction) { return m_unk0x13c ? Start(&p_dsAction) : SUCCESS; }
+	MxResult StartActionIfUnknown0x13c(MxDSAction& p_dsAction) {
+		return m_unk0x13c ? Start(&p_dsAction) : SUCCESS;
+	}
 	void SetUnknown13c(MxBool p_unk0x13c) { m_unk0x13c = p_unk0x13c; }
 
 	void CloseMainWindow() { PostMessageA(m_windowHandle, WM_CLOSE, 0, 0); }

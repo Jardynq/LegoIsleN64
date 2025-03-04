@@ -27,7 +27,8 @@ public:
 	// FUNCTION: LEGO1 0x1000ce60
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoTexturePresenter::ClassName()) || MxMediaPresenter::IsA(p_name);
+		return !strcmp(p_name, LegoTexturePresenter::ClassName()) ||
+			   MxMediaPresenter::IsA(p_name);
 	}
 
 	void DoneTickle() override;       // vtable+0x2c

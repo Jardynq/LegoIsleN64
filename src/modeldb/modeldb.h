@@ -29,7 +29,8 @@ public:
 
 	// FUNCTION: LEGO1 0x10027c40
 	MxS8 Compare(ModelDbPart* p_a, ModelDbPart* p_b) override {
-		MxS32 compare = strcmpi(p_a->m_roiName.GetData(), p_b->m_roiName.GetData());
+		MxS32 compare =
+			strcmpi(p_a->m_roiName.GetData(), p_b->m_roiName.GetData());
 
 		if (compare == 0) {
 			p_b->m_partDataLength = p_a->m_partDataLength;
@@ -53,7 +54,8 @@ private:
 // SIZE 0x10
 class ModelDbPartListCursor : public MxListCursor<ModelDbPart*> {
 public:
-	ModelDbPartListCursor(ModelDbPartList* p_list) : MxListCursor<ModelDbPart*>(p_list) {}
+	ModelDbPartListCursor(ModelDbPartList* p_list)
+		: MxListCursor<ModelDbPart*>(p_list) {}
 };
 
 // TEMPLATE: LEGO1 0x10027c70
@@ -110,7 +112,8 @@ struct ModelDbWorld {
 	undefined m_unk0x10[0x08];   // 0x10
 };
 
-MxResult ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWorlds);
+MxResult
+ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWorlds);
 void FreeModelDbWorlds(ModelDbWorld*& p_worlds, MxS32 p_numWorlds);
 
 #endif // MODELDB_H

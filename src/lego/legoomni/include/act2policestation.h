@@ -21,7 +21,8 @@ public:
 	// FUNCTION: LEGO1 0x1000e210
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, Act2PoliceStation::ClassName()) || LegoEntity::IsA(p_name);
+		return !strcmp(p_name, Act2PoliceStation::ClassName()) ||
+			   LegoEntity::IsA(p_name);
 	}
 
 	// SYNTHETIC: LEGO1 0x1000f610

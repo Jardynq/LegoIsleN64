@@ -14,7 +14,7 @@ class MxStopWatch;
 struct ViewportAppData;
 
 namespace Tgl {
-	class Renderer;
+class Renderer;
 }
 
 // VTABLE: LEGO1 0x100d9c88
@@ -31,15 +31,22 @@ public:
 	void MoveCursor(MxS32 p_cursorX, MxS32 p_cursorY);
 	void ToggleFPS(MxBool p_visible);
 
-	MxResult Tickle() override;                                                                       // vtable+0x08
-	void Destroy() override;                                                                          // vtable+0x18
-	MxResult Create(MxVideoParam& p_videoParam, MxU32 p_frequencyMS, MxBool p_createThread) override; // vtable+0x2c
-	MxResult RealizePalette(MxPalette*) override;                                                     // vtable+0x30
-	void UpdateView(MxU32 p_x, MxU32 p_y, MxU32 p_width, MxU32 p_height) override;                    // vtable+0x34
-	virtual MxPresenter* GetPresenterAt(MxS32 p_x, MxS32 p_y);                                        // vtable+0x38
+	MxResult Tickle() override; // vtable+0x08
+	void Destroy() override;    // vtable+0x18
+	MxResult Create(
+		MxVideoParam& p_videoParam,
+		MxU32 p_frequencyMS,
+		MxBool p_createThread
+	) override;                                   // vtable+0x2c
+	MxResult RealizePalette(MxPalette*) override; // vtable+0x30
+	void UpdateView(MxU32 p_x, MxU32 p_y, MxU32 p_width, MxU32 p_height)
+		override;                                              // vtable+0x34
+	virtual MxPresenter* GetPresenterAt(MxS32 p_x, MxS32 p_y); // vtable+0x38
 
 	// FUNCTION: LEGO1 0x1007ab10
-	virtual LegoPhonemeList* GetPhonemeList() { return m_phonemeRefList; } // vtable+0x3c
+	virtual LegoPhonemeList* GetPhonemeList() {
+		return m_phonemeRefList;
+	} // vtable+0x3c
 
 	void SetSkyColor(float p_red, float p_green, float p_blue);
 	void OverrideSkyColor(MxBool p_shouldOverride);

@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 
-
 // FUNCTION: LEGO1 0x10014d00
 MxU32 LegoState::Playlist::Next() {
 	MxU32 objectId;
@@ -12,8 +11,7 @@ MxU32 LegoState::Playlist::Next() {
 		objectId = m_objectIds[m_nextIndex];
 		if (m_nextIndex - m_length == -1) {
 			m_nextIndex = 0;
-		}
-		else {
+		} else {
 			m_nextIndex++;
 		}
 		break;
@@ -34,8 +32,7 @@ MxU32 LegoState::Playlist::Next() {
 		objectId = m_objectIds[m_nextIndex];
 		if (m_nextIndex - m_length == -1) {
 			m_nextIndex = 1;
-		}
-		else {
+		} else {
 			m_nextIndex++;
 		}
 	}

@@ -3,13 +3,12 @@
 
 #include "mxgeometry4d.h"
 
+#include <math.h>
+
 // SIZE 0x34
 class MxQuaternionTransformer {
 public:
-	enum {
-		c_startSet = 0x01,
-		c_endSet = 0x02
-	};
+	enum { c_startSet = 0x01, c_endSet = 0x02 };
 
 	MxQuaternionTransformer() : m_flags(0) {}
 
@@ -103,21 +102,21 @@ int MxQuaternionTransformer::InterpolateToMatrix(Matrix4& p_matrix, float p_f) {
 int MxQuaternionTransformer::Interpolate(Vector4& p_v, float p_f) {
 	if (m_flags == c_startSet) {
 		p_v = m_startQuat;
-		p_v[3] = (float)((1.0 - p_f) * acos((double)p_v[3]) * 2.0);
+		p_v[3] = (float) ((1.0 - p_f) * acos((double) p_v[3]) * 2.0);
 		return p_v.NormalizeQuaternion();
 	}
 
 	if (m_flags == c_endSet) {
 		p_v = m_endQuat;
-		p_v[3] = (float)(p_f * acos((double)p_v[3]) * 2.0);
+		p_v[3] = (float) (p_f * acos((double) p_v[3]) * 2.0);
 		return p_v.NormalizeQuaternion();
 	}
 
 	if (m_flags == (c_startSet | c_endSet)) {
-		int i;
+		int i = 0;
 		double d1 = p_v.Dot(m_startQuat, m_endQuat);
-		double a;
-		double b;
+		double a = NAN;
+		double b = NAN;
 
 		if (d1 + 1.0 > 0.00001) {
 			if (1.0 - d1 > 0.00001) {
@@ -125,17 +124,15 @@ int MxQuaternionTransformer::Interpolate(Vector4& p_v, float p_f) {
 				double denominator = sin(d2);
 				a = sin((1.0 - p_f) * d2) / denominator;
 				b = sin(p_f * d2) / denominator;
-			}
-			else {
+			} else {
 				a = 1.0 - p_f;
 				b = p_f;
 			}
 
 			for (i = 0; i < 4; i++) {
-				p_v[i] = (float)(m_startQuat[i] * a + m_endQuat[i] * b);
+				p_v[i] = (float) (m_startQuat[i] * a + m_endQuat[i] * b);
 			}
-		}
-		else {
+		} else {
 			p_v[0] = -m_startQuat[1];
 			p_v[1] = m_startQuat[0];
 			p_v[2] = -m_startQuat[3];
@@ -144,7 +141,7 @@ int MxQuaternionTransformer::Interpolate(Vector4& p_v, float p_f) {
 			b = sin(p_f * 1.570796326794895);
 
 			for (i = 0; i < 3; i++) {
-				p_v[i] = (float)(m_startQuat[i] * a + p_v[i] * b);
+				p_v[i] = (float) (m_startQuat[i] * a + p_v[i] * b);
 			}
 		}
 

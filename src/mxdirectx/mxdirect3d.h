@@ -31,7 +31,11 @@ public:
 	IDirect3D2* Direct3D() { return this->m_pDirect3d; }
 	IDirect3DDevice2* Direct3DDevice() { return this->m_pDirect3dDevice; }
 
-	BOOL SetDevice(MxDeviceEnumerate& p_deviceEnumerate, MxDriver* p_driver, Direct3DDeviceInfo* p_device);
+	BOOL SetDevice(
+		MxDeviceEnumerate& p_deviceEnumerate,
+		MxDriver* p_driver,
+		Direct3DDeviceInfo* p_device
+	);
 
 protected:
 	BOOL D3DCreate();

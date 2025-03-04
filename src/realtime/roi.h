@@ -9,7 +9,7 @@
 /*
  * A simple bounding box object with Min and Max accessor methods.
  */
- // SIZE 0x28
+// SIZE 0x28
 class BoundingBox {
 public:
 	const Vector3& Min() const { return min; }
@@ -25,7 +25,7 @@ private:
 /*
  * A simple bounding sphere object with center and radius accessor methods.
  */
- // SIZE 0x18
+// SIZE 0x18
 class BoundingSphere {
 public:
 	const Vector3& Center() const { return center; }
@@ -45,8 +45,8 @@ private:
  * Abstract base class representing a single LOD version of
  * a geometric object.
  */
- // VTABLE: LEGO1 0x100dbd90
- // SIZE 0x04
+// VTABLE: LEGO1 0x100dbd90
+// SIZE 0x04
 class LODObject {
 public:
 	// LODObject();
@@ -86,20 +86,17 @@ typedef vector<int> IntList;
 // SIZE 0x10
 class ROI {
 public:
-	ROI() {
-		comp = 0;
-		lods = 0;
-		m_visible = true;
-	}
+	ROI() : comp(0), lods(0), m_visible(true) {}
 	virtual ~ROI() {
 		// if derived class set the comp and lods, it should delete them
 		assert(!comp);
 		assert(!lods);
 	}
-	virtual float IntrinsicImportance() const = 0;                    // vtable+0x04
-	virtual const float* GetWorldVelocity() const = 0;                // vtable+0x08
-	virtual const BoundingBox& GetWorldBoundingBox() const = 0;       // vtable+0x0c
-	virtual const BoundingSphere& GetWorldBoundingSphere() const = 0; // vtable+0x10
+	virtual float IntrinsicImportance() const = 0;              // vtable+0x04
+	virtual const float* GetWorldVelocity() const = 0;          // vtable+0x08
+	virtual const BoundingBox& GetWorldBoundingBox() const = 0; // vtable+0x0c
+	virtual const BoundingSphere&
+	GetWorldBoundingSphere() const = 0; // vtable+0x10
 
 	const LODListBase* GetLODs() const { return lods; }
 	const LODObject* GetLOD(int i) const {

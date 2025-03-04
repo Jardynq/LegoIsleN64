@@ -12,7 +12,6 @@
 #include "mxticklemanager.h"
 #include "mxutilities.h"
 
-
 // FUNCTION: LEGO1 0x1007ea90
 MxBackgroundAudioManager::MxBackgroundAudioManager() {
 	NotificationManager()->Register(this);
@@ -33,7 +32,8 @@ MxBackgroundAudioManager::~MxBackgroundAudioManager() {
 }
 
 // FUNCTION: LEGO1 0x1007ece0
-MxResult MxBackgroundAudioManager::Create(MxAtomId& p_script, MxU32 p_frequencyMS) {
+MxResult
+MxBackgroundAudioManager::Create(MxAtomId& p_script, MxU32 p_frequencyMS) {
 	MxResult result = OpenMusic(p_script);
 
 	if (result == SUCCESS) {
@@ -112,8 +112,7 @@ void MxBackgroundAudioManager::FUN_1007ef40() {
 		if (m_unk0x138) {
 			if (m_unk0x148 != 0) {
 				compare = 30;
-			}
-			else {
+			} else {
 				compare = m_targetVolume;
 			}
 
@@ -124,8 +123,7 @@ void MxBackgroundAudioManager::FUN_1007ef40() {
 				}
 
 				m_unk0x138->SetVolume(compare);
-			}
-			else {
+			} else {
 				m_unk0x138->SetVolume(compare);
 				m_unk0xa0 = m_unk0x138;
 				m_action1 = m_action2;
@@ -135,16 +133,13 @@ void MxBackgroundAudioManager::FUN_1007ef40() {
 				m_tickleState = MxPresenter::e_idle;
 			}
 		}
-	}
-	else if (m_unk0xa0->GetAction() != NULL) {
+	} else if (m_unk0xa0->GetAction() != NULL) {
 		if (m_unk0xa0->GetVolume() == 0) {
 			DeleteObject(*m_unk0xa0->GetAction());
-		}
-		else {
+		} else {
 			if (m_unk0xa0->GetVolume() - m_speed > 0) {
 				volume = m_unk0xa0->GetVolume() - m_speed;
-			}
-			else {
+			} else {
 				volume = 0;
 			}
 
@@ -162,25 +157,21 @@ void MxBackgroundAudioManager::FadeInOrFadeOut() {
 
 		if (m_unk0x148 != 0) {
 			compare = 30;
-		}
-		else {
+		} else {
 			compare = m_targetVolume;
 		}
 
 		if (volume < compare) {
 			volume = Min(volume + m_speed, compare);
 			m_unk0xa0->SetVolume(volume);
-		}
-		else if (compare < volume) {
+		} else if (compare < volume) {
 			volume = Max(volume - m_speed, compare);
 			m_unk0xa0->SetVolume(volume);
-		}
-		else {
+		} else {
 			m_unk0xa0->SetVolume(volume);
 			m_tickleState = MxPresenter::e_idle;
 		}
-	}
-	else {
+	} else {
 		m_tickleState = MxPresenter::e_idle;
 	}
 }
@@ -188,7 +179,7 @@ void MxBackgroundAudioManager::FadeInOrFadeOut() {
 // FUNCTION: LEGO1 0x1007f170
 // FUNCTION: BETA10 0x100e8eb6
 MxLong MxBackgroundAudioManager::Notify(MxParam& p_param) {
-	MxNotificationParam& param = (MxNotificationParam&)p_param;
+	MxNotificationParam& param = (MxNotificationParam&) p_param;
 
 	switch (param.GetNotification()) {
 	case c_notificationStartAction:
@@ -204,21 +195,21 @@ MxLong MxBackgroundAudioManager::Notify(MxParam& p_param) {
 // FUNCTION: LEGO1 0x1007f1b0
 void MxBackgroundAudioManager::StartAction(MxParam& p_param) {
 	// TODO: the sender is most likely a MxAudioPresenter?
-	m_unk0x138 = (MxAudioPresenter*)((MxNotificationParam&)p_param).GetSender();
+	m_unk0x138 =
+		(MxAudioPresenter*) ((MxNotificationParam&) p_param).GetSender();
 	m_action2.SetAtomId(m_unk0x138->GetAction()->GetAtomId());
 	m_action2.SetObjectId(m_unk0x138->GetAction()->GetObjectId());
-	m_targetVolume = ((MxDSSound*)(m_unk0x138->GetAction()))->GetVolume();
+	m_targetVolume = ((MxDSSound*) (m_unk0x138->GetAction()))->GetVolume();
 	m_unk0x138->SetVolume(0);
 }
 
 // FUNCTION: LEGO1 0x1007f200
 void MxBackgroundAudioManager::StopAction(MxParam& p_param) {
-	if (((MxNotificationParam&)p_param).GetSender() == m_unk0xa0) {
+	if (((MxNotificationParam&) p_param).GetSender() == m_unk0xa0) {
 		m_unk0xa0 = NULL;
 		m_action1.SetAtomId(MxAtomId());
 		m_action1.SetObjectId(-1);
-	}
-	else if (((MxNotificationParam&)p_param).GetSender() == m_unk0x138) {
+	} else if (((MxNotificationParam&) p_param).GetSender() == m_unk0x138) {
 		m_unk0x138 = NULL;
 		m_action2.SetAtomId(MxAtomId());
 		m_action2.SetObjectId(-1);
@@ -240,7 +231,8 @@ MxResult MxBackgroundAudioManager::PlayMusic(
 		return SUCCESS;
 	}
 
-	if (m_action2.GetObjectId() == -1 && m_action1.GetObjectId() != p_action.GetObjectId()) {
+	if (m_action2.GetObjectId() == -1 &&
+		m_action1.GetObjectId() != p_action.GetObjectId()) {
 		MxDSAction action;
 		action.SetAtomId(GetCurrentAction().GetAtomId());
 		action.SetObjectId(GetCurrentAction().GetObjectId());
@@ -335,10 +327,10 @@ undefined4 MxBackgroundAudioManager::FUN_1007f610(
 )
 
 {
-	m_unk0x138 = (MxAudioPresenter*)p_unk0x138;
-	m_targetVolume = ((MxDSSound*)m_unk0x138->GetAction())->GetVolume();
+	m_unk0x138 = (MxAudioPresenter*) p_unk0x138;
+	m_targetVolume = ((MxDSSound*) m_unk0x138->GetAction())->GetVolume();
 
-	((MxCompositePresenter*)m_unk0x138)->VTable0x60(NULL);
+	((MxCompositePresenter*) m_unk0x138)->VTable0x60(NULL);
 
 	m_speed = p_speed;
 	m_tickleState = p_tickleState;

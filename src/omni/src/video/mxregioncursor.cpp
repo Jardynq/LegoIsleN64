@@ -1,6 +1,5 @@
 #include "mxregioncursor.h"
 
-
 // FUNCTION: LEGO1 0x100c3f70
 // FUNCTION: BETA10 0x10149663
 MxRegionCursor::MxRegionCursor(MxRegion* p_region) {
@@ -36,9 +35,13 @@ MxRect32* MxRegionCursor::VTable0x18() {
 		MxRegionLeftRight* leftRight;
 		m_leftRightCursor->First(leftRight);
 
-		UpdateRect(leftRight->GetLeft(), topBottom->GetTop(), leftRight->GetRight(), topBottom->GetBottom());
-	}
-	else {
+		UpdateRect(
+			leftRight->GetLeft(),
+			topBottom->GetTop(),
+			leftRight->GetRight(),
+			topBottom->GetBottom()
+		);
+	} else {
 		Reset();
 	}
 
@@ -56,9 +59,13 @@ MxRect32* MxRegionCursor::VTable0x20() {
 		MxRegionLeftRight* leftRight;
 		m_leftRightCursor->Last(leftRight);
 
-		UpdateRect(leftRight->GetLeft(), topBottom->GetTop(), leftRight->GetRight(), topBottom->GetBottom());
-	}
-	else {
+		UpdateRect(
+			leftRight->GetLeft(),
+			topBottom->GetTop(),
+			leftRight->GetRight(),
+			topBottom->GetBottom()
+		);
+	} else {
 		Reset();
 	}
 
@@ -73,7 +80,12 @@ MxRect32* MxRegionCursor::VTable0x28() {
 	if (m_leftRightCursor && m_leftRightCursor->Next(leftRight)) {
 		m_topBottomCursor->Current(topBottom);
 
-		UpdateRect(leftRight->GetLeft(), topBottom->GetTop(), leftRight->GetRight(), topBottom->GetBottom());
+		UpdateRect(
+			leftRight->GetLeft(),
+			topBottom->GetTop(),
+			leftRight->GetRight(),
+			topBottom->GetBottom()
+		);
 		return m_rect;
 	}
 
@@ -81,7 +93,12 @@ MxRect32* MxRegionCursor::VTable0x28() {
 		ResetAndInitializeCursor(*topBottom->m_leftRightList);
 		m_leftRightCursor->First(leftRight);
 
-		UpdateRect(leftRight->GetLeft(), topBottom->GetTop(), leftRight->GetRight(), topBottom->GetBottom());
+		UpdateRect(
+			leftRight->GetLeft(),
+			topBottom->GetTop(),
+			leftRight->GetRight(),
+			topBottom->GetBottom()
+		);
 		return m_rect;
 	}
 
@@ -97,7 +114,12 @@ MxRect32* MxRegionCursor::VTable0x30() {
 	if (m_leftRightCursor && m_leftRightCursor->Prev(leftRight)) {
 		m_topBottomCursor->Current(topBottom);
 
-		UpdateRect(leftRight->GetLeft(), topBottom->GetTop(), leftRight->GetRight(), topBottom->GetBottom());
+		UpdateRect(
+			leftRight->GetLeft(),
+			topBottom->GetTop(),
+			leftRight->GetRight(),
+			topBottom->GetBottom()
+		);
 		return m_rect;
 	}
 
@@ -105,7 +127,12 @@ MxRect32* MxRegionCursor::VTable0x30() {
 		ResetAndInitializeCursor(*topBottom->m_leftRightList);
 		m_leftRightCursor->Last(leftRight);
 
-		UpdateRect(leftRight->GetLeft(), topBottom->GetTop(), leftRight->GetRight(), topBottom->GetBottom());
+		UpdateRect(
+			leftRight->GetLeft(),
+			topBottom->GetTop(),
+			leftRight->GetRight(),
+			topBottom->GetBottom()
+		);
 		return m_rect;
 	}
 
@@ -136,15 +163,19 @@ MxRect32* MxRegionCursor::VTable0x24(MxRect32& p_rect) {
 
 		m_topBottomCursor->Current(topBottom);
 
-		if (topBottom->IntersectsWith(p_rect) && leftRight->IntersectsWith(p_rect)) {
-			UpdateRect(leftRight->GetLeft(), topBottom->GetTop(), leftRight->GetRight(), topBottom->GetBottom());
+		if (topBottom->IntersectsWith(p_rect) &&
+			leftRight->IntersectsWith(p_rect)) {
+			UpdateRect(
+				leftRight->GetLeft(),
+				topBottom->GetTop(),
+				leftRight->GetRight(),
+				topBottom->GetBottom()
+			);
 			m_rect->Intersect(p_rect);
-		}
-		else {
+		} else {
 			ProcessRectOverlapAscending(p_rect);
 		}
-	}
-	else {
+	} else {
 		ProcessRectOverlapAscending(p_rect);
 	}
 
@@ -160,15 +191,19 @@ MxRect32* MxRegionCursor::VTable0x2c(MxRect32& p_rect) {
 
 		m_topBottomCursor->Current(topBottom);
 
-		if (topBottom->IntersectsWith(p_rect) && leftRight->IntersectsWith(p_rect)) {
-			UpdateRect(leftRight->GetLeft(), topBottom->GetTop(), leftRight->GetRight(), topBottom->GetBottom());
+		if (topBottom->IntersectsWith(p_rect) &&
+			leftRight->IntersectsWith(p_rect)) {
+			UpdateRect(
+				leftRight->GetLeft(),
+				topBottom->GetTop(),
+				leftRight->GetRight(),
+				topBottom->GetBottom()
+			);
 			m_rect->Intersect(p_rect);
-		}
-		else {
+		} else {
 			ProcessOverlapWithRect(p_rect);
 		}
-	}
-	else {
+	} else {
 		ProcessOverlapWithRect(p_rect);
 	}
 
@@ -191,7 +226,9 @@ void MxRegionCursor::Reset() {
 }
 
 // FUNCTION: LEGO1 0x100c46c0
-void MxRegionCursor::ResetAndInitializeCursor(MxRegionLeftRightList& p_leftRightList) {
+void MxRegionCursor::ResetAndInitializeCursor(
+	MxRegionLeftRightList& p_leftRightList
+) {
 	if (m_leftRightCursor) {
 		delete m_leftRightCursor;
 	}
@@ -200,7 +237,12 @@ void MxRegionCursor::ResetAndInitializeCursor(MxRegionLeftRightList& p_leftRight
 }
 
 // FUNCTION: LEGO1 0x100c4980
-void MxRegionCursor::UpdateRect(MxS32 p_left, MxS32 p_top, MxS32 p_right, MxS32 p_bottom) {
+void MxRegionCursor::UpdateRect(
+	MxS32 p_left,
+	MxS32 p_top,
+	MxS32 p_right,
+	MxS32 p_bottom
+) {
 	if (!m_rect) {
 		m_rect = new MxRect32;
 	}

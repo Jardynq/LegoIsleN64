@@ -30,13 +30,17 @@ public:
 	char* GetData() const { return m_data; }
 
 	// FUNCTION: BETA10 0x10067630
-	const MxU16 GetLength() const { return m_length; }
+	MxU16 GetLength() const { return m_length; }
 
 	// FUNCTION: BETA10 0x100d8a30
-	MxBool Equal(const MxString& p_str) const { return strcmp(m_data, p_str.m_data) == 0; }
+	MxBool Equal(const MxString& p_str) const {
+		return strcmp(m_data, p_str.m_data) == 0;
+	}
 
 	// FUNCTION: BETA10 0x1012a810
-	MxS8 Compare(const MxString& p_str) const { return strcmp(m_data, p_str.m_data); }
+	MxS8 Compare(const MxString& p_str) const {
+		return strcmp(m_data, p_str.m_data);
+	}
 
 	// SYNTHETIC: LEGO1 0x100ae280
 	// SYNTHETIC: BETA10 0x1012c9d0

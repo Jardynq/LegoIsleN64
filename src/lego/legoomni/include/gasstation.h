@@ -26,7 +26,8 @@ public:
 	// FUNCTION: LEGO1 0x100061e0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, GasStationState::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, GasStationState::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	MxResult Serialize(LegoStorage* p_storage) override; // vtable+0x1c
@@ -74,14 +75,16 @@ public:
 	// FUNCTION: LEGO1 0x10004790
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, GasStation::ClassName()) || LegoWorld::IsA(p_name);
+		return !strcmp(p_name, GasStation::ClassName()) ||
+			   LegoWorld::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override;                           // vtable+0x18
-	void ReadyWorld() override;                                                 // vtable+0x50
-	MxBool Escape() override;                                                   // vtable+0x64
-	void Enable(MxBool p_enable) override;                                      // vtable+0x68
-	virtual MxLong HandleControl(LegoControlManagerNotificationParam& p_param); // vtable+0x6c
+	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
+	void ReadyWorld() override;                       // vtable+0x50
+	MxBool Escape() override;                         // vtable+0x64
+	void Enable(MxBool p_enable) override;            // vtable+0x68
+	virtual MxLong HandleControl(LegoControlManagerNotificationParam& p_param
+	); // vtable+0x6c
 
 	// SYNTHETIC: LEGO1 0x100048a0
 	// GasStation::`scalar deleting destructor'

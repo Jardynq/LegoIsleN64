@@ -3,7 +3,6 @@
 #include "mxmisc.h"
 #include "mxsoundmanager.h"
 
-
 // FUNCTION: LEGO1 0x100b1a50
 void MxSoundPresenter::Destroy(MxBool p_fromDestructor) {
 	if (MSoundManager()) {

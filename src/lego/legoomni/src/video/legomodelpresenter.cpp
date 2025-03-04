@@ -19,12 +19,13 @@
 #include "realtime/realtime.h"
 #include "roi/legoroi.h"
 
-
 // GLOBAL: LEGO1 0x100f7ae0
 MxS32 g_modelPresenterConfig = 1;
 
 // FUNCTION: LEGO1 0x1007f660
-void LegoModelPresenter::configureLegoModelPresenter(MxS32 p_modelPresenterConfig) {
+void LegoModelPresenter::configureLegoModelPresenter(
+	MxS32 p_modelPresenterConfig
+) {
 	g_modelPresenterConfig = p_modelPresenterConfig;
 }
 
@@ -53,7 +54,8 @@ MxResult LegoModelPresenter::CreateROI(MxDSChunk* p_chunk) {
 	LegoChar* textureName = NULL;
 	LegoTexture* texture = NULL;
 	LegoTextureInfo* textureInfo = NULL;
-	LegoS32 hardwareMode = VideoManager()->GetDirect3D()->AssignedDevice()->GetHardwareMode();
+	LegoS32 hardwareMode =
+		VideoManager()->GetDirect3D()->AssignedDevice()->GetHardwareMode();
 
 	if (m_roi) {
 		delete m_roi;
@@ -67,7 +69,8 @@ MxResult LegoModelPresenter::CreateROI(MxDSChunk* p_chunk) {
 	if (version != MODEL_VERSION) {
 		goto done;
 	}
-	if (storage.Read(&textureInfoOffset, sizeof(textureInfoOffset)) != SUCCESS) {
+	if (storage.Read(&textureInfoOffset, sizeof(textureInfoOffset)) !=
+		SUCCESS) {
 		goto done;
 	}
 
@@ -104,8 +107,7 @@ MxResult LegoModelPresenter::CreateROI(MxDSChunk* p_chunk) {
 					goto done;
 				}
 				delete discardTexture;
-			}
-			else {
+			} else {
 				LegoTexture* discardTexture = new LegoTexture();
 				if (discardTexture->Read(&storage, FALSE) != SUCCESS) {
 					goto done;
@@ -117,8 +119,7 @@ MxResult LegoModelPresenter::CreateROI(MxDSChunk* p_chunk) {
 					goto done;
 				}
 			}
-		}
-		else {
+		} else {
 			texture = new LegoTexture();
 			if (texture->Read(&storage, hardwareMode) != SUCCESS) {
 				goto done;
@@ -151,8 +152,13 @@ MxResult LegoModelPresenter::CreateROI(MxDSChunk* p_chunk) {
 	if (anim.Read(&storage, FALSE) != SUCCESS) {
 		goto done;
 	}
-	if (m_roi->Read(NULL, VideoManager()->GetRenderer(), GetViewLODListManager(), TextureContainer(), &storage) !=
-		SUCCESS) {
+	if (m_roi->Read(
+			NULL,
+			VideoManager()->GetRenderer(),
+			GetViewLODListManager(),
+			TextureContainer(),
+			&storage
+		) != SUCCESS) {
 		goto done;
 	}
 	if (m_roi->SetFrame(&anim, 0) != SUCCESS) {
@@ -162,9 +168,21 @@ MxResult LegoModelPresenter::CreateROI(MxDSChunk* p_chunk) {
 	// Get scripted location, direction and up vectors
 
 	CalcLocalTransform(
-		Mx3DPointFloat(m_action->GetLocation()[0], m_action->GetLocation()[1], m_action->GetLocation()[2]),
-		Mx3DPointFloat(m_action->GetDirection()[0], m_action->GetDirection()[1], m_action->GetDirection()[2]),
-		Mx3DPointFloat(m_action->GetUp()[0], m_action->GetUp()[1], m_action->GetUp()[2]),
+		Mx3DPointFloat(
+			m_action->GetLocation()[0],
+			m_action->GetLocation()[1],
+			m_action->GetLocation()[2]
+		),
+		Mx3DPointFloat(
+			m_action->GetDirection()[0],
+			m_action->GetDirection()[1],
+			m_action->GetDirection()[2]
+		),
+		Mx3DPointFloat(
+			m_action->GetUp()[0],
+			m_action->GetUp()[1],
+			m_action->GetUp()[2]
+		),
 		mat
 	);
 	m_roi->UpdateTransformationRelativeToParent(mat);
@@ -200,7 +218,8 @@ MxResult LegoModelPresenter::FUN_1007ff70(
 
 	ParseExtra();
 
-	if (m_roi == NULL && (result = CreateROI(&p_chunk)) == SUCCESS && p_entity != NULL) {
+	if (m_roi == NULL && (result = CreateROI(&p_chunk)) == SUCCESS &&
+		p_entity != NULL) {
 		VideoManager()->Get3DManager()->Add(*m_roi);
 		VideoManager()->Get3DManager()->Moved(*m_roi);
 	}
@@ -212,8 +231,7 @@ MxResult LegoModelPresenter::FUN_1007ff70(
 	if (p_entity != NULL) {
 		p_entity->SetROI(m_roi, TRUE, TRUE);
 		p_entity->ClearFlag(LegoEntity::c_managerOwned);
-	}
-	else {
+	} else {
 		p_world->GetROIList().push_back(m_roi);
 	}
 
@@ -223,7 +241,8 @@ MxResult LegoModelPresenter::FUN_1007ff70(
 // FUNCTION: LEGO1 0x10080050
 // FUNCTION: BETA10 0x100991c2
 void LegoModelPresenter::ReadyTickle() {
-	if (m_compositePresenter != NULL && m_compositePresenter->IsA("LegoEntityPresenter") &&
+	if (m_compositePresenter != NULL &&
+		m_compositePresenter->IsA("LegoEntityPresenter") &&
 		m_compositePresenter->GetCurrentTickleState() <= e_ready) {
 		return;
 	}
@@ -231,22 +250,28 @@ void LegoModelPresenter::ReadyTickle() {
 	ParseExtra();
 
 	if (m_roi != NULL) {
-		if (m_compositePresenter && m_compositePresenter->IsA("LegoEntityPresenter")) {
-			((LegoEntityPresenter*)m_compositePresenter)->GetInternalEntity()->SetROI(m_roi, m_addedToView, TRUE);
-			((LegoEntityPresenter*)m_compositePresenter)
+		if (m_compositePresenter &&
+			m_compositePresenter->IsA("LegoEntityPresenter")) {
+			((LegoEntityPresenter*) m_compositePresenter)
+				->GetInternalEntity()
+				->SetROI(m_roi, m_addedToView, TRUE);
+			((LegoEntityPresenter*) m_compositePresenter)
 				->GetInternalEntity()
 				->SetFlags(
-					((LegoEntityPresenter*)m_compositePresenter)->GetInternalEntity()->GetFlags() &
+					((LegoEntityPresenter*) m_compositePresenter)
+						->GetInternalEntity()
+						->GetFlags() &
 					~LegoEntity::c_managerOwned
 				);
-			((LegoEntityPresenter*)m_compositePresenter)->GetInternalEntity()->SetType(LegoEntity::e_actor);
+			((LegoEntityPresenter*) m_compositePresenter)
+				->GetInternalEntity()
+				->SetType(LegoEntity::e_actor);
 		}
 
 		ParseExtra();
 		ProgressTickleState(e_starting);
 		EndAction();
-	}
-	else {
+	} else {
 		MxStreamChunk* chunk = m_subscriber->PeekData();
 
 		if (chunk != NULL && chunk->GetTime() <= m_action->GetElapsedTime()) {
@@ -258,12 +283,17 @@ void LegoModelPresenter::ReadyTickle() {
 				VideoManager()->Get3DManager()->Add(*m_roi);
 				VideoManager()->Get3DManager()->Moved(*m_roi);
 
-				if (m_compositePresenter != NULL && m_compositePresenter->IsA("LegoEntityPresenter")) {
-					((LegoEntityPresenter*)m_compositePresenter)->GetInternalEntity()->SetROI(m_roi, TRUE, TRUE);
-					((LegoEntityPresenter*)m_compositePresenter)
+				if (m_compositePresenter != NULL &&
+					m_compositePresenter->IsA("LegoEntityPresenter")) {
+					((LegoEntityPresenter*) m_compositePresenter)
+						->GetInternalEntity()
+						->SetROI(m_roi, TRUE, TRUE);
+					((LegoEntityPresenter*) m_compositePresenter)
 						->GetInternalEntity()
 						->SetFlags(
-							((LegoEntityPresenter*)m_compositePresenter)->GetInternalEntity()->GetFlags() &
+							((LegoEntityPresenter*) m_compositePresenter)
+								->GetInternalEntity()
+								->GetFlags() &
 							~LegoEntity::c_managerOwned
 						);
 				}
@@ -297,12 +327,13 @@ void LegoModelPresenter::ParseExtra() {
 				m_roi = CharacterManager()->GetActorROI(token, FALSE);
 				m_addedToView = FALSE;
 			}
-		}
-		else if (KeyValueStringParse(output, g_strDB_CREATE, extraCopy) != 0 && m_roi == NULL) {
+		} else if (KeyValueStringParse(output, g_strDB_CREATE, extraCopy) != 0 && m_roi == NULL) {
 			LegoWorld* currentWorld = CurrentWorld();
 			list<LegoROI*>& roiList = currentWorld->GetROIList();
 
-			for (list<LegoROI*>::iterator it = roiList.begin(); it != roiList.end(); it++) {
+			for (list<LegoROI*>::iterator it = roiList.begin();
+				 it != roiList.end();
+				 it++) {
 				if (!strcmpi((*it)->GetName(), output)) {
 					m_roi = *it;
 					roiList.erase(it);

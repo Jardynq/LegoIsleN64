@@ -4,7 +4,6 @@
 #include "mxdsmediaaction.h"
 #include "mxdssubscriber.h"
 
-
 // FUNCTION: LEGO1 0x100b48b0
 MxLoopingSmkPresenter::MxLoopingSmkPresenter() {
 	Init();
@@ -38,7 +37,11 @@ void MxLoopingSmkPresenter::VTable0x88() {
 	if (m_mxSmk.m_smackTag.Frames == m_currentFrame) {
 		m_currentFrame = 0;
 		// TODO: struct incorrect, Palette at wrong offset?
-		memset(&m_mxSmk.m_smackTag.Palette[4], 0, sizeof(m_mxSmk.m_smackTag.Palette));
+		memset(
+			&m_mxSmk.m_smackTag.Palette[4],
+			0,
+			sizeof(m_mxSmk.m_smackTag.Palette)
+		);
 	}
 }
 
@@ -48,11 +51,11 @@ void MxLoopingSmkPresenter::NextFrame() {
 
 	if (chunk->GetChunkFlags() & DS_CHUNK_END_OF_STREAM) {
 		ProgressTickleState(e_repeating);
-	}
-	else {
+	} else {
 		LoadFrame(chunk);
 		LoopChunk(chunk);
-		m_elapsedDuration += 1000 / ((MxDSMediaAction*)m_action)->GetFramesPerSecond();
+		m_elapsedDuration +=
+			1000 / ((MxDSMediaAction*) m_action)->GetFramesPerSecond();
 	}
 
 	m_subscriber->FreeDataChunk(chunk);
@@ -62,12 +65,12 @@ void MxLoopingSmkPresenter::NextFrame() {
 void MxLoopingSmkPresenter::VTable0x8c() {
 	if (m_action->GetDuration() < m_elapsedDuration) {
 		ProgressTickleState(e_freezing);
-	}
-	else {
+	} else {
 		MxStreamChunk* chunk;
 		m_loopingChunkCursor->Current(chunk);
 		LoadFrame(chunk);
-		m_elapsedDuration += 1000 / ((MxDSMediaAction*)m_action)->GetFramesPerSecond();
+		m_elapsedDuration +=
+			1000 / ((MxDSMediaAction*) m_action)->GetFramesPerSecond();
 	}
 }
 
@@ -84,7 +87,7 @@ void MxLoopingSmkPresenter::RepeatingTickle() {
 			cursor.First(chunk);
 
 			time -= chunk->GetTime();
-			time += 1000 / ((MxDSMediaAction*)m_action)->GetFramesPerSecond();
+			time += 1000 / ((MxDSMediaAction*) m_action)->GetFramesPerSecond();
 
 			cursor.Reset();
 			while (cursor.Next(chunk)) {

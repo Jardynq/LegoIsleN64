@@ -8,7 +8,6 @@
 #include "mxpalette.h"
 #include "mxstreamchunk.h"
 
-
 // FUNCTION: LEGO1 0x10079e50
 LegoPalettePresenter::LegoPalettePresenter() {
 	Init();
@@ -48,7 +47,7 @@ MxResult LegoPalettePresenter::ParsePalette(MxStreamChunk* p_chunk) {
 	RGBQUAD palette[256];
 	MxResult result = FAILURE;
 
-	LegoMemory stream((char*)p_chunk->GetData());
+	LegoMemory stream((char*) p_chunk->GetData());
 	if (stream.Read(buffer, sizeof(buffer)) == SUCCESS) {
 		if (stream.Read(palette, sizeof(palette)) == SUCCESS) {
 			m_palette = new MxPalette(palette);

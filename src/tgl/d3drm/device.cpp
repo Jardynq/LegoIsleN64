@@ -46,7 +46,10 @@ Result DeviceImpl::SetDither(int dither) {
 void DeviceImpl::HandleActivate(WORD wParam) {
 	// Device argument is intentionally unused.
 	IDirect3DRMWinDevice* winDevice;
-	if (ResultVal(m_data->QueryInterface(IID_IDirect3DRMWinDevice, (LPVOID*)&winDevice))) {
+	if (ResultVal(m_data->QueryInterface(
+			IID_IDirect3DRMWinDevice,
+			(LPVOID*) &winDevice
+		))) {
 		winDevice->HandleActivate(wParam);
 		winDevice->Release();
 	}
@@ -55,7 +58,10 @@ void DeviceImpl::HandleActivate(WORD wParam) {
 // FUNCTION: LEGO1 0x100a2d20
 void DeviceImpl::HandlePaint(HDC p_dc) {
 	IDirect3DRMWinDevice* winDevice;
-	if (SUCCEEDED(m_data->QueryInterface(IID_IDirect3DRMWinDevice, (LPVOID*)&winDevice))) {
+	if (SUCCEEDED(m_data->QueryInterface(
+			IID_IDirect3DRMWinDevice,
+			(LPVOID*) &winDevice
+		))) {
 		winDevice->HandlePaint(p_dc);
 		winDevice->Release();
 	}

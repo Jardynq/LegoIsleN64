@@ -7,9 +7,9 @@
 #include "mxutilities.h"
 #include "roi/legoroi.h"
 
-
 // GLOBAL: LEGO1 0x100f32d0
-const char* g_actorNames[] = { "none", "pepper", "mama", "papa", "nick", "laura", "The_Brickster!" };
+const char* g_actorNames[] =
+	{"none", "pepper", "mama", "papa", "nick", "laura", "The_Brickster!"};
 
 // FUNCTION: LEGO1 0x1002d110
 LegoActor::LegoActor() {
@@ -87,8 +87,7 @@ void LegoActor::ParseAction(char* p_extra) {
 			}
 
 			SetWorldTransform(location, direction, up);
-		}
-		else {
+		} else {
 			ResetWorldTransform(TRUE);
 		}
 	}
@@ -99,7 +98,11 @@ void LegoActor::ParseAction(char* p_extra) {
 	}
 
 	if (KeyValueStringParse(value, g_strSOUND, p_extra)) {
-		m_sound = SoundManager()->GetCacheSoundManager()->Play(value, GetROI()->GetName(), TRUE);
+		m_sound = SoundManager()->GetCacheSoundManager()->Play(
+			value,
+			GetROI()->GetName(),
+			TRUE
+		);
 	}
 
 	if (KeyValueStringParse(value, g_strMUTE, p_extra)) {

@@ -30,9 +30,8 @@ typedef u16 undefined2;
 typedef u32 undefined4;
 
 typedef i32 Time;
-//typedef i32 LegoResult;
-//typedef i32 MxResult;
-
+// typedef i32 LegoResult;
+// typedef i32 MxResult;
 
 typedef u8 MxU8;
 typedef u16 MxU16;
@@ -71,7 +70,7 @@ typedef i32 LegoResult;
 #endif
 
 #ifndef FAILURE
-#define FAILURE -1
+#define FAILURE (-1)
 #endif
 
 #ifndef NULL
@@ -82,12 +81,10 @@ typedef i32 LegoResult;
 typedef i32 Result;
 
 typedef enum _Result {
-    Error = 0,
-    Success = 1
+	Error = 0,
+	Success = 1
 } Result;
 */
-
-
 
 /*
 #ifndef Success
@@ -107,15 +104,15 @@ typedef void* HInstance;
 #define FOURCC(a, b, c, d) (((a) << 0) | ((b) << 8) | ((c) << 16) | ((d) << 24))
 
 typedef union {
-    struct {
-        u8 m_bit0 : 1;
-        u8 m_bit1 : 1;
-        u8 m_bit2 : 1;
-        u8 m_bit3 : 1;
-        u8 m_bit4 : 1;
-        u8 m_bit5 : 1;
-        u8 m_bit6 : 1;
-        u8 m_bit7 : 1;
-    };
+	struct {
+		u8 m_bit0 : 1;
+		u8 m_bit1 : 1;
+		u8 m_bit2 : 1;
+		u8 m_bit3 : 1;
+		u8 m_bit4 : 1;
+		u8 m_bit5 : 1;
+		u8 m_bit6 : 1;
+		u8 m_bit7 : 1;
+	};
 } FlagBitfield;
 #endif // TYPES_H

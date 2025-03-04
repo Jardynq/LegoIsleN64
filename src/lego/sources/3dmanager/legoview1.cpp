@@ -9,7 +9,6 @@
 
 #include <vec.h>
 
-
 // GLOBAL: LEGO1 0x101013e4
 float g_sunLightRGB = 1.0;
 
@@ -37,7 +36,10 @@ LegoView::~LegoView() {
 
 // FUNCTION: LEGO1 0x100ab600
 // FUNCTION: BETA10 0x1017bc89
-BOOL LegoView::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Renderer* pRenderer) {
+BOOL LegoView::Create(
+	const TglSurface::CreateStruct& rCreateStruct,
+	Tgl::Renderer* pRenderer
+) {
 	float viewAngle = 45;
 
 	float frontClippingDistance = 0.1;
@@ -69,7 +71,8 @@ BOOL LegoView::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Render
 	}
 
 	assert(GetView());
-	GetView()->SetFrustrum(frontClippingDistance, backClippingDistance, viewAngle);
+	GetView()
+		->SetFrustrum(frontClippingDistance, backClippingDistance, viewAngle);
 	GetView()->SetBackgroundColor(.223, .639, .851);
 
 	return TRUE;
@@ -77,11 +80,13 @@ BOOL LegoView::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Render
 
 // FUNCTION: LEGO1 0x100ab6c0
 // FUNCTION: BETA10 0x1017befd
-Tgl::View* LegoView::CreateView(Tgl::Renderer* pRenderer, Tgl::Device* pDevice) {
+Tgl::View*
+LegoView::CreateView(Tgl::Renderer* pRenderer, Tgl::Device* pDevice) {
 	assert(pRenderer);
 	assert(pDevice);
 
-	return pRenderer->CreateView(pDevice, m_pCamera, 0, 0, GetWidth(), GetHeight());
+	return pRenderer
+		->CreateView(pDevice, m_pCamera, 0, 0, GetWidth(), GetHeight());
 }
 
 // FUNCTION: LEGO1 0x100ab6f0
@@ -125,16 +130,33 @@ BOOL LegoView1::AddLightsToViewport() {
 
 // FUNCTION: LEGO1 0x100ab860
 // FUNCTION: BETA10 0x1017c1ea
-BOOL LegoView1::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Renderer* pRenderer) {
+BOOL LegoView1::Create(
+	const TglSurface::CreateStruct& rCreateStruct,
+	Tgl::Renderer* pRenderer
+) {
 	if (!LegoView::Create(rCreateStruct, pRenderer)) {
 		return FALSE;
 	}
 
 	// lights
-	m_pSunLight = pRenderer->CreateLight(Tgl::Point, g_sunLightRGB, g_sunLightRGB, g_sunLightRGB);
-	m_pDirectionalLight =
-		pRenderer->CreateLight(Tgl::Directional, g_directionalLightRGB, g_directionalLightRGB, g_directionalLightRGB);
-	m_pAmbientLight = pRenderer->CreateLight(Tgl::Ambient, g_ambientLightRGB, g_ambientLightRGB, g_ambientLightRGB);
+	m_pSunLight = pRenderer->CreateLight(
+		Tgl::Point,
+		g_sunLightRGB,
+		g_sunLightRGB,
+		g_sunLightRGB
+	);
+	m_pDirectionalLight = pRenderer->CreateLight(
+		Tgl::Directional,
+		g_directionalLightRGB,
+		g_directionalLightRGB,
+		g_directionalLightRGB
+	);
+	m_pAmbientLight = pRenderer->CreateLight(
+		Tgl::Ambient,
+		g_ambientLightRGB,
+		g_ambientLightRGB,
+		g_ambientLightRGB
+	);
 
 	Mx3DPointFloat position(0.0, 0.0, 0.0);
 	Mx3DPointFloat direction(0.0, -1.0, 0.0);
@@ -184,13 +206,15 @@ void LegoView1::Destroy() {
 
 // FUNCTION: LEGO1 0x100abb60
 // FUNCTION: BETA10 0x1017ca80
-void LegoView1::SetLightTransform(BOOL bDirectionalLight, Tgl::FloatMatrix4& rMatrix) {
+void LegoView1::SetLightTransform(
+	BOOL bDirectionalLight,
+	Tgl::FloatMatrix4& rMatrix
+) {
 	Tgl::Light* pLight;
 
 	if (bDirectionalLight == FALSE) {
 		pLight = m_pSunLight;
-	}
-	else {
+	} else {
 		pLight = m_pDirectionalLight;
 	}
 
@@ -199,19 +223,26 @@ void LegoView1::SetLightTransform(BOOL bDirectionalLight, Tgl::FloatMatrix4& rMa
 
 // FUNCTION: LEGO1 0x100abb80
 // FUNCTION: BETA10 0x1017cacf
-void LegoView1::SetLightTransform(Tgl::Light* pLight, Tgl::FloatMatrix4& rMatrix) {
+void LegoView1::SetLightTransform(
+	Tgl::Light* pLight,
+	Tgl::FloatMatrix4& rMatrix
+) {
 	pLight->SetTransformation(rMatrix);
 }
 
 // FUNCTION: LEGO1 0x100abba0
 // FUNCTION: BETA10 0x1017caf6
-void LegoView1::SetLightColor(BOOL bDirectionalLight, float red, float green, float blue) {
+void LegoView1::SetLightColor(
+	BOOL bDirectionalLight,
+	float red,
+	float green,
+	float blue
+) {
 	Tgl::Light* pLight;
 
 	if (bDirectionalLight == FALSE) {
 		pLight = m_pSunLight;
-	}
-	else {
+	} else {
 		pLight = m_pDirectionalLight;
 	}
 
@@ -220,6 +251,11 @@ void LegoView1::SetLightColor(BOOL bDirectionalLight, float red, float green, fl
 
 // FUNCTION: LEGO1 0x100abbd0
 // FUNCTION: BETA10 0x1017cb4d
-void LegoView1::SetLightColor(Tgl::Light* pLight, float red, float green, float blue) {
+void LegoView1::SetLightColor(
+	Tgl::Light* pLight,
+	float red,
+	float green,
+	float blue
+) {
 	pLight->SetColor(red, green, blue);
 }

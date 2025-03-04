@@ -33,7 +33,11 @@ struct LegoBEWithFloat {
 	}
 
 	// FUNCTION: BETA10 0x100bd9a0
-	LegoBEWithFloat(LegoPathCtrlEdge* p_edge, LegoPathBoundary* p_boundary, MxFloat p_unk0x0c) {
+	LegoBEWithFloat(
+		LegoPathCtrlEdge* p_edge,
+		LegoPathBoundary* p_boundary,
+		MxFloat p_unk0x0c
+	) {
 		m_edge = p_edge;
 		m_boundary = p_boundary;
 		m_next = NULL;
@@ -41,7 +45,12 @@ struct LegoBEWithFloat {
 	}
 
 	// FUNCTION: BETA10 0x100bd9f0
-	LegoBEWithFloat(LegoPathCtrlEdge* p_edge, LegoPathBoundary* p_boundary, LegoBEWithFloat* p_next, MxFloat p_unk0x0c) {
+	LegoBEWithFloat(
+		LegoPathCtrlEdge* p_edge,
+		LegoPathBoundary* p_boundary,
+		LegoBEWithFloat* p_next,
+		MxFloat p_unk0x0c
+	) {
 		m_edge = p_edge;
 		m_boundary = p_boundary;
 		m_next = p_next;
@@ -59,18 +68,18 @@ struct LegoBEWithFloat {
 
 struct LegoBEWithFloatComparator {
 	// FUNCTION: BETA10 0x100bef80
-	bool operator()(LegoBEWithFloat* const& p_a, LegoBEWithFloat* const& p_b) const {
+	bool
+	operator()(LegoBEWithFloat* const& p_a, LegoBEWithFloat* const& p_b) const {
 		return p_a->m_unk0x0c < p_b->m_unk0x0c;
 	}
 };
 
-typedef multiset<LegoBEWithFloat*, LegoBEWithFloatComparator> LegoBEWithFloatSet;
+typedef multiset<LegoBEWithFloat*, LegoBEWithFloatComparator>
+	LegoBEWithFloatSet;
 
 // SIZE 0x3c
 struct LegoPathEdgeContainer : public list<LegoBoundaryEdge> {
-	enum {
-		c_bit1 = 0x01
-	};
+	enum { c_bit1 = 0x01 };
 
 	// FUNCTION: BETA10 0x100118e0
 	LegoPathEdgeContainer() {
@@ -82,8 +91,7 @@ struct LegoPathEdgeContainer : public list<LegoBoundaryEdge> {
 	void SetBit1(MxU32 p_set) {
 		if (p_set) {
 			m_flags |= c_bit1;
-		}
-		else {
+		} else {
 			m_flags &= ~c_bit1;
 		}
 	}

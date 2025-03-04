@@ -8,7 +8,6 @@
 #include "misc.h"
 #include "mxtransitionmanager.h"
 
-
 // FUNCTION: LEGO1 0x10028200
 RaceCar::RaceCar() {
 	m_maxLinearVel = 40.0;
@@ -39,8 +38,9 @@ MxLong RaceCar::HandleClick() {
 		return 1;
 	}
 
-	Isle* isle = (Isle*)FindWorld(*g_isleScript, IsleScript::c__Isle);
+	Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
 	isle->SetDestLocation(LegoGameState::Area::e_carrace);
-	TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+	TransitionManager()
+		->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
 	return 1;
 }

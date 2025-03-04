@@ -42,7 +42,9 @@ public:
 	virtual MxULong GetStreamBuffersNum() = 0;          // vtable+0x2c
 
 	// FUNCTION: LEGO1 0x100bfff0
-	virtual MxLong GetLengthInDWords() { return m_lengthInDWords; } // vtable+0x30
+	virtual MxLong GetLengthInDWords() {
+		return m_lengthInDWords;
+	} // vtable+0x30
 
 	// FUNCTION: LEGO1 0x100c0000
 	virtual MxU32* GetBuffer() { return m_pBuffer; } // vtable+0x34

@@ -5,7 +5,6 @@
 #include "mxomni.h"
 #include "mxstreamcontroller.h"
 
-
 // FUNCTION: LEGO1 0x100d0730
 MxRAMStreamProvider::MxRAMStreamProvider() {
 	m_bufferSize = 0;
@@ -55,12 +54,15 @@ MxResult MxRAMStreamProvider::SetResourceToGet(MxStreamController* p_resource) {
 	MxString path;
 	m_pLookup = p_resource;
 
-	path = (MxString(MxOmni::GetHD()) + p_resource->GetAtom().GetInternal() + ".si");
+	path =
+		(MxString(MxOmni::GetHD()) + p_resource->GetAtom().GetInternal() + ".si"
+		);
 
 	m_pFile = new MxDSFile(path.GetData(), 0);
 	if (m_pFile != NULL) {
 		if (m_pFile->Open(OF_READ) != 0) {
-			path = MxString(MxOmni::GetCD()) + p_resource->GetAtom().GetInternal() + ".si";
+			path = MxString(MxOmni::GetCD()) +
+				   p_resource->GetAtom().GetInternal() + ".si";
 			m_pFile->SetFileName(path.GetData());
 
 			if (m_pFile->Open(OF_READ) != 0) {
@@ -73,12 +75,19 @@ MxResult MxRAMStreamProvider::SetResourceToGet(MxStreamController* p_resource) {
 			m_bufferSize = m_pFile->GetBufferSize();
 			m_pBufferOfFileSize = new MxU8[m_fileSize];
 			if (m_pBufferOfFileSize != NULL &&
-				m_pFile->Read((unsigned char*)m_pBufferOfFileSize, m_fileSize) == SUCCESS) {
+				m_pFile->Read(
+					(unsigned char*) m_pBufferOfFileSize,
+					m_fileSize
+				) == SUCCESS) {
 				m_lengthInDWords = m_pFile->GetLengthInDWords();
 				m_bufferForDWords = new MxU32[m_lengthInDWords];
 
 				if (m_bufferForDWords != NULL) {
-					memcpy(m_bufferForDWords, m_pFile->GetBuffer(), m_lengthInDWords * sizeof(MxU32));
+					memcpy(
+						m_bufferForDWords,
+						m_pFile->GetBuffer(),
+						m_lengthInDWords * sizeof(MxU32)
+					);
 					result = SUCCESS;
 				}
 			}
@@ -117,13 +126,15 @@ MxU32 ReadData(MxU8* p_buffer, MxU32 p_size) {
 
 					if ((*IntoType(data2) == FOURCC('M', 'x', 'C', 'h')) &&
 						(*MxStreamChunk::IntoFlags(data2) & DS_CHUNK_SPLIT)) {
-						if (*MxStreamChunk::IntoObjectId(data2) == *MxStreamChunk::IntoObjectId(data3) &&
-							(*MxStreamChunk::IntoFlags(data3) & DS_CHUNK_SPLIT) &&
-							*MxStreamChunk::IntoTime(data2) == *MxStreamChunk::IntoTime(data3)) {
+						if (*MxStreamChunk::IntoObjectId(data2) ==
+								*MxStreamChunk::IntoObjectId(data3) &&
+							(*MxStreamChunk::IntoFlags(data3) & DS_CHUNK_SPLIT
+							) &&
+							*MxStreamChunk::IntoTime(data2) ==
+								*MxStreamChunk::IntoTime(data3)) {
 							MxDSBuffer::Append(data2, data3);
 							continue;
-						}
-						else {
+						} else {
 							*MxStreamChunk::IntoFlags(data2) &= ~DS_CHUNK_SPLIT;
 						}
 					}
@@ -132,22 +143,21 @@ MxU32 ReadData(MxU8* p_buffer, MxU32 p_size) {
 					memcpy(data2, data3, MxDSChunk::Size(data3));
 
 					if (*MxStreamChunk::IntoObjectId(data2) == id &&
-						(*MxStreamChunk::IntoFlags(data2) & DS_CHUNK_END_OF_STREAM)) {
+						(*MxStreamChunk::IntoFlags(data2) &
+						 DS_CHUNK_END_OF_STREAM)) {
 						break;
 					}
-				}
-				else {
+				} else {
 					data++;
 				}
 			}
-		}
-		else {
+		} else {
 			data++;
 		}
 	}
 
 	*MxStreamChunk::IntoFlags(data2) &= ~DS_CHUNK_SPLIT;
-	return MxDSChunk::Size(data2) + (MxU32)(data2 - p_buffer);
+	return MxDSChunk::Size(data2) + (MxU32) (data2 - p_buffer);
 
 #undef IntoType
 }

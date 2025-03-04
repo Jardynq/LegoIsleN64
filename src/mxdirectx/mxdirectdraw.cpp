@@ -2,12 +2,10 @@
 
 #include <stdio.h>
 
-
-#define RELEASE(x)    \
-	if (x != NULL)    \
-	{                 \
-		x->Release(); \
-		x = NULL;     \
+#define RELEASE(x)                                                             \
+	if (x != NULL) {                                                           \
+		x->Release();                                                          \
+		x = NULL;                                                              \
 	}
 
 #ifndef DDSCAPS_3DDEVICE
@@ -67,7 +65,8 @@ int MxDirectDraw::GetPrimaryBitDepth() {
 
 		pDDraw->GetDisplayMode(&ddsd);
 		dwRGBBitCount = ddsd.ddpfPixelFormat.dwRGBBitCount;
-		g_isPaletteIndexed8 = (ddsd.ddpfPixelFormat.dwFlags & DDPF_PALETTEINDEXED8) != 0;
+		g_isPaletteIndexed8 =
+			(ddsd.ddpfPixelFormat.dwFlags & DDPF_PALETTEINDEXED8) != 0;
 		pDDraw->Release();
 	}
 
@@ -84,7 +83,8 @@ BOOL MxDirectDraw::Create(
 	int height,
 	int bpp,
 	const PALETTEENTRY* pPaletteEntries,
-	int paletteEntryCount) {
+	int paletteEntryCount
+) {
 	m_hWndMain = hWnd;
 
 	CacheOriginalPaletteEntries();
@@ -135,7 +135,11 @@ BOOL MxDirectDraw::CacheOriginalPaletteEntries() {
 }
 
 // FUNCTION: LEGO1 0x1009d700
-BOOL MxDirectDraw::SetPaletteEntries(const PALETTEENTRY* pPaletteEntries, int paletteEntryCount, BOOL fullscreen) {
+BOOL MxDirectDraw::SetPaletteEntries(
+	const PALETTEENTRY* pPaletteEntries,
+	int paletteEntryCount,
+	BOOL fullscreen
+) {
 	int reservedLowEntryCount = 10;
 	int reservedHighEntryCount = 10;
 	int arraySize = sizeOfArray(m_paletteEntries);
@@ -165,7 +169,9 @@ BOOL MxDirectDraw::SetPaletteEntries(const PALETTEENTRY* pPaletteEntries, int pa
 	}
 
 	if (paletteEntryCount != 0) {
-		for (i = reservedLowEntryCount; (i < paletteEntryCount) && (i < 256 - reservedHighEntryCount); i++) {
+		for (i = reservedLowEntryCount;
+			 (i < paletteEntryCount) && (i < 256 - reservedHighEntryCount);
+			 i++) {
 			m_paletteEntries[i].peRed = pPaletteEntries[i].peRed;
 			m_paletteEntries[i].peGreen = pPaletteEntries[i].peGreen;
 			m_paletteEntries[i].peBlue = pPaletteEntries[i].peBlue;
@@ -175,7 +181,12 @@ BOOL MxDirectDraw::SetPaletteEntries(const PALETTEENTRY* pPaletteEntries, int pa
 	if (m_pPalette) {
 		HRESULT result;
 
-		result = m_pPalette->SetEntries(0, 0, sizeOfArray(m_paletteEntries), m_paletteEntries);
+		result = m_pPalette->SetEntries(
+			0,
+			0,
+			sizeOfArray(m_paletteEntries),
+			m_paletteEntries
+		);
 		if (result != DD_OK) {
 			Error("SetEntries failed", result);
 			return FALSE;
@@ -238,10 +249,12 @@ BOOL MxDirectDraw::DDInit(BOOL fullscreen) {
 
 	if (fullscreen) {
 		m_bIgnoreWMSIZE = TRUE;
-		result = m_pDirectDraw->SetCooperativeLevel(m_hWndMain, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN);
+		result = m_pDirectDraw->SetCooperativeLevel(
+			m_hWndMain,
+			DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN
+		);
 		m_bIgnoreWMSIZE = FALSE;
-	}
-	else {
+	} else {
 		result = m_pDirectDraw->SetCooperativeLevel(m_hWndMain, DDSCL_NORMAL);
 	}
 
@@ -257,7 +270,7 @@ BOOL MxDirectDraw::DDInit(BOOL fullscreen) {
 
 // FUNCTION: LEGO1 0x1009d9d0
 BOOL MxDirectDraw::IsSupportedMode(int width, int height, int bpp) {
-	DeviceModesInfo::Mode mode = { width, height, bpp };
+	DeviceModesInfo::Mode mode = {width, height, bpp};
 
 	for (int i = 0; i < m_pCurrentDeviceModesList->m_count; i++) {
 		if (m_pCurrentDeviceModesList->m_modeArray[i] == mode) {
@@ -275,10 +288,13 @@ void EnableResizing(HWND p_hwnd, BOOL p_flag) {
 	if (!p_flag) {
 		g_dwStyle = GetWindowLong(p_hwnd, GWL_STYLE);
 		if (g_dwStyle & WS_THICKFRAME) {
-			SetWindowLong(p_hwnd, GWL_STYLE, GetWindowLong(p_hwnd, GWL_STYLE) ^ WS_THICKFRAME);
+			SetWindowLong(
+				p_hwnd,
+				GWL_STYLE,
+				GetWindowLong(p_hwnd, GWL_STYLE) ^ WS_THICKFRAME
+			);
 		}
-	}
-	else {
+	} else {
 		SetWindowLong(p_hwnd, GWL_STYLE, g_dwStyle);
 	}
 }
@@ -297,7 +313,10 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 			lpDD = NULL;
 			result = DirectDrawCreate(0, &lpDD, 0);
 			if (result == DD_OK) {
-				result = lpDD->SetCooperativeLevel(m_hWndMain, DDSCL_FULLSCREEN | DDSCL_EXCLUSIVE | DDSCL_ALLOWREBOOT);
+				result = lpDD->SetCooperativeLevel(
+					m_hWndMain,
+					DDSCL_FULLSCREEN | DDSCL_EXCLUSIVE | DDSCL_ALLOWREBOOT
+				);
 				if (result == DD_OK) {
 					lpDD->SetDisplayMode(width, height, 8);
 				}
@@ -317,15 +336,16 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 			Error("SetDisplayMode failed", result);
 			return FALSE;
 		}
-	}
-	else {
+	} else {
 		RECT rc;
 		DWORD dwStyle;
 
 		if (!m_bIsOnPrimaryDevice) {
 			Error(
-				"Attempt made enter a windowed mode on a DirectDraw device that is not the primary display",
-				DDERR_GENERIC);
+				"Attempt made enter a windowed mode on a DirectDraw device "
+				"that is not the primary display",
+				DDERR_GENERIC
+			);
 			return FALSE;
 		}
 
@@ -339,7 +359,8 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 			&rc,
 			GetWindowLong(m_hWndMain, GWL_STYLE),
 			GetMenu(m_hWndMain) != NULL,
-			GetWindowLong(m_hWndMain, GWL_EXSTYLE));
+			GetWindowLong(m_hWndMain, GWL_EXSTYLE)
+		);
 		SetWindowPos(
 			m_hWndMain,
 			NULL,
@@ -347,8 +368,17 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 			0,
 			rc.right - rc.left + 1,
 			rc.bottom - rc.top + 1,
-			SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE);
-		SetWindowPos(m_hWndMain, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
+			SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE
+		);
+		SetWindowPos(
+			m_hWndMain,
+			HWND_NOTOPMOST,
+			0,
+			0,
+			0,
+			0,
+			SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE
+		);
 		m_bIgnoreWMSIZE = FALSE;
 	}
 
@@ -371,8 +401,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 
 	if (ddsd.ddpfPixelFormat.dwFlags & DDPF_PALETTEINDEXED8) {
 		m_bPrimaryPalettized = TRUE;
-	}
-	else {
+	} else {
 		m_bPrimaryPalettized = FALSE;
 	}
 
@@ -381,12 +410,14 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 			DDPCAPS_8BIT | DDPCAPS_ALLOW256 | DDPCAPS_INITIALIZE, // 0x4c
 			m_paletteEntries,
 			&m_pPalette,
-			NULL);
+			NULL
+		);
 		if (result != DD_OK) {
 			Error("CreatePalette failed", result);
 			return 0;
 		}
-		result = m_pBackBuffer->SetPalette(m_pPalette); // TODO: add FIX_BUGS define and fix this
+		result = m_pBackBuffer->SetPalette(m_pPalette
+		); // TODO: add FIX_BUGS define and fix this
 		result = m_pFrontBuffer->SetPalette(m_pPalette);
 		if (result != DD_OK) {
 			Error("SetPalette failed", result);
@@ -402,12 +433,17 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 HRESULT MxDirectDraw::CreateDDSurface(
 	LPDDSURFACEDESC p_lpDDSurfDesc,
 	LPDIRECTDRAWSURFACE FAR* p_lpDDSurface,
-	IUnknown FAR* p_pUnkOuter) {
-	return m_pDirectDraw->CreateSurface(p_lpDDSurfDesc, p_lpDDSurface, p_pUnkOuter);
+	IUnknown FAR* p_pUnkOuter
+) {
+	return m_pDirectDraw
+		->CreateSurface(p_lpDDSurfDesc, p_lpDDSurface, p_pUnkOuter);
 }
 
 // FUNCTION: LEGO1 0x1009dda0
-BOOL MxDirectDraw::GetDDSurfaceDesc(LPDDSURFACEDESC lpDDSurfDesc, LPDIRECTDRAWSURFACE lpDDSurf) {
+BOOL MxDirectDraw::GetDDSurfaceDesc(
+	LPDDSURFACEDESC lpDDSurfDesc,
+	LPDIRECTDRAWSURFACE lpDDSurf
+) {
 	HRESULT result;
 
 	memset(lpDDSurfDesc, 0, sizeof(DDSURFACEDESC));
@@ -431,14 +467,18 @@ BOOL MxDirectDraw::DDCreateSurfaces() {
 		memset(&ddsd, 0, sizeof(DDSURFACEDESC));
 		ddsd.dwSize = sizeof(ddsd);
 		ddsd.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;
-		ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE | DDSCAPS_FLIP | DDSCAPS_3DDEVICE | DDSCAPS_COMPLEX;
+		ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE | DDSCAPS_FLIP |
+							  DDSCAPS_3DDEVICE | DDSCAPS_COMPLEX;
 		if (m_bOnlySystemMemory) {
 			ddsd.ddsCaps.dwCaps |= DDSCAPS_SYSTEMMEMORY;
 		}
 		ddsd.dwBackBufferCount = 1;
 		result = CreateDDSurface(&ddsd, &m_pFrontBuffer, NULL);
 		if (result != DD_OK) {
-			Error("CreateSurface for front/back fullScreen buffer failed", result);
+			Error(
+				"CreateSurface for front/back fullScreen buffer failed",
+				result
+			);
 			return FALSE;
 		}
 		ddscaps.dwCaps = DDSCAPS_BACKBUFFER;
@@ -451,8 +491,7 @@ BOOL MxDirectDraw::DDCreateSurfaces() {
 			Error("GetDDSurfaceDesc failed to get back buffer", result);
 			return FALSE;
 		}
-	}
-	else {
+	} else {
 		printf("Not using flip surfaces");
 		memset(&ddsd, 0, sizeof(DDSURFACEDESC));
 		ddsd.dwSize = sizeof(DDSURFACEDESC);
@@ -524,7 +563,7 @@ void MxDirectDraw::FUN_1009e020() {
 		}
 
 		// clear backBuffer
-		line = (byte*)ddsd.lpSurface;
+		line = (byte*) ddsd.lpSurface;
 		for (j = ddsd.dwHeight; j--;) {
 			memset(line, 0, ddsd.dwWidth);
 			line += ddsd.lPitch;
@@ -539,7 +578,11 @@ void MxDirectDraw::FUN_1009e020() {
 }
 
 // FUNCTION: LEGO1 0x1009e110
-BOOL MxDirectDraw::TextToTextSurface(const char* text, IDirectDrawSurface* pSurface, SIZE& textSizeOnSurface) {
+BOOL MxDirectDraw::TextToTextSurface(
+	const char* text,
+	IDirectDrawSurface* pSurface,
+	SIZE& textSizeOnSurface
+) {
 	HRESULT result;
 	HDC hdc;
 	RECT rc;
@@ -605,12 +648,18 @@ BOOL MxDirectDraw::CreateTextSurfaces() {
 		CLIP_DEFAULT_PRECIS,
 		DEFAULT_QUALITY,
 		VARIABLE_PITCH,
-		"Arial");
+		"Arial"
+	);
 
 	hdc = GetDC(NULL);
 	SelectObject(hdc, m_hFont);
 	GetTextExtentPoint(hdc, dummyfps, strlen(dummyfps), &m_text1SizeOnSurface);
-	GetTextExtentPoint(hdc, dummyinfo, strlen(dummyinfo), &m_text2SizeOnSurface);
+	GetTextExtentPoint(
+		hdc,
+		dummyinfo,
+		strlen(dummyinfo),
+		&m_text2SizeOnSurface
+	);
 	ReleaseDC(NULL, hdc);
 
 	memset(&ddsd, 0, sizeof(ddsd));
@@ -715,7 +764,7 @@ BOOL MxDirectDraw::RestoreSurfaces() {
 
 // FUNCTION: LEGO1 0x1009e5e0
 BOOL MxDirectDraw::CreateZBuffer(DWORD memorytype, DWORD depth) {
-	HRESULT result;				   // eax
+	HRESULT result;                // eax
 	LPDIRECTDRAWSURFACE lpZBuffer; // [esp+8h] [ebp-70h] BYREF
 	DDSURFACEDESC ddsd;
 
@@ -764,8 +813,7 @@ int MxDirectDraw::Pause(BOOL p_pause) {
 			DrawMenuBar(m_hWndMain);
 			RedrawWindow(m_hWndMain, NULL, NULL, RDW_FRAME);
 		}
-	}
-	else {
+	} else {
 		--m_pauseCount;
 
 		if (m_pauseCount > 0) {
@@ -791,8 +839,12 @@ BOOL MxDirectDraw::RestorePaletteEntries() {
 		if (m_pPalette) {
 			HRESULT result;
 
-			result =
-				m_pPalette->SetEntries(0, 0, sizeof(m_paletteEntries) / sizeof(m_paletteEntries[0]), m_paletteEntries);
+			result = m_pPalette->SetEntries(
+				0,
+				0,
+				sizeof(m_paletteEntries) / sizeof(m_paletteEntries[0]),
+				m_paletteEntries
+			);
 			if (result != DD_OK) {
 				Error("SetEntries failed", result);
 				return FALSE;
@@ -812,8 +864,10 @@ BOOL MxDirectDraw::RestoreOriginalPaletteEntries() {
 			result = m_pPalette->SetEntries(
 				0,
 				0,
-				sizeof(m_originalPaletteEntries) / sizeof(m_originalPaletteEntries[0]),
-				m_originalPaletteEntries);
+				sizeof(m_originalPaletteEntries) /
+					sizeof(m_originalPaletteEntries[0]),
+				m_originalPaletteEntries
+			);
 			if (result != DD_OK) {
 				Error("SetEntries failed", result);
 				return FALSE;
@@ -863,7 +917,8 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error) {
 	case DDERR_ALREADYINITIALIZED:
 		return "This object is already initialized.";
 	case DDERR_BLTFASTCANTCLIP:
-		return "Return if a clipper object is attached to the source surface passed into a BltFast call.";
+		return "Return if a clipper object is attached to the source surface "
+			   "passed into a BltFast call.";
 	case DDERR_CANNOTATTACHSURFACE:
 		return "This surface can not be attached to the requested surface.";
 	case DDERR_CANNOTDETACHSURFACE:
@@ -871,59 +926,76 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error) {
 	case DDERR_CANTCREATEDC:
 		return "Windows can not create any more DCs.";
 	case DDERR_CANTDUPLICATE:
-		return "Can't duplicate primary & 3D surfaces, or surfaces that are implicitly created.";
+		return "Can't duplicate primary & 3D surfaces, or surfaces that are "
+			   "implicitly created.";
 	case DDERR_CLIPPERISUSINGHWND:
-		return "An attempt was made to set a cliplist for a clipper object that is already monitoring an hwnd.";
+		return "An attempt was made to set a cliplist for a clipper object "
+			   "that is already monitoring an hwnd.";
 	case DDERR_COLORKEYNOTSET:
 		return "No src color key specified for this operation.";
 	case DDERR_CURRENTLYNOTAVAIL:
 		return "Support is currently not available.";
 	case DDERR_DIRECTDRAWALREADYCREATED:
-		return "A DirectDraw object representing this driver has already been created for this process.";
+		return "A DirectDraw object representing this driver has already been "
+			   "created for this process.";
 	case DDERR_EXCEPTION:
-		return "An exception was encountered while performing the requested operation.";
+		return "An exception was encountered while performing the requested "
+			   "operation.";
 	case DDERR_EXCLUSIVEMODEALREADYSET:
-		return "An attempt was made to set the cooperative level when it was already set to exclusive.";
+		return "An attempt was made to set the cooperative level when it was "
+			   "already set to exclusive.";
 	case DDERR_GENERIC:
 		return "Generic failure.";
 	case DDERR_HEIGHTALIGN:
-		return "Height of rectangle provided is not a multiple of reqd alignment.";
+		return "Height of rectangle provided is not a multiple of reqd "
+			   "alignment.";
 	case DDERR_HWNDALREADYSET:
-		return "The CooperativeLevel HWND has already been set. It can not be reset while the process has surfaces or "
-			"palettes created.";
+		return "The CooperativeLevel HWND has already been set. It can not be "
+			   "reset while the process has surfaces or "
+			   "palettes created.";
 	case DDERR_HWNDSUBCLASSED:
-		return "HWND used by DirectDraw CooperativeLevel has been subclassed, this prevents DirectDraw from restoring "
-			"state.";
+		return "HWND used by DirectDraw CooperativeLevel has been subclassed, "
+			   "this prevents DirectDraw from restoring "
+			   "state.";
 	case DDERR_IMPLICITLYCREATED:
-		return "This surface can not be restored because it is an implicitly created surface.";
+		return "This surface can not be restored because it is an implicitly "
+			   "created surface.";
 	case DDERR_INCOMPATIBLEPRIMARY:
-		return "Unable to match primary surface creation request with existing primary surface.";
+		return "Unable to match primary surface creation request with existing "
+			   "primary surface.";
 	case DDERR_INVALIDCAPS:
-		return "One or more of the caps bits passed to the callback are incorrect.";
+		return "One or more of the caps bits passed to the callback are "
+			   "incorrect.";
 	case DDERR_INVALIDCLIPLIST:
 		return "DirectDraw does not support the provided cliplist.";
 	case DDERR_INVALIDDIRECTDRAWGUID:
-		return "The GUID passed to DirectDrawCreate is not a valid DirectDraw driver identifier.";
+		return "The GUID passed to DirectDrawCreate is not a valid DirectDraw "
+			   "driver identifier.";
 	case DDERR_INVALIDMODE:
 		return "DirectDraw does not support the requested mode.";
 	case DDERR_INVALIDOBJECT:
-		return "DirectDraw received a pointer that was an invalid DIRECTDRAW object.";
+		return "DirectDraw received a pointer that was an invalid DIRECTDRAW "
+			   "object.";
 	case DDERR_INVALIDPARAMS:
-		return "One or more of the parameters passed to the function are incorrect.";
+		return "One or more of the parameters passed to the function are "
+			   "incorrect.";
 	case DDERR_INVALIDPIXELFORMAT:
 		return "The pixel format was invalid as specified.";
 	case DDERR_INVALIDPOSITION:
-		return "Returned when the position of the overlay on the destination is no longer legal for that "
-			"destination.";
+		return "Returned when the position of the overlay on the destination "
+			   "is no longer legal for that "
+			   "destination.";
 	case DDERR_INVALIDRECT:
 		return "Rectangle provided was invalid.";
 	case DDERR_LOCKEDSURFACES:
-		return "Operation could not be carried out because one or more surfaces are locked.";
+		return "Operation could not be carried out because one or more "
+			   "surfaces are locked.";
 	case DDERR_NO3D:
 		return "There is no 3D present.";
 	case DDERR_NOALPHAHW:
-		return "Operation could not be carried out because there is no alpha accleration hardware present or "
-			"available.";
+		return "Operation could not be carried out because there is no alpha "
+			   "accleration hardware present or "
+			   "available.";
 	case DDERR_NOBLTHW:
 		return "No blitter hardware present.";
 	case DDERR_NOCLIPLIST:
@@ -931,117 +1003,150 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error) {
 	case DDERR_NOCLIPPERATTACHED:
 		return "No clipper object attached to surface object.";
 	case DDERR_NOCOLORCONVHW:
-		return "Operation could not be carried out because there is no color conversion hardware present or "
-			"available.";
+		return "Operation could not be carried out because there is no color "
+			   "conversion hardware present or "
+			   "available.";
 	case DDERR_NOCOLORKEY:
 		return "Surface doesn't currently have a color key";
 	case DDERR_NOCOLORKEYHW:
-		return "Operation could not be carried out because there is no hardware support of the destination color "
-			"key.";
+		return "Operation could not be carried out because there is no "
+			   "hardware support of the destination color "
+			   "key.";
 	case DDERR_NOCOOPERATIVELEVELSET:
-		return "Create function called without DirectDraw object method SetCooperativeLevel being called.";
+		return "Create function called without DirectDraw object method "
+			   "SetCooperativeLevel being called.";
 	case DDERR_NODC:
 		return "No DC was ever created for this surface.";
 	case DDERR_NODDROPSHW:
 		return "No DirectDraw ROP hardware.";
 	case DDERR_NODIRECTDRAWHW:
-		return "A hardware-only DirectDraw object creation was attempted but the driver did not support any "
-			"hardware.";
+		return "A hardware-only DirectDraw object creation was attempted but "
+			   "the driver did not support any "
+			   "hardware.";
 	case DDERR_NOEMULATION:
 		return "Software emulation not available.";
 	case DDERR_NOEXCLUSIVEMODE:
-		return "Operation requires the application to have exclusive mode but the application does not have exclusive "
-			"mode.";
+		return "Operation requires the application to have exclusive mode but "
+			   "the application does not have exclusive "
+			   "mode.";
 	case DDERR_NOFLIPHW:
 		return "Flipping visible surfaces is not supported.";
 	case DDERR_NOGDI:
 		return "There is no GDI present.";
 	case DDERR_NOHWND:
-		return "Clipper notification requires an HWND or no HWND has previously been set as the CooperativeLevel "
-			"HWND.";
+		return "Clipper notification requires an HWND or no HWND has "
+			   "previously been set as the CooperativeLevel "
+			   "HWND.";
 	case DDERR_NOMIRRORHW:
-		return "Operation could not be carried out because there is no hardware present or available.";
+		return "Operation could not be carried out because there is no "
+			   "hardware present or available.";
 	case DDERR_NOOVERLAYDEST:
-		return "Returned when GetOverlayPosition is called on an overlay that UpdateOverlay has never been called on "
-			"to establish a destination.";
+		return "Returned when GetOverlayPosition is called on an overlay that "
+			   "UpdateOverlay has never been called on "
+			   "to establish a destination.";
 	case DDERR_NOOVERLAYHW:
-		return "Operation could not be carried out because there is no overlay hardware present or available.";
+		return "Operation could not be carried out because there is no overlay "
+			   "hardware present or available.";
 	case DDERR_NOPALETTEATTACHED:
 		return "No palette object attached to this surface.";
 	case DDERR_NOPALETTEHW:
 		return "No hardware support for 16 or 256 color palettes.";
 	case DDERR_NORASTEROPHW:
-		return "Operation could not be carried out because there is no appropriate raster op hardware present or "
-			"available.";
+		return "Operation could not be carried out because there is no "
+			   "appropriate raster op hardware present or "
+			   "available.";
 	case DDERR_NOROTATIONHW:
-		return "Operation could not be carried out because there is no rotation hardware present or available.";
+		return "Operation could not be carried out because there is no "
+			   "rotation hardware present or available.";
 	case DDERR_NOSTRETCHHW:
-		return "Operation could not be carried out because there is no hardware support for stretching.";
+		return "Operation could not be carried out because there is no "
+			   "hardware support for stretching.";
 	case DDERR_NOT4BITCOLOR:
-		return "DirectDrawSurface is not in 4 bit color palette and the requested operation requires 4 bit color "
-			"palette.";
+		return "DirectDrawSurface is not in 4 bit color palette and the "
+			   "requested operation requires 4 bit color "
+			   "palette.";
 	case DDERR_NOT4BITCOLORINDEX:
-		return "DirectDrawSurface is not in 4 bit color index palette and the requested operation requires 4 bit color "
-			"index palette.";
+		return "DirectDrawSurface is not in 4 bit color index palette and the "
+			   "requested operation requires 4 bit color "
+			   "index palette.";
 	case DDERR_NOT8BITCOLOR:
-		return "DirectDrawSurface is not in 8 bit color mode and the requested operation requires 8 bit color.";
+		return "DirectDrawSurface is not in 8 bit color mode and the requested "
+			   "operation requires 8 bit color.";
 	case DDERR_NOTAOVERLAYSURFACE:
-		return "Returned when an overlay member is called for a non-overlay surface.";
+		return "Returned when an overlay member is called for a non-overlay "
+			   "surface.";
 	case DDERR_NOTEXTUREHW:
-		return "Operation could not be carried out because there is no texture mapping hardware present or "
-			"available.";
+		return "Operation could not be carried out because there is no texture "
+			   "mapping hardware present or "
+			   "available.";
 	case DDERR_NOTFLIPPABLE:
-		return "An attempt has been made to flip a surface that is not flippable.";
+		return "An attempt has been made to flip a surface that is not "
+			   "flippable.";
 	case DDERR_NOTFOUND:
 		return "Requested item was not found.";
 	case DDERR_NOTLOCKED:
-		return "Surface was not locked.  An attempt to unlock a surface that was not locked at all, or by this "
-			"process, has been attempted.";
+		return "Surface was not locked.  An attempt to unlock a surface that "
+			   "was not locked at all, or by this "
+			   "process, has been attempted.";
 	case DDERR_NOTPALETTIZED:
 		return "The surface being used is not a palette-based surface.";
 	case DDERR_NOVSYNCHW:
-		return "Operation could not be carried out because there is no hardware support for vertical blank "
-			"synchronized operations.";
+		return "Operation could not be carried out because there is no "
+			   "hardware support for vertical blank "
+			   "synchronized operations.";
 	case DDERR_NOZBUFFERHW:
-		return "Operation could not be carried out because there is no hardware support for zbuffer blitting.";
+		return "Operation could not be carried out because there is no "
+			   "hardware support for zbuffer blitting.";
 	case DDERR_NOZOVERLAYHW:
-		return "Overlay surfaces could not be z layered based on their BltOrder because the hardware does not support "
-			"z layering of overlays.";
+		return "Overlay surfaces could not be z layered based on their "
+			   "BltOrder because the hardware does not support "
+			   "z layering of overlays.";
 	case DDERR_OUTOFCAPS:
-		return "The hardware needed for the requested operation has already been allocated.";
+		return "The hardware needed for the requested operation has already "
+			   "been allocated.";
 	case DDERR_OUTOFMEMORY:
-		return "DirectDraw does not have enough memory to perform the operation.";
+		return "DirectDraw does not have enough memory to perform the "
+			   "operation.";
 	case DDERR_OUTOFVIDEOMEMORY:
-		return "DirectDraw does not have enough memory to perform the operation.";
+		return "DirectDraw does not have enough memory to perform the "
+			   "operation.";
 	case DDERR_OVERLAYCANTCLIP:
 		return "The hardware does not support clipped overlays.";
 	case DDERR_OVERLAYCOLORKEYONLYONEACTIVE:
 		return "Can only have ony color key active at one time for overlays.";
 	case DDERR_OVERLAYNOTVISIBLE:
-		return "Returned when GetOverlayPosition is called on a hidden overlay.";
+		return "Returned when GetOverlayPosition is called on a hidden "
+			   "overlay.";
 	case DDERR_PALETTEBUSY:
-		return "Access to this palette is being refused because the palette is already locked by another thread.";
+		return "Access to this palette is being refused because the palette is "
+			   "already locked by another thread.";
 	case DDERR_PRIMARYSURFACEALREADYEXISTS:
 		return "This process already has created a primary surface.";
 	case DDERR_REGIONTOOSMALL:
 		return "Region passed to Clipper::GetClipList is too small.";
 	case DDERR_SURFACEALREADYATTACHED:
-		return "This surface is already attached to the surface it is being attached to.";
+		return "This surface is already attached to the surface it is being "
+			   "attached to.";
 	case DDERR_SURFACEALREADYDEPENDENT:
-		return "This surface is already a dependency of the surface it is being made a dependency of.";
+		return "This surface is already a dependency of the surface it is "
+			   "being made a dependency of.";
 	case DDERR_SURFACEBUSY:
-		return "Access to this surface is being refused because the surface is already locked by another thread.";
+		return "Access to this surface is being refused because the surface is "
+			   "already locked by another thread.";
 	case DDERR_SURFACEISOBSCURED:
 		return "Access to surface refused because the surface is obscured.";
 	case DDERR_SURFACELOST:
-		return "Access to this surface is being refused because the surface memory is gone. The DirectDrawSurface "
-			"object representing this surface should have Restore called on it.";
+		return "Access to this surface is being refused because the surface "
+			   "memory is gone. The DirectDrawSurface "
+			   "object representing this surface should have Restore called on "
+			   "it.";
 	case DDERR_SURFACENOTATTACHED:
 		return "The requested surface is not attached.";
 	case DDERR_TOOBIGHEIGHT:
 		return "Height requested by DirectDraw is too large.";
 	case DDERR_TOOBIGSIZE:
-		return "Size requested by DirectDraw is too large, but the individual height and width are OK.";
+		return "Size requested by DirectDraw is too large, but the individual "
+			   "height and width are OK.";
 	case DDERR_TOOBIGWIDTH:
 		return "Width requested by DirectDraw is too large.";
 	case DDERR_UNSUPPORTED:
@@ -1049,16 +1154,20 @@ const char* MxDirectDraw::ErrorToString(HRESULT p_error) {
 	case DDERR_UNSUPPORTEDFORMAT:
 		return "FOURCC format requested is unsupported by DirectDraw.";
 	case DDERR_UNSUPPORTEDMASK:
-		return "Bitmask in the pixel format requested is unsupported by DirectDraw.";
+		return "Bitmask in the pixel format requested is unsupported by "
+			   "DirectDraw.";
 	case DDERR_VERTICALBLANKINPROGRESS:
 		return "Vertical blank is in progress.";
 	case DDERR_WASSTILLDRAWING:
-		return "Informs DirectDraw that the previous Blt which is transfering information to or from this Surface is "
-			"incomplete.";
+		return "Informs DirectDraw that the previous Blt which is transfering "
+			   "information to or from this Surface is "
+			   "incomplete.";
 	case DDERR_WRONGMODE:
-		return "This surface can not be restored because it was created in a different mode.";
+		return "This surface can not be restored because it was created in a "
+			   "different mode.";
 	case DDERR_XALIGN:
-		return "Rectangle provided was not horizontally aligned on required boundary.";
+		return "Rectangle provided was not horizontally aligned on required "
+			   "boundary.";
 	default:
 		return "Unrecognized error value.";
 	}

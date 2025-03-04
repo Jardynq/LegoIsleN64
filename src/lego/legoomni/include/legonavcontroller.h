@@ -83,7 +83,9 @@ public:
 	void SetDeadZone(MxS32 p_deadZone) { m_deadZone = p_deadZone; }
 
 	// FUNCTION: BETA10 0x100c7880
-	void SetTrackDefault(MxS32 p_trackDefault) { m_trackDefault = p_trackDefault; }
+	void SetTrackDefault(MxS32 p_trackDefault) {
+		m_trackDefault = p_trackDefault;
+	}
 
 	// FUNCTION: BETA10 0x100178a0
 	void Reset() {
@@ -116,7 +118,12 @@ public:
 	// LegoNavController::`scalar deleting destructor'
 
 protected:
-	float CalculateNewVel(float p_targetVel, float p_currentVel, float p_accel, float p_time);
+	float CalculateNewVel(
+		float p_targetVel,
+		float p_currentVel,
+		float p_accel,
+		float p_time
+	);
 	float CalculateNewTargetVel(int p_pos, int p_center, float p_max);
 	float CalculateNewAccel(int p_pos, int p_center, float p_max, int p_min);
 

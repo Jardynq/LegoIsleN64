@@ -4,7 +4,6 @@
 #include "mxautolock.h"
 #include "mxomni.h"
 
-
 // FUNCTION: LEGO1 0x100298a0
 LegoSoundManager::LegoSoundManager() {
 	Init();
@@ -41,19 +40,24 @@ MxResult LegoSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 		locked = TRUE;
 
 		if (MxOmni::IsSound3D()) {
-			if (m_dsBuffer->QueryInterface(IID_IDirectSound3DListener, (LPVOID*)&m_listener) != DS_OK) {
+			if (m_dsBuffer->QueryInterface(
+					IID_IDirectSound3DListener,
+					(LPVOID*) &m_listener
+				) != DS_OK) {
 				goto done;
 			}
 
 			MxOmni* omni = MxOmni::GetInstance();
 			LPDIRECTSOUND sound;
 
-			if (omni && omni->GetSoundManager() && (sound = omni->GetSoundManager()->GetDirectSound())) {
+			if (omni && omni->GetSoundManager() &&
+				(sound = omni->GetSoundManager()->GetDirectSound())) {
 				DSCAPS caps;
 				memset(&caps, 0, sizeof(DSCAPS));
 				caps.dwSize = sizeof(DSCAPS);
 
-				if (sound->GetCaps(&caps) == S_OK && caps.dwMaxHw3DAllBuffers == 0) {
+				if (sound->GetCaps(&caps) == S_OK &&
+					caps.dwMaxHw3DAllBuffers == 0) {
 					m_listener->SetDistanceFactor(0.026315790f, 0);
 					m_listener->SetRolloffFactor(10, 0);
 				}
@@ -99,7 +103,12 @@ void LegoSoundManager::UpdateListener(
 ) {
 	if (m_listener != NULL) {
 		if (p_position != NULL) {
-			m_listener->SetPosition(p_position[0], p_position[1], p_position[2], DS3D_DEFERRED);
+			m_listener->SetPosition(
+				p_position[0],
+				p_position[1],
+				p_position[2],
+				DS3D_DEFERRED
+			);
 		}
 
 		if (p_direction != NULL && p_up != NULL) {
@@ -115,10 +124,16 @@ void LegoSoundManager::UpdateListener(
 		}
 
 		if (p_velocity != NULL) {
-			m_listener->SetVelocity(p_velocity[0], p_velocity[1], p_velocity[2], DS3D_DEFERRED);
+			m_listener->SetVelocity(
+				p_velocity[0],
+				p_velocity[1],
+				p_velocity[2],
+				DS3D_DEFERRED
+			);
 		}
 
-		if (p_position != NULL || (p_direction != NULL && p_up != NULL) || p_velocity != NULL) {
+		if (p_position != NULL || (p_direction != NULL && p_up != NULL) ||
+			p_velocity != NULL) {
 			m_listener->CommitDeferredSettings();
 		}
 	}

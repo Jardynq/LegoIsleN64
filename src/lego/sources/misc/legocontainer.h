@@ -9,14 +9,16 @@
 #pragma warning(disable : 4237)
 
 struct LegoContainerInfoComparator {
-	LegoBool operator()(const char* const& p_key0, const char* const& p_key1) const {
+	LegoBool
+	operator()(const char* const& p_key0, const char* const& p_key1) const {
 		return strcmp(p_key0, p_key1) > 0;
 	}
 };
 
 // SIZE 0x10
 template <class T>
-class LegoContainerInfo : public map<const char*, T*, LegoContainerInfoComparator> {};
+class LegoContainerInfo
+	: public map<const char*, T*, LegoContainerInfoComparator> {};
 
 // SIZE 0x18
 template <class T>
@@ -27,7 +29,8 @@ public:
 	virtual ~LegoContainer() {
 		typename LegoContainerInfo<T>::iterator it;
 		for (it = m_map.begin(); it != m_map.end(); it++) {
-			// DECOMP: Use of const_cast here matches ~ViewLODListManager from 96 source.
+			// DECOMP: Use of const_cast here matches ~ViewLODListManager from
+			// 96 source.
 			const char* const& key = (*it).first;
 			delete[] const_cast<char*>(key);
 
@@ -38,7 +41,9 @@ public:
 	}
 
 	void Clear() {
-		for (typename LegoContainerInfo<T>::iterator it = m_map.begin(); it != m_map.end(); it++) {
+		for (typename LegoContainerInfo<T>::iterator it = m_map.begin();
+			 it != m_map.end();
+			 it++) {
 			delete (*it).second;
 		}
 	}
@@ -65,8 +70,7 @@ public:
 			if (m_ownership) {
 				delete (*it).second;
 			}
-		}
-		else {
+		} else {
 			name = new char[strlen(p_name) + 1];
 			strcpy(name, p_name);
 		}

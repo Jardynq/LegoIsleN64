@@ -29,18 +29,24 @@ public:
 	// FUNCTION: LEGO1 0x100534c0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoEntityPresenter::ClassName()) || MxCompositePresenter::IsA(p_name);
+		return !strcmp(p_name, LegoEntityPresenter::ClassName()) ||
+			   MxCompositePresenter::IsA(p_name);
 	}
 
-	void ReadyTickle() override;                                                           // vtable+0x18
-	void RepeatingTickle() override;                                                       // vtable+0x24
-	void ParseExtra() override;                                                            // vtable+0x30
-	void Destroy() override;                                                               // vtable+0x38
-	MxResult StartAction(MxStreamController* p_controller, MxDSAction* p_action) override; // vtable+0x3c
-	virtual void Init();                                                                   // vtable+0x68
-	virtual undefined4 SetEntity(LegoEntity* p_entity);                                    // vtable+0x6c
+	void ReadyTickle() override;     // vtable+0x18
+	void RepeatingTickle() override; // vtable+0x24
+	void ParseExtra() override;      // vtable+0x30
+	void Destroy() override;         // vtable+0x38
+	MxResult StartAction(MxStreamController* p_controller, MxDSAction* p_action)
+		override;                                       // vtable+0x3c
+	virtual void Init();                                // vtable+0x68
+	virtual undefined4 SetEntity(LegoEntity* p_entity); // vtable+0x6c
 
-	void SetEntityLocation(const Vector3& p_location, const Vector3& p_direction, const Vector3& p_up);
+	void SetEntityLocation(
+		const Vector3& p_location,
+		const Vector3& p_direction,
+		const Vector3& p_up
+	);
 
 	LegoEntity* GetInternalEntity() { return m_entity; }
 	void SetInternalEntity(LegoEntity* p_entity) { m_entity = p_entity; }

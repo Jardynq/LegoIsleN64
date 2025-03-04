@@ -23,13 +23,15 @@ public:
 	// FUNCTION: LEGO1 0x1000e440
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, Doors::ClassName()) || LegoPathActor::IsA(p_name);
+		return !strcmp(p_name, Doors::ClassName()) ||
+			   LegoPathActor::IsA(p_name);
 	}
 
-	void ParseAction(char* p_extra) override;                          // vtable+0x20
-	void Animate(float p_time) override;                               // vtable+0x70
-	MxResult HitActor(LegoPathActor* p_actor, MxBool p_bool) override; // vtable+0x94
-	virtual MxFloat VTable0xcc(float p_time);                          // vtable+0xcc
+	void ParseAction(char* p_extra) override; // vtable+0x20
+	void Animate(float p_time) override;      // vtable+0x70
+	MxResult
+	HitActor(LegoPathActor* p_actor, MxBool p_bool) override; // vtable+0x94
+	virtual MxFloat VTable0xcc(float p_time);                 // vtable+0xcc
 
 	// SYNTHETIC: LEGO1 0x1000e580
 	// Doors::`scalar deleting destructor'

@@ -9,11 +9,11 @@ class LegoTextureInfo;
 // SIZE 0x20
 class LegoPhoneme {
 public:
-	LegoPhoneme(const char* p_name, undefined4 p_unk0x14) {
-		m_name = p_name;
+	LegoPhoneme(const char* p_name, undefined4 p_unk0x14)
+		: m_name(p_name), m_unk0x14(p_unk0x14) {
+
 		m_name.ToUpperCase();
 		Init();
-		m_unk0x14 = p_unk0x14;
 	}
 	~LegoPhoneme();
 

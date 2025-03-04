@@ -1,7 +1,6 @@
 #ifndef MXDEBUG_H
 #define MXDEBUG_H
 
-
 #ifdef _DEBUG
 
 // In debug mode, replace the macro with the function call.

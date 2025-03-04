@@ -3,7 +3,6 @@
 #include "mxdebug.h"
 #include "mxutilities.h"
 
-
 // FUNCTION: LEGO1 0x100c8b40
 // FUNCTION: BETA10 0x1015c760
 MxDSMediaAction::MxDSMediaAction() {
@@ -37,7 +36,8 @@ void MxDSMediaAction::CopyFrom(MxDSMediaAction& p_dsMediaAction) {
 }
 
 // FUNCTION: BETA10 0x1015c959
-MxDSMediaAction::MxDSMediaAction(MxDSMediaAction& p_dsMediaAction) : MxDSAction(p_dsMediaAction) {
+MxDSMediaAction::MxDSMediaAction(MxDSMediaAction& p_dsMediaAction)
+	: MxDSAction(p_dsMediaAction) {
 	CopyFrom(p_dsMediaAction);
 }
 
@@ -69,7 +69,10 @@ MxDSAction* MxDSMediaAction::Clone() {
 // FUNCTION: BETA10 0x1015cacb
 void MxDSMediaAction::CopyMediaSrcPath(const char* p_mediaSrcPath) {
 	if (m_mediaSrcPath == p_mediaSrcPath) {
-		MxTrace("MxDSMediaAction: name allocation SUCCESS: %s.\n", p_mediaSrcPath);
+		MxTrace(
+			"MxDSMediaAction: name allocation SUCCESS: %s.\n",
+			p_mediaSrcPath
+		);
 		return;
 	}
 
@@ -81,9 +84,11 @@ void MxDSMediaAction::CopyMediaSrcPath(const char* p_mediaSrcPath) {
 			strcpy(m_mediaSrcPath, p_mediaSrcPath);
 		}
 
-		MxTrace("MxDSMediaAction: name allocation failed: %s.\n", p_mediaSrcPath);
-	}
-	else {
+		MxTrace(
+			"MxDSMediaAction: name allocation failed: %s.\n",
+			p_mediaSrcPath
+		);
+	} else {
 		m_mediaSrcPath = NULL;
 	}
 }
@@ -101,8 +106,7 @@ MxU32 MxDSMediaAction::GetSizeOnDisk() {
 
 	if (m_mediaSrcPath) {
 		totalSizeOnDisk += strlen(m_mediaSrcPath) + 1;
-	}
-	else {
+	} else {
 		totalSizeOnDisk++;
 	}
 
@@ -122,7 +126,7 @@ MxU32 MxDSMediaAction::GetSizeOnDisk() {
 void MxDSMediaAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 	MxDSAction::Deserialize(p_source, p_unk0x24);
 
-	CopyMediaSrcPath((char*)p_source);
+	CopyMediaSrcPath((char*) p_source);
 	p_source += strlen(m_mediaSrcPath) + 1;
 
 	// clang-format off

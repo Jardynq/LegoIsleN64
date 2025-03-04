@@ -19,8 +19,9 @@ public:
 
 	Act2Actor();
 
-	void SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2) override; // vtable+0x24
-	void SetWorldSpeed(MxFloat p_worldSpeed) override;                    // vtable+0x30
+	void SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2)
+		override;                                      // vtable+0x24
+	void SetWorldSpeed(MxFloat p_worldSpeed) override; // vtable+0x30
 
 	// FUNCTION: LEGO1 0x1001a180
 	MxS32 VTable0x68(Vector3& p_v1, Vector3& p_v2, Vector3& p_v3) override {
@@ -72,6 +73,7 @@ private:
 };
 
 // TEMPLATE: LEGO1 0x100194f0
-// list<LegoBoundaryEdge,allocator<LegoBoundaryEdge> >::list<LegoBoundaryEdge,allocator<LegoBoundaryEdge> >
+// list<LegoBoundaryEdge,allocator<LegoBoundaryEdge>
+// >::list<LegoBoundaryEdge,allocator<LegoBoundaryEdge> >
 
 #endif // ACT2ACTOR_H

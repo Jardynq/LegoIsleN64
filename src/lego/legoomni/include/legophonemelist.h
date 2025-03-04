@@ -36,7 +36,8 @@ public:
 // SIZE 0x10
 class LegoPhonemeListCursor : public MxListCursor<LegoPhoneme*> {
 public:
-	LegoPhonemeListCursor(LegoPhonemeList* p_list) : MxListCursor<LegoPhoneme*>(p_list) {}
+	LegoPhonemeListCursor(LegoPhonemeList* p_list)
+		: MxListCursor<LegoPhoneme*>(p_list) {}
 };
 
 // TEMPLATE: LEGO1 0x1004e680

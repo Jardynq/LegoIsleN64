@@ -12,7 +12,6 @@
 
 // File name verified by BETA10 0x100cedf7
 
-
 // GLOBAL: LEGO1 0x100f0c68
 // STRING: LEGO1 0x100f0c5c
 // GLOBAL: BETA10 0x101f5b04
@@ -63,7 +62,10 @@ void LegoCarRaceActor::FUN_10080590(float p_time) {
 
 	m_destEdge->FUN_1002ddc0(*m_boundary, destEdgeUnknownVector);
 
-	if (abs(destEdgeUnknownVector.Dot(destEdgeUnknownVector.GetData(), worldDirection.GetData())) > 0.5) {
+	if (abs(destEdgeUnknownVector.Dot(
+			destEdgeUnknownVector.GetData(),
+			worldDirection.GetData()
+		)) > 0.5) {
 		maxSpeed *= m_unk0x10;
 	}
 
@@ -71,10 +73,10 @@ void LegoCarRaceActor::FUN_10080590(float p_time) {
 	LegoPathActor* userActor = UserActor();
 
 	if (userActor) {
-		// All known implementations of LegoPathActor->VTable0x5c() return LegoPathActor::m_unk0x70
+		// All known implementations of LegoPathActor->VTable0x5c() return
+		// LegoPathActor::m_unk0x70
 		deltaUnk0x70 = m_unk0x70 - userActor->VTable0x5c();
-	}
-	else {
+	} else {
 		deltaUnk0x70 = 0;
 	}
 
@@ -84,8 +86,7 @@ void LegoCarRaceActor::FUN_10080590(float p_time) {
 		}
 
 		maxSpeed *= (m_unk0x18 * (--deltaUnk0x70) * -0.25f + 1.0f);
-	}
-	else if (deltaUnk0x70 < -1) {
+	} else if (deltaUnk0x70 < -1) {
 		maxSpeed *= 1.3;
 	}
 
@@ -108,7 +109,10 @@ void LegoCarRaceActor::FUN_10080590(float p_time) {
 
 // FUNCTION: LEGO1 0x10080740
 // FUNCTION: BETA10 0x100cece0
-MxS32 LegoCarRaceActor::VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_edge) {
+MxS32 LegoCarRaceActor::VTable0x1c(
+	LegoPathBoundary* p_boundary,
+	LegoEdge* p_edge
+) {
 	Mx3DPointFloat pointUnknown;
 	Mx3DPointFloat destEdgeUnknownVector;
 	Mx3DPointFloat crossProduct;
@@ -116,7 +120,8 @@ MxS32 LegoCarRaceActor::VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_edg
 	if (m_actorState == c_one) {
 		m_boundary = NULL;
 
-		// Not sure where the upper bound of 11 comes from, the underlying array has a size of 16
+		// Not sure where the upper bound of 11 comes from, the underlying array
+		// has a size of 16
 		for (MxS32 i = 0; i < 11; i += 2) {
 			if (LegoPathController::GetControlEdgeA(i + 1) == m_destEdge) {
 				m_boundary = LegoPathController::GetControlBoundaryA(i + 1);
@@ -132,12 +137,10 @@ MxS32 LegoCarRaceActor::VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_edg
 		if (m_userNavFlag) {
 			NavController()->SetLinearVel(m_worldSpeed);
 			return 0;
-		}
-		else {
+		} else {
 			return 1;
 		}
-	}
-	else {
+	} else {
 		for (MxS32 i = 0; i < 11; i += 2) {
 			if (LegoPathController::GetControlEdgeA(i) == p_edge) {
 				m_actorState = c_one;
@@ -166,7 +169,10 @@ MxS32 LegoCarRaceActor::VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_edg
 
 			m_destEdge->FUN_1002ddc0(*m_boundary, destEdgeUnknownVector);
 
-			crossProduct.EqualsCross(*m_boundary->GetUnknown0x14(), destEdgeUnknownVector);
+			crossProduct.EqualsCross(
+				*m_boundary->GetUnknown0x14(),
+				destEdgeUnknownVector
+			);
 			crossProduct.Unitize();
 
 			Mx3DPointFloat worldDirection(Vector3(m_roi->GetWorldDirection()));
@@ -178,20 +184,22 @@ MxS32 LegoCarRaceActor::VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_edg
 			worldDirection *= 5.0f;
 			crossProduct *= 5.0f;
 
-			MxResult callResult =
-				VTable0x80(Vector3(m_roi->GetWorldPosition()), worldDirection, pointUnknown, crossProduct);
+			MxResult callResult = VTable0x80(
+				Vector3(m_roi->GetWorldPosition()),
+				worldDirection,
+				pointUnknown,
+				crossProduct
+			);
 
 			if (callResult) {
 				m_unk0x7c = 0;
 				return 0;
-			}
-			else {
+			} else {
 				m_unk0x7c = 0;
 				assert(0);
 				return 0; // BETA10 returns -1 here
 			}
-		}
-		else {
+		} else {
 			// This `for` loop does not exist in BETA10
 			for (MxS32 i = 0; i < 10; i++) {
 				if (LegoPathController::GetControlEdgeB(i) == p_edge &&
@@ -207,14 +215,19 @@ MxS32 LegoCarRaceActor::VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_edg
 
 // FUNCTION: LEGO1 0x10080b40
 // FUNCTION: BETA10 0x100cdb3c
-void LegoCarRaceActor::SwitchBoundary(LegoPathBoundary*& p_boundary, LegoUnknown100db7f4*& p_edge, float& p_unk0xe4) {
+void LegoCarRaceActor::SwitchBoundary(
+	LegoPathBoundary*& p_boundary,
+	LegoUnknown100db7f4*& p_edge,
+	float& p_unk0xe4
+) {
 	LegoPathActor::SwitchBoundary(m_boundary, m_destEdge, m_unk0xe4);
 }
 
 // FUNCTION: LEGO1 0x10080b70
 // FUNCTION: BETA10 0x100cdbae
 void LegoCarRaceActor::Animate(float p_time) {
-	// m_unk0x0c is not an MxBool, there are places where it is set to 2 or higher
+	// m_unk0x0c is not an MxBool, there are places where it is set to 2 or
+	// higher
 	if (m_unk0x0c == 0) {
 		const char* value = VariableTable()->GetVariable(g_raceState);
 
@@ -266,7 +279,8 @@ MxResult LegoCarRaceActor::VTable0x9c() {
 		point4 *= 5.0f;
 		point5 *= 5.0f;
 
-		MxResult res = VTable0x80(m_roi->GetWorldPosition(), point4, point1, point5);
+		MxResult res =
+			VTable0x80(m_roi->GetWorldPosition(), point4, point1, point5);
 
 #ifdef BETA10
 		if (res) {
@@ -292,8 +306,12 @@ LegoJetskiRaceActor::LegoJetskiRaceActor() {
 
 // FUNCTION: LEGO1 0x10081120
 // FUNCTION: BETA10 0x100ce19f
-MxS32 LegoJetskiRaceActor::VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_edge) {
-	// These are almost certainly not the correct names, but they produce the correct BETA10 stack
+MxS32 LegoJetskiRaceActor::VTable0x1c(
+	LegoPathBoundary* p_boundary,
+	LegoEdge* p_edge
+) {
+	// These are almost certainly not the correct names, but they produce the
+	// correct BETA10 stack
 	Mx3DPointFloat a;
 	Mx3DPointFloat bbb;
 	Mx3DPointFloat c;
@@ -304,10 +322,13 @@ MxS32 LegoJetskiRaceActor::VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_
 
 	if (m_actorState == c_one) {
 		if (m_destEdge == LegoPathController::GetControlEdgeA(13)) {
-			m_boundary = (LegoPathBoundary*)m_destEdge->OtherFace(LegoPathController::GetControlBoundaryA(13));
-		}
-		else if (m_destEdge == LegoPathController::GetControlEdgeA(15)) {
-			m_boundary = (LegoPathBoundary*)m_destEdge->OtherFace(LegoPathController::GetControlBoundaryA(15));
+			m_boundary = (LegoPathBoundary*) m_destEdge->OtherFace(
+				LegoPathController::GetControlBoundaryA(13)
+			);
+		} else if (m_destEdge == LegoPathController::GetControlEdgeA(15)) {
+			m_boundary = (LegoPathBoundary*) m_destEdge->OtherFace(
+				LegoPathController::GetControlBoundaryA(15)
+			);
 		}
 
 		m_actorState = c_initial;
@@ -316,12 +337,10 @@ MxS32 LegoJetskiRaceActor::VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_
 		if (m_userNavFlag) {
 			NavController()->SetLinearVel(m_worldSpeed);
 			return 0;
-		}
-		else {
+		} else {
 			return 1;
 		}
-	}
-	else {
+	} else {
 		if (p_edge == LegoPathController::GetControlEdgeA(12)) {
 			m_actorState = c_one;
 
@@ -331,8 +350,7 @@ MxS32 LegoJetskiRaceActor::VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_
 
 			m_destEdge = LegoPathController::GetControlEdgeA(13);
 			m_boundary = LegoPathController::GetControlBoundaryA(13);
-		}
-		else if (p_edge == LegoPathController::GetControlEdgeA(14)) {
+		} else if (p_edge == LegoPathController::GetControlEdgeA(14)) {
 			m_actorState = c_one;
 
 			if (m_worldSpeed < g_unk0x100da044) {
@@ -376,8 +394,7 @@ MxS32 LegoJetskiRaceActor::VTable0x1c(LegoPathBoundary* p_boundary, LegoEdge* p_
 
 			m_unk0x7c = 0;
 			return 0;
-		}
-		else {
+		} else {
 			return 1;
 		}
 	}
@@ -391,8 +408,7 @@ void LegoJetskiRaceActor::Animate(float p_time) {
 			m_unk0x0c = 1;
 			m_lastTime = p_time - 1.0f;
 			m_unk0x1c = p_time;
-		}
-		else if (!m_userNavFlag) {
+		} else if (!m_userNavFlag) {
 			LegoAnimActor::Animate(m_lastTime + 1.0f);
 		}
 	}
@@ -417,7 +433,9 @@ inline MxU32 LegoCarRaceActor::VTable0x6c(
 
 	LegoAnimPresenterSet& presenters = p_boundary->GetPresenters();
 
-	for (LegoAnimPresenterSet::iterator itap = presenters.begin(); itap != presenters.end(); itap++) {
+	for (LegoAnimPresenterSet::iterator itap = presenters.begin();
+		 itap != presenters.end();
+		 itap++) {
 		if ((*itap)->VTable0x94(p_v1, p_v2, p_f1, p_f2, p_v3)) {
 			return 1;
 		}
@@ -426,69 +444,75 @@ inline MxU32 LegoCarRaceActor::VTable0x6c(
 	LegoPathActorSet& plpas = p_boundary->GetActors();
 	LegoPathActorSet lpas(plpas);
 
-	for (LegoPathActorSet::iterator itpa = lpas.begin(); itpa != lpas.end(); itpa++) {
+	for (LegoPathActorSet::iterator itpa = lpas.begin(); itpa != lpas.end();
+		 itpa++) {
 		if (plpas.end() != plpas.find(*itpa)) {
 			LegoPathActor* actor = *itpa;
 
 			if (actor != this) {
 				LegoROI* roi = actor->GetROI();
 
-				if (roi != NULL && (roi->GetVisibility() || actor->GetCameraFlag())) {
+				if (roi != NULL &&
+					(roi->GetVisibility() || actor->GetCameraFlag())) {
 					if (strncmp(roi->GetName(), str_rcdor, 5) == 0) {
-						const CompoundObject* co = roi->GetComp(); // name verified by BETA10 0x100cf8ba
+						const CompoundObject* co = roi->GetComp(
+						); // name verified by BETA10 0x100cf8ba
 
 						if (co) {
 							assert(co->size() == 2);
 
-							LegoROI* firstROI = (LegoROI*)co->front();
+							LegoROI* firstROI = (LegoROI*) co->front();
 
 							if (firstROI->FUN_100a9410(
-								p_v1,
-								p_v2,
-								p_f1,
-								p_f2,
-								p_v3,
-								m_collideBox && actor->GetCollideBox()
-							)) {
+									p_v1,
+									p_v2,
+									p_f1,
+									p_f2,
+									p_v3,
+									m_collideBox && actor->GetCollideBox()
+								)) {
 								HitActor(actor, TRUE);
 
 								if (actor->HitActor(this, FALSE) < 0) {
 									return 0;
-								}
-								else {
+								} else {
 									return 2;
 								}
 							}
 
-							LegoROI* lastROI = (LegoROI*)co->back();
+							LegoROI* lastROI = (LegoROI*) co->back();
 
 							if (lastROI->FUN_100a9410(
-								p_v1,
-								p_v2,
-								p_f1,
-								p_f2,
-								p_v3,
-								m_collideBox && actor->GetCollideBox()
-							)) {
+									p_v1,
+									p_v2,
+									p_f1,
+									p_f2,
+									p_v3,
+									m_collideBox && actor->GetCollideBox()
+								)) {
 								HitActor(actor, TRUE);
 
 								if (actor->HitActor(this, FALSE) < 0) {
 									return 0;
-								}
-								else {
+								} else {
 									return 2;
 								}
 							}
 						}
-					}
-					else {
-						if (roi->FUN_100a9410(p_v1, p_v2, p_f1, p_f2, p_v3, m_collideBox && actor->GetCollideBox())) {
+					} else {
+						if (roi->FUN_100a9410(
+								p_v1,
+								p_v2,
+								p_f1,
+								p_f2,
+								p_v3,
+								m_collideBox && actor->GetCollideBox()
+							)) {
 							HitActor(actor, TRUE);
 
 							if (actor->HitActor(this, FALSE) < 0) {
 								return 0;
-							}
-							else {
+							} else {
 								return 2;
 							}
 						}
@@ -512,7 +536,9 @@ inline MxU32 LegoJetskiRaceActor::VTable0x6c(
 ) {
 	LegoAnimPresenterSet& presenters = p_boundary->GetPresenters();
 
-	for (LegoAnimPresenterSet::iterator itap = presenters.begin(); itap != presenters.end(); itap++) {
+	for (LegoAnimPresenterSet::iterator itap = presenters.begin();
+		 itap != presenters.end();
+		 itap++) {
 		if ((*itap)->VTable0x94(p_v1, p_v2, p_f1, p_f2, p_v3)) {
 			return 1;
 		}
@@ -521,21 +547,29 @@ inline MxU32 LegoJetskiRaceActor::VTable0x6c(
 	LegoPathActorSet& plpas = p_boundary->GetActors();
 	LegoPathActorSet lpas(plpas);
 
-	for (LegoPathActorSet::iterator itpa = lpas.begin(); itpa != lpas.end(); itpa++) {
+	for (LegoPathActorSet::iterator itpa = lpas.begin(); itpa != lpas.end();
+		 itpa++) {
 		if (plpas.find(*itpa) != plpas.end()) {
 			LegoPathActor* actor = *itpa;
 
 			if (this != actor) {
 				LegoROI* roi = actor->GetROI();
 
-				if (roi != NULL && (roi->GetVisibility() || actor->GetCameraFlag())) {
-					if (roi->FUN_100a9410(p_v1, p_v2, p_f1, p_f2, p_v3, m_collideBox && actor->GetCollideBox())) {
+				if (roi != NULL &&
+					(roi->GetVisibility() || actor->GetCameraFlag())) {
+					if (roi->FUN_100a9410(
+							p_v1,
+							p_v2,
+							p_f1,
+							p_f2,
+							p_v3,
+							m_collideBox && actor->GetCollideBox()
+						)) {
 						HitActor(actor, TRUE);
 
 						if (actor->HitActor(this, FALSE) < 0) {
 							return 0;
-						}
-						else {
+						} else {
 							return 2;
 						}
 					}

@@ -7,9 +7,12 @@
 // SIZE 0x10
 class LegoEndAnimNotificationParam : public MxNotificationParam {
 public:
-	LegoEndAnimNotificationParam(NotificationId p_type, MxCore* p_sender, MxU32 p_index)
-		: MxNotificationParam(p_type, p_sender), m_index(p_index) {
-	}
+	LegoEndAnimNotificationParam(
+		NotificationId p_type,
+		MxCore* p_sender,
+		MxU32 p_index
+	)
+		: MxNotificationParam(p_type, p_sender), m_index(p_index) {}
 
 	// FUNCTION: LEGO1 0x1004afd0
 	MxNotificationParam* Clone() const override {

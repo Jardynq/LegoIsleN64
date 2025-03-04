@@ -1,8 +1,6 @@
 #include "mxthread.h"
 
-
 #include <process.h>
-
 
 // FUNCTION: LEGO1 0x100bf510
 MxThread::MxThread() {
@@ -14,7 +12,7 @@ MxThread::MxThread() {
 // FUNCTION: LEGO1 0x100bf5a0
 MxThread::~MxThread() {
 	if (m_hThread) {
-		CloseHandle((HANDLE)m_hThread);
+		CloseHandle((HANDLE) m_hThread);
 	}
 }
 
@@ -25,8 +23,14 @@ MxResult MxThread::Start(MxS32 p_stack, MxS32 p_flag) {
 	MxResult result = FAILURE;
 
 	if (m_semaphore.Init(0, 1) == SUCCESS) {
-		if ((m_hThread =
-			_beginthreadex(NULL, p_stack << 2, (ThreadFunc)&MxThread::ThreadProc, this, p_flag, &m_threadId))) {
+		if ((m_hThread = _beginthreadex(
+				 NULL,
+				 p_stack << 2,
+				 (ThreadFunc) &MxThread::ThreadProc,
+				 this,
+				 p_flag,
+				 &m_threadId
+			 ))) {
 			result = SUCCESS;
 		}
 	}

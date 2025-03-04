@@ -1,7 +1,6 @@
 #ifndef MXPOINT32_H
 #define MXPOINT32_H
 
-
 class MxPoint32 {
 public:
 	MxPoint32() {}
@@ -9,10 +8,7 @@ public:
 	// FUNCTION: LEGO1 0x10012170
 	MxPoint32(MxS32 p_x, MxS32 p_y) { CopyFrom(p_x, p_y); }
 
-	MxPoint32(const MxPoint32& p_point) {
-		this->m_x = p_point.m_x;
-		this->m_y = p_point.m_y;
-	}
+	MxPoint32(const MxPoint32& p_point) : m_x(p_point.m_x), m_y(p_point.m_y) {}
 
 	MxS32 GetX() const { return m_x; }
 	MxS32 GetY() const { return m_y; }

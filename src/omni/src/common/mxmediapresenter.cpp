@@ -9,7 +9,6 @@
 #include "mxstreamchunk.h"
 #include "mxtimer.h"
 
-
 // FUNCTION: LEGO1 0x100b54e0
 void MxMediaPresenter::Init() {
 	this->m_subscriber = NULL;
@@ -92,7 +91,10 @@ MxStreamChunk* MxMediaPresenter::NextChunk() {
 }
 
 // FUNCTION: LEGO1 0x100b5700
-MxResult MxMediaPresenter::StartAction(MxStreamController* p_controller, MxDSAction* p_action) {
+MxResult MxMediaPresenter::StartAction(
+	MxStreamController* p_controller,
+	MxDSAction* p_action
+) {
 	MxResult result = FAILURE;
 	AUTOLOCK(m_criticalSection);
 
@@ -109,8 +111,11 @@ MxResult MxMediaPresenter::StartAction(MxStreamController* p_controller, MxDSAct
 		if (p_controller) {
 			m_subscriber = new MxDSSubscriber;
 
-			if (!m_subscriber ||
-				m_subscriber->Create(p_controller, p_action->GetObjectId(), p_action->GetUnknown24()) != SUCCESS) {
+			if (!m_subscriber || m_subscriber->Create(
+									 p_controller,
+									 p_action->GetObjectId(),
+									 p_action->GetUnknown24()
+								 ) != SUCCESS) {
 				goto done;
 			}
 		}
@@ -132,11 +137,11 @@ void MxMediaPresenter::EndAction() {
 
 	m_currentChunk = NULL;
 
-	if (m_action->GetFlags() & MxDSAction::c_world && (!m_compositePresenter || !m_compositePresenter->VTable0x64(2))) {
+	if (m_action->GetFlags() & MxDSAction::c_world &&
+		(!m_compositePresenter || !m_compositePresenter->VTable0x64(2))) {
 		MxPresenter::Enable(FALSE);
 		SetTickleState(e_idle);
-	}
-	else {
+	} else {
 		MxDSAction* action = m_action;
 		MxPresenter::EndAction();
 
@@ -148,7 +153,12 @@ void MxMediaPresenter::EndAction() {
 		if (action && action->GetOrigin()) {
 			NotificationManager()->Send(
 				action->GetOrigin(),
-				MxEndActionNotificationParam(c_notificationEndAction, this, action, FALSE)
+				MxEndActionNotificationParam(
+					c_notificationEndAction,
+					this,
+					action,
+					FALSE
+				)
 			);
 		}
 	}
@@ -173,8 +183,7 @@ void MxMediaPresenter::StreamingTickle() {
 				m_subscriber->FreeDataChunk(m_currentChunk);
 				m_currentChunk = NULL;
 				ProgressTickleState(e_repeating);
-			}
-			else if (m_action->GetFlags() & MxDSAction::c_looping) {
+			} else if (m_action->GetFlags() & MxDSAction::c_looping) {
 				LoopChunk(m_currentChunk);
 
 				if (!IsEnabled()) {
@@ -200,9 +209,9 @@ void MxMediaPresenter::RepeatingTickle() {
 			if (time <= m_action->GetElapsedTime() % m_action->GetLoopCount()) {
 				ProgressTickleState(e_freezing);
 			}
-		}
-		else {
-			if (m_action->GetElapsedTime() >= m_action->GetStartTime() + m_action->GetDuration()) {
+		} else {
+			if (m_action->GetElapsedTime() >=
+				m_action->GetStartTime() + m_action->GetDuration()) {
 				ProgressTickleState(e_freezing);
 			}
 		}
@@ -239,8 +248,7 @@ void MxMediaPresenter::Enable(MxBool p_enable) {
 			MxLong time = Timer()->GetTime();
 			m_action->SetUnknown90(time);
 			SetTickleState(e_repeating);
-		}
-		else {
+		} else {
 			if (m_loopingChunkCursor) {
 				m_loopingChunkCursor->Reset();
 			}

@@ -7,7 +7,6 @@
 #define SI_MAJOR_VERSION 2
 #define SI_MINOR_VERSION 2
 
-
 // FUNCTION: LEGO1 0x100cc4b0
 // FUNCTION: BETA10 0x1015db90
 MxDSFile::MxDSFile(const char* p_filename, MxULong p_skipReadingChunks) {
@@ -34,8 +33,7 @@ MxResult MxDSFile::Open(MxULong p_uStyle) {
 
 	if (result != SUCCESS) {
 		Close();
-	}
-	else {
+	} else {
 		Seek(0, SEEK_SET);
 	}
 
@@ -62,8 +60,14 @@ MxResult MxDSFile::ReadChunks() {
 	}
 
 	m_io.Read(&m_header, 0x0c);
-	if ((m_header.m_majorVersion != SI_MAJOR_VERSION) || (m_header.m_minorVersion != SI_MINOR_VERSION)) {
-		sprintf(tempBuffer, "Wrong SI file version. %d.%d expected.", SI_MAJOR_VERSION, SI_MINOR_VERSION);
+	if ((m_header.m_majorVersion != SI_MAJOR_VERSION) ||
+		(m_header.m_minorVersion != SI_MINOR_VERSION)) {
+		sprintf(
+			tempBuffer,
+			"Wrong SI file version. %d.%d expected.",
+			SI_MAJOR_VERSION,
+			SI_MINOR_VERSION
+		);
 		MessageBoxA(NULL, tempBuffer, NULL, MB_ICONERROR);
 		return FAILURE;
 	}

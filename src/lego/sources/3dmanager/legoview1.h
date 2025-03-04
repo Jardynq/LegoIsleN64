@@ -4,8 +4,8 @@
 #include "tglsurface.h"
 
 namespace Tgl {
-	class Camera;
-	class Light;
+class Camera;
+class Light;
 } // namespace Tgl
 
 /////////////////////////////////////////////////////////////////////////////
@@ -64,7 +64,8 @@ public:
 	void Destroy() override; // vtable+0x08
 
 	void SetLightTransform(BOOL bDirectionalLight, Tgl::FloatMatrix4& rMatrix);
-	void SetLightColor(BOOL bDirectionalLight, float red, float green, float blue);
+	void
+	SetLightColor(BOOL bDirectionalLight, float red, float green, float blue);
 
 private:
 	void SetLightTransform(Tgl::Light* pLight, Tgl::FloatMatrix4& rMatrix);

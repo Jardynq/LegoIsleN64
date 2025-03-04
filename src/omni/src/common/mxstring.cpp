@@ -1,9 +1,7 @@
 #include "mxstring.h"
 
-
 #include <stdlib.h>
 #include <string.h>
-
 
 // FUNCTION: LEGO1 0x100ae200
 // FUNCTION: BETA10 0x1012c110
@@ -29,8 +27,7 @@ MxString::MxString(const char* p_str) {
 		this->m_length = strlen(p_str);
 		this->m_data = new char[this->m_length + 1];
 		strcpy(this->m_data, p_str);
-	}
-	else {
+	} else {
 		this->m_data = new char[1];
 		this->m_data[0] = 0;
 		this->m_length = 0;
@@ -42,8 +39,7 @@ MxString::MxString(const char* p_str, MxU16 p_maxlen) {
 	if (p_str) {
 		if (strlen(p_str) <= p_maxlen) {
 			this->m_length = strlen(p_str);
-		}
-		else {
+		} else {
 			this->m_length = p_maxlen;
 		}
 
@@ -51,8 +47,7 @@ MxString::MxString(const char* p_str, MxU16 p_maxlen) {
 		this->m_data = new char[this->m_length + 1];
 		memcpy(this->m_data, p_str, this->m_length);
 		this->m_data[this->m_length] = '\0';
-	}
-	else {
+	} else {
 		this->m_data = new char[1];
 		this->m_data[0] = 0;
 		this->m_length = 0;

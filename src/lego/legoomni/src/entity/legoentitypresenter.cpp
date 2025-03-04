@@ -4,7 +4,6 @@
 #include "legovideomanager.h"
 #include "misc.h"
 
-
 // FUNCTION: LEGO1 0x10053440
 LegoEntityPresenter::LegoEntityPresenter() {
 	Init();
@@ -41,7 +40,10 @@ void LegoEntityPresenter::Destroy() {
 }
 
 // FUNCTION: LEGO1 0x10053680
-MxResult LegoEntityPresenter::StartAction(MxStreamController* p_controller, MxDSAction* p_action) {
+MxResult LegoEntityPresenter::StartAction(
+	MxStreamController* p_controller,
+	MxDSAction* p_action
+) {
 	MxResult result = MxCompositePresenter::StartAction(p_controller, p_action);
 
 	if (VideoManager()) {
@@ -54,10 +56,15 @@ MxResult LegoEntityPresenter::StartAction(MxStreamController* p_controller, MxDS
 // FUNCTION: LEGO1 0x100536c0
 void LegoEntityPresenter::ReadyTickle() {
 	if (CurrentWorld()) {
-		m_entity = (LegoEntity*)MxPresenter::CreateEntity("LegoEntity");
+		m_entity = (LegoEntity*) MxPresenter::CreateEntity("LegoEntity");
 		if (m_entity) {
 			m_entity->Create(*m_action);
-			m_entity->SetLocation(m_action->GetLocation(), m_action->GetDirection(), m_action->GetUp(), TRUE);
+			m_entity->SetLocation(
+				m_action->GetLocation(),
+				m_action->GetDirection(),
+				m_action->GetUp(),
+				TRUE
+			);
 			ParseExtra();
 		}
 		ProgressTickleState(e_starting);
@@ -72,7 +79,11 @@ void LegoEntityPresenter::RepeatingTickle() {
 }
 
 // FUNCTION: LEGO1 0x10053730
-void LegoEntityPresenter::SetEntityLocation(const Vector3& p_location, const Vector3& p_direction, const Vector3& p_up) {
+void LegoEntityPresenter::SetEntityLocation(
+	const Vector3& p_location,
+	const Vector3& p_direction,
+	const Vector3& p_up
+) {
 	if (m_entity) {
 		m_entity->SetLocation(p_location, p_direction, p_up, TRUE);
 	}

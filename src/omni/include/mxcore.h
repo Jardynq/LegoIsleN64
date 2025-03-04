@@ -1,7 +1,6 @@
 #ifndef MXCORE_H
 #define MXCORE_H
 
-
 #include <string.h>
 
 class MxParam;

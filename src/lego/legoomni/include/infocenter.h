@@ -35,26 +35,37 @@ public:
 	// FUNCTION: LEGO1 0x10071850
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, InfocenterState::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, InfocenterState::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	MxS16 GetMaxNameLength() { return sizeOfArray(m_letters); }
-	MxStillPresenter* GetNameLetter(MxS32 p_index) { return m_letters[p_index]; }
-	void SetNameLetter(MxS32 p_index, MxStillPresenter* p_letter) { m_letters[p_index] = p_letter; }
+	MxStillPresenter* GetNameLetter(MxS32 p_index) {
+		return m_letters[p_index];
+	}
+	void SetNameLetter(MxS32 p_index, MxStillPresenter* p_letter) {
+		m_letters[p_index] = p_letter;
+	}
 
 	// FUNCTION: BETA10 0x10031bd0
 	MxBool HasRegistered() { return m_letters[0] != NULL; }
 
 	// FUNCTION: BETA10 0x10031c10
 	InfomainScript::Script GetNextLeaveDialogue() {
-		return (InfomainScript::Script)m_leaveDialogue[GameState()->GetCurrentAct()].Next();
+		return (InfomainScript::Script
+		) m_leaveDialogue[GameState()->GetCurrentAct()]
+			.Next();
 	}
 
 	// TODO: These probably don't exist according to BETA
 	Playlist& GetExitDialogueAct1() { return m_exitDialogueAct1; }
 	Playlist& GetExitDialogueAct23() { return m_exitDialogueAct23; }
-	Playlist& GetReturnDialogue(LegoGameState::Act p_act) { return m_returnDialogue[p_act]; }
-	Playlist& GetLeaveDialogue(LegoGameState::Act p_act) { return m_leaveDialogue[p_act]; }
+	Playlist& GetReturnDialogue(LegoGameState::Act p_act) {
+		return m_returnDialogue[p_act];
+	}
+	Playlist& GetLeaveDialogue(LegoGameState::Act p_act) {
+		return m_leaveDialogue[p_act];
+	}
 	Playlist& GetBricksterDialogue() { return m_bricksterDialogue; }
 	MxU32 GetUnknown0x74() { return m_unk0x74; }
 
@@ -124,7 +135,8 @@ public:
 	// FUNCTION: LEGO1 0x1006eb50
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, Infocenter::ClassName()) || LegoWorld::IsA(p_name);
+		return !strcmp(p_name, Infocenter::ClassName()) ||
+			   LegoWorld::IsA(p_name);
 	}
 
 	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18

@@ -43,7 +43,9 @@ public:
 	HCURSOR GetCursorNo() { return m_cursorNo; }
 	BOOL GetDrawCursor() { return m_drawCursor; }
 
-	void SetWindowActive(BOOL p_windowActive) { m_windowActive = p_windowActive; }
+	void SetWindowActive(BOOL p_windowActive) {
+		m_windowActive = p_windowActive;
+	}
 
 private:
 	LPSTR m_hdPath;            // 0x00

@@ -20,7 +20,6 @@
 #include "mxtransitionmanager.h"
 #include "mxvariabletable.h"
 
-
 // Flags used in isle.cpp
 extern MxU32 g_isleFlags;
 
@@ -54,7 +53,9 @@ MxResult TowTrack::Create(MxDSAction& p_dsAction) {
 			m_world->Add(this);
 		}
 
-		m_state = (TowTrackMissionState*)GameState()->GetState("TowTrackMissionState");
+		m_state =
+			(TowTrackMissionState*) GameState()->GetState("TowTrackMissionState"
+			);
 		if (!m_state) {
 			m_state = new TowTrackMissionState();
 			m_state->m_unk0x08 = 0;
@@ -90,7 +91,8 @@ void TowTrack::Animate(float p_time) {
 		sprintf(buf, "%g", m_fuel);
 		VariableTable()->SetVariable(g_varTOWFUEL, buf);
 
-		if (p_time - m_state->m_startTime > 100000.0f && m_state->m_unk0x08 == 1 && !m_state->m_unk0x10) {
+		if (p_time - m_state->m_startTime > 100000.0f &&
+			m_state->m_unk0x08 == 1 && !m_state->m_unk0x10) {
 			PlayAction(IsleScript::c_Avo909In_PlayWav);
 			m_state->m_unk0x10 = TRUE;
 		}
@@ -99,9 +101,12 @@ void TowTrack::Animate(float p_time) {
 
 // FUNCTION: LEGO1 0x1004cc40
 void TowTrack::CreateState() {
-	m_state = (TowTrackMissionState*)GameState()->GetState("TowTrackMissionState");
+	m_state =
+		(TowTrackMissionState*) GameState()->GetState("TowTrackMissionState");
 	if (m_state == NULL) {
-		m_state = (TowTrackMissionState*)GameState()->CreateState("TowTrackMissionState");
+		m_state = (TowTrackMissionState*) GameState()->CreateState(
+			"TowTrackMissionState"
+		);
 	}
 }
 
@@ -109,26 +114,26 @@ void TowTrack::CreateState() {
 // FUNCTION: BETA10 0x100f6de2
 MxLong TowTrack::Notify(MxParam& p_param) {
 	MxLong result = 0;
-	MxNotificationParam& param = (MxNotificationParam&)p_param;
+	MxNotificationParam& param = (MxNotificationParam&) p_param;
 
 	switch (param.GetNotification()) {
 	case c_notificationType0:
 		result = HandleNotification0();
 		break;
 	case c_notificationEndAction:
-		result = HandleEndAction((MxEndActionNotificationParam&)p_param);
+		result = HandleEndAction((MxEndActionNotificationParam&) p_param);
 		break;
 	case c_notificationClick:
 		result = HandleClick();
 		break;
 	case c_notificationControl:
-		result = HandleControl((LegoControlManagerNotificationParam&)p_param);
+		result = HandleControl((LegoControlManagerNotificationParam&) p_param);
 		break;
 	case c_notificationEndAnim:
-		result = HandleEndAnim((LegoEndAnimNotificationParam&)p_param);
+		result = HandleEndAnim((LegoEndAnimNotificationParam&) p_param);
 		break;
 	case c_notificationPathStruct:
-		result = HandlePathStruct((LegoPathStructNotificationParam&)p_param);
+		result = HandlePathStruct((LegoPathStructNotificationParam&) p_param);
 		break;
 	}
 
@@ -144,7 +149,8 @@ MxLong TowTrack::HandleEndAnim(LegoEndAnimNotificationParam& p_param) {
 // FUNCTION: BETA10 0x100f6f1f
 MxLong TowTrack::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	if (p_param.GetAction() != NULL) {
-		IsleScript::Script objectId = (IsleScript::Script)p_param.GetAction()->GetObjectId();
+		IsleScript::Script objectId =
+			(IsleScript::Script) p_param.GetAction()->GetObjectId();
 
 		if (m_lastAnimation == objectId) {
 			m_lastAnimation = IsleScript::c_noneIsle;
@@ -156,9 +162,9 @@ MxLong TowTrack::HandleEndAction(MxEndActionNotificationParam& p_param) {
 			}
 
 			m_lastAction = IsleScript::c_noneIsle;
-		}
-		else if (objectId == IsleScript::c_wrt060bm_RunAnim) {
-			if (m_actorId < LegoActor::c_pepper || m_actorId > LegoActor::c_laura) {
+		} else if (objectId == IsleScript::c_wrt060bm_RunAnim) {
+			if (m_actorId < LegoActor::c_pepper ||
+				m_actorId > LegoActor::c_laura) {
 				m_actorId = LegoActor::c_laura;
 			}
 
@@ -176,14 +182,13 @@ MxLong TowTrack::HandleEndAction(MxEndActionNotificationParam& p_param) {
 				PlayFinalAnimation(IsleScript::c_wrt078ni_RunAnim);
 				break;
 			}
-		}
-		else if (objectId == IsleScript::c_wrt074sl_RunAnim || objectId == IsleScript::c_wrt075rh_RunAnim || objectId == IsleScript::c_wrt076df_RunAnim || objectId == IsleScript::c_wrt078ni_RunAnim) {
+		} else if (objectId == IsleScript::c_wrt074sl_RunAnim || objectId == IsleScript::c_wrt075rh_RunAnim || objectId == IsleScript::c_wrt076df_RunAnim || objectId == IsleScript::c_wrt078ni_RunAnim) {
 			m_state->m_unk0x08 = 2;
 			CurrentWorld()->PlaceActor(UserActor());
 			HandleClick();
-		}
-		else if (objectId == IsleScript::c_wgs083nu_RunAnim) {
-			if (m_actorId < LegoActor::c_pepper || m_actorId > LegoActor::c_laura) {
+		} else if (objectId == IsleScript::c_wgs083nu_RunAnim) {
+			if (m_actorId < LegoActor::c_pepper ||
+				m_actorId > LegoActor::c_laura) {
 				m_actorId = LegoActor::c_laura;
 			}
 
@@ -210,9 +215,9 @@ MxLong TowTrack::HandleEndAction(MxEndActionNotificationParam& p_param) {
 			AnimationManager()->FUN_1005f6d0(TRUE);
 			g_isleFlags |= Isle::c_playMusic;
 			AnimationManager()->EnableCamAnims(TRUE);
-		}
-		else if (objectId == IsleScript::c_wgs090nu_RunAnim) {
-			if (m_actorId < LegoActor::c_pepper || m_actorId > LegoActor::c_laura) {
+		} else if (objectId == IsleScript::c_wgs090nu_RunAnim) {
+			if (m_actorId < LegoActor::c_pepper ||
+				m_actorId > LegoActor::c_laura) {
 				m_actorId = LegoActor::c_laura;
 			}
 
@@ -235,9 +240,9 @@ MxLong TowTrack::HandleEndAction(MxEndActionNotificationParam& p_param) {
 			}
 
 			m_state->UpdateScore(LegoState::e_blue, m_actorId);
-		}
-		else if (objectId == IsleScript::c_wgs097nu_RunAnim) {
-			if (m_actorId < LegoActor::c_pepper || m_actorId > LegoActor::c_laura) {
+		} else if (objectId == IsleScript::c_wgs097nu_RunAnim) {
+			if (m_actorId < LegoActor::c_pepper ||
+				m_actorId > LegoActor::c_laura) {
 				m_actorId = LegoActor::c_laura;
 			}
 
@@ -260,9 +265,8 @@ MxLong TowTrack::HandleEndAction(MxEndActionNotificationParam& p_param) {
 			}
 
 			m_state->UpdateScore(LegoState::e_yellow, m_actorId);
-		}
-		else if (objectId == IsleScript::c_wgs098nu_RunAnim || objectId == IsleScript::c_wgs099nu_RunAnim || objectId == IsleScript::c_wgs100nu_RunAnim || objectId == IsleScript::c_wgs101nu_RunAnim || objectId == IsleScript::c_wgs102nu_RunAnim || objectId == IsleScript::c_wgs085nu_RunAnim || objectId == IsleScript::c_wgs086nu_RunAnim || objectId == IsleScript::c_wgs087nu_RunAnim || objectId == IsleScript::c_wgs088nu_RunAnim || objectId == IsleScript::c_wgs089nu_RunAnim || objectId == IsleScript::c_wgs091nu_RunAnim || objectId == IsleScript::c_wgs092nu_RunAnim || objectId == IsleScript::c_wgs093nu_RunAnim || objectId == IsleScript::c_wgs094nu_RunAnim || objectId == IsleScript::c_wgs095nu_RunAnim) {
-			((Act1State*)GameState()->GetState("Act1State"))->m_unk0x018 = 0;
+		} else if (objectId == IsleScript::c_wgs098nu_RunAnim || objectId == IsleScript::c_wgs099nu_RunAnim || objectId == IsleScript::c_wgs100nu_RunAnim || objectId == IsleScript::c_wgs101nu_RunAnim || objectId == IsleScript::c_wgs102nu_RunAnim || objectId == IsleScript::c_wgs085nu_RunAnim || objectId == IsleScript::c_wgs086nu_RunAnim || objectId == IsleScript::c_wgs087nu_RunAnim || objectId == IsleScript::c_wgs088nu_RunAnim || objectId == IsleScript::c_wgs089nu_RunAnim || objectId == IsleScript::c_wgs091nu_RunAnim || objectId == IsleScript::c_wgs092nu_RunAnim || objectId == IsleScript::c_wgs093nu_RunAnim || objectId == IsleScript::c_wgs094nu_RunAnim || objectId == IsleScript::c_wgs095nu_RunAnim) {
+			((Act1State*) GameState()->GetState("Act1State"))->m_unk0x018 = 0;
 			AnimationManager()->FUN_1005f6d0(TRUE);
 			g_isleFlags |= Isle::c_playMusic;
 			AnimationManager()->EnableCamAnims(TRUE);
@@ -287,8 +291,10 @@ MxLong TowTrack::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	}
 
 	if (m_state->m_unk0x08 == 2 &&
-		((p_param.GetTrigger() == LegoPathStruct::c_camAnim && (p_param.GetData() == 9 || p_param.GetData() == 8)) ||
-			(p_param.GetTrigger() == LegoPathStruct::c_w && p_param.GetData() == 0x169))) {
+		((p_param.GetTrigger() == LegoPathStruct::c_camAnim &&
+		  (p_param.GetData() == 9 || p_param.GetData() == 8)) ||
+		 (p_param.GetTrigger() == LegoPathStruct::c_w &&
+		  p_param.GetData() == 0x169))) {
 		m_state->m_unk0x08 = 0;
 
 		MxLong time = Timer()->GetTime() - m_state->m_startTime;
@@ -296,15 +302,12 @@ MxLong TowTrack::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 
 		if (time < 200000) {
 			PlayFinalAnimation(IsleScript::c_wgs083nu_RunAnim);
-		}
-		else if (time < 300000) {
+		} else if (time < 300000) {
 			PlayFinalAnimation(IsleScript::c_wgs090nu_RunAnim);
-		}
-		else {
+		} else {
 			PlayFinalAnimation(IsleScript::c_wgs097nu_RunAnim);
 		}
-	}
-	else if (m_state->m_unk0x08 == 1 && p_param.GetTrigger() == LegoPathStruct::c_camAnim && p_param.GetData() == 0x37) {
+	} else if (m_state->m_unk0x08 == 1 && p_param.GetTrigger() == LegoPathStruct::c_camAnim && p_param.GetData() == 0x37) {
 		m_state->m_unk0x08 = 3;
 		StopActions();
 
@@ -314,22 +317,31 @@ MxLong TowTrack::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 
 		Leave();
 		PlayFinalAnimation(IsleScript::c_wrt060bm_RunAnim);
-	}
-	else if (p_param.GetTrigger() == LegoPathStruct::c_w && m_state->m_unk0x08 == 1) {
+	} else if (p_param.GetTrigger() == LegoPathStruct::c_w && m_state->m_unk0x08 == 1) {
 		if (p_param.GetData() == 0x15f) {
 			if (m_unk0x16c == 0) {
 				m_unk0x16c = 1;
-				InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_wns050p1_RunAnim, NULL);
+				InvokeAction(
+					Extra::e_start,
+					*g_isleScript,
+					IsleScript::c_wns050p1_RunAnim,
+					NULL
+				);
 			}
-		}
-		else if (p_param.GetData() == 0x160) {
+		} else if (p_param.GetData() == 0x160) {
 			if (m_unk0x16e == 0) {
 				m_unk0x16e = 1;
-				InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_wns046mg_RunAnim, NULL);
+				InvokeAction(
+					Extra::e_start,
+					*g_isleScript,
+					IsleScript::c_wns046mg_RunAnim,
+					NULL
+				);
 			}
 
 			if (!m_state->m_unk0x10 && m_lastAction == IsleScript::c_noneIsle) {
-				if (m_actorId < LegoActor::c_pepper || m_actorId > LegoActor::c_laura) {
+				if (m_actorId < LegoActor::c_pepper ||
+					m_actorId > LegoActor::c_laura) {
 					m_actorId = LegoActor::c_laura;
 				}
 
@@ -391,7 +403,7 @@ MxLong TowTrack::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 
 // FUNCTION: LEGO1 0x1004d690
 MxLong TowTrack::HandleClick() {
-	if (((Act1State*)GameState()->GetState("Act1State"))->m_unk0x018 != 8) {
+	if (((Act1State*) GameState()->GetState("Act1State"))->m_unk0x018 != 8) {
 		return 1;
 	}
 
@@ -400,18 +412,24 @@ MxLong TowTrack::HandleClick() {
 	}
 
 	FUN_10015820(TRUE, 0);
-	((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::e_towtrack);
-	TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+	((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::e_towtrack);
+	TransitionManager()
+		->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
 
 	if (UserActor()->GetActorId() != GameState()->GetActorId()) {
-		((IslePathActor*)UserActor())->Exit();
+		((IslePathActor*) UserActor())->Exit();
 	}
 
 	m_time = Timer()->GetTime();
 	m_actorId = UserActor()->GetActorId();
 
 	Enter();
-	InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_TowTrackDashboard, NULL);
+	InvokeAction(
+		Extra::e_start,
+		*g_isleScript,
+		IsleScript::c_TowTrackDashboard,
+		NULL
+	);
 	ControlManager()->Register(this);
 
 	if (m_state->m_unk0x08 == 0) {
@@ -421,20 +439,54 @@ MxLong TowTrack::HandleClick() {
 	if (m_state->m_unk0x08 == 2) {
 		SpawnPlayer(LegoGameState::e_unk52, TRUE, 0);
 		FindROI("rcred")->SetVisibility(FALSE);
-	}
-	else {
+	} else {
 		SpawnPlayer(LegoGameState::e_unk28, TRUE, 0);
 		m_lastAction = IsleScript::c_noneIsle;
 		m_lastAnimation = IsleScript::c_noneIsle;
 		m_state->m_startTime = Timer()->GetTime();
 		m_state->m_unk0x10 = FALSE;
-		InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_wns057rd_RunAnim, NULL);
-		InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_wns048p1_RunAnim, NULL);
-		InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_wns049p1_RunAnim, NULL);
-		InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_wns051bd_RunAnim, NULL);
-		InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_wns053pr_RunAnim, NULL);
-		InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_wns045di_RunAnim, NULL);
-		InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_pns123pr_RunAnim, NULL);
+		InvokeAction(
+			Extra::e_start,
+			*g_isleScript,
+			IsleScript::c_wns057rd_RunAnim,
+			NULL
+		);
+		InvokeAction(
+			Extra::e_start,
+			*g_isleScript,
+			IsleScript::c_wns048p1_RunAnim,
+			NULL
+		);
+		InvokeAction(
+			Extra::e_start,
+			*g_isleScript,
+			IsleScript::c_wns049p1_RunAnim,
+			NULL
+		);
+		InvokeAction(
+			Extra::e_start,
+			*g_isleScript,
+			IsleScript::c_wns051bd_RunAnim,
+			NULL
+		);
+		InvokeAction(
+			Extra::e_start,
+			*g_isleScript,
+			IsleScript::c_wns053pr_RunAnim,
+			NULL
+		);
+		InvokeAction(
+			Extra::e_start,
+			*g_isleScript,
+			IsleScript::c_wns045di_RunAnim,
+			NULL
+		);
+		InvokeAction(
+			Extra::e_start,
+			*g_isleScript,
+			IsleScript::c_pns123pr_RunAnim,
+			NULL
+		);
 	}
 
 	return 1;
@@ -453,7 +505,10 @@ void TowTrack::Leave() {
 	IslePathActor::Exit();
 	CurrentWorld()->RemoveActor(this);
 	m_roi->SetVisibility(FALSE);
-	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_TowTrackDashboard_Bitmap);
+	RemoveFromCurrentWorld(
+		*g_isleScript,
+		IsleScript::c_TowTrackDashboard_Bitmap
+	);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_TowTrackArms_Ctl);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_TowHorn_Ctl);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_TowHorn_Sound);
@@ -475,14 +530,24 @@ MxLong TowTrack::HandleControl(LegoControlManagerNotificationParam& p_param) {
 			result = 1;
 			break;
 		case IsleScript::c_TowInfo_Ctl:
-			((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
-			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+			((Isle*) CurrentWorld())
+				->SetDestLocation(LegoGameState::e_infomain);
+			TransitionManager()->StartTransition(
+				MxTransitionManager::e_mosaic,
+				50,
+				FALSE,
+				FALSE
+			);
 			Exit();
 			GameState()->m_currentArea = LegoGameState::e_unk66;
 			result = 1;
 			break;
 		case IsleScript::c_TowHorn_Ctl:
-			MxSoundPresenter* presenter = (MxSoundPresenter*)CurrentWorld()->Find("MxSoundPresenter", "TowHorn_Sound");
+			MxSoundPresenter* presenter =
+				(MxSoundPresenter*) CurrentWorld()->Find(
+					"MxSoundPresenter",
+					"TowHorn_Sound"
+				);
 			presenter->Enable(p_param.GetUnknown0x28());
 			break;
 		}
@@ -504,8 +569,7 @@ void TowTrack::ActivateSceneActions() {
 	if (m_state->m_unk0x08 != 0) {
 		if (m_state->m_unk0x08 == 2) {
 			PlayAction(IsleScript::c_wrt082na_PlayWav);
-		}
-		else {
+		} else {
 			PlayAction(IsleScript::c_wgs032nu_PlayWav);
 		}
 	}
@@ -513,15 +577,60 @@ void TowTrack::ActivateSceneActions() {
 
 // FUNCTION: LEGO1 0x1004db10
 void TowTrack::StopActions() {
-	InvokeAction(Extra::e_stop, *g_isleScript, IsleScript::c_wns050p1_RunAnim, NULL);
-	InvokeAction(Extra::e_stop, *g_isleScript, IsleScript::c_wns046mg_RunAnim, NULL);
-	InvokeAction(Extra::e_stop, *g_isleScript, IsleScript::c_wns057rd_RunAnim, NULL);
-	InvokeAction(Extra::e_stop, *g_isleScript, IsleScript::c_wns048p1_RunAnim, NULL);
-	InvokeAction(Extra::e_stop, *g_isleScript, IsleScript::c_wns049p1_RunAnim, NULL);
-	InvokeAction(Extra::e_stop, *g_isleScript, IsleScript::c_wns051bd_RunAnim, NULL);
-	InvokeAction(Extra::e_stop, *g_isleScript, IsleScript::c_wns053pr_RunAnim, NULL);
-	InvokeAction(Extra::e_stop, *g_isleScript, IsleScript::c_wns045di_RunAnim, NULL);
-	InvokeAction(Extra::e_stop, *g_isleScript, IsleScript::c_pns123pr_RunAnim, NULL);
+	InvokeAction(
+		Extra::e_stop,
+		*g_isleScript,
+		IsleScript::c_wns050p1_RunAnim,
+		NULL
+	);
+	InvokeAction(
+		Extra::e_stop,
+		*g_isleScript,
+		IsleScript::c_wns046mg_RunAnim,
+		NULL
+	);
+	InvokeAction(
+		Extra::e_stop,
+		*g_isleScript,
+		IsleScript::c_wns057rd_RunAnim,
+		NULL
+	);
+	InvokeAction(
+		Extra::e_stop,
+		*g_isleScript,
+		IsleScript::c_wns048p1_RunAnim,
+		NULL
+	);
+	InvokeAction(
+		Extra::e_stop,
+		*g_isleScript,
+		IsleScript::c_wns049p1_RunAnim,
+		NULL
+	);
+	InvokeAction(
+		Extra::e_stop,
+		*g_isleScript,
+		IsleScript::c_wns051bd_RunAnim,
+		NULL
+	);
+	InvokeAction(
+		Extra::e_stop,
+		*g_isleScript,
+		IsleScript::c_wns053pr_RunAnim,
+		NULL
+	);
+	InvokeAction(
+		Extra::e_stop,
+		*g_isleScript,
+		IsleScript::c_wns045di_RunAnim,
+		NULL
+	);
+	InvokeAction(
+		Extra::e_stop,
+		*g_isleScript,
+		IsleScript::c_pns123pr_RunAnim,
+		NULL
+	);
 }
 
 // FUNCTION: LEGO1 0x1004dbe0
@@ -530,7 +639,7 @@ void TowTrack::FUN_1004dbe0() {
 		InvokeAction(Extra::e_stop, *g_isleScript, m_lastAction, NULL);
 	}
 
-	((Act1State*)GameState()->GetState("Act1State"))->m_unk0x018 = 0;
+	((Act1State*) GameState()->GetState("Act1State"))->m_unk0x018 = 0;
 	m_state->m_unk0x08 = 0;
 	g_isleFlags |= Isle::c_playMusic;
 	AnimationManager()->EnableCamAnims(TRUE);
@@ -545,16 +654,34 @@ void TowTrack::FUN_1004dbe0() {
 // FUNCTION: LEGO1 0x1004dc80
 // FUNCTION: BETA10 0x100f86a0
 void TowTrack::PlayFinalAnimation(IsleScript::Script p_objectId) {
-	AnimationManager()
-		->FUN_10060dc0(p_objectId, NULL, TRUE, LegoAnimationManager::e_unk0, NULL, FALSE, FALSE, FALSE, TRUE);
+	AnimationManager()->FUN_10060dc0(
+		p_objectId,
+		NULL,
+		TRUE,
+		LegoAnimationManager::e_unk0,
+		NULL,
+		FALSE,
+		FALSE,
+		FALSE,
+		TRUE
+	);
 	m_lastAnimation = p_objectId;
 }
 
 // FUNCTION: LEGO1 0x1004dcb0
 void TowTrack::FUN_1004dcb0(IsleScript::Script p_objectId) {
 	AnimationManager()->FUN_1005f6d0(TRUE);
-	AnimationManager()
-		->FUN_10060dc0(p_objectId, NULL, TRUE, LegoAnimationManager::e_unk1, NULL, FALSE, TRUE, TRUE, TRUE);
+	AnimationManager()->FUN_10060dc0(
+		p_objectId,
+		NULL,
+		TRUE,
+		LegoAnimationManager::e_unk1,
+		NULL,
+		FALSE,
+		TRUE,
+		TRUE,
+		TRUE
+	);
 	m_lastAnimation = p_objectId;
 }
 

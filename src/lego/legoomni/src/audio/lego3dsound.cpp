@@ -9,7 +9,6 @@
 
 #include <vec.h>
 
-
 // FUNCTION: LEGO1 0x10011630
 Lego3DSound::Lego3DSound() {
 	Init();
@@ -33,11 +32,18 @@ void Lego3DSound::Init() {
 
 // FUNCTION: LEGO1 0x100116a0
 // FUNCTION: BETA10 0x10039647
-MxResult Lego3DSound::Create(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const char* p_name, MxS32 p_volume) {
+MxResult Lego3DSound::Create(
+	LPDIRECTSOUNDBUFFER p_directSoundBuffer,
+	const char* p_name,
+	MxS32 p_volume
+) {
 	m_volume = p_volume;
 
 	if (MxOmni::IsSound3D()) {
-		p_directSoundBuffer->QueryInterface(IID_IDirectSound3DBuffer, (LPVOID*)&m_ds3dBuffer);
+		p_directSoundBuffer->QueryInterface(
+			IID_IDirectSound3DBuffer,
+			(LPVOID*) &m_ds3dBuffer
+		);
 		if (m_ds3dBuffer == NULL) {
 			return FAILURE;
 		}
@@ -55,8 +61,7 @@ MxResult Lego3DSound::Create(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const char
 	if (CharacterManager()->IsActor(p_name)) {
 		m_roi = CharacterManager()->GetActorROI(p_name, TRUE);
 		m_enabled = m_isActor = TRUE;
-	}
-	else {
+	} else {
 		m_roi = FindROI(p_name);
 	}
 
@@ -74,19 +79,24 @@ MxResult Lego3DSound::Create(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const char
 
 	if (m_isActor) {
 		m_positionROI = m_roi->FindChildROI("head", m_roi);
-	}
-	else {
+	} else {
 		m_positionROI = m_roi;
 	}
 
 	if (MxOmni::IsSound3D()) {
 		const float* position = m_positionROI->GetWorldPosition();
-		m_ds3dBuffer->SetPosition(position[0], position[1], position[2], DS3D_IMMEDIATE);
+		m_ds3dBuffer->SetPosition(
+			position[0],
+			position[1],
+			position[2],
+			DS3D_IMMEDIATE
+		);
 	}
 
 	LegoEntity* entity = m_roi->GetEntity();
-	if (entity != NULL && entity->IsA("LegoActor") && ((LegoActor*)entity)->GetSoundFrequencyFactor() != 0.0f) {
-		m_actor = ((LegoActor*)entity);
+	if (entity != NULL && entity->IsA("LegoActor") &&
+		((LegoActor*) entity)->GetSoundFrequencyFactor() != 0.0f) {
+		m_actor = ((LegoActor*) entity);
 	}
 
 	p_directSoundBuffer->GetFrequency(&m_dwFrequency);
@@ -95,7 +105,9 @@ MxResult Lego3DSound::Create(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const char
 		m_frequencyFactor = m_actor->GetSoundFrequencyFactor();
 
 		if (m_frequencyFactor != 0.0) {
-			p_directSoundBuffer->SetFrequency(m_frequencyFactor * m_dwFrequency);
+			p_directSoundBuffer->SetFrequency(
+				m_frequencyFactor * m_dwFrequency
+			);
 		}
 	}
 
@@ -112,8 +124,7 @@ void Lego3DSound::Destroy() {
 	if (m_enabled && m_roi && CharacterManager()) {
 		if (m_isActor) {
 			CharacterManager()->ReleaseActor(m_roi);
-		}
-		else {
+		} else {
 			CharacterManager()->ReleaseAutoROI(m_roi);
 		}
 	}
@@ -140,20 +151,21 @@ MxU32 Lego3DSound::UpdatePosition(LPDIRECTSOUNDBUFFER p_directSoundBuffer) {
 		}
 
 		if (m_ds3dBuffer != NULL) {
-			m_ds3dBuffer->SetPosition(position[0], position[1], position[2], DS3D_IMMEDIATE);
-		}
-		else {
+			m_ds3dBuffer->SetPosition(
+				position[0],
+				position[1],
+				position[2],
+				DS3D_IMMEDIATE
+			);
+		} else {
 			MxS32 newVolume = m_volume;
 			if (distance < 100.0f) {
 				newVolume = m_volume;
-			}
-			else if (distance < 400.0f) {
+			} else if (distance < 400.0f) {
 				newVolume *= 0.4;
-			}
-			else if (distance < 3600.0f) {
+			} else if (distance < 3600.0f) {
 				newVolume *= 0.1;
-			}
-			else if (distance < 10000.0f) {
+			} else if (distance < 10000.0f) {
 				newVolume = 0;
 			}
 
@@ -166,9 +178,12 @@ MxU32 Lego3DSound::UpdatePosition(LPDIRECTSOUNDBUFFER p_directSoundBuffer) {
 	}
 
 	if (m_actor != NULL) {
-		if (abs(m_frequencyFactor - m_actor->GetSoundFrequencyFactor()) > 0.0001) {
+		if (abs(m_frequencyFactor - m_actor->GetSoundFrequencyFactor()) >
+			0.0001) {
 			m_frequencyFactor = m_actor->GetSoundFrequencyFactor();
-			p_directSoundBuffer->SetFrequency(m_frequencyFactor * m_dwFrequency);
+			p_directSoundBuffer->SetFrequency(
+				m_frequencyFactor * m_dwFrequency
+			);
 			updated = TRUE;
 		}
 	}
@@ -178,20 +193,21 @@ MxU32 Lego3DSound::UpdatePosition(LPDIRECTSOUNDBUFFER p_directSoundBuffer) {
 
 // FUNCTION: LEGO1 0x10011a60
 // FUNCTION: BETA10 0x10039d04
-void Lego3DSound::FUN_10011a60(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const char* p_name) {
+void Lego3DSound::FUN_10011a60(
+	LPDIRECTSOUNDBUFFER p_directSoundBuffer,
+	const char* p_name
+) {
 	assert(p_directSoundBuffer);
 
 	if (p_name == NULL) {
 		if (m_ds3dBuffer != NULL) {
 			m_ds3dBuffer->SetMode(DS3DMODE_DISABLE, DS3D_IMMEDIATE);
 		}
-	}
-	else {
+	} else {
 		if (CharacterManager()->IsActor(p_name)) {
 			m_roi = CharacterManager()->GetActorROI(p_name, TRUE);
 			m_enabled = m_isActor = TRUE;
-		}
-		else {
+		} else {
 			m_roi = FindROI(p_name);
 		}
 
@@ -209,8 +225,7 @@ void Lego3DSound::FUN_10011a60(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const ch
 
 		if (m_isActor) {
 			m_positionROI = m_roi->FindChildROI("head", m_roi);
-		}
-		else {
+		} else {
 			m_positionROI = m_roi;
 		}
 
@@ -223,9 +238,13 @@ void Lego3DSound::FUN_10011a60(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const ch
 			}
 
 			const float* position = m_positionROI->GetWorldPosition();
-			m_ds3dBuffer->SetPosition(position[0], position[1], position[2], DS3D_IMMEDIATE);
-		}
-		else {
+			m_ds3dBuffer->SetPosition(
+				position[0],
+				position[1],
+				position[2],
+				DS3D_IMMEDIATE
+			);
+		} else {
 			const float* position = m_positionROI->GetWorldPosition();
 			ViewROI* pov = VideoManager()->GetViewROI();
 
@@ -236,14 +255,11 @@ void Lego3DSound::FUN_10011a60(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const ch
 				MxS32 newVolume;
 				if (distance < 100.0f) {
 					newVolume = m_volume;
-				}
-				else if (distance < 400.0f) {
+				} else if (distance < 400.0f) {
 					newVolume = m_volume * 0.4;
-				}
-				else if (distance < 3600.0f) {
+				} else if (distance < 3600.0f) {
 					newVolume = m_volume * 0.1;
-				}
-				else {
+				} else {
 					newVolume = 0;
 				}
 
@@ -254,8 +270,9 @@ void Lego3DSound::FUN_10011a60(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const ch
 		}
 
 		LegoEntity* entity = m_roi->GetEntity();
-		if (entity != NULL && entity->IsA("LegoActor") && ((LegoActor*)entity)->GetSoundFrequencyFactor() != 0.0f) {
-			m_actor = ((LegoActor*)entity);
+		if (entity != NULL && entity->IsA("LegoActor") &&
+			((LegoActor*) entity)->GetSoundFrequencyFactor() != 0.0f) {
+			m_actor = ((LegoActor*) entity);
 		}
 
 		p_directSoundBuffer->GetFrequency(&m_dwFrequency);
@@ -264,7 +281,9 @@ void Lego3DSound::FUN_10011a60(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const ch
 			m_frequencyFactor = m_actor->GetSoundFrequencyFactor();
 
 			if (m_frequencyFactor != 0.0) {
-				p_directSoundBuffer->SetFrequency(m_frequencyFactor * m_dwFrequency);
+				p_directSoundBuffer->SetFrequency(
+					m_frequencyFactor * m_dwFrequency
+				);
 			}
 		}
 	}
@@ -275,8 +294,7 @@ void Lego3DSound::Reset() {
 	if (m_enabled && m_roi && CharacterManager()) {
 		if (m_isActor) {
 			CharacterManager()->ReleaseActor(m_roi);
-		}
-		else {
+		} else {
 			CharacterManager()->ReleaseAutoROI(m_roi);
 		}
 	}

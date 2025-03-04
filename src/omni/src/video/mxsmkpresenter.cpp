@@ -5,7 +5,6 @@
 #include "mxpalette.h"
 #include "mxvideomanager.h"
 
-
 // FUNCTION: LEGO1 0x100b3650
 MxSmkPresenter::MxSmkPresenter() {
 	Init();
@@ -50,7 +49,12 @@ void MxSmkPresenter::CreateBitmap() {
 	}
 
 	m_frameBitmap = new MxBitmap;
-	m_frameBitmap->SetSize(m_mxSmk.m_smackTag.Width, m_mxSmk.m_smackTag.Height, NULL, FALSE);
+	m_frameBitmap->SetSize(
+		m_mxSmk.m_smackTag.Width,
+		m_mxSmk.m_smackTag.Height,
+		NULL,
+		FALSE
+	);
 }
 
 // FUNCTION: LEGO1 0x100b3a00
@@ -64,9 +68,17 @@ void MxSmkPresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	VTable0x88();
 
 	MxRectList rects(TRUE);
-	MxSmk::LoadFrame(bitmapInfo, bitmapData, &m_mxSmk, chunkData, paletteChanged, &rects);
+	MxSmk::LoadFrame(
+		bitmapInfo,
+		bitmapData,
+		&m_mxSmk,
+		chunkData,
+		paletteChanged,
+		&rects
+	);
 
-	if (((MxDSMediaAction*)m_action)->GetPaletteManagement() && paletteChanged) {
+	if (((MxDSMediaAction*) m_action)->GetPaletteManagement() &&
+		paletteChanged) {
 		RealizePalette();
 	}
 
@@ -88,12 +100,15 @@ void MxSmkPresenter::VTable0x88() {
 		if (1 < m_currentFrame && und == 1) {
 			m_currentFrame = 1;
 		}
-	}
-	else {
+	} else {
 		if (m_mxSmk.m_smackTag.Frames == m_currentFrame) {
 			m_currentFrame = 0;
 			// TODO: struct incorrect, Palette at wrong offset?
-			memset(&m_mxSmk.m_smackTag.Palette[4], 0, sizeof(m_mxSmk.m_smackTag.Palette));
+			memset(
+				&m_mxSmk.m_smackTag.Palette[4],
+				0,
+				sizeof(m_mxSmk.m_smackTag.Palette)
+			);
 		}
 	}
 }

@@ -25,7 +25,8 @@ public:
 	// FUNCTION: LEGO1 0x1007a370
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, Act2Brick::ClassName()) || LegoEntity::IsA(p_name);
+		return !strcmp(p_name, Act2Brick::ClassName()) ||
+			   LegoEntity::IsA(p_name);
 	}
 
 	MxResult HitActor(LegoPathActor* p_actor, MxBool) override; // vtable+0x94
@@ -35,7 +36,11 @@ public:
 
 	MxResult Create(MxS32 p_index);
 	void Remove();
-	void FUN_1007a670(MxMatrix& p_param1, MxMatrix& p_param2, LegoPathBoundary* p_boundary);
+	void FUN_1007a670(
+		MxMatrix& p_param1,
+		MxMatrix& p_param2,
+		LegoPathBoundary* p_boundary
+	);
 	void PlayWhistleSound();
 	void StopWhistleSound();
 	void Mute(MxBool p_muted);

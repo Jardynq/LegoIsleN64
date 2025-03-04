@@ -7,7 +7,6 @@
 #include "mxcompositepresenter.h"
 #include "mxdsaction.h"
 
-
 // FUNCTION: LEGO1 0x1004e180
 LegoPhonemePresenter::LegoPhonemePresenter() {
 	Init();
@@ -40,14 +39,15 @@ void LegoPhonemePresenter::StartingTickle() {
 			m_roiName = extraData;
 			m_roiName.ToUpperCase();
 
-			LegoROI* entityROI, * head;
+			LegoROI *entityROI, *head;
 
-			if (m_compositePresenter != NULL && m_compositePresenter->IsA("LegoAnimMMPresenter")) {
+			if (m_compositePresenter != NULL &&
+				m_compositePresenter->IsA("LegoAnimMMPresenter")) {
 				entityROI = FindROI(m_roiName.GetData());
 				m_unk0x84 = TRUE;
-			}
-			else {
-				entityROI = CharacterManager()->GetActorROI(m_roiName.GetData(), TRUE);
+			} else {
+				entityROI =
+					CharacterManager()->GetActorROI(m_roiName.GetData(), TRUE);
 			}
 
 			head = entityROI->FindChildROI("head", entityROI);
@@ -59,7 +59,8 @@ void LegoPhonemePresenter::StartingTickle() {
 			LegoPhonemeListCursor cursor(phonemeList);
 
 			if (!cursor.Find(phoneme)) {
-				LegoTextureInfo* textureInfo = TextureContainer()->GetCached(m_textureInfo);
+				LegoTextureInfo* textureInfo =
+					TextureContainer()->GetCached(m_textureInfo);
 
 				CharacterManager()->FUN_100849a0(entityROI, textureInfo);
 
@@ -67,8 +68,7 @@ void LegoPhonemePresenter::StartingTickle() {
 				phoneme->VTable0x14(textureInfo);
 				phonemeList->Append(phoneme);
 				m_textureInfo = textureInfo;
-			}
-			else {
+			} else {
 				LegoPhoneme* newPhoneme = phoneme;
 				cursor.Current(phoneme);
 				delete newPhoneme;
@@ -87,10 +87,10 @@ void LegoPhonemePresenter::StartingTickle() {
 void LegoPhonemePresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	MxU8* data = p_chunk->GetData();
 
-	m_rectCount = *(MxS32*)data;
+	m_rectCount = *(MxS32*) data;
 	data += sizeof(MxS32);
 
-	MxRect32* rects = (MxRect32*)data;
+	MxRect32* rects = (MxRect32*) data;
 	data += m_rectCount * sizeof(MxRect32);
 
 	MxBool decodedColorMap;
@@ -98,7 +98,7 @@ void LegoPhonemePresenter::LoadFrame(MxStreamChunk* p_chunk) {
 		&m_frameBitmap->GetBitmapInfo()->m_bmiHeader,
 		m_frameBitmap->GetImage(),
 		m_flcHeader,
-		(FLIC_FRAME*)data,
+		(FLIC_FRAME*) data,
 		&decodedColorMap
 	);
 }
@@ -133,9 +133,11 @@ void LegoPhonemePresenter::EndAction() {
 
 				if (m_unk0x84) {
 					roi = FindROI(m_roiName.GetData());
-				}
-				else {
-					roi = CharacterManager()->GetActorROI(m_roiName.GetData(), TRUE);
+				} else {
+					roi = CharacterManager()->GetActorROI(
+						m_roiName.GetData(),
+						TRUE
+					);
 				}
 
 				if (roi != NULL) {
@@ -149,8 +151,7 @@ void LegoPhonemePresenter::EndAction() {
 				TextureContainer()->EraseCached(phoneme->VTable0x10());
 				TextureContainer()->EraseCached(phoneme->VTable0x08());
 				cursor.Destroy();
-			}
-			else {
+			} else {
 				phoneme->VTable0x04(phoneme->VTable0x00() - 1);
 				cursor.SetValue(phoneme);
 			}

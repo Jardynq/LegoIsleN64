@@ -1,7 +1,6 @@
 #ifndef __LEGOWEEDGE_H
 #define __LEGOWEEDGE_H
 
-
 struct LegoUnknown100db7f4;
 
 // might be a struct with public members

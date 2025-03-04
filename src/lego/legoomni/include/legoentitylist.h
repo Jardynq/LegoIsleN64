@@ -17,7 +17,8 @@
 // SIZE 0x18
 class LegoEntityList : public MxPtrList<LegoEntity> {
 public:
-	LegoEntityList(MxBool p_ownership = FALSE) : MxPtrList<LegoEntity>(p_ownership) {}
+	LegoEntityList(MxBool p_ownership = FALSE)
+		: MxPtrList<LegoEntity>(p_ownership) {}
 
 	// FUNCTION: LEGO1 0x1001e2d0
 	MxS8 Compare(LegoEntity* p_a, LegoEntity* p_b) override {
@@ -35,7 +36,8 @@ public:
 // SIZE 0x10
 class LegoEntityListCursor : public MxPtrListCursor<LegoEntity> {
 public:
-	LegoEntityListCursor(LegoEntityList* p_list) : MxPtrListCursor<LegoEntity>(p_list) {}
+	LegoEntityListCursor(LegoEntityList* p_list)
+		: MxPtrListCursor<LegoEntity>(p_list) {}
 };
 
 // TEMPLATE: LEGO1 0x1001e2f0

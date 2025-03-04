@@ -32,7 +32,6 @@
 #include "scripts.h"
 #include "viewmanager/viewmanager.h"
 
-
 // GLOBAL: LEGO1 0x100f6718
 // STRING: LEGO1 0x100f6710
 const char* g_current = "current";
@@ -172,7 +171,8 @@ MxResult LegoOmni::Create(MxOmniCreateParam& p_param) {
 		goto done;
 	}
 
-	if (!(m_soundManager = new LegoSoundManager()) || m_soundManager->Create(10, 0) != SUCCESS) {
+	if (!(m_soundManager = new LegoSoundManager()) ||
+		m_soundManager->Create(10, 0) != SUCCESS) {
 		printf("Failed to create sound manager\n");
 		delete m_soundManager;
 		m_soundManager = NULL;
@@ -192,7 +192,8 @@ MxResult LegoOmni::Create(MxOmniCreateParam& p_param) {
 		goto done;
 	}
 
-	if (!(m_inputManager = new LegoInputManager()) || m_inputManager->Create(p_param.GetWindowHandle()) != SUCCESS) {
+	if (!(m_inputManager = new LegoInputManager()) ||
+		m_inputManager->Create(p_param.GetWindowHandle()) != SUCCESS) {
 		printf("Failed to create input manager\n");
 		delete m_inputManager;
 		m_inputManager = NULL;
@@ -211,8 +212,9 @@ MxResult LegoOmni::Create(MxOmniCreateParam& p_param) {
 	m_gameState = new LegoGameState();
 	m_worldList = new LegoWorldList(TRUE);
 
-	if (!m_viewLODListManager || !m_textureContainer || !m_worldList || !m_characterManager || !m_plantManager ||
-		!m_animationManager || !m_buildingManager) {
+	if (!m_viewLODListManager || !m_textureContainer || !m_worldList ||
+		!m_characterManager || !m_plantManager || !m_animationManager ||
+		!m_buildingManager) {
 		printf("Failed to create REMAINING STUFF\n");
 		goto done;
 	}
@@ -315,7 +317,7 @@ void LegoOmni::CreateInstance() {
 
 // FUNCTION: LEGO1 0x1005ad10
 LegoOmni* LegoOmni::GetInstance() {
-	return (LegoOmni*)MxOmni::GetInstance();
+	return (LegoOmni*) MxOmni::GetInstance();
 }
 
 // FUNCTION: LEGO1 0x1005ad20
@@ -384,22 +386,27 @@ LegoWorld* LegoOmni::FindWorld(const MxAtomId& p_atom, MxS32 p_entityid) {
 // FUNCTION: LEGO1 0x1005b1d0
 void LegoOmni::DeleteObject(MxDSAction& p_dsAction) {
 	if (p_dsAction.GetAtomId().GetInternal() != NULL) {
-		LegoWorld* world = FindWorld(p_dsAction.GetAtomId(), p_dsAction.GetObjectId());
+		LegoWorld* world =
+			FindWorld(p_dsAction.GetAtomId(), p_dsAction.GetObjectId());
 		if (world) {
 			DeleteWorld(world);
 			return;
 		}
 
 		if (m_currentWorld != NULL) {
-			MxCore* entity = m_currentWorld->Find(p_dsAction.GetAtomId(), p_dsAction.GetObjectId());
+			MxCore* entity = m_currentWorld->Find(
+				p_dsAction.GetAtomId(),
+				p_dsAction.GetObjectId()
+			);
 			if (entity) {
 				m_currentWorld->Remove(entity);
 
 				if (entity->IsA("MxPresenter")) {
-					Streamer()->FUN_100b98f0(((MxPresenter*)entity)->GetAction());
-					((MxPresenter*)entity)->EndAction();
-				}
-				else {
+					Streamer()->FUN_100b98f0(
+						((MxPresenter*) entity)->GetAction()
+					);
+					((MxPresenter*) entity)->EndAction();
+				} else {
 					delete entity;
 				}
 				return;
@@ -412,12 +419,16 @@ void LegoOmni::DeleteObject(MxDSAction& p_dsAction) {
 // FUNCTION: LEGO1 0x1005b270
 // FUNCTION: BETA10 0x1008ea6d
 LegoROI* LegoOmni::FindROI(const char* p_name) {
-	const CompoundObject& rois =
-		((LegoVideoManager*)m_videoManager)->Get3DManager()->GetLego3DView()->GetViewManager()->GetROIs();
+	const CompoundObject& rois = ((LegoVideoManager*) m_videoManager)
+									 ->Get3DManager()
+									 ->GetLego3DView()
+									 ->GetViewManager()
+									 ->GetROIs();
 
 	if (p_name != NULL && *p_name != '\0' && rois.size() > 0) {
-		for (CompoundObject::const_iterator it = rois.begin(); it != rois.end(); it++) {
-			LegoROI* roi = (LegoROI*)*it;
+		for (CompoundObject::const_iterator it = rois.begin(); it != rois.end();
+			 it++) {
+			LegoROI* roi = (LegoROI*) *it;
 			const char* name = roi->GetName();
 
 			if (name != NULL) {
@@ -432,13 +443,16 @@ LegoROI* LegoOmni::FindROI(const char* p_name) {
 }
 
 // FUNCTION: LEGO1 0x1005b2f0
-MxEntity* LegoOmni::AddToWorld(const char* p_id, MxS32 p_entityId, MxPresenter* p_presenter) {
+MxEntity* LegoOmni::AddToWorld(
+	const char* p_id,
+	MxS32 p_entityId,
+	MxPresenter* p_presenter
+) {
 	LegoWorld* world = NULL;
 
 	if (strcmpi(p_id, g_current)) {
 		world = FindWorld(MxAtomId(p_id, e_lowerCase2), p_entityId);
-	}
-	else {
+	} else {
 		world = this->m_currentWorld;
 	}
 
@@ -459,7 +473,8 @@ void LegoOmni::NotifyCurrentEntity(const MxNotificationParam& p_param) {
 // FUNCTION: LEGO1 0x1005b3c0
 MxBool LegoOmni::DoesEntityExist(MxDSAction& p_dsAction) {
 	if (MxOmni::DoesEntityExist(p_dsAction)) {
-		if (FindWorld(p_dsAction.GetAtomId(), p_dsAction.GetObjectId()) == NULL) {
+		if (FindWorld(p_dsAction.GetAtomId(), p_dsAction.GetObjectId()) ==
+			NULL) {
 			return TRUE;
 		}
 	}
@@ -503,7 +518,8 @@ MxAtomId* LegoOmni::GetWorldAtom(LegoOmni::World p_worldId) {
 // FUNCTION: LEGO1 0x1005b490
 LegoOmni::World LegoOmni::GetWorldId(const char* p_key) {
 	for (MxS32 i = 0; i < e_numWorlds; i++) {
-		if ((MxS32)&m_worlds[i] != -4 && !strcmpi(m_worlds[i].GetKey(), p_key)) {
+		if ((MxS32) &m_worlds[i] != -4 &&
+			!strcmpi(m_worlds[i].GetKey(), p_key)) {
 			return m_worlds[i].GetId();
 		}
 	}
@@ -519,17 +535,16 @@ void LegoOmni::FUN_1005b4f0(MxBool p_disable, MxU16 p_flags) {
 		}
 
 		if (p_flags & c_disable3d) {
-			((LegoVideoManager*)m_videoManager)->SetRender3D(FALSE);
+			((LegoVideoManager*) m_videoManager)->SetRender3D(FALSE);
 		}
 
 		if (p_flags & c_clearScreen) {
 			m_videoManager->GetDisplaySurface()->ClearScreen();
 		}
-	}
-	else {
+	} else {
 		m_inputManager->EnableInputProcessing();
-		((LegoVideoManager*)m_videoManager)->SetRender3D(TRUE);
-		((LegoVideoManager*)m_videoManager)->UpdateView(0, 0, 0, 0);
+		((LegoVideoManager*) m_videoManager)->SetRender3D(TRUE);
+		((LegoVideoManager*) m_videoManager)->UpdateView(0, 0, 0, 0);
 	}
 }
 
@@ -561,8 +576,10 @@ void LegoOmni::DeleteAction() {
 MxLong LegoOmni::Notify(MxParam& p_param) {
 	MxBool isCD = FALSE;
 
-	if (((MxNotificationParam&)p_param).GetNotification() == c_notificationEndAction &&
-		((MxActionNotificationParam&)p_param).GetAction()->GetAtomId() == *g_nocdSourceName) {
+	if (((MxNotificationParam&) p_param).GetNotification() ==
+			c_notificationEndAction &&
+		((MxActionNotificationParam&) p_param).GetAction()->GetAtomId() ==
+			*g_nocdSourceName) {
 		isCD = TRUE;
 	}
 

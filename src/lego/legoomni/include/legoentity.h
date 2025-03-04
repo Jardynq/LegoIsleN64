@@ -13,22 +13,11 @@ class Vector3;
 // SIZE 0x68
 class LegoEntity : public MxEntity {
 public:
-	enum Type {
-		e_actor = 0,
-		e_unk1,
-		e_plant,
-		e_building,
-		e_autoROI
-	};
+	enum Type { e_actor = 0, e_unk1, e_plant, e_building, e_autoROI };
 
-	enum {
-		c_bit1 = 0x01,
-		c_managerOwned = 0x02
-	};
+	enum { c_bit1 = 0x01, c_managerOwned = 0x02 };
 
-	enum {
-		c_altBit1 = 0x01
-	};
+	enum { c_altBit1 = 0x01 };
 
 	LegoEntity() { Init(); }
 
@@ -49,13 +38,15 @@ public:
 	// FUNCTION: BETA10 0x100125a0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoEntity::ClassName()) || MxEntity::IsA(p_name);
+		return !strcmp(p_name, LegoEntity::ClassName()) ||
+			   MxEntity::IsA(p_name);
 	}
 
-	virtual MxResult Create(MxDSAction& p_dsAction);                     // vtable+0x18
-	virtual void Destroy(MxBool p_fromDestructor);                       // vtable+0x1c
-	virtual void ParseAction(char* p_extra);                             // vtable+0x20
-	virtual void SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2); // vtable+0x24
+	virtual MxResult Create(MxDSAction& p_dsAction); // vtable+0x18
+	virtual void Destroy(MxBool p_fromDestructor);   // vtable+0x1c
+	virtual void ParseAction(char* p_extra);         // vtable+0x20
+	virtual void
+	SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2); // vtable+0x24
 	virtual void SetWorldTransform(
 		const Vector3& p_location,
 		const Vector3& p_direction,
@@ -65,7 +56,9 @@ public:
 
 	// FUNCTION: LEGO1 0x10001090
 	// FUNCTION: BETA10 0x10013260
-	virtual void SetWorldSpeed(MxFloat p_worldSpeed) { m_worldSpeed = p_worldSpeed; } // vtable+0x30
+	virtual void SetWorldSpeed(MxFloat p_worldSpeed) {
+		m_worldSpeed = p_worldSpeed;
+	} // vtable+0x30
 
 	virtual void ClickSound(MxBool p_und);    // vtable+0x34
 	virtual void ClickAnimation();            // vtable+0x38
@@ -77,7 +70,12 @@ public:
 
 	void FUN_10010c30();
 	void SetType(MxU8 p_type);
-	void SetLocation(const Vector3& p_location, const Vector3& p_direction, const Vector3& p_up, MxBool p_und);
+	void SetLocation(
+		const Vector3& p_location,
+		const Vector3& p_direction,
+		const Vector3& p_up,
+		MxBool p_und
+	);
 	Mx3DPointFloat GetWorldDirection();
 	Mx3DPointFloat GetWorldUp();
 	Mx3DPointFloat GetWorldPosition();

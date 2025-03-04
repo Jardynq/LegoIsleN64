@@ -16,11 +16,19 @@
 #include <stdio.h>
 #include <vec.h>
 
-
 // GLOBAL: LEGO1 0x100f7a38
 // GLOBAL: BETA10 0x101dc480
-const LegoChar* Act2Brick::g_lodNames[] =
-{ "xchbase1", "xchblad1", "xchseat1", "xchtail1", "xhback1", "xhljet1", "xhmidl1", "xhmotr1", "xhsidl1", "xhsidr1" };
+const LegoChar* Act2Brick::g_lodNames[] = {
+	"xchbase1",
+	"xchblad1",
+	"xchseat1",
+	"xchtail1",
+	"xhback1",
+	"xhljet1",
+	"xhmidl1",
+	"xhmotr1",
+	"xhsidl1",
+	"xhsidr1"};
 
 // GLOBAL: LEGO1 0x100f7a60
 MxLong Act2Brick::g_lastHitActorTime = 0;
@@ -58,8 +66,7 @@ MxResult Act2Brick::Create(MxS32 p_index) {
 
 	if (p_index < 6) {
 		sphere.Radius() = m_roi->GetBoundingSphere().Radius() * 0.5f;
-	}
-	else {
+	} else {
 		sphere.Radius() = m_roi->GetBoundingSphere().Radius() * 2.0f;
 	}
 
@@ -88,7 +95,11 @@ void Act2Brick::Remove() {
 
 // FUNCTION: LEGO1 0x1007a670
 // FUNCTION: BETA10 0x10012c04
-void Act2Brick::FUN_1007a670(MxMatrix& p_param1, MxMatrix& p_param2, LegoPathBoundary* p_boundary) {
+void Act2Brick::FUN_1007a670(
+	MxMatrix& p_param1,
+	MxMatrix& p_param2,
+	LegoPathBoundary* p_boundary
+) {
 	m_unk0x17c = p_param2[3];
 	m_unk0x168 = p_param2[3];
 	m_unk0x168 -= p_param1[3];
@@ -134,8 +145,7 @@ MxResult Act2Brick::Tickle() {
 		local2world.SetTranslation(m_unk0x17c[0], m_unk0x17c[1], m_unk0x17c[2]);
 		m_unk0x164 = 3;
 		TickleManager()->UnregisterClient(this);
-	}
-	else {
+	} else {
 		VPV3(local2world[3], local2world[3], m_unk0x168);
 	}
 
@@ -147,9 +157,10 @@ MxResult Act2Brick::Tickle() {
 // FUNCTION: LEGO1 0x1007a8c0
 // FUNCTION: BETA10 0x10012ec4
 MxLong Act2Brick::Notify(MxParam& p_param) {
-	MxNotificationParam& param = (MxNotificationParam&)p_param;
+	MxNotificationParam& param = (MxNotificationParam&) p_param;
 
-	if (param.GetNotification() == c_notificationClick && m_roi->GetVisibility()) {
+	if (param.GetNotification() == c_notificationClick &&
+		m_roi->GetVisibility()) {
 		m_roi->SetVisibility(FALSE);
 
 		if (m_whistleSound != NULL) {
@@ -169,7 +180,11 @@ MxLong Act2Brick::Notify(MxParam& p_param) {
 // FUNCTION: BETA10 0x10012fca
 void Act2Brick::PlayWhistleSound() {
 	if (m_whistleSound == NULL) {
-		m_whistleSound = SoundManager()->GetCacheSoundManager()->Play("xwhistle", m_roi->GetName(), TRUE);
+		m_whistleSound = SoundManager()->GetCacheSoundManager()->Play(
+			"xwhistle",
+			m_roi->GetName(),
+			TRUE
+		);
 	}
 }
 

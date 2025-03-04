@@ -80,7 +80,12 @@ public:
 	MxBool FUN_10030000(LegoEntity* p_entity);
 	MxBool FUN_10030030(MxS32 p_index);
 	MxBool FUN_10030110(LegoBuildingInfo* p_data);
-	void ScheduleAnimation(LegoEntity* p_entity, MxLong p_length, MxBool p_haveSound, MxBool p_unk0x28);
+	void ScheduleAnimation(
+		LegoEntity* p_entity,
+		MxLong p_length,
+		MxBool p_haveSound,
+		MxBool p_unk0x28
+	);
 	void FUN_10030590();
 	void AdjustHeight(MxS32 p_index);
 	MxResult FUN_10030630();

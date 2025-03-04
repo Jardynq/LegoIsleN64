@@ -1,7 +1,6 @@
 #ifndef LEGO3DSOUND_H
 #define LEGO3DSOUND_H
 
-
 #include <dsound.h>
 
 class LegoActor;
@@ -15,10 +14,15 @@ public:
 	virtual ~Lego3DSound();
 
 	void Init();
-	MxResult Create(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const char* p_name, MxS32 p_volume);
+	MxResult Create(
+		LPDIRECTSOUNDBUFFER p_directSoundBuffer,
+		const char* p_name,
+		MxS32 p_volume
+	);
 	void Destroy();
 	MxU32 UpdatePosition(LPDIRECTSOUNDBUFFER p_directSoundBuffer);
-	void FUN_10011a60(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const char* p_name);
+	void
+	FUN_10011a60(LPDIRECTSOUNDBUFFER p_directSoundBuffer, const char* p_name);
 	void Reset();
 	MxS32 SetDistance(MxS32 p_min, MxS32 p_max);
 

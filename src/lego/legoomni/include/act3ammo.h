@@ -37,8 +37,7 @@ public:
 	void SetValid(MxBool p_valid) {
 		if (p_valid) {
 			m_ammoFlag |= c_valid;
-		}
-		else {
+		} else {
 			m_ammoFlag &= ~c_valid;
 		}
 	}
@@ -53,8 +52,7 @@ public:
 	void SetBit4(MxBool p_bit4) {
 		if (p_bit4) {
 			m_ammoFlag |= c_bit4;
-		}
-		else {
+		} else {
 			m_ammoFlag &= ~c_bit4;
 		}
 	}
@@ -65,8 +63,7 @@ public:
 	void SetSharkFood(MxBool p_sharkFood) {
 		if (p_sharkFood) {
 			m_ammoFlag |= c_sharkFood;
-		}
-		else {
+		} else {
 			m_ammoFlag &= ~c_sharkFood;
 		}
 	}
@@ -79,8 +76,16 @@ public:
 
 	MxResult Remove();
 	MxResult Create(Act3* p_world, MxU32 p_isPizza, MxS32 p_index);
-	MxResult FUN_10053b40(const Vector3& p_srcLoc, const Vector3& p_srcDir, const Vector3& p_srcUp);
-	MxResult FUN_10053cb0(LegoPathController* p_p, LegoPathBoundary* p_boundary, MxFloat p_unk0x19c);
+	MxResult FUN_10053b40(
+		const Vector3& p_srcLoc,
+		const Vector3& p_srcDir,
+		const Vector3& p_srcUp
+	);
+	MxResult FUN_10053cb0(
+		LegoPathController* p_p,
+		LegoPathBoundary* p_boundary,
+		MxFloat p_unk0x19c
+	);
 	MxResult FUN_10053d30(LegoPathController* p_p, MxFloat p_unk0x19c);
 
 	// SYNTHETIC: LEGO1 0x10053880

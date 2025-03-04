@@ -18,10 +18,14 @@ public:
 	void RepeatingTickle() override {} // vtable+0x24
 
 	// FUNCTION: LEGO1 0x10043fe0
-	MxBool VTable0x64(undefined4 p_undefined) override { return m_unk0x50; } // vtable+0x64
+	MxBool VTable0x64(undefined4 p_undefined) override {
+		return m_unk0x50;
+	} // vtable+0x64
 
 	// FUNCTION: LEGO1 0x10043ff0
-	virtual void VTable0x68(MxBool p_unk0x50) { m_unk0x50 = p_unk0x50; } // vtable+0x68
+	virtual void VTable0x68(MxBool p_unk0x50) {
+		m_unk0x50 = p_unk0x50;
+	} // vtable+0x68
 
 	// FUNCTION: LEGO1 0x10044000
 	// FUNCTION: BETA10 0x100ebf80
@@ -34,19 +38,25 @@ public:
 	// FUNCTION: LEGO1 0x10044010
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxControlPresenter::ClassName()) || MxCompositePresenter::IsA(p_name);
+		return !strcmp(p_name, MxControlPresenter::ClassName()) ||
+			   MxCompositePresenter::IsA(p_name);
 	}
 
-	void ReadyTickle() override;                                     // vtable+0x18
-	void ParseExtra() override;                                      // vtable+0x30
-	MxResult AddToManager() override;                                // vtable+0x34
-	MxResult StartAction(MxStreamController*, MxDSAction*) override; // vtable+0x3c
-	void EndAction() override;                                       // vtable+0x40
-	MxBool HasTickleStatePassed(TickleState p_tickleState) override; // vtable+0x48
-	void Enable(MxBool p_enable) override;                           // vtable+0x54
-	virtual void VTable0x6c(MxS16 p_unk0x4e);                        // vtable+0x6c
+	void ReadyTickle() override;      // vtable+0x18
+	void ParseExtra() override;       // vtable+0x30
+	MxResult AddToManager() override; // vtable+0x34
+	MxResult
+	StartAction(MxStreamController*, MxDSAction*) override; // vtable+0x3c
+	void EndAction() override;                              // vtable+0x40
+	MxBool HasTickleStatePassed(TickleState p_tickleState
+	) override;                               // vtable+0x48
+	void Enable(MxBool p_enable) override;    // vtable+0x54
+	virtual void VTable0x6c(MxS16 p_unk0x4e); // vtable+0x6c
 
-	MxBool FUN_10044480(LegoControlManagerNotificationParam* p_param, MxPresenter* p_presenter);
+	MxBool FUN_10044480(
+		LegoControlManagerNotificationParam* p_param,
+		MxPresenter* p_presenter
+	);
 	MxBool FUN_10044270(MxS32 p_x, MxS32 p_y, MxVideoPresenter* p_presenter);
 
 	MxS16 GetUnknown0x4e() { return m_unk0x4e; }

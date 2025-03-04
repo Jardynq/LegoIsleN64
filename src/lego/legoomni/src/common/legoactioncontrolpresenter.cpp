@@ -12,7 +12,6 @@
 #include "mxticklemanager.h"
 #include "mxutilities.h"
 
-
 // FUNCTION: LEGO1 0x10043ce0
 void LegoActionControlPresenter::ReadyTickle() {
 	MxStreamChunk* chunk = NextChunk();
@@ -37,7 +36,12 @@ void LegoActionControlPresenter::RepeatingTickle() {
 			ParseExtra();
 		}
 
-		InvokeAction(m_unk0x50, MxAtomId(m_unk0x54.GetData(), e_lowerCase2), m_unk0x64, NULL);
+		InvokeAction(
+			m_unk0x50,
+			MxAtomId(m_unk0x54.GetData(), e_lowerCase2),
+			m_unk0x64,
+			NULL
+		);
 		ProgressTickleState(e_done);
 	}
 }

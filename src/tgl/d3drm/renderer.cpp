@@ -13,19 +13,18 @@ Renderer* Tgl::CreateRenderer() {
 }
 
 namespace TglImpl {
-	// GLOBAL: LEGO1 0x1010103c
-	IDirect3DRM2* g_pD3DRM = NULL;
+// GLOBAL: LEGO1 0x1010103c
+IDirect3DRM2* g_pD3DRM = NULL;
 } // namespace TglImpl
 
 // Inlined only
 Result RendererImpl::Create() {
 	if (g_pD3DRM) {
 		g_pD3DRM->AddRef();
-	}
-	else {
+	} else {
 		LPDIRECT3DRM handle;
 		Direct3DRMCreate(&handle);
-		handle->QueryInterface(IID_IDirect3DRM2, (LPVOID*)&g_pD3DRM);
+		handle->QueryInterface(IID_IDirect3DRM2, (LPVOID*) &g_pD3DRM);
 	}
 	m_data = g_pD3DRM;
 	return (m_data != NULL) ? Success : Error;
@@ -34,7 +33,11 @@ Result RendererImpl::Create() {
 // FUNCTION: LEGO1 0x100a1830
 Device* RendererImpl::CreateDevice(const DeviceDirect3DCreateData& data) {
 	DeviceImpl* device = new DeviceImpl();
-	HRESULT result = m_data->CreateDeviceFromD3D(data.m_pDirect3D, data.m_pDirect3DDevice, &device->m_data);
+	HRESULT result = m_data->CreateDeviceFromD3D(
+		data.m_pDirect3D,
+		data.m_pDirect3DDevice,
+		&device->m_data
+	);
 	if (!SUCCEEDED(result)) {
 		delete device;
 		device = NULL;
@@ -74,7 +77,10 @@ inline Result RendererCreateView(
 	unsigned int width,
 	unsigned int height
 ) {
-	Result result = ResultVal(pRenderer->CreateViewport(pDevice, pCamera, x, y, width, height, &rpView));
+	Result result = ResultVal(
+		pRenderer
+			->CreateViewport(pDevice, pCamera, x, y, width, height, &rpView)
+	);
 	if (Succeeded(result)) {
 		result = ViewImpl::ViewportCreateAppData(pRenderer, rpView, pCamera);
 		if (!Succeeded(result)) {
@@ -112,7 +118,11 @@ View* RendererImpl::CreateView(
 	return view;
 }
 
-inline Result RendererCreateGroup(IDirect3DRM2* pRenderer, IDirect3DRMFrame2* pParent, IDirect3DRMFrame2*& rpGroup) {
+inline Result RendererCreateGroup(
+	IDirect3DRM2* pRenderer,
+	IDirect3DRMFrame2* pParent,
+	IDirect3DRMFrame2*& rpGroup
+) {
 	Result result = ResultVal(pRenderer->CreateFrame(NULL, &rpGroup));
 	if (Succeeded(result) && pParent) {
 		result = ResultVal(pParent->AddVisual(rpGroup));
@@ -127,8 +137,11 @@ inline Result RendererCreateGroup(IDirect3DRM2* pRenderer, IDirect3DRMFrame2* pP
 // FUNCTION: LEGO1 0x100a1b20
 Group* RendererImpl::CreateGroup(const Group* pParent) {
 	GroupImpl* group = new GroupImpl();
-	Result result =
-		RendererCreateGroup(m_data, pParent ? static_cast<const GroupImpl*>(pParent)->m_data : NULL, group->m_data);
+	Result result = RendererCreateGroup(
+		m_data,
+		pParent ? static_cast<const GroupImpl*>(pParent)->m_data : NULL,
+		group->m_data
+	);
 	if (!result) {
 		delete group;
 		group = NULL;
@@ -174,17 +187,17 @@ Light* RendererImpl::CreateLight(LightType type, float r, float g, float b) {
 	Result result = ResultVal(m_data->CreateFrame(NULL, &frame));
 	if (Succeeded(result)) {
 		LPDIRECT3DRMLIGHT d3dLight;
-		result = ResultVal(m_data->CreateLightRGB(translatedType, r, g, b, &d3dLight));
+		result =
+			ResultVal(m_data->CreateLightRGB(translatedType, r, g, b, &d3dLight)
+			);
 		if (!Succeeded(result)) {
 			frame->Release();
-		}
-		else {
+		} else {
 			result = ResultVal(frame->AddLight(d3dLight));
 			if (!Succeeded(result)) {
 				d3dLight->Release();
 				frame->Release();
-			}
-			else {
+			} else {
 				d3dLight->Release();
 				newLight->m_data = frame;
 			}
@@ -221,9 +234,20 @@ inline Result RendererCreateTexture(
 	TglD3DRMIMAGE* image;
 	Result result;
 
-	image = new TglD3DRMIMAGE(width, height, bytesPerPixel, pBuffer, useBuffer, paletteSize, pEntries);
+	image = new TglD3DRMIMAGE(
+		width,
+		height,
+		bytesPerPixel,
+		pBuffer,
+		useBuffer,
+		paletteSize,
+		pEntries
+	);
 	// TODO: LPDIRECT3DRMTEXTURE2?
-	result = ResultVal(renderer->CreateTexture(&image->m_image, (LPDIRECT3DRMTEXTURE2*)&texture));
+	result = ResultVal(renderer->CreateTexture(
+		&image->m_image,
+		(LPDIRECT3DRMTEXTURE2*) &texture
+	));
 	if (Succeeded(result)) {
 		result = TextureImpl::SetImage(texture, image);
 		if (!Succeeded(result)) {
@@ -231,8 +255,7 @@ inline Result RendererCreateTexture(
 			texture = NULL;
 			delete image;
 		}
-	}
-	else {
+	} else {
 		delete image;
 	}
 	return result;
@@ -250,16 +273,16 @@ Texture* RendererImpl::CreateTexture(
 ) {
 	TextureImpl* texture = new TextureImpl();
 	if (!Succeeded(RendererCreateTexture(
-		m_data,
-		texture->m_data,
-		width,
-		height,
-		bitsPerTexel,
-		const_cast<void*>(pTexels),
-		texelsArePersistent,
-		paletteEntryCount,
-		const_cast<PaletteEntry*>(pEntries)
-	))) {
+			m_data,
+			texture->m_data,
+			width,
+			height,
+			bitsPerTexel,
+			const_cast<void*>(pTexels),
+			texelsArePersistent,
+			paletteEntryCount,
+			const_cast<PaletteEntry*>(pEntries)
+		))) {
 		delete texture;
 		texture = NULL;
 	}
@@ -269,7 +292,17 @@ Texture* RendererImpl::CreateTexture(
 // FUNCTION: LEGO1 0x100a20d0
 Texture* RendererImpl::CreateTexture() {
 	TextureImpl* texture = new TextureImpl();
-	if (!Succeeded(RendererCreateTexture(m_data, texture->m_data, 0, 0, 0, NULL, FALSE, 0, NULL))) {
+	if (!Succeeded(RendererCreateTexture(
+			m_data,
+			texture->m_data,
+			0,
+			0,
+			0,
+			NULL,
+			FALSE,
+			0,
+			NULL
+		))) {
 		delete texture;
 		texture = NULL;
 	}

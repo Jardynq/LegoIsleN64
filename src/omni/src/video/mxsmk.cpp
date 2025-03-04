@@ -4,7 +4,6 @@
 
 #include <string.h>
 
-
 // FUNCTION: LEGO1 0x100c5a90
 // FUNCTION: BETA10 0x10151e70
 MxResult MxSmk::LoadHeader(MxU8* p_data, MxSmk* p_mxSmk) {
@@ -79,8 +78,9 @@ MxResult MxSmk::LoadHeader(MxU8* p_data, MxSmk* p_mxSmk) {
 	p_data += smackTag->tablesize;
 
 	sizetables = SmackGetSizeTables();
-	p_mxSmk->m_huffmanTables =
-		new MxU8[smackTag->codesize + smackTag->detailsize + smackTag->typesize + smackTag->absize + sizetables];
+	p_mxSmk->m_huffmanTables = new MxU8
+		[smackTag->codesize + smackTag->detailsize + smackTag->typesize +
+		 smackTag->absize + sizetables];
 
 	if (!p_mxSmk->m_huffmanTables) {
 		result = FAILURE;
@@ -101,7 +101,7 @@ MxResult MxSmk::LoadHeader(MxU8* p_data, MxSmk* p_mxSmk) {
 	memset(p_mxSmk->m_unk0x6b4, 0, size);
 
 	width = p_mxSmk->m_smackTag.Width;
-	data = (MxU32*)p_mxSmk->m_unk0x6b4;
+	data = (MxU32*) p_mxSmk->m_unk0x6b4;
 
 	*data = 1;
 	data++;
@@ -163,8 +163,9 @@ MxResult MxSmk::LoadFrame(
 	MxBool p_paletteChanged,
 	MxRectList* p_list
 ) {
-	p_bitmapInfo->m_bmiHeader.biHeight = -MxBitmap::HeightAbs(p_bitmapInfo->m_bmiHeader.biHeight);
-	*(MxU8**)(p_mxSmk->m_unk0x6b4 + 4) = p_bitmapData;
+	p_bitmapInfo->m_bmiHeader.biHeight =
+		-MxBitmap::HeightAbs(p_bitmapInfo->m_bmiHeader.biHeight);
+	*(MxU8**) (p_mxSmk->m_unk0x6b4 + 4) = p_bitmapData;
 
 	// Reference: https://wiki.multimedia.cx/index.php/Smacker#Palette_Chunk
 	if (p_paletteChanged) {
@@ -179,21 +180,27 @@ MxResult MxSmk::LoadFrame(
 		do {
 			if (*intoChunk & 0x80) {
 				MxU8 length = (*intoChunk & 0x7f) + 1;
-				memcpy(intoPalette, &currentPalette[paletteIndex * 3], length * 3);
+				memcpy(
+					intoPalette,
+					&currentPalette[paletteIndex * 3],
+					length * 3
+				);
 				intoPalette += length * 3;
 				paletteIndex += length;
 				intoChunk++;
-			}
-			else {
+			} else {
 				if (*intoChunk & 0x40) {
 					MxU8 length = (*intoChunk & 0x3f) + 1;
-					memcpy(intoPalette, &currentPalette[*(intoChunk + 1) * 3], length * 3);
+					memcpy(
+						intoPalette,
+						&currentPalette[*(intoChunk + 1) * 3],
+						length * 3
+					);
 					intoPalette += length * 3;
 					paletteIndex += length;
 					intoChunk += 2;
-				}
-				else {
-					*(MxU32*)intoPalette = *(MxU32*)intoChunk;
+				} else {
+					*(MxU32*) intoPalette = *(MxU32*) intoChunk;
 					intoPalette += 3;
 					paletteIndex++;
 					intoChunk += 3;
@@ -212,7 +219,11 @@ MxResult MxSmk::LoadFrame(
 		p_chunkData += *p_chunkData * 4;
 	}
 
-	SmackDoFrameToBuffer(p_chunkData, p_mxSmk->m_huffmanTables, p_mxSmk->m_unk0x6b4);
+	SmackDoFrameToBuffer(
+		p_chunkData,
+		p_mxSmk->m_huffmanTables,
+		p_mxSmk->m_unk0x6b4
+	);
 
 	MxU16 und = 1;
 	u32 smackRect[4];
@@ -228,7 +239,12 @@ MxResult MxSmk::LoadFrame(
 
 // FUNCTION: LEGO1 0x100c6050
 // FUNCTION: BETA10 0x10152739
-MxBool MxSmk::GetRect(MxU8* p_unk0x6b4, MxU16* p_und, u32* p_smackRect, MxRect32* p_rect) {
+MxBool MxSmk::GetRect(
+	MxU8* p_unk0x6b4,
+	MxU16* p_und,
+	u32* p_smackRect,
+	MxRect32* p_rect
+) {
 	u32 left, bottom, top, right;
 
 	if (!*p_und) {

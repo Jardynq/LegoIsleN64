@@ -25,8 +25,7 @@ void MxEventManager::Destroy(MxBool p_fromDestructor) {
 	if (m_thread != NULL) {
 		m_thread->Terminate();
 		delete m_thread;
-	}
-	else {
+	} else {
 		TickleManager()->UnregisterClient(this);
 	}
 
@@ -50,8 +49,7 @@ MxResult MxEventManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 			if (!this->m_thread || this->m_thread->Start(0, 0) != SUCCESS) {
 				goto done;
 			}
-		}
-		else {
+		} else {
 			TickleManager()->RegisterClient(this, p_frequencyMS);
 		}
 

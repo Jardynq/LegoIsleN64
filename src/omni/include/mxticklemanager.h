@@ -18,7 +18,9 @@ public:
 
 	void SetTickleInterval(MxTime p_interval) { m_interval = p_interval; }
 
-	void SetLastUpdateTime(MxTime p_lastUpdateTime) { m_lastUpdateTime = p_lastUpdateTime; }
+	void SetLastUpdateTime(MxTime p_lastUpdateTime) {
+		m_lastUpdateTime = p_lastUpdateTime;
+	}
 
 	void SetFlags(MxU16 p_flags) { m_flags = p_flags; }
 
@@ -38,11 +40,13 @@ public:
 	MxTickleManager() {}
 	~MxTickleManager() override;
 
-	MxResult Tickle() override;                                                // vtable+0x08
-	virtual void RegisterClient(MxCore* p_client, MxTime p_interval);          // vtable+0x14
-	virtual void UnregisterClient(MxCore* p_client);                           // vtable+0x18
-	virtual void SetClientTickleInterval(MxCore* p_client, MxTime p_interval); // vtable+0x1c
-	virtual MxTime GetClientTickleInterval(MxCore* p_client);                  // vtable+0x20
+	MxResult Tickle() override; // vtable+0x08
+	virtual void
+	RegisterClient(MxCore* p_client, MxTime p_interval); // vtable+0x14
+	virtual void UnregisterClient(MxCore* p_client);     // vtable+0x18
+	virtual void
+	SetClientTickleInterval(MxCore* p_client, MxTime p_interval); // vtable+0x1c
+	virtual MxTime GetClientTickleInterval(MxCore* p_client);     // vtable+0x20
 
 	// SYNTHETIC: LEGO1 0x1005a510
 	// MxTickleManager::`scalar deleting destructor'
@@ -54,7 +58,8 @@ private:
 #define TICKLE_MANAGER_NOT_FOUND 0x80000000
 
 // TEMPLATE: LEGO1 0x1005a4a0
-// list<MxTickleClient *,allocator<MxTickleClient *> >::~list<MxTickleClient *,allocator<MxTickleClient *> >
+// list<MxTickleClient *,allocator<MxTickleClient *> >::~list<MxTickleClient
+// *,allocator<MxTickleClient *> >
 
 // TEMPLATE: LEGO1 0x1005a530
 // List<MxTickleClient *>::~List<MxTickleClient *>

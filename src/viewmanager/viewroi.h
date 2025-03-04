@@ -15,10 +15,9 @@
 // SIZE 0xe4
 class ViewROI : public OrientableROI {
 public:
-	ViewROI(Tgl::Renderer* pRenderer, ViewLODList* lodList) {
+	ViewROI(Tgl::Renderer* pRenderer, ViewLODList* lodList)
+		: geometry(pRenderer->CreateGroup()), m_unk0xe0(-1) {
 		SetLODList(lodList);
-		geometry = pRenderer->CreateGroup();
-		m_unk0xe0 = -1;
 	}
 
 	// FUNCTION: LEGO1 0x100a9e20

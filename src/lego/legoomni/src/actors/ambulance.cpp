@@ -22,7 +22,6 @@
 #include "mxvariabletable.h"
 #include "scripts.h"
 
-
 // Flags used in isle.cpp
 extern MxU32 g_isleFlags;
 
@@ -61,7 +60,9 @@ MxResult Ambulance::Create(MxDSAction& p_dsAction) {
 			m_world->Add(this);
 		}
 
-		m_state = (AmbulanceMissionState*)GameState()->GetState("AmbulanceMissionState");
+		m_state = (AmbulanceMissionState*) GameState()->GetState(
+			"AmbulanceMissionState"
+		);
 		if (!m_state) {
 			m_state = new AmbulanceMissionState();
 			m_state->m_unk0x08 = 0;
@@ -103,10 +104,13 @@ void Ambulance::Animate(float p_time) {
 // FUNCTION: BETA10 0x10022b2a
 void Ambulance::CreateState() {
 	LegoGameState* gameState = GameState();
-	AmbulanceMissionState* state = (AmbulanceMissionState*)gameState->GetState("AmbulanceMissionState");
+	AmbulanceMissionState* state =
+		(AmbulanceMissionState*) gameState->GetState("AmbulanceMissionState");
 
 	if (state == NULL) {
-		state = (AmbulanceMissionState*)gameState->CreateState("AmbulanceMissionState");
+		state = (AmbulanceMissionState*) gameState->CreateState(
+			"AmbulanceMissionState"
+		);
 	}
 
 	m_state = state;
@@ -116,26 +120,27 @@ void Ambulance::CreateState() {
 // FUNCTION: BETA10 0x10022b84
 MxLong Ambulance::Notify(MxParam& p_param) {
 	MxLong result = 0;
-	MxNotificationParam& param = (MxNotificationParam&)p_param;
+	MxNotificationParam& param = (MxNotificationParam&) p_param;
 
 	switch (param.GetNotification()) {
 	case c_notificationType0:
 		result = HandleNotification0();
 		break;
 	case c_notificationEndAction:
-		result = HandleEndAction((MxEndActionNotificationParam&)p_param);
+		result = HandleEndAction((MxEndActionNotificationParam&) p_param);
 		break;
 	case c_notificationButtonDown:
-		result = HandleButtonDown((LegoControlManagerNotificationParam&)p_param);
+		result =
+			HandleButtonDown((LegoControlManagerNotificationParam&) p_param);
 		break;
 	case c_notificationClick:
 		result = HandleClick();
 		break;
 	case c_notificationControl:
-		result = HandleControl((LegoControlManagerNotificationParam&)p_param);
+		result = HandleControl((LegoControlManagerNotificationParam&) p_param);
 		break;
 	case c_notificationPathStruct:
-		result = HandlePathStruct((LegoPathStructNotificationParam&)p_param);
+		result = HandlePathStruct((LegoPathStructNotificationParam&) p_param);
 		break;
 	}
 
@@ -146,7 +151,8 @@ MxLong Ambulance::Notify(MxParam& p_param) {
 // FUNCTION: BETA10 0x10022cc2
 MxLong Ambulance::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	if (p_param.GetAction() != NULL) {
-		IsleScript::Script objectId = (IsleScript::Script)p_param.GetAction()->GetObjectId();
+		IsleScript::Script objectId =
+			(IsleScript::Script) p_param.GetAction()->GetObjectId();
 
 		if (m_lastAnimation == objectId) {
 			m_lastAnimation = IsleScript::c_noneIsle;
@@ -158,33 +164,27 @@ MxLong Ambulance::HandleEndAction(MxEndActionNotificationParam& p_param) {
 			}
 
 			m_lastAction = IsleScript::c_noneIsle;
-		}
-		else if (objectId == IsleScript::c_hho027en_RunAnim) {
+		} else if (objectId == IsleScript::c_hho027en_RunAnim) {
 			m_state->m_unk0x08 = 1;
 			CurrentWorld()->PlaceActor(UserActor());
 			HandleClick();
 			m_unk0x172 = 0;
 			TickleManager()->RegisterClient(this, 40000);
-		}
-		else if (objectId == IsleScript::c_hpz047pe_RunAnim || objectId == IsleScript::c_hpz048pe_RunAnim || objectId == IsleScript::c_hpz049bd_RunAnim || objectId == IsleScript::c_hpz053pa_RunAnim) {
+		} else if (objectId == IsleScript::c_hpz047pe_RunAnim || objectId == IsleScript::c_hpz048pe_RunAnim || objectId == IsleScript::c_hpz049bd_RunAnim || objectId == IsleScript::c_hpz053pa_RunAnim) {
 			if (m_unk0x170 == 3) {
 				PlayAnimation(IsleScript::c_hpz055pa_RunAnim);
 				m_unk0x170 = 0;
-			}
-			else {
+			} else {
 				PlayAnimation(IsleScript::c_hpz053pa_RunAnim);
 			}
-		}
-		else if (objectId == IsleScript::c_hpz050bd_RunAnim || objectId == IsleScript::c_hpz052ma_RunAnim) {
+		} else if (objectId == IsleScript::c_hpz050bd_RunAnim || objectId == IsleScript::c_hpz052ma_RunAnim) {
 			if (m_unk0x170 == 3) {
 				PlayAnimation(IsleScript::c_hpz057ma_RunAnim);
 				m_unk0x170 = 0;
-			}
-			else {
+			} else {
 				PlayAnimation(IsleScript::c_hpz052ma_RunAnim);
 			}
-		}
-		else if (objectId == IsleScript::c_hpz055pa_RunAnim || objectId == IsleScript::c_hpz057ma_RunAnim) {
+		} else if (objectId == IsleScript::c_hpz055pa_RunAnim || objectId == IsleScript::c_hpz057ma_RunAnim) {
 			CurrentWorld()->PlaceActor(UserActor());
 			HandleClick();
 			SpawnPlayer(LegoGameState::e_pizzeriaExterior, TRUE, 0);
@@ -194,8 +194,7 @@ MxLong Ambulance::HandleEndAction(MxEndActionNotificationParam& p_param) {
 			if (m_unk0x16c != 0) {
 				StopActions();
 			}
-		}
-		else if (objectId == IsleScript::c_hps116bd_RunAnim || objectId == IsleScript::c_hps118re_RunAnim) {
+		} else if (objectId == IsleScript::c_hps116bd_RunAnim || objectId == IsleScript::c_hps118re_RunAnim) {
 			if (objectId == IsleScript::c_hps116bd_RunAnim && m_unk0x170 != 3) {
 				PlayAction(IsleScript::c_Avo923In_PlayWav);
 			}
@@ -203,12 +202,10 @@ MxLong Ambulance::HandleEndAction(MxEndActionNotificationParam& p_param) {
 			if (m_unk0x170 == 3) {
 				PlayAnimation(IsleScript::c_hps117bd_RunAnim);
 				m_unk0x170 = 0;
-			}
-			else {
+			} else {
 				PlayAnimation(IsleScript::c_hps118re_RunAnim);
 			}
-		}
-		else if (objectId == IsleScript::c_hps117bd_RunAnim) {
+		} else if (objectId == IsleScript::c_hps117bd_RunAnim) {
 			CurrentWorld()->PlaceActor(UserActor());
 			HandleClick();
 			SpawnPlayer(LegoGameState::e_unk33, TRUE, 0);
@@ -218,8 +215,7 @@ MxLong Ambulance::HandleEndAction(MxEndActionNotificationParam& p_param) {
 			if (m_unk0x16e != 0) {
 				StopActions();
 			}
-		}
-		else if (objectId == IsleScript::c_hho142cl_RunAnim || objectId == IsleScript::c_hho143cl_RunAnim || objectId == IsleScript::c_hho144cl_RunAnim) {
+		} else if (objectId == IsleScript::c_hho142cl_RunAnim || objectId == IsleScript::c_hho143cl_RunAnim || objectId == IsleScript::c_hho144cl_RunAnim) {
 			FUN_10037250();
 		}
 	}
@@ -229,7 +225,8 @@ MxLong Ambulance::HandleEndAction(MxEndActionNotificationParam& p_param) {
 
 // FUNCTION: LEGO1 0x100367c0
 // FUNCTION: BETA10 0x100230bf
-MxLong Ambulance::HandleButtonDown(LegoControlManagerNotificationParam& p_param) {
+MxLong Ambulance::HandleButtonDown(LegoControlManagerNotificationParam& p_param
+) {
 	if (m_unk0x170 == 1) {
 		LegoROI* roi = PickROI(p_param.GetX(), p_param.GetY());
 
@@ -257,13 +254,19 @@ MxLong Ambulance::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 		m_fuel = 1.0f;
 	}
 
-	if (p_param.GetTrigger() == LegoPathStruct::c_camAnim && p_param.GetData() == 0x0b) {
+	if (p_param.GetTrigger() == LegoPathStruct::c_camAnim &&
+		p_param.GetData() == 0x0b) {
 		if (m_unk0x16e != 0) {
 			if (m_unk0x16c != 0) {
 				m_state->m_unk0x08 = 2;
 
 				if (m_lastAction != IsleScript::c_noneIsle) {
-					InvokeAction(Extra::e_stop, *g_isleScript, m_lastAction, NULL);
+					InvokeAction(
+						Extra::e_stop,
+						*g_isleScript,
+						m_lastAction,
+						NULL
+					);
 				}
 
 				Leave();
@@ -272,12 +275,10 @@ MxLong Ambulance::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 				if (time < 300000) {
 					m_state->UpdateScore(LegoState::e_red, m_actorId);
 					PlayFinalAnimation(IsleScript::c_hho142cl_RunAnim);
-				}
-				else if (time < 400000) {
+				} else if (time < 400000) {
 					m_state->UpdateScore(LegoState::e_blue, m_actorId);
 					PlayFinalAnimation(IsleScript::c_hho143cl_RunAnim);
-				}
-				else {
+				} else {
 					m_state->UpdateScore(LegoState::e_yellow, m_actorId);
 					PlayFinalAnimation(IsleScript::c_hho144cl_RunAnim);
 				}
@@ -287,7 +288,12 @@ MxLong Ambulance::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 
 			if (m_unk0x16e != 0) {
 				if (m_lastAction != IsleScript::c_noneIsle) {
-					InvokeAction(Extra::e_stop, *g_isleScript, m_lastAction, NULL);
+					InvokeAction(
+						Extra::e_stop,
+						*g_isleScript,
+						m_lastAction,
+						NULL
+					);
 				}
 
 				PlayAction(IsleScript::c_Avo915In_PlayWav);
@@ -302,8 +308,7 @@ MxLong Ambulance::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 
 			PlayAction(IsleScript::c_Avo915In_PlayWav);
 		}
-	}
-	else if (p_param.GetTrigger() == LegoPathStruct::c_s && p_param.GetData() == 0x131 && m_unk0x16e == 0) {
+	} else if (p_param.GetTrigger() == LegoPathStruct::c_s && p_param.GetData() == 0x131 && m_unk0x16e == 0) {
 		m_unk0x16e = 1;
 		m_unk0x170 = 1;
 
@@ -332,8 +337,7 @@ MxLong Ambulance::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 			PlayAnimation(IsleScript::c_hpz048pe_RunAnim);
 			break;
 		}
-	}
-	else if (p_param.GetTrigger() == LegoPathStruct::c_camAnim && (p_param.GetData() == 0x22 || p_param.GetData() == 0x23 || p_param.GetData() == 0x24) && m_unk0x16c == 0) {
+	} else if (p_param.GetTrigger() == LegoPathStruct::c_camAnim && (p_param.GetData() == 0x22 || p_param.GetData() == 0x23 || p_param.GetData() == 0x24) && m_unk0x16c == 0) {
 		m_unk0x16c = 1;
 		m_unk0x170 = 1;
 
@@ -351,7 +355,7 @@ MxLong Ambulance::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 // FUNCTION: LEGO1 0x10036ce0
 // FUNCTION: BETA10 0x10023506
 MxLong Ambulance::HandleClick() {
-	if (((Act1State*)GameState()->GetState("Act1State"))->m_unk0x018 != 10) {
+	if (((Act1State*) GameState()->GetState("Act1State"))->m_unk0x018 != 10) {
 		return 1;
 	}
 
@@ -360,24 +364,35 @@ MxLong Ambulance::HandleClick() {
 	}
 
 	FUN_10015820(TRUE, 0);
-	((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::e_ambulance);
-	TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+	((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::e_ambulance);
+	TransitionManager()
+		->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
 
 	if (UserActor()->GetActorId() != GameState()->GetActorId()) {
-		((IslePathActor*)UserActor())->Exit();
+		((IslePathActor*) UserActor())->Exit();
 	}
 
 	m_time = Timer()->GetTime();
 	m_actorId = UserActor()->GetActorId();
 
 	Enter();
-	InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_AmbulanceDashboard, NULL);
+	InvokeAction(
+		Extra::e_start,
+		*g_isleScript,
+		IsleScript::c_AmbulanceDashboard,
+		NULL
+	);
 	ControlManager()->Register(this);
 
 	if (m_state->m_unk0x08 == 1) {
 		SpawnPlayer(LegoGameState::e_unk31, TRUE, 0);
 		m_state->m_startTime = Timer()->GetTime();
-		InvokeAction(Extra::e_start, *g_isleScript, IsleScript::c_pns018rd_RunAnim, NULL);
+		InvokeAction(
+			Extra::e_start,
+			*g_isleScript,
+			IsleScript::c_pns018rd_RunAnim,
+			NULL
+		);
 	}
 
 	return 1;
@@ -405,7 +420,10 @@ void Ambulance::Leave() {
 	IslePathActor::Exit();
 	CurrentWorld()->RemoveActor(this);
 	m_roi->SetVisibility(FALSE);
-	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_AmbulanceDashboard_Bitmap);
+	RemoveFromCurrentWorld(
+		*g_isleScript,
+		IsleScript::c_AmbulanceDashboard_Bitmap
+	);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_AmbulanceArms_Ctl);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_AmbulanceHorn_Ctl);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_AmbulanceHorn_Sound);
@@ -428,15 +446,24 @@ MxLong Ambulance::HandleControl(LegoControlManagerNotificationParam& p_param) {
 			result = 1;
 			break;
 		case IsleScript::c_AmbulanceInfo_Ctl:
-			((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
-			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+			((Isle*) CurrentWorld())
+				->SetDestLocation(LegoGameState::e_infomain);
+			TransitionManager()->StartTransition(
+				MxTransitionManager::e_mosaic,
+				50,
+				FALSE,
+				FALSE
+			);
 			Exit();
 			GameState()->m_currentArea = LegoGameState::e_unk66;
 			result = 1;
 			break;
 		case IsleScript::c_AmbulanceHorn_Ctl:
 			MxSoundPresenter* presenter =
-				(MxSoundPresenter*)CurrentWorld()->Find("MxSoundPresenter", "AmbulanceHorn_Sound");
+				(MxSoundPresenter*) CurrentWorld()->Find(
+					"MxSoundPresenter",
+					"AmbulanceHorn_Sound"
+				);
 			presenter->Enable(p_param.GetUnknown0x28());
 			break;
 		}
@@ -452,8 +479,7 @@ void Ambulance::ActivateSceneActions() {
 	if (m_state->m_unk0x08 == 1) {
 		m_state->m_unk0x08 = 0;
 		PlayAction(IsleScript::c_ham033cl_PlayWav);
-	}
-	else if (m_unk0x16c != 0 && m_unk0x16e != 0) {
+	} else if (m_unk0x16c != 0 && m_unk0x16e != 0) {
 		IsleScript::Script objectId;
 
 		switch (rand() % 2) {
@@ -470,8 +496,7 @@ void Ambulance::ActivateSceneActions() {
 		}
 
 		PlayAction(objectId);
-	}
-	else {
+	} else {
 		IsleScript::Script objectId;
 
 		switch (rand() % 2) {
@@ -496,8 +521,7 @@ void Ambulance::ActivateSceneActions() {
 MxResult Ambulance::Tickle() {
 	if (m_unk0x172 == 0) {
 		m_unk0x172 = 1;
-	}
-	else if (m_lastAction == IsleScript::c_noneIsle) {
+	} else if (m_lastAction == IsleScript::c_noneIsle) {
 		IsleScript::Script objectId;
 
 		switch ((rand() % 12) + 1) {
@@ -554,7 +578,7 @@ void Ambulance::StopActions() {
 void Ambulance::FUN_10037250() {
 	StopAction(m_lastAction);
 	BackgroundAudioManager()->RaiseVolume();
-	((Act1State*)GameState()->GetState("Act1State"))->m_unk0x018 = 0;
+	((Act1State*) GameState()->GetState("Act1State"))->m_unk0x018 = 0;
 	m_state->m_unk0x08 = 0;
 	m_unk0x16e = 0;
 	m_unk0x16c = 0;
@@ -568,16 +592,34 @@ void Ambulance::FUN_10037250() {
 // FUNCTION: LEGO1 0x100372e0
 // FUNCTION: BETA10 0x100241a0
 void Ambulance::PlayAnimation(IsleScript::Script p_objectId) {
-	AnimationManager()
-		->FUN_10060dc0(p_objectId, NULL, TRUE, LegoAnimationManager::e_unk0, NULL, FALSE, FALSE, FALSE, TRUE);
+	AnimationManager()->FUN_10060dc0(
+		p_objectId,
+		NULL,
+		TRUE,
+		LegoAnimationManager::e_unk0,
+		NULL,
+		FALSE,
+		FALSE,
+		FALSE,
+		TRUE
+	);
 	m_lastAnimation = p_objectId;
 }
 
 // FUNCTION: LEGO1 0x10037310
 // FUNCTION: BETA10 0x10024440
 void Ambulance::PlayFinalAnimation(IsleScript::Script p_objectId) {
-	AnimationManager()
-		->FUN_10060dc0(p_objectId, NULL, TRUE, LegoAnimationManager::e_unk1, NULL, FALSE, FALSE, TRUE, TRUE);
+	AnimationManager()->FUN_10060dc0(
+		p_objectId,
+		NULL,
+		TRUE,
+		LegoAnimationManager::e_unk1,
+		NULL,
+		FALSE,
+		FALSE,
+		TRUE,
+		TRUE
+	);
 	m_lastAnimation = p_objectId;
 }
 

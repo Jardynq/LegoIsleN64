@@ -29,7 +29,8 @@ public:
 	// FUNCTION: LEGO1 0x100c7370
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxDiskStreamController::ClassName()) || MxStreamController::IsA(p_name);
+		return !strcmp(p_name, MxDiskStreamController::ClassName()) ||
+			   MxStreamController::IsA(p_name);
 	}
 
 	MxResult Open(const char* p_filename) override;       // vtable+0x14
@@ -77,7 +78,8 @@ private:
 // list<MxDSObject *,allocator<MxDSObject *> >::_Buynode
 
 // TEMPLATE: LEGO1 0x100c7420
-// list<MxDSBuffer *,allocator<MxDSBuffer *> >::~list<MxDSBuffer *,allocator<MxDSBuffer *> >
+// list<MxDSBuffer *,allocator<MxDSBuffer *> >::~list<MxDSBuffer
+// *,allocator<MxDSBuffer *> >
 
 // TEMPLATE: LEGO1 0x100c7490
 // list<MxDSBuffer *,allocator<MxDSBuffer *> >::_Buynode

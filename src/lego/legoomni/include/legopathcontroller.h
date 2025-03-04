@@ -22,8 +22,11 @@ class Vector3;
 struct LegoPathCtrlEdge : public LegoUnknown100db7f4 {};
 
 struct LegoPathCtrlEdgeCompare {
-	MxU32 operator()(const LegoPathCtrlEdge* p_lhs, const LegoPathCtrlEdge* p_rhs) const {
-		return (COMPARE_POINTER_TYPE)p_lhs < (COMPARE_POINTER_TYPE)p_rhs;
+	MxU32 operator()(
+		const LegoPathCtrlEdge* p_lhs,
+		const LegoPathCtrlEdge* p_rhs
+	) const {
+		return (COMPARE_POINTER_TYPE) p_lhs < (COMPARE_POINTER_TYPE) p_rhs;
 	}
 };
 
@@ -74,14 +77,19 @@ public:
 	// FUNCTION: LEGO1 0x10045120
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoPathController::ClassName()) || MxCore::IsA(p_name);
+		return !strcmp(p_name, LegoPathController::ClassName()) ||
+			   MxCore::IsA(p_name);
 	}
 
 	// SYNTHETIC: LEGO1 0x10045740
 	// LegoPathController::`scalar deleting destructor'
 
-	virtual MxResult Create(MxU8* p_data, const Vector3& p_location, const MxAtomId& p_trigger); // vtable+0x14
-	virtual void Destroy();                                                                      // vtable+0x18
+	virtual MxResult Create(
+		MxU8* p_data,
+		const Vector3& p_location,
+		const MxAtomId& p_trigger
+	);                      // vtable+0x14
+	virtual void Destroy(); // vtable+0x18
 
 	MxResult PlaceActor(
 		LegoPathActor* p_actor,
@@ -133,20 +141,31 @@ public:
 	);
 
 	// FUNCTION: BETA10 0x100e0160
-	MxBool ActorExists(LegoPathActor* p_actor) { return m_actors.find(p_actor) == m_actors.end() ? FALSE : TRUE; }
+	MxBool ActorExists(LegoPathActor* p_actor) {
+		return m_actors.find(p_actor) == m_actors.end() ? FALSE : TRUE;
+	}
 
 	static MxResult Init();
 	static MxResult Reset();
 
 	// FUNCTION: BETA10 0x100cf580
-	static LegoUnknown100db7f4* GetControlEdgeA(MxS32 p_index) { return g_ctrlEdgesA[p_index].m_edge; }
+	static LegoUnknown100db7f4* GetControlEdgeA(MxS32 p_index) {
+		return g_ctrlEdgesA[p_index].m_edge;
+	}
 
 	// FUNCTION: BETA10 0x100cf5b0
-	static LegoPathBoundary* GetControlBoundaryA(MxS32 p_index) { return g_ctrlBoundariesA[p_index].m_boundary; }
+	static LegoPathBoundary* GetControlBoundaryA(MxS32 p_index) {
+		return g_ctrlBoundariesA[p_index].m_boundary;
+	}
 
-	// These two are an educated guess because BETA10 does not have the g_ctrl.*B globals
-	static LegoUnknown100db7f4* GetControlEdgeB(MxS32 p_index) { return g_ctrlEdgesB[p_index].m_edge; }
-	static LegoPathBoundary* GetControlBoundaryB(MxS32 p_index) { return g_ctrlBoundariesB[p_index].m_boundary; }
+	// These two are an educated guess because BETA10 does not have the
+	// g_ctrl.*B globals
+	static LegoUnknown100db7f4* GetControlEdgeB(MxS32 p_index) {
+		return g_ctrlEdgesB[p_index].m_edge;
+	}
+	static LegoPathBoundary* GetControlBoundaryB(MxS32 p_index) {
+		return g_ctrlBoundariesB[p_index].m_boundary;
+	}
 
 private:
 	void FUN_10046970();
@@ -161,21 +180,20 @@ private:
 	static MxU32 IsBetween(MxFloat p_v, MxFloat p_a, MxFloat p_b) {
 		if (p_a <= p_b) {
 			return p_v >= p_a && p_v <= p_b;
-		}
-		else {
+		} else {
 			return p_v <= p_a && p_v >= p_b;
 		}
 	}
 
 	// FUNCTION: BETA10 0x100c17a0
-	static MxU32 FUN_100c17a0(MxFloat p_v1, MxFloat p_v2, MxFloat p_a, MxFloat p_b) {
+	static MxU32
+	FUN_100c17a0(MxFloat p_v1, MxFloat p_v2, MxFloat p_a, MxFloat p_b) {
 		assert(IsBetween(p_v1, p_a, p_b));
 		assert(IsBetween(p_v2, p_a, p_b));
 
 		if (p_a <= p_b) {
 			return p_v1 < p_v2;
-		}
-		else {
+		} else {
 			return p_v1 > p_v2;
 		}
 	}

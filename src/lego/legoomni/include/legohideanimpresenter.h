@@ -6,7 +6,9 @@
 class LegoPathBoundary;
 
 struct LegoHideAnimStructComparator {
-	MxBool operator()(const char* const& p_a, const char* const& p_b) const { return strcmp(p_a, p_b) < 0; }
+	MxBool operator()(const char* const& p_a, const char* const& p_b) const {
+		return strcmp(p_a, p_b) < 0;
+	}
 };
 
 // SIZE 0x08
@@ -15,7 +17,8 @@ struct LegoHideAnimStruct {
 	MxU32 m_index;                // 0x04
 };
 
-typedef map<const char*, LegoHideAnimStruct, LegoHideAnimStructComparator> LegoHideAnimStructMap;
+typedef map<const char*, LegoHideAnimStruct, LegoHideAnimStructComparator>
+	LegoHideAnimStructMap;
 
 // VTABLE: LEGO1 0x100d9278
 // SIZE 0xc4

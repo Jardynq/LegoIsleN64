@@ -13,7 +13,6 @@
 #include "mxtransitionmanager.h"
 #include "scripts.h"
 
-
 // FUNCTION: LEGO1 0x10076670
 Bike::Bike() {
 	m_maxLinearVel = 20.0;
@@ -48,18 +47,24 @@ void Bike::Exit() {
 // FUNCTION: LEGO1 0x100769a0
 MxLong Bike::HandleClick() {
 	if (FUN_1003ef60()) {
-		Act1State* state = (Act1State*)GameState()->GetState("Act1State");
+		Act1State* state = (Act1State*) GameState()->GetState("Act1State");
 		FUN_10015820(TRUE, 0);
 
-		((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::Area::e_bike);
-		TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
+		((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::Area::e_bike);
+		TransitionManager()
+			->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
 
 		if (GameState()->GetActorId() != UserActor()->GetActorId()) {
-			((IslePathActor*)UserActor())->Exit();
+			((IslePathActor*) UserActor())->Exit();
 		}
 
 		Enter();
-		InvokeAction(Extra::ActionType::e_start, *g_isleScript, IsleScript::c_BikeDashboard, NULL);
+		InvokeAction(
+			Extra::ActionType::e_start,
+			*g_isleScript,
+			IsleScript::c_BikeDashboard,
+			NULL
+		);
 		GetCurrentAction().SetObjectId(-1);
 
 		Vector3 position = m_roi->GetWorldPosition();
@@ -83,14 +88,23 @@ MxLong Bike::HandleControl(LegoControlManagerNotificationParam& p_param) {
 			result = 1;
 			break;
 		case IsleScript::c_BikeInfo_Ctl:
-			((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
-			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+			((Isle*) CurrentWorld())
+				->SetDestLocation(LegoGameState::e_infomain);
+			TransitionManager()->StartTransition(
+				MxTransitionManager::e_mosaic,
+				50,
+				FALSE,
+				FALSE
+			);
 			Exit();
 			result = 1;
 			break;
 		case IsleScript::c_BikeHorn_Ctl:
 			MxSoundPresenter* presenter =
-				(MxSoundPresenter*)CurrentWorld()->Find("MxSoundPresenter", "BikeHorn_Sound");
+				(MxSoundPresenter*) CurrentWorld()->Find(
+					"MxSoundPresenter",
+					"BikeHorn_Sound"
+				);
 			presenter->Enable(p_param.GetUnknown0x28());
 			break;
 		}
@@ -103,7 +117,7 @@ MxLong Bike::HandleControl(LegoControlManagerNotificationParam& p_param) {
 void Bike::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_InformationCenter_Music);
 
-	Act1State* act1state = (Act1State*)GameState()->GetState("Act1State");
+	Act1State* act1state = (Act1State*) GameState()->GetState("Act1State");
 	if (!act1state->m_unk0x022) {
 		act1state->m_unk0x022 = TRUE;
 

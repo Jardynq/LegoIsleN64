@@ -1,10 +1,10 @@
 #ifndef RECT_H
 #define RECT_H
 
-#include "types.h"
 #include "math.h"
 #include "point.h"
 #include "size.h"
+#include "types.h"
 
 class Rect {
 public:

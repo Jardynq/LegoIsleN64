@@ -22,7 +22,8 @@ public:
 	// FUNCTION: BETA10 0x100a9130
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, CarRaceState::ClassName()) || RaceState::IsA(p_name);
+		return !strcmp(p_name, CarRaceState::ClassName()) ||
+			   RaceState::IsA(p_name);
 	}
 
 	// SYNTHETIC: LEGO1 0x1000f740
@@ -51,13 +52,16 @@ public:
 		return !strcmp(p_name, CarRace::ClassName()) || LegoRace::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override;                   // vtable+0x18
-	void ReadyWorld() override;                                         // vtable+0x50
-	MxBool Escape() override;                                           // vtable+0x64
-	MxLong HandleClick(LegoEventNotificationParam&) override;           // vtable+0x6c
-	MxLong HandlePathStruct(LegoPathStructNotificationParam&) override; // vtable+0x70
-	MxLong HandleEndAction(MxEndActionNotificationParam&) override;     // vtable+0x74
-	MxLong HandleType0Notification(MxNotificationParam&) override;      // vtable+0x78
+	MxResult Create(MxDSAction& p_dsAction) override;         // vtable+0x18
+	void ReadyWorld() override;                               // vtable+0x50
+	MxBool Escape() override;                                 // vtable+0x64
+	MxLong HandleClick(LegoEventNotificationParam&) override; // vtable+0x6c
+	MxLong
+	HandlePathStruct(LegoPathStructNotificationParam&) override; // vtable+0x70
+	MxLong
+	HandleEndAction(MxEndActionNotificationParam&) override; // vtable+0x74
+	MxLong
+	HandleType0Notification(MxNotificationParam&) override; // vtable+0x78
 
 	// FUNCTION: BETA10 0x100cd060
 	RaceSkel* GetSkeleton() { return m_skeleton; }

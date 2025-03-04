@@ -4,7 +4,6 @@
 #include "mxdsstreamingaction.h"
 #include "mxramstreamprovider.h"
 
-
 // FUNCTION: LEGO1 0x100c6110
 MxResult MxRAMStreamController::Open(const char* p_filename) {
 	AUTOLOCK(m_criticalSection);
@@ -13,18 +12,18 @@ MxResult MxRAMStreamController::Open(const char* p_filename) {
 	}
 
 	m_provider = new MxRAMStreamProvider();
-	if (((MxRAMStreamProvider*)m_provider) != NULL) {
+	if (((MxRAMStreamProvider*) m_provider) != NULL) {
 		if (m_provider->SetResourceToGet(this) != SUCCESS) {
 			return FAILURE;
 		}
 
 		ReadData(
-			((MxRAMStreamProvider*)m_provider)->GetBufferOfFileSize(),
-			((MxRAMStreamProvider*)m_provider)->GetFileSize()
+			((MxRAMStreamProvider*) m_provider)->GetBufferOfFileSize(),
+			((MxRAMStreamProvider*) m_provider)->GetFileSize()
 		);
 		m_buffer.SetBufferPointer(
-			((MxRAMStreamProvider*)m_provider)->GetBufferOfFileSize(),
-			((MxRAMStreamProvider*)m_provider)->GetFileSize()
+			((MxRAMStreamProvider*) m_provider)->GetBufferOfFileSize(),
+			((MxRAMStreamProvider*) m_provider)->GetFileSize()
 		);
 		return SUCCESS;
 	}
@@ -45,15 +44,15 @@ MxResult MxRAMStreamController::VTable0x20(MxDSAction* p_action) {
 			unk0x24 = action->GetUnknown24() + 1;
 		}
 		p_action->SetUnknown24(unk0x24);
-	}
-	else {
+	} else {
 		if (m_unk0x54.Find(p_action)) {
 			return FAILURE;
 		}
 	}
 
 	if (MxStreamController::VTable0x20(p_action) == SUCCESS) {
-		MxDSStreamingAction* action = (MxDSStreamingAction*)m_unk0x3c.Find(p_action);
+		MxDSStreamingAction* action =
+			(MxDSStreamingAction*) m_unk0x3c.Find(p_action);
 		MxDSStreamingAction streamingaction(*action);
 		result = DeserializeObject(streamingaction);
 	}
@@ -75,7 +74,8 @@ MxResult MxRAMStreamController::VTable0x24(MxDSAction* p_action) {
 }
 
 // FUNCTION: LEGO1 0x100c63c0
-MxResult MxRAMStreamController::DeserializeObject(MxDSStreamingAction& p_action) {
+MxResult MxRAMStreamController::DeserializeObject(MxDSStreamingAction& p_action
+) {
 	AUTOLOCK(m_criticalSection);
 	MxResult result;
 	MxDSStreamingAction* value = NULL;

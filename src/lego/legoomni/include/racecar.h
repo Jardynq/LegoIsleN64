@@ -22,7 +22,8 @@ public:
 	// FUNCTION: LEGO1 0x10028280
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, RaceCar::ClassName()) || IslePathActor::IsA(p_name);
+		return !strcmp(p_name, RaceCar::ClassName()) ||
+			   IslePathActor::IsA(p_name);
 	}
 
 	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18

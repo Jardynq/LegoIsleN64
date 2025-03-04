@@ -12,13 +12,14 @@ public:
 	MxMusicManager();
 	~MxMusicManager() override;
 
-	void Destroy() override;                                             // vtable+18
-	void SetVolume(MxS32 p_volume) override;                             // vtable+2c
-	virtual MxResult Create(MxU32 p_frequencyMS, MxBool p_createThread); // vtable+30
+	void Destroy() override;                 // vtable+18
+	void SetVolume(MxS32 p_volume) override; // vtable+2c
+	virtual MxResult
+	Create(MxU32 p_frequencyMS, MxBool p_createThread); // vtable+30
 
 	MxBool GetMIDIInitialized() { return m_midiInitialized; }
 	void GetMIDIVolume(DWORD& p_volume) {
-		if (midiOutGetVolume((HMIDIOUT)m_midiStreamH, &p_volume)) {
+		if (midiOutGetVolume((HMIDIOUT) m_midiStreamH, &p_volume)) {
 			p_volume = CalculateVolume(100);
 		}
 	}
@@ -35,7 +36,13 @@ private:
 	MxS32 CalculateVolume(MxS32 p_volume);
 	void SetMIDIVolume();
 
-	static void CALLBACK MidiCallbackProc(HDRVR p_hdrvr, UINT p_uMsg, DWORD p_dwUser, DWORD p_dw1, DWORD p_dw2);
+	static void CALLBACK MidiCallbackProc(
+		HDRVR p_hdrvr,
+		UINT p_uMsg,
+		DWORD p_dwUser,
+		DWORD p_dw1,
+		DWORD p_dw2
+	);
 
 	HMIDISTRM m_midiStreamH;     // 0x30
 	MxBool m_midiInitialized;    // 0x34

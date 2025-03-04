@@ -20,7 +20,9 @@ public:
 	LegoROIList(MxBool p_ownership = FALSE) : MxPtrList<LegoROI>(p_ownership) {}
 
 	// FUNCTION: LEGO1 0x1005f360
-	MxS8 Compare(LegoROI* p_a, LegoROI* p_b) override { return p_a == p_b ? 0 : p_a < p_b ? -1 : 1; } // vtable+0x14
+	MxS8 Compare(LegoROI* p_a, LegoROI* p_b) override {
+		return p_a == p_b ? 0 : p_a < p_b ? -1 : 1;
+	} // vtable+0x14
 
 	// SYNTHETIC: LEGO1 0x1005f480
 	// LegoROIList::`scalar deleting destructor'

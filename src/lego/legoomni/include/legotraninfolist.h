@@ -30,7 +30,8 @@ public:
 // SIZE 0x10
 class LegoTranInfoListCursor : public MxPtrListCursor<LegoTranInfo> {
 public:
-	LegoTranInfoListCursor(LegoTranInfoList* p_list) : MxPtrListCursor<LegoTranInfo>(p_list) {}
+	LegoTranInfoListCursor(LegoTranInfoList* p_list)
+		: MxPtrListCursor<LegoTranInfo>(p_list) {}
 };
 
 // TEMPLATE: LEGO1 0x1005fdf0

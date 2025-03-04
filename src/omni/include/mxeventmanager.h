@@ -10,8 +10,9 @@ public:
 	MxEventManager();
 	~MxEventManager() override;
 
-	void Destroy() override;                                             // vtable+18
-	virtual MxResult Create(MxU32 p_frequencyMS, MxBool p_createThread); // vtable+28
+	void Destroy() override; // vtable+18
+	virtual MxResult
+	Create(MxU32 p_frequencyMS, MxBool p_createThread); // vtable+28
 
 	// SYNTHETIC: LEGO1 0x100c03d0
 	// MxEventManager::`scalar deleting destructor'

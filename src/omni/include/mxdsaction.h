@@ -43,7 +43,8 @@ public:
 	// FUNCTION: BETA10 0x1012bd10
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxDSAction::ClassName()) || MxDSObject::IsA(p_name);
+		return !strcmp(p_name, MxDSAction::ClassName()) ||
+			   MxDSObject::IsA(p_name);
 	}
 
 	undefined4 VTable0x14() override;                            // vtable+14;

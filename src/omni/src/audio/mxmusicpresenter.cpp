@@ -3,7 +3,6 @@
 #include "mxmisc.h"
 #include "mxmusicmanager.h"
 
-
 // FUNCTION: LEGO1 0x100c22c0
 MxMusicPresenter::MxMusicPresenter() {
 	Init();

@@ -4,7 +4,6 @@
 
 #include <assert.h>
 
-
 // FUNCTION: LEGO1 0x1009a730
 // FUNCTION: BETA10 0x101830ec
 LegoWEGEdge::LegoWEGEdge() {
@@ -50,18 +49,16 @@ LegoS32 LegoWEGEdge::VTable0x04() {
 	Vector3* local20;
 	if (IsEqual(m_edges[0]->m_faceA)) {
 		local20 = m_edges[0]->m_pointB;
-	}
-	else {
+	} else {
 		assert(IsEqual(m_edges[0]->m_faceB));
 		local20 = m_edges[0]->m_pointA;
 	}
 
-	Vector3* local1c, * local14;
+	Vector3 *local1c, *local14;
 	if (IsEqual(m_edges[1]->m_faceA)) {
 		local1c = m_edges[1]->m_pointB;
 		local14 = m_edges[1]->m_pointA;
-	}
-	else {
+	} else {
 		assert(IsEqual(m_edges[1]->m_faceB));
 		local1c = m_edges[1]->m_pointA;
 		local14 = m_edges[1]->m_pointB;
@@ -109,7 +106,7 @@ LegoS32 LegoWEGEdge::VTable0x04() {
 		}
 	}
 
-	m_unk0x44 = sqrt((double)m_unk0x44);
+	m_unk0x44 = sqrt((double) m_unk0x44);
 
 	for (i = 0; i < m_numEdges; i++) {
 		edge = m_edges[i];
@@ -127,7 +124,7 @@ LegoS32 LegoWEGEdge::VTable0x04() {
 				}
 			}
 
-			edge->m_unk0x3c = sqrt((double)edge->m_unk0x3c);
+			edge->m_unk0x3c = sqrt((double) edge->m_unk0x3c);
 			local5c /= edge->m_unk0x3c;
 		}
 
@@ -142,7 +139,9 @@ LegoS32 LegoWEGEdge::VTable0x04() {
 		}
 
 		if (edge->GetFaceA() != NULL && edge->GetFaceB() != NULL) {
-			edge->SetFlags(LegoUnknown100db7f4::c_bit1 | LegoUnknown100db7f4::c_bit2);
+			edge->SetFlags(
+				LegoUnknown100db7f4::c_bit1 | LegoUnknown100db7f4::c_bit2
+			);
 		}
 	}
 
@@ -202,8 +201,7 @@ LegoS32 LegoWEGEdge::VTable0x04() {
 					m_pathTrigger[j].m_unk0x08 = local9c;
 				}
 			}
-		}
-		else {
+		} else {
 			result = -5;
 		}
 	}
@@ -221,7 +219,7 @@ LegoS32 LegoWEGEdge::FUN_1009aea0() {
 		return -1;
 	}
 
-	Vector3** local8 = new Vector3 * [m_numEdges];
+	Vector3** local8 = new Vector3*[m_numEdges];
 	LegoS32 i;
 
 	for (i = 0; i < m_numEdges; i++) {
@@ -245,7 +243,7 @@ LegoS32 LegoWEGEdge::FUN_1009aea0() {
 			continue;
 		}
 
-		float local58 = sqrt((double)local28);
+		float local58 = sqrt((double) local28);
 		local24 /= local58;
 
 		if (localc) {
@@ -254,8 +252,7 @@ LegoS32 LegoWEGEdge::FUN_1009aea0() {
 				delete[] local8;
 				return -2;
 			}
-		}
-		else {
+		} else {
 			m_unk0x14[0] = local24[0];
 			m_unk0x14[1] = local24[1];
 			m_unk0x14[2] = local24[2];

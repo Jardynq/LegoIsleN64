@@ -10,15 +10,19 @@ class MxPresenter;
 // SIZE 0x14
 class MxActionNotificationParam : public MxNotificationParam {
 public:
-	MxActionNotificationParam(NotificationId p_type, MxCore* p_sender, MxDSAction* p_action, MxBool p_reallocAction)
+	MxActionNotificationParam(
+		NotificationId p_type,
+		MxCore* p_sender,
+		MxDSAction* p_action,
+		MxBool p_reallocAction
+	)
 		: MxNotificationParam(p_type, p_sender) {
 		MxDSAction* oldAction = p_action;
 		m_realloc = p_reallocAction;
 
 		if (p_reallocAction) {
 			m_action = new MxDSAction();
-		}
-		else {
+		} else {
 			m_action = oldAction;
 			return;
 		}
@@ -41,7 +45,12 @@ public:
 
 	// FUNCTION: LEGO1 0x100510c0
 	MxNotificationParam* Clone() const override {
-		return new MxActionNotificationParam(m_type, m_sender, m_action, m_realloc);
+		return new MxActionNotificationParam(
+			m_type,
+			m_sender,
+			m_action,
+			m_realloc
+		);
 	} // vtable+0x04
 
 	// FUNCTION: BETA10 0x10017970
@@ -62,8 +71,12 @@ public:
 		MxDSAction* p_action,
 		MxBool p_reallocAction
 	)
-		: MxActionNotificationParam(p_type, p_sender, p_action, p_reallocAction) {
-	}
+		: MxActionNotificationParam(
+			  p_type,
+			  p_sender,
+			  p_action,
+			  p_reallocAction
+		  ) {}
 
 	MxNotificationParam* Clone() const override; // vtable+0x04
 };
@@ -72,13 +85,27 @@ public:
 // SIZE 0x14
 class MxEndActionNotificationParam : public MxActionNotificationParam {
 public:
-	MxEndActionNotificationParam(NotificationId p_type, MxCore* p_sender, MxDSAction* p_action, MxBool p_reallocAction)
-		: MxActionNotificationParam(p_type, p_sender, p_action, p_reallocAction) {
-	}
+	MxEndActionNotificationParam(
+		NotificationId p_type,
+		MxCore* p_sender,
+		MxDSAction* p_action,
+		MxBool p_reallocAction
+	)
+		: MxActionNotificationParam(
+			  p_type,
+			  p_sender,
+			  p_action,
+			  p_reallocAction
+		  ) {}
 
 	// FUNCTION: LEGO1 0x10051270
 	MxNotificationParam* Clone() const override {
-		return new MxEndActionNotificationParam(c_notificationEndAction, m_sender, m_action, m_realloc);
+		return new MxEndActionNotificationParam(
+			c_notificationEndAction,
+			m_sender,
+			m_action,
+			m_realloc
+		);
 	} // vtable+0x04
 };
 
@@ -86,8 +113,17 @@ public:
 // SIZE 0x18
 class MxType4NotificationParam : public MxActionNotificationParam {
 public:
-	MxType4NotificationParam(MxCore* p_sender, MxDSAction* p_action, MxPresenter* p_unk0x14)
-		: MxActionNotificationParam(c_notificationType4, p_sender, p_action, FALSE) {
+	MxType4NotificationParam(
+		MxCore* p_sender,
+		MxDSAction* p_action,
+		MxPresenter* p_unk0x14
+	)
+		: MxActionNotificationParam(
+			  c_notificationType4,
+			  p_sender,
+			  p_action,
+			  FALSE
+		  ) {
 		m_unk0x14 = p_unk0x14;
 	}
 

@@ -35,7 +35,8 @@ public:
 	// FUNCTION: LEGO1 0x1000df90
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoAct2State::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, LegoAct2State::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	// SYNTHETIC: LEGO1 0x1000e040
@@ -73,7 +74,9 @@ public:
 	void Enable(MxBool p_enable) override; // vtable+0x68
 
 	void SetUnknown0x1138(Act2Actor* p_unk0x1138) { m_unk0x1138 = p_unk0x1138; }
-	void SetDestLocation(LegoGameState::Area p_destLocation) { m_destLocation = p_destLocation; }
+	void SetDestLocation(LegoGameState::Area p_destLocation) {
+		m_destLocation = p_destLocation;
+	}
 
 	MxResult FUN_100516b0();
 	void FUN_100517b0();

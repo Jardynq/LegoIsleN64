@@ -2,8 +2,6 @@
 
 #include "tglsurface.h"
 
-
-
 using namespace Tgl;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -64,8 +62,14 @@ int GetBitsPerPixel(IDirectDrawSurface* pSurface) {
 
 // FUNCTION: LEGO1 0x100abe50
 // FUNCTION: BETA10 0x1017d742
-BOOL TglSurface::Create(const CreateStruct& rCreateStruct, Renderer* pRenderer, Group* pScene) {
-	DeviceDirect3DCreateData createData = { rCreateStruct.m_direct3d, rCreateStruct.m_d3dDevice };
+BOOL TglSurface::Create(
+	const CreateStruct& rCreateStruct,
+	Renderer* pRenderer,
+	Group* pScene
+) {
+	DeviceDirect3DCreateData createData = {
+		rCreateStruct.m_direct3d,
+		rCreateStruct.m_d3dDevice};
 	int bitsPerPixel = GetBitsPerPixel(rCreateStruct.m_pFrontBuffer);
 
 	ColorModel colorModel = Ramp;
@@ -90,27 +94,23 @@ BOOL TglSurface::Create(const CreateStruct& rCreateStruct, Renderer* pRenderer, 
 	if (bitsPerPixel == 1) {
 		shadeCount = 4;
 		textureShadeCount = 4;
-	}
-	else if (bitsPerPixel == 8) {
+	} else if (bitsPerPixel == 8) {
 		shadeCount = 32;
 		shadeCount = 16;
 		dither = FALSE;
 		textureShadeCount = shadeCount;
 		textureColorCount = 256;
-	}
-	else if (bitsPerPixel == 16) {
+	} else if (bitsPerPixel == 16) {
 		shadeCount = 32;
 		dither = FALSE;
 		textureShadeCount = shadeCount;
 		textureColorCount = 256;
-	}
-	else if (bitsPerPixel >= 24) {
+	} else if (bitsPerPixel >= 24) {
 		shadeCount = 256;
 		dither = FALSE;
 		textureShadeCount = 256;
 		textureColorCount = 64;
-	}
-	else {
+	} else {
 		dither = FALSE;
 	}
 

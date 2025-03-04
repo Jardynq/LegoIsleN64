@@ -8,8 +8,10 @@
 // SIZE 0x08
 struct LegoCacheSoundEntry {
 	LegoCacheSoundEntry() : m_sound(NULL), m_name(NULL) {}
-	LegoCacheSoundEntry(LegoCacheSound* p_sound, const char* p_name) : m_sound(p_sound), m_name(p_name) {}
-	LegoCacheSoundEntry(LegoCacheSound* p_sound) : m_sound(p_sound), m_name(p_sound->GetUnknown0x48().GetData()) {}
+	LegoCacheSoundEntry(LegoCacheSound* p_sound, const char* p_name)
+		: m_sound(p_sound), m_name(p_name) {}
+	LegoCacheSoundEntry(LegoCacheSound* p_sound)
+		: m_sound(p_sound), m_name(p_sound->GetUnknown0x48().GetData()) {}
 
 	// FUNCTION: LEGO1 0x1003d030
 	~LegoCacheSoundEntry() {
@@ -32,7 +34,10 @@ private:
 };
 
 struct Set100d6b4cComparator {
-	bool operator()(const LegoCacheSoundEntry& p_a, const LegoCacheSoundEntry& p_b) const {
+	bool operator()(
+		const LegoCacheSoundEntry& p_a,
+		const LegoCacheSoundEntry& p_b
+	) const {
 		return strcmpi(p_a.m_name, p_b.m_name) > 0;
 	}
 };
@@ -51,8 +56,10 @@ public:
 
 	LegoCacheSound* FindSoundByKey(const char* p_key);
 	LegoCacheSound* ManageSoundEntry(LegoCacheSound* p_sound);
-	LegoCacheSound* Play(const char* p_key, const char* p_name, MxBool p_looping);
-	LegoCacheSound* Play(LegoCacheSound* p_sound, const char* p_name, MxBool p_looping);
+	LegoCacheSound*
+	Play(const char* p_key, const char* p_name, MxBool p_looping);
+	LegoCacheSound*
+	Play(LegoCacheSound* p_sound, const char* p_name, MxBool p_looping);
 	void Stop(LegoCacheSound*& p_sound);
 	void Destroy(LegoCacheSound*& p_sound);
 

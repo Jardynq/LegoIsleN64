@@ -7,7 +7,6 @@
 #include "mxdsaction.h"
 #include "mxdssubscriber.h"
 
-
 // FUNCTION: LEGO1 0x1006caa0
 // FUNCTION: BETA10 0x1005223d
 void LegoLoopingAnimPresenter::StreamingTickle() {
@@ -23,10 +22,10 @@ void LegoLoopingAnimPresenter::StreamingTickle() {
 				m_compositePresenter->VTable0x60(this);
 			}
 		}
-	}
-	else {
+	} else {
 		if (m_action->GetDuration() != -1) {
-			if (m_action->GetElapsedTime() > m_action->GetDuration() + m_action->GetStartTime()) {
+			if (m_action->GetElapsedTime() >
+				m_action->GetDuration() + m_action->GetStartTime()) {
 				m_unk0x95 = TRUE;
 			}
 		}
@@ -39,15 +38,16 @@ void LegoLoopingAnimPresenter::PutFrame() {
 	MxLong time;
 
 	if (m_action->GetStartTime() <= m_action->GetElapsedTime()) {
-		time = (m_action->GetElapsedTime() - m_action->GetStartTime()) % m_anim->GetDuration();
-	}
-	else {
+		time = (m_action->GetElapsedTime() - m_action->GetStartTime()) %
+			   m_anim->GetDuration();
+	} else {
 		time = 0;
 	}
 
 	FUN_1006b9a0(m_anim, time, m_unk0x78);
 
-	if (m_unk0x8c != NULL && m_currentWorld != NULL && m_currentWorld->GetCameraController() != NULL) {
+	if (m_unk0x8c != NULL && m_currentWorld != NULL &&
+		m_currentWorld->GetCameraController() != NULL) {
 		for (MxS32 i = 0; i < m_unk0x94; i++) {
 			if (m_unk0x8c[i] != NULL) {
 				MxMatrix mat(m_unk0x8c[i]->GetLocal2World());

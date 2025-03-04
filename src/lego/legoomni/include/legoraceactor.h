@@ -27,12 +27,15 @@ public:
 	// FUNCTION: LEGO1 0x10014b20
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoRaceActor::ClassName()) || LegoAnimActor::IsA(p_name);
+		return !strcmp(p_name, LegoRaceActor::ClassName()) ||
+			   LegoAnimActor::IsA(p_name);
 	}
 
-	MxS32 VTable0x68(Vector3& p_v1, Vector3& p_v2, Vector3& p_v3) override; // vtable+0x68
-	MxU32 VTable0x90(float p_time, Matrix4& p_matrix) override;             // vtable+0x90
-	MxResult HitActor(LegoPathActor* p_actor, MxBool p_bool) override;      // vtable+0x94
+	MxS32 VTable0x68(Vector3& p_v1, Vector3& p_v2, Vector3& p_v3)
+		override;                                               // vtable+0x68
+	MxU32 VTable0x90(float p_time, Matrix4& p_matrix) override; // vtable+0x90
+	MxResult
+	HitActor(LegoPathActor* p_actor, MxBool p_bool) override; // vtable+0x94
 
 	virtual MxResult FUN_10014aa0();
 

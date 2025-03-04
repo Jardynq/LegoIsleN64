@@ -31,8 +31,8 @@ public:
 	const char* ClassName() const override // vtable+0x0c
 	{
 		// While this class exists in BETA10, it didn't have a ClassName().
-		// I suppose it did not inherit from MxCore back then and likely did not have a VTABLE.
-		// STRING: LEGO1 0x100f318c
+		// I suppose it did not inherit from MxCore back then and likely did not
+		// have a VTABLE. STRING: LEGO1 0x100f318c
 		return "LegoPlantManager";
 	}
 
@@ -50,7 +50,8 @@ public:
 	MxU32 GetAnimationId(LegoEntity* p_entity);
 	MxU32 GetSoundId(LegoEntity* p_entity, MxBool p_state);
 	LegoPlantInfo* GetInfoArray(MxS32& p_length);
-	LegoEntity* CreatePlant(MxS32 p_index, LegoWorld* p_world, LegoOmni::World p_worldId);
+	LegoEntity*
+	CreatePlant(MxS32 p_index, LegoWorld* p_world, LegoOmni::World p_worldId);
 	MxBool FUN_10026c50(LegoEntity* p_entity);
 	void ScheduleAnimation(LegoEntity* p_entity, MxLong p_length);
 	MxResult FUN_10026410();

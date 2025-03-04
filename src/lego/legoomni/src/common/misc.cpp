@@ -193,7 +193,11 @@ void PlayMusic(JukeboxScript::Script p_objectId) {
 	action.SetAtomId(*g_jukeboxScript);
 	action.SetObjectId(p_objectId);
 
-	LegoOmni::GetInstance()->GetBackgroundAudioManager()->PlayMusic(action, 5, MxPresenter::e_repeating);
+	LegoOmni::GetInstance()->GetBackgroundAudioManager()->PlayMusic(
+		action,
+		5,
+		MxPresenter::e_repeating
+	);
 }
 
 // FUNCTION: LEGO1 0x100159c0

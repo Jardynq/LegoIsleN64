@@ -9,11 +9,7 @@ class Matrix4;
 // SIZE 0x08
 class LegoAnimKey {
 public:
-	enum Flags {
-		c_bit1 = 0x01,
-		c_bit2 = 0x02,
-		c_bit3 = 0x04
-	};
+	enum Flags { c_bit1 = 0x01, c_bit2 = 0x02, c_bit3 = 0x04 };
 
 	LegoAnimKey();
 	LegoResult Read(LegoStorage* p_storage);
@@ -32,8 +28,7 @@ public:
 	void FUN_100739a0(MxS32 p_param) {
 		if (p_param) {
 			m_flags |= c_bit1;
-		}
-		else {
+		} else {
 			m_flags &= ~c_bit1;
 		}
 	}
@@ -170,7 +165,9 @@ public:
 	LegoU16 GetNumRotationKeys() { return m_numRotationKeys; }
 
 	// FUNCTION: BETA10 0x100737e0
-	void SetNumRotationKeys(LegoU16 p_numRotationKeys) { m_numRotationKeys = p_numRotationKeys; }
+	void SetNumRotationKeys(LegoU16 p_numRotationKeys) {
+		m_numRotationKeys = p_numRotationKeys;
+	}
 
 	// FUNCTION: BETA10 0x10073810
 	void SetRotationKeys(LegoRotationKey* p_keys) {
@@ -189,10 +186,16 @@ public:
 	LegoU16 GetUnknown0x22() { return m_unk0x22; }
 
 	// FUNCTION: BETA10 0x10073b80
-	LegoRotationKey* GetRotationKey(MxS32 index) { return &m_rotationKeys[index]; }
+	LegoRotationKey* GetRotationKey(MxS32 index) {
+		return &m_rotationKeys[index];
+	}
 
-	void SetTranslationIndex(LegoU32 p_translationIndex) { m_translationIndex = p_translationIndex; }
-	void SetRotationIndex(LegoU32 p_rotationIndex) { m_rotationIndex = p_rotationIndex; }
+	void SetTranslationIndex(LegoU32 p_translationIndex) {
+		m_translationIndex = p_translationIndex;
+	}
+	void SetRotationIndex(LegoU32 p_rotationIndex) {
+		m_rotationIndex = p_rotationIndex;
+	}
 	void SetScaleIndex(LegoU32 p_scaleIndex) { m_scaleIndex = p_scaleIndex; }
 	void SetMorphIndex(LegoU32 p_morphIndex) { m_morphIndex = p_morphIndex; }
 
@@ -206,7 +209,9 @@ public:
 	}
 
 	// FUNCTION: BETA10 0x10073900
-	void SetNumMorphKeys(LegoU16 p_numMorphKeys) { m_numMorphKeys = p_numMorphKeys; }
+	void SetNumMorphKeys(LegoU16 p_numMorphKeys) {
+		m_numMorphKeys = p_numMorphKeys;
+	}
 
 	// FUNCTION: BETA10 0x10059600
 	void SetUnknown0x20(LegoU16 p_unk0x20) { m_unk0x20 = p_unk0x20; }
@@ -215,9 +220,11 @@ public:
 	void SetUnknown0x22(LegoU16 p_unk0x22) { m_unk0x22 = p_unk0x22; }
 
 	LegoResult CreateLocalTransform(LegoTime p_time, Matrix4& p_matrix) {
-		return CreateLocalTransform((LegoFloat)p_time, p_matrix);
+		return CreateLocalTransform((LegoFloat) p_time, p_matrix);
 	}
-	LegoBool FUN_100a0990(LegoTime p_time) { return FUN_100a0990((LegoFloat)p_time); }
+	LegoBool FUN_100a0990(LegoTime p_time) {
+		return FUN_100a0990((LegoFloat) p_time);
+	}
 
 	inline static void GetTranslation(
 		LegoU16 p_numTranslationKeys,
@@ -247,7 +254,8 @@ public:
 		LegoAnimKey& p_key2,
 		LegoFloat p_value2
 	);
-	inline static LegoAnimKey& GetKey(LegoU32 p_i, LegoAnimKey* p_keys, LegoU32 p_size);
+	inline static LegoAnimKey&
+	GetKey(LegoU32 p_i, LegoAnimKey* p_keys, LegoU32 p_size);
 
 	static LegoU32 FindKeys(
 		LegoFloat p_time,
@@ -326,8 +334,9 @@ public:
 	LegoTime GetDuration() { return m_duration; }
 
 	LegoU32 GetNumActors() { return m_numActors; }
-	LegoResult Write(LegoStorage* p_storage) override;                     // vtable+0x08
-	virtual LegoResult Read(LegoStorage* p_storage, LegoS32 p_parseScene); // vtable+0x10
+	LegoResult Write(LegoStorage* p_storage) override; // vtable+0x08
+	virtual LegoResult
+	Read(LegoStorage* p_storage, LegoS32 p_parseScene); // vtable+0x10
 
 	const LegoChar* GetActorName(LegoU32 p_index);
 	undefined4 GetActorUnknown0x04(LegoU32 p_index);
@@ -345,7 +354,9 @@ protected:
 	LegoAnimScene* m_camAnim;        // 0x14
 
 	// FUNCTION: LEGO1 0x100a1040
-	LegoTreeNodeData* CreateData() override { return new LegoAnimNodeData(); } // vtable+0x0c
+	LegoTreeNodeData* CreateData() override {
+		return new LegoAnimNodeData();
+	} // vtable+0x0c
 };
 
 #endif // __LEGOANIM_H

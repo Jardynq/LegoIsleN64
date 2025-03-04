@@ -13,10 +13,14 @@ class MxPresenter;
 class MxDSObjectList : public MxUtilityList<MxDSObject*> {
 public:
 	// FUNCTION: BETA10 0x10150e30
-	MxDSObject* FindAndErase(MxDSObject* p_action) { return FindInternal(p_action, TRUE); }
+	MxDSObject* FindAndErase(MxDSObject* p_action) {
+		return FindInternal(p_action, TRUE);
+	}
 
 	// FUNCTION: BETA10 0x10150fc0
-	MxDSObject* Find(MxDSObject* p_action) { return FindInternal(p_action, FALSE); }
+	MxDSObject* Find(MxDSObject* p_action) {
+		return FindInternal(p_action, FALSE);
+	}
 
 private:
 	MxDSObject* FindInternal(MxDSObject* p_action, MxBool p_delete);
@@ -69,10 +73,12 @@ public:
 	// FUNCTION: ISLE 0x401c40
 	// FUNCTION: LEGO1 0x10005530
 	// FUNCTION: BETA10 0x100152e0
-	virtual void SetAtomId(MxAtomId p_atomId) { m_atomId = p_atomId; } // vtable+20;
+	virtual void SetAtomId(MxAtomId p_atomId) {
+		m_atomId = p_atomId;
+	} // vtable+20;
 
 	// FUNCTION: BETA10 0x1012ef90
-	Type GetType() const { return (Type)m_type; }
+	Type GetType() const { return (Type) m_type; }
 
 	// FUNCTION: BETA10 0x1012efb0
 	const char* GetSourceName() const { return m_sourceName; }

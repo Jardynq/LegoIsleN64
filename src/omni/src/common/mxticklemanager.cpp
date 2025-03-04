@@ -5,7 +5,6 @@
 
 #define TICKLE_MANAGER_FLAG_DESTROY 0x01
 
-
 // FUNCTION: LEGO1 0x100bdd10
 MxTickleClient::MxTickleClient(MxCore* p_client, MxTime p_interval) {
 	m_flags = 0;
@@ -31,18 +30,18 @@ MxResult MxTickleManager::Tickle() {
 	for (it = m_clients.begin(); !(it == m_clients.end());) {
 		MxTickleClient* client = *it;
 
-		if ((MxBool)client->GetFlags() & TICKLE_MANAGER_FLAG_DESTROY) {
+		if ((MxBool) client->GetFlags() & TICKLE_MANAGER_FLAG_DESTROY) {
 			m_clients.erase(it++);
 			delete client;
-		}
-		else {
+		} else {
 			it++;
 
 			if (client->GetLastUpdateTime() > time) {
 				client->SetLastUpdateTime(-client->GetTickleInterval());
 			}
 
-			if ((client->GetTickleInterval() + client->GetLastUpdateTime()) < time) {
+			if ((client->GetTickleInterval() + client->GetLastUpdateTime()) <
+				time) {
 				client->GetClient()->Tickle();
 				client->SetLastUpdateTime(time);
 			}
@@ -78,10 +77,16 @@ void MxTickleManager::UnregisterClient(MxCore* p_client) {
 }
 
 // FUNCTION: LEGO1 0x100bdfa0
-void MxTickleManager::SetClientTickleInterval(MxCore* p_client, MxTime p_interval) {
-	for (MxTickleClientPtrList::iterator it = m_clients.begin(); it != m_clients.end(); it++) {
+void MxTickleManager::SetClientTickleInterval(
+	MxCore* p_client,
+	MxTime p_interval
+) {
+	for (MxTickleClientPtrList::iterator it = m_clients.begin();
+		 it != m_clients.end();
+		 it++) {
 		MxTickleClient* client = *it;
-		if ((client->GetClient() == p_client) && ((client->GetFlags() & TICKLE_MANAGER_FLAG_DESTROY) == 0)) {
+		if ((client->GetClient() == p_client) &&
+			((client->GetFlags() & TICKLE_MANAGER_FLAG_DESTROY) == 0)) {
 			client->SetTickleInterval(p_interval);
 			return;
 		}
@@ -93,7 +98,8 @@ MxTime MxTickleManager::GetClientTickleInterval(MxCore* p_client) {
 	MxTickleClientPtrList::iterator it = m_clients.begin();
 	while (it != m_clients.end()) {
 		MxTickleClient* client = *it;
-		if ((client->GetClient() == p_client) && ((client->GetFlags() & TICKLE_MANAGER_FLAG_DESTROY) == 0)) {
+		if ((client->GetClient() == p_client) &&
+			((client->GetFlags() & TICKLE_MANAGER_FLAG_DESTROY) == 0)) {
 			return client->GetTickleInterval();
 		}
 

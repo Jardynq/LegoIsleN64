@@ -9,7 +9,6 @@
 #include "mxdssubscriber.h"
 #include "mxutilities.h"
 
-
 // FUNCTION: LEGO1 0x100448d0
 LegoPathPresenter::LegoPathPresenter() {
 	Init();
@@ -69,11 +68,14 @@ void LegoPathPresenter::ReadyTickle() {
 
 			if (controller == NULL) {
 				EndAction();
-			}
-			else {
+			} else {
 				ParseExtra();
 
-				controller->Create(chunk->GetData(), m_action->GetLocation(), m_trigger);
+				controller->Create(
+					chunk->GetData(),
+					m_action->GetLocation(),
+					m_trigger
+				);
 				world->AddPath(controller);
 
 				m_subscriber->FreeDataChunk(chunk);
@@ -118,7 +120,8 @@ void LegoPathPresenter::ParseExtra() {
 
 		strupr(extraCopy);
 
-		if (KeyValueStringParse(output, g_strTRIGGERS_SOURCE, extraCopy) != FALSE) {
+		if (KeyValueStringParse(output, g_strTRIGGERS_SOURCE, extraCopy) !=
+			FALSE) {
 			m_trigger = MxAtomId(output, e_lowerCase2);
 		}
 	}

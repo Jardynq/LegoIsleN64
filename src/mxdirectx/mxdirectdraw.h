@@ -50,7 +50,11 @@ public:
 	int FlipToGDISurface();
 
 protected:
-	BOOL SetPaletteEntries(const PALETTEENTRY* pPaletteEntries, int paletteEntryCount, BOOL fullscreen);
+	BOOL SetPaletteEntries(
+		const PALETTEENTRY* pPaletteEntries,
+		int paletteEntryCount,
+		BOOL fullscreen
+	);
 	BOOL CacheOriginalPaletteEntries();
 	BOOL RestoreOriginalPaletteEntries();
 	BOOL RestorePaletteEntries();
@@ -58,12 +62,20 @@ protected:
 	BOOL DDInit(BOOL fullscreen);
 	BOOL DDSetMode(int width, int height, int bpp);
 	BOOL DDCreateSurfaces();
-	HRESULT CreateDDSurface(LPDDSURFACEDESC a2, LPDIRECTDRAWSURFACE* a3, IUnknown* a4);
-	BOOL GetDDSurfaceDesc(LPDDSURFACEDESC lpDDSurfDesc, LPDIRECTDRAWSURFACE lpDDSurf);
+	HRESULT
+	CreateDDSurface(LPDDSURFACEDESC a2, LPDIRECTDRAWSURFACE* a3, IUnknown* a4);
+	BOOL GetDDSurfaceDesc(
+		LPDDSURFACEDESC lpDDSurfDesc,
+		LPDIRECTDRAWSURFACE lpDDSurf
+	);
 	BOOL CreateZBuffer(DWORD memorytype, DWORD depth);
 
 	BOOL CreateTextSurfaces();
-	BOOL TextToTextSurface(const char* text, IDirectDrawSurface* pSurface, SIZE& textSizeOnSurface);
+	BOOL TextToTextSurface(
+		const char* text,
+		IDirectDrawSurface* pSurface,
+		SIZE& textSizeOnSurface
+	);
 
 	void Error(const char* p_message, int p_error);
 

@@ -23,14 +23,16 @@ public:
 	// FUNCTION: LEGO1 0x1007e440
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, Jetski::ClassName()) || IslePathActor::IsA(p_name);
+		return !strcmp(p_name, Jetski::ClassName()) ||
+			   IslePathActor::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override;                    // vtable+0x18
-	void Animate(float p_time) override;                                 // vtable+0x70
-	MxLong HandleClick() override;                                       // vtable+0xcc
-	MxLong HandleControl(LegoControlManagerNotificationParam&) override; // vtable+0xd4
-	void Exit() override;                                                // vtable+0xe4
+	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
+	void Animate(float p_time) override;              // vtable+0x70
+	MxLong HandleClick() override;                    // vtable+0xcc
+	MxLong
+	HandleControl(LegoControlManagerNotificationParam&) override; // vtable+0xd4
+	void Exit() override;                                         // vtable+0xe4
 
 	void ActivateSceneActions();
 

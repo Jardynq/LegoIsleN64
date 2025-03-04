@@ -8,7 +8,6 @@
 
 #include <assert.h>
 
-
 // GLOBAL: LEGO1 0x100d8e7c
 // GLOBAL: BETA10 0x101b954c
 MxFloat g_unk0x100d8e7c = 1000.0f;
@@ -49,12 +48,12 @@ MxFloat Doors::VTable0xcc(float p_time) {
 
 	if (fVar1 <= g_unk0x100d8e7c) {
 		return fVar1 * 1.570796 / g_unk0x100d8e7c;
-	}
-	else if (fVar1 <= g_unk0x100d8e7c + g_unk0x100d8e80) {
+	} else if (fVar1 <= g_unk0x100d8e7c + g_unk0x100d8e80) {
 		return 1.570796012878418; // Pi / 2
-	}
-	else if (fVar1 <= g_unk0x100d8e84) {
-		return (1.0 - ((fVar1 - g_unk0x100d8e80) - g_unk0x100d8e7c) / g_unk0x100d8e7c) * 1.570796;
+	} else if (fVar1 <= g_unk0x100d8e84) {
+		return (1.0 - ((fVar1 - g_unk0x100d8e80) - g_unk0x100d8e7c) /
+						  g_unk0x100d8e7c) *
+			   1.570796;
 	}
 
 	return 0.0f;
@@ -121,13 +120,14 @@ void Doors::ParseAction(char* p_extra) {
 
 	const CompoundObject* comp = m_roi->GetComp();
 
-	for (CompoundObject::const_iterator it = comp->begin(); it != comp->end(); it++) {
-		LegoROI* roi = (LegoROI*)*it;
+	for (CompoundObject::const_iterator it = comp->begin(); it != comp->end();
+		 it++) {
+		LegoROI* roi = (LegoROI*) *it;
 
-		if (roi && (!strnicmp(roi->GetName(), "dor-lt", 6) || !strnicmp(roi->GetName(), "dor-sl", 6))) {
+		if (roi && (!strnicmp(roi->GetName(), "dor-lt", 6) ||
+					!strnicmp(roi->GetName(), "dor-sl", 6))) {
 			m_ltDoor = roi;
-		}
-		else if (roi && (!strnicmp(roi->GetName(), "dor-rt", 6) || !strnicmp(roi->GetName(), "dor-sr", 6))) {
+		} else if (roi && (!strnicmp(roi->GetName(), "dor-rt", 6) || !strnicmp(roi->GetName(), "dor-sr", 6))) {
 			m_rtDoor = roi;
 		}
 	}

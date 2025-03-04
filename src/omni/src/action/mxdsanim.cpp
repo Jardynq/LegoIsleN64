@@ -1,6 +1,5 @@
 #include "mxdsanim.h"
 
-
 // FUNCTION: LEGO1 0x100c8ff0
 // FUNCTION: BETA10 0x1015cd71
 MxDSAnim::MxDSAnim() {

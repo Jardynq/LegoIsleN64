@@ -12,7 +12,9 @@ class LegoROI;
 #pragma warning(disable : 4237)
 
 struct LegoCharacterComparator {
-	MxBool operator()(const char* const& p_a, const char* const& p_b) const { return strcmpi(p_a, p_b) < 0; }
+	MxBool operator()(const char* const& p_a, const char* const& p_b) const {
+		return strcmpi(p_a, p_b) < 0;
+	}
 };
 
 // SIZE 0x08
@@ -83,9 +85,17 @@ public:
 	MxU32 GetAnimationId(LegoROI* p_roi);
 	MxU32 GetSoundId(LegoROI* p_roi, MxBool p_und);
 	MxU8 GetMood(LegoROI* p_roi);
-	LegoROI* CreateAutoROI(const char* p_name, const char* p_lodName, MxBool p_createEntity);
+	LegoROI* CreateAutoROI(
+		const char* p_name,
+		const char* p_lodName,
+		MxBool p_createEntity
+	);
 	MxResult FUN_10085870(LegoROI* p_roi);
-	LegoROI* FUN_10085a80(const char* p_name, const char* p_lodName, MxBool p_createEntity);
+	LegoROI* FUN_10085a80(
+		const char* p_name,
+		const char* p_lodName,
+		MxBool p_createEntity
+	);
 
 	static const char* GetCustomizeAnimFile() { return g_customizeAnimFile; }
 

@@ -10,7 +10,6 @@
 #include "mxdssubscriber.h"
 #include "viewmanager/viewlodlist.h"
 
-
 // GLOBAL: LEGO1 0x100f7aa0
 MxS32 g_partPresenterConfig1 = 1;
 
@@ -18,7 +17,10 @@ MxS32 g_partPresenterConfig1 = 1;
 MxS32 g_partPresenterConfig2 = 100;
 
 // FUNCTION: LEGO1 0x1007c990
-void LegoPartPresenter::configureLegoPartPresenter(MxS32 p_partPresenterConfig1, MxS32 p_partPresenterConfig2) {
+void LegoPartPresenter::configureLegoPartPresenter(
+	MxS32 p_partPresenterConfig1,
+	MxS32 p_partPresenterConfig2
+) {
 	g_partPresenterConfig1 = p_partPresenterConfig1;
 	g_partPresenterConfig2 = p_partPresenterConfig2;
 }
@@ -59,9 +61,11 @@ MxResult LegoPartPresenter::Read(MxDSChunk& p_chunk) {
 	LegoChar* textureName = NULL;
 	LegoTexture* texture = NULL;
 	LegoTextureInfo* textureInfo = NULL;
-	LegoS32 hardwareMode = VideoManager()->GetDirect3D()->AssignedDevice()->GetHardwareMode();
+	LegoS32 hardwareMode =
+		VideoManager()->GetDirect3D()->AssignedDevice()->GetHardwareMode();
 
-	if (storage.Read(&textureInfoOffset, sizeof(textureInfoOffset)) != SUCCESS) {
+	if (storage.Read(&textureInfoOffset, sizeof(textureInfoOffset)) !=
+		SUCCESS) {
 		goto done;
 	}
 	if (storage.SetPosition(textureInfoOffset) != SUCCESS) {
@@ -95,8 +99,7 @@ MxResult LegoPartPresenter::Read(MxDSChunk& p_chunk) {
 					goto done;
 				}
 				delete discardTexture;
-			}
-			else {
+			} else {
 				LegoTexture* discardTexture = new LegoTexture();
 				if (discardTexture->Read(&storage, FALSE) != SUCCESS) {
 					goto done;
@@ -108,8 +111,7 @@ MxResult LegoPartPresenter::Read(MxDSChunk& p_chunk) {
 					goto done;
 				}
 			}
-		}
-		else {
+		} else {
 			texture = new LegoTexture();
 			if (texture->Read(&storage, hardwareMode) != SUCCESS) {
 				goto done;
@@ -165,8 +167,7 @@ MxResult LegoPartPresenter::Read(MxDSChunk& p_chunk) {
 		if (numLODs > g_partPresenterConfig2) {
 			surplusLODs = numLODs - g_partPresenterConfig2;
 			numLODs = g_partPresenterConfig2;
-		}
-		else {
+		} else {
 			surplusLODs = 0;
 		}
 
@@ -175,7 +176,11 @@ MxResult LegoPartPresenter::Read(MxDSChunk& p_chunk) {
 		for (j = 0; j < numLODs; j++) {
 			LegoLOD* lod = new LegoLOD(VideoManager()->GetRenderer());
 
-			if (lod->Read(VideoManager()->GetRenderer(), TextureContainer(), &storage) != SUCCESS) {
+			if (lod->Read(
+					VideoManager()->GetRenderer(),
+					TextureContainer(),
+					&storage
+				) != SUCCESS) {
 				goto done;
 			}
 
@@ -238,10 +243,14 @@ void LegoPartPresenter::Store() {
 	LegoNamedPart* part;
 
 	while (partCursor.Next(part)) {
-		ViewLODList* lodList = GetViewLODListManager()->Lookup(part->GetName()->GetData());
+		ViewLODList* lodList =
+			GetViewLODListManager()->Lookup(part->GetName()->GetData());
 
 		if (lodList == NULL) {
-			lodList = GetViewLODListManager()->Create(part->GetName()->GetData(), part->GetList()->GetCount());
+			lodList = GetViewLODListManager()->Create(
+				part->GetName()->GetData(),
+				part->GetList()->GetCount()
+			);
 
 			LegoLODListCursor lodCursor(part->GetList());
 			LegoLOD* lod;
@@ -250,8 +259,7 @@ void LegoPartPresenter::Store() {
 				lodCursor.Detach();
 				lodList->PushBack(lod);
 			}
-		}
-		else {
+		} else {
 			lodList->Release();
 		}
 	}

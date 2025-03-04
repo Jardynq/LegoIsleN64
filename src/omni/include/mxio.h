@@ -1,7 +1,6 @@
 #ifndef MXIO_H
 #define MXIO_H
 
-
 // mmsystem.h requires inclusion of windows.h before
 // clang-format off
 #include <windows.h>

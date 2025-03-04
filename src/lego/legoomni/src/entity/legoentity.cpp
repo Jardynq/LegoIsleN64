@@ -18,7 +18,6 @@
 #include "mxutilities.h"
 #include "realtime/realtime.h"
 
-
 // FUNCTION: LEGO1 0x100105f0
 void LegoEntity::Init() {
 	m_worldLocation.Fill(0);
@@ -49,8 +48,7 @@ void LegoEntity::ResetWorldTransform(MxBool p_cameraFlag) {
 				Mx3DPointFloat(0.0F, 0.0F, 1.0F),
 				Mx3DPointFloat(0.0F, 1.0F, 0.0F)
 			);
-		}
-		else {
+		} else {
 			if (world->GetCameraController()->GetEntity() == this) {
 				world->GetCameraController()->SetEntity(NULL);
 				world->GetCameraController()->SetWorldTransform(
@@ -65,13 +63,18 @@ void LegoEntity::ResetWorldTransform(MxBool p_cameraFlag) {
 
 // FUNCTION: LEGO1 0x10010790
 // FUNCTION: BETA10 0x1007e4f6
-void LegoEntity::SetWorldTransform(const Vector3& p_location, const Vector3& p_direction, const Vector3& p_up) {
+void LegoEntity::SetWorldTransform(
+	const Vector3& p_location,
+	const Vector3& p_direction,
+	const Vector3& p_up
+) {
 	LegoWorld* world = CurrentWorld();
 
 	if (world != NULL && world->GetCameraController() != NULL) {
 		m_cameraFlag = TRUE;
 		world->GetCameraController()->SetEntity(this);
-		world->GetCameraController()->SetWorldTransform(p_location, p_direction, p_up);
+		world->GetCameraController()
+			->SetWorldTransform(p_location, p_direction, p_up);
 	}
 }
 
@@ -94,8 +97,7 @@ void LegoEntity::Destroy(MxBool p_fromDestructor) {
 			}
 
 			CharacterManager()->ReleaseActor(m_roi);
-		}
-		else {
+		} else {
 			VideoManager()->Get3DManager()->Remove(*m_roi);
 			delete m_roi;
 		}
@@ -110,7 +112,7 @@ void LegoEntity::Destroy(MxBool p_fromDestructor) {
 void LegoEntity::SetWorld() {
 	LegoWorld* world = CurrentWorld();
 
-	if (world != NULL && world != (LegoWorld*)this) {
+	if (world != NULL && world != (LegoWorld*) this) {
 		world->Add(this);
 	}
 }
@@ -124,8 +126,16 @@ void LegoEntity::SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2) {
 		if (p_bool2) {
 			MxMatrix mat;
 			CalcLocalTransform(
-				Mx3DPointFloat(m_worldLocation[0], m_worldLocation[1], m_worldLocation[2]),
-				Mx3DPointFloat(m_worldDirection[0], m_worldDirection[1], m_worldDirection[2]),
+				Mx3DPointFloat(
+					m_worldLocation[0],
+					m_worldLocation[1],
+					m_worldLocation[2]
+				),
+				Mx3DPointFloat(
+					m_worldDirection[0],
+					m_worldDirection[1],
+					m_worldDirection[2]
+				),
 				Mx3DPointFloat(m_worldUp[0], m_worldUp[1], m_worldUp[2]),
 				mat
 			);
@@ -138,8 +148,7 @@ void LegoEntity::SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2) {
 
 		if (p_bool1) {
 			ClearFlag(c_bit1);
-		}
-		else {
+		} else {
 			SetFlag(c_bit1);
 		}
 	}
@@ -147,7 +156,12 @@ void LegoEntity::SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2) {
 
 // FUNCTION: LEGO1 0x100109b0
 // FUNCTION: BETA10 0x1007e8b8
-void LegoEntity::SetLocation(const Vector3& p_location, const Vector3& p_direction, const Vector3& p_up, MxBool p_und) {
+void LegoEntity::SetLocation(
+	const Vector3& p_location,
+	const Vector3& p_direction,
+	const Vector3& p_up,
+	MxBool p_und
+) {
 	Mx3DPointFloat direction;
 	Mx3DPointFloat up;
 
@@ -191,8 +205,11 @@ void LegoEntity::FUN_10010c30() {
 // FUNCTION: LEGO1 0x10010c60
 Mx3DPointFloat LegoEntity::GetWorldDirection() {
 	if (m_roi != NULL) {
-		m_worldDirection =
-			Mx3DPointFloat(m_roi->GetWorldDirection()[0], m_roi->GetWorldDirection()[1], m_roi->GetWorldDirection()[2]);
+		m_worldDirection = Mx3DPointFloat(
+			m_roi->GetWorldDirection()[0],
+			m_roi->GetWorldDirection()[1],
+			m_roi->GetWorldDirection()[2]
+		);
 	}
 
 	return m_worldDirection;
@@ -201,7 +218,11 @@ Mx3DPointFloat LegoEntity::GetWorldDirection() {
 // FUNCTION: LEGO1 0x10010cf0
 Mx3DPointFloat LegoEntity::GetWorldUp() {
 	if (m_roi != NULL) {
-		m_worldUp = Mx3DPointFloat(m_roi->GetWorldUp()[0], m_roi->GetWorldUp()[1], m_roi->GetWorldUp()[2]);
+		m_worldUp = Mx3DPointFloat(
+			m_roi->GetWorldUp()[0],
+			m_roi->GetWorldUp()[1],
+			m_roi->GetWorldUp()[2]
+		);
 	}
 
 	return m_worldUp;
@@ -211,8 +232,11 @@ Mx3DPointFloat LegoEntity::GetWorldUp() {
 // FUNCTION: BETA10 0x1007ebbe
 Mx3DPointFloat LegoEntity::GetWorldPosition() {
 	if (m_roi != NULL) {
-		m_worldLocation =
-			Mx3DPointFloat(m_roi->GetWorldPosition()[0], m_roi->GetWorldPosition()[1], m_roi->GetWorldPosition()[2]);
+		m_worldLocation = Mx3DPointFloat(
+			m_roi->GetWorldPosition()[0],
+			m_roi->GetWorldPosition()[1],
+			m_roi->GetWorldPosition()[2]
+		);
 	}
 
 	return m_worldLocation;
@@ -270,7 +294,10 @@ void LegoEntity::ClickSound(MxBool p_und) {
 
 		if (objectId) {
 			MxDSAction action;
-			action.SetAtomId(MxAtomId(CharacterManager()->GetCustomizeAnimFile(), e_lowerCase2));
+			action.SetAtomId(MxAtomId(
+				CharacterManager()->GetCustomizeAnimFile(),
+				e_lowerCase2
+			));
 			action.SetObjectId(objectId);
 			action.AppendExtra(strlen(name) + 1, name);
 			Start(&action);
@@ -289,20 +316,43 @@ void LegoEntity::ClickAnimation() {
 
 		switch (m_type) {
 		case e_actor:
-			objectId = LegoOmni::GetInstance()->GetCharacterManager()->GetAnimationId(m_roi);
-			action.SetAtomId(MxAtomId(LegoCharacterManager::GetCustomizeAnimFile(), e_lowerCase2));
+			objectId =
+				LegoOmni::GetInstance()->GetCharacterManager()->GetAnimationId(
+					m_roi
+				);
+			action.SetAtomId(MxAtomId(
+				LegoCharacterManager::GetCustomizeAnimFile(),
+				e_lowerCase2
+			));
 			sprintf(extra, "SUBST:actor_01:%s", name);
 			break;
 		case e_unk1:
 			break;
 		case e_plant:
-			objectId = LegoOmni::GetInstance()->GetPlantManager()->GetAnimationId(this);
-			action.SetAtomId(MxAtomId(LegoPlantManager::GetCustomizeAnimFile(), e_lowerCase2));
-			sprintf(extra, "SUBST:bush:%s:tree:%s:flwrred:%s:palm:%s", name, name, name, name);
+			objectId =
+				LegoOmni::GetInstance()->GetPlantManager()->GetAnimationId(this
+				);
+			action.SetAtomId(
+				MxAtomId(LegoPlantManager::GetCustomizeAnimFile(), e_lowerCase2)
+			);
+			sprintf(
+				extra,
+				"SUBST:bush:%s:tree:%s:flwrred:%s:palm:%s",
+				name,
+				name,
+				name,
+				name
+			);
 			break;
 		case e_building:
-			objectId = LegoOmni::GetInstance()->GetBuildingManager()->GetAnimationId(this);
-			action.SetAtomId(MxAtomId(BuildingManager()->GetCustomizeAnimFile(), e_lowerCase2));
+			objectId =
+				LegoOmni::GetInstance()->GetBuildingManager()->GetAnimationId(
+					this
+				);
+			action.SetAtomId(MxAtomId(
+				BuildingManager()->GetCustomizeAnimFile(),
+				e_lowerCase2
+			));
 			sprintf(extra, "SUBST:haus1:%s", name);
 			break;
 		case e_autoROI:
@@ -312,7 +362,10 @@ void LegoEntity::ClickAnimation() {
 		if (objectId) {
 			action.SetObjectId(objectId);
 			action.AppendExtra(strlen(extra) + 1, extra);
-			LegoOmni::GetInstance()->GetAnimationManager()->StartEntityAction(action, this);
+			LegoOmni::GetInstance()->GetAnimationManager()->StartEntityAction(
+				action,
+				this
+			);
 			m_unk0x10 |= c_altBit1;
 		}
 	}
@@ -442,16 +495,20 @@ void LegoEntity::SetType(MxU8 p_type) {
 // FUNCTION: LEGO1 0x100114f0
 // FUNCTION: BETA10 0x1007f711
 MxLong LegoEntity::Notify(MxParam& p_param) {
-	LegoEventNotificationParam& param = (LegoEventNotificationParam&)p_param;
+	LegoEventNotificationParam& param = (LegoEventNotificationParam&) p_param;
 
 	if (param.GetNotification() != c_notificationClick) {
 		return 0;
 	}
 
 	if (m_actionType != Extra::e_unknown) {
-		InvokeAction(m_actionType, MxAtomId(m_siFile, e_lowerCase2), m_targetEntityId, this);
-	}
-	else {
+		InvokeAction(
+			m_actionType,
+			MxAtomId(m_siFile, e_lowerCase2),
+			m_targetEntityId,
+			this
+		);
+	} else {
 		switch (GameState()->GetActorId()) {
 		case LegoActor::c_pepper:
 			if (GameState()->GetCurrentAct() != LegoGameState::e_act2 &&

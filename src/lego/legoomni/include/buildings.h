@@ -21,10 +21,12 @@ public:
 	// FUNCTION: LEGO1 0x1000ea10
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, InfoCenterEntity::ClassName()) || BuildingEntity::IsA(p_name);
+		return !strcmp(p_name, InfoCenterEntity::ClassName()) ||
+			   BuildingEntity::IsA(p_name);
 	}
 
-	MxLong HandleClick(LegoEventNotificationParam& p_param) override; // vtable+0x50
+	MxLong HandleClick(LegoEventNotificationParam& p_param
+	) override; // vtable+0x50
 
 	// SYNTHETIC: LEGO1 0x1000f7b0
 	// InfoCenterEntity::`scalar deleting destructor'
@@ -46,7 +48,8 @@ public:
 	// FUNCTION: LEGO1 0x1000eb30
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, GasStationEntity::ClassName()) || BuildingEntity::IsA(p_name);
+		return !strcmp(p_name, GasStationEntity::ClassName()) ||
+			   BuildingEntity::IsA(p_name);
 	}
 
 	MxLong HandleClick(LegoEventNotificationParam& p_param) override;
@@ -71,10 +74,12 @@ public:
 	// FUNCTION: LEGO1 0x1000ec50
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, HospitalEntity::ClassName()) || BuildingEntity::IsA(p_name);
+		return !strcmp(p_name, HospitalEntity::ClassName()) ||
+			   BuildingEntity::IsA(p_name);
 	}
 
-	MxLong HandleClick(LegoEventNotificationParam& p_param) override; // vtable+0x50
+	MxLong HandleClick(LegoEventNotificationParam& p_param
+	) override; // vtable+0x50
 
 	// SYNTHETIC: LEGO1 0x1000f820
 	// HospitalEntity::`scalar deleting destructor'
@@ -96,10 +101,12 @@ public:
 	// FUNCTION: LEGO1 0x1000ed70
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, PoliceEntity::ClassName()) || BuildingEntity::IsA(p_name);
+		return !strcmp(p_name, PoliceEntity::ClassName()) ||
+			   BuildingEntity::IsA(p_name);
 	}
 
-	MxLong HandleClick(LegoEventNotificationParam& p_param) override; // vtable+0x50
+	MxLong HandleClick(LegoEventNotificationParam& p_param
+	) override; // vtable+0x50
 
 	// SYNTHETIC: LEGO1 0x1000f900
 	// PoliceEntity::`scalar deleting destructor'
@@ -121,7 +128,8 @@ public:
 	// FUNCTION: LEGO1 0x1000ee90
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, BeachHouseEntity::ClassName()) || BuildingEntity::IsA(p_name);
+		return !strcmp(p_name, BeachHouseEntity::ClassName()) ||
+			   BuildingEntity::IsA(p_name);
 	}
 
 	MxLong HandleClick(LegoEventNotificationParam& p_param) override;
@@ -145,7 +153,8 @@ class RaceStandsEntity : public BuildingEntity {
 	// FUNCTION: LEGO1 0x1000efb0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, RaceStandsEntity::ClassName()) || BuildingEntity::IsA(p_name);
+		return !strcmp(p_name, RaceStandsEntity::ClassName()) ||
+			   BuildingEntity::IsA(p_name);
 	}
 
 	MxLong HandleClick(LegoEventNotificationParam& p_param) override;
@@ -169,7 +178,8 @@ class JailEntity : public BuildingEntity {
 	// FUNCTION: LEGO1 0x1000f0d0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, JailEntity::ClassName()) || BuildingEntity::IsA(p_name);
+		return !strcmp(p_name, JailEntity::ClassName()) ||
+			   BuildingEntity::IsA(p_name);
 	}
 
 	MxLong HandleClick(LegoEventNotificationParam& p_param) override;
@@ -193,7 +203,8 @@ class CaveEntity : public BuildingEntity {
 	// FUNCTION: LEGO1 0x1000f1f0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, CaveEntity::ClassName()) || BuildingEntity::IsA(p_name);
+		return !strcmp(p_name, CaveEntity::ClassName()) ||
+			   BuildingEntity::IsA(p_name);
 	}
 
 	MxLong HandleClick(LegoEventNotificationParam& p_param) override;

@@ -35,14 +35,13 @@ private:
 	LARGE_INTEGER m_startTick; // 0x00
 	// ??? when we provide LARGE_INTEGER arithmetic, use a
 	//     LARGE_INTEGER m_elapsedTicks rather than m_elapsedSeconds
-	double m_elapsedSeconds;         // 0x0c
+	double m_elapsedSeconds;        // 0x0c
 	unsigned int m_ticksPerSeconds; // 0x14
 };
 
 // FUNCTION: BETA10 0x100d8ba0
-inline MxStopWatch::MxStopWatch() {
+inline MxStopWatch::MxStopWatch() : m_ticksPerSeconds(TicksPerSeconds()) {
 	Reset();
-	m_ticksPerSeconds = TicksPerSeconds();
 }
 
 // FUNCTION: BETA10 0x100d8be0
@@ -53,7 +52,7 @@ inline void MxStopWatch::Start() {
 // FUNCTION: BETA10 0x100d8f50
 inline void MxStopWatch::Stop() {
 	LARGE_INTEGER endTick;
-	BOOL result;
+	BOOL result = 0;
 
 	result = QueryPerformanceCounter(&endTick);
 	assert(result);
@@ -61,9 +60,10 @@ inline void MxStopWatch::Stop() {
 	if (endTick.HighPart != m_startTick.HighPart) {
 		// LARGE_INTEGER arithmetic not yet provided
 		m_elapsedSeconds = HUGE_VAL_IMMEDIATE;
-	}
-	else {
-		m_elapsedSeconds += ((endTick.LowPart - m_startTick.LowPart) / (double)m_ticksPerSeconds);
+	} else {
+		m_elapsedSeconds +=
+			((endTick.LowPart - m_startTick.LowPart) /
+			 (double) m_ticksPerSeconds);
 	}
 }
 
@@ -77,7 +77,7 @@ inline void MxStopWatch::Reset() {
 // FUNCTION: BETA10 0x100d8c60
 inline unsigned int MxStopWatch::TicksPerSeconds() const {
 	LARGE_INTEGER ticksPerSeconds;
-	BOOL result;
+	BOOL result = 0;
 
 	result = QueryPerformanceFrequency(&ticksPerSeconds);
 	assert(result);
@@ -87,8 +87,7 @@ inline unsigned int MxStopWatch::TicksPerSeconds() const {
 
 		// timer is too fast (faster than 32bits/s, i.e. faster than 4GHz)
 		return ULONG_MAX;
-	}
-	else {
+	} else {
 		return ticksPerSeconds.LowPart;
 	}
 }
@@ -124,7 +123,7 @@ public:
 
 private:
 	unsigned int m_operationCount; // 0x00
-	MxStopWatch m_stopWatch;        // 0x08
+	MxStopWatch m_stopWatch;       // 0x08
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -152,13 +151,11 @@ inline double MxFrequencyMeter::Frequency() const {
 
 	if (elapsedSeconds > 0) {
 		return m_operationCount / elapsedSeconds;
-	}
-	else {
+	} else {
 		if (m_operationCount) {
 			// operations performed - no time elapsed
 			return HUGE_VAL;
-		}
-		else {
+		} else {
 			// no operations performed - no time elapsed
 			return 0;
 		}

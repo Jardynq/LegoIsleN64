@@ -58,13 +58,19 @@ public:
 		}
 
 		// FUNCTION: BETA10 0x100ef610
-		IsleScript::Script GetRedFinishAction() { return m_actions[m_numActions + 6]; }
+		IsleScript::Script GetRedFinishAction() {
+			return m_actions[m_numActions + 6];
+		}
 
 		// FUNCTION: BETA10 0x100ef640
-		IsleScript::Script GetBlueFinishAction() { return m_actions[m_numActions + 7]; }
+		IsleScript::Script GetBlueFinishAction() {
+			return m_actions[m_numActions + 7];
+		}
 
 		// FUNCTION: BETA10 0x100ef670
-		IsleScript::Script GetYellowFinishAction() { return m_actions[m_numActions + 8]; }
+		IsleScript::Script GetYellowFinishAction() {
+			return m_actions[m_numActions + 8];
+		}
 
 		// FUNCTION: BETA10 0x100ef6a0
 		MxLong GetRedFinishTime() { return m_finishTimes[0]; }
@@ -84,7 +90,9 @@ public:
 		IsleScript::Script* GetActions() { return m_actions; }
 
 		// FUNCTION: BETA10 0x100ef7b0
-		IsleScript::Script GetUnknownFinishAction() { return m_actions[m_numActions + 2]; }
+		IsleScript::Script GetUnknownFinishAction() {
+			return m_actions[m_numActions + 2];
+		}
 
 		// FUNCTION: BETA10 0x100ef7e0
 		MxLong GetTimeoutTime() { return m_finishTimes[3]; }
@@ -115,7 +123,8 @@ public:
 	// FUNCTION: LEGO1 0x100392a0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, PizzaMissionState::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, PizzaMissionState::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	MxResult Serialize(LegoStorage* p_storage) override; // vtable+0x1c
@@ -127,7 +136,9 @@ public:
 	MxU32 GetUnknown0xb0() { return m_unk0xb0; }
 
 	// FUNCTION: BETA10 0x10088850
-	MxS16 GetHighScore(MxU8 p_actorId) { return GetMission(p_actorId)->m_hiScore; }
+	MxS16 GetHighScore(MxU8 p_actorId) {
+		return GetMission(p_actorId)->m_hiScore;
+	}
 
 	// SYNTHETIC: LEGO1 0x10039350
 	// PizzaMissionState::`scalar deleting destructor'
@@ -177,10 +188,12 @@ public:
 		return !strcmp(p_name, Pizza::ClassName()) || IsleActor::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override;                           // vtable+0x18
-	MxLong HandleClick() override;                                              // vtable+0x68
-	MxLong HandleEndAction(MxEndActionNotificationParam& p_param) override;     // vtable+0x74
-	MxLong HandlePathStruct(LegoPathStructNotificationParam& p_param) override; // vtable+0x80
+	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
+	MxLong HandleClick() override;                    // vtable+0x68
+	MxLong HandleEndAction(MxEndActionNotificationParam& p_param
+	) override; // vtable+0x74
+	MxLong HandlePathStruct(LegoPathStructNotificationParam& p_param
+	) override; // vtable+0x80
 
 	void CreateState();
 	void FUN_10038220(IsleScript::Script p_objectId);
@@ -188,7 +201,9 @@ public:
 	void StopActions();
 	void PlayAction(MxU32 p_objectId, MxBool p_param7);
 
-	void SetSkateboard(SkateBoard* p_skateBoard) { m_skateBoard = p_skateBoard; }
+	void SetSkateboard(SkateBoard* p_skateBoard) {
+		m_skateBoard = p_skateBoard;
+	}
 
 	// SYNTHETIC: LEGO1 0x100380e0
 	// Pizza::`scalar deleting destructor'

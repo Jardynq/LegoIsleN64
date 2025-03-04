@@ -1,8 +1,6 @@
 #include "mxcriticalsection.h"
 
-
 #include <stdio.h>
-
 
 // GLOBAL: LEGO1 0x10101e78
 BOOL g_useMutex = FALSE;
@@ -14,8 +12,7 @@ MxCriticalSection::MxCriticalSection() {
 	if (g_useMutex) {
 		mutex = CreateMutexA(NULL, FALSE, NULL);
 		m_mutex = mutex;
-	}
-	else {
+	} else {
 		InitializeCriticalSection(&m_criticalSection);
 		m_mutex = NULL;
 	}
@@ -25,8 +22,7 @@ MxCriticalSection::MxCriticalSection() {
 MxCriticalSection::~MxCriticalSection() {
 	if (m_mutex != NULL) {
 		CloseHandle(m_mutex);
-	}
-	else {
+	} else {
 		DeleteCriticalSection(&m_criticalSection);
 	}
 }
@@ -48,8 +44,7 @@ void MxCriticalSection::Enter() {
 
 			abort();
 		}
-	}
-	else {
+	} else {
 		EnterCriticalSection(&m_criticalSection);
 	}
 }
@@ -58,8 +53,7 @@ void MxCriticalSection::Enter() {
 void MxCriticalSection::Leave() {
 	if (m_mutex != NULL) {
 		ReleaseMutex(m_mutex);
-	}
-	else {
+	} else {
 		LeaveCriticalSection(&m_criticalSection);
 	}
 }

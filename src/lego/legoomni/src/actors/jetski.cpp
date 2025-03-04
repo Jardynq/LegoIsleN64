@@ -16,7 +16,6 @@
 #include "mxvariabletable.h"
 #include "scripts.h"
 
-
 // These two have been changed between BETA10 and LEGO1
 // GLOBAL: LEGO1 0x100f7ab8
 // STRING: LEGO1 0x100f3ce0
@@ -62,7 +61,11 @@ void Jetski::Animate(float p_time) {
 
 // FUNCTION: LEGO1 0x1007e6f0
 void Jetski::Exit() {
-	SpawnPlayer(LegoGameState::e_unk45, FALSE, c_spawnBit1 | c_playMusic | c_spawnBit3);
+	SpawnPlayer(
+		LegoGameState::e_unk45,
+		FALSE,
+		c_spawnBit1 | c_playMusic | c_spawnBit3
+	);
 	IslePathActor::Exit();
 	GameState()->m_currentArea = LegoGameState::e_jetski;
 	RemoveFromWorld();
@@ -81,27 +84,39 @@ MxLong Jetski::HandleClick() {
 
 	FUN_10015820(TRUE, 0);
 
-	((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::Area::e_jetski);
-	TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
+	((Isle*) CurrentWorld())->SetDestLocation(LegoGameState::Area::e_jetski);
+	TransitionManager()
+		->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, TRUE);
 
 	if (GameState()->GetActorId() != UserActor()->GetActorId()) {
-		((IslePathActor*)UserActor())->Exit();
+		((IslePathActor*) UserActor())->Exit();
 	}
 #endif
 
-	// Selects the windshield from `IsleScript::c_JetskiDashboard11_Bitmap` (=41)
-	// to `IsleScript::c_JetskiDashboard66_Bitmap` based on the user's color selection
+	// Selects the windshield from `IsleScript::c_JetskiDashboard11_Bitmap`
+	// (=41) to `IsleScript::c_JetskiDashboard66_Bitmap` based on the user's
+	// color selection
 	MxS32 colorOffset = DuneBuggy::GetColorOffset(g_varJSWNSHY5);
 	m_jetskiDashboardStreamId = 10 * (colorOffset + 3);
 	colorOffset = DuneBuggy::GetColorOffset(g_varJSFRNTY5);
 	m_jetskiDashboardStreamId += colorOffset;
 
-	InvokeAction(Extra::ActionType::e_start, *g_isleScript, m_jetskiDashboardStreamId, NULL);
-	InvokeAction(Extra::ActionType::e_start, *g_isleScript, IsleScript::c_JetskiDashboard, NULL);
+	InvokeAction(
+		Extra::ActionType::e_start,
+		*g_isleScript,
+		m_jetskiDashboardStreamId,
+		NULL
+	);
+	InvokeAction(
+		Extra::ActionType::e_start,
+		*g_isleScript,
+		IsleScript::c_JetskiDashboard,
+		NULL
+	);
 
 #ifdef BETA10
 	if (UserActor()->GetActorId() != GameState()->GetActorId()) {
-		((IslePathActor*)UserActor())->Exit();
+		((IslePathActor*) UserActor())->Exit();
 	}
 	Enter();
 	ControlManager()->Register(this);
@@ -133,13 +148,23 @@ MxLong Jetski::HandleControl(LegoControlManagerNotificationParam& p_param) {
 		switch (p_param.GetClickedObjectId()) {
 		case IsleScript::c_JetskiArms_Ctl:
 			Exit();
-			((IslePathActor*)UserActor())
-				->SpawnPlayer(LegoGameState::e_jetraceExterior, TRUE, c_spawnBit1 | c_playMusic | c_spawnBit3);
+			((IslePathActor*) UserActor())
+				->SpawnPlayer(
+					LegoGameState::e_jetraceExterior,
+					TRUE,
+					c_spawnBit1 | c_playMusic | c_spawnBit3
+				);
 			GameState()->m_currentArea = LegoGameState::e_unk66;
 			return 1;
 		case IsleScript::c_JetskiInfo_Ctl:
-			((Isle*)CurrentWorld())->SetDestLocation(LegoGameState::e_infomain);
-			TransitionManager()->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
+			((Isle*) CurrentWorld())
+				->SetDestLocation(LegoGameState::e_infomain);
+			TransitionManager()->StartTransition(
+				MxTransitionManager::e_mosaic,
+				50,
+				FALSE,
+				FALSE
+			);
 			Exit();
 			return 1;
 		}
@@ -152,18 +177,21 @@ MxLong Jetski::HandleControl(LegoControlManagerNotificationParam& p_param) {
 void Jetski::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_JetskiRace_Music);
 
-	Act1State* act1state = (Act1State*)GameState()->GetState("Act1State");
+	Act1State* act1state = (Act1State*) GameState()->GetState("Act1State");
 	if (!act1state->m_unk0x018) {
 		if (act1state->m_unk0x022) {
 			PlayCamAnim(this, FALSE, 68, TRUE);
-		}
-		else {
+		} else {
 			act1state->m_unk0x022 = TRUE;
 
 			LegoPathActor* user = UserActor();
 			if (user != NULL) {
 				MxMatrix mat(user->GetROI()->GetLocal2World());
-				mat.TranslateBy(mat[2][0] * 2.5, mat[2][1] + 0.6, mat[2][2] * 2.5);
+				mat.TranslateBy(
+					mat[2][0] * 2.5,
+					mat[2][1] + 0.6,
+					mat[2][2] * 2.5
+				);
 
 				AnimationManager()->FUN_10060dc0(
 					IsleScript::c_sjs007in_RunAnim,

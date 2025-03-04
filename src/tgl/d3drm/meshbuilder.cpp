@@ -2,7 +2,6 @@
 
 using namespace TglImpl;
 
-
 // FUNCTION: LEGO1 0x100a3830
 void* MeshBuilderImpl::ImplementationDataPtr() {
 	return reinterpret_cast<void*>(&m_data);
@@ -21,16 +20,16 @@ Mesh* MeshBuilderImpl::CreateMesh(
 ) {
 	MeshImpl* pMeshImpl = new MeshImpl;
 	if (CreateMeshImpl(
-		pMeshImpl,
-		faceCount,
-		vertexCount,
-		pPositions,
-		pNormals,
-		pTextureCoordinates,
-		pFaceIndices,
-		pTextureIndices,
-		shadingModel
-	) == Error) {
+			pMeshImpl,
+			faceCount,
+			vertexCount,
+			pPositions,
+			pNormals,
+			pTextureCoordinates,
+			pFaceIndices,
+			pTextureIndices,
+			shadingModel
+		) == Error) {
 		delete pMeshImpl;
 		pMeshImpl = NULL;
 	}
@@ -38,12 +37,16 @@ Mesh* MeshBuilderImpl::CreateMesh(
 	return pMeshImpl;
 }
 
-inline Result MeshSetTextureMappingMode(MeshImpl::MeshData* pMesh, TextureMappingMode mode) {
+inline Result
+MeshSetTextureMappingMode(MeshImpl::MeshData* pMesh, TextureMappingMode mode) {
 	if (mode == PerspectiveCorrect) {
-		return ResultVal(pMesh->groupMesh->SetGroupMapping(pMesh->groupIndex, D3DRMMAP_PERSPCORRECT));
-	}
-	else {
-		return ResultVal(pMesh->groupMesh->SetGroupMapping(pMesh->groupIndex, 0));
+		return ResultVal(pMesh->groupMesh->SetGroupMapping(
+			pMesh->groupIndex,
+			D3DRMMAP_PERSPCORRECT
+		));
+	} else {
+		return ResultVal(pMesh->groupMesh->SetGroupMapping(pMesh->groupIndex, 0)
+		);
 	}
 }
 
@@ -59,7 +62,7 @@ inline Result CreateMesh(
 	ShadingModel shadingModel,
 	MeshImpl::MeshDataType& rpMesh
 ) {
-	unsigned int* faceIndices = (unsigned int*)pFaceIndices;
+	unsigned int* faceIndices = (unsigned int*) pFaceIndices;
 	D3DRMGROUPINDEX groupIndex = 0;
 	int count = faceCount * 3;
 	int index = 0;
@@ -73,36 +76,39 @@ inline Result CreateMesh(
 	rpMesh->groupMesh = pD3DRM;
 
 	for (int i = 0; i < count; i++) {
-		if ((*((unsigned short*)&faceIndices[i] + 1) >> 0x0f) & 0x01) {
-			unsigned int j = *(unsigned short*)&faceIndices[i];
+		if ((*((unsigned short*) &faceIndices[i] + 1) >> 0x0f) & 0x01) {
+			unsigned int j = *(unsigned short*) &faceIndices[i];
 			vertices[index].position.x = pPositions[j][0];
 			vertices[index].position.y = pPositions[j][1];
 			vertices[index].position.z = pPositions[j][2];
-			j = *((unsigned short*)&faceIndices[i] + 1) & MAXSHORT;
+			j = *((unsigned short*) &faceIndices[i] + 1) & MAXSHORT;
 			vertices[index].normal.x = pNormals[j][0];
 			vertices[index].normal.y = pNormals[j][1];
 			vertices[index].normal.z = pNormals[j][2];
 
 			if (pTextureIndices != NULL && pTextureCoordinates != NULL) {
-				j = ((unsigned int*)pTextureIndices)[i];
+				j = ((unsigned int*) pTextureIndices)[i];
 				vertices[index].tu = pTextureCoordinates[j][0];
 				vertices[index].tv = pTextureCoordinates[j][1];
 			}
 
 			fData[i] = index;
 			index++;
-		}
-		else {
-			fData[i] = *(unsigned short*)&faceIndices[i];
+		} else {
+			fData[i] = *(unsigned short*) &faceIndices[i];
 		}
 	}
 
 	Result result;
-	result = ResultVal(pD3DRM->AddGroup(vertexCount, faceCount, 3, fData, &groupIndex));
+	result = ResultVal(
+		pD3DRM->AddGroup(vertexCount, faceCount, 3, fData, &groupIndex)
+	);
 
 	if (Succeeded(result)) {
 		rpMesh->groupIndex = groupIndex;
-		result = ResultVal(pD3DRM->SetVertices(groupIndex, 0, vertexCount, vertices));
+		result =
+			ResultVal(pD3DRM->SetVertices(groupIndex, 0, vertexCount, vertices)
+			);
 	}
 
 	if (!Succeeded(result)) {
@@ -110,8 +116,7 @@ inline Result CreateMesh(
 			delete rpMesh;
 		}
 		rpMesh = NULL;
-	}
-	else {
+	} else {
 		result = MeshSetTextureMappingMode(rpMesh, PerspectiveCorrect);
 	}
 
@@ -169,7 +174,7 @@ Result MeshBuilderImpl::GetBoundingBox(float min[3], float max[3]) const {
 // FUNCTION: LEGO1 0x100a3b40
 MeshBuilder* MeshBuilderImpl::Clone() {
 	MeshBuilderImpl* mesh = new MeshBuilderImpl();
-	int ret = m_data->Clone(0, IID_IDirect3DRMMesh, (void**)&mesh->m_data);
+	int ret = m_data->Clone(0, IID_IDirect3DRMMesh, (void**) &mesh->m_data);
 	if (ret < 0) {
 		delete mesh;
 		mesh = NULL;

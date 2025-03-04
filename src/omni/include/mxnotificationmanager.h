@@ -35,11 +35,13 @@ private:
 
 public:
 	MxNotificationManager();
-	~MxNotificationManager() override; // vtable+0x00 (scalar deleting destructor)
+	~MxNotificationManager(
+	) override; // vtable+0x00 (scalar deleting destructor)
 
 	MxResult Tickle() override; // vtable+0x08
 
-	virtual MxResult Create(MxU32 p_frequencyMS, MxBool p_createThread); // vtable+0x14
+	virtual MxResult
+	Create(MxU32 p_frequencyMS, MxBool p_createThread); // vtable+0x14
 	void Register(MxCore* p_listener);
 	void Unregister(MxCore* p_listener);
 	MxResult Send(MxCore* p_listener, const MxNotificationParam& p_param);
@@ -60,7 +62,8 @@ private:
 };
 
 // TEMPLATE: LEGO1 0x100ac320
-// list<unsigned int,allocator<unsigned int> >::~list<unsigned int,allocator<unsigned int> >
+// list<unsigned int,allocator<unsigned int> >::~list<unsigned
+// int,allocator<unsigned int> >
 
 // FUNCTION: LEGO1 0x100ac3b0
 // MxIdList::~MxIdList
@@ -72,7 +75,8 @@ private:
 // List<MxNotification *>::~List<MxNotification *>
 
 // TEMPLATE: LEGO1 0x100ac590
-// list<MxNotification *,allocator<MxNotification *> >::~list<MxNotification *,allocator<MxNotification *> >
+// list<MxNotification *,allocator<MxNotification *> >::~list<MxNotification
+// *,allocator<MxNotification *> >
 
 // TEMPLATE: LEGO1 0x100acbf0
 // list<MxNotification *,allocator<MxNotification *> >::begin

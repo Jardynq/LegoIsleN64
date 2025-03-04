@@ -26,7 +26,8 @@ public:
 	// FUNCTION: LEGO1 0x10014f30
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, BuildingEntity::ClassName()) || LegoEntity::IsA(p_name);
+		return !strcmp(p_name, BuildingEntity::ClassName()) ||
+			   LegoEntity::IsA(p_name);
 	}
 
 	virtual MxLong HandleClick(LegoEventNotificationParam& p_param) = 0;

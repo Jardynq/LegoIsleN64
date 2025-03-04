@@ -10,14 +10,13 @@
 // SIZE 0x1bc
 class ViewManager {
 public:
-	enum Flags {
-		c_bit1 = 0x01,
-		c_bit2 = 0x02,
-		c_bit3 = 0x04,
-		c_bit4 = 0x08
-	};
+	enum Flags { c_bit1 = 0x01, c_bit2 = 0x02, c_bit3 = 0x04, c_bit4 = 0x08 };
 
-	ViewManager(Tgl::Renderer* pRenderer, Tgl::Group* scene, const OrientableROI* point_of_view);
+	ViewManager(
+		Tgl::Renderer* pRenderer,
+		Tgl::Group* scene,
+		const OrientableROI* point_of_view
+	);
 	virtual ~ViewManager();
 
 	void Remove(ViewROI* p_roi);
@@ -35,7 +34,8 @@ public:
 	inline int CalculateFrustumTransformations();
 	void UpdateViewTransformations();
 
-	inline static int CalculateLODLevel(float p_und1, float p_und2, ViewROI* p_roi);
+	inline static int
+	CalculateLODLevel(float p_und1, float p_und2, ViewROI* p_roi);
 	inline static int IsROIVisibleAtLOD(ViewROI* p_roi);
 
 	// FUNCTION: BETA10 0x100576b0
@@ -79,6 +79,7 @@ private:
 // Vector<ROI const *>::~Vector<ROI const *>
 
 // TEMPLATE: LEGO1 0x100a6f80
-// vector<ROI const *,allocator<ROI const *> >::~vector<ROI const *,allocator<ROI const *> >
+// vector<ROI const *,allocator<ROI const *> >::~vector<ROI const
+// *,allocator<ROI const *> >
 
 #endif // VIEWMANAGER_H

@@ -9,7 +9,6 @@
 
 #include <assert.h>
 
-
 // FUNCTION: LEGO1 0x10043430
 // FUNCTION: BETA10 0x10097570
 LegoMeterPresenter::LegoMeterPresenter() {
@@ -44,14 +43,11 @@ void LegoMeterPresenter::ParseExtra() {
 		if (KeyValueStringParse(output, g_strTYPE, extraCopy)) {
 			if (!strcmpi(output, g_strLEFT_TO_RIGHT)) {
 				m_layout = e_leftToRight;
-			}
-			else if (!strcmpi(output, g_strRIGHT_TO_LEFT)) {
+			} else if (!strcmpi(output, g_strRIGHT_TO_LEFT)) {
 				m_layout = e_rightToLeft;
-			}
-			else if (!strcmpi(output, g_strBOTTOM_TO_TOP)) {
+			} else if (!strcmpi(output, g_strBOTTOM_TO_TOP)) {
 				m_layout = e_bottomToTop;
-			}
-			else if (!strcmpi(output, g_strTOP_TO_BOTTOM)) {
+			} else if (!strcmpi(output, g_strTOP_TO_BOTTOM)) {
 				m_layout = e_topToBottom;
 			}
 		}
@@ -62,13 +58,11 @@ void LegoMeterPresenter::ParseExtra() {
 
 		if (KeyValueStringParse(output, g_strVARIABLE, extraCopy)) {
 			m_variable = output;
-		}
-		else {
+		} else {
 			assert(0);
 			EndAction();
 		}
-	}
-	else {
+	} else {
 		EndAction();
 	}
 }
@@ -84,7 +78,11 @@ void LegoMeterPresenter::StreamingTickle() {
 		EndAction();
 	}
 
-	memcpy(m_meterPixels, m_frameBitmap->GetImage(), m_frameBitmap->GetDataSize());
+	memcpy(
+		m_meterPixels,
+		m_frameBitmap->GetImage(),
+		m_frameBitmap->GetDataSize()
+	);
 
 	m_meterRect.SetLeft(0);
 	m_meterRect.SetTop(0);
@@ -112,22 +110,28 @@ void LegoMeterPresenter::DrawMeter() {
 		// DECOMP: This clamp is retail only
 		if (percent > 0.99) {
 			m_curPercent = 0.99f;
-		}
-		else if (percent < 0.0) {
+		} else if (percent < 0.0) {
 			m_curPercent = 0.0f;
 		}
 
 		// Copy the previously drawn meter back into the bitmap
-		memcpy(m_frameBitmap->GetImage(), m_meterPixels, m_frameBitmap->GetDataSize());
+		memcpy(
+			m_frameBitmap->GetImage(),
+			m_meterPixels,
+			m_frameBitmap->GetDataSize()
+		);
 
 		switch (m_layout) {
 		case e_leftToRight:
 			leftRightEnd = m_meterRect.GetWidth() * m_curPercent;
 
-			for (row = m_meterRect.GetTop(); row < m_meterRect.GetBottom(); row++) {
-				MxU8* line = m_frameBitmap->GetStart(m_meterRect.GetLeft(), row);
+			for (row = m_meterRect.GetTop(); row < m_meterRect.GetBottom();
+				 row++) {
+				MxU8* line =
+					m_frameBitmap->GetStart(m_meterRect.GetLeft(), row);
 
-				for (leftRightCol = 0; leftRightCol < leftRightEnd; leftRightCol++, line++) {
+				for (leftRightCol = 0; leftRightCol < leftRightEnd;
+					 leftRightCol++, line++) {
 					if (*line) {
 						*line = m_fillColor;
 					}
@@ -135,12 +139,15 @@ void LegoMeterPresenter::DrawMeter() {
 			}
 			break;
 		case e_bottomToTop:
-			bottomTopEnd = m_meterRect.GetBottom() - (MxS16)(m_meterRect.GetHeight() * m_curPercent);
+			bottomTopEnd = m_meterRect.GetBottom() -
+						   (MxS16) (m_meterRect.GetHeight() * m_curPercent);
 
 			for (row = m_meterRect.GetBottom(); row > bottomTopEnd; row--) {
-				MxU8* line = m_frameBitmap->GetStart(m_meterRect.GetLeft(), row);
+				MxU8* line =
+					m_frameBitmap->GetStart(m_meterRect.GetLeft(), row);
 
-				for (bottomTopCol = 0; bottomTopCol < m_meterRect.GetWidth(); bottomTopCol++, line++) {
+				for (bottomTopCol = 0; bottomTopCol < m_meterRect.GetWidth();
+					 bottomTopCol++, line++) {
 					if (*line) {
 						*line = m_fillColor;
 					}

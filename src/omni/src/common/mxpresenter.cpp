@@ -26,7 +26,6 @@
 
 #include <string.h>
 
-
 // FUNCTION: LEGO1 0x100b4d50
 void MxPresenter::Init() {
 	m_currentTickleState = e_idle;
@@ -43,7 +42,8 @@ MxResult MxPresenter::StartAction(MxStreamController*, MxDSAction* p_action) {
 	AUTOLOCK(m_criticalSection);
 
 	m_action = p_action;
-	m_location = MxPoint32(m_action->GetLocation()[0], m_action->GetLocation()[1]);
+	m_location =
+		MxPoint32(m_action->GetLocation()[0], m_action->GetLocation()[1]);
 	m_displayZ = m_action->GetLocation()[2];
 
 	ProgressTickleState(e_ready);
@@ -60,9 +60,12 @@ void MxPresenter::EndAction() {
 	AUTOLOCK(m_criticalSection);
 
 	if (!m_compositePresenter) {
-		MxOmni::GetInstance()->NotifyCurrentEntity(
-			MxEndActionNotificationParam(c_notificationEndAction, NULL, m_action, TRUE)
-		);
+		MxOmni::GetInstance()->NotifyCurrentEntity(MxEndActionNotificationParam(
+			c_notificationEndAction,
+			NULL,
+			m_action,
+			TRUE
+		));
 	}
 
 	m_action = NULL;
@@ -92,7 +95,8 @@ void MxPresenter::ParseExtra() {
 
 			token = strtok(NULL, g_parseExtraTokens);
 			MxS32 val = token ? atoi(token) : 0;
-			MxEntity* result = MxOmni::GetInstance()->AddToWorld(buf, val, this);
+			MxEntity* result =
+				MxOmni::GetInstance()->AddToWorld(buf, val, this);
 
 			m_action->SetFlags(m_action->GetFlags() | MxDSAction::c_world);
 
@@ -109,7 +113,10 @@ void MxPresenter::SendToCompositePresenter(MxOmni* p_omni) {
 	if (m_compositePresenter) {
 		AUTOLOCK(m_criticalSection);
 
-		NotificationManager()->Send(m_compositePresenter, MxNotificationParam(c_notificationPresenter, this));
+		NotificationManager()->Send(
+			m_compositePresenter,
+			MxNotificationParam(c_notificationPresenter, this)
+		);
 		m_action->SetOrigin(p_omni ? p_omni : MxOmni::GetInstance());
 		m_compositePresenter = NULL;
 	}
@@ -166,8 +173,7 @@ void MxPresenter::Enable(MxBool p_enable) {
 
 		if (p_enable) {
 			m_action->SetFlags(flags | MxDSAction::c_enabled);
-		}
-		else {
+		} else {
 			m_action->SetFlags(flags & ~MxDSAction::c_enabled);
 		}
 	}
@@ -182,25 +188,28 @@ const char* PresenterNameDispatch(const MxDSAction& p_action) {
 	if (!name || strlen(name) == 0) {
 		switch (p_action.GetType()) {
 		case MxDSObject::e_anim:
-			format = ((MxDSAnim&)p_action).GetMediaFormat();
+			format = ((MxDSAnim&) p_action).GetMediaFormat();
 			switch (format) {
 			case FOURCC(' ', 'F', 'L', 'C'):
-				name = !p_action.IsLooping() ? MxFlcPresenter::HandlerClassName()
-					: MxLoopingFlcPresenter::HandlerClassName();
+				name = !p_action.IsLooping()
+						   ? MxFlcPresenter::HandlerClassName()
+						   : MxLoopingFlcPresenter::HandlerClassName();
 				break;
 			case FOURCC(' ', 'S', 'M', 'K'):
-				name = !p_action.IsLooping() ? MxSmkPresenter::HandlerClassName()
-					: MxLoopingSmkPresenter::HandlerClassName();
+				name = !p_action.IsLooping()
+						   ? MxSmkPresenter::HandlerClassName()
+						   : MxLoopingSmkPresenter::HandlerClassName();
 				break;
 			}
 			break;
 
 		case MxDSObject::e_sound:
-			format = ((MxDSSound&)p_action).GetMediaFormat();
+			format = ((MxDSSound&) p_action).GetMediaFormat();
 			switch (format) {
 			case FOURCC(' ', 'M', 'I', 'D'):
-				name = !p_action.IsLooping() ? MxMIDIPresenter::HandlerClassName()
-					: MxLoopingMIDIPresenter::HandlerClassName();
+				name = !p_action.IsLooping()
+						   ? MxMIDIPresenter::HandlerClassName()
+						   : MxLoopingMIDIPresenter::HandlerClassName();
 				break;
 			case FOURCC(' ', 'W', 'A', 'V'):
 				name = MxWavePresenter::HandlerClassName();
@@ -229,8 +238,8 @@ const char* PresenterNameDispatch(const MxDSAction& p_action) {
 
 // FUNCTION: LEGO1 0x100b5410
 MxEntity* MxPresenter::CreateEntity(const char* p_defaultName) {
-	// create an object from LegoObjectFactory based on OBJECT: value in extra data.
-	// If that is missing, p_defaultName is used
+	// create an object from LegoObjectFactory based on OBJECT: value in extra
+	// data. If that is missing, p_defaultName is used
 
 	char objectName[512];
 	strcpy(objectName, p_defaultName);
@@ -246,7 +255,7 @@ MxEntity* MxPresenter::CreateEntity(const char* p_defaultName) {
 		KeyValueStringParse(objectName, g_strOBJECT, extraCopy);
 	}
 
-	return (MxEntity*)ObjectFactory()->Create(objectName);
+	return (MxEntity*) ObjectFactory()->Create(objectName);
 }
 
 // FUNCTION: LEGO1 0x100b54c0

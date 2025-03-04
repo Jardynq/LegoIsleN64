@@ -13,7 +13,6 @@
 #include "mxvideopresenter.h"
 #include "mxwavepresenter.h"
 
-
 // FUNCTION: LEGO1 0x100b0d80
 MxObjectFactory::MxObjectFactory() {
 #define X(V) m_id##V = MxAtomId(#V, e_exact);
@@ -29,14 +28,13 @@ MxCore* MxObjectFactory::Create(const char* p_name) {
 
 	if (0) {
 	}
-#define X(V)                                                                                                           \
-	else if (m_id##V == atom)                                                                                          \
-	{                                                                                                                  \
-		object = new V;                                                                                                \
+#define X(V)                                                                   \
+	else if (m_id##V == atom) {                                                \
+		object = new V;                                                        \
 	}
 	FOR_MXOBJECTFACTORY_OBJECTS(X)
 #undef X
-		return object;
+	return object;
 }
 
 // FUNCTION: LEGO1 0x100b1a30

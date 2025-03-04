@@ -17,7 +17,8 @@
 // SIZE 0x18
 class LegoCacheSoundList : public MxPtrList<LegoCacheSound> {
 public:
-	LegoCacheSoundList(MxBool p_ownership = FALSE) : MxPtrList<LegoCacheSound>(p_ownership) {}
+	LegoCacheSoundList(MxBool p_ownership = FALSE)
+		: MxPtrList<LegoCacheSound>(p_ownership) {}
 
 	// FUNCTION: LEGO1 0x1001e650
 	MxS8 Compare(LegoCacheSound* p_a, LegoCacheSound* p_b) override {
@@ -35,7 +36,8 @@ public:
 // SIZE 0x10
 class LegoCacheSoundListCursor : public MxPtrListCursor<LegoCacheSound> {
 public:
-	LegoCacheSoundListCursor(LegoCacheSoundList* p_list) : MxPtrListCursor<LegoCacheSound>(p_list) {}
+	LegoCacheSoundListCursor(LegoCacheSoundList* p_list)
+		: MxPtrListCursor<LegoCacheSound>(p_list) {}
 };
 
 // TEMPLATE: LEGO1 0x1001e670

@@ -24,7 +24,7 @@ class LegoHideAnimPresenter;
 
 struct CoreSetCompare {
 	MxS32 operator()(MxCore* const& p_a, MxCore* const& p_b) const {
-		return (COMPARE_POINTER_TYPE)p_a < (COMPARE_POINTER_TYPE)p_b;
+		return (COMPARE_POINTER_TYPE) p_a < (COMPARE_POINTER_TYPE) p_b;
 	}
 };
 
@@ -35,13 +35,7 @@ typedef set<MxCore*, CoreSetCompare> MxCoreSet;
 // SIZE 0xf8
 class LegoWorld : public LegoEntity {
 public:
-	enum StartupTicks {
-		e_start = 0,
-		e_one,
-		e_two,
-		e_three,
-		e_four
-	};
+	enum StartupTicks { e_start = 0, e_one, e_two, e_three, e_four };
 
 	LegoWorld();
 	~LegoWorld() override; // vtable+0x00
@@ -54,9 +48,9 @@ public:
 	virtual LegoCameraController* VTable0x54();       // vtable+0x54
 	virtual void Add(MxCore* p_object);               // vtable+0x58
 
-	// The BETA10 match could also be LegoWorld::Escape(), only the child classes might be able to tell
-	// FUNCTION: LEGO1 0x1001d670
-	// FUNCTION: BETA10 0x10017530
+	// The BETA10 match could also be LegoWorld::Escape(), only the child
+	// classes might be able to tell FUNCTION: LEGO1 0x1001d670 FUNCTION: BETA10
+	// 0x10017530
 	virtual MxBool VTable0x5c() { return FALSE; } // vtable+0x5c
 
 	// FUNCTION: LEGO1 0x100010a0
@@ -79,7 +73,8 @@ public:
 	// FUNCTION: BETA10 0x100175f0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoWorld::ClassName()) || LegoEntity::IsA(p_name);
+		return !strcmp(p_name, LegoWorld::ClassName()) ||
+			   LegoEntity::IsA(p_name);
 	}
 
 	MxBool PresentersPending();

@@ -29,7 +29,8 @@ public:
 	// FUNCTION: LEGO1 0x1000d4b0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxSoundPresenter::ClassName()) || MxAudioPresenter::IsA(p_name);
+		return !strcmp(p_name, MxSoundPresenter::ClassName()) ||
+			   MxAudioPresenter::IsA(p_name);
 	}
 
 	MxResult AddToManager() override; // vtable+0x34

@@ -19,7 +19,6 @@
 #include "mxtimer.h"
 #include "mxutilities.h"
 
-
 // FUNCTION: LEGO1 0x1004a8d0
 LegoAnimMMPresenter::LegoAnimMMPresenter() {
 	m_presenter = NULL;
@@ -46,11 +45,14 @@ LegoAnimMMPresenter::~LegoAnimMMPresenter() {
 }
 
 // FUNCTION: LEGO1 0x1004aaf0
-MxResult LegoAnimMMPresenter::StartAction(MxStreamController* p_controller, MxDSAction* p_action) {
+MxResult LegoAnimMMPresenter::StartAction(
+	MxStreamController* p_controller,
+	MxDSAction* p_action
+) {
 	AUTOLOCK(m_criticalSection);
 
 	MxResult result = FAILURE;
-	MxDSActionList* actions = ((MxDSMultiAction*)p_action)->GetActionList();
+	MxDSActionList* actions = ((MxDSMultiAction*) p_action)->GetActionList();
 	MxObjectFactory* factory = ObjectFactory();
 	MxDSActionListCursor cursor(actions);
 	MxDSAction* action;
@@ -67,21 +69,21 @@ MxResult LegoAnimMMPresenter::StartAction(MxStreamController* p_controller, MxDS
 
 			if (m_action->GetFlags() & MxDSAction::c_looping) {
 				action->SetFlags(action->GetFlags() | MxDSAction::c_looping);
-			}
-			else if (m_action->GetFlags() & MxDSAction::c_bit3) {
+			} else if (m_action->GetFlags() & MxDSAction::c_bit3) {
 				action->SetFlags(action->GetFlags() | MxDSAction::c_bit3);
 			}
 
 			presenterName = PresenterNameDispatch(*action);
-			presenter = (MxPresenter*)factory->Create(presenterName);
+			presenter = (MxPresenter*) factory->Create(presenterName);
 
 			if (presenter && presenter->AddToManager() == SUCCESS) {
 				presenter->SetCompositePresenter(this);
 				if (presenter->StartAction(p_controller, action) == SUCCESS) {
 					presenter->SetTickleState(MxPresenter::e_idle);
 
-					if (presenter->IsA("LegoAnimPresenter") || presenter->IsA("LegoLoopingAnimPresenter")) {
-						m_presenter = (LegoAnimPresenter*)presenter;
+					if (presenter->IsA("LegoAnimPresenter") ||
+						presenter->IsA("LegoLoopingAnimPresenter")) {
+						m_presenter = (LegoAnimPresenter*) presenter;
 					}
 					success = TRUE;
 				}
@@ -90,8 +92,7 @@ MxResult LegoAnimMMPresenter::StartAction(MxStreamController* p_controller, MxDS
 			if (success) {
 				action->SetOrigin(this);
 				m_list.push_back(presenter);
-			}
-			else if (presenter) {
+			} else if (presenter) {
 				delete presenter;
 			}
 		}
@@ -111,15 +112,19 @@ MxResult LegoAnimMMPresenter::StartAction(MxStreamController* p_controller, MxDS
 // FUNCTION: LEGO1 0x1004aec0
 // FUNCTION: BETA10 0x1004c01a
 void LegoAnimMMPresenter::EndAction() {
-	if (m_tranInfo != NULL && m_tranInfo->m_unk0x15 && m_tranInfo->m_unk0x1c != NULL &&
-		m_tranInfo->m_unk0x1c[1] != NULL) {
+	if (m_tranInfo != NULL && m_tranInfo->m_unk0x15 &&
+		m_tranInfo->m_unk0x1c != NULL && m_tranInfo->m_unk0x1c[1] != NULL) {
 		m_tranInfo->m_unk0x1c[1]->Enable(FALSE);
 		m_tranInfo->m_unk0x1c[1]->Enable(TRUE);
 	}
 
 	m_tranInfo = NULL;
 
-	LegoEndAnimNotificationParam param(c_notificationEndAnim, NULL, m_animmanId);
+	LegoEndAnimNotificationParam param(
+		c_notificationEndAnim,
+		NULL,
+		m_animmanId
+	);
 	if (m_animmanId != 0) {
 		NotificationManager()->Send(AnimationManager(), param);
 	}
@@ -138,8 +143,8 @@ void LegoAnimMMPresenter::EndAction() {
 void LegoAnimMMPresenter::ReadyTickle() {
 	ParseExtra();
 
-	if (m_tranInfo != NULL && m_tranInfo->m_unk0x15 && m_tranInfo->m_unk0x1c != NULL &&
-		m_tranInfo->m_unk0x1c[0] != NULL) {
+	if (m_tranInfo != NULL && m_tranInfo->m_unk0x15 &&
+		m_tranInfo->m_unk0x1c != NULL && m_tranInfo->m_unk0x1c[0] != NULL) {
 		m_tranInfo->m_unk0x1c[0]->Enable(FALSE);
 		m_tranInfo->m_unk0x1c[0]->Enable(TRUE);
 	}
@@ -181,13 +186,11 @@ void LegoAnimMMPresenter::StreamingTickle() {
 void LegoAnimMMPresenter::RepeatingTickle() {
 	if (m_presenter == NULL) {
 		ProgressTickleState(e_freezing);
-	}
-	else if (m_list.size() <= 1) {
+	} else if (m_list.size() <= 1) {
 		if (m_list.front() == m_presenter) {
 			m_presenter->SetTickleState(e_done);
 			ProgressTickleState(e_freezing);
-		}
-		else {
+		} else {
 			ProgressTickleState(e_freezing);
 		}
 	}
@@ -203,9 +206,10 @@ void LegoAnimMMPresenter::DoneTickle() {
 // FUNCTION: BETA10 0x1004c47f
 MxLong LegoAnimMMPresenter::Notify(MxParam& p_param) {
 	AUTOLOCK(m_criticalSection);
-	MxNotificationParam& param = (MxNotificationParam&)p_param;
+	MxNotificationParam& param = (MxNotificationParam&) p_param;
 
-	if (param.GetNotification() == c_notificationEndAction && param.GetSender() == m_presenter) {
+	if (param.GetNotification() == c_notificationEndAction &&
+		param.GetSender() == m_presenter) {
 		m_presenter = NULL;
 	}
 
@@ -214,8 +218,10 @@ MxLong LegoAnimMMPresenter::Notify(MxParam& p_param) {
 
 // FUNCTION: LEGO1 0x1004b360
 void LegoAnimMMPresenter::VTable0x60(MxPresenter* p_presenter) {
-	if (m_presenter == p_presenter && ((MxU8)p_presenter->GetCurrentTickleState() == MxPresenter::e_streaming ||
-		(MxU8)p_presenter->GetCurrentTickleState() == MxPresenter::e_done)) {
+	if (m_presenter == p_presenter &&
+		((MxU8) p_presenter->GetCurrentTickleState() ==
+			 MxPresenter::e_streaming ||
+		 (MxU8) p_presenter->GetCurrentTickleState() == MxPresenter::e_done)) {
 		p_presenter->SetTickleState(MxPresenter::e_idle);
 	}
 }
@@ -319,7 +325,8 @@ MxBool LegoAnimMMPresenter::FUN_1004b570(MxLong p_time) {
 MxBool LegoAnimMMPresenter::FUN_1004b580(MxLong p_time) {
 	switch (m_unk0x59) {
 	case 0:
-		if (m_tranInfo != NULL && m_tranInfo->m_unk0x15 != FALSE && m_tranInfo->m_unk0x20 != NULL &&
+		if (m_tranInfo != NULL && m_tranInfo->m_unk0x15 != FALSE &&
+			m_tranInfo->m_unk0x20 != NULL &&
 			m_tranInfo->m_unk0x20[0] > p_time) {
 			return FALSE;
 		}
@@ -370,11 +377,13 @@ MxBool LegoAnimMMPresenter::FUN_1004b600(MxLong p_time) {
 // FUNCTION: LEGO1 0x1004b610
 // FUNCTION: BETA10 0x1004cc6e
 MxBool LegoAnimMMPresenter::FUN_1004b610(MxLong p_time) {
-	for (MxCompositePresenterList::iterator it = m_list.begin(); it != m_list.end(); it++) {
-		if ((*it)->IsA("LegoAnimPresenter") || (*it)->IsA("LegoLoopingAnimPresenter")) {
+	for (MxCompositePresenterList::iterator it = m_list.begin();
+		 it != m_list.end();
+		 it++) {
+		if ((*it)->IsA("LegoAnimPresenter") ||
+			(*it)->IsA("LegoLoopingAnimPresenter")) {
 			(*it)->SetTickleState(e_streaming);
-		}
-		else {
+		} else {
 			(*it)->SetTickleState(e_ready);
 		}
 	}
@@ -405,7 +414,8 @@ MxBool LegoAnimMMPresenter::FUN_1004b6d0(MxLong p_time) {
 	LegoROI* viewROI = VideoManager()->GetViewROI();
 	LegoPathActor* actor = UserActor();
 
-	if (m_tranInfo != NULL && m_tranInfo->m_unk0x14 && m_tranInfo->m_location != -1 && actor != NULL) {
+	if (m_tranInfo != NULL && m_tranInfo->m_unk0x14 &&
+		m_tranInfo->m_location != -1 && actor != NULL) {
 		if (m_unk0x64 != NULL) {
 			undefined4 und = 1;
 
@@ -419,9 +429,13 @@ MxBool LegoAnimMMPresenter::FUN_1004b6d0(MxLong p_time) {
 					direction = viewROI->GetWorldDirection();
 					position[1] -= 1.25;
 
-					und = m_unk0x64->PlaceActor(actor, m_presenter, position, direction);
-				}
-				else {
+					und = m_unk0x64->PlaceActor(
+						actor,
+						m_presenter,
+						position,
+						direction
+					);
+				} else {
 					und = 0;
 				}
 			}
@@ -457,7 +471,9 @@ void LegoAnimMMPresenter::FUN_1004b840() {
 		m_presenter->FUN_1006c7a0();
 	}
 
-	for (MxCompositePresenterList::iterator it = m_list.begin(); it != m_list.end(); it++) {
+	for (MxCompositePresenterList::iterator it = m_list.begin();
+		 it != m_list.end();
+		 it++) {
 		if (*it != m_presenter) {
 			(*it)->EndAction();
 		}

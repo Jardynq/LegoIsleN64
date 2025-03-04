@@ -13,18 +13,23 @@ public:
 	Mx4DPointFloat() : Vector4(m_elements) {}
 
 	// FUNCTION: BETA10 0x10073bb0
-	Mx4DPointFloat(float p_x, float p_y, float p_z, float p_a) : Vector4(m_elements) {
+	Mx4DPointFloat(float p_x, float p_y, float p_z, float p_a)
+		: Vector4(m_elements) {
 		m_elements[0] = p_x;
 		m_elements[1] = p_y;
 		m_elements[2] = p_z;
 		m_elements[3] = p_a;
 	}
 
-	Mx4DPointFloat(const Mx4DPointFloat& p_other) : Vector4(m_elements) { EqualsImpl(p_other.m_data); }
+	Mx4DPointFloat(const Mx4DPointFloat& p_other) : Vector4(m_elements) {
+		EqualsImpl(p_other.m_data);
+	}
 
 	// FUNCTION: LEGO1 0x10003200
 	// FUNCTION: BETA10 0x10048da0
-	virtual void operator=(const Vector4& p_impl) { EqualsImpl(p_impl.m_data); } // vtable+0x98
+	virtual void operator=(const Vector4& p_impl) {
+		EqualsImpl(p_impl.m_data);
+	} // vtable+0x98
 
 	// FUNCTION: BETA10 0x1004af10
 	float& operator[](int idx) { return m_data[idx]; }

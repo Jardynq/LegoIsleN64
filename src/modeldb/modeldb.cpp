@@ -1,6 +1,5 @@
 #include "modeldb.h"
 
-
 // FUNCTION: LEGO1 0x10027690
 // FUNCTION: BETA10 0x100e5620
 void ModelDbModel::Free() {
@@ -79,7 +78,8 @@ MxResult ModelDbPart::Read(FILE* p_file) {
 }
 
 // FUNCTION: LEGO1 0x10027910
-MxResult ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWorlds) {
+MxResult
+ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWorlds) {
 	p_worlds = NULL;
 	p_numWorlds = 0;
 
@@ -117,7 +117,12 @@ MxResult ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWo
 			worlds[i].m_partList->Append(part);
 		}
 
-		if (fread(&worlds[i].m_numModels, sizeof(worlds[i].m_numModels), 1, p_file) != 1) {
+		if (fread(
+				&worlds[i].m_numModels,
+				sizeof(worlds[i].m_numModels),
+				1,
+				p_file
+			) != 1) {
 			return FAILURE;
 		}
 

@@ -9,9 +9,7 @@
 // SIZE 0x150
 class LegoCarBuildAnimPresenter : public LegoAnimPresenter {
 public:
-	enum {
-		c_bit1 = 0x01
-	};
+	enum { c_bit1 = 0x01 };
 
 	// SIZE 0x0c
 	struct UnknownListEntry {
@@ -29,7 +27,8 @@ public:
 		// variable name verified by BETA10 0x100719f0
 		LegoChar* m_wiredName; // 0x04
 
-		// variable name guessed based on the setter at LEGO1 0x0x10079dc0 and its use in LEGO1 0x10024890
+		// variable name guessed based on the setter at LEGO1 0x0x10079dc0 and
+		// its use in LEGO1 0x10024890
 		MxS16 m_objectId; // 0x08
 	};
 
@@ -55,7 +54,8 @@ public:
 	// FUNCTION: LEGO1 0x10078520
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoCarBuildAnimPresenter::ClassName()) || LegoAnimPresenter::IsA(p_name);
+		return !strcmp(p_name, LegoCarBuildAnimPresenter::ClassName()) ||
+			   LegoAnimPresenter::IsA(p_name);
 	}
 
 	void ReadyTickle() override;     // vtable+0x18
@@ -70,8 +70,10 @@ public:
 	void FUN_10079160();
 	void FUN_100795d0(LegoChar* p_param);
 	void FUN_10079680(LegoChar* p_param);
-	LegoAnimNodeData* FindNodeDataByName(LegoTreeNode* p_treeNode, const LegoChar* p_name);
-	LegoTreeNode* FindNodeByName(LegoTreeNode* p_treeNode, const LegoChar* p_name);
+	LegoAnimNodeData*
+	FindNodeDataByName(LegoTreeNode* p_treeNode, const LegoChar* p_name);
+	LegoTreeNode*
+	FindNodeByName(LegoTreeNode* p_treeNode, const LegoChar* p_name);
 	void FUN_10079790(const LegoChar* p_name);
 	void RotateAroundYAxis(MxFloat p_angle);
 	MxBool FUN_10079c30(const LegoChar* p_name);
@@ -96,7 +98,9 @@ public:
 	const BoundingSphere& FUN_10079e20();
 
 	// FUNCTION: BETA10 0x100703e0
-	const LegoChar* GetWiredNameOfLastPlacedPart() { return m_parts[m_placedPartCount].m_wiredName; }
+	const LegoChar* GetWiredNameOfLastPlacedPart() {
+		return m_parts[m_placedPartCount].m_wiredName;
+	}
 
 	MxS16 GetNumberOfParts() { return m_numberOfParts; }
 	MxS16 GetPlacedPartCount() { return m_placedPartCount; }

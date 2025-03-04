@@ -15,7 +15,8 @@ class ViewLODListManager;
 //////////////////////////////////////////////////////////////////////////////
 // ViewLODList
 //
-// An ViewLODList is an LODList that is shared among instances of the "same ROI".
+// An ViewLODList is an LODList that is shared among instances of the "same
+// ROI".
 //
 // ViewLODLists are managed (created and destroyed) by ViewLODListManager.
 //
@@ -50,8 +51,9 @@ private:
 typedef const char* ROIName;
 struct ROINameComparator {
 	// FUNCTION: BETA10 0x101794c0
-	unsigned char operator()(const ROIName& rName1, const ROIName& rName2) const {
-		return strcmp((const char*)rName1, (const char*)rName2) > 0;
+	unsigned char
+	operator()(const ROIName& rName1, const ROIName& rName2) const {
+		return strcmp((const char*) rName1, (const char*) rName2) > 0;
 	}
 };
 
@@ -188,8 +190,8 @@ private:
 // ViewLODList implementation
 
 // FUNCTION: BETA10 0x1017b240
-inline ViewLODList::ViewLODList(size_t capacity, ViewLODListManager* owner) : LODList<ViewLOD>(capacity), m_refCount(0) {
-	m_owner = owner;
+inline ViewLODList::ViewLODList(size_t capacity, ViewLODListManager* owner)
+	: LODList<ViewLOD>(capacity), m_refCount(0), m_owner(owner) {
 }
 
 inline ViewLODList::~ViewLODList() {

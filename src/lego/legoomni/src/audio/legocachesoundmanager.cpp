@@ -3,7 +3,6 @@
 #include "legoworld.h"
 #include "misc.h"
 
-
 // FUNCTION: LEGO1 0x1003cf20
 LegoCacheSoundManager::~LegoCacheSoundManager() {
 	LegoCacheSound* sound;
@@ -17,7 +16,8 @@ LegoCacheSoundManager::~LegoCacheSoundManager() {
 
 	while (!m_list.empty()) {
 		sound = (*m_list.begin()).GetSound();
-		// TODO: LegoCacheSoundEntry::~LegoCacheSoundEntry should not be inlined here
+		// TODO: LegoCacheSoundEntry::~LegoCacheSoundEntry should not be inlined
+		// here
 		m_list.erase(m_list.begin());
 		sound->Stop();
 		delete sound;
@@ -41,8 +41,7 @@ MxResult LegoCacheSoundManager::Tickle() {
 		if (sound->GetUnknown0x58()) {
 			sound->FUN_10006be0();
 			listIter++;
-		}
-		else {
+		} else {
 			sound->Stop();
 			m_list.erase(listIter++);
 			delete sound;
@@ -66,7 +65,8 @@ LegoCacheSound* LegoCacheSoundManager::FindSoundByKey(const char* p_key) {
 }
 
 // FUNCTION: LEGO1 0x1003d290
-LegoCacheSound* LegoCacheSoundManager::ManageSoundEntry(LegoCacheSound* p_sound) {
+LegoCacheSound* LegoCacheSoundManager::ManageSoundEntry(LegoCacheSound* p_sound
+) {
 	Set100d6b4c::iterator it = m_set.find(LegoCacheSoundEntry(p_sound));
 	if (it != m_set.end()) {
 		LegoCacheSound* sound = (*it).GetSound();
@@ -74,8 +74,7 @@ LegoCacheSound* LegoCacheSoundManager::ManageSoundEntry(LegoCacheSound* p_sound)
 		if (sound->GetUnknown0x58()) {
 			m_list.push_back(LegoCacheSoundEntry(p_sound));
 			return p_sound;
-		}
-		else {
+		} else {
 			delete p_sound;
 			return sound;
 		}
@@ -92,13 +91,21 @@ LegoCacheSound* LegoCacheSoundManager::ManageSoundEntry(LegoCacheSound* p_sound)
 
 // FUNCTION: LEGO1 0x1003dae0
 // FUNCTION: BETA10 0x10065502
-LegoCacheSound* LegoCacheSoundManager::Play(const char* p_key, const char* p_name, MxBool p_looping) {
+LegoCacheSound* LegoCacheSoundManager::Play(
+	const char* p_key,
+	const char* p_name,
+	MxBool p_looping
+) {
 	return Play(FindSoundByKey(p_key), p_name, p_looping);
 }
 
 // FUNCTION: LEGO1 0x1003db10
 // FUNCTION: BETA10 0x10065537
-LegoCacheSound* LegoCacheSoundManager::Play(LegoCacheSound* p_sound, const char* p_name, MxBool p_looping) {
+LegoCacheSound* LegoCacheSoundManager::Play(
+	LegoCacheSound* p_sound,
+	const char* p_name,
+	MxBool p_looping
+) {
 	if (!p_sound) {
 		return NULL;
 	}
@@ -111,8 +118,7 @@ LegoCacheSound* LegoCacheSoundManager::Play(LegoCacheSound* p_sound, const char*
 			sound->Play(p_name, p_looping);
 			return sound;
 		}
-	}
-	else {
+	} else {
 		p_sound->Play(p_name, p_looping);
 		return p_sound;
 	}

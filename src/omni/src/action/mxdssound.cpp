@@ -2,7 +2,6 @@
 
 #include "mxutilities.h"
 
-
 // FUNCTION: LEGO1 0x100c92c0
 // FUNCTION: BETA10 0x1015cfdb
 MxDSSound::MxDSSound() {

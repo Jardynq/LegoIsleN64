@@ -52,12 +52,7 @@ public:
 // SIZE 0x430
 class LegoGameState {
 public:
-	enum Act {
-		e_actNotFound = -1,
-		e_act1,
-		e_act2,
-		e_act3
-	};
+	enum Act { e_actNotFound = -1, e_act1, e_act2, e_act3 };
 
 	enum Area {
 		e_undefined = 0,
@@ -133,7 +128,9 @@ public:
 	// SIZE 0x0e
 	struct Username {
 		Username();
-		void Set(Username& p_other) { memcpy(m_letters, p_other.m_letters, sizeof(m_letters)); }
+		void Set(Username& p_other) {
+			memcpy(m_letters, p_other.m_letters, sizeof(m_letters));
+		}
 
 		MxResult Serialize(LegoStorage* p_storage);
 		Username& operator=(const Username& p_other);
@@ -156,14 +153,17 @@ public:
 		History();
 		void WriteScoreHistory();
 		MxResult Serialize(LegoStorage* p_storage);
-		ScoreItem* FUN_1003cc90(Username* p_player, MxS16 p_unk0x24, MxS32& p_unk0x2c);
+		ScoreItem*
+		FUN_1003cc90(Username* p_player, MxS16 p_unk0x24, MxS32& p_unk0x2c);
 
 		// FUNCTION: BETA10 0x1002c2b0
 		MxS16 GetCount() { return m_count; }
 
 		// TODO: Not yet correct
 		// FUNCTION: BETA10 0x1002c540
-		ScoreItem* GetScore(MxS32 p_index) { return p_index >= m_count ? NULL : &m_scores[p_index]; }
+		ScoreItem* GetScore(MxS32 p_index) {
+			return p_index >= m_count ? NULL : &m_scores[p_index];
+		}
 
 		MxS16 m_count;          // 0x00
 		ScoreItem m_scores[20]; // 0x02
@@ -211,7 +211,9 @@ public:
 	Area GetUnknown0x42c() { return m_unk0x42c; }
 
 	void SetDirty(MxBool p_isDirty) { m_isDirty = p_isDirty; }
-	void SetPreviousArea(Area p_previousArea) { m_previousArea = p_previousArea; }
+	void SetPreviousArea(Area p_previousArea) {
+		m_previousArea = p_previousArea;
+	}
 	void SetActorId(MxU8 p_actorId) { m_actorId = p_actorId; }
 	void SetUnknown0x42c(Area p_unk0x42c) { m_unk0x42c = p_unk0x42c; }
 	Username* GetPlayersIndex(MxS32 p_index) { return &m_players[p_index]; }
@@ -223,7 +225,11 @@ public:
 	void RegisterState(LegoState* p_state);
 
 private:
-	MxResult WriteVariable(LegoStorage* p_storage, MxVariableTable* p_from, const char* p_variableName);
+	MxResult WriteVariable(
+		LegoStorage* p_storage,
+		MxVariableTable* p_from,
+		const char* p_variableName
+	);
 	MxResult WriteEndOfVariables(LegoStorage* p_storage);
 	MxS32 ReadVariable(LegoStorage* p_storage, MxVariableTable* p_to);
 	void SetColors();
@@ -239,7 +245,8 @@ private:
 	LegoBackgroundColor* m_tempBackgroundColor; // 0x1c
 	LegoFullScreenMovie* m_fullScreenMovie;     // 0x20
 
-	// TODO: Most likely getters/setters are not used according to BETA for the following members:
+	// TODO: Most likely getters/setters are not used according to BETA for the
+	// following members:
 
 public:
 	MxS16 m_unk0x24;                      // 0x24

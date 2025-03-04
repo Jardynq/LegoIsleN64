@@ -24,12 +24,14 @@ public:
 	// FUNCTION: LEGO1 0x10073f20
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxCompositeMediaPresenter::ClassName()) || MxCompositePresenter::IsA(p_name);
+		return !strcmp(p_name, MxCompositeMediaPresenter::ClassName()) ||
+			   MxCompositePresenter::IsA(p_name);
 	}
 
-	void StartingTickle() override;                                           // vtable+0x1c
-	MxResult StartAction(MxStreamController*, MxDSAction* p_action) override; // vtable+0x3c
-	MxResult PutData() override;                                              // vtable+0x4c
+	void StartingTickle() override; // vtable+0x1c
+	MxResult StartAction(MxStreamController*, MxDSAction* p_action)
+		override;                // vtable+0x3c
+	MxResult PutData() override; // vtable+0x4c
 
 private:
 	MxS16 m_unk0x4c;  // 0x4c

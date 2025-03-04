@@ -1,7 +1,6 @@
 #ifndef FLIC_H
 #define FLIC_H
 
-
 #include <windows.h>
 
 enum FLI_CHUNK_TYPE {
@@ -17,8 +16,10 @@ enum FLI_CHUNK_TYPE {
 };
 
 #pragma pack(push, 1)
-// A basic FLIC header structure from the "EGI" documentation. Source: https://www.compuphase.com/flic.htm#FLICHEADER
-// This also goes over the FLIC structures: https://github.com/thinkbeforecoding/nomemalloc.handson/blob/master/flic.txt
+// A basic FLIC header structure from the "EGI" documentation. Source:
+// https://www.compuphase.com/flic.htm#FLICHEADER This also goes over the FLIC
+// structures:
+// https://github.com/thinkbeforecoding/nomemalloc.handson/blob/master/flic.txt
 typedef struct {
 	DWORD size; /* Size of the chunk, including subchunks */ // 0x00
 	WORD type;                                               // 0x04

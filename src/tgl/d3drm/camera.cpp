@@ -2,7 +2,6 @@
 
 using namespace TglImpl;
 
-
 // FUNCTION: LEGO1 0x100a36f0
 void* CameraImpl::ImplementationDataPtr() {
 	return reinterpret_cast<void*>(&m_data);
@@ -18,7 +17,8 @@ Result CameraImpl::SetTransformation(FloatMatrix4& matrix) {
 	Result result2;
 
 	result2 = ResultVal(m_data->GetPosition(0, &position));
-	result = ResultVal(m_data->AddTransform(D3DRMCOMBINE_REPLACE, *pTransformation));
+	result =
+		ResultVal(m_data->AddTransform(D3DRMCOMBINE_REPLACE, *pTransformation));
 	// The did this second call just to assert on the return value
 	result2 = ResultVal(m_data->GetPosition(0, &position));
 

@@ -11,12 +11,7 @@
 // SIZE 0x40
 struct LegoUnknown100db7f4 : public LegoEdge {
 public:
-	enum {
-		c_bit1 = 0x01,
-		c_bit2 = 0x02,
-		c_bit3 = 0x04,
-		c_bit4 = 0x08
-	};
+	enum { c_bit1 = 0x01, c_bit2 = 0x02, c_bit3 = 0x04, c_bit4 = 0x08 };
 
 	LegoUnknown100db7f4();
 
@@ -27,8 +22,7 @@ public:
 			p_point[0] = -m_unk0x28[0];
 			p_point[1] = -m_unk0x28[1];
 			p_point[2] = -m_unk0x28[2];
-		}
-		else {
+		} else {
 			// clang-format off
 			assert(p_f.IsEqual(m_faceB));
 			// clang-format on
@@ -41,8 +35,10 @@ public:
 	// FUNCTION: BETA10 0x1004a830
 	LegoU32 BETA_1004a830(LegoWEGEdge& p_face, LegoU8 p_mask) {
 		assert(p_face.IsEqual(m_faceA) || p_face.IsEqual(m_faceB));
-		return (p_face.IsEqual(m_faceB) && (m_flags & c_bit1) && (p_face.GetMask0x03() & p_mask) == p_mask) ||
-			(p_face.IsEqual(m_faceA) && (m_flags & c_bit2) && (p_face.GetMask0x03() & p_mask) == p_mask);
+		return (p_face.IsEqual(m_faceB) && (m_flags & c_bit1) &&
+				(p_face.GetMask0x03() & p_mask) == p_mask) ||
+			   (p_face.IsEqual(m_faceA) && (m_flags & c_bit2) &&
+				(p_face.GetMask0x03() & p_mask) == p_mask);
 	}
 
 	// FUNCTION: BETA10 0x100b53b0
@@ -50,15 +46,15 @@ public:
 		// clang-format off
 		assert(p_face.IsEqual(m_faceA) || p_face.IsEqual(m_faceB));
 		// clang-format on
-		return (p_face.IsEqual(m_faceA) && (m_flags & c_bit1)) || (p_face.IsEqual(m_faceB) && (m_flags & c_bit2));
+		return (p_face.IsEqual(m_faceA) && (m_flags & c_bit1)) ||
+			   (p_face.IsEqual(m_faceB) && (m_flags & c_bit2));
 	}
 
 	// FUNCTION: BETA10 0x1001cbe0
 	LegoWEEdge* OtherFace(LegoWEEdge* p_other) {
 		if (m_faceA == p_other) {
 			return m_faceB;
-		}
-		else {
+		} else {
 			return m_faceA;
 		}
 	}
@@ -69,7 +65,7 @@ public:
 		point += *m_pointB;
 		point *= 0.5f;
 		point -= p_vec;
-		return sqrt((double)point.LenSquared());
+		return sqrt((double) point.LenSquared());
 	}
 
 	// FUNCTION: BETA10 0x100bd540
@@ -81,7 +77,7 @@ public:
 		point2 += *p_other.m_pointB;
 		point2 *= 0.5f;
 		point1 -= point2;
-		return sqrt((double)point1.LenSquared());
+		return sqrt((double) point1.LenSquared());
 	}
 
 	// FUNCTION: BETA10 0x1001cc60
@@ -114,9 +110,9 @@ inline LegoU32 LegoUnknown100db7f4::FUN_10048c40(const Vector3& p_position) {
 		}
 
 		result = TRUE;
-	}
-	else {
-		if (p_position[0] > (*m_pointA)[0] + 0.001 || p_position[0] < (*m_pointA)[0] - 0.001) {
+	} else {
+		if (p_position[0] > (*m_pointA)[0] + 0.001 ||
+			p_position[0] < (*m_pointA)[0] - 0.001) {
 			return FALSE;
 		}
 	}
@@ -128,14 +124,13 @@ inline LegoU32 LegoUnknown100db7f4::FUN_10048c40(const Vector3& p_position) {
 			if (localc > local10 + 0.001 || localc < local10 - 0.001) {
 				return FALSE;
 			}
-		}
-		else {
+		} else {
 			result = TRUE;
 			localc = local10;
 		}
-	}
-	else {
-		if (p_position[1] > (*m_pointA)[1] + 0.001 || p_position[1] < (*m_pointA)[1] - 0.001) {
+	} else {
+		if (p_position[1] > (*m_pointA)[1] + 0.001 ||
+			p_position[1] < (*m_pointA)[1] - 0.001) {
 			return FALSE;
 		}
 	}
@@ -147,13 +142,12 @@ inline LegoU32 LegoUnknown100db7f4::FUN_10048c40(const Vector3& p_position) {
 			if (localc > local10 + 0.001 || localc < local10 - 0.001) {
 				return FALSE;
 			}
-		}
-		else {
+		} else {
 			return TRUE;
 		}
-	}
-	else {
-		if (p_position[2] > (*m_pointA)[2] + 0.001 || p_position[2] < (*m_pointA)[2] - 0.001) {
+	} else {
+		if (p_position[2] > (*m_pointA)[2] + 0.001 ||
+			p_position[2] < (*m_pointA)[2] - 0.001) {
 			return FALSE;
 		}
 	}

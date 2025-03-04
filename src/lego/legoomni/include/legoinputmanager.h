@@ -47,7 +47,8 @@ protected:
 	} // vtable+0x14
 
 public:
-	LegoNotifyList(MxBool p_ownership = FALSE) : MxPtrList<MxCore>(p_ownership) {}
+	LegoNotifyList(MxBool p_ownership = FALSE)
+		: MxPtrList<MxCore>(p_ownership) {}
 };
 
 // VTABLE: LEGO1 0x100d6ac0
@@ -60,7 +61,8 @@ public:
 // SIZE 0x10
 class LegoNotifyListCursor : public MxPtrListCursor<MxCore> {
 public:
-	LegoNotifyListCursor(LegoNotifyList* p_list) : MxPtrListCursor<MxCore>(p_list) {}
+	LegoNotifyListCursor(LegoNotifyList* p_list)
+		: MxPtrListCursor<MxCore>(p_list) {}
 };
 
 // VTABLE: LEGO1 0x100d8760
@@ -81,7 +83,13 @@ public:
 	LegoInputManager();
 	~LegoInputManager() override;
 
-	void QueueEvent(NotificationId p_id, MxU8 p_modifier, MxLong p_x, MxLong p_y, MxU8 p_key);
+	void QueueEvent(
+		NotificationId p_id,
+		MxU8 p_modifier,
+		MxLong p_x,
+		MxLong p_y,
+		MxU8 p_key
+	);
 	void Register(MxCore*);
 	void UnRegister(MxCore*);
 
@@ -99,7 +107,12 @@ public:
 	void CreateAndAcquireKeyboard(HWND p_hwnd);
 	void ReleaseDX();
 	MxResult GetJoystickId();
-	MxResult GetJoystickState(MxU32* p_joystickX, MxU32* p_joystickY, DWORD* p_buttonsState, MxU32* p_povPosition);
+	MxResult GetJoystickState(
+		MxU32* p_joystickX,
+		MxU32* p_joystickY,
+		DWORD* p_buttonsState,
+		MxU32* p_povPosition
+	);
 	void StartAutoDragTimer();
 	void StopAutoDragTimer();
 	void EnableInputProcessing();
@@ -112,7 +125,9 @@ public:
 	void SetUnknown335(MxBool p_unk0x335) { m_unk0x335 = p_unk0x335; }
 	void SetUnknown336(MxBool p_unk0x336) { m_unk0x336 = p_unk0x336; }
 	void SetUseJoystick(MxBool p_useJoystick) { m_useJoystick = p_useJoystick; }
-	void SetJoystickIndex(MxS32 p_joystickIndex) { m_joystickIndex = p_joystickIndex; }
+	void SetJoystickIndex(MxS32 p_joystickIndex) {
+		m_joystickIndex = p_joystickIndex;
+	}
 
 	void DisableInputProcessing() {
 		m_unk0x88 = TRUE;

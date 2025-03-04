@@ -27,16 +27,24 @@ public:
 	virtual MxLong HandleEndAnim() { return 0; } // vtable+0x70
 
 	// FUNCTION: LEGO1 0x1000e620
-	virtual MxLong HandleEndAction(MxEndActionNotificationParam&) { return 0; } // vtable+0x74
+	virtual MxLong HandleEndAction(MxEndActionNotificationParam&) {
+		return 0;
+	} // vtable+0x74
 
 	// FUNCTION: LEGO1 0x1000e630
-	virtual MxLong HandleButtonDown(LegoControlManagerNotificationParam&) { return 0; } // vtable+0x78
+	virtual MxLong HandleButtonDown(LegoControlManagerNotificationParam&) {
+		return 0;
+	} // vtable+0x78
 
 	// FUNCTION: LEGO1 0x1000e640
-	virtual MxLong HandleButtonUp(LegoControlManagerNotificationParam&) { return 0; } // vtable+0x7c
+	virtual MxLong HandleButtonUp(LegoControlManagerNotificationParam&) {
+		return 0;
+	} // vtable+0x7c
 
 	// FUNCTION: LEGO1 0x1000e650
-	virtual MxLong HandlePathStruct(LegoPathStructNotificationParam&) { return 0; } // vtable+0x80
+	virtual MxLong HandlePathStruct(LegoPathStructNotificationParam&) {
+		return 0;
+	} // vtable+0x80
 
 	// FUNCTION: LEGO1 0x1000e660
 	// FUNCTION: BETA10 0x100a8300
@@ -49,7 +57,8 @@ public:
 	// FUNCTION: LEGO1 0x1000e670
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, IsleActor::ClassName()) || LegoActor::IsA(p_name);
+		return !strcmp(p_name, IsleActor::ClassName()) ||
+			   LegoActor::IsA(p_name);
 	}
 
 protected:

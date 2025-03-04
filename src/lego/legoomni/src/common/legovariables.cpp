@@ -7,7 +7,6 @@
 #include "misc.h"
 #include "roi/legoroi.h"
 
-
 // GLOBAL: LEGO1 0x100f7ab0
 // STRING: LEGO1 0x100f09c0
 const char* g_varJETSPEED = "jetSPEED";
@@ -108,11 +107,9 @@ void VisibilityVariable::SetValue(const char* p_value) {
 
 		if (!strcmpi(instruction, g_varHIDE)) {
 			show = FALSE;
-		}
-		else if (!strcmpi(instruction, g_varSHOW)) {
+		} else if (!strcmpi(instruction, g_varSHOW)) {
 			show = TRUE;
-		}
-		else {
+		} else {
 			return;
 		}
 
@@ -135,7 +132,7 @@ void CameraLocationVariable::SetValue(const char* p_value) {
 
 	location = strtok(NULL, ",");
 	if (location) {
-		MxFloat pov = (MxFloat)atof(location);
+		MxFloat pov = (MxFloat) atof(location);
 		VideoManager()->Get3DManager()->SetFrustrum(pov, 0.1f, 250.0f);
 	}
 }
@@ -150,17 +147,13 @@ void WhoAmIVariable::SetValue(const char* p_value) {
 
 	if (!strcmpi(p_value, g_papa)) {
 		GameState()->SetActorId(3);
-	}
-	else if (!strcmpi(p_value, g_mama)) {
+	} else if (!strcmpi(p_value, g_mama)) {
 		GameState()->SetActorId(2);
-	}
-	else if (!strcmpi(p_value, g_pepper)) {
+	} else if (!strcmpi(p_value, g_pepper)) {
 		GameState()->SetActorId(1);
-	}
-	else if (!strcmpi(p_value, g_nick)) {
+	} else if (!strcmpi(p_value, g_nick)) {
 		GameState()->SetActorId(4);
-	}
-	else if (!strcmpi(p_value, g_laura)) {
+	} else if (!strcmpi(p_value, g_laura)) {
 		GameState()->SetActorId(5);
 	}
 }

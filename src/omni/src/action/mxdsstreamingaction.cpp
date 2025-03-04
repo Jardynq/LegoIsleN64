@@ -2,10 +2,12 @@
 
 #include "mxdsbuffer.h"
 
-
 // FUNCTION: LEGO1 0x100cd010
 // FUNCTION: BETA10 0x1015f380
-MxDSStreamingAction::MxDSStreamingAction(MxDSAction& p_dsAction, MxU32 p_offset) {
+MxDSStreamingAction::MxDSStreamingAction(
+	MxDSAction& p_dsAction,
+	MxU32 p_offset
+) {
 	Init();
 
 	MxDSAction::operator=(p_dsAction);
@@ -21,7 +23,9 @@ MxBool MxDSStreamingAction::HasId(MxU32 p_objectId) {
 
 // FUNCTION: LEGO1 0x100cd0d0
 // FUNCTION: BETA10 0x101564a0
-MxDSStreamingAction::MxDSStreamingAction(MxDSStreamingAction& p_dsStreamingAction) {
+MxDSStreamingAction::MxDSStreamingAction(
+	MxDSStreamingAction& p_dsStreamingAction
+) {
 	Init();
 	CopyFrom(p_dsStreamingAction);
 }
@@ -55,7 +59,8 @@ void MxDSStreamingAction::Init() {
 
 // FUNCTION: LEGO1 0x100cd220
 // FUNCTION: BETA10 0x1015f5b9
-MxDSStreamingAction* MxDSStreamingAction::CopyFrom(MxDSStreamingAction& p_dsStreamingAction) {
+MxDSStreamingAction*
+MxDSStreamingAction::CopyFrom(MxDSStreamingAction& p_dsStreamingAction) {
 	MxDSAction::operator=(p_dsStreamingAction);
 	m_unk0x94 = p_dsStreamingAction.m_unk0x94;
 	m_bufferOffset = p_dsStreamingAction.m_bufferOffset;
@@ -64,7 +69,11 @@ MxDSStreamingAction* MxDSStreamingAction::CopyFrom(MxDSStreamingAction& p_dsStre
 	m_unk0xa4 = NULL;
 	m_unk0xac = p_dsStreamingAction.m_unk0xac;
 	m_unk0xa8 = p_dsStreamingAction.m_unk0xa8;
-	SetInternalAction(p_dsStreamingAction.m_internalAction ? p_dsStreamingAction.m_internalAction->Clone() : NULL);
+	SetInternalAction(
+		p_dsStreamingAction.m_internalAction
+			? p_dsStreamingAction.m_internalAction->Clone()
+			: NULL
+	);
 
 	return this;
 }

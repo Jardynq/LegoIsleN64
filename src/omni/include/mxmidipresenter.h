@@ -28,7 +28,8 @@ public:
 	// FUNCTION: LEGO1 0x100c2660
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxMIDIPresenter::ClassName()) || MxMusicPresenter::IsA(p_name);
+		return !strcmp(p_name, MxMIDIPresenter::ClassName()) ||
+			   MxMusicPresenter::IsA(p_name);
 	}
 
 	void ReadyTickle() override;             // vtable+0x18

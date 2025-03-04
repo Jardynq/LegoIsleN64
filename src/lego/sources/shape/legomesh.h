@@ -37,11 +37,7 @@ struct LegoMeshUnkComponent {
 // SIZE 0x24
 class LegoMesh {
 public:
-	enum {
-		e_flat,
-		e_gouraud,
-		e_wireframe
-	};
+	enum { e_flat, e_gouraud, e_wireframe };
 
 	LegoMesh();
 	virtual ~LegoMesh();

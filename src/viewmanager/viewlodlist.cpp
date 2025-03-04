@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 
-
 // GLOBAL: LEGO1 0x10101064
 // GLOBAL: BETA10 0x10205d08
 int ViewLODListManager::g_ROINameUID = 0;
@@ -68,8 +67,7 @@ ViewLODList* ViewLODListManager::Create(const ROIName& rROIName, int lodCount) {
 		strcpy(pROIName, rROIName);
 		strcat(pROIName, num);
 		g_ROINameUID++;
-	}
-	else {
+	} else {
 		pROIName = new char[strlen(rROIName) + 1];
 		strcpy(pROIName, rROIName);
 	}
@@ -85,8 +83,8 @@ ViewLODList* ViewLODListManager::Create(const ROIName& rROIName, int lodCount) {
 // FUNCTION: LEGO1 0x100a75b0
 // FUNCTION: BETA10 0x101787d8
 ViewLODList* ViewLODListManager::Lookup(const ROIName& p_roiName) const {
-	// returned ViewLODList's refCount is increased, i.e. caller must call Release()
-	// when it no longer holds on to the list
+	// returned ViewLODList's refCount is increased, i.e. caller must call
+	// Release() when it no longer holds on to the list
 
 	ViewLODListMap::const_iterator iterator = m_map.find(p_roiName);
 	ViewLODList* pLODList = 0;

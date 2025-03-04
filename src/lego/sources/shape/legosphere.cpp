@@ -2,7 +2,6 @@
 
 #include "misc/legostorage.h"
 
-
 // FUNCTION: LEGO1 0x100d3770
 LegoResult LegoSphere::Read(LegoStorage* p_storage) {
 	LegoResult result;

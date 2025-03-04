@@ -13,7 +13,9 @@ public:
 	virtual MxS32 GetVolume() { return m_volume; } // vtable+0x5c
 
 	// FUNCTION: LEGO1 0x1000d270
-	virtual void SetVolume(MxS32 p_volume) { m_volume = p_volume; } // vtable+0x60
+	virtual void SetVolume(MxS32 p_volume) {
+		m_volume = p_volume;
+	} // vtable+0x60
 
 	// FUNCTION: BETA10 0x1008cba0
 	static const char* HandlerClassName() {
@@ -31,7 +33,8 @@ public:
 	// FUNCTION: LEGO1 0x1000d290
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxAudioPresenter::ClassName()) || MxMediaPresenter::IsA(p_name);
+		return !strcmp(p_name, MxAudioPresenter::ClassName()) ||
+			   MxMediaPresenter::IsA(p_name);
 	}
 
 protected:

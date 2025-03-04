@@ -2,7 +2,6 @@
 
 #include <limits.h>
 
-
 // FUNCTION: LEGO1 0x100c31c0
 // FUNCTION: BETA10 0x10148f00
 MxRegion::MxRegion() {
@@ -42,16 +41,15 @@ void MxRegion::VTable0x18(MxRect32& p_rect) {
 			MxRegionTopBottom* newTopBottom = new MxRegionTopBottom(rect);
 			cursor.Prepend(newTopBottom);
 			rect.SetTop(rect.GetBottom());
-		}
-		else if (rect.GetTop() < topBottom->GetBottom()) {
+		} else if (rect.GetTop() < topBottom->GetBottom()) {
 			if (rect.GetTop() < topBottom->GetTop()) {
 				newRect = rect;
 				newRect.SetBottom(topBottom->GetTop());
-				MxRegionTopBottom* newTopBottom = new MxRegionTopBottom(newRect);
+				MxRegionTopBottom* newTopBottom =
+					new MxRegionTopBottom(newRect);
 				cursor.Prepend(newTopBottom);
 				rect.SetTop(topBottom->GetTop());
-			}
-			else if (topBottom->GetTop() < rect.GetTop()) {
+			} else if (topBottom->GetTop() < rect.GetTop()) {
 				MxRegionTopBottom* newTopBottom = topBottom->Clone();
 				newTopBottom->SetBottom(rect.GetTop());
 				topBottom->SetTop(rect.GetTop());
@@ -62,12 +60,17 @@ void MxRegion::VTable0x18(MxRect32& p_rect) {
 				MxRegionTopBottom* newTopBottom = topBottom->Clone();
 				newTopBottom->SetBottom(rect.GetBottom());
 				topBottom->SetTop(rect.GetBottom());
-				newTopBottom->MergeOrExpandRegions(rect.GetLeft(), rect.GetRight());
+				newTopBottom->MergeOrExpandRegions(
+					rect.GetLeft(),
+					rect.GetRight()
+				);
 				cursor.Prepend(newTopBottom);
 				rect.SetTop(rect.GetBottom());
-			}
-			else {
-				topBottom->MergeOrExpandRegions(rect.GetLeft(), rect.GetRight());
+			} else {
+				topBottom->MergeOrExpandRegions(
+					rect.GetLeft(),
+					rect.GetRight()
+				);
 				rect.SetTop(topBottom->GetBottom());
 			}
 		}
@@ -94,7 +97,8 @@ MxBool MxRegion::VTable0x1c(MxRect32& p_rect) {
 		if (topBottom->GetTop() >= p_rect.GetBottom()) {
 			return FALSE;
 		}
-		if (topBottom->GetBottom() > p_rect.GetTop() && topBottom->CheckHorizontalOverlap(p_rect)) {
+		if (topBottom->GetBottom() > p_rect.GetTop() &&
+			topBottom->CheckHorizontalOverlap(p_rect)) {
 			return TRUE;
 		}
 	}
@@ -116,7 +120,8 @@ MxRegionTopBottom::MxRegionTopBottom(MxRect32& p_rect) {
 	m_bottom = p_rect.GetBottom();
 	m_leftRightList = new MxRegionLeftRightList;
 
-	MxRegionLeftRight* leftRight = new MxRegionLeftRight(p_rect.GetLeft(), p_rect.GetRight());
+	MxRegionLeftRight* leftRight =
+		new MxRegionLeftRight(p_rect.GetLeft(), p_rect.GetRight());
 	m_leftRightList->Append(leftRight);
 }
 
@@ -134,8 +139,7 @@ void MxRegionTopBottom::MergeOrExpandRegions(MxS32 p_left, MxS32 p_right) {
 	if (!a.HasMatch()) {
 		MxRegionLeftRight* copy = new MxRegionLeftRight(p_left, p_right);
 		m_leftRightList->Append(copy);
-	}
-	else {
+	} else {
 		if (p_left > leftRight->GetLeft()) {
 			p_left = leftRight->GetLeft();
 		}
@@ -159,8 +163,7 @@ void MxRegionTopBottom::MergeOrExpandRegions(MxS32 p_left, MxS32 p_right) {
 		if (a.HasMatch()) {
 			MxRegionLeftRight* copy = new MxRegionLeftRight(p_left, p_right);
 			a.Prepend(copy);
-		}
-		else {
+		} else {
 			MxRegionLeftRight* copy = new MxRegionLeftRight(p_left, p_right);
 			m_leftRightList->Append(copy);
 		}

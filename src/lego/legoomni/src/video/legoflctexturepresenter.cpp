@@ -4,7 +4,6 @@
 #include "misc/legocontainer.h"
 #include "mxdsaction.h"
 
-
 // FUNCTION: LEGO1 0x1005de80
 LegoFlcTexturePresenter::LegoFlcTexturePresenter() {
 	Init();
@@ -38,10 +37,10 @@ void LegoFlcTexturePresenter::StartingTickle() {
 void LegoFlcTexturePresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	MxU8* data = p_chunk->GetData();
 
-	m_rectCount = *(MxS32*)data;
+	m_rectCount = *(MxS32*) data;
 	data += sizeof(MxS32);
 
-	MxRect32* rects = (MxRect32*)data;
+	MxRect32* rects = (MxRect32*) data;
 	data += m_rectCount * sizeof(MxRect32);
 
 	MxBool decodedColorMap;
@@ -49,7 +48,7 @@ void LegoFlcTexturePresenter::LoadFrame(MxStreamChunk* p_chunk) {
 		&m_frameBitmap->GetBitmapInfo()->m_bmiHeader,
 		m_frameBitmap->GetImage(),
 		m_flcHeader,
-		(FLIC_FRAME*)data,
+		(FLIC_FRAME*) data,
 		&decodedColorMap
 	);
 }

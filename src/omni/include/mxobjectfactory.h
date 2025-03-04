@@ -4,18 +4,18 @@
 #include "mxatom.h"
 #include "mxcore.h"
 
-#define FOR_MXOBJECTFACTORY_OBJECTS(X)                                                                                 \
-	X(MxPresenter)                                                                                                     \
-	X(MxCompositePresenter)                                                                                            \
-	X(MxVideoPresenter)                                                                                                \
-	X(MxFlcPresenter)                                                                                                  \
-	X(MxSmkPresenter)                                                                                                  \
-	X(MxStillPresenter)                                                                                                \
-	X(MxWavePresenter)                                                                                                 \
-	X(MxMIDIPresenter)                                                                                                 \
-	X(MxEventPresenter)                                                                                                \
-	X(MxLoopingFlcPresenter)                                                                                           \
-	X(MxLoopingSmkPresenter)                                                                                           \
+#define FOR_MXOBJECTFACTORY_OBJECTS(X)                                         \
+	X(MxPresenter)                                                             \
+	X(MxCompositePresenter)                                                    \
+	X(MxVideoPresenter)                                                        \
+	X(MxFlcPresenter)                                                          \
+	X(MxSmkPresenter)                                                          \
+	X(MxStillPresenter)                                                        \
+	X(MxWavePresenter)                                                         \
+	X(MxMIDIPresenter)                                                         \
+	X(MxEventPresenter)                                                        \
+	X(MxLoopingFlcPresenter)                                                   \
+	X(MxLoopingSmkPresenter)                                                   \
 	X(MxLoopingMIDIPresenter)
 
 // VTABLE: LEGO1 0x100dc220
@@ -35,7 +35,8 @@ public:
 	// FUNCTION: LEGO1 0x10008f80
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, MxObjectFactory::ClassName()) || MxCore::IsA(p_name);
+		return !strcmp(p_name, MxObjectFactory::ClassName()) ||
+			   MxCore::IsA(p_name);
 	}
 
 	virtual MxCore* Create(const char* p_name); // vtable+0x14

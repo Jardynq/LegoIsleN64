@@ -45,7 +45,12 @@ public:
 	void ReadyTickle() override; // vtable+0x18
 	void ParseExtra() override;  // vtable+0x30
 
-	MxResult FUN_1007ff70(MxDSChunk& p_chunk, LegoEntity* p_entity, MxBool p_roiVisible, LegoWorld* p_world);
+	MxResult FUN_1007ff70(
+		MxDSChunk& p_chunk,
+		LegoEntity* p_entity,
+		MxBool p_roiVisible,
+		LegoWorld* p_world
+	);
 
 	void Reset() {
 		m_roi = NULL;

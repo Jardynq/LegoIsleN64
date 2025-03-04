@@ -28,11 +28,7 @@ class TowTrack;
 // SIZE 0x26c
 class Act1State : public LegoState {
 public:
-	enum ElevatorFloor {
-		c_floor1 = 1,
-		c_floor2,
-		c_floor3
-	};
+	enum ElevatorFloor { c_floor1 = 1, c_floor2, c_floor3 };
 
 	Act1State();
 
@@ -47,7 +43,8 @@ public:
 	// FUNCTION: LEGO1 0x100338b0
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, Act1State::ClassName()) || LegoState::IsA(p_name);
+		return !strcmp(p_name, Act1State::ClassName()) ||
+			   LegoState::IsA(p_name);
 	}
 
 	MxBool Reset() override;                             // vtable+0x18
@@ -59,11 +56,13 @@ public:
 	void PlaceActors();
 
 	MxU32 GetUnknown18() { return m_unk0x018; }
-	ElevatorFloor GetElevatorFloor() { return (ElevatorFloor)m_elevFloor; }
+	ElevatorFloor GetElevatorFloor() { return (ElevatorFloor) m_elevFloor; }
 	MxU8 GetUnknown21() { return m_unk0x021; }
 
 	void SetUnknown18(MxU32 p_unk0x18) { m_unk0x018 = p_unk0x18; }
-	void SetElevatorFloor(ElevatorFloor p_elevFloor) { m_elevFloor = p_elevFloor; }
+	void SetElevatorFloor(ElevatorFloor p_elevFloor) {
+		m_elevFloor = p_elevFloor;
+	}
 	void SetUnknown21(MxU8 p_unk0x21) { m_unk0x021 = p_unk0x21; }
 
 	// SYNTHETIC: LEGO1 0x10033960
@@ -108,10 +107,7 @@ public:
 // SIZE 0x140
 class Isle : public LegoWorld {
 public:
-	enum {
-		c_playCamAnims = 0x20,
-		c_playMusic = 0x40
-	};
+	enum { c_playCamAnims = 0x20, c_playMusic = 0x40 };
 
 	Isle();
 	~Isle() override;
@@ -143,7 +139,9 @@ public:
 	void Enable(MxBool p_enable) override;            // vtable+0x68
 	virtual void VTable0x6c(LegoPathActor* p_actor);  // vtable+0x6c
 
-	void SetDestLocation(LegoGameState::Area p_destLocation) { m_destLocation = p_destLocation; }
+	void SetDestLocation(LegoGameState::Area p_destLocation) {
+		m_destLocation = p_destLocation;
+	}
 	MxBool HasHelicopter() { return m_helicopter != NULL; }
 
 	void FUN_10033350();

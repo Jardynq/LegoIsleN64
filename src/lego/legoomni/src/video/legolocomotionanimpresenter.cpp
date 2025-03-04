@@ -10,7 +10,6 @@
 #include "mxmisc.h"
 #include "mxvariabletable.h"
 
-
 // FUNCTION: LEGO1 0x1006cdd0
 LegoLocomotionAnimPresenter::LegoLocomotionAnimPresenter() {
 	Init();
@@ -124,12 +123,16 @@ void LegoLocomotionAnimPresenter::EndAction() {
 
 // FUNCTION: LEGO1 0x1006d680
 // FUNCTION: BETA10 0x10052b3d
-void LegoLocomotionAnimPresenter::FUN_1006d680(LegoAnimActor* p_actor, MxFloat p_value) {
+void LegoLocomotionAnimPresenter::FUN_1006d680(
+	LegoAnimActor* p_actor,
+	MxFloat p_value
+) {
 	AUTOLOCK(m_criticalSection);
 
 	MxVariableTable* variableTable = VariableTable();
 
-	const char* key = ((LegoAnimNodeData*)m_anim->GetRoot()->GetData())->GetName();
+	const char* key =
+		((LegoAnimNodeData*) m_anim->GetRoot()->GetData())->GetName();
 	variableTable->SetVariable(key, p_actor->GetROI()->GetName());
 
 	FUN_100695c0();

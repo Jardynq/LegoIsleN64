@@ -8,10 +8,14 @@
 #include "misc.h"
 #include "mxutilities.h"
 
-
 // FUNCTION: LEGO1 0x1001bf80
 // FUNCTION: BETA10 0x1003dc10
-LegoAnimActorStruct::LegoAnimActorStruct(float p_unk0x00, LegoAnim* p_AnimTreePtr, LegoROI** p_roiMap, MxU32 p_numROIs) {
+LegoAnimActorStruct::LegoAnimActorStruct(
+	float p_unk0x00,
+	LegoAnim* p_AnimTreePtr,
+	LegoROI** p_roiMap,
+	MxU32 p_numROIs
+) {
 	m_unk0x00 = p_unk0x00;
 	m_AnimTreePtr = p_AnimTreePtr;
 	m_roiMap = p_roiMap;
@@ -45,8 +49,9 @@ LegoAnimActor::~LegoAnimActor() {
 // FUNCTION: LEGO1 0x1001c1f0
 // FUNCTION: BETA10 0x1003f240
 MxResult LegoAnimActor::FUN_1001c1f0(float& p_und) {
-	float duration = (float)m_animMaps[m_curAnim]->m_AnimTreePtr->GetDuration();
-	p_und = m_actorTime - duration * ((MxS32)(m_actorTime / duration));
+	float duration =
+		(float) m_animMaps[m_curAnim]->m_AnimTreePtr->GetDuration();
+	p_und = m_actorTime - duration * ((MxS32) (m_actorTime / duration));
 	return SUCCESS;
 }
 
@@ -79,8 +84,7 @@ void LegoAnimActor::Animate(float p_time) {
 		}
 
 		m_lastTime = m_actorTime = p_time;
-	}
-	else {
+	} else {
 		LegoPathActor::Animate(p_time);
 	}
 }
@@ -105,8 +109,7 @@ MxResult LegoAnimActor::FUN_1001c360(float p_und, Matrix4& p_transform) {
 					roi->SetVisibility(FALSE);
 				}
 			}
-		}
-		else {
+		} else {
 			// name verified by BETA10 0x1003e407
 			LegoTreeNode* n = m_animMaps[m_curAnim]->m_AnimTreePtr->GetRoot();
 
@@ -123,7 +126,12 @@ MxResult LegoAnimActor::FUN_1001c360(float p_und, Matrix4& p_transform) {
 			}
 
 			for (MxS32 j = 0; j < n->GetNumChildren(); j++) {
-				LegoROI::FUN_100a8e80(n->GetChild(j), p_transform, p_und, roiMap);
+				LegoROI::FUN_100a8e80(
+					n->GetChild(j),
+					p_transform,
+					p_und,
+					roiMap
+				);
 			}
 
 			if (m_cameraFlag) {
@@ -132,21 +140,28 @@ MxResult LegoAnimActor::FUN_1001c360(float p_und, Matrix4& p_transform) {
 		}
 
 		return SUCCESS;
-	}
-	else {
+	} else {
 		return FAILURE;
 	}
 }
 
 // FUNCTION: LEGO1 0x1001c450
 // FUNCTION: BETA10 0x1003e590
-MxResult LegoAnimActor::FUN_1001c450(LegoAnim* p_AnimTreePtr, float p_unk0x00, LegoROI** p_roiMap, MxU32 p_numROIs) {
+MxResult LegoAnimActor::FUN_1001c450(
+	LegoAnim* p_AnimTreePtr,
+	float p_unk0x00,
+	LegoROI** p_roiMap,
+	MxU32 p_numROIs
+) {
 	// the capitalization of `p_AnimTreePtr` was taken from BETA10
 	assert(p_AnimTreePtr && p_roiMap);
 
-	LegoAnimActorStruct* laas = new LegoAnimActorStruct(p_unk0x00, p_AnimTreePtr, p_roiMap, p_numROIs);
+	LegoAnimActorStruct* laas =
+		new LegoAnimActorStruct(p_unk0x00, p_AnimTreePtr, p_roiMap, p_numROIs);
 
-	for (vector<LegoAnimActorStruct*>::iterator it = m_animMaps.begin(); it != m_animMaps.end(); it++) {
+	for (vector<LegoAnimActorStruct*>::iterator it = m_animMaps.begin();
+		 it != m_animMaps.end();
+		 it++) {
 		if (p_unk0x00 < (*it)->m_unk0x00) {
 			m_animMaps.insert(it, laas);
 			SetWorldSpeed(m_worldSpeed);
@@ -175,8 +190,7 @@ void LegoAnimActor::ClearMaps() {
 void LegoAnimActor::SetWorldSpeed(MxFloat p_worldSpeed) {
 	if (p_worldSpeed < 0) {
 		m_worldSpeed = 0;
-	}
-	else {
+	} else {
 		m_worldSpeed = p_worldSpeed;
 	}
 
@@ -185,8 +199,7 @@ void LegoAnimActor::SetWorldSpeed(MxFloat p_worldSpeed) {
 
 		if (m_worldSpeed >= m_animMaps[m_animMaps.size() - 1]->m_unk0x00) {
 			m_curAnim = m_animMaps.size() - 1;
-		}
-		else {
+		} else {
 			for (MxU32 i = 0; i < m_animMaps.size(); i++) {
 				if (m_worldSpeed <= m_animMaps[i]->m_unk0x00) {
 					m_curAnim = i;
@@ -212,7 +225,9 @@ void LegoAnimActor::ParseAction(char* p_extra) {
 
 			while (token) {
 				// name verified by BETA10 0x1003e9f5
-				LegoLocomotionAnimPresenter* p = (LegoLocomotionAnimPresenter*)world->Find("LegoAnimPresenter", token);
+				LegoLocomotionAnimPresenter* p =
+					(LegoLocomotionAnimPresenter*)
+						world->Find("LegoAnimPresenter", token);
 
 				assert(p);
 

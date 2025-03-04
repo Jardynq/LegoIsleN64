@@ -19,10 +19,12 @@ typedef MxMemoryPool<128, 2> MxMemoryPool128;
 class MxStreamerNotification : public MxNotificationParam {
 public:
 	// FUNCTION: BETA10 0x10146e40
-	MxStreamerNotification(NotificationId p_type, MxCore* p_sender, MxStreamController* p_ctrlr)
-		: MxNotificationParam(p_type, p_sender) {
-		m_controller = p_ctrlr;
-	}
+	MxStreamerNotification(
+		NotificationId p_type,
+		MxCore* p_sender,
+		MxStreamController* p_ctrlr
+	)
+		: MxNotificationParam(p_type, p_sender), m_controller(p_ctrlr) {}
 
 	MxNotificationParam* Clone() const override;
 
@@ -38,10 +40,7 @@ private:
 // SIZE 0x2c
 class MxStreamer : public MxCore {
 public:
-	enum OpenMode {
-		e_diskStream = 0,
-		e_RAMStream
-	};
+	enum OpenMode { e_diskStream = 0, e_RAMStream };
 
 	MxStreamer();
 	~MxStreamer() override; // vtable+0x00
@@ -128,7 +127,8 @@ private:
 // list<MxStreamController *,allocator<MxStreamController *> >::end
 
 // TEMPLATE: BETA10 0x101461b0
-// list<MxStreamController *,allocator<MxStreamController *> >::iterator::operator++
+// list<MxStreamController *,allocator<MxStreamController *>
+// >::iterator::operator++
 
 // SYNTHETIC: LEGO1 0x100b9120
 // SYNTHETIC: BETA10 0x101466e0
@@ -139,7 +139,8 @@ private:
 // List<MxStreamController *>::~List<MxStreamController *>
 
 // TEMPLATE: BETA10 0x10146ab0
-// list<MxStreamController *,allocator<MxStreamController *> >::iterator::operator*
+// list<MxStreamController *,allocator<MxStreamController *>
+// >::iterator::operator*
 
 // SYNTHETIC: LEGO1 0x100b97b0
 // SYNTHETIC: BETA10 0x10146f80
@@ -150,7 +151,8 @@ private:
 // MxStreamerNotification::~MxStreamerNotification
 
 // TEMPLATE: BETA10 0x10147020
-// list<MxStreamController *,allocator<MxStreamController *> >::iterator::operator==
+// list<MxStreamController *,allocator<MxStreamController *>
+// >::iterator::operator==
 
 // TEMPLATE: BETA10 0x10147060
 // list<MxStreamController *,allocator<MxStreamController *> >::push_back

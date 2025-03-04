@@ -9,38 +9,21 @@
 // SIZE 0x08
 class LegoState : public MxCore {
 public:
-	enum ScoreColor {
-		e_grey = 0,
-		e_yellow,
-		e_blue,
-		e_red
-	};
+	enum ScoreColor { e_grey = 0, e_yellow, e_blue, e_red };
 
 	// SIZE 0x0c
 	struct Playlist {
-		enum Mode {
-			e_loop,
-			e_once,
-			e_random,
-			e_loopSkipFirst
-		};
+		enum Mode { e_loop, e_once, e_random, e_loopSkipFirst };
 
 		// FUNCTION: LEGO1 0x10017c00
 		// FUNCTION: BETA10 0x10031dc0
-		Playlist() {
-			m_objectIds = NULL;
-			m_length = 0;
-			m_mode = e_loop;
-			m_nextIndex = 0;
-		}
+		Playlist()
+			: m_objectIds(NULL), m_length(0), m_mode(e_loop), m_nextIndex(0) {}
 
 		// FUNCTION: BETA10 0x10031e10
-		Playlist(MxU32* p_objectIds, MxS16 p_length, MxS16 p_mode) {
-			m_objectIds = p_objectIds;
-			m_length = p_length;
-			m_mode = p_mode;
-			m_nextIndex = 0;
-		}
+		Playlist(MxU32* p_objectIds, MxS16 p_length, MxS16 p_mode)
+			: m_objectIds(p_objectIds), m_length(p_length), m_mode(p_mode),
+			  m_nextIndex(0) {}
 
 		// FUNCTION: LEGO1 0x10071800
 		// FUNCTION: BETA10 0x10031e70

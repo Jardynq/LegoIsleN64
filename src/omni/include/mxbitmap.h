@@ -39,11 +39,16 @@ public:
 	MxBitmap();
 	~MxBitmap() override; // vtable+00
 
-	virtual MxResult ImportBitmap(MxBitmap* p_bitmap);                                     // vtable+0x14
-	virtual MxResult ImportBitmapInfo(MxBITMAPINFO* p_info);                               // vtable+0x18
-	virtual MxResult SetSize(MxS32 p_width, MxS32 p_height, MxPalette* p_palette, MxBool); // vtable+0x1c
-	virtual MxResult LoadFile(HANDLE p_handle);                                            // vtable+0x20
-	virtual MxLong Read(const char* p_filename);                                           // vtable+0x24
+	virtual MxResult ImportBitmap(MxBitmap* p_bitmap);       // vtable+0x14
+	virtual MxResult ImportBitmapInfo(MxBITMAPINFO* p_info); // vtable+0x18
+	virtual MxResult SetSize(
+		MxS32 p_width,
+		MxS32 p_height,
+		MxPalette* p_palette,
+		MxBool
+	);                                           // vtable+0x1c
+	virtual MxResult LoadFile(HANDLE p_handle);  // vtable+0x20
+	virtual MxLong Read(const char* p_filename); // vtable+0x24
 
 	// FUNCTION: LEGO1 0x1004e0d0
 	// FUNCTION: BETA10 0x10060fc0
@@ -86,12 +91,14 @@ public:
 	// FUNCTION: BETA10 0x1002c510
 	MxLong AlignToFourByte(MxLong p_value) const { return (p_value + 3) & -4; }
 
-	// DECOMP: This could be a free function. It is static here because it has no
-	// reference to "this". In the beta it is called in two places:
+	// DECOMP: This could be a free function. It is static here because it has
+	// no reference to "this". In the beta it is called in two places:
 	// 1. GetBmiHeightAbs
 	// 2. MxSmk::LoadFrame
 	// FUNCTION: BETA10 0x1002c690
-	static MxLong HeightAbs(MxLong p_value) { return p_value > 0 ? p_value : -p_value; }
+	static MxLong HeightAbs(MxLong p_value) {
+		return p_value > 0 ? p_value : -p_value;
+	}
 
 	// FUNCTION: BETA10 0x10142030
 	BITMAPINFOHEADER* GetBmiHeader() const { return m_bmiHeader; }
@@ -111,33 +118,35 @@ public:
 	MxBITMAPINFO* GetBitmapInfo() const { return m_info; }
 
 	// FUNCTION: BETA10 0x100982b0
-	MxLong GetDataSize() const { return AlignToFourByte(m_bmiHeader->biWidth) * GetBmiHeightAbs(); }
+	MxLong GetDataSize() const {
+		return AlignToFourByte(m_bmiHeader->biWidth) * GetBmiHeightAbs();
+	}
 
 	// FUNCTION: BETA10 0x1002c4b0
 	MxBool IsTopDown() {
 		if (m_bmiHeader->biCompression == BI_RGB_TOPDOWN) {
 			return TRUE;
-		}
-		else {
+		} else {
 			return m_bmiHeader->biHeight < 0;
 		}
 	}
 
-#define GetAdjustedStride(p_bitmap)                                                                                    \
-	(p_bitmap->IsTopDown() ? p_bitmap->AlignToFourByte(p_bitmap->GetBmiWidth())                                        \
-						   : -p_bitmap->AlignToFourByte(p_bitmap->GetBmiWidth()))
+#define GetAdjustedStride(p_bitmap)                                            \
+	((p_bitmap)->IsTopDown()                                                   \
+		 ? (p_bitmap)->AlignToFourByte((p_bitmap)->GetBmiWidth())              \
+		 : -(p_bitmap)->AlignToFourByte((p_bitmap)->GetBmiWidth()))
 
 	// FUNCTION: BETA10 0x1002c320
 	MxU8* GetStart(MxS32 p_left, MxS32 p_top) {
 		if (m_bmiHeader->biCompression == BI_RGB) {
 			return m_data + p_left +
-				AlignToFourByte(GetBmiWidth()) * (IsTopDown() ? p_top : (GetBmiHeightAbs() - 1) - p_top);
-		}
-		else if (m_bmiHeader->biCompression == BI_RGB_TOPDOWN) {
+				   AlignToFourByte(GetBmiWidth()) *
+					   (IsTopDown() ? p_top : (GetBmiHeightAbs() - 1) - p_top);
+		} else if (m_bmiHeader->biCompression == BI_RGB_TOPDOWN) {
 			return m_data;
-		}
-		else {
-			return m_data + AlignToFourByte(GetBmiWidth()) * (IsTopDown() ? 0 : (GetBmiHeightAbs() - 1));
+		} else {
+			return m_data + AlignToFourByte(GetBmiWidth()) *
+								(IsTopDown() ? 0 : (GetBmiHeightAbs() - 1));
 		}
 	}
 
@@ -147,14 +156,15 @@ public:
 
 private:
 	// FUNCTION: BETA10 0x1013dd10
-	MxLong MxBitmapInfoSize() const { return sizeof(MxBITMAPINFO); }
+	MxLong MxBitmapInfoSize() const {
+		return sizeof(MxBITMAPINFO);
+	}
 
 	// FUNCTION: BETA10 0x1013dd30
 	MxBool IsBottomUp() {
 		if (m_bmiHeader->biCompression == BI_RGB_TOPDOWN) {
 			return FALSE;
-		}
-		else {
+		} else {
 			return m_bmiHeader->biHeight > 0;
 		}
 	}

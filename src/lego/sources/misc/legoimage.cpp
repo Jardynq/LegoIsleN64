@@ -3,7 +3,6 @@
 #include "legostorage.h"
 #include "memory.h"
 
-
 // FUNCTION: LEGO1 0x100994c0
 LegoPaletteEntry::LegoPaletteEntry() {
 	m_red = 0;
@@ -109,8 +108,7 @@ LegoResult LegoImage::Read(LegoStorage* p_storage, LegoU32 p_square) {
 			}
 
 			m_height = m_width;
-		}
-		else {
+		} else {
 			LegoU32 aspect = m_height / m_width;
 			newBits = new LegoU8[m_height * m_height];
 			LegoU8* src = m_bits;
@@ -157,7 +155,8 @@ LegoResult LegoImage::Write(LegoStorage* p_storage) {
 		}
 	}
 	if (m_bits) {
-		if ((result = p_storage->Write(m_bits, m_width * m_height)) != SUCCESS) {
+		if ((result = p_storage->Write(m_bits, m_width * m_height)) !=
+			SUCCESS) {
 			return result;
 		}
 	}

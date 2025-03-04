@@ -10,7 +10,6 @@
 #include "mxobjectfactory.h"
 #include "mxtimer.h"
 
-
 // FUNCTION: LEGO1 0x10073ea0
 MxCompositeMediaPresenter::MxCompositeMediaPresenter() {
 	m_unk0x4c = 0;
@@ -24,11 +23,14 @@ MxCompositeMediaPresenter::~MxCompositeMediaPresenter() {
 }
 
 // FUNCTION: LEGO1 0x10074090
-MxResult MxCompositeMediaPresenter::StartAction(MxStreamController* p_controller, MxDSAction* p_action) {
+MxResult MxCompositeMediaPresenter::StartAction(
+	MxStreamController* p_controller,
+	MxDSAction* p_action
+) {
 	AUTOLOCK(m_criticalSection);
 
 	MxResult result = FAILURE;
-	MxDSActionList* actions = ((MxDSMultiAction*)p_action)->GetActionList();
+	MxDSActionList* actions = ((MxDSMultiAction*) p_action)->GetActionList();
 	MxDSActionListCursor cursor(actions);
 	MxDSAction* action;
 
@@ -44,13 +46,12 @@ MxResult MxCompositeMediaPresenter::StartAction(MxStreamController* p_controller
 
 			if (m_action->GetFlags() & MxDSAction::c_looping) {
 				action->SetFlags(action->GetFlags() | MxDSAction::c_looping);
-			}
-			else if (m_action->GetFlags() & MxDSAction::c_bit3) {
+			} else if (m_action->GetFlags() & MxDSAction::c_bit3) {
 				action->SetFlags(action->GetFlags() | MxDSAction::c_bit3);
 			}
 
 			presenterName = PresenterNameDispatch(*action);
-			presenter = (MxPresenter*)ObjectFactory()->Create(presenterName);
+			presenter = (MxPresenter*) ObjectFactory()->Create(presenterName);
 
 			if (presenter && presenter->AddToManager() == SUCCESS) {
 				presenter->SetCompositePresenter(this);
@@ -59,8 +60,7 @@ MxResult MxCompositeMediaPresenter::StartAction(MxStreamController* p_controller
 
 					if (presenter->IsA("MxVideoPresenter")) {
 						VideoManager()->UnregisterPresenter(*presenter);
-					}
-					else if (presenter->IsA("MxAudioPresenter")) {
+					} else if (presenter->IsA("MxAudioPresenter")) {
 						SoundManager()->UnregisterPresenter(*presenter);
 					}
 
@@ -71,8 +71,7 @@ MxResult MxCompositeMediaPresenter::StartAction(MxStreamController* p_controller
 			if (success) {
 				action->SetOrigin(this);
 				m_list.push_back(presenter);
-			}
-			else if (presenter) {
+			} else if (presenter) {
 				delete presenter;
 			}
 		}
@@ -94,12 +93,15 @@ void MxCompositeMediaPresenter::StartingTickle() {
 	AUTOLOCK(m_criticalSection);
 
 	if (!m_unk0x4e) {
-		for (MxCompositePresenterList::iterator it = m_list.begin(); it != m_list.end(); it++) {
+		for (MxCompositePresenterList::iterator it = m_list.begin();
+			 it != m_list.end();
+			 it++) {
 			if ((*it)->GetCurrentTickleState() < e_streaming) {
 				(*it)->Tickle();
 
 				if ((*it)->GetCurrentTickleState() == e_streaming ||
-					((*it)->GetAction() && (*it)->GetAction()->GetStartTime())) {
+					((*it)->GetAction() && (*it)->GetAction()->GetStartTime()
+					)) {
 					m_unk0x4c++;
 				}
 			}
@@ -109,19 +111,25 @@ void MxCompositeMediaPresenter::StartingTickle() {
 			m_unk0x4e = TRUE;
 			m_unk0x4c = 0;
 
-			for (MxCompositePresenterList::iterator it = m_list.begin(); it != m_list.end(); it++) {
+			for (MxCompositePresenterList::iterator it = m_list.begin();
+				 it != m_list.end();
+				 it++) {
 				if (!(*it)->GetAction()->GetStartTime()) {
 					m_unk0x4c++;
 				}
 			}
 		}
-	}
-	else {
-		for (MxCompositePresenterList::iterator it = m_list.begin(); it != m_list.end(); it++) {
-			if (!(*it)->GetAction()->GetStartTime() && ((MxMediaPresenter*)*it)->CurrentChunk() &&
+	} else {
+		for (MxCompositePresenterList::iterator it = m_list.begin();
+			 it != m_list.end();
+			 it++) {
+			if (!(*it)->GetAction()->GetStartTime() &&
+				((MxMediaPresenter*) *it)->CurrentChunk() &&
 				!((*it)->GetAction()->GetFlags() & MxDSAction::c_bit9)) {
 				(*it)->Tickle();
-				(*it)->GetAction()->SetFlags((*it)->GetAction()->GetFlags() | MxDSAction::c_bit9);
+				(*it)->GetAction()->SetFlags(
+					(*it)->GetAction()->GetFlags() | MxDSAction::c_bit9
+				);
 				m_unk0x4c--;
 			}
 		}
@@ -148,7 +156,9 @@ MxResult MxCompositeMediaPresenter::Tickle() {
 	case e_repeating:
 	case e_freezing:
 	case e_done: {
-		for (MxCompositePresenterList::iterator it = m_list.begin(); it != m_list.end(); it++) {
+		for (MxCompositePresenterList::iterator it = m_list.begin();
+			 it != m_list.end();
+			 it++) {
 			(*it)->Tickle();
 		}
 		break;
@@ -165,7 +175,9 @@ MxResult MxCompositeMediaPresenter::PutData() {
 	AUTOLOCK(m_criticalSection);
 
 	if (m_currentTickleState >= e_streaming && m_currentTickleState <= e_done) {
-		for (MxCompositePresenterList::iterator it = m_list.begin(); it != m_list.end(); it++) {
+		for (MxCompositePresenterList::iterator it = m_list.begin();
+			 it != m_list.end();
+			 it++) {
 			(*it)->PutData();
 		}
 	}

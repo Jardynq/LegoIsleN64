@@ -3,7 +3,6 @@
 #include "mxpalette.h"
 #include "mxutilities.h"
 
-
 // GLOBAL: LEGO1 0x10102184
 // GLOBAL: BETA10 0x10203030
 MxU16 g_bitmapSignature = TWOCC('B', 'M');
@@ -35,7 +34,12 @@ MxBitmap::~MxBitmap() {
 
 // FUNCTION: LEGO1 0x100bcaa0
 // FUNCTION: BETA10 0x1013cc47
-MxResult MxBitmap::SetSize(MxS32 p_width, MxS32 p_height, MxPalette* p_palette, MxBool p_isHighColor) {
+MxResult MxBitmap::SetSize(
+	MxS32 p_width,
+	MxS32 p_height,
+	MxPalette* p_palette,
+	MxBool p_isHighColor
+) {
 	MxResult ret = FAILURE;
 	MxLong size = AlignToFourByte(p_width) * p_height;
 
@@ -91,7 +95,8 @@ done:
 // FUNCTION: BETA10 0x1013ce25
 MxResult MxBitmap::ImportBitmapInfo(MxBITMAPINFO* p_info) {
 	MxResult result = FAILURE;
-	MxLong size = AlignToFourByte(p_info->m_bmiHeader.biWidth) * p_info->m_bmiHeader.biHeight;
+	MxLong size = AlignToFourByte(p_info->m_bmiHeader.biWidth) *
+				  p_info->m_bmiHeader.biHeight;
 
 	m_info = (MxBITMAPINFO*) new MxU8[MxBitmapInfoSize()];
 	if (!m_info) {
@@ -168,7 +173,15 @@ MxLong MxBitmap::Read(const char* p_filename) {
 	MxResult result = FAILURE;
 	HANDLE handle = 0;
 
-	handle = CreateFileA(p_filename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	handle = CreateFileA(
+		p_filename,
+		GENERIC_READ,
+		FILE_SHARE_READ,
+		NULL,
+		OPEN_EXISTING,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL
+	);
 
 	if (handle == INVALID_HANDLE_VALUE) {
 		goto done;
@@ -264,17 +277,17 @@ void MxBitmap::BitBlt(
 	MxS32 p_height
 ) {
 	if (!GetRectIntersection(
-		p_src->GetBmiWidth(),
-		p_src->GetBmiHeightAbs(),
-		GetBmiWidth(),
-		GetBmiHeightAbs(),
-		&p_srcLeft,
-		&p_srcTop,
-		&p_dstLeft,
-		&p_dstTop,
-		&p_width,
-		&p_height
-	)) {
+			p_src->GetBmiWidth(),
+			p_src->GetBmiHeightAbs(),
+			GetBmiWidth(),
+			GetBmiHeightAbs(),
+			&p_srcLeft,
+			&p_srcTop,
+			&p_dstLeft,
+			&p_dstTop,
+			&p_width,
+			&p_height
+		)) {
 		return;
 	}
 
@@ -302,17 +315,17 @@ void MxBitmap::BitBltTransparent(
 	MxS32 p_height
 ) {
 	if (!GetRectIntersection(
-		p_src->GetBmiWidth(),
-		p_src->GetBmiHeightAbs(),
-		GetBmiWidth(),
-		GetBmiHeightAbs(),
-		&p_srcLeft,
-		&p_srcTop,
-		&p_dstLeft,
-		&p_dstTop,
-		&p_width,
-		&p_height
-	)) {
+			p_src->GetBmiWidth(),
+			p_src->GetBmiHeightAbs(),
+			GetBmiWidth(),
+			GetBmiHeightAbs(),
+			&p_srcLeft,
+			&p_srcTop,
+			&p_dstLeft,
+			&p_dstTop,
+			&p_width,
+			&p_height
+		)) {
 		return;
 	}
 
@@ -411,7 +424,7 @@ MxResult MxBitmap::SetBitDepth(MxBool p_isHighColor) {
 		m_palette = pal;
 
 		// TODO: what is this? zeroing out top half of palette?
-		MxU16* buf = (MxU16*)m_paletteData;
+		MxU16* buf = (MxU16*) m_paletteData;
 		for (MxU16 i = 0; i < 256; i++) {
 			buf[i] = i;
 		}
@@ -461,7 +474,7 @@ MxResult MxBitmap::StretchBits(
 		p_destWidth,
 		p_destHeight,
 		m_data,
-		(BITMAPINFO*)m_info,
+		(BITMAPINFO*) m_info,
 		m_isHighColor,
 		SRCCOPY
 	);
@@ -469,7 +482,8 @@ MxResult MxBitmap::StretchBits(
 
 // FUNCTION: LEGO1 0x100bd450
 // FUNCTION: BETA10 0x1013db55
-MxResult MxBitmap::ImportColorsToPalette(RGBQUAD* p_rgbquad, MxPalette* p_palette) {
+MxResult
+MxBitmap::ImportColorsToPalette(RGBQUAD* p_rgbquad, MxPalette* p_palette) {
 	MxResult ret = FAILURE;
 	PALETTEENTRY entries[256];
 
@@ -477,8 +491,7 @@ MxResult MxBitmap::ImportColorsToPalette(RGBQUAD* p_rgbquad, MxPalette* p_palett
 		if (p_palette->GetEntries(entries)) {
 			goto done;
 		}
-	}
-	else {
+	} else {
 		MxPalette palette;
 		if (palette.GetEntries(entries)) {
 			goto done;

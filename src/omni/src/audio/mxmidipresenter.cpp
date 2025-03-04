@@ -6,7 +6,6 @@
 #include "mxmisc.h"
 #include "mxmusicmanager.h"
 
-
 // FUNCTION: LEGO1 0x100c25e0
 MxMIDIPresenter::MxMIDIPresenter() {
 	Init();
@@ -66,8 +65,7 @@ void MxMIDIPresenter::StartingTickle() {
 void MxMIDIPresenter::StreamingTickle() {
 	if (m_chunk) {
 		ProgressTickleState(e_done);
-	}
-	else {
+	} else {
 		m_chunk = NextChunk();
 	}
 }
@@ -88,8 +86,9 @@ void MxMIDIPresenter::Destroy() {
 MxResult MxMIDIPresenter::PutData() {
 	m_criticalSection.Enter();
 
-	if (m_currentTickleState == e_streaming && m_chunk && !MusicManager()->GetMIDIInitialized()) {
-		SetVolume(((MxDSSound*)m_action)->GetVolume());
+	if (m_currentTickleState == e_streaming && m_chunk &&
+		!MusicManager()->GetMIDIInitialized()) {
+		SetVolume(((MxDSSound*) m_action)->GetVolume());
 
 		if (MusicManager()->InitializeMIDI(m_chunk->GetData(), 1) != SUCCESS) {
 			EndAction();

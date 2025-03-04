@@ -22,7 +22,8 @@
 class LegoPathControllerList : public MxPtrList<LegoPathController> {
 public:
 	// FUNCTION: BETA10 0x100dd060
-	LegoPathControllerList(MxBool p_ownership = FALSE) : MxPtrList<LegoPathController>(p_ownership) {}
+	LegoPathControllerList(MxBool p_ownership = FALSE)
+		: MxPtrList<LegoPathController>(p_ownership) {}
 
 	// FUNCTION: LEGO1 0x1001d210
 	// FUNCTION: BETA10 0x100dd100
@@ -42,10 +43,12 @@ public:
 // VTABLE: LEGO1 0x100d6560
 // VTABLE: BETA10 0x101bf1d0
 // SIZE 0x10
-class LegoPathControllerListCursor : public MxPtrListCursor<LegoPathController> {
+class LegoPathControllerListCursor
+	: public MxPtrListCursor<LegoPathController> {
 public:
 	// FUNCTION: BETA10 0x100dfd00
-	LegoPathControllerListCursor(LegoPathControllerList* p_list) : MxPtrListCursor<LegoPathController>(p_list) {}
+	LegoPathControllerListCursor(LegoPathControllerList* p_list)
+		: MxPtrListCursor<LegoPathController>(p_list) {}
 };
 
 // TEMPLATE: LEGO1 0x1001d230

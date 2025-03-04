@@ -5,7 +5,6 @@
 
 #include "viewmanager/viewmanager.h"
 
-
 /////////////////////////////////////////////////////////////////////////////
 // Lego3DView
 
@@ -23,7 +22,10 @@ Lego3DView::~Lego3DView() {
 }
 
 // FUNCTION: LEGO1 0x100aaf90
-BOOL Lego3DView::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Renderer* pRenderer) {
+BOOL Lego3DView::Create(
+	const TglSurface::CreateStruct& rCreateStruct,
+	Tgl::Renderer* pRenderer
+) {
 	double viewAngle = 45;
 	if (rCreateStruct.m_isWideViewAngle) {
 		viewAngle = 90;
@@ -37,14 +39,16 @@ BOOL Lego3DView::Create(const TglSurface::CreateStruct& rCreateStruct, Tgl::Rend
 	}
 
 	assert(GetView());
-	GetView()->SetFrustrum(frontClippingDistance, backClippingDistance, viewAngle);
+	GetView()
+		->SetFrustrum(frontClippingDistance, backClippingDistance, viewAngle);
 
 	assert(GetScene());
 	assert(!m_pViewManager);
 
 	m_pViewManager = new ViewManager(pRenderer, GetScene(), 0);
 	m_pViewManager->SetResolution(GetWidth(), GetHeight());
-	m_pViewManager->SetFrustrum(viewAngle, frontClippingDistance, backClippingDistance);
+	m_pViewManager
+		->SetFrustrum(viewAngle, frontClippingDistance, backClippingDistance);
 	m_previousRenderTime = 0;
 	m_unk0x98 = 0;
 

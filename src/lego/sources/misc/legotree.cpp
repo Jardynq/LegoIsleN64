@@ -2,7 +2,6 @@
 
 #include "legostorage.h"
 
-
 // FUNCTION: LEGO1 0x10099d60
 // FUNCTION: BETA10 0x10187dd0
 LegoTreeNode::LegoTreeNode() {
@@ -53,11 +52,12 @@ LegoResult LegoTree::Read(LegoStorage* p_storage, LegoTreeNode*& p_node) {
 		return result;
 	}
 	LegoU32 numChildren;
-	if ((result = p_storage->Read(&numChildren, sizeof(numChildren))) != SUCCESS) {
+	if ((result = p_storage->Read(&numChildren, sizeof(numChildren))) !=
+		SUCCESS) {
 		return result;
 	}
 	if (numChildren) {
-		p_node->SetChildren(new LegoTreeNode * [numChildren]);
+		p_node->SetChildren(new LegoTreeNode*[numChildren]);
 		for (LegoU32 i = 0; i < numChildren; i++) {
 			LegoTreeNode* node;
 			if ((result = Read(p_storage, node)) != SUCCESS) {
@@ -79,7 +79,8 @@ LegoResult LegoTree::Write(LegoStorage* p_storage, LegoTreeNode* p_node) {
 		}
 	}
 	LegoU32 numChildren = p_node->GetNumChildren();
-	if ((result = p_storage->Write(&numChildren, sizeof(numChildren))) != SUCCESS) {
+	if ((result = p_storage->Write(&numChildren, sizeof(numChildren))) !=
+		SUCCESS) {
 		return result;
 	}
 	for (LegoU32 i = 0; i < p_node->GetNumChildren(); i++) {

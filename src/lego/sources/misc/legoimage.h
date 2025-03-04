@@ -1,7 +1,6 @@
 #ifndef __LEGOIMAGE_H
 #define __LEGOIMAGE_H
 
-
 class LegoStorage;
 
 // SIZE 0x03
@@ -38,7 +37,9 @@ public:
 	void SetCount(LegoU32 p_count) { m_count = p_count; }
 	LegoPaletteEntry* GetPalette() { return m_palette; }
 	LegoPaletteEntry& GetPaletteEntry(LegoU32 p_i) { return m_palette[p_i]; }
-	void SetPaletteEntry(LegoU32 p_i, LegoPaletteEntry& p_paletteEntry) { m_palette[p_i] = p_paletteEntry; }
+	void SetPaletteEntry(LegoU32 p_i, LegoPaletteEntry& p_paletteEntry) {
+		m_palette[p_i] = p_paletteEntry;
+	}
 	LegoU8* GetBits() { return m_bits; }
 	void SetBits(LegoU8* p_bits) { m_bits = p_bits; }
 	LegoResult Read(LegoStorage* p_storage, LegoU32 p_square);

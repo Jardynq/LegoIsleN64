@@ -34,14 +34,16 @@ public:
 	// FUNCTION: LEGO1 0x10066640
 	MxBool IsA(const char* p_name) const override // vtable+0x10
 	{
-		return !strcmp(p_name, LegoWorldPresenter::ClassName()) || LegoEntityPresenter::IsA(p_name);
+		return !strcmp(p_name, LegoWorldPresenter::ClassName()) ||
+			   LegoEntityPresenter::IsA(p_name);
 	}
 
-	void ReadyTickle() override;                                                           // vtable+0x18
-	void StartingTickle() override;                                                        // vtable+0x1c
-	void ParseExtra() override;                                                            // vtable+0x30
-	MxResult StartAction(MxStreamController* p_controller, MxDSAction* p_action) override; // vtable+0x3c
-	void VTable0x60(MxPresenter* p_presenter) override;                                    // vtable+0x60
+	void ReadyTickle() override;    // vtable+0x18
+	void StartingTickle() override; // vtable+0x1c
+	void ParseExtra() override;     // vtable+0x30
+	MxResult StartAction(MxStreamController* p_controller, MxDSAction* p_action)
+		override;                                       // vtable+0x3c
+	void VTable0x60(MxPresenter* p_presenter) override; // vtable+0x60
 
 	MxResult LoadWorld(char* p_worldName, LegoWorld* p_world);
 
@@ -50,7 +52,8 @@ public:
 
 private:
 	MxResult FUN_10067360(ModelDbPart& p_part, FILE* p_wdbFile);
-	MxResult FUN_100674b0(ModelDbModel& p_model, FILE* p_wdbFile, LegoWorld* p_world);
+	MxResult
+	FUN_100674b0(ModelDbModel& p_model, FILE* p_wdbFile, LegoWorld* p_world);
 
 	undefined4 m_unk0x50;
 };

@@ -1,8 +1,6 @@
 #include "viewroi.h"
 
-
 #include <vec.h>
-
 
 // GLOBAL: LEGO1 0x101013d8
 undefined g_unk101013d8 = 0;

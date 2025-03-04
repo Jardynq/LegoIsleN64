@@ -11,7 +11,6 @@
 #include "mxtimer.h"
 #include "mxutilities.h"
 
-
 // FUNCTION: LEGO1 0x100c0b90
 MxStreamController::MxStreamController() {
 	m_provider = NULL;
@@ -85,14 +84,13 @@ MxResult MxStreamController::VTable0x20(MxDSAction* p_action) {
 	MxS32 objectId = p_action->GetObjectId();
 	MxStreamProvider* provider = m_provider;
 
-	if ((MxS32)provider->GetLengthInDWords() > objectId) {
+	if ((MxS32) provider->GetLengthInDWords() > objectId) {
 		offset = provider->GetBufferForDWords()[objectId];
 	}
 
 	if (offset) {
 		result = VTable0x2c(p_action, offset);
-	}
-	else {
+	} else {
 		result = FAILURE;
 	}
 
@@ -104,12 +102,11 @@ MxResult MxStreamController::VTable0x20(MxDSAction* p_action) {
 MxResult MxStreamController::VTable0x24(MxDSAction* p_action) {
 	AUTOLOCK(m_criticalSection);
 	VTable0x30(p_action);
-	m_action0x60 = (MxDSAction*)m_unk0x54.FindAndErase(p_action);
+	m_action0x60 = (MxDSAction*) m_unk0x54.FindAndErase(p_action);
 
 	if (m_action0x60 == NULL) {
 		return FAILURE;
-	}
-	else {
+	} else {
 		p_action->SetUnknown24(m_action0x60->GetUnknown24());
 		p_action->SetObjectId(m_action0x60->GetObjectId());
 		return FUN_100c1f00(m_action0x60);
@@ -119,8 +116,11 @@ MxResult MxStreamController::VTable0x24(MxDSAction* p_action) {
 // FUNCTION: LEGO1 0x100c1800
 // FUNCTION: BETA10 0x1014ea36
 MxResult MxStreamController::FUN_100c1800(MxDSAction* p_action, MxU32 p_val) {
-	MxNextActionDataStart* dataActionStart =
-		new MxNextActionDataStart(p_action->GetObjectId(), p_action->GetUnknown24(), p_val);
+	MxNextActionDataStart* dataActionStart = new MxNextActionDataStart(
+		p_action->GetObjectId(),
+		p_action->GetUnknown24(),
+		p_val
+	);
 	if (dataActionStart == NULL) {
 		return FAILURE;
 	}
@@ -131,12 +131,15 @@ MxResult MxStreamController::FUN_100c1800(MxDSAction* p_action, MxU32 p_val) {
 
 // FUNCTION: LEGO1 0x100c1a00
 // FUNCTION: BETA10 0x1014eb04
-MxResult MxStreamController::FUN_100c1a00(MxDSAction* p_action, MxU32 p_offset) {
+MxResult
+MxStreamController::FUN_100c1a00(MxDSAction* p_action, MxU32 p_offset) {
 	if (p_action->GetUnknown24() == -1) {
 		MxS16 newUnknown24 = -1;
 
 		// These loops might be a template function in the list classes
-		for (MxDSObjectList::iterator it = m_unk0x54.begin(); it != m_unk0x54.end(); it++) {
+		for (MxDSObjectList::iterator it = m_unk0x54.begin();
+			 it != m_unk0x54.end();
+			 it++) {
 			MxDSObject* action = *it;
 
 			if (action->GetObjectId() == p_action->GetObjectId()) {
@@ -145,7 +148,9 @@ MxResult MxStreamController::FUN_100c1a00(MxDSAction* p_action, MxU32 p_offset) 
 		}
 
 		if (newUnknown24 == -1) {
-			for (MxDSObjectList::iterator it = m_unk0x3c.begin(); it != m_unk0x3c.end(); it++) {
+			for (MxDSObjectList::iterator it = m_unk0x3c.begin();
+				 it != m_unk0x3c.end();
+				 it++) {
 				MxDSObject* action = *it;
 
 				if (action->GetObjectId() == p_action->GetObjectId()) {
@@ -154,25 +159,28 @@ MxResult MxStreamController::FUN_100c1a00(MxDSAction* p_action, MxU32 p_offset) 
 			}
 
 			if (newUnknown24 == -1) {
-				for (MxDSSubscriberList::iterator it = m_subscribers.begin(); it != m_subscribers.end(); it++) {
+				for (MxDSSubscriberList::iterator it = m_subscribers.begin();
+					 it != m_subscribers.end();
+					 it++) {
 					MxDSSubscriber* subscriber = *it;
 
 					if (subscriber->GetObjectId() == p_action->GetObjectId()) {
-						newUnknown24 = Max(newUnknown24, subscriber->GetUnknown48());
+						newUnknown24 =
+							Max(newUnknown24, subscriber->GetUnknown48());
 					}
 				}
 			}
 		}
 
 		p_action->SetUnknown24(newUnknown24 + 1);
-	}
-	else {
+	} else {
 		if (m_unk0x3c.Find(p_action)) {
 			return FAILURE;
 		}
 	}
 
-	MxDSStreamingAction* streamingAction = new MxDSStreamingAction(*p_action, p_offset);
+	MxDSStreamingAction* streamingAction =
+		new MxDSStreamingAction(*p_action, p_offset);
 
 	if (!streamingAction) {
 		return FAILURE;
@@ -191,14 +199,18 @@ MxResult MxStreamController::FUN_100c1a00(MxDSAction* p_action, MxU32 p_offset) 
 
 // FUNCTION: LEGO1 0x100c1c10
 // FUNCTION: BETA10 0x1014ed8c
-MxResult MxStreamController::VTable0x2c(MxDSAction* p_action, MxU32 p_bufferval) {
+MxResult
+MxStreamController::VTable0x2c(MxDSAction* p_action, MxU32 p_bufferval) {
 	AUTOLOCK(m_criticalSection);
 
 	if (FUN_100c1a00(p_action, p_bufferval) != SUCCESS) {
 		return FAILURE;
 	}
 
-	return FUN_100c1800(p_action, (p_bufferval / m_provider->GetFileSize()) * m_provider->GetFileSize());
+	return FUN_100c1800(
+		p_action,
+		(p_bufferval / m_provider->GetFileSize()) * m_provider->GetFileSize()
+	);
 }
 
 // FUNCTION: LEGO1 0x100c1ce0
@@ -209,7 +221,10 @@ MxResult MxStreamController::VTable0x30(MxDSAction* p_action) {
 	MxDSObject* action = m_unk0x3c.FindAndErase(p_action);
 
 	if (action != NULL) {
-		MxNextActionDataStart* data = m_nextActionList.FindAndErase(action->GetObjectId(), action->GetUnknown24());
+		MxNextActionDataStart* data = m_nextActionList.FindAndErase(
+			action->GetObjectId(),
+			action->GetUnknown24()
+		);
 		delete action;
 		delete data;
 		result = SUCCESS;
@@ -226,8 +241,7 @@ MxResult MxStreamController::InsertActionToList54(MxDSAction* p_action) {
 
 	if (action == NULL) {
 		return FAILURE;
-	}
-	else {
+	} else {
 		m_unk0x54.PushBack(action);
 		return SUCCESS;
 	}
@@ -264,12 +278,14 @@ MxResult MxStreamController::FUN_100c1f00(MxDSAction* p_action) {
 	chunk->SetChunkFlags(DS_CHUNK_BIT3);
 	chunk->SetObjectId(objectId);
 
-	if (chunk->SendChunk(m_subscribers, FALSE, p_action->GetUnknown24()) != SUCCESS) {
+	if (chunk->SendChunk(m_subscribers, FALSE, p_action->GetUnknown24()) !=
+		SUCCESS) {
 		delete chunk;
 	}
 
 	if (p_action->IsA("MxDSMultiAction")) {
-		MxDSActionList* actions = ((MxDSMultiAction*)p_action)->GetActionList();
+		MxDSActionList* actions =
+			((MxDSMultiAction*) p_action)->GetActionList();
 		MxDSActionListCursor cursor(actions);
 		MxDSAction* action;
 
@@ -285,8 +301,14 @@ MxResult MxStreamController::FUN_100c1f00(MxDSAction* p_action) {
 
 // FUNCTION: LEGO1 0x100c20b0
 // FUNCTION: BETA10 0x1014f37d
-MxNextActionDataStart* MxStreamController::FindNextActionDataStartFromStreamingAction(MxDSStreamingAction* p_action) {
-	return m_nextActionList.Find(p_action->GetObjectId(), p_action->GetUnknown24());
+MxNextActionDataStart*
+MxStreamController::FindNextActionDataStartFromStreamingAction(
+	MxDSStreamingAction* p_action
+) {
+	return m_nextActionList.Find(
+		p_action->GetObjectId(),
+		p_action->GetUnknown24()
+	);
 }
 
 // FUNCTION: LEGO1 0x100c20d0
@@ -296,7 +318,8 @@ MxBool MxStreamController::IsStoped(MxDSObject* p_obj) {
 
 	if (subscriber) {
 		MxTrace(
-			"Subscriber for action (stream %d, instance %d) from %s is still here.\n",
+			"Subscriber for action (stream %d, instance %d) from %s is still "
+			"here.\n",
 			subscriber->GetObjectId(),
 			subscriber->GetUnknown48(),
 			GetAtom().GetInternal()
@@ -305,7 +328,8 @@ MxBool MxStreamController::IsStoped(MxDSObject* p_obj) {
 	}
 
 	if (p_obj->IsA("MxDSMultiAction")) {
-		MxDSActionListCursor cursor(((MxDSMultiAction*)p_obj)->GetActionList());
+		MxDSActionListCursor cursor(((MxDSMultiAction*) p_obj)->GetActionList()
+		);
 		MxDSAction* action;
 
 		while (cursor.Next(action)) {
@@ -320,7 +344,8 @@ MxBool MxStreamController::IsStoped(MxDSObject* p_obj) {
 
 // FUNCTION: LEGO1 0x100c21e0
 // FUNCTION: BETA10 0x1014f4e6
-MxNextActionDataStart* MxNextActionDataStartList::Find(MxU32 p_id, MxS16 p_value) {
+MxNextActionDataStart*
+MxNextActionDataStartList::Find(MxU32 p_id, MxS16 p_value) {
 	for (iterator it = begin(); it != end(); it++) {
 		if (p_id == (*it)->GetObjectId() && p_value == (*it)->GetUnknown24()) {
 			return *it;
@@ -332,11 +357,13 @@ MxNextActionDataStart* MxNextActionDataStartList::Find(MxU32 p_id, MxS16 p_value
 
 // FUNCTION: LEGO1 0x100c2240
 // FUNCTION: BETA10 0x1014f58c
-MxNextActionDataStart* MxNextActionDataStartList::FindAndErase(MxU32 p_id, MxS16 p_value) {
+MxNextActionDataStart*
+MxNextActionDataStartList::FindAndErase(MxU32 p_id, MxS16 p_value) {
 	MxNextActionDataStart* match = NULL;
 
 	for (iterator it = begin(); it != end(); it++) {
-		if (p_id == (*it)->GetObjectId() && (p_value == -2 || p_value == (*it)->GetUnknown24())) {
+		if (p_id == (*it)->GetObjectId() &&
+			(p_value == -2 || p_value == (*it)->GetUnknown24())) {
 			match = *it;
 			erase(it);
 			break;

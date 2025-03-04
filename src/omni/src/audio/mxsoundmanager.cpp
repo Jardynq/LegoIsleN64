@@ -9,17 +9,18 @@
 #include "mxticklethread.h"
 #include "mxwavepresenter.h"
 
-
 // GLOBAL LEGO1 0x10101420
-MxS32 g_volumeAttenuation[100] = { -6643, -5643, -5058, -4643, -4321, -4058, -3836, -3643, -3473, -3321, -3184, -3058,
-								  -2943, -2836, -2736, -2643, -2556, -2473, -2395, -2321, -2251, -2184, -2120, -2058,
-								  -2000, -1943, -1888, -1836, -1785, -1736, -1689, -1643, -1599, -1556, -1514, -1473,
-								  -1434, -1395, -1358, -1321, -1286, -1251, -1217, -1184, -1152, -1120, -1089, -1058,
-								  -1029, -1000, -971,  -943,  -915,  -888,  -862,  -836,  -810,  -785,  -761,  -736,
-								  -713,  -689,  -666,  -643,  -621,  -599,  -577,  -556,  -535,  -514,  -494,  -473,
-								  -454,  -434,  -415,  -395,  -377,  -358,  -340,  -321,  -304,  -286,  -268,  -251,
-								  -234,  -217,  -200,  -184,  -168,  -152,  -136,  -120,  -104,  -89,   -74,   -58,
-								  -43,   -29,   -14,   0 };
+MxS32 g_volumeAttenuation[100] = {
+	-6643, -5643, -5058, -4643, -4321, -4058, -3836, -3643, -3473, -3321,
+	-3184, -3058, -2943, -2836, -2736, -2643, -2556, -2473, -2395, -2321,
+	-2251, -2184, -2120, -2058, -2000, -1943, -1888, -1836, -1785, -1736,
+	-1689, -1643, -1599, -1556, -1514, -1473, -1434, -1395, -1358, -1321,
+	-1286, -1251, -1217, -1184, -1152, -1120, -1089, -1058, -1029, -1000,
+	-971,  -943,  -915,  -888,  -862,  -836,  -810,  -785,  -761,  -736,
+	-713,  -689,  -666,  -643,  -621,  -599,  -577,  -556,  -535,  -514,
+	-494,  -473,  -454,  -434,  -415,  -395,  -377,  -358,  -340,  -321,
+	-304,  -286,  -268,  -251,  -234,  -217,  -200,  -184,  -168,  -152,
+	-136,  -120,  -104,  -89,   -74,   -58,   -43,   -29,   -14,   0};
 
 // FUNCTION: LEGO1 0x100ae740
 MxSoundManager::MxSoundManager() {
@@ -42,8 +43,7 @@ void MxSoundManager::Destroy(MxBool p_fromDestructor) {
 	if (m_thread) {
 		m_thread->Terminate();
 		delete m_thread;
-	}
-	else {
+	} else {
 		TickleManager()->UnregisterClient(this);
 	}
 
@@ -77,7 +77,10 @@ MxResult MxSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 		goto done;
 	}
 
-	if (m_directSound->SetCooperativeLevel(MxOmni::GetInstance()->GetWindowHandle(), DSSCL_PRIORITY) != DS_OK) {
+	if (m_directSound->SetCooperativeLevel(
+			MxOmni::GetInstance()->GetWindowHandle(),
+			DSSCL_PRIORITY
+		) != DS_OK) {
 		goto done;
 	}
 
@@ -87,8 +90,7 @@ MxResult MxSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 
 	if (MxOmni::IsSound3D()) {
 		desc.dwFlags = DSBCAPS_PRIMARYBUFFER | DSBCAPS_CTRL3D;
-	}
-	else {
+	} else {
 		desc.dwFlags = DSBCAPS_PRIMARYBUFFER | DSBCAPS_CTRLVOLUME;
 	}
 
@@ -100,7 +102,8 @@ MxResult MxSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 		MxOmni::SetSound3D(FALSE);
 		desc.dwFlags = DSBCAPS_PRIMARYBUFFER | DSBCAPS_CTRLVOLUME;
 
-		if (m_directSound->CreateSoundBuffer(&desc, &m_dsBuffer, NULL) != DS_OK) {
+		if (m_directSound->CreateSoundBuffer(&desc, &m_dsBuffer, NULL) !=
+			DS_OK) {
 			goto done;
 		}
 	}
@@ -111,8 +114,7 @@ MxResult MxSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 
 	if (MxOmni::IsSound3D()) {
 		format.nChannels = 2;
-	}
-	else {
+	} else {
 		format.nChannels = 1;
 	}
 
@@ -130,8 +132,7 @@ MxResult MxSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 		if (!m_thread || m_thread->Start(0, 0) != SUCCESS) {
 			goto done;
 		}
-	}
-	else {
+	} else {
 		TickleManager()->RegisterClient(this, p_frequencyMS);
 	}
 
@@ -163,21 +164,24 @@ void MxSoundManager::SetVolume(MxS32 p_volume) {
 	MxPresenterListCursor cursor(m_presenters);
 
 	while (cursor.Next(presenter)) {
-		((MxAudioPresenter*)presenter)->SetVolume(((MxAudioPresenter*)presenter)->GetVolume());
+		((MxAudioPresenter*) presenter)
+			->SetVolume(((MxAudioPresenter*) presenter)->GetVolume());
 	}
 
 	m_criticalSection.Leave();
 }
 
 // FUNCTION: LEGO1 0x100aebd0
-MxPresenter* MxSoundManager::FUN_100aebd0(const MxAtomId& p_atomId, MxU32 p_objectId) {
+MxPresenter*
+MxSoundManager::FUN_100aebd0(const MxAtomId& p_atomId, MxU32 p_objectId) {
 	AUTOLOCK(m_criticalSection);
 
 	MxPresenter* presenter;
 	MxPresenterListCursor cursor(m_presenters);
 
 	while (cursor.Next(presenter)) {
-		if (presenter->GetAction()->GetAtomId().GetInternal() == p_atomId.GetInternal() &&
+		if (presenter->GetAction()->GetAtomId().GetInternal() ==
+				p_atomId.GetInternal() &&
 			presenter->GetAction()->GetObjectId() == p_objectId) {
 			return presenter;
 		}
@@ -206,7 +210,7 @@ void MxSoundManager::Pause() {
 
 	while (cursor.Next(presenter)) {
 		if (presenter->IsA("MxWavePresenter")) {
-			((MxWavePresenter*)presenter)->Pause();
+			((MxWavePresenter*) presenter)->Pause();
 		}
 	}
 }
@@ -220,7 +224,7 @@ void MxSoundManager::Resume() {
 
 	while (cursor.Next(presenter)) {
 		if (presenter->IsA("MxWavePresenter")) {
-			((MxWavePresenter*)presenter)->Resume();
+			((MxWavePresenter*) presenter)->Resume();
 		}
 	}
 }

@@ -6,7 +6,6 @@
 
 #include <windows.h>
 
-
 // FUNCTION: LEGO1 0x100c05a0
 MxMusicManager::MxMusicManager() {
 	Init();
@@ -42,8 +41,7 @@ void MxMusicManager::Destroy(MxBool p_fromDestructor) {
 		if (m_thread) {
 			delete m_thread;
 		}
-	}
-	else {
+	} else {
 		TickleManager()->UnregisterClient(this);
 	}
 
@@ -75,8 +73,13 @@ MxResult MxMusicManager::ResetStream() {
 			ResetBuffer();
 		}
 
-		if (m_midiHdrP->dwFlags & MHDR_DONE || m_midiHdrP->dwFlags & MHDR_PREPARED) {
-			if (midiOutUnprepareHeader((HMIDIOUT)m_midiStreamH, m_midiHdrP, sizeof(MIDIHDR)) != MMSYSERR_NOERROR) {
+		if (m_midiHdrP->dwFlags & MHDR_DONE ||
+			m_midiHdrP->dwFlags & MHDR_PREPARED) {
+			if (midiOutUnprepareHeader(
+					(HMIDIOUT) m_midiStreamH,
+					m_midiHdrP,
+					sizeof(MIDIHDR)
+				) != MMSYSERR_NOERROR) {
 				goto done;
 			}
 
@@ -84,14 +87,18 @@ MxResult MxMusicManager::ResetStream() {
 		}
 
 		m_bufferCurrentOffset += 4;
-		DWORD length = *((DWORD*)m_bufferCurrentOffset);
+		DWORD length = *((DWORD*) m_bufferCurrentOffset);
 		m_bufferCurrentOffset += sizeof(DWORD);
 
-		m_midiHdrP->lpData = (LPSTR)m_bufferCurrentOffset;
+		m_midiHdrP->lpData = (LPSTR) m_bufferCurrentOffset;
 		m_midiHdrP->dwBufferLength = length;
 		m_midiHdrP->dwBytesRecorded = length;
 
-		if (!midiOutPrepareHeader((HMIDIOUT)m_midiStreamH, m_midiHdrP, sizeof(MIDIHDR))) {
+		if (!midiOutPrepareHeader(
+				(HMIDIOUT) m_midiStreamH,
+				m_midiHdrP,
+				sizeof(MIDIHDR)
+			)) {
 			if (!midiStreamOut(m_midiStreamH, m_midiHdrP, sizeof(MIDIHDR))) {
 				result = SUCCESS;
 				m_bufferCurrentOffset += length;
@@ -117,14 +124,20 @@ void MxMusicManager::SetMIDIVolume() {
 
 	if (streamHandle) {
 		MxS32 volume = CalculateVolume(result);
-		midiOutSetVolume((HMIDIOUT)streamHandle, volume);
+		midiOutSetVolume((HMIDIOUT) streamHandle, volume);
 	}
 }
 
 // FUNCTION: LEGO1 0x100c0820
-void CALLBACK MxMusicManager::MidiCallbackProc(HDRVR p_hdrvr, UINT p_uMsg, DWORD p_dwUser, DWORD p_dw1, DWORD p_dw2) {
+void CALLBACK MxMusicManager::MidiCallbackProc(
+	HDRVR p_hdrvr,
+	UINT p_uMsg,
+	DWORD p_dwUser,
+	DWORD p_dw1,
+	DWORD p_dw2
+) {
 	if (p_uMsg == MOM_DONE) {
-		((MxMusicManager*)p_dwUser)->ResetStream();
+		((MxMusicManager*) p_dwUser)->ResetStream();
 	}
 }
 
@@ -142,8 +155,7 @@ MxResult MxMusicManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 			if (!m_thread || m_thread->Start(0, 0) != SUCCESS) {
 				goto done;
 			}
-		}
-		else {
+		} else {
 			TickleManager()->RegisterClient(this, p_frequencyMS);
 		}
 
@@ -211,8 +223,14 @@ MxResult MxMusicManager::InitializeMIDI(MxU8* p_data, MxS32 p_loopCount) {
 			device = -1;
 		}
 
-		if (midiStreamOpen(&m_midiStreamH, &device, 1, (DWORD)MidiCallbackProc, (DWORD)this, CALLBACK_FUNCTION) !=
-			MMSYSERR_NOERROR) {
+		if (midiStreamOpen(
+				&m_midiStreamH,
+				&device,
+				1,
+				(DWORD) MidiCallbackProc,
+				(DWORD) this,
+				CALLBACK_FUNCTION
+			) != MMSYSERR_NOERROR) {
 			goto done;
 		}
 
@@ -229,14 +247,18 @@ MxResult MxMusicManager::InitializeMIDI(MxU8* p_data, MxS32 p_loopCount) {
 		timediv.cbStruct = 8;
 		m_bufferOffset = p_data;
 		m_bufferOffset += 0x14;
-		timediv.dwTimeDiv = *((DWORD*)m_bufferOffset);
+		timediv.dwTimeDiv = *((DWORD*) m_bufferOffset);
 
-		if (midiStreamProperty(m_midiStreamH, (LPBYTE)&timediv, MIDIPROP_SET | MIDIPROP_TIMEDIV) != MMSYSERR_NOERROR) {
+		if (midiStreamProperty(
+				m_midiStreamH,
+				(LPBYTE) &timediv,
+				MIDIPROP_SET | MIDIPROP_TIMEDIV
+			) != MMSYSERR_NOERROR) {
 			goto done;
 		}
 
 		m_bufferOffset += 0x14;
-		m_bufferSize = *((MxU32*)m_bufferOffset);
+		m_bufferSize = *((MxU32*) m_bufferOffset);
 		m_bufferOffset += sizeof(MxU32);
 		m_loopCount = p_loopCount;
 		m_midiInitialized = TRUE;
@@ -266,8 +288,12 @@ void MxMusicManager::DeinitializeMIDI() {
 	if (m_midiInitialized) {
 		m_midiInitialized = FALSE;
 		midiStreamStop(m_midiStreamH);
-		midiOutUnprepareHeader((HMIDIOUT)m_midiStreamH, m_midiHdrP, sizeof(MIDIHDR));
-		midiOutSetVolume((HMIDIOUT)m_midiStreamH, m_midiVolume);
+		midiOutUnprepareHeader(
+			(HMIDIOUT) m_midiStreamH,
+			m_midiHdrP,
+			sizeof(MIDIHDR)
+		);
+		midiOutSetVolume((HMIDIOUT) m_midiStreamH, m_midiVolume);
 		midiStreamClose(m_midiStreamH);
 		delete m_midiHdrP;
 		InitData();

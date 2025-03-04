@@ -2,7 +2,6 @@
 
 #include "mxgeometry/mxmatrix.h"
 
-
 // FUNCTION: LEGO1 0x1009a0f0
 LegoUnknown::LegoUnknown() {
 	for (LegoS32 i = 0; i < sizeOfArray(m_unk0x00); i++) {
@@ -26,14 +25,21 @@ void LegoUnknown::FUN_1009a140(
 	m_unk0x00[1] = p_point2;
 
 	for (LegoS32 i = 0; i < 3; i++) {
-		m_unk0x00[2][i] = (p_point3[i] - p_point1[i]) * 3.0f - p_point2[i] * 2.0f - p_point4[i];
-		m_unk0x00[3][i] = (p_point1[i] - p_point3[i]) * 2.0f + p_point4[i] + p_point2[i];
+		m_unk0x00[2][i] = (p_point3[i] - p_point1[i]) * 3.0f -
+						  p_point2[i] * 2.0f - p_point4[i];
+		m_unk0x00[3][i] =
+			(p_point1[i] - p_point3[i]) * 2.0f + p_point4[i] + p_point2[i];
 	}
 }
 
 // FUNCTION: LEGO1 0x1009a1e0
 // FUNCTION: BETA10 0x10182d61
-LegoResult LegoUnknown::FUN_1009a1e0(float p_f1, MxMatrix& p_mat, Vector3& p_v, LegoU32 p_und) {
+LegoResult LegoUnknown::FUN_1009a1e0(
+	float p_f1,
+	MxMatrix& p_mat,
+	Vector3& p_v,
+	LegoU32 p_und
+) {
 	Vector3 v1(p_mat[3]);
 	Vector3 v2(p_mat[0]);
 	Vector3 v3(p_mat[1]);
@@ -42,24 +48,25 @@ LegoResult LegoUnknown::FUN_1009a1e0(float p_f1, MxMatrix& p_mat, Vector3& p_v, 
 	if (p_f1 <= 0.001) {
 		v1 = m_unk0x00[0];
 		v4 = m_unk0x00[1];
-	}
-	else if (p_f1 >= 0.999) {
+	} else if (p_f1 >= 0.999) {
 		v1 = m_unk0x00[0];
 		v1 += m_unk0x00[1];
 		v1 += m_unk0x00[2];
 		v1 += m_unk0x00[3];
 
 		for (LegoS32 i = 0; i < 3; i++) {
-			v4[i] = m_unk0x00[1][i] + m_unk0x00[2][i] * 2.0f + m_unk0x00[3][i] * 3.0f;
+			v4[i] = m_unk0x00[1][i] + m_unk0x00[2][i] * 2.0f +
+					m_unk0x00[3][i] * 3.0f;
 		}
-	}
-	else {
+	} else {
 		float local30 = p_f1 * p_f1;
 		float local34 = local30 * p_f1;
 
 		for (LegoS32 i = 0; i < 3; i++) {
-			v1[i] = m_unk0x00[0][i] + m_unk0x00[1][i] * p_f1 + m_unk0x00[2][i] * local30 + m_unk0x00[3][i] * local34;
-			v4[i] = m_unk0x00[1][i] + m_unk0x00[2][i] * p_f1 * 2.0f + m_unk0x00[3][i] * local30 * 3.0f;
+			v1[i] = m_unk0x00[0][i] + m_unk0x00[1][i] * p_f1 +
+					m_unk0x00[2][i] * local30 + m_unk0x00[3][i] * local34;
+			v4[i] = m_unk0x00[1][i] + m_unk0x00[2][i] * p_f1 * 2.0f +
+					m_unk0x00[3][i] * local30 * 3.0f;
 		}
 	}
 
