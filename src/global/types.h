@@ -5,6 +5,7 @@
 #include <list>
 #include <map>
 #include <set>
+#include <stdint.h>
 #include <utility>
 #include <vector>
 using std::list;
@@ -14,14 +15,16 @@ using std::pair;
 using std::set;
 using std::vector;
 
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned int u32;
-typedef unsigned long long int u64;
-typedef signed char i8;
-typedef signed short i16;
-typedef signed int i32;
-typedef signed long long int i64;
+typedef int8_t i8;
+typedef int16_t i16;
+typedef int32_t i32;
+typedef int64_t i64;
+typedef uint8_t u8;
+typedef uint16_t u16;
+typedef uint32_t u32;
+typedef uint64_t u64;
+typedef uintptr_t usize;
+typedef intptr_t isize;
 typedef float f32;
 typedef double f64;
 
@@ -62,6 +65,71 @@ typedef u8 LegoBool;
 typedef Time LegoTime;
 typedef i32 LegoResult;
 
+/*
+typedef bool BOOL;
+typedef char* LPCSTR;
+typedef char* LPSTR;
+typedef u32 DWORD;
+typedef usize WPARAM;
+typedef isize LPARAM;
+typedef isize LRESULT;
+typedef u32 HRESULT;
+typedef usize SIZE_T;
+typedef void* LPVOID;
+typedef const void* LPCVOID;
+
+typedef void* HANDLE;
+typedef void* HCURSOR;
+typedef void* HWND;
+typedef void* HINSTANCE;
+typedef void* HMODULE;
+typedef void* HICON;
+typedef void* HBRUSH;
+typedef void* HFONT;
+typedef void* HPEN;
+typedef void* HBITMAP;
+typedef void* HDC;
+typedef void* HMENU;
+typedef void* HMONITOR;
+typedef void* HHOOK;
+typedef void* HGLOBAL;
+typedef void* HKEY;
+typedef void* HWINSTA;
+typedef void* HDESK;
+typedef void* HFILE;
+typedef void* HRGN;
+typedef void* HTASK;
+typedef void* HGDIOBJ;
+typedef void* HPALETTE;
+
+typedef u16 ATOM;
+typedef u16 WORD;
+typedef u8 BYTE;
+typedef i8 CHAR;
+typedef u16 WCHAR;
+typedef WCHAR* LPWSTR;
+typedef const WCHAR* LPCWSTR;
+typedef u32 UINT;
+typedef i32 INT;
+typedef i64 LONGLONG;
+typedef u64 ULONGLONG;
+typedef i32 LONG;
+typedef u32 ULONG;
+typedef i16 SHORT;
+typedef u16 USHORT;
+typedef u32 UINT_PTR;
+typedef isize INT_PTR;
+typedef isize LONG_PTR;
+typedef usize ULONG_PTR;
+
+typedef struct {
+	i32 left;
+	i32 top;
+	i32 right;
+	i32 bottom;
+} RECT;
+*/
+
 #define TRUE true
 #define FALSE false
 
@@ -95,9 +163,7 @@ typedef enum _Result {
 #define Failure -1
 #endif
 
-typedef void* HCursor;
-typedef void* HWindow;
-typedef void* HInstance;
+
 */
 
 #define TWOCC(a, b) (((a) << 0) | ((b) << 8))

@@ -31,7 +31,6 @@ Checks: >
   bugprone-use-after-move,
   cppcoreguidelines-avoid-goto,
   cppcoreguidelines-init-variables,
-  cppcoreguidelines-non-private-member-variables-in-classes,
   cppcoreguidelines-prefer-member-initializer,
   misc-unused-alias-decls,
   misc-unused-parameters,
