@@ -4,7 +4,6 @@
 #include "geom/legowegedge.h"
 #include "legoanimpresenter.h"
 #include "legopathactor.h"
-#include "mxstl/stlcompat.h"
 
 #if defined(_M_IX86) || defined(__i386__)
 #define COMPARE_POINTER_TYPE MxS32

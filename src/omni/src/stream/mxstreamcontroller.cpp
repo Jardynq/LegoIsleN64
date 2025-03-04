@@ -6,7 +6,6 @@
 #include "mxdsstreamingaction.h"
 #include "mxmisc.h"
 #include "mxnextactiondatastart.h"
-#include "mxstl/stlcompat.h"
 #include "mxstreamchunk.h"
 #include "mxstreamprovider.h"
 #include "mxtimer.h"

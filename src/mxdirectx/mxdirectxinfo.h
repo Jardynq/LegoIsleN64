@@ -1,7 +1,6 @@
 #ifndef MXDIRECTXINFO_H
 #define MXDIRECTXINFO_H
 
-#include "mxstl/stlcompat.h"
 
 #include <d3d.h>
 

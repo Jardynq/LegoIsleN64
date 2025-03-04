@@ -24,7 +24,6 @@
 #include "mxnotificationmanager.h"
 #include "mxobjectfactory.h"
 #include "mxpresenter.h"
-#include "mxstl/stlcompat.h"
 #include "mxutilities.h"
 
 #include <io.h>

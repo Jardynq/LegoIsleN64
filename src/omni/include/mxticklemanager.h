@@ -2,7 +2,6 @@
 #define MXTICKLEMANAGER_H
 
 #include "mxcore.h"
-#include "mxstl/stlcompat.h"
 
 // SIZE 0x10
 class MxTickleClient {

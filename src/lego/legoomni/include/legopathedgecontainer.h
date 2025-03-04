@@ -2,7 +2,6 @@
 #define LEGOPATHEDGECONTAINER_H
 
 #include "mxgeometry/mxgeometry3d.h"
-#include "mxstl/stlcompat.h"
 
 class LegoPathBoundary;
 struct LegoPathCtrlEdge;

@@ -1,7 +1,6 @@
 #ifndef LEGOCHARACTERMANAGER_H
 #define LEGOCHARACTERMANAGER_H
 
-#include "mxstl/stlcompat.h"
 #include "mxvariable.h"
 #include "roi/legoroi.h"
 

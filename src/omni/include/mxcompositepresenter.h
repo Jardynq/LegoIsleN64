@@ -2,7 +2,6 @@
 #define MXCOMPOSITEPRESENTER_H
 
 #include "mxpresenter.h"
-#include "mxstl/stlcompat.h"
 
 class MxEndActionNotificationParam;
 class MxNotificationParam;

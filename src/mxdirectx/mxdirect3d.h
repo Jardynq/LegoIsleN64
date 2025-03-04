@@ -3,7 +3,6 @@
 
 #include "mxdirectdraw.h"
 #include "mxdirectxinfo.h"
-#include "mxstl/stlcompat.h"
 
 #include <d3d.h>
 

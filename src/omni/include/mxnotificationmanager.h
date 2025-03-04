@@ -3,7 +3,6 @@
 
 #include "mxcore.h"
 #include "mxcriticalsection.h"
-#include "mxstl/stlcompat.h"
 
 class MxNotificationParam;
 

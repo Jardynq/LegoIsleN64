@@ -2,7 +2,6 @@
 #define LEGOCACHESOUNDMANAGER_H
 
 #include "legocachsound.h"
-#include "mxstl/stlcompat.h"
 
 #pragma warning(disable : 4237)
 

@@ -7,7 +7,6 @@
 #include "mxdsobject.h"
 #include "mxdssubscriber.h"
 #include "mxnextactiondatastart.h"
-#include "mxstl/stlcompat.h"
 
 class MxDSAction;
 class MxDSStreamingAction;

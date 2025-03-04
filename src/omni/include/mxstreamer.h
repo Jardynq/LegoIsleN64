@@ -4,7 +4,6 @@
 #include "mxcore.h"
 #include "mxmemorypool.h"
 #include "mxnotificationparam.h"
-#include "mxstl/stlcompat.h"
 #include "mxstreamcontroller.h"
 
 #include <assert.h>

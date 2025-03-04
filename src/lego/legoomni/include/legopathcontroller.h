@@ -5,7 +5,6 @@
 #include "legopathactor.h"
 #include "legopathboundary.h"
 #include "legopathstruct.h"
-#include "mxstl/stlcompat.h"
 
 class LegoAnimPresenter;
 class LegoWorld;

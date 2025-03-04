@@ -2,7 +2,6 @@
 #define LEGOCONTAINER_H
 
 #include "legotexture.h"
-#include "mxstl/stlcompat.h"
 
 // Note: dependency on LegoOmni
 #include "lego/legoomni/include/legotextureinfo.h"
