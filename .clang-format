@@ -1,0 +1,31 @@
+BasedOnStyle: LLVM
+
+AccessModifierOffset: -4
+AlignAfterOpenBracket: BlockIndent
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortFunctionsOnASingleLine: InlineOnly
+AlwaysBreakTemplateDeclarations: true
+BinPackArguments: false
+BinPackParameters: false
+
+BraceWrapping:
+  AfterClass: false
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterStruct: false
+  BeforeElse: false
+  BeforeCatch: false
+
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 4
+EmptyLineBeforeAccessModifier: Always
+FixNamespaceComments: true
+IncludeBlocks: Regroup
+IndentAccessModifiers: false
+IndentWidth: 4
+PointerAlignment: Left
+
+SpaceAfterCStyleCast: true
+TabWidth: 4
+UseTab: ForContinuationAndIndentation

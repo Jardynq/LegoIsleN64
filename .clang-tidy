@@ -1,0 +1,46 @@
+HeaderFilterRegex: '^.*LegoIsleN64/src.*$'
+WarningsAsErrors: ''
+
+ExtraArgs:
+  - "-std=c++17"
+  - "-stdlib=libstdc++"
+  - "-I/usr/lib/gcc/i686-w64-mingw32/10-win32/include/c++"
+  - "-I/usr/lib/gcc/i686-w64-mingw32/10-win32/include/c++/i686-w64-mingw32"
+
+Checks: >
+  bugprone-argument-comment,
+  bugprone-assert-side-effect,
+  bugprone-bool-pointer-implicit-conversion,
+  bugprone-copy-constructor-init,
+  bugprone-dangling-handle,
+  bugprone-infinite-loop,
+  bugprone-integer-division,
+  bugprone-macro-parentheses,
+  bugprone-macro-repeated-side-effects,
+  bugprone-multiple-statement-macro,
+  bugprone-redundant-branch-condition,
+  bugprone-signed-char-misuse,
+  bugprone-sizeof-container,
+  bugprone-suspicious-enum-usage,
+  bugprone-suspicious-memory-comparison,
+  bugprone-suspicious-memset-usage,
+  bugprone-suspicious-string-compare,
+  bugprone-terminating-continue,
+  bugprone-too-small-loop-variable,
+  bugprone-undefined-memory-manipulation,
+  bugprone-use-after-move,
+  cppcoreguidelines-avoid-goto,
+  cppcoreguidelines-init-variables,
+  cppcoreguidelines-non-private-member-variables-in-classes,
+  cppcoreguidelines-prefer-member-initializer,
+  cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  misc-unused-alias-decls,
+  misc-unused-parameters,
+  misc-unused-using-decls,
+  readability-braces-around-statements,
+  readability-duplicate-include,
+  readability-redundant-control-flow,
+  readability-simplify-boolean-expr,
+  readability-static-definition-in-anonymous-namespace,
+  performance-unnecessary-copy-initialization,
+  performance-unnecessary-value-param
