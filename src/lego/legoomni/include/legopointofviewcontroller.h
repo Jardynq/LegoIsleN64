@@ -1,7 +1,6 @@
 #ifndef LEGOPOINTOFVIEWCONTROLLER_H
 #define LEGOPOINTOFVIEWCONTROLLER_H
 
-#include "utils.h"
 #include "mxcore.h"
 #include "mxpoint32.h"
 

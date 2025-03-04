@@ -1,7 +1,6 @@
 #ifndef LEGOINPUTMANAGER_H
 #define LEGOINPUTMANAGER_H
 
-#include "utils.h"
 #include "legoeventnotificationparam.h"
 #include "mxlist.h"
 #include "mxpresenter.h"

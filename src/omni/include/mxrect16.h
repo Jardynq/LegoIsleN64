@@ -1,7 +1,6 @@
 #ifndef MXRECT16_H
 #define MXRECT16_H
 
-#include "mxtypes.h"
 
 // SIZE 0x08
 struct MxRect16 {

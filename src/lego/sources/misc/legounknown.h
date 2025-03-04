@@ -1,7 +1,6 @@
 #ifndef __LEGOUNKNOWN_H
 #define __LEGOUNKNOWN_H
 
-#include "legotypes.h"
 #include "mxgeometry/mxgeometry3d.h"
 
 class MxMatrix;

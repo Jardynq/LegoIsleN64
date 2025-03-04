@@ -1,7 +1,6 @@
 #ifndef LEGOLOADCACHESOUNDPRESENTER_H
 #define LEGOLOADCACHESOUNDPRESENTER_H
 
-#include "utils.h"
 #include "mxwavepresenter.h"
 
 class LegoCacheSound;

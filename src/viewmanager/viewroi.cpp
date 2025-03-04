@@ -1,6 +1,5 @@
 #include "viewroi.h"
 
-#include "utils.h"
 
 #include <vec.h>
 

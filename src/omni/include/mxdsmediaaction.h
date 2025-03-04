@@ -1,7 +1,6 @@
 #ifndef MXDSMEDIAACTION_H
 #define MXDSMEDIAACTION_H
 
-#include "utils.h"
 #include "mxdsaction.h"
 
 // VTABLE: LEGO1 0x100dcd40

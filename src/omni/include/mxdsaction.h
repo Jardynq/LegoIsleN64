@@ -3,7 +3,6 @@
 
 #include "mxdsobject.h"
 #include "mxgeometry/mxgeometry3d.h"
-#include "mxtypes.h"
 
 class MxOmni;
 

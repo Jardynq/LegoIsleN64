@@ -3,7 +3,6 @@
 
 #include "legocachsound.h"
 #include "mxlist.h"
-#include "mxtypes.h"
 
 // VTABLE: LEGO1 0x100d63b0
 // class MxCollection<LegoCacheSound *>

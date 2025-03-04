@@ -1,9 +1,7 @@
 #ifndef LEGOCONTAINER_H
 #define LEGOCONTAINER_H
 
-#include "utils.h"
 #include "legotexture.h"
-#include "legotypes.h"
 #include "mxstl/stlcompat.h"
 
 // Note: dependency on LegoOmni

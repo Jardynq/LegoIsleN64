@@ -1,9 +1,7 @@
 #ifndef __LEGOMESH_H
 #define __LEGOMESH_H
 
-#include "utils.h"
 #include "legocolor.h"
-#include "misc/legotypes.h"
 
 class LegoStorage;
 

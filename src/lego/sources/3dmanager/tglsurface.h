@@ -50,14 +50,14 @@ public:
 	Tgl::Group* GetScene() const { return m_pScene; }
 
 	// FUNCTION: BETA10 0x1017cbc0
-	unsigned long GetWidth() const { return m_width; }
+	unsigned int GetWidth() const { return m_width; }
 
 	// FUNCTION: BETA10 0x1017cbe0
-	unsigned long GetHeight() const { return m_height; }
+	unsigned int GetHeight() const { return m_height; }
 
 	double GetRenderingRate() const { return m_renderingRateMeter.Frequency(); }
 	double GetFrameRate() const { return m_frameRateMeter.Frequency(); }
-	unsigned long GetFrameCount() const { return m_frameCount; }
+	unsigned int GetFrameCount() const { return m_frameCount; }
 
 protected:
 	virtual Tgl::View* CreateView(Tgl::Renderer*, Tgl::Device*) = 0; // vtable+0x10
@@ -69,8 +69,8 @@ private:
 	Tgl::View* m_pView;         // 0x10
 	Tgl::Group* m_pScene;       // 0x14
 
-	unsigned long m_width;  // 0x18
-	unsigned long m_height; // 0x1c
+	unsigned int m_width;  // 0x18
+	unsigned int m_height; // 0x1c
 
 	BOOL m_isInitialized; // 0x20
 	BOOL m_stopRendering; // 0x24
@@ -78,7 +78,7 @@ private:
 	// statistics
 	MxFrequencyMeter m_renderingRateMeter; // 0x28
 	MxFrequencyMeter m_frameRateMeter;     // 0x48
-	unsigned long m_frameCount;            // 0x68
+	unsigned int m_frameCount;            // 0x68
 };
 
 /////////////////////////////////////////////////////////////////////////////

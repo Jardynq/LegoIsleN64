@@ -468,7 +468,7 @@ float ViewManager::ProjectedSize(const BoundingSphere& p_bounding_sphere) {
 }
 
 // FUNCTION: LEGO1 0x100a6e00
-ViewROI* ViewManager::Pick(Tgl::View* p_view, unsigned long x, unsigned long y) {
+ViewROI* ViewManager::Pick(Tgl::View* p_view, unsigned int x, unsigned int y) {
 	LPDIRECT3DRMPICKEDARRAY picked = NULL;
 	ViewROI* result = NULL;
 	TglImpl::ViewImpl* view = (TglImpl::ViewImpl*)p_view;

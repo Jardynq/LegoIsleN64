@@ -119,10 +119,10 @@ namespace Tgl {
 		virtual View* CreateView(
 			const Device*,
 			const Camera*,
-			unsigned long x,
-			unsigned long y,
-			unsigned long width,
-			unsigned long height
+			unsigned int x,
+			unsigned int y,
+			unsigned int width,
+			unsigned int height
 		) = 0;
 		virtual Camera* CreateCamera() = 0;
 		virtual Light* CreateLight(LightType, float r, float g, float b) = 0;
@@ -140,10 +140,10 @@ namespace Tgl {
 			const PaletteEntry* pEntries
 		) = 0;
 		virtual Texture* CreateTexture() = 0;
-		virtual Result SetTextureDefaultShadeCount(unsigned long) = 0;
+		virtual Result SetTextureDefaultShadeCount(unsigned int) = 0;
 
 		// vtable+0x30
-		virtual Result SetTextureDefaultColorCount(unsigned long) = 0;
+		virtual Result SetTextureDefaultColorCount(unsigned int) = 0;
 
 		// SYNTHETIC: LEGO1 0x100a1770
 		// Tgl::Renderer::~Renderer
@@ -158,13 +158,13 @@ namespace Tgl {
 	class Device : public Object {
 	public:
 		// vtable+0x08
-		virtual unsigned long GetWidth() = 0;
-		virtual unsigned long GetHeight() = 0;
+		virtual unsigned int GetWidth() = 0;
+		virtual unsigned int GetHeight() = 0;
 
 		// vtable+0x10
 		virtual Result SetColorModel(ColorModel) = 0;
 		virtual Result SetShadingModel(ShadingModel) = 0;
-		virtual Result SetShadeCount(unsigned long) = 0;
+		virtual Result SetShadeCount(unsigned int) = 0;
 		virtual Result SetDither(int) = 0;
 
 		// vtable+0x20
@@ -195,7 +195,7 @@ namespace Tgl {
 		virtual Result GetBackgroundColor(float* r, float* g, float* b) = 0;
 		virtual Result Clear() = 0;
 		virtual Result Render(const Group*) = 0;
-		virtual Result ForceUpdate(unsigned long x, unsigned long y, unsigned long width, unsigned long height) = 0;
+		virtual Result ForceUpdate(unsigned int x, unsigned int y, unsigned int width, unsigned int height) = 0;
 
 		// vtable+0x30
 		virtual Result TransformWorldToScreen(const float world[3], float screen[4]) = 0;
@@ -224,8 +224,8 @@ namespace Tgl {
 		//      output parameter
 		//      size of rppPickedGroups
 		virtual Result Pick(
-			unsigned long x,
-			unsigned long y,
+			unsigned int x,
+			unsigned int y,
 			const Group** ppGroupsToPickFrom,
 			int groupsToPickFromCount,
 			const Group**& rppPickedGroups,
@@ -319,13 +319,13 @@ namespace Tgl {
 	class MeshBuilder : public Object {
 	public:
 		virtual Mesh* CreateMesh(
-			unsigned long faceCount,
-			unsigned long vertexCount,
+			unsigned int faceCount,
+			unsigned int vertexCount,
 			float (*pPositions)[3],
 			float (*pNormals)[3],
 			float (*pTextureCoordinates)[2],
-			unsigned long (*pFaceIndices)[3],
-			unsigned long (*pTextureIndices)[3],
+			unsigned int (*pFaceIndices)[3],
+			unsigned int (*pTextureIndices)[3],
 			ShadingModel shadingModel
 		) = 0;
 		virtual Result GetBoundingBox(float min[3], float max[3]) const = 0;

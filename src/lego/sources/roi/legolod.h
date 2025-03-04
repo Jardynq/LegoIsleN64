@@ -1,7 +1,6 @@
 #ifndef LEGOLOD_H
 #define LEGOLOD_H
 
-#include "misc/legotypes.h"
 #include "viewmanager/viewlod.h"
 
 class LegoTextureContainer;

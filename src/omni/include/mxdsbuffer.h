@@ -1,7 +1,6 @@
 #ifndef MXDSBUFFER_H
 #define MXDSBUFFER_H
 
-#include "utils.h"
 #include "mxcore.h"
 
 class MxStreamController;

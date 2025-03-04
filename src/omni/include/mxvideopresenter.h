@@ -1,7 +1,6 @@
 #ifndef MXVIDEOPRESENTER_H
 #define MXVIDEOPRESENTER_H
 
-#include "utils.h"
 #include "mxbitmap.h"
 #include "mxmediapresenter.h"
 #include "mxrect32.h"

@@ -1,7 +1,6 @@
 #ifndef MXEVENTMANAGER_H
 #define MXEVENTMANAGER_H
 
-#include "utils.h"
 #include "mxmediamanager.h"
 
 // VTABLE: LEGO1 0x100dc900

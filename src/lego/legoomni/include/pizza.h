@@ -2,7 +2,6 @@
 #define PIZZA_H
 
 #include "actionsfwd.h"
-#include "utils.h"
 #include "isleactor.h"
 #include "legostate.h"
 

@@ -1,7 +1,6 @@
 #ifndef __LEGOANIM_H
 #define __LEGOANIM_H
 
-#include "utils.h"
 #include "misc/legostorage.h"
 #include "misc/legotree.h"
 

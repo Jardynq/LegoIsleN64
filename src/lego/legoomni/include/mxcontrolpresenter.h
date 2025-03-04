@@ -1,7 +1,6 @@
 #ifndef MXCONTROLPRESENTER_H
 #define MXCONTROLPRESENTER_H
 
-#include "utils.h"
 #include "mxcompositepresenter.h"
 
 class LegoControlManagerNotificationParam;

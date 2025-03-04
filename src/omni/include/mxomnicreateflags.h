@@ -1,7 +1,6 @@
 #ifndef MXOMNICREATEFLAGS_H
 #define MXOMNICREATEFLAGS_H
 
-#include "mxtypes.h"
 
 // SIZE 0x02
 class MxOmniCreateFlags {

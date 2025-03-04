@@ -3,7 +3,6 @@
 
 #include "legoentity.h"
 #include "mxlist.h"
-#include "mxtypes.h"
 
 // VTABLE: LEGO1 0x100d6410
 // class MxCollection<LegoEntity *>

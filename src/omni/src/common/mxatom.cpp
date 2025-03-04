@@ -1,6 +1,5 @@
 #include "mxatom.h"
 
-#include "utils.h"
 #include "mxmisc.h"
 #include "mxomni.h"
 

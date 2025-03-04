@@ -3,7 +3,6 @@
 
 class LegoPathStruct;
 
-#include "utils.h"
 #include "legoweedge.h"
 
 // This struct might have been defined elsewhere (legopathstruct.h?).

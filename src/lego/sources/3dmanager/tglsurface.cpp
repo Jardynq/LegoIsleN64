@@ -2,7 +2,6 @@
 
 #include "tglsurface.h"
 
-#include "utils.h"
 
 
 using namespace Tgl;

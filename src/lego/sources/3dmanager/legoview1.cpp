@@ -3,7 +3,6 @@
 
 #include "legoview1.h"
 
-#include "utils.h"
 #include "mxgeometry/mxgeometry3d.h"
 #include "mxgeometry/mxmatrix.h"
 #include "realtime/realtime.h"

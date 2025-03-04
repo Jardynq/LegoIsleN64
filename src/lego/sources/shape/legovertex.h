@@ -1,7 +1,6 @@
 #ifndef __LEGOVERTEX_H
 #define __LEGOVERTEX_H
 
-#include "misc/legotypes.h"
 
 class LegoStorage;
 

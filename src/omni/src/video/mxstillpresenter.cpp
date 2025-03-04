@@ -1,6 +1,5 @@
 #include "mxstillpresenter.h"
 
-#include "utils.h"
 #include "define.h"
 #include "mxcompositepresenter.h"
 #include "mxdisplaysurface.h"

@@ -1,7 +1,6 @@
 #ifndef MXSEMAPHORE_H
 #define MXSEMAPHORE_H
 
-#include "mxtypes.h"
 
 #include <windows.h>
 

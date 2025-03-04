@@ -1,7 +1,6 @@
 #ifndef HISTORYBOOK_H
 #define HISTORYBOOK_H
 
-#include "utils.h"
 #include "legogamestate.h"
 #include "legoworld.h"
 

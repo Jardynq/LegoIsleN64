@@ -1,6 +1,5 @@
 #include "mxmediamanager.h"
 
-#include "utils.h"
 #include "mxautolock.h"
 #include "mxomni.h"
 #include "mxpresenter.h"

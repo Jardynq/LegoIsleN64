@@ -1,8 +1,6 @@
 #ifndef LEGOBUILDINGMANAGER_H
 #define LEGOBUILDINGMANAGER_H
 
-#include "utils.h"
-#include "misc/legotypes.h"
 #include "mxcore.h"
 
 class LegoEntity;

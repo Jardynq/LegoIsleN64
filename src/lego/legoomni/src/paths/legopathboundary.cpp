@@ -1,6 +1,5 @@
 #include "legopathboundary.h"
 
-#include "utils.h"
 #include "geom/legounkown100db7f4.h"
 #include "legolocomotionanimpresenter.h"
 #include "legopathactor.h"

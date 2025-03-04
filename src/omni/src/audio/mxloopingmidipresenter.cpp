@@ -1,6 +1,5 @@
 #include "mxloopingmidipresenter.h"
 
-#include "utils.h"
 #include "mxdssound.h"
 #include "mxmisc.h"
 #include "mxmusicmanager.h"

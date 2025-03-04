@@ -2,7 +2,6 @@
 #define LEGOWORLDLIST_H
 
 #include "mxlist.h"
-#include "mxtypes.h"
 
 class LegoWorld;
 

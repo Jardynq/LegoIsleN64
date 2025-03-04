@@ -1,7 +1,6 @@
 #ifndef MXDSSERIALACTION_H
 #define MXDSSERIALACTION_H
 
-#include "utils.h"
 #include "mxdsmultiaction.h"
 
 // VTABLE: LEGO1 0x100dcf38

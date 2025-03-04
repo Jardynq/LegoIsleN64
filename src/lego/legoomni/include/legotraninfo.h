@@ -1,9 +1,7 @@
 #ifndef LEGOTRANINFO_H
 #define LEGOTRANINFO_H
 
-#include "utils.h"
 #include "mxgeometry/mxmatrix.h"
-#include "mxtypes.h"
 
 struct AnimInfo;
 class LegoAnimMMPresenter;

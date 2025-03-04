@@ -1,7 +1,6 @@
 #ifndef LEGOTEXTUREINFO_H
 #define LEGOTEXTUREINFO_H
 
-#include "misc/legotypes.h"
 #include "tgl/tgl.h"
 
 #include <d3drmobj.h>

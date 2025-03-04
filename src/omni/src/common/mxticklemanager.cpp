@@ -1,9 +1,7 @@
 #include "mxticklemanager.h"
 
-#include "utils.h"
 #include "mxmisc.h"
 #include "mxtimer.h"
-#include "mxtypes.h"
 
 #define TICKLE_MANAGER_FLAG_DESTROY 0x01
 

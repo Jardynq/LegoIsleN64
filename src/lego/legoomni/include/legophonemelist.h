@@ -1,7 +1,6 @@
 #ifndef LEGOPHONEMELIST_H
 #define LEGOPHONEMELIST_H
 
-#include "utils.h"
 #include "legophoneme.h"
 #include "mxlist.h"
 

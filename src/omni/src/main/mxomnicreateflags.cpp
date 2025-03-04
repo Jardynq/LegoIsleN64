@@ -1,6 +1,5 @@
 #include "mxomnicreateflags.h"
 
-#include "utils.h"
 
 
 // FUNCTION: LEGO1 0x100b0a30

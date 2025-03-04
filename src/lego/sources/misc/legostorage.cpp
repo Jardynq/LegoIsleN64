@@ -1,6 +1,5 @@
 #include "legostorage.h"
 
-#include "utils.h"
 
 #include <memory.h>
 #include <string.h>

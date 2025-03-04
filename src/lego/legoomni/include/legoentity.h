@@ -1,7 +1,6 @@
 #ifndef LEGOENTITY_H
 #define LEGOENTITY_H
 
-#include "utils.h"
 #include "extra.h"
 #include "mxentity.h"
 

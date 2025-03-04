@@ -1,7 +1,6 @@
 #ifndef GASSTATION_H
 #define GASSTATION_H
 
-#include "utils.h"
 #include "legogamestate.h"
 #include "legostate.h"
 #include "legoworld.h"

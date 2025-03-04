@@ -1,7 +1,6 @@
 #ifndef LEGOPALETTEPRESENTER_H
 #define LEGOPALETTEPRESENTER_H
 
-#include "utils.h"
 #include "mxvideopresenter.h"
 
 class MxPalette;

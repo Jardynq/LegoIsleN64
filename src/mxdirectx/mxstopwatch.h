@@ -29,14 +29,14 @@ public:
 	double ElapsedSeconds() const;
 
 protected:
-	unsigned long TicksPerSeconds() const;
+	unsigned int TicksPerSeconds() const;
 
 private:
 	LARGE_INTEGER m_startTick; // 0x00
 	// ??? when we provide LARGE_INTEGER arithmetic, use a
 	//     LARGE_INTEGER m_elapsedTicks rather than m_elapsedSeconds
 	double m_elapsedSeconds;         // 0x0c
-	unsigned long m_ticksPerSeconds; // 0x14
+	unsigned int m_ticksPerSeconds; // 0x14
 };
 
 // FUNCTION: BETA10 0x100d8ba0
@@ -75,7 +75,7 @@ inline void MxStopWatch::Reset() {
 }
 
 // FUNCTION: BETA10 0x100d8c60
-inline unsigned long MxStopWatch::TicksPerSeconds() const {
+inline unsigned int MxStopWatch::TicksPerSeconds() const {
 	LARGE_INTEGER ticksPerSeconds;
 	BOOL result;
 
@@ -117,13 +117,13 @@ public:
 	double Frequency() const;
 	void Reset();
 
-	unsigned long OperationCount() const;
+	unsigned int OperationCount() const;
 	double ElapsedSeconds() const;
 
-	void IncreaseOperationCount(unsigned long);
+	void IncreaseOperationCount(unsigned int);
 
 private:
-	unsigned long m_operationCount; // 0x00
+	unsigned int m_operationCount; // 0x00
 	MxStopWatch m_stopWatch;        // 0x08
 };
 
@@ -171,12 +171,12 @@ inline void MxFrequencyMeter::Reset() {
 	m_operationCount = 0;
 }
 
-inline unsigned long MxFrequencyMeter::OperationCount() const {
+inline unsigned int MxFrequencyMeter::OperationCount() const {
 	return m_operationCount;
 }
 
 // FUNCTION: BETA10 0x1017df40
-inline void MxFrequencyMeter::IncreaseOperationCount(unsigned long delta) {
+inline void MxFrequencyMeter::IncreaseOperationCount(unsigned int delta) {
 	m_operationCount += delta;
 }
 

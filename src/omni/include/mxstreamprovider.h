@@ -1,7 +1,6 @@
 #ifndef MXSTREAMPROVIDER_H
 #define MXSTREAMPROVIDER_H
 
-#include "utils.h"
 #include "mxcore.h"
 
 class MxStreamController;

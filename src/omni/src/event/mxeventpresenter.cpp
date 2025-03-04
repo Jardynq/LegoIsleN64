@@ -1,6 +1,5 @@
 #include "mxeventpresenter.h"
 
-#include "utils.h"
 #include "mxautolock.h"
 #include "mxdsaction.h"
 #include "mxdssubscriber.h"

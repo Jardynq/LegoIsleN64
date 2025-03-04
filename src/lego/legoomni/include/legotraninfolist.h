@@ -3,7 +3,6 @@
 
 #include "legotraninfo.h"
 #include "mxlist.h"
-#include "mxtypes.h"
 
 // VTABLE: LEGO1 0x100d8ca8
 // class MxCollection<LegoTranInfo *>

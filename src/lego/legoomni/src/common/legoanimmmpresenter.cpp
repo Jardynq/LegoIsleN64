@@ -1,7 +1,6 @@
 #include "legoanimmmpresenter.h"
 
 #include "3dmanager/lego3dmanager.h"
-#include "utils.h"
 #include "define.h"
 #include "islepathactor.h"
 #include "legoanimationmanager.h"

@@ -3,7 +3,6 @@
 
 #pragma warning(disable : 4237)
 
-#include "mxtypes.h"
 
 #include <assert.h>
 #include <limits.h> // CHAR_BIT

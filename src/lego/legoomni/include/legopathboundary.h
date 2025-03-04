@@ -5,7 +5,6 @@
 #include "legoanimpresenter.h"
 #include "legopathactor.h"
 #include "mxstl/stlcompat.h"
-#include "mxtypes.h"
 
 #if defined(_M_IX86) || defined(__i386__)
 #define COMPARE_POINTER_TYPE MxS32

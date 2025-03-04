@@ -1,7 +1,6 @@
 #ifndef __LEGOTREE_H
 #define __LEGOTREE_H
 
-#include "legotypes.h"
 
 class LegoStorage;
 

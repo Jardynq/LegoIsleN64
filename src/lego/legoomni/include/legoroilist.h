@@ -2,7 +2,6 @@
 #define LEGOROILIST_H
 
 #include "mxlist.h"
-#include "mxtypes.h"
 #include "roi/legoroi.h"
 
 // VTABLE: LEGO1 0x100d8c30

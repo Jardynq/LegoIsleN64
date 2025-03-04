@@ -1,6 +1,5 @@
 #include "mxcriticalsection.h"
 
-#include "utils.h"
 
 #include <stdio.h>
 

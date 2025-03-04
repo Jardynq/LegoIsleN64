@@ -1,6 +1,5 @@
 #include "mxbitmap.h"
 
-#include "utils.h"
 #include "mxpalette.h"
 #include "mxutilities.h"
 

@@ -1,7 +1,6 @@
 #ifndef LEGOANIMATIONMANAGER_H
 #define LEGOANIMATIONMANAGER_H
 
-#include "utils.h"
 #include "legolocations.h"
 #include "legomain.h"
 #include "legostate.h"

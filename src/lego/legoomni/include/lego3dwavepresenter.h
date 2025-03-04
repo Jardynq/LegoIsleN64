@@ -1,7 +1,6 @@
 #ifndef LEGO3DWAVEPRESENTER_H
 #define LEGO3DWAVEPRESENTER_H
 
-#include "utils.h"
 #include "lego3dsound.h"
 #include "mxwavepresenter.h"
 

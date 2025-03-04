@@ -1,6 +1,5 @@
 #include "legosphere.h"
 
-#include "utils.h"
 #include "misc/legostorage.h"
 
 

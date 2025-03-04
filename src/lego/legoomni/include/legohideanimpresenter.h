@@ -1,7 +1,6 @@
 #ifndef LEGOHIDEANIMPRESENTER_H
 #define LEGOHIDEANIMPRESENTER_H
 
-#include "utils.h"
 #include "legoloopinganimpresenter.h"
 
 class LegoPathBoundary;

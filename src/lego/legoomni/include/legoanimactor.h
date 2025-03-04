@@ -1,7 +1,6 @@
 #ifndef LEGOANIMACTOR_H
 #define LEGOANIMACTOR_H
 
-#include "utils.h"
 #include "legopathactor.h"
 
 class LegoAnim;

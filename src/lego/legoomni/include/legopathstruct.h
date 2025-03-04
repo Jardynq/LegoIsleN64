@@ -1,10 +1,8 @@
 #ifndef LEGOPATHSTRUCT_H
 #define LEGOPATHSTRUCT_H
 
-#include "utils.h"
 #include "mxatom.h"
 #include "mxnotificationparam.h"
-#include "mxtypes.h"
 
 class LegoPathActor;
 class LegoWorld;

@@ -1,7 +1,6 @@
 #ifndef ELEVATORBOTTOM_H
 #define ELEVATORBOTTOM_H
 
-#include "utils.h"
 #include "legogamestate.h"
 #include "legoworld.h"
 

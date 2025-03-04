@@ -3,7 +3,6 @@
 
 #include "mxcollection.h"
 #include "mxcore.h"
-#include "mxtypes.h"
 
 template <class T>
 class MxList;

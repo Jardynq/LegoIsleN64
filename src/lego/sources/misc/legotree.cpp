@@ -1,6 +1,5 @@
 #include "legotree.h"
 
-#include "utils.h"
 #include "legostorage.h"
 
 

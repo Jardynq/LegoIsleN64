@@ -1,7 +1,6 @@
 #ifndef MXGEOMETRY4D_H
 #define MXGEOMETRY4D_H
 
-#include "utils.h"
 #include "realtime/vector4d.inl.h"
 
 // VTABLE: LEGO1 0x100d41e8

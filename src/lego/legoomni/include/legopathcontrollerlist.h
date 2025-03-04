@@ -3,7 +3,6 @@
 
 #include "legopathcontroller.h"
 #include "mxlist.h"
-#include "mxtypes.h"
 
 // VTABLE: LEGO1 0x100d6380
 // VTABLE: BETA10 0x101bf130

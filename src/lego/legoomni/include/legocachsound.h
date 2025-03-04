@@ -1,7 +1,6 @@
 #ifndef LEGOCACHSOUND_H
 #define LEGOCACHSOUND_H
 
-#include "utils.h"
 #include "lego3dsound.h"
 #include "mxcore.h"
 #include "mxstring.h"

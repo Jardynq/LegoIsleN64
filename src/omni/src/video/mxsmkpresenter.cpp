@@ -1,6 +1,5 @@
 #include "mxsmkpresenter.h"
 
-#include "utils.h"
 #include "mxdsmediaaction.h"
 #include "mxmisc.h"
 #include "mxpalette.h"

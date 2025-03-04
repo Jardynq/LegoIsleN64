@@ -1,6 +1,5 @@
 #include "mxdsfile.h"
 
-#include "utils.h"
 #include "mxdebug.h"
 
 #include <stdio.h>

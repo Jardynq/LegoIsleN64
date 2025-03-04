@@ -1,7 +1,6 @@
 #ifndef MXSTREAMCHUNKLIST_H
 #define MXSTREAMCHUNKLIST_H
 
-#include "utils.h"
 #include "mxlist.h"
 #include "mxstreamchunk.h"
 

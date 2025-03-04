@@ -1,7 +1,6 @@
 #ifndef MXMISC_H
 #define MXMISC_H
 
-#include "mxtypes.h"
 
 class MxAtomSet;
 class MxDSAction;

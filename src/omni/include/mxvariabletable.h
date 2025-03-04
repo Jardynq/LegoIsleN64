@@ -2,7 +2,6 @@
 #define MXVARIABLETABLE_H
 
 #include "mxhashtable.h"
-#include "mxtypes.h"
 #include "mxvariable.h"
 
 // VTABLE: LEGO1 0x100dc1c8

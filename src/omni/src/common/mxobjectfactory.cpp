@@ -1,6 +1,5 @@
 #include "mxobjectfactory.h"
 
-#include "utils.h"
 #include "mxcompositepresenter.h"
 #include "mxeventpresenter.h"
 #include "mxflcpresenter.h"

@@ -9,7 +9,6 @@
 #include "legovideomanager.h"
 #include "legoworld.h"
 #include "misc.h"
-#include "misc/legoutil.h"
 #include "mxautolock.h"
 #include "mxcompositepresenter.h"
 #include "mxmisc.h"
@@ -527,7 +526,9 @@ void LegoCarBuildAnimPresenter::FUN_10079790(const LegoChar* p_name) {
 		strcpy(buffer, m_parts[m_placedPartCount].m_name);
 		strcpy(m_parts[m_placedPartCount].m_name, m_parts[i].m_name);
 		strcpy(m_parts[i].m_name, buffer);
-		Swap(m_parts[m_placedPartCount].m_objectId, m_parts[i].m_objectId);
+		MxS16 temp = m_parts[m_placedPartCount].m_objectId;
+		m_parts[m_placedPartCount].m_objectId = m_parts[i].m_objectId;
+		m_parts[i].m_objectId = temp;
 	}
 	FUN_10079050(m_placedPartCount);
 	m_placedPartCount++;

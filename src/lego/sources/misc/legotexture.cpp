@@ -1,6 +1,5 @@
 #include "legotexture.h"
 
-#include "utils.h"
 #include "legoimage.h"
 #include "legostorage.h"
 

@@ -2,7 +2,6 @@
 //
 #include "lego3dmanager.h"
 
-#include "utils.h"
 #include "viewmanager/viewlodlist.h"
 #include "viewmanager/viewmanager.h"
 

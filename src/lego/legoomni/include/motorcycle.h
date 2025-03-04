@@ -1,7 +1,6 @@
 #ifndef MOTORCYCLE_H
 #define MOTORCYCLE_H
 
-#include "utils.h"
 #include "islepathactor.h"
 
 // VTABLE: LEGO1 0x100d7090

@@ -1,7 +1,6 @@
 #ifndef MXDSOBJECT_H
 #define MXDSOBJECT_H
 
-#include "utils.h"
 #include "mxatom.h"
 #include "mxcore.h"
 #include "mxutilitylist.h"

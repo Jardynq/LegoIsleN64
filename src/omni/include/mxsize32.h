@@ -1,7 +1,6 @@
 #ifndef MXSIZE32_H
 #define MXSIZE32_H
 
-#include "mxtypes.h"
 
 class MxSize32 {
 public:

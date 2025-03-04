@@ -1,6 +1,5 @@
 #include "mxthread.h"
 
-#include "utils.h"
 
 #include <process.h>
 

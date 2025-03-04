@@ -1,7 +1,6 @@
 #ifndef MXTRANSITIONMANAGER_H
 #define MXTRANSITIONMANAGER_H
 
-#include "utils.h"
 #include "mxcore.h"
 
 #include <ddraw.h>

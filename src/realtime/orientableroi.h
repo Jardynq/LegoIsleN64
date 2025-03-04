@@ -1,7 +1,6 @@
 #ifndef ORIENTABLEROI_H
 #define ORIENTABLEROI_H
 
-#include "utils.h"
 #include "mxgeometry/mxmatrix.h"
 #include "roi.h"
 

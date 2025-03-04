@@ -1,7 +1,6 @@
 #ifndef __LEGOSTORAGE_H
 #define __LEGOSTORAGE_H
 
-#include "legotypes.h"
 #include "mxgeometry/mxgeometry3d.h"
 #include "mxstring.h"
 

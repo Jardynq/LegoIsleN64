@@ -1,9 +1,7 @@
 #ifndef MXDSCHUNK_H
 #define MXDSCHUNK_H
 
-#include "utils.h"
 #include "mxcore.h"
-#include "mxtypes.h"
 
 #define DS_CHUNK_BIT1 0x01
 #define DS_CHUNK_END_OF_STREAM 0x02

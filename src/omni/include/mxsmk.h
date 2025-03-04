@@ -1,9 +1,7 @@
 #ifndef MXSMK_H
 #define MXSMK_H
 
-#include "utils.h"
 #include "mxrectlist.h"
-#include "mxtypes.h"
 
 #include <smack.h>
 

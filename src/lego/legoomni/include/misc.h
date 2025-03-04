@@ -1,10 +1,8 @@
 #ifndef MISC_H
 #define MISC_H
 
-#include "utils.h"
 // Long include path due to dependency of misc library on LegoOmni
 #include "lego/legoomni/include/actions/actionsfwd.h"
-#include "mxtypes.h"
 
 class LegoAnimationManager;
 class LegoBuildingManager;

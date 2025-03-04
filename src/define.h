@@ -1,7 +1,6 @@
 #ifndef DEFINE_H
 #define DEFINE_H
 
-#include "mxtypes.h"
 
 extern const char* g_parseExtraTokens;
 extern const char* g_strWORLD;

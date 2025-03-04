@@ -2,9 +2,7 @@
 #define LEGOUTILS_H
 
 #include "actionsfwd.h"
-#include "utils.h"
 #include "extra.h"
-#include "mxtypes.h"
 
 #include <windows.h>
 

@@ -1,6 +1,5 @@
 #include "mxpresenter.h"
 
-#include "utils.h"
 #include "define.h"
 #include "mxactionnotificationparam.h"
 #include "mxautolock.h"

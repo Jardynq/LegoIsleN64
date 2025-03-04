@@ -1,7 +1,6 @@
 #ifndef MXLOOPINGSMKPRESENTER_H
 #define MXLOOPINGSMKPRESENTER_H
 
-#include "utils.h"
 #include "mxsmkpresenter.h"
 
 // VTABLE: LEGO1 0x100dc540

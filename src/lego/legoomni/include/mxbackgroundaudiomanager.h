@@ -4,7 +4,6 @@
 #include "mxcore.h"
 #include "mxdsaction.h"
 #include "mxpresenter.h"
-#include "mxtypes.h"
 
 class MxAudioPresenter;
 

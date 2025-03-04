@@ -1,7 +1,6 @@
 #ifndef MXFLCPRESENTER_H
 #define MXFLCPRESENTER_H
 
-#include "utils.h"
 #include "mxvideopresenter.h"
 
 #include <flic.h>

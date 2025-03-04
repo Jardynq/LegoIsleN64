@@ -1,13 +1,11 @@
 #ifndef MXSTREAMER_H
 #define MXSTREAMER_H
 
-#include "utils.h"
 #include "mxcore.h"
 #include "mxmemorypool.h"
 #include "mxnotificationparam.h"
 #include "mxstl/stlcompat.h"
 #include "mxstreamcontroller.h"
-#include "mxtypes.h"
 
 #include <assert.h>
 

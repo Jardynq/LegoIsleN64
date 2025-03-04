@@ -1,12 +1,10 @@
 #include "mxnotificationmanager.h"
 
-#include "utils.h"
 #include "mxautolock.h"
 #include "mxmisc.h"
 #include "mxnotificationparam.h"
 #include "mxparam.h"
 #include "mxticklemanager.h"
-#include "mxtypes.h"
 
 
 // FUNCTION: LEGO1 0x100ac220

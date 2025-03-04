@@ -2,7 +2,6 @@
 #define MXPALETTE_H
 
 #include "mxcore.h"
-#include "mxtypes.h"
 
 #include <ddraw.h>
 

@@ -262,14 +262,14 @@ Result ViewImpl::Render(const Group* pGroup) {
 }
 
 // FUNCTION: LEGO1 0x100a3080
-Result ViewImpl::ForceUpdate(unsigned long x, unsigned long y, unsigned long width, unsigned long height) {
+Result ViewImpl::ForceUpdate(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {
 	return ResultVal(m_data->ForceUpdate(x, y, x + width - 1, y + height - 1));
 }
 
 // FUNCTION: LEGO1 0x100a30c0
 Result ViewImpl::Pick(
-	unsigned long x,
-	unsigned long y,
+	unsigned int x,
+	unsigned int y,
 	const Group** ppGroupsToPickFrom,
 	int groupsToPickFromCount,
 	const Group**& rppPickedGroups,

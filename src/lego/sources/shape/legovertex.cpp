@@ -1,6 +1,5 @@
 #include "legovertex.h"
 
-#include "utils.h"
 #include "misc/legostorage.h"
 
 

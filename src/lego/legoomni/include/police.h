@@ -1,7 +1,6 @@
 #ifndef POLICE_H
 #define POLICE_H
 
-#include "utils.h"
 #include "legogamestate.h"
 #include "legostate.h"
 #include "legoworld.h"

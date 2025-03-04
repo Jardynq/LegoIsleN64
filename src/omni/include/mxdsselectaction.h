@@ -1,7 +1,6 @@
 #ifndef MXDSSELECTACTION_H
 #define MXDSSELECTACTION_H
 
-#include "utils.h"
 #include "mxdsparallelaction.h"
 #include "mxstringlist.h"
 

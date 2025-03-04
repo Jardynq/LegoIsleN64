@@ -1,7 +1,6 @@
 #ifndef MXSTILLPRESENTER_H
 #define MXSTILLPRESENTER_H
 
-#include "utils.h"
 #include "mxvideopresenter.h"
 
 // VTABLE: LEGO1 0x100d7a38

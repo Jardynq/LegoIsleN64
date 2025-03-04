@@ -1,7 +1,6 @@
 #ifndef LEGOACTOR_H
 #define LEGOACTOR_H
 
-#include "utils.h"
 #include "legoentity.h"
 #include "mxgeometry/mxmatrix.h"
 

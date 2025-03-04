@@ -1,8 +1,6 @@
 #ifndef LEGOPLANTS_H
 #define LEGOPLANTS_H
 
-#include "utils.h"
-#include "mxtypes.h"
 
 class LegoEntity;
 class LegoPathBoundary;

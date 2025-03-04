@@ -1,7 +1,6 @@
 #ifndef MXMUSICMANAGER_H
 #define MXMUSICMANAGER_H
 
-#include "utils.h"
 #include "mxaudiomanager.h"
 
 #include <windows.h>

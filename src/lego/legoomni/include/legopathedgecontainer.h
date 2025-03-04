@@ -3,7 +3,6 @@
 
 #include "mxgeometry/mxgeometry3d.h"
 #include "mxstl/stlcompat.h"
-#include "mxtypes.h"
 
 class LegoPathBoundary;
 struct LegoPathCtrlEdge;

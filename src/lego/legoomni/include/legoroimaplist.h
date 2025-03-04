@@ -2,7 +2,6 @@
 #define LEGOROIMAPLIST_H
 
 #include "mxlist.h"
-#include "mxtypes.h"
 
 class LegoROI;
 

@@ -1,6 +1,5 @@
 #include "mxdirectdraw.h"
 
-#include "utils.h"
 #include <stdio.h>
 
 

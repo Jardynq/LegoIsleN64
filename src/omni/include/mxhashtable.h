@@ -3,7 +3,6 @@
 
 #include "mxcollection.h"
 #include "mxcore.h"
-#include "mxtypes.h"
 
 #define HASH_TABLE_INIT_SIZE 128
 

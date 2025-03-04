@@ -3,7 +3,6 @@
 
 #include "legogamestate.h"
 #include "legopathactor.h"
-#include "mxtypes.h"
 #include "roi/legoroi.h"
 
 class LegoControlManagerNotificationParam;

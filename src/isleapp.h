@@ -1,7 +1,6 @@
 #ifndef ISLEAPP_H
 #define ISLEAPP_H
 
-#include "mxtypes.h"
 #include "mxvideoparam.h"
 
 #include <windows.h>

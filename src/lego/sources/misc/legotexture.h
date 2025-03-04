@@ -1,7 +1,6 @@
 #ifndef __LEGOTEXTURE_H
 #define __LEGOTEXTURE_H
 
-#include "legotypes.h"
 
 class LegoImage;
 class LegoStorage;

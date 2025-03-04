@@ -3,7 +3,6 @@
 
 #include "mxcore.h"
 #include "mxstl/stlcompat.h"
-#include "mxtypes.h"
 
 // SIZE 0x10
 class MxTickleClient {

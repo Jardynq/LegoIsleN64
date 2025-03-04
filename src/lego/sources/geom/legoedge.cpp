@@ -1,7 +1,6 @@
 #include "legoedge.h"
 
 #include "assert.h"
-#include "utils.h"
 
 
 // FUNCTION: LEGO1 0x1009a470

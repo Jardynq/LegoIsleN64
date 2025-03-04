@@ -1,6 +1,5 @@
 #include "mxticklethread.h"
 
-#include "utils.h"
 #include "mxmisc.h"
 #include "mxtimer.h"
 

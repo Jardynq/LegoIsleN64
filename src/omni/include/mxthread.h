@@ -2,7 +2,6 @@
 #define MXTHREAD_H
 
 #include "mxsemaphore.h"
-#include "mxtypes.h"
 
 class MxCore;
 

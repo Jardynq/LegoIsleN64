@@ -1,7 +1,6 @@
 #ifndef MXUTILITIES_H
 #define MXUTILITIES_H
 
-#include "mxtypes.h"
 
 #include <string.h>
 

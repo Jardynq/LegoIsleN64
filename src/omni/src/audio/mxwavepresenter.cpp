@@ -1,6 +1,5 @@
 #include "mxwavepresenter.h"
 
-#include "utils.h"
 #include "define.h"
 #include "mxautolock.h"
 #include "mxdssound.h"

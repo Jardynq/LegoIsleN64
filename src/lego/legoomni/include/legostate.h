@@ -1,7 +1,6 @@
 #ifndef LEGOSTATE_H
 #define LEGOSTATE_H
 
-#include "utils.h"
 #include "misc/legostorage.h"
 #include "mxcore.h"
 

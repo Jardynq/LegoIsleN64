@@ -24,7 +24,6 @@
 #include "mxmisc.h"
 #include "mxnotificationmanager.h"
 #include "mxstreamer.h"
-#include "mxtypes.h"
 #include "mxutilities.h"
 #include "mxvariabletable.h"
 #include "realtime/realtime.h"

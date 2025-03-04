@@ -1,6 +1,5 @@
 #include "mxmidipresenter.h"
 
-#include "utils.h"
 #include "mxautolock.h"
 #include "mxdssound.h"
 #include "mxdssubscriber.h"

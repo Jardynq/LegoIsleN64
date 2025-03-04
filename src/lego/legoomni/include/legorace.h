@@ -1,14 +1,12 @@
 #ifndef LEGORACE_H
 #define LEGORACE_H
 
-#include "utils.h"
 #include "legogamestate.h"
 #include "legoraceactor.h"
 #include "legoracemap.h"
 #include "legostate.h"
 #include "legoworld.h"
 #include "mxrect32.h"
-#include "mxtypes.h"
 
 class Act1State;
 class LegoEventNotificationParam;

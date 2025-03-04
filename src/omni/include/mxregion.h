@@ -1,7 +1,6 @@
 #ifndef MXREGION_H
 #define MXREGION_H
 
-#include "utils.h"
 #include "mxcore.h"
 #include "mxrect32.h"
 #include "mxregionlist.h"

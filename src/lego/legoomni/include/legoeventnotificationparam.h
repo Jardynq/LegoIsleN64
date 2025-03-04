@@ -2,7 +2,6 @@
 #define LEGOEVENTNOTIFICATIONPARAM_H
 
 #include "mxnotificationparam.h"
-#include "mxtypes.h"
 
 #include <stdlib.h>
 

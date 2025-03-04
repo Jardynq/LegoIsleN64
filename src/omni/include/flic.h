@@ -1,7 +1,6 @@
 #ifndef FLIC_H
 #define FLIC_H
 
-#include "utils.h"
 
 #include <windows.h>
 

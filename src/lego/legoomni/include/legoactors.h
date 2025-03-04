@@ -1,8 +1,6 @@
 #ifndef LEGOACTORS_H
 #define LEGOACTORS_H
 
-#include "utils.h"
-#include "mxtypes.h"
 
 class LegoExtraActor;
 class LegoROI;

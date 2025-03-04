@@ -22,7 +22,7 @@ option(ISLE_BUILD_APP "Build isle.exe application" ON)
 option(ISLE_BUILD_CONFIG "Build conig.exe application" ON)
 option(ISLE_USE_DX5 "Build with internal DirectX 5 SDK" ON)
 
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -DWIN32 -D_WINDOWS")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -DWIN32 -D_WINDOWS -include global.h")
 set(CMAKE_EXE_LINKER_FLAGS " -static -static-libgcc -static-libstdc++ -mwindows")
 set(CMAKE_STATIC_LINKER_FLAGS "")
 set(CMAKE_SHARED_LINKER_FLAGS " -static -static-libgcc -static-libstdc++ -mwindows")

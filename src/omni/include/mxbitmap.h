@@ -2,7 +2,6 @@
 #define MXBITMAP_H
 
 #include "mxcore.h"
-#include "mxtypes.h"
 
 #include <ddraw.h>
 #include <stdlib.h>

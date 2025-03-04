@@ -1,7 +1,6 @@
 #ifndef __LEGOEDGE_H
 #define __LEGOEDGE_H
 
-#include "misc/legotypes.h"
 
 class LegoWEEdge;
 class Vector3;

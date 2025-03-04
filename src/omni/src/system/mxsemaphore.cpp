@@ -1,7 +1,6 @@
 
 #include "mxsemaphore.h"
 
-#include "utils.h"
 
 
 // FUNCTION: LEGO1 0x100c87d0

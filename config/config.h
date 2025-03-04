@@ -1,10 +1,7 @@
 #ifndef AFX_CONFIG_H
 #define AFX_CONFIG_H
 
-#include "utils.h"
-
 #include <d3d.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

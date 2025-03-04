@@ -4,7 +4,6 @@
 #include "mxcore.h"
 #include "mxcriticalsection.h"
 #include "mxpresenterlist.h"
-#include "mxtypes.h"
 
 class MxThread;
 

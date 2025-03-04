@@ -1,6 +1,5 @@
 #include "legoimage.h"
 
-#include "utils.h"
 #include "legostorage.h"
 #include "memory.h"
 

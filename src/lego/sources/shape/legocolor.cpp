@@ -1,6 +1,5 @@
 #include "legocolor.h"
 
-#include "utils.h"
 #include "misc/legostorage.h"
 
 

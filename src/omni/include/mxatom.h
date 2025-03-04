@@ -3,7 +3,6 @@
 
 #include "mxstl/stlcompat.h"
 #include "mxstring.h"
-#include "mxtypes.h"
 
 // Counts the number of existing MxAtomId objects based
 // on the matching char* string. A <map> seems fit for purpose here:

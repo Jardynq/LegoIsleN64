@@ -1,7 +1,6 @@
 #ifndef MXPOINT32_H
 #define MXPOINT32_H
 
-#include "mxtypes.h"
 
 class MxPoint32 {
 public:

@@ -1,7 +1,6 @@
 #ifndef MXDISPLAYSURFACE_H
 #define MXDISPLAYSURFACE_H
 
-#include "utils.h"
 #include "mxcore.h"
 #include "mxvideoparam.h"
 

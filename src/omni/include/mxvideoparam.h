@@ -2,7 +2,6 @@
 #define MXVIDEOPARAM_H
 
 #include "mxrect32.h"
-#include "mxtypes.h"
 #include "mxvideoparamflags.h"
 
 class MxPalette;

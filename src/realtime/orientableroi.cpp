@@ -1,6 +1,5 @@
 #include "orientableroi.h"
 
-#include "utils.h"
 
 #include <vec.h>
 

@@ -1,6 +1,5 @@
 #include "legometerpresenter.h"
 
-#include "utils.h"
 #include "define.h"
 #include "mxbitmap.h"
 #include "mxdsaction.h"

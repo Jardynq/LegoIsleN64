@@ -1,8 +1,6 @@
 #ifndef LEGOLOCATIONS_H
 #define LEGOLOCATIONS_H
 
-#include "utils.h"
-#include "mxtypes.h"
 
 // SIZE 0x60
 struct LegoLocation {

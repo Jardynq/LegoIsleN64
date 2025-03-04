@@ -4,7 +4,6 @@
 #include "mxdssource.h"
 #include "mxio.h"
 #include "mxstring.h"
-#include "mxtypes.h"
 
 #include <windows.h>
 

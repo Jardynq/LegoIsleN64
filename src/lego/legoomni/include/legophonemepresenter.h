@@ -1,10 +1,8 @@
 #ifndef LEGOPHONEMEPRESENTER_H
 #define LEGOPHONEMEPRESENTER_H
 
-#include "utils.h"
 #include "mxflcpresenter.h"
 #include "mxstring.h"
-#include "mxtypes.h"
 
 class LegoTextureInfo;
 

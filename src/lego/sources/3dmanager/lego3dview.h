@@ -1,7 +1,6 @@
 #ifndef _Lego3DView_h
 #define _Lego3DView_h
 
-#include "utils.h"
 #include "legoview1.h"
 
 class ViewManager;
@@ -27,7 +26,7 @@ public:
 
 	double Render(double p_und);
 
-	ViewROI* Pick(unsigned long x, unsigned long y);
+	ViewROI* Pick(unsigned int x, unsigned int y);
 
 	ViewROI* GetPointOfView();
 	ViewManager* GetViewManager();

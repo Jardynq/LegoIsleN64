@@ -2,7 +2,6 @@
 #define BUMPBOUY_H
 
 #include "legoanimactor.h"
-#include "mxtypes.h"
 
 // VTABLE: LEGO1 0x100d6790 LegoPathActor
 // VTABLE: LEGO1 0x100d6860 LegoAnimActor

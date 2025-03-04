@@ -1,9 +1,7 @@
 #ifndef __LEGONAVCONTROLLER_H
 #define __LEGONAVCONTROLLER_H
 
-#include "utils.h"
 #include "mxcore.h"
-#include "mxtypes.h"
 
 struct LegoLocation;
 class Vector3;

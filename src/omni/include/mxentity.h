@@ -1,11 +1,9 @@
 #ifndef MXENTITY_H
 #define MXENTITY_H
 
-#include "utils.h"
 #include "mxatom.h"
 #include "mxcore.h"
 #include "mxdsaction.h"
-#include "mxtypes.h"
 
 // VTABLE: LEGO1 0x100d5390
 // VTABLE: BETA10 0x101b93e8

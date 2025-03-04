@@ -2,7 +2,6 @@
 #define MXNOTIFICATIONPARAM_H
 
 #include "mxparam.h"
-#include "mxtypes.h"
 
 class MxCore;
 
