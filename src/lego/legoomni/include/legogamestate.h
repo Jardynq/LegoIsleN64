@@ -14,20 +14,17 @@ class MxString;
 
 extern const char* g_actorNames[7];
 
-// SIZE 0x08
 struct ColorStringStruct {
-	const char* m_targetName; // 0x00
-	const char* m_colorName;  // 0x04
+	const char* m_targetName;
+	const char* m_colorName;
 };
 
-// VTABLE: LEGO1 0x100d74a8
-// SIZE 0x30
 class LegoBackgroundColor : public MxVariable {
 public:
 	LegoBackgroundColor();
 	LegoBackgroundColor(const char* p_key, const char* p_value);
 
-	void SetValue(const char* p_colorString) override; // vtable+0x04
+	void SetValue(const char* p_colorString) override;
 
 	void SetLightColor(float p_r, float p_g, float p_b);
 	void SetLightColor();
@@ -35,21 +32,18 @@ public:
 	void ToggleSkyColor();
 
 private:
-	float m_h; // 0x24
-	float m_s; // 0x28
-	float m_v; // 0x2c
+	float m_h;
+	float m_s;
+	float m_v;
 };
 
-// VTABLE: LEGO1 0x100d74b8
-// SIZE 0x24
 class LegoFullScreenMovie : public MxVariable {
 public:
 	LegoFullScreenMovie(const char* p_key, const char* p_value);
 
-	void SetValue(const char* p_option) override; // vtable+0x04
+	void SetValue(const char* p_option) override;
 };
 
-// SIZE 0x430
 class LegoGameState {
 public:
 	enum Act { e_actNotFound = -1, e_act1, e_act2, e_act3 };
@@ -125,7 +119,6 @@ public:
 		e_unk66 = 66
 	};
 
-	// SIZE 0x0e
 	struct Username {
 		Username();
 		void Set(Username& p_other) {
@@ -135,20 +128,18 @@ public:
 		MxResult Serialize(LegoStorage* p_storage);
 		Username& operator=(const Username& p_other);
 
-		MxS16 m_letters[7]; // 0x00
+		MxS16 m_letters[7];
 	};
 
-	// SIZE 0x2c
 	struct ScoreItem {
 		MxResult Serialize(LegoStorage* p_storage);
 
-		MxS16 m_totalScore;  // 0x00
-		MxU8 m_scores[5][5]; // 0x02
-		Username m_name;     // 0x1c
-		MxS16 m_unk0x2a;     // 0x2a
+		MxS16 m_totalScore;
+		MxU8 m_scores[5][5];
+		Username m_name;
+		MxS16 m_unk0x2a;
 	};
 
-	// SIZE 0x372
 	struct History {
 		History();
 		void WriteScoreHistory();
@@ -156,18 +147,17 @@ public:
 		ScoreItem*
 		FUN_1003cc90(Username* p_player, MxS16 p_unk0x24, MxS32& p_unk0x2c);
 
-		// FUNCTION: BETA10 0x1002c2b0
 		MxS16 GetCount() { return m_count; }
 
 		// TODO: Not yet correct
-		// FUNCTION: BETA10 0x1002c540
+
 		ScoreItem* GetScore(MxS32 p_index) {
 			return p_index >= m_count ? NULL : &m_scores[p_index];
 		}
 
-		MxS16 m_count;          // 0x00
-		ScoreItem m_scores[20]; // 0x02
-		MxS16 m_unk0x372;       // 0x372
+		MxS16 m_count;
+		ScoreItem m_scores[20];
+		MxS16 m_unk0x372;
 	};
 
 	LegoGameState();
@@ -197,13 +187,10 @@ public:
 	void SwitchArea(Area p_area);
 	void Init();
 
-	// FUNCTION: BETA10 0x10083ff5
 	MxU8 GetActorId() { return m_actorId; }
 
-	// FUNCTION: BETA10 0x1004a2d0
 	const char* GetActorName() { return g_actorNames[GetActorId()]; }
 
-	// FUNCTION: BETA10 0x1002b4c0
 	Act GetCurrentAct() { return m_currentAct; }
 
 	Act GetLoadedAct() { return m_loadedAct; }
@@ -235,35 +222,33 @@ private:
 	void SetColors();
 	void SetROIHandlerFunction();
 
-	char* m_savePath;                           // 0x00
-	MxS16 m_stateCount;                         // 0x04
-	LegoState** m_stateArray;                   // 0x08
-	MxU8 m_actorId;                             // 0x0c
-	Act m_currentAct;                           // 0x10
-	Act m_loadedAct;                            // 0x14
-	LegoBackgroundColor* m_backgroundColor;     // 0x18
-	LegoBackgroundColor* m_tempBackgroundColor; // 0x1c
-	LegoFullScreenMovie* m_fullScreenMovie;     // 0x20
-
+	char* m_savePath;
+	MxS16 m_stateCount;
+	LegoState** m_stateArray;
+	MxU8 m_actorId;
+	Act m_currentAct;
+	Act m_loadedAct;
+	LegoBackgroundColor* m_backgroundColor;
+	LegoBackgroundColor* m_tempBackgroundColor;
+	LegoFullScreenMovie* m_fullScreenMovie;
 	// TODO: Most likely getters/setters are not used according to BETA for the
 	// following members:
 
 public:
-	MxS16 m_unk0x24;                      // 0x24
-	MxS16 m_playerCount;                  // 0x26
-	Username m_players[9];                // 0x28
-	History m_history;                    // 0xa6
-	undefined2 m_unk0x41a;                // 0x41a
-	JukeboxScript::Script m_jukeboxMusic; // 0x41c
-	MxBool m_isDirty;                     // 0x420
-	Area m_currentArea;                   // 0x424
-	Area m_previousArea;                  // 0x428
-	Area m_unk0x42c;                      // 0x42c
+	MxS16 m_unk0x24;
+	MxS16 m_playerCount;
+	Username m_players[9];
+	History m_history;
+	undefined2 m_unk0x41a;
+	JukeboxScript::Script m_jukeboxMusic;
+	MxBool m_isDirty;
+	Area m_currentArea;
+	Area m_previousArea;
+	Area m_unk0x42c;
 };
 
 MxBool ROIHandlerFunction(const char* p_input, char* p_output, MxU32 p_copyLen);
 
-// SYNTHETIC: LEGO1 0x1003c860
 // LegoGameState::ScoreItem::ScoreItem
 
 #endif // LEGOGAMESTATE_H

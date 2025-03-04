@@ -28,25 +28,20 @@
 
 #include <io.h>
 
-// GLOBAL: LEGO1 0x100f75d4
 MxS32 g_legoWorldPresenterQuality = 1;
 
-// GLOBAL: LEGO1 0x100f75d8
 MxLong g_wdbOffset = 0;
 
-// FUNCTION: LEGO1 0x100665b0
 void LegoWorldPresenter::configureLegoWorldPresenter(
 	MxS32 p_legoWorldPresenterQuality
 ) {
 	g_legoWorldPresenterQuality = p_legoWorldPresenterQuality;
 }
 
-// FUNCTION: LEGO1 0x100665c0
 LegoWorldPresenter::LegoWorldPresenter() {
 	m_unk0x50 = 50000;
 }
 
-// FUNCTION: LEGO1 0x10066770
 LegoWorldPresenter::~LegoWorldPresenter() {
 	MxBool result = FALSE;
 	if (m_entity) {
@@ -73,7 +68,6 @@ LegoWorldPresenter::~LegoWorldPresenter() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10066870
 MxResult LegoWorldPresenter::StartAction(
 	MxStreamController* p_controller,
 	MxDSAction* p_action
@@ -129,7 +123,6 @@ MxResult LegoWorldPresenter::StartAction(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10066a50
 void LegoWorldPresenter::ReadyTickle() {
 	m_entity = (LegoEntity*) MxPresenter::CreateEntity("LegoWorld");
 	if (m_entity) {
@@ -146,7 +139,6 @@ void LegoWorldPresenter::ReadyTickle() {
 	ProgressTickleState(e_starting);
 }
 
-// FUNCTION: LEGO1 0x10066ac0
 void LegoWorldPresenter::StartingTickle() {
 	if (m_action->IsA("MxDSSerialAction")) {
 		MxPresenter* presenter = *m_list.begin();
@@ -166,7 +158,6 @@ void LegoWorldPresenter::StartingTickle() {
 	ProgressTickleState(e_streaming);
 }
 
-// FUNCTION: LEGO1 0x10066b40
 MxResult LegoWorldPresenter::LoadWorld(char* p_worldName, LegoWorld* p_world) {
 	char wdbPath[512];
 	sprintf(wdbPath, "%s", MxOmni::GetHD());
@@ -289,8 +280,8 @@ MxResult LegoWorldPresenter::LoadWorld(char* p_worldName, LegoWorld* p_world) {
 					continue;
 				}
 			}
-		}
-		else if (g_legoWorldPresenterQuality <= 1 && !strnicmp(worlds[i].m_models[j].m_modelName, "haus", 4)) {
+		} else if (g_legoWorldPresenterQuality <= 1 &&
+				   !strnicmp(worlds[i].m_models[j].m_modelName, "haus", 4)) {
 			if (worlds[i].m_models[j].m_modelName[4] == '3') {
 				if (FUN_100674b0(worlds[i].m_models[j], wdbFile, p_world) !=
 					SUCCESS) {
@@ -321,7 +312,6 @@ MxResult LegoWorldPresenter::LoadWorld(char* p_worldName, LegoWorld* p_world) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10067360
 MxResult
 LegoWorldPresenter::FUN_10067360(ModelDbPart& p_part, FILE* p_wdbFile) {
 	MxResult result;
@@ -347,7 +337,6 @@ LegoWorldPresenter::FUN_10067360(ModelDbPart& p_part, FILE* p_wdbFile) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100674b0
 MxResult LegoWorldPresenter::FUN_100674b0(
 	ModelDbModel& p_model,
 	FILE* p_wdbFile,
@@ -418,7 +407,6 @@ MxResult LegoWorldPresenter::FUN_100674b0(
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10067a70
 void LegoWorldPresenter::VTable0x60(MxPresenter* p_presenter) {
 	MxCompositePresenter::VTable0x60(p_presenter);
 	MxDSAction* action = p_presenter->GetAction();
@@ -442,7 +430,6 @@ void LegoWorldPresenter::VTable0x60(MxPresenter* p_presenter) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10067b00
 void LegoWorldPresenter::ParseExtra() {
 	MxU16 extraLength;
 	char* extraData;

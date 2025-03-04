@@ -5,8 +5,6 @@
 
 class MxCore;
 
-// VTABLE: LEGO1 0x100dc860
-// SIZE 0x1c
 class MxThread {
 public:
 	// Note: Comes before virtual destructor
@@ -19,7 +17,6 @@ public:
 
 	MxBool IsRunning() { return m_running; }
 
-	// SYNTHETIC: LEGO1 0x100bf580
 	// MxThread::`scalar deleting destructor'
 
 protected:
@@ -31,13 +28,13 @@ public:
 private:
 	static unsigned __attribute__((stdcall)) ThreadProc(void* p_thread);
 
-	MxULong m_hThread;       // 0x04
-	MxU32 m_threadId;        // 0x08
-	MxBool m_running;        // 0x0c
-	MxSemaphore m_semaphore; // 0x10
+	MxULong m_hThread;
+	MxU32 m_threadId;
+	MxBool m_running;
+	MxSemaphore m_semaphore;
 
 protected:
-	MxCore* m_target; // 0x18
+	MxCore* m_target;
 };
 
 #endif // MXTHREAD_H

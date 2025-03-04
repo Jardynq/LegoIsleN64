@@ -8,42 +8,26 @@ class LegoWorld;
 class LegoEntity;
 class MxDSChunk;
 
-// VTABLE: LEGO1 0x100d4e50
-// VTABLE: BETA10 0x101bcd88
-// SIZE 0x6c
 class LegoModelPresenter : public MxVideoPresenter {
 public:
 	LegoModelPresenter() { Reset(); }
 
-	// FUNCTION: LEGO1 0x10067a10
 	~LegoModelPresenter() override { Destroy(TRUE); }
 
-	// FUNCTION: LEGO1 0x1000cca0
-	void Destroy() override { Destroy(FALSE); } // vtable+0x38
+	void Destroy() override { Destroy(FALSE); }
 
 	static void configureLegoModelPresenter(MxS32 p_modelPresenterConfig);
 
-	// FUNCTION: BETA10 0x100a7180
-	static const char* HandlerClassName() {
-		// STRING: LEGO1 0x100f067c
-		return "LegoModelPresenter";
-	}
+	static const char* HandlerClassName() { return "LegoModelPresenter"; }
 
-	// FUNCTION: LEGO1 0x1000ccb0
-	// FUNCTION: BETA10 0x100a7150
-	const char* ClassName() const override // vtable+0x0c
-	{
-		return HandlerClassName();
-	}
+	const char* ClassName() const override { return HandlerClassName(); }
 
-	// FUNCTION: LEGO1 0x1000ccc0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, ClassName()) || MxVideoPresenter::IsA(p_name);
 	}
 
-	void ReadyTickle() override; // vtable+0x18
-	void ParseExtra() override;  // vtable+0x30
+	void ReadyTickle() override;
+	void ParseExtra() override;
 
 	MxResult FUN_1007ff70(
 		MxDSChunk& p_chunk,
@@ -57,16 +41,14 @@ public:
 		m_addedToView = FALSE;
 	}
 
-	// SYNTHETIC: LEGO1 0x1000cdd0
 	// LegoModelPresenter::`scalar deleting destructor'
 
 protected:
 	void Destroy(MxBool p_fromDestructor);
 
 private:
-	LegoROI* m_roi;       // 0x64
-	MxBool m_addedToView; // 0x68
-
+	LegoROI* m_roi;
+	MxBool m_addedToView;
 	MxResult CreateROI(MxDSChunk* p_chunk);
 };
 

@@ -3,9 +3,6 @@
 
 #include "mxdsmediaaction.h"
 
-// VTABLE: LEGO1 0x100dcd88
-// VTABLE: BETA10 0x101c2b20
-// SIZE 0xb8
 class MxDSAnim : public MxDSMediaAction {
 public:
 	MxDSAnim();
@@ -14,24 +11,15 @@ public:
 	void CopyFrom(MxDSAnim& p_dsAnim);
 	MxDSAnim& operator=(MxDSAnim& p_dsAnim);
 
-	// FUNCTION: LEGO1 0x100c9060
-	// FUNCTION: BETA10 0x1015d890
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x101025d8
-		return "MxDSAnim";
-	}
+	const char* ClassName() const override { return "MxDSAnim"; }
 
-	// FUNCTION: LEGO1 0x100c9070
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, MxDSAnim::ClassName()) ||
 			   MxDSMediaAction::IsA(p_name);
 	}
 
-	MxDSAction* Clone() override; // vtable+2c;
+	MxDSAction* Clone() override;
 
-	// SYNTHETIC: LEGO1 0x100c9180
 	// MxDSAnim::`scalar deleting destructor'
 };
 

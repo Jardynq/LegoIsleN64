@@ -32,7 +32,6 @@ private:
 	MxListEntry* m_next;
 };
 
-// SIZE 0x18
 template <class T>
 class MxList : protected MxCollection<T> {
 public:
@@ -49,14 +48,12 @@ public:
 	using MxCollection<T>::SetDestroy;
 
 protected:
-	MxListEntry<T>* m_first; // 0x10
-	MxListEntry<T>* m_last;  // 0x14
-
+	MxListEntry<T>* m_first;
+	MxListEntry<T>* m_last;
 	void DeleteEntry(MxListEntry<T>*);
 	MxListEntry<T>* InsertEntry(T, MxListEntry<T>*, MxListEntry<T>*);
 };
 
-// SIZE 0x18
 template <class T>
 class MxPtrList : public MxList<T*> {
 public:
@@ -71,7 +68,6 @@ public:
 	}
 };
 
-// SIZE 0x10
 template <class T>
 class MxListCursor : public MxCore {
 public:
@@ -101,11 +97,10 @@ public:
 	void Prepend(T p_newobj);
 
 private:
-	MxList<T>* m_list;       // 0x08
-	MxListEntry<T>* m_match; // 0x0c
+	MxList<T>* m_list;
+	MxListEntry<T>* m_match;
 };
 
-// SIZE 0x10
 template <class T>
 class MxPtrListCursor : public MxListCursor<T*> {
 public:

@@ -3,10 +3,6 @@
 
 #include "mxdirectxinfo.h"
 
-// VTABLE: CONFIG 0x4060e4
-// VTABLE: LEGO1 0x100d9cc8
-// VTABLE: BETA10 0x101befb4
-// SIZE 0x14
 class LegoDeviceEnumerate : public MxDeviceEnumerate {
 public:
 	int ParseDeviceName(const char* p_deviceId);
@@ -29,11 +25,8 @@ public:
 	unsigned char DriverSupportsRequiredDisplayMode(MxDriver& p_driver);
 	unsigned char FUN_1009d3d0(Direct3DDeviceInfo& p_device);
 
-	// SYNTHETIC: BETA10 0x100d8d10
 	// LegoDeviceEnumerate::LegoDeviceEnumerate
 
-	// SYNTHETIC: LEGO1 0x1007b590
-	// SYNTHETIC: BETA10 0x100d8da0
 	// LegoDeviceEnumerate::~LegoDeviceEnumerate
 };
 

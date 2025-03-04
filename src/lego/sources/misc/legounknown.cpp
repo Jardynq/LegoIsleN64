@@ -2,19 +2,15 @@
 
 #include "mxgeometry/mxmatrix.h"
 
-// FUNCTION: LEGO1 0x1009a0f0
 LegoUnknown::LegoUnknown() {
 	for (LegoS32 i = 0; i < sizeOfArray(m_unk0x00); i++) {
 		m_unk0x00[i].Clear();
 	}
 }
 
-// FUNCTION: LEGO1 0x1009a130
 LegoUnknown::~LegoUnknown() {
 }
 
-// FUNCTION: LEGO1 0x1009a140
-// FUNCTION: BETA10 0x10182c2f
 void LegoUnknown::FUN_1009a140(
 	const Vector3& p_point1,
 	const Vector3& p_point2,
@@ -32,8 +28,6 @@ void LegoUnknown::FUN_1009a140(
 	}
 }
 
-// FUNCTION: LEGO1 0x1009a1e0
-// FUNCTION: BETA10 0x10182d61
 LegoResult LegoUnknown::FUN_1009a1e0(
 	float p_f1,
 	MxMatrix& p_mat,

@@ -7,8 +7,6 @@ using namespace Tgl;
 /////////////////////////////////////////////////////////////////////////////
 // TglSurface
 
-// FUNCTION: LEGO1 0x100abbf0
-// FUNCTION: BETA10 0x1017d490
 TglSurface::TglSurface() {
 	m_pRenderer = 0;
 	m_pDevice = 0;
@@ -25,14 +23,10 @@ TglSurface::TglSurface() {
 	m_frameCount = 0;
 }
 
-// FUNCTION: LEGO1 0x100abd60
-// FUNCTION: BETA10 0x1017d5a2
 TglSurface::~TglSurface() {
 	Destroy();
 }
 
-// FUNCTION: LEGO1 0x100abde0
-// FUNCTION: BETA10 0x1017d647
 void TglSurface::Destroy() {
 	DestroyView();
 
@@ -44,8 +38,7 @@ void TglSurface::Destroy() {
 }
 
 // ???
-// FUNCTION: LEGO1 0x100abe10
-// FUNCTION: BETA10 0x1017d6b0
+
 int GetBitsPerPixel(IDirectDrawSurface* pSurface) {
 	DDPIXELFORMAT pixelFormat;
 	HRESULT result;
@@ -60,8 +53,6 @@ int GetBitsPerPixel(IDirectDrawSurface* pSurface) {
 	return pixelFormat.dwRGBBitCount;
 }
 
-// FUNCTION: LEGO1 0x100abe50
-// FUNCTION: BETA10 0x1017d742
 BOOL TglSurface::Create(
 	const CreateStruct& rCreateStruct,
 	Renderer* pRenderer,
@@ -153,15 +144,11 @@ BOOL TglSurface::Create(
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100ac030
-// FUNCTION: BETA10 0x1017db86
 void TglSurface::DestroyView() {
 	delete m_pView;
 	m_pView = 0;
 }
 
-// FUNCTION: LEGO1 0x100ac050
-// FUNCTION: BETA10 0x1017dbd0
 double TglSurface::Render() {
 	MxStopWatch renderTimer;
 

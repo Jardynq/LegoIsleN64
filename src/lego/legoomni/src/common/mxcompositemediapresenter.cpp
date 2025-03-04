@@ -10,19 +10,16 @@
 #include "mxobjectfactory.h"
 #include "mxtimer.h"
 
-// FUNCTION: LEGO1 0x10073ea0
 MxCompositeMediaPresenter::MxCompositeMediaPresenter() {
 	m_unk0x4c = 0;
 	m_unk0x4e = FALSE;
 	VideoManager()->RegisterPresenter(*this);
 }
 
-// FUNCTION: LEGO1 0x10074020
 MxCompositeMediaPresenter::~MxCompositeMediaPresenter() {
 	VideoManager()->UnregisterPresenter(*this);
 }
 
-// FUNCTION: LEGO1 0x10074090
 MxResult MxCompositeMediaPresenter::StartAction(
 	MxStreamController* p_controller,
 	MxDSAction* p_action
@@ -88,7 +85,6 @@ MxResult MxCompositeMediaPresenter::StartAction(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100742e0
 void MxCompositeMediaPresenter::StartingTickle() {
 	AUTOLOCK(m_criticalSection);
 
@@ -142,7 +138,6 @@ void MxCompositeMediaPresenter::StartingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10074470
 MxResult MxCompositeMediaPresenter::Tickle() {
 	AUTOLOCK(m_criticalSection);
 
@@ -170,7 +165,6 @@ MxResult MxCompositeMediaPresenter::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10074540
 MxResult MxCompositeMediaPresenter::PutData() {
 	AUTOLOCK(m_criticalSection);
 

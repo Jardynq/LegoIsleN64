@@ -5,11 +5,9 @@
 #include "mxdirectx/mxdirect3d.h"
 #include "tgl/d3drm/impl.h"
 
-// FUNCTION: LEGO1 0x10099870
 LegoTextureContainer::~LegoTextureContainer() {
 }
 
-// FUNCTION: LEGO1 0x100998e0
 LegoTextureInfo* LegoTextureContainer::GetCached(LegoTextureInfo* p_textureInfo
 ) {
 	DDSURFACEDESC desc, newDesc;
@@ -125,7 +123,6 @@ LegoTextureInfo* LegoTextureContainer::GetCached(LegoTextureInfo* p_textureInfo
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x10099cc0
 void LegoTextureContainer::EraseCached(LegoTextureInfo* p_textureInfo) {
 	if (p_textureInfo == NULL) {
 		return;

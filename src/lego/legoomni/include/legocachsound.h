@@ -5,25 +5,18 @@
 #include "mxcore.h"
 #include "mxstring.h"
 
-// VTABLE: LEGO1 0x100d4718
-// VTABLE: BETA10 0x101bb6f0
-// SIZE 0x88
 class LegoCacheSound : public MxCore {
 public:
 	LegoCacheSound();
-	~LegoCacheSound() override; // vtable+0x00
+	~LegoCacheSound() override;
 
-	// FUNCTION: LEGO1 0x10006580
-	const char* ClassName() const override // vtable+0x0c
-	{
+	const char* ClassName() const override {
 		// not in BETA10
-		// STRING: LEGO1 0x100f01c4
+
 		return "LegoCacheSound";
 	}
 
-	// FUNCTION: LEGO1 0x10006590
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, LegoCacheSound::ClassName()) ||
 			   MxCore::IsA(p_name);
 	}
@@ -34,9 +27,9 @@ public:
 		MxS32 p_volume,
 		MxU8* p_data,
 		MxU32 p_dataSize
-	);                                                 // vtable+0x14
-	virtual void Destroy();                            // vtable+0x18
-	virtual void FUN_10006cd0(undefined4, undefined4); // vtable+0x1c
+	);
+	virtual void Destroy();
+	virtual void FUN_10006cd0(undefined4, undefined4);
 
 	const MxString& GetUnknown0x48() const { return m_unk0x48; }
 	const MxBool GetUnknown0x58() const { return m_unk0x58; }
@@ -49,8 +42,6 @@ public:
 	void MuteSilence(MxBool p_muted);
 	void MuteStop(MxBool p_mute);
 
-	// SYNTHETIC: LEGO1 0x10006610
-	// SYNTHETIC: BETA10 0x100675b0
 	// LegoCacheSound::`scalar deleting destructor'
 
 private:
@@ -58,20 +49,20 @@ private:
 	void CopyData(MxU8* p_data, MxU32 p_dataSize);
 	MxString GetBaseFilename(MxString& p_path);
 
-	LPDIRECTSOUNDBUFFER m_dsBuffer; // 0x08
-	undefined m_unk0x0c[4];         // 0x0c
-	Lego3DSound m_sound;            // 0x10
-	MxU8* m_data;                   // 0x40
-	MxU32 m_dataSize;               // 0x44
-	MxString m_unk0x48;             // 0x48
-	MxBool m_unk0x58;               // 0x58
-	PCMWAVEFORMAT m_wfx;            // 0x59
-	MxBool m_looping;               // 0x69
-	MxBool m_unk0x6a;               // 0x6a
-	MxS32 m_volume;                 // 0x6c
-	MxBool m_unk0x70;               // 0x70
-	MxString m_unk0x74;             // 0x74
-	MxBool m_muted;                 // 0x84
+	LPDIRECTSOUNDBUFFER m_dsBuffer;
+	undefined m_unk0x0c[4];
+	Lego3DSound m_sound;
+	MxU8* m_data;
+	MxU32 m_dataSize;
+	MxString m_unk0x48;
+	MxBool m_unk0x58;
+	PCMWAVEFORMAT m_wfx;
+	MxBool m_looping;
+	MxBool m_unk0x6a;
+	MxS32 m_volume;
+	MxBool m_unk0x70;
+	MxString m_unk0x74;
+	MxBool m_muted;
 };
 
 #endif // LEGOCACHSOUND_H

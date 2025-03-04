@@ -9,8 +9,6 @@
 #include "mxstillpresenter.h"
 #include "mxutilities.h"
 
-// FUNCTION: LEGO1 0x1005d0d0
-// FUNCTION: BETA10 0x100ca2c0
 LegoRaceMap::LegoRaceMap() {
 	m_unk0x08 = FALSE;
 	m_stillPresenter = NULL;
@@ -18,22 +16,14 @@ LegoRaceMap::LegoRaceMap() {
 	ControlManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x1005d2b0
-// FUNCTION: BETA10 0x100ca48c
 LegoRaceMap::~LegoRaceMap() {
 	ControlManager()->Unregister(this);
 }
 
-// GLOBAL: LEGO1 0x1010208c
-// STRING: LEGO1 0x10101f88
 const char* g_mapLocator = "MAP_LOCATOR";
 
-// GLOBAL: LEGO1 0x10102090
-// STRING: LEGO1 0x10101f78
 const char* g_mapGeometry = "MAP_GEOMETRY";
 
-// FUNCTION: LEGO1 0x1005d310
-// FUNCTION: BETA10 0x100ca543
 void LegoRaceMap::ParseAction(char* p_extra) {
 	char value[256];
 
@@ -94,7 +84,7 @@ void LegoRaceMap::ParseAction(char* p_extra) {
 	LegoWorld* currentWorld = CurrentWorld();
 
 	if (currentWorld) {
-		// STRING: LEGO1 0x100f67bc
+
 		const char* mapCtl = "Map_Ctl";
 
 		m_Map_Ctl = (MxControlPresenter*)
@@ -103,8 +93,6 @@ void LegoRaceMap::ParseAction(char* p_extra) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1005d4b0
-// FUNCTION: BETA10 0x100ca849
 void LegoRaceMap::FUN_1005d4b0() {
 	if (m_unk0x08) {
 		short xPos =
@@ -116,8 +104,6 @@ void LegoRaceMap::FUN_1005d4b0() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1005d550
-// FUNCTION: BETA10 0x100ca92d
 MxLong LegoRaceMap::Notify(MxParam& p_param) {
 	if (!m_stillPresenter) {
 		return 1;

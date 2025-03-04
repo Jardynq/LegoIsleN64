@@ -7,8 +7,6 @@
 class LegoPathActor;
 class LegoWorld;
 
-// VTABLE: LEGO1 0x100d6230
-// SIZE 0x10
 class LegoPathStructNotificationParam : public MxNotificationParam {
 public:
 	LegoPathStructNotificationParam(
@@ -24,7 +22,6 @@ public:
 		m_trigger = p_trigger;
 	}
 
-	// FUNCTION: LEGO1 0x1001bac0
 	MxNotificationParam* Clone() const override {
 		return new LegoPathStructNotificationParam(
 			m_type,
@@ -32,21 +29,17 @@ public:
 			m_trigger,
 			m_data
 		);
-	} // vtable+0x04
+	}
 
-	// FUNCTION: BETA10 0x10024270
 	MxU8 GetTrigger() { return m_trigger; }
 
-	// FUNCTION: BETA10 0x100242a0
 	MxS16 GetData() { return m_data; }
 
 protected:
-	MxS16 m_data;   // 0x0c
-	MxU8 m_trigger; // 0x0e
+	MxS16 m_data;
+	MxU8 m_trigger;
 };
 
-// VTABLE: LEGO1 0x100d7d9c
-// SIZE 0x0c
 struct LegoPathStructBase {
 public:
 	enum {
@@ -61,19 +54,16 @@ public:
 
 	LegoPathStructBase() : m_name(NULL), m_flags(0) {}
 
-	// FUNCTION: LEGO1 0x10047420
 	virtual ~LegoPathStructBase() {
 		if (m_name != NULL) {
 			delete[] m_name;
 		}
 	}
 
-	char* m_name;  // 0x04
-	MxU32 m_flags; // 0x08
+	char* m_name;
+	MxU32 m_flags;
 };
 
-// VTABLE: LEGO1 0x100d7da0
-// SIZE 0x14
 class LegoPathStruct : public LegoPathStructBase {
 public:
 	enum Trigger {
@@ -87,17 +77,12 @@ public:
 		c_w = 'W'
 	};
 
-	// FUNCTION: LEGO1 0x100473a0
 	LegoPathStruct() : m_world(NULL) {}
 
-	// FUNCTION: LEGO1 0x10047470
 	~LegoPathStruct() override {}
 
-	virtual void HandleTrigger(
-		LegoPathActor* p_actor,
-		MxBool p_direction,
-		MxU32 p_data
-	); // vtable+0x04
+	virtual void
+	HandleTrigger(LegoPathActor* p_actor, MxBool p_direction, MxU32 p_data);
 
 	void SetWorld(LegoWorld* p_world) { m_world = p_world; }
 	void SetAtomId(const MxAtomId& p_atomId) { m_atomId = p_atomId; }
@@ -112,20 +97,16 @@ private:
 	void FUN_1001bc40(const char* p_name, MxU32 p_data, MxBool p_bool);
 	void PlayMusic(MxBool p_direction, MxU32 p_data);
 
-	LegoWorld* m_world; // 0x0c
-	MxAtomId m_atomId;  // 0x10
+	LegoWorld* m_world;
+	MxAtomId m_atomId;
 };
 
-// SYNTHETIC: LEGO1 0x1001bb80
 // LegoPathStructNotificationParam::`scalar deleting destructor'
 
-// SYNTHETIC: LEGO1 0x1001bbf0
 // LegoPathStructNotificationParam::~LegoPathStructNotificationParam
 
-// SYNTHETIC: LEGO1 0x10047440
 // LegoPathStructBase::`scalar deleting destructor'
 
-// SYNTHETIC: LEGO1 0x10047890
 // LegoPathStruct::`vector deleting destructor'
 
 #endif // LEGOPATHSTRUCT_H

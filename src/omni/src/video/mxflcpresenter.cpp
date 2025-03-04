@@ -6,27 +6,23 @@
 #include "mxpalette.h"
 #include "mxvideomanager.h"
 
-// FUNCTION: LEGO1 0x100b3310
 MxFlcPresenter::MxFlcPresenter() {
 	m_flcHeader = NULL;
 	SetBit1(FALSE);
 	SetBit2(FALSE);
 }
 
-// FUNCTION: LEGO1 0x100b3420
 MxFlcPresenter::~MxFlcPresenter() {
 	if (this->m_flcHeader) {
 		delete this->m_flcHeader;
 	}
 }
 
-// FUNCTION: LEGO1 0x100b3490
 void MxFlcPresenter::LoadHeader(MxStreamChunk* p_chunk) {
 	m_flcHeader = (FLIC_HEADER*) new MxU8[p_chunk->GetLength()];
 	memcpy(m_flcHeader, p_chunk->GetData(), p_chunk->GetLength());
 }
 
-// FUNCTION: LEGO1 0x100b34d0
 void MxFlcPresenter::CreateBitmap() {
 	if (m_frameBitmap) {
 		delete m_frameBitmap;
@@ -37,8 +33,6 @@ void MxFlcPresenter::CreateBitmap() {
 		->SetSize(m_flcHeader->width, m_flcHeader->height, NULL, FALSE);
 }
 
-// FUNCTION: LEGO1 0x100b3570
-// FUNCTION: BETA10 0x1013a10f
 void MxFlcPresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	MxU8* data = p_chunk->GetData();
 
@@ -69,7 +63,6 @@ void MxFlcPresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b3620
 void MxFlcPresenter::RealizePalette() {
 	MxPalette* palette = m_frameBitmap->CreatePalette();
 	MVideoManager()->RealizePalette(palette);

@@ -4,41 +4,27 @@
 #include "mxatom.h"
 #include "mxmediapresenter.h"
 
-// VTABLE: LEGO1 0x100d7c10
-// SIZE 0x54
 class LegoPathPresenter : public MxMediaPresenter {
 public:
 	LegoPathPresenter();
 	~LegoPathPresenter() override;
 
-	// FUNCTION: BETA10 0x100c24d0
-	static const char* HandlerClassName() {
-		// STRING: LEGO1 0x100f0690
-		return "LegoPathPresenter";
-	}
+	static const char* HandlerClassName() { return "LegoPathPresenter"; }
 
-	// FUNCTION: LEGO1 0x100449a0
-	// FUNCTION: BETA10 0x100c24a0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		return HandlerClassName();
-	}
+	const char* ClassName() const override { return HandlerClassName(); }
 
-	// FUNCTION: LEGO1 0x100449b0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, LegoPathPresenter::ClassName()) ||
 			   MxMediaPresenter::IsA(p_name);
 	}
 
-	void ReadyTickle() override;      // vtable+0x18
-	void StreamingTickle() override;  // vtable+0x20
-	void RepeatingTickle() override;  // vtable+0x24
-	void ParseExtra() override;       // vtable+0x30
-	MxResult AddToManager() override; // vtable+0x34
-	void Destroy() override;          // vtable+0x38
+	void ReadyTickle() override;
+	void StreamingTickle() override;
+	void RepeatingTickle() override;
+	void ParseExtra() override;
+	MxResult AddToManager() override;
+	void Destroy() override;
 
-	// SYNTHETIC: LEGO1 0x10044a90
 	// LegoPathPresenter::`scalar deleting destructor'
 
 private:
@@ -47,7 +33,7 @@ private:
 protected:
 	void Destroy(MxBool p_fromDestructor);
 
-	MxAtomId m_trigger; // 0x50
+	MxAtomId m_trigger;
 };
 
 #endif // LEGOPATHPRESENTER_H

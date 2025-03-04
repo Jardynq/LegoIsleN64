@@ -14,7 +14,6 @@ struct ViewportAppData {
 	float m_backgroundColorBlue;
 };
 
-// FUNCTION: LEGO1 0x100a10b0
 ViewportAppData::ViewportAppData(IDirect3DRM2* pRenderer) {
 	pRenderer->CreateFrame(NULL, &m_pLightFrame);
 	m_pCamera = NULL;
@@ -24,7 +23,6 @@ ViewportAppData::ViewportAppData(IDirect3DRM2* pRenderer) {
 	m_backgroundColorBlue = 0.0f;
 }
 
-// FUNCTION: LEGO1 0x100a10e0
 ViewportAppData::~ViewportAppData() {
 	IDirect3DRMFrameArray* pChildFrames;
 	IDirect3DRMFrame* pChildFrame = NULL;
@@ -41,7 +39,6 @@ ViewportAppData::~ViewportAppData() {
 // Forward declare to satisfy order check
 void ViewportDestroyCallback(IDirect3DRMObject* pObject, void* pArg);
 
-// FUNCTION: LEGO1 0x100a1160
 Result ViewImpl::ViewportCreateAppData(
 	IDirect3DRM2* pDevice,
 	IDirect3DRMViewport* pView,
@@ -84,7 +81,6 @@ inline Result ViewRestoreFrameAfterRender(
 
 // FIXME: from LEGO1/tgl/d3drm/view.cpp
 
-// FUNCTION: LEGO1 0x100a1240
 void ViewportDestroyCallback(IDirect3DRMObject* pObject, void* pArg) {
 	ViewportAppData* pViewportAppData =
 		reinterpret_cast<ViewportAppData*>(pArg);
@@ -98,7 +94,6 @@ void ViewportDestroyCallback(IDirect3DRMObject* pObject, void* pArg) {
 	delete pViewportAppData;
 }
 
-// FUNCTION: LEGO1 0x100a1290
 Result ViewportPickImpl(
 	IDirect3DRMViewport* pViewport,
 	int x,
@@ -120,26 +115,22 @@ inline IDirect3DRMFrame* ViewportGetLightFrame(IDirect3DRMViewport* pViewport) {
 	return ViewportGetData(pViewport)->m_pLightFrame;
 }
 
-// FUNCTION: LEGO1 0x100a2d80
 void* ViewImpl::ImplementationDataPtr() {
 	return reinterpret_cast<void*>(&m_data);
 }
 
-// FUNCTION: LEGO1 0x100a2d90
 Result ViewImpl::Add(const Light* pLight) {
 	const LightImpl* light = static_cast<const LightImpl*>(pLight);
 	IDirect3DRMFrame* frame = light->ImplementationData();
 	return ResultVal(ViewportGetLightFrame(m_data)->AddChild(frame));
 }
 
-// FUNCTION: LEGO1 0x100a2dc0
 Result ViewImpl::Remove(const Light* pLight) {
 	const LightImpl* light = static_cast<const LightImpl*>(pLight);
 	IDirect3DRMFrame* frame = light->ImplementationData();
 	return ResultVal(ViewportGetLightFrame(m_data)->DeleteChild(frame));
 }
 
-// FUNCTION: LEGO1 0x100a2df0
 Result ViewImpl::SetCamera(const Camera* pCamera) {
 	const CameraImpl* camera = static_cast<const CameraImpl*>(pCamera);
 	IDirect3DRMFrame2* frame = camera->ImplementationData();
@@ -159,12 +150,10 @@ Result ViewImpl::SetCamera(const Camera* pCamera) {
 	return ResultVal(m_data->SetCamera(frame));
 }
 
-// FUNCTION: LEGO1 0x100a2e70
 Result ViewImpl::SetProjection(ProjectionType type) {
 	return ResultVal(m_data->SetProjection(Translate(type)));
 }
 
-// FUNCTION: LEGO1 0x100a2eb0
 Result ViewImpl::SetFrustrum(
 	float frontClippingDistance,
 	float backClippingDistance,
@@ -183,7 +172,6 @@ Result ViewImpl::SetFrustrum(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a2f30
 Result ViewImpl::SetBackgroundColor(float r, float g, float b) {
 	Result ret = Success;
 	// Note, this method in the shipped game is very diverged from
@@ -200,7 +188,6 @@ Result ViewImpl::SetBackgroundColor(float r, float g, float b) {
 	return ret;
 }
 
-// FUNCTION: LEGO1 0x100a2f80
 Result ViewImpl::GetBackgroundColor(float* r, float* g, float* b) {
 	ViewportAppData* data = ViewportGetData(m_data);
 	*r = data->m_backgroundColorRed;
@@ -209,7 +196,6 @@ Result ViewImpl::GetBackgroundColor(float* r, float* g, float* b) {
 	return Success;
 }
 
-// FUNCTION: LEGO1 0x100a2fb0
 Result ViewImpl::Clear() {
 	return ResultVal(m_data->Clear());
 }
@@ -279,7 +265,6 @@ ViewRender(IDirect3DRMViewport* pViewport, const IDirect3DRMFrame2* pGroup) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a2fd0
 Result ViewImpl::Render(const Group* pGroup) {
 	return ViewRender(
 		m_data,
@@ -287,7 +272,6 @@ Result ViewImpl::Render(const Group* pGroup) {
 	);
 }
 
-// FUNCTION: LEGO1 0x100a3080
 Result ViewImpl::ForceUpdate(
 	unsigned int x,
 	unsigned int y,
@@ -297,7 +281,6 @@ Result ViewImpl::ForceUpdate(
 	return ResultVal(m_data->ForceUpdate(x, y, x + width - 1, y + height - 1));
 }
 
-// FUNCTION: LEGO1 0x100a30c0
 Result ViewImpl::Pick(
 	unsigned int x,
 	unsigned int y,
@@ -317,7 +300,6 @@ Result ViewImpl::Pick(
 	);
 }
 
-// FUNCTION: LEGO1 0x100a30f0
 Result ViewImpl::TransformWorldToScreen(const float world[3], float screen[4]) {
 	D3DRMVECTOR4D d3dRMScreen;
 	D3DVECTOR d3dRMWorld;
@@ -338,7 +320,6 @@ Result ViewImpl::TransformWorldToScreen(const float world[3], float screen[4]) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a3160
 Result ViewImpl::TransformScreenToWorld(const float screen[4], float world[3]) {
 	// 100% match minus instruction reordering.
 	D3DVECTOR d3dRMWorld;

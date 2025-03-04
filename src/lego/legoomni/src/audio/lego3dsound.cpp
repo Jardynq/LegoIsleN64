@@ -9,17 +9,14 @@
 
 #include <vec.h>
 
-// FUNCTION: LEGO1 0x10011630
 Lego3DSound::Lego3DSound() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x10011670
 Lego3DSound::~Lego3DSound() {
 	Destroy();
 }
 
-// FUNCTION: LEGO1 0x10011680
 void Lego3DSound::Init() {
 	m_ds3dBuffer = NULL;
 	m_roi = NULL;
@@ -30,8 +27,6 @@ void Lego3DSound::Init() {
 	m_volume = 79;
 }
 
-// FUNCTION: LEGO1 0x100116a0
-// FUNCTION: BETA10 0x10039647
 MxResult Lego3DSound::Create(
 	LPDIRECTSOUNDBUFFER p_directSoundBuffer,
 	const char* p_name,
@@ -114,7 +109,6 @@ MxResult Lego3DSound::Create(
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10011880
 void Lego3DSound::Destroy() {
 	if (m_ds3dBuffer) {
 		m_ds3dBuffer->Release();
@@ -132,8 +126,6 @@ void Lego3DSound::Destroy() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100118e0
-// FUNCTION: BETA10 0x10039a2a
 MxU32 Lego3DSound::UpdatePosition(LPDIRECTSOUNDBUFFER p_directSoundBuffer) {
 	MxU32 updated = FALSE;
 
@@ -191,8 +183,6 @@ MxU32 Lego3DSound::UpdatePosition(LPDIRECTSOUNDBUFFER p_directSoundBuffer) {
 	return updated;
 }
 
-// FUNCTION: LEGO1 0x10011a60
-// FUNCTION: BETA10 0x10039d04
 void Lego3DSound::FUN_10011a60(
 	LPDIRECTSOUNDBUFFER p_directSoundBuffer,
 	const char* p_name
@@ -289,7 +279,6 @@ void Lego3DSound::FUN_10011a60(
 	}
 }
 
-// FUNCTION: LEGO1 0x10011ca0
 void Lego3DSound::Reset() {
 	if (m_enabled && m_roi && CharacterManager()) {
 		if (m_isActor) {
@@ -304,7 +293,6 @@ void Lego3DSound::Reset() {
 	m_actor = NULL;
 }
 
-// FUNCTION: LEGO1 0x10011cf0
 MxS32 Lego3DSound::SetDistance(MxS32 p_min, MxS32 p_max) {
 	if (MxOmni::IsSound3D()) {
 		if (m_ds3dBuffer == NULL) {

@@ -4,7 +4,6 @@
 #include "mxmisc.h"
 #include "mxmusicmanager.h"
 
-// FUNCTION: LEGO1 0x100c2a80
 void MxLoopingMIDIPresenter::StreamingTickle() {
 	if (m_action->GetLoopCount()) {
 		MxMIDIPresenter::StreamingTickle();
@@ -22,7 +21,6 @@ void MxLoopingMIDIPresenter::StreamingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c2ae0
 void MxLoopingMIDIPresenter::DoneTickle() {
 	if (m_action->GetLoopCount()) {
 		MxMIDIPresenter::DoneTickle();
@@ -31,7 +29,6 @@ void MxLoopingMIDIPresenter::DoneTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c2b00
 MxResult MxLoopingMIDIPresenter::PutData() {
 	m_criticalSection.Enter();
 

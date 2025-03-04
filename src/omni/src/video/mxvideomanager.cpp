@@ -11,12 +11,10 @@
 #include "mxticklethread.h"
 #include "stdio.h"
 
-// FUNCTION: LEGO1 0x100be1f0
 MxVideoManager::MxVideoManager() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100be270
 void MxVideoManager::UpdateView(
 	MxU32 p_x,
 	MxU32 p_y,
@@ -25,12 +23,10 @@ void MxVideoManager::UpdateView(
 ) {
 }
 
-// FUNCTION: LEGO1 0x100be2a0
 MxVideoManager::~MxVideoManager() {
 	Destroy(TRUE);
 }
 
-// FUNCTION: LEGO1 0x100be320
 MxResult MxVideoManager::Init() {
 	this->m_pDirectDraw = NULL;
 	this->m_pDirect3D = NULL;
@@ -41,7 +37,6 @@ MxResult MxVideoManager::Init() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100be340
 void MxVideoManager::Destroy(MxBool p_fromDestructor) {
 	if (m_thread) {
 		m_thread->Terminate();
@@ -81,7 +76,6 @@ void MxVideoManager::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100be3e0
 void MxVideoManager::UpdateRegion() {
 	if (m_region->VTable0x20() == FALSE) {
 		MxRect32 rect(m_region->GetRect());
@@ -98,7 +92,6 @@ void MxVideoManager::UpdateRegion() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100be440
 void MxVideoManager::SortPresenterList() {
 	if (this->m_presenters->GetCount() <= 1) {
 		return;
@@ -131,7 +124,6 @@ void MxVideoManager::SortPresenterList() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100be600
 MxResult MxVideoManager::VTable0x28(
 	MxVideoParam& p_videoParam,
 	LPDIRECTDRAW p_pDirectDraw,
@@ -213,7 +205,6 @@ done:
 	return status;
 }
 
-// FUNCTION: LEGO1 0x100be820
 MxResult MxVideoManager::Create(
 	MxVideoParam& p_videoParam,
 	MxU32 p_frequencyMS,
@@ -302,12 +293,10 @@ done:
 	return status;
 }
 
-// FUNCTION: LEGO1 0x100bea50
 void MxVideoManager::Destroy() {
 	Destroy(FALSE);
 }
 
-// FUNCTION: LEGO1 0x100bea60
 void MxVideoManager::InvalidateRect(MxRect32& p_rect) {
 	m_criticalSection.Enter();
 
@@ -318,7 +307,6 @@ void MxVideoManager::InvalidateRect(MxRect32& p_rect) {
 	m_criticalSection.Leave();
 }
 
-// FUNCTION: LEGO1 0x100bea90
 MxResult MxVideoManager::Tickle() {
 	AUTOLOCK(m_criticalSection);
 
@@ -343,7 +331,6 @@ MxResult MxVideoManager::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100bebe0
 MxResult MxVideoManager::RealizePalette(MxPalette* p_palette) {
 	PALETTEENTRY paletteEntries[256];
 

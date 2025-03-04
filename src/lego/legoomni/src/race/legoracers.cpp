@@ -20,30 +20,15 @@
 #include "raceskel.h"
 
 // name verified by BETA10 0x100cbee6
-// GLOBAL: LEGO1 0x100f0a20
-// GLOBAL: BETA10 0x101f5e30
-EdgeReference g_skBMap[] = {
-	{// STRING: LEGO1 0x100f0a10
-	 "EDG03_772",
-	 NULL},
-	{// STRING: LEGO1 0x100f0a04
-	 "EDG03_773",
-	 NULL},
-	{// STRING: LEGO1 0x100f09f8
-	 "EDG03_774",
-	 NULL},
-	{// STRING: LEGO1 0x100f09ec
-	 "EDG03_775",
-	 NULL},
-	{// STRING: LEGO1 0x100f09e0
-	 "EDG03_776",
-	 NULL},
-	{// STRING: LEGO1 0x100f09d4
-	 "EDG03_777",
-	 NULL}};
 
-// GLOBAL: LEGO1 0x100f0a50
-// GLOBAL: BETA10 0x101f5e60
+EdgeReference g_skBMap[] = {
+	{"EDG03_772", NULL},
+	{"EDG03_773", NULL},
+	{"EDG03_774", NULL},
+	{"EDG03_775", NULL},
+	{"EDG03_776", NULL},
+	{"EDG03_777", NULL}};
+
 const SkeletonKickPhase g_skeletonKickPhases[] = {
 	{&g_skBMap[0], 0.1, 0.2, LEGORACECAR_KICK2},
 	{&g_skBMap[1], 0.2, 0.3, LEGORACECAR_KICK2},
@@ -60,14 +45,11 @@ const SkeletonKickPhase g_skeletonKickPhases[] = {
 };
 
 // the STRING is already declared at LEGO1 0x101020b8
-// GLOBAL: LEGO1 0x100f0b10
+
 const char* g_strSpeed = "SPEED";
 
-// GLOBAL: LEGO1 0x100f0b14
 const char* g_strJetSpeed = "jetSPEED";
 
-// GLOBAL: LEGO1 0x100f0b18
-// GLOBAL: BETA10 0x101f5f28
 const char* g_playerHitStudsSounds[] = {
 	"srt018sl",
 	"srt019sl",
@@ -82,56 +64,31 @@ const char* g_playerHitStudsSounds[] = {
 	"srt028sl",
 	"srt029sl"};
 
-// GLOBAL: LEGO1 0x100f0b48
-// GLOBAL: BETA10 0x101f5f58
 const char* g_studsHitPlayerSounds[] =
 	{"srt006sl", "srt007sl", "srt008sl", "srt009sl", "srt010sl"};
 
-// GLOBAL: LEGO1 0x100f0b5c
-// GLOBAL: BETA10 0x101f5f6c
 const char* g_playerHitRhodaSounds[] = {NULL};
 
-// GLOBAL: LEGO1 0x100f0b60
-// GLOBAL: BETA10 0x101f5f70
 const char* g_rhodaHitPlayerSounds[] = {"srt004rh", "srt005rh", "srt006rh"};
 
-// GLOBAL: LEGO1 0x100f0b6c
-// STRING: LEGO1 0x100f08c4
 const char* g_youCantStopSound = "srt001ra";
 
-// GLOBAL: LEGO1 0x100f0b70
-// STRING: LEGO1 0x100f08bc
 const char* g_soundSkel3 = "skel3";
 
-// GLOBAL: LEGO1 0x100f0b74
-// GLOBAL: BETA10 0x101f5f80
 MxU32 g_playerHitStudsSoundsIndex = 0;
 
-// GLOBAL: LEGO1 0x100f0b78
-// GLOBAL: BETA10 0x101f5f84
 MxU32 g_studsHitPlayerSoundsIndex = 0;
 
-// GLOBAL: LEGO1 0x100f0b7c
-// GLOBAL: BETA10 0x101f5f88
 MxU32 g_playerHitRhodaSoundsIndex = 0;
 
-// GLOBAL: LEGO1 0x100f0b80
-// GLOBAL: BETA10 0x101f5f8c
 MxU32 g_rhodaHitPlayerSoundsIndex = 0;
 
-// GLOBAL: LEGO1 0x100f0b84
-// GLOBAL: BETA10 0x101f5f90
 MxLong g_timeLastRaceCarSoundPlayed = 0;
 
-// GLOBAL: LEGO1 0x100f0b88
-// GLOBAL: BETA10 0x101f5f94
 MxS32 g_timePlayerLastMoved = 0;
 
-// GLOBAL: LEGO1 0x100f0b8c
-// GLOBAL: BETA10 0x101f5f98
 MxBool g_playedYouCantStopSound = TRUE;
 
-// GLOBAL: LEGO1 0x100f0b90
 const char* g_hitSnapSounds[] = {
 	"Svo001Sn",
 	"Svo002Sn",
@@ -139,24 +96,18 @@ const char* g_hitSnapSounds[] = {
 	"Svo005Sn",
 };
 
-// GLOBAL: LEGO1 0x100f0ba0
 const char* g_hitValerieSounds[] = {
 	"Svo001Va",
 	"Svo003Va",
 	"Svo004Va",
 };
 
-// GLOBAL: LEGO1 0x100f0bac
 undefined4 g_hitSnapSoundsIndex = 0;
 
-// GLOBAL: LEGO1 0x100f0bb0
 undefined4 g_hitValerieSoundsIndex = 0;
 
-// GLOBAL: LEGO1 0x100f0bb4
 MxLong g_timeLastJetskiSoundPlayed = 0;
 
-// FUNCTION: LEGO1 0x10012950
-// FUNCTION: BETA10 0x100cad10
 LegoRaceCar::LegoRaceCar() {
 	m_userState = 0;
 	m_skelKick1Anim = 0;
@@ -168,24 +119,18 @@ LegoRaceCar::LegoRaceCar() {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x10012c80
-// FUNCTION: BETA10 0x100caf67
 LegoRaceCar::~LegoRaceCar() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x10012d90
-// FUNCTION: BETA10 0x100cb0bd
 MxLong LegoRaceCar::Notify(MxParam& p_param) {
 	return LegoRaceMap::Notify(p_param);
 }
 
 // Initialized at LEGO1 0x10012db0
-// GLOBAL: LEGO1 0x10102af0
-// GLOBAL: BETA10 0x102114c0
+
 Mx3DPointFloat g_unk0x10102af0 = Mx3DPointFloat(0.0f, 2.0f, 0.0f);
 
-// FUNCTION: LEGO1 0x10012de0
 void LegoRaceCar::FUN_10012de0() {
 	// Init to TRUE so we don't play "you can't stop in the middle of the race!"
 	// before the player ever moves
@@ -194,8 +139,6 @@ void LegoRaceCar::FUN_10012de0() {
 	g_timePlayerLastMoved = 0;
 }
 
-// FUNCTION: LEGO1 0x10012e00
-// FUNCTION: BETA10 0x100cb129
 void LegoRaceCar::InitSoundIndices() {
 	// Note the (likely unintentional) order of operations: `%` is executed
 	// before `/`, so the division is performed at runtime.
@@ -209,8 +152,6 @@ void LegoRaceCar::InitSoundIndices() {
 								  sizeof(g_rhodaHitPlayerSounds[0]);
 }
 
-// FUNCTION: LEGO1 0x10012e60
-// FUNCTION: BETA10 0x100cb191
 void LegoRaceCar::SetWorldSpeed(MxFloat p_worldSpeed) {
 	if (!m_userNavFlag) {
 		if (!LegoCarRaceActor::m_unk0x0c) {
@@ -222,8 +163,6 @@ void LegoRaceCar::SetWorldSpeed(MxFloat p_worldSpeed) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10012ea0
-// FUNCTION: BETA10 0x100cb220
 void LegoRaceCar::SetMaxLinearVelocity(float p_maxLinearVelocity) {
 	if (p_maxLinearVelocity < 0) {
 		LegoCarRaceActor::m_unk0x0c = 2;
@@ -234,8 +173,6 @@ void LegoRaceCar::SetMaxLinearVelocity(float p_maxLinearVelocity) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10012ef0
-// FUNCTION: BETA10 0x100cb2aa
 void LegoRaceCar::ParseAction(char* p_extra) {
 	char buffer[256];
 
@@ -260,11 +197,9 @@ void LegoRaceCar::ParseAction(char* p_extra) {
 
 		assert(m_skelKick1Anim && m_skelKick2Anim);
 
-		// STRING: LEGO1 0x100f0bc4
 		m_kick1B = currentWorld->FindPathBoundary("EDG03_44");
 		assert(m_kick1B);
 
-		// STRING: LEGO1 0x100f0bb8
 		m_kick2B = currentWorld->FindPathBoundary("EDG03_54");
 		assert(m_kick2B);
 
@@ -277,8 +212,6 @@ void LegoRaceCar::ParseAction(char* p_extra) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10012ff0
-// FUNCTION: BETA10 0x100cb60e
 void LegoRaceCar::FUN_10012ff0(float p_param) {
 	LegoAnimActorStruct* a; // called `a` in BETA10
 	float deltaTime;
@@ -331,8 +264,6 @@ void LegoRaceCar::FUN_10012ff0(float p_param) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10013130
-// FUNCTION: BETA10 0x100cce50
 MxU32 LegoRaceCar::HandleSkeletonKicks(float p_param1) {
 	const SkeletonKickPhase* current = g_skeletonKickPhases;
 
@@ -361,7 +292,7 @@ MxU32 LegoRaceCar::HandleSkeletonKicks(float p_param1) {
 
 	if (m_userState != LEGORACECAR_KICK1 && m_userState != LEGORACECAR_KICK2) {
 		MxTrace(
-			// STRING: BETA10 0x101f64c8
+
 			"Got kicked in boundary %s %d %g:%g %g\n",
 			m_boundary->GetName(),
 			skeletonCurAnimPosition,
@@ -377,8 +308,6 @@ MxU32 LegoRaceCar::HandleSkeletonKicks(float p_param1) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100131f0
-// FUNCTION: BETA10 0x100cb88a
 void LegoRaceCar::Animate(float p_time) {
 	if (m_userNavFlag && (m_userState == LEGORACECAR_KICK1 ||
 						  m_userState == LEGORACECAR_KICK2)) {
@@ -441,8 +370,6 @@ void LegoRaceCar::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100133c0
-// FUNCTION: BETA10 0x100cbb84
 MxResult LegoRaceCar::HitActor(LegoPathActor* p_actor, MxBool p_bool) {
 	// Note: Code duplication with LegoRaceActor::HitActor
 	if (!p_actor->GetUserNavFlag()) {
@@ -528,8 +455,6 @@ MxResult LegoRaceCar::HitActor(LegoPathActor* p_actor, MxBool p_bool) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10013600
-// FUNCTION: BETA10 0x100cbe60
 MxResult LegoRaceCar::VTable0x9c() {
 	MxResult result;
 
@@ -562,7 +487,6 @@ MxResult LegoRaceCar::VTable0x9c() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10013670
 void LegoJetski::InitSoundIndices() {
 	// See note in LegoRaceCar::InitSoundIndices
 	g_hitSnapSoundsIndex =
@@ -571,8 +495,6 @@ void LegoJetski::InitSoundIndices() {
 		rand() % sizeof(g_hitValerieSounds) / sizeof(g_hitValerieSounds[0]);
 }
 
-// FUNCTION: LEGO1 0x100136a0
-// FUNCTION: BETA10 0x100cbf7e
 void LegoJetski::SetWorldSpeed(MxFloat p_worldSpeed) {
 	if (!m_userNavFlag) {
 		if (!LegoCarRaceActor::m_unk0x0c) {
@@ -584,8 +506,6 @@ void LegoJetski::SetWorldSpeed(MxFloat p_worldSpeed) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100136f0
-// FUNCTION: BETA10 0x100cc01a
 void LegoJetski::FUN_100136f0(float p_worldSpeed) {
 	if (p_worldSpeed < 0) {
 		LegoCarRaceActor::m_unk0x0c = 2;
@@ -596,8 +516,6 @@ void LegoJetski::FUN_100136f0(float p_worldSpeed) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10013740
-// FUNCTION: BETA10 0x100cc0ae
 void LegoJetski::Animate(float p_time) {
 	LegoJetskiRaceActor::Animate(p_time);
 
@@ -623,20 +541,14 @@ void LegoJetski::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10013820
-// FUNCTION: BETA10 0x100cc335
 LegoJetski::LegoJetski() {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x10013aa0
-// FUNCTION: BETA10 0x100cc58e
 LegoJetski::~LegoJetski() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x10013bb0
-// FUNCTION: BETA10 0x100cc6df
 void LegoJetski::ParseAction(char* p_extra) {
 	char buffer[256];
 
@@ -649,13 +561,10 @@ void LegoJetski::ParseAction(char* p_extra) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10013c30
-// FUNCTION: BETA10 0x100cc76a
 MxLong LegoJetski::Notify(MxParam& p_param) {
 	return LegoRaceMap::Notify(p_param);
 }
 
-// FUNCTION: LEGO1 0x10013c40
 MxResult LegoJetski::HitActor(LegoPathActor* p_actor, MxBool p_bool) {
 	// Note: very similar to LegoRaceCar::HitActor
 

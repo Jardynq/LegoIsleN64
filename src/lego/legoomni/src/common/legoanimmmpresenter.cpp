@@ -19,7 +19,6 @@
 #include "mxtimer.h"
 #include "mxutilities.h"
 
-// FUNCTION: LEGO1 0x1004a8d0
 LegoAnimMMPresenter::LegoAnimMMPresenter() {
 	m_presenter = NULL;
 	m_animmanId = 0;
@@ -33,7 +32,6 @@ LegoAnimMMPresenter::LegoAnimMMPresenter() {
 	m_unk0x58 = e_unk0;
 }
 
-// FUNCTION: LEGO1 0x1004aa60
 LegoAnimMMPresenter::~LegoAnimMMPresenter() {
 	if (VideoManager() != NULL) {
 		VideoManager()->UnregisterPresenter(*this);
@@ -44,7 +42,6 @@ LegoAnimMMPresenter::~LegoAnimMMPresenter() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x1004aaf0
 MxResult LegoAnimMMPresenter::StartAction(
 	MxStreamController* p_controller,
 	MxDSAction* p_action
@@ -109,8 +106,6 @@ MxResult LegoAnimMMPresenter::StartAction(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1004aec0
-// FUNCTION: BETA10 0x1004c01a
 void LegoAnimMMPresenter::EndAction() {
 	if (m_tranInfo != NULL && m_tranInfo->m_unk0x15 &&
 		m_tranInfo->m_unk0x1c != NULL && m_tranInfo->m_unk0x1c[1] != NULL) {
@@ -138,8 +133,6 @@ void LegoAnimMMPresenter::EndAction() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004b140
-// FUNCTION: BETA10 0x1004c197
 void LegoAnimMMPresenter::ReadyTickle() {
 	ParseExtra();
 
@@ -160,8 +153,6 @@ void LegoAnimMMPresenter::ReadyTickle() {
 	ProgressTickleState(e_starting);
 }
 
-// FUNCTION: LEGO1 0x1004b1c0
-// FUNCTION: BETA10 0x1004c2cc
 void LegoAnimMMPresenter::StartingTickle() {
 	if (m_presenter == NULL || m_presenter->GetCurrentTickleState() == e_idle) {
 		if (m_tranInfo != NULL && m_tranInfo->m_unk0x08 != NULL) {
@@ -173,16 +164,12 @@ void LegoAnimMMPresenter::StartingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004b220
-// FUNCTION: BETA10 0x1004c372
 void LegoAnimMMPresenter::StreamingTickle() {
 	if (FUN_1004b450()) {
 		ProgressTickleState(e_repeating);
 	}
 }
 
-// FUNCTION: LEGO1 0x1004b250
-// FUNCTION: BETA10 0x1004c3a4
 void LegoAnimMMPresenter::RepeatingTickle() {
 	if (m_presenter == NULL) {
 		ProgressTickleState(e_freezing);
@@ -196,14 +183,10 @@ void LegoAnimMMPresenter::RepeatingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004b2c0
-// FUNCTION: BETA10 0x1004c469
 void LegoAnimMMPresenter::DoneTickle() {
 	// Empty
 }
 
-// FUNCTION: LEGO1 0x1004b2d0
-// FUNCTION: BETA10 0x1004c47f
 MxLong LegoAnimMMPresenter::Notify(MxParam& p_param) {
 	AUTOLOCK(m_criticalSection);
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
@@ -216,7 +199,6 @@ MxLong LegoAnimMMPresenter::Notify(MxParam& p_param) {
 	return MxCompositePresenter::Notify(p_param);
 }
 
-// FUNCTION: LEGO1 0x1004b360
 void LegoAnimMMPresenter::VTable0x60(MxPresenter* p_presenter) {
 	if (m_presenter == p_presenter &&
 		((MxU8) p_presenter->GetCurrentTickleState() ==
@@ -226,8 +208,6 @@ void LegoAnimMMPresenter::VTable0x60(MxPresenter* p_presenter) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004b390
-// FUNCTION: BETA10 0x1004c5be
 void LegoAnimMMPresenter::ParseExtra() {
 	MxU16 extraLength;
 	char* extraData;
@@ -252,8 +232,6 @@ void LegoAnimMMPresenter::ParseExtra() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004b450
-// FUNCTION: BETA10 0x1004c71d
 MxBool LegoAnimMMPresenter::FUN_1004b450() {
 	MxBool result = FALSE;
 	MxLong time = Timer()->GetTime() - m_unk0x50;
@@ -302,8 +280,6 @@ MxBool LegoAnimMMPresenter::FUN_1004b450() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1004b530
-// FUNCTION: BETA10 0x1004c8c4
 MxBool LegoAnimMMPresenter::FUN_1004b530(MxLong p_time) {
 	if (m_presenter != NULL) {
 		m_presenter->FUN_1006afc0(m_unk0x68, 0);
@@ -314,14 +290,10 @@ MxBool LegoAnimMMPresenter::FUN_1004b530(MxLong p_time) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1004b570
-// FUNCTION: BETA10 0x1004c9cc
 MxBool LegoAnimMMPresenter::FUN_1004b570(MxLong p_time) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1004b580
-// FUNCTION: BETA10 0x1004ca3f
 MxBool LegoAnimMMPresenter::FUN_1004b580(MxLong p_time) {
 	switch (m_unk0x59) {
 	case 0:
@@ -342,8 +314,6 @@ MxBool LegoAnimMMPresenter::FUN_1004b580(MxLong p_time) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1004b5b0
-// FUNCTION: BETA10 0x1004cb09
 MxBool LegoAnimMMPresenter::FUN_1004b5b0(MxLong p_time) {
 	switch (m_unk0x59) {
 	case 0:
@@ -368,14 +338,10 @@ MxBool LegoAnimMMPresenter::FUN_1004b5b0(MxLong p_time) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1004b600
-// FUNCTION: BETA10 0x1004cbfb
 MxBool LegoAnimMMPresenter::FUN_1004b600(MxLong p_time) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1004b610
-// FUNCTION: BETA10 0x1004cc6e
 MxBool LegoAnimMMPresenter::FUN_1004b610(MxLong p_time) {
 	for (MxCompositePresenterList::iterator it = m_list.begin();
 		 it != m_list.end();
@@ -397,8 +363,6 @@ MxBool LegoAnimMMPresenter::FUN_1004b610(MxLong p_time) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1004b6b0
-// FUNCTION: BETA10 0x1004cdc5
 MxBool LegoAnimMMPresenter::FUN_1004b6b0(MxLong p_time) {
 	if (m_presenter != NULL && m_presenter->GetCurrentTickleState() != e_idle) {
 		return FALSE;
@@ -408,8 +372,6 @@ MxBool LegoAnimMMPresenter::FUN_1004b6b0(MxLong p_time) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1004b6d0
-// FUNCTION: BETA10 0x1004ce18
 MxBool LegoAnimMMPresenter::FUN_1004b6d0(MxLong p_time) {
 	LegoROI* viewROI = VideoManager()->GetViewROI();
 	LegoPathActor* actor = UserActor();
@@ -457,13 +419,10 @@ MxBool LegoAnimMMPresenter::FUN_1004b6d0(MxLong p_time) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1004b830
 MxBool LegoAnimMMPresenter::FUN_1004b830() {
 	return m_unk0x58 >= e_unk6;
 }
 
-// FUNCTION: LEGO1 0x1004b840
-// FUNCTION: BETA10 0x1004d033
 void LegoAnimMMPresenter::FUN_1004b840() {
 	MxDSAction* action = m_action;
 
@@ -487,14 +446,10 @@ void LegoAnimMMPresenter::FUN_1004b840() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004b8b0
-// FUNCTION: BETA10 0x1004d104
 MxBool LegoAnimMMPresenter::FUN_1004b8b0() {
 	return m_tranInfo != NULL ? m_tranInfo->m_unk0x28 : TRUE;
 }
 
-// FUNCTION: LEGO1 0x1004b8c0
-// FUNCTION: BETA10 0x1004d13d
 void LegoAnimMMPresenter::FUN_1004b8c0() {
 	FUN_1004b6d0(0);
 }

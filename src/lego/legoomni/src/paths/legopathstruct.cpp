@@ -15,11 +15,8 @@
 // Flags used in isle.cpp
 extern MxU32 g_isleFlags;
 
-// GLOBAL: LEGO1 0x100f119c
-// GLOBAL: BETA10 0x100f119c
 MxBool g_unk0x100f119c = FALSE;
 
-// FUNCTION: LEGO1 0x1001b700
 void LegoPathStruct::HandleTrigger(
 	LegoPathActor* p_actor,
 	MxBool p_direction,
@@ -31,8 +28,6 @@ void LegoPathStruct::HandleTrigger(
 	}
 }
 
-// FUNCTION: LEGO1 0x1001b740
-// FUNCTION: BETA10 0x100c26c5
 MxBool LegoPathStruct::HandleTrigger(
 	LegoPathActor* p_actor,
 	MxBool p_direction,
@@ -114,8 +109,6 @@ MxBool LegoPathStruct::HandleTrigger(
 	return triggered;
 }
 
-// FUNCTION: LEGO1 0x1001bc40
-// FUNCTION: BETA10 0x100c2a6c
 void LegoPathStruct::FUN_1001bc40(
 	const char* p_name,
 	MxU32 p_data,
@@ -134,8 +127,6 @@ void LegoPathStruct::FUN_1001bc40(
 	}
 }
 
-// FUNCTION: LEGO1 0x1001bd10
-// FUNCTION: BETA10 0x100c2b4a
 void LegoPathStruct::PlayMusic(MxBool p_direction, MxU32 p_data) {
 	JukeBoxState* state = (JukeBoxState*) GameState()->GetState("JukeBoxState");
 	if (state != NULL && state->m_active) {

@@ -231,7 +231,6 @@ void printDDCaps(const DDCAPS* caps, const char* label) {
 		x = NULL;                                                              \
 	}
 
-// FUNCTION: LEGO1 0x1009b0a0
 MxDirect3D::MxDirect3D() {
 	this->m_pDirect3d = NULL;
 	this->m_pDirect3dDevice = NULL;
@@ -239,12 +238,10 @@ MxDirect3D::MxDirect3D() {
 	this->m_assignedDevice = NULL;
 }
 
-// FUNCTION: LEGO1 0x1009b140
 MxDirect3D::~MxDirect3D() {
 	Destroy();
 }
 
-// FUNCTION: LEGO1 0x1009b1a0
 BOOL MxDirect3D::Create(
 	HWND hWnd,
 	BOOL fullscreen_1,
@@ -288,7 +285,6 @@ BOOL MxDirect3D::Create(
 	return success;
 }
 
-// FUNCTION: LEGO1 0x1009b210
 void MxDirect3D::Destroy() {
 	RELEASE(m_pDirect3dDevice);
 	RELEASE(m_pDirect3d);
@@ -305,14 +301,12 @@ void MxDirect3D::Destroy() {
 	MxDirectDraw::Destroy();
 }
 
-// FUNCTION: LEGO1 0x1009b290
 void MxDirect3D::DestroyButNotDirectDraw() {
 	RELEASE(m_pDirect3dDevice);
 	RELEASE(m_pDirect3d);
 	MxDirectDraw::DestroyButNotDirectDraw();
 }
 
-// FUNCTION: LEGO1 0x1009b2d0
 BOOL MxDirect3D::D3DCreate() {
 	HRESULT result;
 
@@ -325,7 +319,6 @@ BOOL MxDirect3D::D3DCreate() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009b310
 BOOL MxDirect3D::D3DSetMode() {
 	if (m_assignedDevice->m_flags & MxAssignedDevice::c_hardwareMode) {
 		printf("Using hardware renderer\n");
@@ -473,7 +466,6 @@ BOOL MxDirect3D::D3DSetMode() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009b5a0
 int MxDirect3D::ZBufferDepth(MxAssignedDevice* p_assignedDevice) {
 	int depth;
 	DWORD deviceDepth;
@@ -499,8 +491,6 @@ int MxDirect3D::ZBufferDepth(MxAssignedDevice* p_assignedDevice) {
 	return depth;
 }
 
-// FUNCTION: LEGO1 0x1009b5f0
-// FUNCTION: BETA10 0x1011bbca
 BOOL MxDirect3D::SetDevice(
 	MxDeviceEnumerate& p_deviceEnumerate,
 	MxDriver* p_driver,

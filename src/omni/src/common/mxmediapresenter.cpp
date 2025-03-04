@@ -9,7 +9,6 @@
 #include "mxstreamchunk.h"
 #include "mxtimer.h"
 
-// FUNCTION: LEGO1 0x100b54e0
 void MxMediaPresenter::Init() {
 	this->m_subscriber = NULL;
 	this->m_loopingChunks = NULL;
@@ -17,7 +16,6 @@ void MxMediaPresenter::Init() {
 	this->m_currentChunk = NULL;
 }
 
-// FUNCTION: LEGO1 0x100b54f0
 void MxMediaPresenter::Destroy(MxBool p_fromDestructor) {
 	{
 		AUTOLOCK(m_criticalSection);
@@ -53,7 +51,6 @@ void MxMediaPresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b5650
 MxStreamChunk* MxMediaPresenter::CurrentChunk() {
 	MxStreamChunk* chunk = NULL;
 
@@ -72,7 +69,6 @@ MxStreamChunk* MxMediaPresenter::CurrentChunk() {
 	return chunk;
 }
 
-// FUNCTION: LEGO1 0x100b56b0
 MxStreamChunk* MxMediaPresenter::NextChunk() {
 	MxStreamChunk* chunk = NULL;
 
@@ -90,7 +86,6 @@ MxStreamChunk* MxMediaPresenter::NextChunk() {
 	return chunk;
 }
 
-// FUNCTION: LEGO1 0x100b5700
 MxResult MxMediaPresenter::StartAction(
 	MxStreamController* p_controller,
 	MxDSAction* p_action
@@ -127,7 +122,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100b5bc0
 void MxMediaPresenter::EndAction() {
 	AUTOLOCK(m_criticalSection);
 
@@ -164,7 +158,6 @@ void MxMediaPresenter::EndAction() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b5d10
 MxResult MxMediaPresenter::Tickle() {
 	AUTOLOCK(m_criticalSection);
 
@@ -173,7 +166,6 @@ MxResult MxMediaPresenter::Tickle() {
 	return MxPresenter::Tickle();
 }
 
-// FUNCTION: LEGO1 0x100b5d90
 void MxMediaPresenter::StreamingTickle() {
 	if (!m_currentChunk) {
 		m_currentChunk = NextChunk();
@@ -195,7 +187,6 @@ void MxMediaPresenter::StreamingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b5e10
 void MxMediaPresenter::RepeatingTickle() {
 	if (IsEnabled() && !m_currentChunk) {
 		if (m_loopingChunkCursor) {
@@ -218,14 +209,11 @@ void MxMediaPresenter::RepeatingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b5ef0
 void MxMediaPresenter::DoneTickle() {
 	ProgressTickleState(e_idle);
 	EndAction();
 }
 
-// FUNCTION: LEGO1 0x100b5f10
-// FUNCTION: BETA10 0x101366e9
 void MxMediaPresenter::LoopChunk(MxStreamChunk* p_chunk) {
 	MxStreamChunk* chunk = new MxStreamChunk;
 
@@ -238,8 +226,6 @@ void MxMediaPresenter::LoopChunk(MxStreamChunk* p_chunk) {
 	m_loopingChunks->Append(chunk);
 }
 
-// FUNCTION: LEGO1 0x100b6030
-// FUNCTION: BETA10 0x10136814
 void MxMediaPresenter::Enable(MxBool p_enable) {
 	if (IsEnabled() != p_enable) {
 		MxPresenter::Enable(p_enable);

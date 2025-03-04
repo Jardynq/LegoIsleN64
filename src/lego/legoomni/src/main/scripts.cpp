@@ -2,94 +2,62 @@
 
 #include "mxatom.h"
 
-// GLOBAL: LEGO1 0x100f451c
 MxAtomId* g_copterScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4520
 MxAtomId* g_dunecarScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4524
 MxAtomId* g_jetskiScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4528
 MxAtomId* g_racecarScript = NULL;
 
-// GLOBAL: LEGO1 0x100f452c
-// GLOBAL: BETA10 0x10211514
 MxAtomId* g_carraceScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4530
 MxAtomId* g_carracerScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4534
 MxAtomId* g_jetraceScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4538
 MxAtomId* g_jetracerScript = NULL;
 
-// GLOBAL: LEGO1 0x100f453c
-// GLOBAL: BETA10 0x10211534
 MxAtomId* g_isleScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4540
 MxAtomId* g_elevbottScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4544
 MxAtomId* g_infodoorScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4548
 MxAtomId* g_infomainScript = NULL;
 
-// GLOBAL: LEGO1 0x100f454c
 MxAtomId* g_infoscorScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4550
 MxAtomId* g_regbookScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4554
 MxAtomId* g_histbookScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4558
 MxAtomId* g_hospitalScript = NULL;
 
-// GLOBAL: LEGO1 0x100f455c
 MxAtomId* g_policeScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4560
 MxAtomId* g_garageScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4564
 MxAtomId* g_act2mainScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4568
 MxAtomId* g_act3Script = NULL;
 
-// GLOBAL: LEGO1 0x100f456c
-// GLOBAL: BETA10 0x102114e0
 MxAtomId* g_jukeboxScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4570
 MxAtomId* g_pz5Script = NULL;
 
-// GLOBAL: LEGO1 0x100f4574
 MxAtomId* g_introScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4578
 MxAtomId* g_testScript = NULL;
 
-// GLOBAL: LEGO1 0x100f457c
 MxAtomId* g_jukeboxwScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4580
 MxAtomId* g_sndAnimScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4584
 MxAtomId* g_creditsScript = NULL;
 
-// GLOBAL: LEGO1 0x100f4588
 MxAtomId* g_nocdSourceName = NULL;
 
-// FUNCTION: LEGO1 0x100528e0
 void CreateScripts() {
 	g_copterScript =
 		new MxAtomId("\\lego\\scripts\\build\\copter", e_lowerCase2);
@@ -141,7 +109,6 @@ void CreateScripts() {
 	g_nocdSourceName = new MxAtomId("\\lego\\scripts\\nocd", e_lowerCase2);
 }
 
-// FUNCTION: LEGO1 0x100530c0
 void DestroyScripts() {
 	delete g_copterScript;
 	delete g_dunecarScript;
@@ -203,7 +170,6 @@ void DestroyScripts() {
 	g_nocdSourceName = NULL;
 }
 
-// FUNCTION: LEGO1 0x10053430
 const char* GetNoCD_SourceName() {
 	return g_nocdSourceName->GetInternal();
 }

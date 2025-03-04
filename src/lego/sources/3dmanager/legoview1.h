@@ -11,26 +11,23 @@ class Light;
 /////////////////////////////////////////////////////////////////////////////
 // LegoView
 
-// VTABLE: LEGO1 0x100dc000
-// VTABLE: BETA10 0x101c3578
-// SIZE 0x78
 class LegoView : public TglSurface {
 public:
 	LegoView();
 	~LegoView() override;
 
 	BOOL Create(const CreateStruct&, Tgl::Renderer*);
-	void Destroy() override; // vtable+0x08
+	void Destroy() override;
 
 	Tgl::Group* GetScene() const;
 	Tgl::Camera* GetCamera() const;
 
 protected:
-	Tgl::View* CreateView(Tgl::Renderer*, Tgl::Device*) override; // vtable+0x10
+	Tgl::View* CreateView(Tgl::Renderer*, Tgl::Device*) override;
 
 private:
-	Tgl::Group* m_pScene;   // 0x70
-	Tgl::Camera* m_pCamera; // 0x74
+	Tgl::Group* m_pScene;
+	Tgl::Camera* m_pCamera;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -44,16 +41,11 @@ inline Tgl::Camera* LegoView::GetCamera() const {
 	return m_pCamera;
 }
 
-// SYNTHETIC: LEGO1 0x100ab580
-// SYNTHETIC: BETA10 0x1017cb80
 // LegoView::`scalar deleting destructor'
 
 /////////////////////////////////////////////////////////////////////////////
 // LegoView1
 
-// VTABLE: LEGO1 0x100dc018
-// VTABLE: BETA10 0x101c3590
-// SIZE 0x88
 class LegoView1 : public LegoView {
 public:
 	LegoView1();
@@ -61,7 +53,7 @@ public:
 
 	BOOL AddLightsToViewport();
 	BOOL Create(const TglSurface::CreateStruct&, Tgl::Renderer*);
-	void Destroy() override; // vtable+0x08
+	void Destroy() override;
 
 	void SetLightTransform(BOOL bDirectionalLight, Tgl::FloatMatrix4& rMatrix);
 	void
@@ -71,13 +63,11 @@ private:
 	void SetLightTransform(Tgl::Light* pLight, Tgl::FloatMatrix4& rMatrix);
 	void SetLightColor(Tgl::Light* pLight, float red, float green, float blue);
 
-	Tgl::Light* m_pSunLight;         // 0x78
-	Tgl::Light* m_pDirectionalLight; // 0x7c
-	Tgl::Light* m_pAmbientLight;     // 0x80
+	Tgl::Light* m_pSunLight;
+	Tgl::Light* m_pDirectionalLight;
+	Tgl::Light* m_pAmbientLight;
 };
 
-// SYNTHETIC: LEGO1 0x100ab7a0
-// SYNTHETIC: BETA10 0x1017cc00
 // LegoView1::`scalar deleting destructor'
 
 #endif /* _LegoView1_h */

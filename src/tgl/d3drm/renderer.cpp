@@ -2,7 +2,6 @@
 
 using namespace TglImpl;
 
-// FUNCTION: LEGO1 0x100a15e0
 Renderer* Tgl::CreateRenderer() {
 	RendererImpl* renderer = new RendererImpl();
 	if (!renderer->Create()) {
@@ -13,7 +12,7 @@ Renderer* Tgl::CreateRenderer() {
 }
 
 namespace TglImpl {
-// GLOBAL: LEGO1 0x1010103c
+
 IDirect3DRM2* g_pD3DRM = NULL;
 } // namespace TglImpl
 
@@ -30,7 +29,6 @@ Result RendererImpl::Create() {
 	return (m_data != NULL) ? Success : Error;
 }
 
-// FUNCTION: LEGO1 0x100a1830
 Device* RendererImpl::CreateDevice(const DeviceDirect3DCreateData& data) {
 	DeviceImpl* device = new DeviceImpl();
 	HRESULT result = m_data->CreateDeviceFromD3D(
@@ -45,7 +43,6 @@ Device* RendererImpl::CreateDevice(const DeviceDirect3DCreateData& data) {
 	return device;
 }
 
-// FUNCTION: LEGO1 0x100a1900
 Device* RendererImpl::CreateDevice(const DeviceDirectDrawCreateData& data) {
 	// at LEGO1 0x10101040, needs no annotation
 	static int g_SetBufferCount = 1;
@@ -91,7 +88,6 @@ inline Result RendererCreateView(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a1a00
 View* RendererImpl::CreateView(
 	const Device* pDevice,
 	const Camera* pCamera,
@@ -134,7 +130,6 @@ inline Result RendererCreateGroup(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a1b20
 Group* RendererImpl::CreateGroup(const Group* pParent) {
 	GroupImpl* group = new GroupImpl();
 	Result result = RendererCreateGroup(
@@ -149,7 +144,6 @@ Group* RendererImpl::CreateGroup(const Group* pParent) {
 	return group;
 }
 
-// FUNCTION: LEGO1 0x100a1c30
 Camera* RendererImpl::CreateCamera() {
 	CameraImpl* camera = new CameraImpl();
 	if (FAILED(m_data->CreateFrame(NULL, &camera->m_data))) {
@@ -159,7 +153,6 @@ Camera* RendererImpl::CreateCamera() {
 	return camera;
 }
 
-// FUNCTION: LEGO1 0x100a1cf0
 Light* RendererImpl::CreateLight(LightType type, float r, float g, float b) {
 	LightImpl* newLight = new LightImpl();
 	D3DRMLIGHTTYPE translatedType;
@@ -210,7 +203,6 @@ Light* RendererImpl::CreateLight(LightType type, float r, float g, float b) {
 	return newLight;
 }
 
-// FUNCTION: LEGO1 0x100a1e90
 MeshBuilder* RendererImpl::CreateMeshBuilder() {
 	MeshBuilderImpl* meshBuilder = new MeshBuilderImpl();
 	if (FAILED(m_data->CreateMesh(&meshBuilder->m_data))) {
@@ -261,7 +253,6 @@ inline Result RendererCreateTexture(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a1f50
 Texture* RendererImpl::CreateTexture(
 	int width,
 	int height,
@@ -289,7 +280,6 @@ Texture* RendererImpl::CreateTexture(
 	return texture;
 }
 
-// FUNCTION: LEGO1 0x100a20d0
 Texture* RendererImpl::CreateTexture() {
 	TextureImpl* texture = new TextureImpl();
 	if (!Succeeded(RendererCreateTexture(
@@ -309,17 +299,14 @@ Texture* RendererImpl::CreateTexture() {
 	return texture;
 }
 
-// FUNCTION: LEGO1 0x100a2270
 Result RendererImpl::SetTextureDefaultShadeCount(unsigned int shadeCount) {
 	return ResultVal(m_data->SetDefaultTextureShades(shadeCount));
 }
 
-// FUNCTION: LEGO1 0x100a2290
 Result RendererImpl::SetTextureDefaultColorCount(unsigned int colorCount) {
 	return ResultVal(m_data->SetDefaultTextureColors(colorCount));
 }
 
-// FUNCTION: LEGO1 0x100a22b0
 void* RendererImpl::ImplementationDataPtr() {
 	return reinterpret_cast<void*>(&m_data);
 }

@@ -3,7 +3,6 @@
 
 class LegoStorage;
 
-// SIZE 0x0c
 class LegoVertex {
 public:
 	LegoVertex();
@@ -27,7 +26,7 @@ public:
 	LegoFloat operator[](int i) const { return m_coordinates[i]; }
 
 protected:
-	LegoFloat m_coordinates[3]; // 0x00
+	LegoFloat m_coordinates[3];
 };
 
 #endif // __LEGOVERTEX_H

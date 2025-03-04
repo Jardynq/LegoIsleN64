@@ -9,18 +9,15 @@
 #include "mxdirectx/mxdirect3d.h"
 #include "mxdssubscriber.h"
 
-// FUNCTION: LEGO1 0x1004eb40
 LegoTexturePresenter::~LegoTexturePresenter() {
 	VideoManager()->UnregisterPresenter(*this);
 }
 
-// FUNCTION: LEGO1 0x1004ebb0
 MxResult LegoTexturePresenter::AddToManager() {
 	VideoManager()->RegisterPresenter(*this);
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1004ebd0
 MxResult LegoTexturePresenter::Read(MxDSChunk& p_chunk) {
 	MxResult result = FAILURE;
 	LegoMemory storage(p_chunk.GetData());
@@ -79,7 +76,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1004f290
 MxResult LegoTexturePresenter::Store() {
 	LegoNamedTextureListCursor cursor(m_textures);
 	LegoNamedTexture* namedTexture;
@@ -115,7 +111,6 @@ MxResult LegoTexturePresenter::Store() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1004fc60
 MxResult LegoTexturePresenter::PutData() {
 	MxResult result = SUCCESS;
 
@@ -134,7 +129,6 @@ MxResult LegoTexturePresenter::PutData() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1004fcb0
 void LegoTexturePresenter::DoneTickle() {
 	if (this->m_compositePresenter &&
 		!this->m_compositePresenter->VTable0x64(2)) {

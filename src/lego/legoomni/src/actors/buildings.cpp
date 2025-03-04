@@ -17,21 +17,14 @@
 #include "mxtransitionmanager.h"
 #include "scripts.h"
 
-// GLOBAL: LEGO1 0x100f0c2c
-// STRING: LEGO1 0x100f0c24
 const char* g_chest = "chest";
 
-// GLOBAL: LEGO1 0x100f0c30
-// STRING: LEGO1 0x100f0c18
 const char* g_cavedoor = "cavedoor";
 
-// GLOBAL: LEGO1 0x100f0c34
 IsleScript::Script g_nextChestAction = IsleScript::c_nca001ca_RunAnim;
 
-// GLOBAL: LEGO1 0x100f0c38
 IsleScript::Script g_nextCavedoorAction = IsleScript::c_Avo900Ps_PlayWav;
 
-// FUNCTION: LEGO1 0x100150c0
 MxLong InfoCenterEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	switch (GameState()->GetCurrentAct()) {
 	case LegoGameState::Act::e_act1: {
@@ -71,7 +64,6 @@ MxLong InfoCenterEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x100151d0
 MxLong GasStationEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
 		Act1State* state = (Act1State*) GameState()->GetState("Act1State");
@@ -99,7 +91,6 @@ MxLong GasStationEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10015270
 MxLong HospitalEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
 		Act1State* act1State = (Act1State*) GameState()->GetState("Act1State");
@@ -127,7 +118,6 @@ MxLong HospitalEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10015310
 MxLong PoliceEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
 		Act1State* state = (Act1State*) GameState()->GetState("Act1State");
@@ -155,7 +145,6 @@ MxLong PoliceEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x100153b0
 MxLong BeachHouseEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
 		Act1State* state = (Act1State*) GameState()->GetState("Act1State");
@@ -176,7 +165,6 @@ MxLong BeachHouseEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10015450
 MxLong RaceStandsEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
 		Act1State* state = (Act1State*) GameState()->GetState("Act1State");
@@ -197,8 +185,6 @@ MxLong RaceStandsEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x100154f0
-// FUNCTION: BETA10 0x100256e8
 MxLong JailEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	if (FUN_1003ef60()) {
 		PlayCamAnim(UserActor(), FALSE, 18, TRUE);
@@ -207,8 +193,6 @@ MxLong JailEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10015520
-// FUNCTION: BETA10 0x10025719
 MxLong CaveEntity::HandleClick(LegoEventNotificationParam& p_param) {
 	LegoROI* roi = p_param.GetROI();
 

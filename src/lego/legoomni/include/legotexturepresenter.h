@@ -4,45 +4,31 @@
 #include "legonamedtexturelist.h"
 #include "mxmediapresenter.h"
 
-// VTABLE: LEGO1 0x100d4d90
-// SIZE 0x54
 class LegoTexturePresenter : public MxMediaPresenter {
 public:
 	LegoTexturePresenter() : m_textures(NULL) {}
 	~LegoTexturePresenter() override;
 
-	// FUNCTION: BETA10 0x100a73c0
-	static const char* HandlerClassName() {
-		// STRING: LEGO1 0x100f0664
-		return "LegoTexturePresenter";
-	}
+	static const char* HandlerClassName() { return "LegoTexturePresenter"; }
 
-	// FUNCTION: LEGO1 0x1000ce50
-	// FUNCTION: BETA10 0x100a7390
-	const char* ClassName() const override // vtable+0x0c
-	{
-		return HandlerClassName();
-	}
+	const char* ClassName() const override { return HandlerClassName(); }
 
-	// FUNCTION: LEGO1 0x1000ce60
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, LegoTexturePresenter::ClassName()) ||
 			   MxMediaPresenter::IsA(p_name);
 	}
 
-	void DoneTickle() override;       // vtable+0x2c
-	MxResult AddToManager() override; // vtable+0x34
-	MxResult PutData() override;      // vtable+0x4c
+	void DoneTickle() override;
+	MxResult AddToManager() override;
+	MxResult PutData() override;
 
-	// SYNTHETIC: LEGO1 0x1000cf40
 	// LegoTexturePresenter::`scalar deleting destructor'
 
 	MxResult Read(MxDSChunk& p_chunk);
 	MxResult Store();
 
 private:
-	LegoNamedTextureList* m_textures; // 0x50
+	LegoNamedTextureList* m_textures;
 };
 
 #endif // LEGOTEXTUREPRESENTER_H

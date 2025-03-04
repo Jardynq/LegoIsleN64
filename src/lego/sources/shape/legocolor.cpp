@@ -2,7 +2,6 @@
 
 #include "misc/legostorage.h"
 
-// FUNCTION: LEGO1 0x100d3a20
 LegoResult LegoColor::Read(LegoStorage* p_storage) {
 	LegoResult result;
 	if ((result = p_storage->Read(&m_red, sizeof(m_red))) != SUCCESS) {

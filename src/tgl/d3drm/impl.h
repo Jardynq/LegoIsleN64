@@ -38,7 +38,6 @@ class MeshImpl;
 class TextureImpl;
 class MeshBuilderImpl;
 
-// VTABLE: LEGO1 0x100db910
 class RendererImpl : public Renderer {
 public:
 	RendererImpl() : m_data(0) {}
@@ -46,11 +45,9 @@ public:
 
 	void* ImplementationDataPtr() override;
 
-	// vtable+0x08
 	Device* CreateDevice(const DeviceDirectDrawCreateData&) override;
 	Device* CreateDevice(const DeviceDirect3DCreateData&) override;
 
-	// vtable+0x10
 	View* CreateView(
 		const Device*,
 		const Camera*,
@@ -63,7 +60,6 @@ public:
 	Light* CreateLight(LightType, float r, float g, float b) override;
 	Group* CreateGroup(const Group* pParent) override;
 
-	// vtable+0x20
 	MeshBuilder* CreateMeshBuilder() override;
 	Texture* CreateTexture(
 		int width,
@@ -78,7 +74,6 @@ public:
 
 	Result SetTextureDefaultShadeCount(unsigned int) override;
 
-	// vtable+0x30
 	Result SetTextureDefaultColorCount(unsigned int) override;
 
 	HRESULT CreateTextureFromSurface(
@@ -115,7 +110,6 @@ void RendererImpl::Destroy() {
 	}
 }
 
-// VTABLE: LEGO1 0x100db988
 class DeviceImpl : public Device {
 public:
 	DeviceImpl() : m_data(0) {}
@@ -128,17 +122,14 @@ public:
 
 	void* ImplementationDataPtr() override;
 
-	// vtable+0x08
 	unsigned int GetWidth() override;
 	unsigned int GetHeight() override;
 
-	// vtable+0x10
 	Result SetColorModel(ColorModel) override;
 	Result SetShadingModel(ShadingModel) override;
 	Result SetShadeCount(unsigned int) override;
 	Result SetDither(int) override;
 
-	// vtable+0x20
 	Result Update() override;
 	void HandleActivate(WORD) override;
 	void HandlePaint(HDC) override;
@@ -152,7 +143,6 @@ private:
 	IDirect3DRMDevice2* m_data;
 };
 
-// VTABLE: LEGO1 0x100db9e8
 class ViewImpl : public View {
 public:
 	ViewImpl() : m_data(0) {}
@@ -165,11 +155,9 @@ public:
 
 	void* ImplementationDataPtr() override;
 
-	// vtable+0x08
 	Result Add(const Light*) override;
 	Result Remove(const Light*) override;
 
-	// vtable+0x10
 	Result SetCamera(const Camera*) override;
 	Result SetProjection(ProjectionType) override;
 	Result SetFrustrum(
@@ -179,7 +167,6 @@ public:
 	) override;
 	Result SetBackgroundColor(float r, float g, float b) override;
 
-	// vtable+0x20
 	Result GetBackgroundColor(float* r, float* g, float* b) override;
 	Result Clear() override;
 	Result Render(const Group*) override;
@@ -190,7 +177,6 @@ public:
 		unsigned int height
 	) override;
 
-	// vtable+0x30
 	Result
 	TransformWorldToScreen(const float world[3], float screen[4]) override;
 	Result
@@ -218,7 +204,6 @@ private:
 	IDirect3DRMViewport* m_data;
 };
 
-// VTABLE: LEGO1 0x100dbad8
 class CameraImpl : public Camera {
 public:
 	CameraImpl() : m_data(0) {}
@@ -231,7 +216,6 @@ public:
 
 	void* ImplementationDataPtr() override;
 
-	// vtable+0x08
 	Result SetTransformation(FloatMatrix4&) override;
 
 	IDirect3DRMFrame2* ImplementationData() const { return m_data; }
@@ -242,7 +226,6 @@ private:
 	IDirect3DRMFrame2* m_data;
 };
 
-// VTABLE: LEGO1 0x100dbaf8
 class LightImpl : public Light {
 public:
 	LightImpl() : m_data(0) {}
@@ -255,7 +238,6 @@ public:
 
 	void* ImplementationDataPtr() override;
 
-	// vtable+0x08
 	Result SetTransformation(FloatMatrix4&) override;
 	Result SetColor(float r, float g, float b) override;
 
@@ -267,7 +249,6 @@ private:
 	IDirect3DRMFrame2* m_data;
 };
 
-// VTABLE: LEGO1 0x100dbb88
 class MeshImpl : public Mesh {
 public:
 	MeshImpl() : m_data(0) {}
@@ -280,17 +261,14 @@ public:
 
 	void* ImplementationDataPtr() override;
 
-	// vtable+0x08
 	Result SetColor(float r, float g, float b, float a) override;
 	Result SetTexture(const Texture*) override;
 
-	// vtable+0x10
 	Result GetTexture(Texture*&) override;
 	Result SetTextureMappingMode(TextureMappingMode) override;
 	Result SetShadingModel(ShadingModel) override;
 	Mesh* DeepClone(MeshBuilder*) override;
 
-	// vtable+0x20
 	Mesh* ShallowClone(MeshBuilder*) override;
 
 	struct MeshData {
@@ -309,7 +287,6 @@ private:
 	MeshDataType m_data;
 };
 
-// VTABLE: LEGO1 0x100dba68
 class GroupImpl : public Group {
 public:
 	GroupImpl() : m_data(0) {}
@@ -322,23 +299,19 @@ public:
 
 	void* ImplementationDataPtr() override;
 
-	// vtable+0x08
 	Result SetTransformation(FloatMatrix4&) override;
 	Result SetColor(float r, float g, float b, float a) override;
 
-	// vtable+0x10
 	Result SetTexture(const Texture*) override;
 	Result GetTexture(Texture*&) override;
 	Result SetMaterialMode(MaterialMode) override;
 	Result Add(const Group*) override;
 
-	// vtable+0x20
 	Result Add(const MeshBuilder*) override;
 	Result Remove(const Group*) override;
 	Result Remove(const MeshBuilder*) override;
 	Result RemoveAll() override;
 
-	// vtable+0x30
 	Result Bounds(D3DVECTOR* p_min, D3DVECTOR* p_max) override;
 
 	IDirect3DRMFrame2* ImplementationData() const { return m_data; }
@@ -349,7 +322,6 @@ private:
 	IDirect3DRMFrame2* m_data;
 };
 
-// VTABLE: LEGO1 0x100dbb18
 class MeshBuilderImpl : public MeshBuilder {
 public:
 	MeshBuilderImpl() : m_data(0) {}
@@ -362,7 +334,6 @@ public:
 
 	void* ImplementationDataPtr() override;
 
-	// vtable+0x08
 	Mesh* CreateMesh(
 		unsigned int faceCount,
 		unsigned int vertexCount,
@@ -375,7 +346,6 @@ public:
 	) override;
 	Result GetBoundingBox(float min[3], float max[3]) const override;
 
-	// vtable+0x10
 	MeshBuilder* Clone() override;
 
 	IDirect3DRMMesh* ImplementationData() const { return m_data; }
@@ -427,7 +397,6 @@ public:
 	int m_texelsAllocatedByClient;
 };
 
-// VTABLE: LEGO1 0x100dbb48
 class TextureImpl : public Texture {
 public:
 	TextureImpl() : m_data(0) {}
@@ -440,12 +409,10 @@ public:
 
 	void* ImplementationDataPtr() override;
 
-	// vtable+0x08
 	Result
 	SetTexels(int width, int height, int bitsPerTexel, void* pTexels) override;
 	void FillRowsOfTexture(int y, int height, void* pBuffer) override;
 
-	// vtable+0x10
 	Result Changed(int texelsChanged, int paletteChanged) override;
 	Result GetBufferAndPalette(
 		int* pWidth,
@@ -528,34 +495,24 @@ Translate(FloatMatrix4& tglMatrix4x4, D3DRMMATRIX4D& rD3DRMMatrix4x4) {
 	return &rD3DRMMatrix4x4;
 }
 
-// SYNTHETIC: LEGO1 0x100a16d0
 // TglImpl::RendererImpl::`scalar deleting destructor'
 
-// SYNTHETIC: LEGO1 0x100a22c0
 // TglImpl::DeviceImpl::`scalar deleting destructor'
 
-// SYNTHETIC: LEGO1 0x100a23a0
 // TglImpl::ViewImpl::`scalar deleting destructor'
 
-// SYNTHETIC: LEGO1 0x100a2480
 // TglImpl::GroupImpl::`scalar deleting destructor'
 
-// SYNTHETIC: LEGO1 0x100a2560
 // TglImpl::CameraImpl::`scalar deleting destructor'
 
-// SYNTHETIC: LEGO1 0x100a2640
 // TglImpl::LightImpl::`scalar deleting destructor'
 
-// SYNTHETIC: LEGO1 0x100a2720
 // TglImpl::MeshBuilderImpl::`scalar deleting destructor'
 
-// SYNTHETIC: LEGO1 0x100a2800
 // TglImpl::TextureImpl::`scalar deleting destructor'
 
-// SYNTHETIC: LEGO1 0x100a3d80
 // TglImpl::MeshImpl::`scalar deleting destructor'
 
-// GLOBAL: LEGO1 0x100dd1e0
 // IID_IDirect3DRMMeshBuilder
 
 } /* namespace TglImpl */

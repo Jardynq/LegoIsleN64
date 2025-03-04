@@ -5,7 +5,6 @@
 
 #include <windows.h>
 
-// SIZE 0x8c
 class IsleApp {
 public:
 	IsleApp();
@@ -48,33 +47,33 @@ public:
 	}
 
 private:
-	LPSTR m_hdPath;            // 0x00
-	LPSTR m_cdPath;            // 0x04
-	LPSTR m_deviceId;          // 0x08
-	LPSTR m_savePath;          // 0x0c
-	BOOL m_fullScreen;         // 0x10
-	BOOL m_flipSurfaces;       // 0x14
-	BOOL m_backBuffersInVram;  // 0x18
-	BOOL m_using8bit;          // 0x1c
-	BOOL m_using16bit;         // 0x20
-	int m_unk0x24;             // 0x24
-	BOOL m_use3dSound;         // 0x28
-	BOOL m_useMusic;           // 0x2c
-	BOOL m_useJoystick;        // 0x30
-	int m_joystickIndex;       // 0x34
-	BOOL m_wideViewAngle;      // 0x38
-	int m_islandQuality;       // 0x3c
-	int m_islandTexture;       // 0x40
-	BOOL m_gameStarted;        // 0x44
-	MxLong m_frameDelta;       // 0x48
-	MxVideoParam m_videoParam; // 0x4c
-	BOOL m_windowActive;       // 0x70
-	HWND m_windowHandle;       // 0x74
-	BOOL m_drawCursor;         // 0x78
-	HCURSOR m_cursorArrow;     // 0x7c
-	HCURSOR m_cursorBusy;      // 0x80
-	HCURSOR m_cursorNo;        // 0x84
-	HCURSOR m_cursorCurrent;   // 0x88
+	LPSTR m_hdPath;
+	LPSTR m_cdPath;
+	LPSTR m_deviceId;
+	LPSTR m_savePath;
+	BOOL m_fullScreen;
+	BOOL m_flipSurfaces;
+	BOOL m_backBuffersInVram;
+	BOOL m_using8bit;
+	BOOL m_using16bit;
+	int m_unk0x24;
+	BOOL m_use3dSound;
+	BOOL m_useMusic;
+	BOOL m_useJoystick;
+	int m_joystickIndex;
+	BOOL m_wideViewAngle;
+	int m_islandQuality;
+	int m_islandTexture;
+	BOOL m_gameStarted;
+	MxLong m_frameDelta;
+	MxVideoParam m_videoParam;
+	BOOL m_windowActive;
+	HWND m_windowHandle;
+	BOOL m_drawCursor;
+	HCURSOR m_cursorArrow;
+	HCURSOR m_cursorBusy;
+	HCURSOR m_cursorNo;
+	HCURSOR m_cursorCurrent;
 };
 
 #endif // ISLEAPP_H

@@ -4,19 +4,15 @@
 #include "misc/legocontainer.h"
 #include "mxdsaction.h"
 
-// FUNCTION: LEGO1 0x1005de80
 LegoFlcTexturePresenter::LegoFlcTexturePresenter() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x1005df70
 void LegoFlcTexturePresenter::Init() {
 	m_rectCount = 0;
 	m_texture = NULL;
 }
 
-// FUNCTION: LEGO1 0x1005df80
-// FUNCTION: BETA10 0x100833a7
 void LegoFlcTexturePresenter::StartingTickle() {
 	MxU16 extraLength;
 	char* pp;
@@ -32,8 +28,6 @@ void LegoFlcTexturePresenter::StartingTickle() {
 	MxFlcPresenter::StartingTickle();
 }
 
-// FUNCTION: LEGO1 0x1005e0c0
-// FUNCTION: BETA10 0x100834ce
 void LegoFlcTexturePresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	MxU8* data = p_chunk->GetData();
 
@@ -53,8 +47,6 @@ void LegoFlcTexturePresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	);
 }
 
-// FUNCTION: LEGO1 0x1005e100
-// FUNCTION: BETA10 0x10083562
 void LegoFlcTexturePresenter::PutFrame() {
 	if (m_texture != NULL && m_rectCount != 0) {
 		m_texture->FUN_10066010(m_frameBitmap->GetImage());

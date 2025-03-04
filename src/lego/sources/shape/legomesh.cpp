@@ -2,7 +2,6 @@
 
 #include "misc/legostorage.h"
 
-// FUNCTION: LEGO1 0x100d3810
 LegoMesh::LegoMesh() {
 	m_alpha = 0.0F;
 	m_shading = e_flat;
@@ -15,7 +14,6 @@ LegoMesh::LegoMesh() {
 	m_materialName = NULL;
 }
 
-// FUNCTION: LEGO1 0x100d3860
 LegoMesh::~LegoMesh() {
 	if (m_textureName != NULL) {
 		delete[] m_textureName;
@@ -30,7 +28,6 @@ LegoMesh::~LegoMesh() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100d38f0
 LegoResult LegoMesh::Read(LegoStorage* p_storage) {
 	LegoResult result;
 	LegoU32 textureLength, materialLength;

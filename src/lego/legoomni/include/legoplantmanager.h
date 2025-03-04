@@ -11,25 +11,20 @@ class LegoROI;
 class LegoStorage;
 class LegoWorld;
 
-// VTABLE: LEGO1 0x100d6758
-// SIZE 0x2c
 class LegoPlantManager : public MxCore {
 public:
-	// SIZE 0x0c
 	struct AnimEntry {
-		LegoEntity* m_entity; // 0x00
-		LegoROI* m_roi;       // 0x04
-		MxLong m_time;        // 0x08
+		LegoEntity* m_entity;
+		LegoROI* m_roi;
+		MxLong m_time;
 	};
 
 	LegoPlantManager();
-	~LegoPlantManager() override; // vtable+0x00
+	~LegoPlantManager() override;
 
-	MxResult Tickle() override; // vtable+0x08
+	MxResult Tickle() override;
 
-	// FUNCTION: LEGO1 0x10026290
-	const char* ClassName() const override // vtable+0x0c
-	{
+	const char* ClassName() const override {
 		// While this class exists in BETA10, it didn't have a ClassName().
 		// I suppose it did not inherit from MxCore back then and likely did not
 		// have a VTABLE. STRING: LEGO1 0x100f318c
@@ -60,10 +55,8 @@ public:
 
 	static void SetCustomizeAnimFile(const char* p_value);
 
-	// FUNCTION: BETA10 0x1007ffa0
 	static const char* GetCustomizeAnimFile() { return g_customizeAnimFile; }
 
-	// SYNTHETIC: LEGO1 0x100262a0
 	// LegoPlantManager::`scalar deleting destructor'
 
 private:
@@ -77,11 +70,11 @@ private:
 	static MxS32 g_maxMove[4];
 	static MxU32 g_maxSound;
 
-	LegoOmni::World m_worldId; // 0x08
-	undefined m_unk0x0c;       // 0x0c
-	AnimEntry* m_entries[5];   // 0x10
-	MxS8 m_numEntries;         // 0x24
-	LegoWorld* m_world;        // 0x28
+	LegoOmni::World m_worldId;
+	undefined m_unk0x0c;
+	AnimEntry* m_entries[5];
+	MxS8 m_numEntries;
+	LegoWorld* m_world;
 };
 
 #endif // LEGOPLANTMANAGER_H

@@ -3,9 +3,6 @@
 
 #include "mxdsmultiaction.h"
 
-// VTABLE: LEGO1 0x100dcf38
-// VTABLE: BETA10 0x101c2940
-// SIZE 0xa8
 class MxDSSerialAction : public MxDSMultiAction {
 public:
 	MxDSSerialAction();
@@ -14,26 +11,17 @@ public:
 	void CopyFrom(MxDSSerialAction& p_dsSerialAction);
 	MxDSSerialAction& operator=(MxDSSerialAction& p_dsSerialAction);
 
-	// FUNCTION: LEGO1 0x100caad0
-	// FUNCTION: BETA10 0x1015b2b0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f75dc
-		return "MxDSSerialAction";
-	}
+	const char* ClassName() const override { return "MxDSSerialAction"; }
 
-	// FUNCTION: LEGO1 0x100caae0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, MxDSSerialAction::ClassName()) ||
 			   MxDSMultiAction::IsA(p_name);
 	}
 
-	MxLong GetDuration() override;                // vtable+24;
-	void SetDuration(MxLong p_duration) override; // vtable+28;
-	MxDSAction* Clone() override;                 // vtable+2c;
+	MxLong GetDuration() override;
+	void SetDuration(MxLong p_duration) override;
+	MxDSAction* Clone() override;
 
-	// SYNTHETIC: LEGO1 0x100cabf0
 	// MxDSSerialAction::`scalar deleting destructor'
 
 private:

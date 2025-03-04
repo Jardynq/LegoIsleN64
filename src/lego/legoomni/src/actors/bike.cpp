@@ -13,14 +13,12 @@
 #include "mxtransitionmanager.h"
 #include "scripts.h"
 
-// FUNCTION: LEGO1 0x10076670
 Bike::Bike() {
 	m_maxLinearVel = 20.0;
 	m_unk0x150 = 3.0;
 	m_unk0x148 = 1;
 }
 
-// FUNCTION: LEGO1 0x100768f0
 MxResult Bike::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 	m_world = CurrentWorld();
@@ -32,7 +30,6 @@ MxResult Bike::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10076920
 void Bike::Exit() {
 	IslePathActor::Exit();
 	GameState()->m_currentArea = LegoGameState::Area::e_bike;
@@ -44,7 +41,6 @@ void Bike::Exit() {
 	ControlManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x100769a0
 MxLong Bike::HandleClick() {
 	if (FUN_1003ef60()) {
 		Act1State* state = (Act1State*) GameState()->GetState("Act1State");
@@ -76,7 +72,6 @@ MxLong Bike::HandleClick() {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10076aa0
 MxLong Bike::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxLong result = 0;
 
@@ -113,7 +108,6 @@ MxLong Bike::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10076b60
 void Bike::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_InformationCenter_Music);
 

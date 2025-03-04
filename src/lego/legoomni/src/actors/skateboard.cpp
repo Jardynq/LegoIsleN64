@@ -14,7 +14,6 @@
 #include "pizza.h"
 #include "scripts.h"
 
-// FUNCTION: LEGO1 0x1000fd40
 SkateBoard::SkateBoard() {
 	m_pizzaVisible = FALSE;
 	m_maxLinearVel = 15.0;
@@ -24,13 +23,11 @@ SkateBoard::SkateBoard() {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x1000ff80
 SkateBoard::~SkateBoard() {
 	ControlManager()->Unregister(this);
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x10010000
 MxResult SkateBoard::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 
@@ -50,7 +47,6 @@ MxResult SkateBoard::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10010050
 void SkateBoard::Exit() {
 	if (m_act1state->m_unk0x018 == 3) {
 		Pizza* pizza = (Pizza*) CurrentWorld()->Find(
@@ -69,7 +65,6 @@ void SkateBoard::Exit() {
 	ControlManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x100100e0
 MxLong SkateBoard::HandleClick() {
 	Act1State* state = (Act1State*) GameState()->GetState("Act1State");
 
@@ -110,7 +105,6 @@ MxLong SkateBoard::HandleClick() {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10010230
 MxLong SkateBoard::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxU32 result = 0;
 
@@ -124,8 +118,6 @@ MxLong SkateBoard::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10010270
-// FUNCTION: BETA10 0x100f5366
 void SkateBoard::EnableScenePresentation(MxBool p_enable) {
 	m_act1state = (Act1State*) GameState()->GetState("Act1State");
 	if (!m_act1state) {
@@ -145,14 +137,11 @@ void SkateBoard::EnableScenePresentation(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100104f0
-// FUNCTION: BETA10 0x100f5472
 MxLong SkateBoard::HandleNotification0() {
 	EnableScenePresentation(m_pizzaVisible);
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10010510
 void SkateBoard::ActivateSceneActions() {
 	if (m_act1state->m_unk0x018 != 3) {
 		PlayMusic(JukeboxScript::c_BeachBlvd_Music);

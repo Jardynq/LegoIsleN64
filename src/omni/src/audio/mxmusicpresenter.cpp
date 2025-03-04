@@ -3,21 +3,17 @@
 #include "mxmisc.h"
 #include "mxmusicmanager.h"
 
-// FUNCTION: LEGO1 0x100c22c0
 MxMusicPresenter::MxMusicPresenter() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100c24e0
 MxMusicPresenter::~MxMusicPresenter() {
 	Destroy(TRUE);
 }
 
-// FUNCTION: LEGO1 0x100c2540
 void MxMusicPresenter::Init() {
 }
 
-// FUNCTION: LEGO1 0x100c2550
 void MxMusicPresenter::Destroy(MxBool p_fromDestructor) {
 	if (MusicManager()) {
 		MusicManager()->UnregisterPresenter(*this);
@@ -32,7 +28,6 @@ void MxMusicPresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c25a0
 MxResult MxMusicPresenter::AddToManager() {
 	MxResult result = FAILURE;
 
@@ -44,7 +39,6 @@ MxResult MxMusicPresenter::AddToManager() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100c25d0
 void MxMusicPresenter::Destroy() {
 	Destroy(FALSE);
 }

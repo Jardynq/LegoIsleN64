@@ -4,7 +4,6 @@
 #include "mxdsaction.h"
 #include "mxomni.h"
 
-// FUNCTION: LEGO1 0x1004a7c0
 MxResult Lego3DWavePresenter::AddToManager() {
 	MxResult result = MxWavePresenter::AddToManager();
 	MxWavePresenter::Init();
@@ -16,7 +15,6 @@ MxResult Lego3DWavePresenter::AddToManager() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1004a7f0
 void Lego3DWavePresenter::Destroy() {
 	MxWavePresenter::Destroy();
 	MxWavePresenter::Init();
@@ -26,8 +24,6 @@ void Lego3DWavePresenter::Destroy() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004a810
-// FUNCTION: BETA10 0x1003a3b0
 void Lego3DWavePresenter::StartingTickle() {
 	if (MxOmni::IsSound3D()) {
 		m_is3d = TRUE;
@@ -52,8 +48,6 @@ void Lego3DWavePresenter::StartingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004a8b0
-// FUNCTION: BETA10 0x1003a4cc
 void Lego3DWavePresenter::StreamingTickle() {
 	MxWavePresenter::StreamingTickle();
 	m_sound.UpdatePosition(m_dsBuffer);

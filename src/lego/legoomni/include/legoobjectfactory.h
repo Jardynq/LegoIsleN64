@@ -105,19 +105,14 @@
 	X(RaceSkel)                                                                \
 	X(AnimState)
 
-// VTABLE: LEGO1 0x100d4768
-// VTABLE: BETA10 0x101bccd8
-// SIZE 0x1c8
 class LegoObjectFactory : public MxObjectFactory {
 public:
 	LegoObjectFactory();
-	MxCore* Create(const char* p_name) override; // vtable+0x14
-	void Destroy(MxCore* p_object) override;     // vtable+0x18
+	MxCore* Create(const char* p_name) override;
+	void Destroy(MxCore* p_object) override;
 
-	// SYNTHETIC: LEGO1 0x10009000
 	// LegoObjectFactory::`scalar deleting destructor'
 
-	// SYNTHETIC: LEGO1 0x10009170
 	// LegoObjectFactory::~LegoObjectFactory
 
 private:

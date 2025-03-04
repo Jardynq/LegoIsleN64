@@ -6,27 +6,15 @@
 class MxDSBuffer;
 class MxDSSubscriberList;
 
-// VTABLE: LEGO1 0x100dc2a8
-// VTABLE: BETA10 0x101c1d20
-// SIZE 0x20
 class MxStreamChunk : public MxDSChunk {
 public:
-	// FUNCTION: BETA10 0x10134420
 	MxStreamChunk() : m_buffer(NULL) {}
 
 	~MxStreamChunk() override;
 
-	// FUNCTION: LEGO1 0x100b1fe0
-	// FUNCTION: BETA10 0x101344a0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x10101e5c
-		return "MxStreamChunk";
-	}
+	const char* ClassName() const override { return "MxStreamChunk"; }
 
-	// FUNCTION: LEGO1 0x100b1ff0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, MxStreamChunk::ClassName()) ||
 			   MxDSChunk::IsA(p_name);
 	}
@@ -48,10 +36,9 @@ public:
 	static MxU32* IntoLength(MxU8* p_buffer);
 
 private:
-	MxDSBuffer* m_buffer; // 0x1c
+	MxDSBuffer* m_buffer;
 };
 
-// SYNTHETIC: LEGO1 0x100b20a0
 // MxStreamChunk::`scalar deleting destructor'
 
 #endif // MXSTREAMCHUNK_H

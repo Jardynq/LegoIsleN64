@@ -7,33 +7,23 @@
 
 class MxVideoPresenter;
 
-// VTABLE: LEGO1 0x100d7ea0
-// VTABLE: BETA10 0x101bf670
-// SIZE 0x900
 class MxTransitionManager : public MxCore {
 public:
 	MxTransitionManager();
-	~MxTransitionManager() override; // vtable+0x00
+	~MxTransitionManager() override;
 
 	void SetWaitIndicator(MxVideoPresenter* p_waitIndicator);
 
-	MxResult Tickle() override; // vtable+0x08
+	MxResult Tickle() override;
 
-	// FUNCTION: LEGO1 0x1004b950
-	// FUNCTION: BETA10 0x100ed8e0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		return "MxTransitionManager";
-	}
+	const char* ClassName() const override { return "MxTransitionManager"; }
 
-	// FUNCTION: LEGO1 0x1004b960
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, MxTransitionManager::ClassName()) ||
 			   MxCore::IsA(p_name);
 	}
 
-	virtual MxResult GetDDrawSurfaceFromVideoManager(); // vtable+0x14
+	virtual MxResult GetDDrawSurfaceFromVideoManager();
 
 	enum TransitionType {
 		e_idle = 0, // name verified by BETA10 0x100ec4e6
@@ -54,7 +44,6 @@ public:
 
 	TransitionType GetTransitionType() { return m_mode; }
 
-	// SYNTHETIC: LEGO1 0x1004b9e0
 	// MxTransitionManager::`scalar deleting destructor'
 
 private:
@@ -69,22 +58,20 @@ private:
 	void SubmitCopyRect(LPDDSURFACEDESC p_ddsc);
 	void SetupCopyRect(LPDDSURFACEDESC p_ddsc);
 
-	MxVideoPresenter* m_waitIndicator; // 0x08
-	RECT m_copyRect;                   // 0x0c
-	MxU8* m_copyBuffer;                // 0x1c
-	FlagBitfield m_copyFlags;          // 0x20
-	undefined4 m_unk0x24;              // 0x24
-	FlagBitfield m_unk0x28;            // 0x28
-
+	MxVideoPresenter* m_waitIndicator;
+	RECT m_copyRect;
+	MxU8* m_copyBuffer;
+	FlagBitfield m_copyFlags;
+	undefined4 m_unk0x24;
+	FlagBitfield m_unk0x28;
 	// name verified by BETA10 0x100ec4e6
-	TransitionType m_mode; // 0x2c
-
-	LPDIRECTDRAWSURFACE m_ddSurface; // 0x30
-	MxU16 m_animationTimer;          // 0x34
-	MxU16 m_columnOrder[640];        // 0x36
-	MxU16 m_randomShift[480];        // 0x536
-	MxULong m_systemTime;            // 0x8f8
-	MxS32 m_animationSpeed;          // 0x8fc
+	TransitionType m_mode;
+	LPDIRECTDRAWSURFACE m_ddSurface;
+	MxU16 m_animationTimer;
+	MxU16 m_columnOrder[640];
+	MxU16 m_randomShift[480];
+	MxULong m_systemTime;
+	MxS32 m_animationSpeed;
 };
 
 #endif // MXTRANSITIONMANAGER_H

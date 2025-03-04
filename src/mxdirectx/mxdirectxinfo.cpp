@@ -3,14 +3,10 @@
 #include <assert.h>
 #include <stdio.h> // for vsprintf
 
-// FUNCTION: LEGO1 0x1009b8b0
-// FUNCTION: BETA10 0x1011c05e
 MxAssignedDevice::MxAssignedDevice() {
 	memset(this, 0, sizeof(*this));
 }
 
-// FUNCTION: LEGO1 0x1009b8d0
-// FUNCTION: BETA10 0x1011c08a
 MxAssignedDevice::~MxAssignedDevice() {
 	if (m_deviceInfo) {
 		delete m_deviceInfo;
@@ -18,7 +14,6 @@ MxAssignedDevice::~MxAssignedDevice() {
 	}
 }
 
-// FUNCTION: BETA10 0x1011d7f0
 MxDriver::MxDriver(LPGUID p_guid) {
 	m_guid = NULL;
 	m_driverDesc = NULL;
@@ -27,9 +22,6 @@ MxDriver::MxDriver(LPGUID p_guid) {
 	// TODO: ret vs ret 4
 }
 
-// FUNCTION: CONFIG 0x00401180
-// FUNCTION: LEGO1 0x1009ba80
-// FUNCTION: BETA10 0x1011d8b6
 MxDriver::MxDriver(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName) {
 	m_guid = NULL;
 	m_driverDesc = NULL;
@@ -39,9 +31,6 @@ MxDriver::MxDriver(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName) {
 	Init(p_guid, p_driverDesc, p_driverName);
 }
 
-// FUNCTION: CONFIG 0x401280
-// FUNCTION: LEGO1 0x1009bb80
-// FUNCTION: BETA10 0x1011d992
 MxDriver::~MxDriver() {
 	if (m_guid) {
 		delete m_guid;
@@ -54,9 +43,6 @@ MxDriver::~MxDriver() {
 	}
 }
 
-// FUNCTION: CONFIG 0x00401330
-// FUNCTION: LEGO1 0x1009bc30
-// FUNCTION: BETA10 0x1011da89
 void MxDriver::Init(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName) {
 	if (m_driverDesc) {
 		delete[] m_driverDesc;
@@ -84,9 +70,6 @@ void MxDriver::Init(LPGUID p_guid, LPSTR p_driverDesc, LPSTR p_driverName) {
 	}
 }
 
-// FUNCTION: CONFIG 0x401420
-// FUNCTION: LEGO1 0x1009bd20
-// FUNCTION: BETA10 0x1011dbd0
 Direct3DDeviceInfo::Direct3DDeviceInfo(
 	LPGUID p_guid,
 	LPSTR p_deviceDesc,
@@ -99,9 +82,6 @@ Direct3DDeviceInfo::Direct3DDeviceInfo(
 	Initialize(p_guid, p_deviceDesc, p_deviceName, p_HWDesc, p_HELDesc);
 }
 
-// FUNCTION: CONFIG 0x401460
-// FUNCTION: LEGO1 0x1009bd60
-// FUNCTION: BETA10 0x1011dc1a
 Direct3DDeviceInfo::~Direct3DDeviceInfo() {
 	if (m_guid) {
 		delete m_guid;
@@ -114,9 +94,6 @@ Direct3DDeviceInfo::~Direct3DDeviceInfo() {
 	}
 }
 
-// FUNCTION: CONFIG 0x4014a0
-// FUNCTION: LEGO1 0x1009bda0
-// FUNCTION: BETA10 0x1011dca6
 void Direct3DDeviceInfo::Initialize(
 	LPGUID p_guid,
 	LPSTR p_deviceDesc,
@@ -159,22 +136,13 @@ void Direct3DDeviceInfo::Initialize(
 	}
 }
 
-// FUNCTION: CONFIG 0x004015c0
-// FUNCTION: LEGO1 0x1009bec0
-// FUNCTION: BETA10 0x1011ddf8
 MxDeviceEnumerate::MxDeviceEnumerate() {
 	m_initialized = FALSE;
 }
 
-// FUNCTION: CONFIG 0x401710
-// FUNCTION: LEGO1 0x1009c010
-// FUNCTION: BETA10 0x1011de74
 MxDeviceEnumerate::~MxDeviceEnumerate() {
 }
 
-// FUNCTION: CONFIG 0x00401770
-// FUNCTION: LEGO1 0x1009c070
-// FUNCTION: BETA10 0x1011dedf
 BOOL MxDeviceEnumerate::EnumDirectDrawCallback(
 	LPGUID p_guid,
 	LPSTR p_driverDesc,
@@ -248,9 +216,6 @@ BOOL MxDeviceEnumerate::EnumDirectDrawCallback(
 	return DDENUMRET_OK;
 }
 
-// FUNCTION: CONFIG 0x00401bc0
-// FUNCTION: LEGO1 0x1009c4c0
-// FUNCTION: BETA10 0x1011e193
 void MxDeviceEnumerate::BuildErrorString(const char* p_format, ...) {
 	va_list args;
 	char buf[512];
@@ -262,9 +227,6 @@ void MxDeviceEnumerate::BuildErrorString(const char* p_format, ...) {
 	printf("DebugString: %s", buf);
 }
 
-// FUNCTION: CONFIG 0x00401bf0
-// FUNCTION: LEGO1 0x1009c4f0
-// FUNCTION: BETA10 0x1011e1dd
 HRESULT CALLBACK MxDeviceEnumerate::DisplayModesEnumerateCallback(
 	LPDDSURFACEDESC p_ddsd,
 	LPVOID p_context
@@ -276,9 +238,6 @@ HRESULT CALLBACK MxDeviceEnumerate::DisplayModesEnumerateCallback(
 	return ((MxDeviceEnumerate*) p_context)->EnumDisplayModesCallback(p_ddsd);
 }
 
-// FUNCTION: CONFIG 0x00401c10
-// FUNCTION: LEGO1 0x1009c510
-// FUNCTION: BETA10 0x1011e226
 HRESULT CALLBACK MxDeviceEnumerate::DevicesEnumerateCallback(
 	LPGUID p_guid,
 	LPSTR p_deviceDesc,
@@ -301,9 +260,6 @@ HRESULT CALLBACK MxDeviceEnumerate::DevicesEnumerateCallback(
 		);
 }
 
-// FUNCTION: CONFIG 0x00401c40
-// FUNCTION: LEGO1 0x1009c540
-// FUNCTION: BETA10 0x1011e27f
 HRESULT MxDeviceEnumerate::EnumDisplayModesCallback(LPDDSURFACEDESC p_ddsd) {
 	assert(m_list.size() > 0);
 	assert(p_ddsd);
@@ -317,9 +273,6 @@ HRESULT MxDeviceEnumerate::EnumDisplayModesCallback(LPDDSURFACEDESC p_ddsd) {
 	return DDENUMRET_OK;
 }
 
-// FUNCTION: CONFIG 0x00401cd0
-// FUNCTION: LEGO1 0x1009c5d0
-// FUNCTION: BETA10 0x1011e32f
 HRESULT MxDeviceEnumerate::EnumDevicesCallback(
 	LPGUID p_guid,
 	LPSTR p_deviceDesc,
@@ -334,9 +287,6 @@ HRESULT MxDeviceEnumerate::EnumDevicesCallback(
 	return DDENUMRET_OK;
 }
 
-// FUNCTION: CONFIG 0x00401dc0
-// FUNCTION: LEGO1 0x1009c6c0
-// FUNCTION: BETA10 0x1011e3fa
 int MxDeviceEnumerate::DoEnumerate() {
 	if (IsInitialized()) {
 		return -1;
@@ -355,9 +305,6 @@ int MxDeviceEnumerate::DoEnumerate() {
 	return 0;
 }
 
-// FUNCTION: CONFIG 0x00401e10
-// FUNCTION: LEGO1 0x1009c710
-// FUNCTION: BETA10 0x1011e476
 BOOL CALLBACK MxDeviceEnumerate::DirectDrawEnumerateCallback(
 	LPGUID p_guid,
 	LPSTR p_driverDesc,
@@ -372,9 +319,6 @@ BOOL CALLBACK MxDeviceEnumerate::DirectDrawEnumerateCallback(
 		->EnumDirectDrawCallback(p_guid, p_driverDesc, p_driverName);
 }
 
-// FUNCTION: CONFIG 0x00401e30
-// FUNCTION: LEGO1 0x1009c730
-// FUNCTION: BETA10 0x1011e4c7
 const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error) {
 	switch (p_error) {
 	case DD_OK:
@@ -632,14 +576,10 @@ const char* MxDeviceEnumerate::EnumerateErrorToString(HRESULT p_error) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009efb0
-// FUNCTION: BETA10 0x10122ee2
 DeviceModesInfo::DeviceModesInfo() {
 	memset(this, 0, sizeof(*this));
 }
 
-// FUNCTION: LEGO1 0x1009efd0
-// FUNCTION: BETA10 0x10122f0e
 DeviceModesInfo::~DeviceModesInfo() {
 	if (m_guid != NULL) {
 		delete m_guid;

@@ -16,14 +16,12 @@
 #include "mxtransitionmanager.h"
 #include "scripts.h"
 
-// FUNCTION: LEGO1 0x10037730
 InfocenterDoor::InfocenterDoor() {
 	m_destLocation = LegoGameState::e_undefined;
 
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x100378f0
 InfocenterDoor::~InfocenterDoor() {
 	if (InputManager()->GetWorld() == this) {
 		InputManager()->ClearWorld();
@@ -33,7 +31,6 @@ InfocenterDoor::~InfocenterDoor() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x10037980
 MxResult InfocenterDoor::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 	if (result == SUCCESS) {
@@ -49,8 +46,6 @@ MxResult InfocenterDoor::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100379e0
-// FUNCTION: BETA10 0x10032227
 MxLong InfocenterDoor::Notify(MxParam& p_param) {
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
 	MxLong result = 0;
@@ -80,7 +75,6 @@ MxLong InfocenterDoor::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10037a70
 void InfocenterDoor::ReadyWorld() {
 	LegoWorld::ReadyWorld();
 	PlayMusic(JukeboxScript::c_InformationCenter_Music);
@@ -91,7 +85,6 @@ void InfocenterDoor::ReadyWorld() {
 	);
 }
 
-// FUNCTION: LEGO1 0x10037a90
 MxLong
 InfocenterDoor::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxLong result = 0;
@@ -169,7 +162,6 @@ InfocenterDoor::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10037c80
 void InfocenterDoor::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
@@ -183,7 +175,6 @@ void InfocenterDoor::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10037cd0
 MxBool InfocenterDoor::Escape() {
 	DeleteObjects(&m_atomId, InfodoorScript::c_iic037in_PlayWav, 510);
 	m_destLocation = LegoGameState::e_infomain;

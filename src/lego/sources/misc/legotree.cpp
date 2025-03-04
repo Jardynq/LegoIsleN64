@@ -2,16 +2,12 @@
 
 #include "legostorage.h"
 
-// FUNCTION: LEGO1 0x10099d60
-// FUNCTION: BETA10 0x10187dd0
 LegoTreeNode::LegoTreeNode() {
 	m_data = NULL;
 	m_numChildren = 0;
 	m_children = NULL;
 }
 
-// FUNCTION: LEGO1 0x10099da0
-// FUNCTION: BETA10 0x10187e10
 LegoTreeNode::~LegoTreeNode() {
 	if (m_data) {
 		delete m_data;
@@ -21,29 +17,24 @@ LegoTreeNode::~LegoTreeNode() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10099dd0
 LegoTree::LegoTree() {
 	m_root = NULL;
 }
 
-// FUNCTION: LEGO1 0x10099e00
 LegoTree::~LegoTree() {
 	if (m_root) {
 		Delete(m_root);
 	}
 }
 
-// FUNCTION: LEGO1 0x10099e20
 LegoResult LegoTree::Read(LegoStorage* p_storage) {
 	return Read(p_storage, m_root);
 }
 
-// FUNCTION: LEGO1 0x10099e40
 LegoResult LegoTree::Write(LegoStorage* p_storage) {
 	return Write(p_storage, m_root);
 }
 
-// FUNCTION: LEGO1 0x10099e60
 LegoResult LegoTree::Read(LegoStorage* p_storage, LegoTreeNode*& p_node) {
 	LegoResult result;
 	p_node = new LegoTreeNode();
@@ -70,7 +61,6 @@ LegoResult LegoTree::Read(LegoStorage* p_storage, LegoTreeNode*& p_node) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009a020
 LegoResult LegoTree::Write(LegoStorage* p_storage, LegoTreeNode* p_node) {
 	LegoResult result;
 	if (p_node->GetData()) {
@@ -91,7 +81,6 @@ LegoResult LegoTree::Write(LegoStorage* p_storage, LegoTreeNode* p_node) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009a0a0
 void LegoTree::Delete(LegoTreeNode* p_node) {
 	for (LegoU32 i = 0; i < p_node->GetNumChildren(); i++) {
 		Delete(p_node->GetChild(i));

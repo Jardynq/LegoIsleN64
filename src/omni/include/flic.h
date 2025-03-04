@@ -21,26 +21,26 @@ enum FLI_CHUNK_TYPE {
 // structures:
 // https://github.com/thinkbeforecoding/nomemalloc.handson/blob/master/flic.txt
 typedef struct {
-	DWORD size; /* Size of the chunk, including subchunks */ // 0x00
-	WORD type;                                               // 0x04
+	DWORD size; /* Size of the chunk, including subchunks */
+	WORD type;
 } FLIC_CHUNK;
 
 typedef struct : FLIC_CHUNK {
-	WORD frames; /* Number of frames in first segment */ // 0x06
-	WORD width; /* FLIC width in pixels */               // 0x08
-	WORD height; /* FLIC height in pixels */             // 0x0a
-	WORD depth; /* Bits per pixel (usually 8) */         // 0x0c
-	WORD flags; /* Set to zero or to three */            // 0x0e
-	DWORD speed; /* Delay between frames */              // 0x10
+	WORD frames; /* Number of frames in first segment */
+	WORD width;  /* FLIC width in pixels */
+	WORD height; /* FLIC height in pixels */
+	WORD depth;  /* Bits per pixel (usually 8) */
+	WORD flags;  /* Set to zero or to three */
+	DWORD speed; /* Delay between frames */
 } FLIC_HEADER;
 #pragma pack(pop)
 
 typedef struct : FLIC_CHUNK {
-	WORD chunks; /* Number of subchunks */                 // 0x06
-	WORD delay; /* Delay in milliseconds */                // 0x08
-	WORD reserved; /* Always zero */                       // 0x0a
-	WORD width; /* Frame width override (if non-zero) */   // 0x0c
-	WORD height; /* Frame height override (if non-zero) */ // 0x0e
+	WORD chunks;   /* Number of subchunks */
+	WORD delay;    /* Delay in milliseconds */
+	WORD reserved; /* Always zero */
+	WORD width;    /* Frame width override (if non-zero) */
+	WORD height;   /* Frame height override (if non-zero) */
 } FLIC_FRAME;
 
 void DecodeFLCFrame(

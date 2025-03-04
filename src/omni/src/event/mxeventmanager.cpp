@@ -5,22 +5,18 @@
 #include "mxticklemanager.h"
 #include "mxticklethread.h"
 
-// FUNCTION: LEGO1 0x100c0360
 MxEventManager::MxEventManager() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100c03f0
 MxEventManager::~MxEventManager() {
 	Destroy(TRUE);
 }
 
-// FUNCTION: LEGO1 0x100c0450
 void MxEventManager::Init() {
 	// This is intentionally left blank
 }
 
-// FUNCTION: LEGO1 0x100c0460
 void MxEventManager::Destroy(MxBool p_fromDestructor) {
 	if (m_thread != NULL) {
 		m_thread->Terminate();
@@ -34,7 +30,6 @@ void MxEventManager::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c04a0
 MxResult MxEventManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 	MxResult status = FAILURE;
 	MxBool locked = FALSE;
@@ -68,7 +63,6 @@ done:
 	return status;
 }
 
-// FUNCTION: LEGO1 0x100c0590
 void MxEventManager::Destroy() {
 	Destroy(FALSE);
 }

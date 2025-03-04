@@ -8,8 +8,6 @@
 #include "misc.h"
 #include "mxutilities.h"
 
-// FUNCTION: LEGO1 0x1001bf80
-// FUNCTION: BETA10 0x1003dc10
 LegoAnimActorStruct::LegoAnimActorStruct(
 	float p_unk0x00,
 	LegoAnim* p_AnimTreePtr,
@@ -22,22 +20,17 @@ LegoAnimActorStruct::LegoAnimActorStruct(
 	m_numROIs = p_numROIs;
 }
 
-// FUNCTION: LEGO1 0x1001c0a0
 LegoAnimActorStruct::~LegoAnimActorStruct() {
 	for (MxU16 i = 0; i < m_unk0x10.size(); i++) {
 		delete m_unk0x10[i];
 	}
 }
 
-// FUNCTION: LEGO1 0x1001c130
-// FUNCTION: BETA10 0x1003df3a
 float LegoAnimActorStruct::GetDuration() {
 	assert(m_AnimTreePtr);
 	return m_AnimTreePtr->GetDuration();
 }
 
-// FUNCTION: LEGO1 0x1001c140
-// FUNCTION: BETA10 0x1003dfe4
 LegoAnimActor::~LegoAnimActor() {
 	for (MxS32 i = 0; i < m_animMaps.size(); i++) {
 		if (m_animMaps[i]) {
@@ -46,8 +39,6 @@ LegoAnimActor::~LegoAnimActor() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1001c1f0
-// FUNCTION: BETA10 0x1003f240
 MxResult LegoAnimActor::FUN_1001c1f0(float& p_und) {
 	float duration =
 		(float) m_animMaps[m_curAnim]->m_AnimTreePtr->GetDuration();
@@ -55,7 +46,6 @@ MxResult LegoAnimActor::FUN_1001c1f0(float& p_und) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1001c240
 void LegoAnimActor::VTable0x74(Matrix4& p_transform) {
 	float und;
 	LegoPathActor::VTable0x74(p_transform);
@@ -66,8 +56,6 @@ void LegoAnimActor::VTable0x74(Matrix4& p_transform) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1001c290
-// FUNCTION: BETA10 0x1003e144
 void LegoAnimActor::Animate(float p_time) {
 	assert(m_roi);
 
@@ -89,8 +77,6 @@ void LegoAnimActor::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1001c360
-// FUNCTION: BETA10 0x1003e2d3
 MxResult LegoAnimActor::FUN_1001c360(float p_und, Matrix4& p_transform) {
 	if (p_und >= 0) {
 		assert((m_curAnim >= 0) && (m_curAnim < m_animMaps.size()));
@@ -145,8 +131,6 @@ MxResult LegoAnimActor::FUN_1001c360(float p_und, Matrix4& p_transform) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1001c450
-// FUNCTION: BETA10 0x1003e590
 MxResult LegoAnimActor::FUN_1001c450(
 	LegoAnim* p_AnimTreePtr,
 	float p_unk0x00,
@@ -174,8 +158,6 @@ MxResult LegoAnimActor::FUN_1001c450(
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1001c800
-// FUNCTION: BETA10 0x1003e747
 void LegoAnimActor::ClearMaps() {
 	for (MxU32 i = 0; i < m_animMaps.size(); i++) {
 		delete m_animMaps[i];
@@ -185,8 +167,6 @@ void LegoAnimActor::ClearMaps() {
 	m_curAnim = -1;
 }
 
-// FUNCTION: LEGO1 0x1001c870
-// FUNCTION: BETA10 0x1003e7e4
 void LegoAnimActor::SetWorldSpeed(MxFloat p_worldSpeed) {
 	if (p_worldSpeed < 0) {
 		m_worldSpeed = 0;
@@ -210,8 +190,6 @@ void LegoAnimActor::SetWorldSpeed(MxFloat p_worldSpeed) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1001c920
-// FUNCTION: BETA10 0x1003e914
 void LegoAnimActor::ParseAction(char* p_extra) {
 	LegoPathActor::ParseAction(p_extra);
 

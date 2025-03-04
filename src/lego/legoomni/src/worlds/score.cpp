@@ -22,13 +22,11 @@
 #include "scripts.h"
 #include "towtrack.h"
 
-// FUNCTION: LEGO1 0x10001000
 Score::Score() {
 	m_destLocation = LegoGameState::e_undefined;
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x10001200
 Score::~Score() {
 	if (InputManager()->GetWorld() == this) {
 		InputManager()->ClearWorld();
@@ -39,7 +37,6 @@ Score::~Score() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x100012a0
 MxResult Score::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 
@@ -59,7 +56,6 @@ MxResult Score::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10001340
 void Score::DeleteScript() {
 	if (m_state->GetTutorialFlag()) {
 		MxDSAction action;
@@ -71,8 +67,6 @@ void Score::DeleteScript() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10001410
-// FUNCTION: BETA10 0x100f4398
 MxLong Score::Notify(MxParam& p_param) {
 	MxLong ret = 0;
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
@@ -114,7 +108,6 @@ MxLong Score::Notify(MxParam& p_param) {
 	return ret;
 }
 
-// FUNCTION: LEGO1 0x10001510
 MxLong Score::FUN_10001510(MxEndActionNotificationParam& p_param) {
 	MxDSAction* action = p_param.GetAction();
 
@@ -139,7 +132,6 @@ MxLong Score::FUN_10001510(MxEndActionNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10001580
 void Score::ReadyWorld() {
 	LegoWorld::ReadyWorld();
 
@@ -165,7 +157,6 @@ void Score::ReadyWorld() {
 	);
 }
 
-// FUNCTION: LEGO1 0x100016d0
 MxLong Score::FUN_100016d0(LegoControlManagerNotificationParam& p_param) {
 	MxS16 unk0x28 = p_param.GetUnknown0x28();
 
@@ -234,7 +225,6 @@ MxLong Score::FUN_100016d0(LegoControlManagerNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10001980
 void Score::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
@@ -246,8 +236,6 @@ void Score::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100019d0
-// FUNCTION: BETA10 0x100f47d8
 void Score::Paint() {
 	LegoTextureInfo* cube = TextureContainer()->Get("bigcube.gif");
 
@@ -316,8 +304,6 @@ void Score::Paint() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10001d20
-// FUNCTION: BETA10 0x100f4a52
 void Score::FillArea(MxS32 i_activity, MxS32 i_actor, MxS16 score) {
 	MxS32 local3c[] = {0x2b00, 0x5700, 0x8000, 0xab00, 0xd600};
 	MxS32 local14[] = {0x2a, 0x27, 0x29, 0x29, 0x2a};
@@ -339,7 +325,6 @@ void Score::FillArea(MxS32 i_activity, MxS32 i_actor, MxS16 score) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10001e40
 MxBool Score::Escape() {
 	DeleteScript();
 	m_destLocation = LegoGameState::e_infomain;

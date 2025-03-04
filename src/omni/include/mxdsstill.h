@@ -3,9 +3,6 @@
 
 #include "mxdsmediaaction.h"
 
-// VTABLE: LEGO1 0x100dce60
-// VTABLE: BETA10 0x101c2bf8
-// SIZE 0xb8
 class MxDSStill : public MxDSMediaAction {
 public:
 	MxDSStill();
@@ -14,24 +11,15 @@ public:
 	void CopyFrom(MxDSStill& p_dsStill);
 	MxDSStill& operator=(MxDSStill& p_dsStill);
 
-	// FUNCTION: LEGO1 0x100c9930
-	// FUNCTION: BETA10 0x1015dad0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x101025fc
-		return "MxDSStill";
-	}
+	const char* ClassName() const override { return "MxDSStill"; }
 
-	// FUNCTION: LEGO1 0x100c9940
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, MxDSStill::ClassName()) ||
 			   MxDSMediaAction::IsA(p_name);
 	}
 
-	MxDSAction* Clone() override; // vtable+2c;
+	MxDSAction* Clone() override;
 
-	// SYNTHETIC: LEGO1 0x100c9a50
 	// MxDSStill::`scalar deleting destructor'
 };
 

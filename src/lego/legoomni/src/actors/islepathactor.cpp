@@ -16,7 +16,6 @@
 #include "scripts.h"
 #include "viewmanager/viewmanager.h"
 
-// FUNCTION: LEGO1 0x1001a200
 IslePathActor::IslePathActor() {
 	m_world = NULL;
 	m_maxLinearVel = 6.0;
@@ -24,20 +23,16 @@ IslePathActor::IslePathActor() {
 	m_previousActor = NULL;
 }
 
-// FUNCTION: LEGO1 0x1001a280
 MxResult IslePathActor::Create(MxDSAction& p_dsAction) {
 	return MxEntity::Create(p_dsAction);
 }
 
-// FUNCTION: LEGO1 0x1001a2a0
 void IslePathActor::Destroy(MxBool p_fromDestructor) {
 	if (!p_fromDestructor) {
 		LegoPathActor::Destroy(FALSE);
 	}
 }
 
-// FUNCTION: LEGO1 0x1001a2c0
-// FUNCTION: BETA10 0x100364ca
 MxLong IslePathActor::Notify(MxParam& p_param) {
 	MxLong result = 0;
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
@@ -63,8 +58,6 @@ MxLong IslePathActor::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1001a350
-// FUNCTION: BETA10 0x100365ad
 void IslePathActor::Enter() {
 	m_roi->SetVisibility(FALSE);
 	if (UserActor() != this) {
@@ -89,8 +82,6 @@ void IslePathActor::Enter() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1001a3f0
-// FUNCTION: BETA10 0x1003669f
 void IslePathActor::Exit() {
 	SetActorState(c_initial);
 	m_roi->SetVisibility(TRUE);
@@ -158,10 +149,8 @@ void IslePathActor::Exit() {
 	FUN_1003eda0();
 }
 
-// GLOBAL: LEGO1 0x10102b28
 IslePathActor::SpawnLocation g_spawnLocations[IslePathActor::c_LOCATIONS_NUM];
 
-// FUNCTION: LEGO1 0x1001a700
 void IslePathActor::RegisterSpawnLocations() {
 	g_spawnLocations[0] = SpawnLocation(
 		LegoGameState::e_pizzeriaExterior,
@@ -513,8 +502,6 @@ void IslePathActor::RegisterSpawnLocations() {
 	);
 }
 
-// FUNCTION: LEGO1 0x1001b2a0
-// FUNCTION: BETA10 0x100369c6
 void IslePathActor::SpawnPlayer(
 	LegoGameState::Area p_area,
 	MxBool p_enter,
@@ -636,7 +623,6 @@ void IslePathActor::SpawnPlayer(
 	}
 }
 
-// FUNCTION: LEGO1 0x1001b5b0
 void IslePathActor::VTable0xec(
 	MxMatrix p_transform,
 	LegoPathBoundary* p_boundary,
@@ -666,8 +652,6 @@ void IslePathActor::VTable0xec(
 	}
 }
 
-// FUNCTION: LEGO1 0x1001b660
-// FUNCTION: BETA10 0x10036ea2
 void IslePathActor::FUN_1001b660() {
 	MxMatrix transform(m_roi->GetLocal2World());
 	Vector3 position(transform[0]);

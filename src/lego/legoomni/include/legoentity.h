@@ -8,9 +8,6 @@ class LegoROI;
 class MxDSAction;
 class Vector3;
 
-// VTABLE: LEGO1 0x100d4858
-// VTABLE: BETA10 0x101b9388
-// SIZE 0x68
 class LegoEntity : public MxEntity {
 public:
 	enum Type { e_actor = 0, e_unk1, e_plant, e_building, e_autoROI };
@@ -21,52 +18,39 @@ public:
 
 	LegoEntity() { Init(); }
 
-	// FUNCTION: LEGO1 0x1000c290
 	~LegoEntity() override { Destroy(TRUE); }
 
-	MxLong Notify(MxParam& p_param) override; // vtable+0x04
+	MxLong Notify(MxParam& p_param) override;
 
-	// FUNCTION: LEGO1 0x1000c2f0
-	// FUNCTION: BETA10 0x10012730
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f0064
-		return "LegoEntity";
-	}
+	const char* ClassName() const override { return "LegoEntity"; }
 
-	// FUNCTION: LEGO1 0x1000c300
-	// FUNCTION: BETA10 0x100125a0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, LegoEntity::ClassName()) ||
 			   MxEntity::IsA(p_name);
 	}
 
-	virtual MxResult Create(MxDSAction& p_dsAction); // vtable+0x18
-	virtual void Destroy(MxBool p_fromDestructor);   // vtable+0x1c
-	virtual void ParseAction(char* p_extra);         // vtable+0x20
-	virtual void
-	SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2); // vtable+0x24
+	virtual MxResult Create(MxDSAction& p_dsAction);
+	virtual void Destroy(MxBool p_fromDestructor);
+	virtual void ParseAction(char* p_extra);
+	virtual void SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2);
 	virtual void SetWorldTransform(
 		const Vector3& p_location,
 		const Vector3& p_direction,
 		const Vector3& p_up
-	);                                                     // vtable+0x28
-	virtual void ResetWorldTransform(MxBool p_cameraFlag); // vtable+0x2c
+	);
+	virtual void ResetWorldTransform(MxBool p_cameraFlag);
 
-	// FUNCTION: LEGO1 0x10001090
-	// FUNCTION: BETA10 0x10013260
 	virtual void SetWorldSpeed(MxFloat p_worldSpeed) {
 		m_worldSpeed = p_worldSpeed;
-	} // vtable+0x30
+	}
 
-	virtual void ClickSound(MxBool p_und);    // vtable+0x34
-	virtual void ClickAnimation();            // vtable+0x38
-	virtual void SwitchVariant();             // vtable+0x3c
-	virtual void SwitchSound();               // vtable+0x40
-	virtual void SwitchMove();                // vtable+0x44
-	virtual void SwitchColor(LegoROI* p_roi); // vtable+0x48
-	virtual void SwitchMood();                // vtable+0x4c
+	virtual void ClickSound(MxBool p_und);
+	virtual void ClickAnimation();
+	virtual void SwitchVariant();
+	virtual void SwitchSound();
+	virtual void SwitchMove();
+	virtual void SwitchColor(LegoROI* p_roi);
+	virtual void SwitchMood();
 
 	void FUN_10010c30();
 	void SetType(MxU8 p_type);
@@ -84,15 +68,12 @@ public:
 	MxBool GetFlagsIsSet(MxU8 p_flag) { return m_flags & p_flag; }
 	MxU8 GetFlags() { return m_flags; }
 
-	// FUNCTION: BETA10 0x10049db0
 	MxFloat GetWorldSpeed() { return m_worldSpeed; }
 
-	// FUNCTION: BETA10 0x1000f2f0
 	LegoROI* GetROI() { return m_roi; }
 
 	MxU8 GetType() { return m_type; }
 
-	// FUNCTION: BETA10 0x1007ff00
 	MxBool GetCameraFlag() { return m_cameraFlag; }
 
 	void SetFlags(MxU8 p_flags) { m_flags = p_flags; }
@@ -105,26 +86,22 @@ protected:
 	void Init();
 	void SetWorld();
 
-	MxU8 m_unk0x10;                  // 0x10
-	MxU8 m_flags;                    // 0x11
-	Mx3DPointFloat m_worldLocation;  // 0x14
-	Mx3DPointFloat m_worldDirection; // 0x28
-	Mx3DPointFloat m_worldUp;        // 0x3c
-	MxFloat m_worldSpeed;            // 0x50
-	LegoROI* m_roi;                  // 0x54
-	MxBool m_cameraFlag;             // 0x58
-	MxU8 m_type;                     // 0x59
-	// For tokens from the extra string that look like this:
+	MxU8 m_unk0x10;
+	MxU8 m_flags;
+	Mx3DPointFloat m_worldLocation;
+	Mx3DPointFloat m_worldDirection;
+	Mx3DPointFloat m_worldUp;
+	MxFloat m_worldSpeed;
+	LegoROI* m_roi;
+	MxBool m_cameraFlag;
+	MxU8 m_type; // For tokens from the extra string that look like this:
 	// "Action:openram;\lego\scripts\Race\CarRaceR;0"
-	Extra::ActionType m_actionType; // 0x5c
-
+	Extra::ActionType m_actionType;
 	// variable name verified by BETA10 0x1007eddf
-	char* m_siFile; // 0x60
-
-	MxS32 m_targetEntityId; // 0x64
+	char* m_siFile;
+	MxS32 m_targetEntityId;
 };
 
-// SYNTHETIC: LEGO1 0x1000c3b0
 // LegoEntity::`scalar deleting destructor'
 
 #endif // LEGOENTITY_H

@@ -6,7 +6,6 @@
 
 #include <vec.h>
 
-// GLOBAL: LEGO1 0x100dbc78
 int g_boundingBoxCornerMap[8][3] = {
 	{0, 0, 0},
 	{0, 0, 1},
@@ -17,30 +16,23 @@ int g_boundingBoxCornerMap[8][3] = {
 	{1, 1, 0},
 	{1, 1, 1}};
 
-// GLOBAL: LEGO1 0x100dbcd8
 int g_planePointIndexMap[18] =
 	{0, 1, 5, 6, 2, 3, 3, 0, 4, 1, 2, 6, 0, 3, 2, 4, 5, 6};
 
-// GLOBAL: LEGO1 0x10101050
 float g_LODScaleFactor = 4.0F;
 
-// GLOBAL: LEGO1 0x10101054
 float g_minLODThreshold = 0.00097656297;
 
-// GLOBAL: LEGO1 0x10101058
 int g_maxLODLevels = 6;
 
-// GLOBAL: LEGO1 0x1010105c
 float g_unk0x1010105c = 0.000125F;
 
-// GLOBAL: LEGO1 0x10101060
 float g_elapsedSeconds = 0;
 
 inline void SetAppData(ViewROI* p_roi, LPD3DRM_APPDATA data);
 inline undefined4 GetD3DRM(IDirect3DRM2*& d3drm, Tgl::Renderer* pRenderer);
 inline undefined4 GetFrame(IDirect3DRMFrame2*& frame, Tgl::Group* scene);
 
-// FUNCTION: LEGO1 0x100a5eb0
 ViewManager::ViewManager(
 	Tgl::Renderer* pRenderer,
 	Tgl::Group* scene,
@@ -62,13 +54,10 @@ ViewManager::ViewManager(
 	seconds_allowed = 1.0;
 }
 
-// FUNCTION: LEGO1 0x100a60c0
 ViewManager::~ViewManager() {
 	SetPOVSource(NULL);
 }
 
-// FUNCTION: LEGO1 0x100a6150
-// FUNCTION: BETA10 0x10172164
 unsigned int
 ViewManager::IsBoundingBoxInFrustum(const BoundingBox& p_bounding_box) {
 	const Vector3* box[] = {&p_bounding_box.Min(), &p_bounding_box.Max()};
@@ -100,7 +89,6 @@ ViewManager::IsBoundingBoxInFrustum(const BoundingBox& p_bounding_box) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100a6410
 void ViewManager::Remove(ViewROI* p_roi) {
 	for (CompoundObject::iterator it = rois.begin(); it != rois.end(); it++) {
 		if (*it == p_roi) {
@@ -127,7 +115,6 @@ void ViewManager::Remove(ViewROI* p_roi) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100a64d0
 void ViewManager::RemoveAll(ViewROI* p_roi) {
 	if (p_roi == NULL) {
 		for (CompoundObject::iterator it = rois.begin(); it != rois.end();
@@ -156,7 +143,6 @@ void ViewManager::RemoveAll(ViewROI* p_roi) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100a65b0
 void ViewManager::UpdateROIDetailBasedOnLOD(ViewROI* p_roi, int p_und) {
 	if (p_roi->GetLODCount() <= p_und) {
 		p_und = p_roi->GetLODCount() - 1;
@@ -207,7 +193,6 @@ void ViewManager::UpdateROIDetailBasedOnLOD(ViewROI* p_roi, int p_und) {
 	p_roi->SetUnknown0xe0(-1);
 }
 
-// FUNCTION: LEGO1 0x100a66a0
 void ViewManager::RemoveROIDetailFromScene(ViewROI* p_roi) {
 	const ViewLOD* lod =
 		(const ViewLOD*) p_roi->GetLOD(p_roi->GetUnknown0xe0());
@@ -228,7 +213,6 @@ void ViewManager::RemoveROIDetailFromScene(ViewROI* p_roi) {
 	p_roi->SetUnknown0xe0(-1);
 }
 
-// FUNCTION: LEGO1 0x100a66f0
 inline void
 ViewManager::ManageVisibilityAndDetailRecursively(ViewROI* p_roi, int p_und) {
 	if (!p_roi->GetVisibility() && p_und != -2) {
@@ -287,7 +271,6 @@ ViewManager::ManageVisibilityAndDetailRecursively(ViewROI* p_roi, int p_und) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100a6930
 void ViewManager::Update(float p_previousRenderTime, float) {
 	MxStopWatch stopWatch;
 	stopWatch.Start();
@@ -416,7 +399,6 @@ inline int ViewManager::IsROIVisibleAtLOD(ViewROI* p_roi) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x100a6b90
 void ViewManager::UpdateViewTransformations() {
 	flags &= ~c_bit2;
 
@@ -455,14 +437,12 @@ void ViewManager::UpdateViewTransformations() {
 	flags |= c_bit4;
 }
 
-// FUNCTION: LEGO1 0x100a6d50
 void ViewManager::SetResolution(int width, int height) {
 	flags |= c_bit3;
 	this->width = width;
 	this->height = height;
 }
 
-// FUNCTION: LEGO1 0x100a6d70
 void ViewManager::SetFrustrum(float fov, float front, float back) {
 	this->front = front;
 	this->back = back;
@@ -470,7 +450,6 @@ void ViewManager::SetFrustrum(float fov, float front, float back) {
 	view_angle = fov * 0.017453292519944444;
 }
 
-// FUNCTION: LEGO1 0x100a6da0
 void ViewManager::SetPOVSource(const OrientableROI* point_of_view) {
 	if (point_of_view != NULL) {
 		pov = point_of_view->GetLocal2World();
@@ -478,8 +457,6 @@ void ViewManager::SetPOVSource(const OrientableROI* point_of_view) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100a6dc0
-// FUNCTION: BETA10 0x101739b8
 float ViewManager::ProjectedSize(const BoundingSphere& p_bounding_sphere) {
 	// The algorithm projects the radius of bounding sphere onto the
 	// perpendicular plane one unit in front of the camera. That value is simply
@@ -493,7 +470,6 @@ float ViewManager::ProjectedSize(const BoundingSphere& p_bounding_sphere) {
 	return sphere_projected_area / view_area_at_one / square_dist_to_sphere;
 }
 
-// FUNCTION: LEGO1 0x100a6e00
 ViewROI* ViewManager::Pick(Tgl::View* p_view, unsigned int x, unsigned int y) {
 	LPDIRECT3DRMPICKEDARRAY picked = NULL;
 	ViewROI* result = NULL;

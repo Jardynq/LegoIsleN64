@@ -3,8 +3,6 @@
 #include "mxmisc.h"
 #include "mxvideomanager.h"
 
-// GLOBAL: LEGO1 0x10102188
-// GLOBAL: BETA10 0x10203558
 PALETTEENTRY g_defaultPaletteEntries[256] = {
 	{0u, 0u, 0u, 0u},       {128u, 0u, 0u, 0u},     {0u, 128u, 0u, 0u},
 	{128u, 128u, 0u, 0u},   {0u, 0u, 128u, 0u},     {128u, 0u, 128u, 0u},
@@ -93,8 +91,6 @@ PALETTEENTRY g_defaultPaletteEntries[256] = {
 	{0u, 0u, 255u, 0u},     {255u, 0u, 255u, 0u},   {0u, 255u, 255u, 0u},
 	{255u, 255u, 255u, 0u}};
 
-// FUNCTION: LEGO1 0x100bee30
-// FUNCTION: BETA10 0x10143b50
 MxPalette::MxPalette() {
 	m_overrideSkyColor = FALSE;
 	m_palette = NULL;
@@ -102,8 +98,6 @@ MxPalette::MxPalette() {
 	m_skyColor = m_entries[141];
 }
 
-// FUNCTION: LEGO1 0x100beed0
-// FUNCTION: BETA10 0x10143bf4
 MxPalette::MxPalette(const RGBQUAD* p_colors) {
 	m_overrideSkyColor = FALSE;
 	m_palette = NULL;
@@ -119,16 +113,12 @@ MxPalette::MxPalette(const RGBQUAD* p_colors) {
 	m_skyColor = m_entries[141];
 }
 
-// FUNCTION: LEGO1 0x100bef90
-// FUNCTION: BETA10 0x10143d01
 MxPalette::~MxPalette() {
 	if (m_palette) {
 		m_palette->Release();
 	}
 }
 
-// FUNCTION: LEGO1 0x100bf000
-// FUNCTION: BETA10 0x10143d88
 LPDIRECTDRAWPALETTE MxPalette::CreateNativePalette() {
 	if (m_palette == NULL) {
 		MxS32 i;
@@ -174,8 +164,6 @@ done:
 	return m_palette;
 }
 
-// FUNCTION: LEGO1 0x100bf0b0
-// FUNCTION: BETA10 0x10143f13
 MxPalette* MxPalette::Clone() {
 	MxPalette* result = new MxPalette;
 	GetEntries(result->m_entries);
@@ -183,15 +171,11 @@ MxPalette* MxPalette::Clone() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100bf150
-// FUNCTION: BETA10 0x10143fc8
 MxResult MxPalette::GetEntries(LPPALETTEENTRY p_entries) {
 	memcpy(p_entries, m_entries, sizeof(m_entries));
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100bf170
-// FUNCTION: BETA10 0x10143ffa
 MxResult MxPalette::SetEntries(LPPALETTEENTRY p_entries) {
 	MxResult status = SUCCESS;
 
@@ -249,8 +233,6 @@ MxResult MxPalette::SetEntries(LPPALETTEENTRY p_entries) {
 	return status;
 }
 
-// FUNCTION: LEGO1 0x100bf2d0
-// FUNCTION: BETA10 0x101442aa
 MxResult MxPalette::SetSkyColor(LPPALETTEENTRY p_skyColor) {
 	MxResult status = 0;
 	if (m_palette != NULL) {
@@ -265,7 +247,6 @@ MxResult MxPalette::SetSkyColor(LPPALETTEENTRY p_skyColor) {
 	return status;
 }
 
-// FUNCTION: BETA10 0x1014434a
 void MxPalette::SetPalette(LPDIRECTDRAWPALETTE p_palette) {
 	if (m_palette) {
 		m_palette->Release();
@@ -274,14 +255,10 @@ void MxPalette::SetPalette(LPDIRECTDRAWPALETTE p_palette) {
 	m_palette = p_palette;
 }
 
-// FUNCTION: LEGO1 0x100bf330
-// FUNCTION: BETA10 0x1014438a
 void MxPalette::Detach() {
 	m_palette = NULL;
 }
 
-// FUNCTION: LEGO1 0x100bf340
-// FUNCTION: BETA10 0x101443aa
 MxBool MxPalette::operator==(MxPalette& p_other) {
 	for (MxS32 i = 0; i < 256; i++) {
 		if (m_entries[i].peRed != p_other.m_entries[i].peRed) {
@@ -299,8 +276,6 @@ MxBool MxPalette::operator==(MxPalette& p_other) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100bf390
-// FUNCTION: BETA10 0x1014445a
 void MxPalette::ApplySystemEntriesToPalette(LPPALETTEENTRY p_entries) {
 	HDC hdc;
 
@@ -320,8 +295,6 @@ void MxPalette::ApplySystemEntriesToPalette(LPPALETTEENTRY p_entries) {
 	ReleaseDC(0, hdc);
 }
 
-// FUNCTION: LEGO1 0x100bf420
-// FUNCTION: BETA10 0x10144517
 void MxPalette::GetDefaultPalette(LPPALETTEENTRY p_entries) {
 	HDC hdc;
 
@@ -341,8 +314,6 @@ void MxPalette::GetDefaultPalette(LPPALETTEENTRY p_entries) {
 	ReleaseDC(0, hdc);
 }
 
-// FUNCTION: LEGO1 0x100bf490
-// FUNCTION: BETA10 0x101445bf
 void MxPalette::Reset(MxBool p_ignoreSkyColor) {
 	if (m_palette != NULL) {
 		GetDefaultPalette(m_entries);

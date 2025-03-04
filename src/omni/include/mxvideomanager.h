@@ -10,15 +10,13 @@ class MxDisplaySurface;
 class MxRect32;
 class MxRegion;
 
-// VTABLE: LEGO1 0x100dc810
-// SIZE 0x64
 class MxVideoManager : public MxMediaManager {
 public:
 	MxVideoManager();
 	~MxVideoManager() override;
 
-	MxResult Tickle() override; // vtable+0x08
-	void Destroy() override;    // vtable+0x18
+	MxResult Tickle() override;
+	void Destroy() override;
 	virtual MxResult VTable0x28(
 		MxVideoParam& p_videoParam,
 		LPDIRECTDRAW p_pDirectDraw,
@@ -28,21 +26,17 @@ public:
 		LPDIRECTDRAWCLIPPER p_ddClipper,
 		MxU32 p_frequencyMS,
 		MxBool p_createThread
-	); // vtable+0x28
+	);
 	virtual MxResult Create(
 		MxVideoParam& p_videoParam,
 		MxU32 p_frequencyMS,
 		MxBool p_createThread
-	); // vtable+0x2c
+	);
 
 	void InvalidateRect(MxRect32&);
-	virtual MxResult RealizePalette(MxPalette*); // vtable+0x30
-	virtual void UpdateView(
-		MxU32 p_x,
-		MxU32 p_y,
-		MxU32 p_width,
-		MxU32 p_height
-	); // vtable+0x34
+	virtual MxResult RealizePalette(MxPalette*);
+	virtual void
+	UpdateView(MxU32 p_x, MxU32 p_y, MxU32 p_width, MxU32 p_height);
 
 	MxResult Init();
 	void Destroy(MxBool p_fromDestructor);
@@ -54,16 +48,15 @@ public:
 	MxDisplaySurface* GetDisplaySurface() { return this->m_displaySurface; }
 	MxRegion* GetRegion() { return this->m_region; }
 
-	// SYNTHETIC: LEGO1 0x100be280
 	// MxVideoManager::`scalar deleting destructor'
 
 protected:
-	MxVideoParam m_videoParam;          // 0x2c
-	LPDIRECTDRAW m_pDirectDraw;         // 0x50
-	LPDIRECT3D2 m_pDirect3D;            // 0x54
-	MxDisplaySurface* m_displaySurface; // 0x58
-	MxRegion* m_region;                 // 0x5c
-	MxBool m_unk0x60;                   // 0x60
+	MxVideoParam m_videoParam;
+	LPDIRECTDRAW m_pDirectDraw;
+	LPDIRECT3D2 m_pDirect3D;
+	MxDisplaySurface* m_displaySurface;
+	MxRegion* m_region;
+	MxBool m_unk0x60;
 };
 
 #endif // MXVIDEOMANAGER_H

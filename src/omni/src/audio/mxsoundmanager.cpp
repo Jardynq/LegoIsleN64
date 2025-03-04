@@ -9,7 +9,6 @@
 #include "mxticklethread.h"
 #include "mxwavepresenter.h"
 
-// GLOBAL LEGO1 0x10101420
 MxS32 g_volumeAttenuation[100] = {
 	-6643, -5643, -5058, -4643, -4321, -4058, -3836, -3643, -3473, -3321,
 	-3184, -3058, -2943, -2836, -2736, -2643, -2556, -2473, -2395, -2321,
@@ -22,23 +21,19 @@ MxS32 g_volumeAttenuation[100] = {
 	-304,  -286,  -268,  -251,  -234,  -217,  -200,  -184,  -168,  -152,
 	-136,  -120,  -104,  -89,   -74,   -58,   -43,   -29,   -14,   0};
 
-// FUNCTION: LEGO1 0x100ae740
 MxSoundManager::MxSoundManager() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100ae7d0
 MxSoundManager::~MxSoundManager() {
 	Destroy(TRUE);
 }
 
-// FUNCTION: LEGO1 0x100ae830
 void MxSoundManager::Init() {
 	m_directSound = NULL;
 	m_dsBuffer = NULL;
 }
 
-// FUNCTION: LEGO1 0x100ae840
 void MxSoundManager::Destroy(MxBool p_fromDestructor) {
 	if (m_thread) {
 		m_thread->Terminate();
@@ -61,7 +56,6 @@ void MxSoundManager::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100ae8b0
 MxResult MxSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 	MxResult status = FAILURE;
 	MxBool locked = FALSE;
@@ -149,12 +143,10 @@ done:
 	return status;
 }
 
-// FUNCTION: LEGO1 0x100aeab0
 void MxSoundManager::Destroy() {
 	Destroy(FALSE);
 }
 
-// FUNCTION: LEGO1 0x100aeac0
 void MxSoundManager::SetVolume(MxS32 p_volume) {
 	MxAudioManager::SetVolume(p_volume);
 
@@ -171,7 +163,6 @@ void MxSoundManager::SetVolume(MxS32 p_volume) {
 	m_criticalSection.Leave();
 }
 
-// FUNCTION: LEGO1 0x100aebd0
 MxPresenter*
 MxSoundManager::FUN_100aebd0(const MxAtomId& p_atomId, MxU32 p_objectId) {
 	AUTOLOCK(m_criticalSection);
@@ -190,7 +181,6 @@ MxSoundManager::FUN_100aebd0(const MxAtomId& p_atomId, MxU32 p_objectId) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x100aecf0
 MxS32 MxSoundManager::GetAttenuation(MxU32 p_volume) {
 	// The unit for p_volume is percent, rounded to integer.
 	// Convert to DSOUND attenuation units: -10000 (silent) to 0 (loudest).
@@ -201,7 +191,6 @@ MxS32 MxSoundManager::GetAttenuation(MxU32 p_volume) {
 	return g_volumeAttenuation[p_volume - 1];
 }
 
-// FUNCTION: LEGO1 0x100aed10
 void MxSoundManager::Pause() {
 	AUTOLOCK(m_criticalSection);
 
@@ -215,7 +204,6 @@ void MxSoundManager::Pause() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100aee10
 void MxSoundManager::Resume() {
 	AUTOLOCK(m_criticalSection);
 

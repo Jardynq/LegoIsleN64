@@ -16,8 +16,6 @@
 #include <stdio.h>
 #include <vec.h>
 
-// GLOBAL: LEGO1 0x100f7a38
-// GLOBAL: BETA10 0x101dc480
 const LegoChar* Act2Brick::g_lodNames[] = {
 	"xchbase1",
 	"xchblad1",
@@ -30,23 +28,17 @@ const LegoChar* Act2Brick::g_lodNames[] = {
 	"xhsidl1",
 	"xhsidr1"};
 
-// GLOBAL: LEGO1 0x100f7a60
 MxLong Act2Brick::g_lastHitActorTime = 0;
 
-// FUNCTION: LEGO1 0x1007a2b0
-// FUNCTION: BETA10 0x10012a30
 Act2Brick::Act2Brick() {
 	m_whistleSound = NULL;
 	m_unk0x164 = 0;
 }
 
-// FUNCTION: LEGO1 0x1007a470
 Act2Brick::~Act2Brick() {
 	TickleManager()->UnregisterClient(this);
 }
 
-// FUNCTION: LEGO1 0x1007a4e0
-// FUNCTION: BETA10 0x10012ad5
 MxResult Act2Brick::Create(MxS32 p_index) {
 	if (m_roi != NULL) {
 		return FAILURE;
@@ -79,8 +71,6 @@ MxResult Act2Brick::Create(MxS32 p_index) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1007a620
-// FUNCTION: BETA10 0x10012ba2
 void Act2Brick::Remove() {
 	StopWhistleSound();
 	CurrentWorld()->Remove(this);
@@ -93,8 +83,6 @@ void Act2Brick::Remove() {
 	m_unk0x164 = 0;
 }
 
-// FUNCTION: LEGO1 0x1007a670
-// FUNCTION: BETA10 0x10012c04
 void Act2Brick::FUN_1007a670(
 	MxMatrix& p_param1,
 	MxMatrix& p_param2,
@@ -118,7 +106,6 @@ void Act2Brick::FUN_1007a670(
 	m_roi->SetVisibility(TRUE);
 }
 
-// FUNCTION: LEGO1 0x1007a750
 MxResult Act2Brick::HitActor(LegoPathActor* p_actor, MxBool) {
 	MxLong time = Timer()->GetTime();
 	MxLong diff = time - g_lastHitActorTime;
@@ -135,8 +122,6 @@ MxResult Act2Brick::HitActor(LegoPathActor* p_actor, MxBool) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1007a7f0
-// FUNCTION: BETA10 0x10012d46
 MxResult Act2Brick::Tickle() {
 	MxMatrix local2world(m_roi->GetLocal2World());
 	m_unk0x190++;
@@ -154,8 +139,6 @@ MxResult Act2Brick::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1007a8c0
-// FUNCTION: BETA10 0x10012ec4
 MxLong Act2Brick::Notify(MxParam& p_param) {
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
 
@@ -176,8 +159,6 @@ MxLong Act2Brick::Notify(MxParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x1007a990
-// FUNCTION: BETA10 0x10012fca
 void Act2Brick::PlayWhistleSound() {
 	if (m_whistleSound == NULL) {
 		m_whistleSound = SoundManager()->GetCacheSoundManager()->Play(
@@ -188,8 +169,6 @@ void Act2Brick::PlayWhistleSound() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1007a9d0
-// FUNCTION: BETA10 0x1001300f
 void Act2Brick::StopWhistleSound() {
 	if (m_whistleSound != NULL) {
 		SoundManager()->GetCacheSoundManager()->Stop(m_whistleSound);
@@ -197,7 +176,6 @@ void Act2Brick::StopWhistleSound() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1007aa00
 void Act2Brick::Mute(MxBool p_muted) {
 	if (m_whistleSound != NULL) {
 		m_whistleSound->MuteSilence(p_muted);

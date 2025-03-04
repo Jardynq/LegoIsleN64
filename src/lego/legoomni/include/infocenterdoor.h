@@ -6,45 +6,31 @@
 
 class LegoControlManagerNotificationParam;
 
-// VTABLE: LEGO1 0x100d72d8
-// VTABLE: BETA10 0x101b9bc0
-// SIZE 0xfc
 class InfocenterDoor : public LegoWorld {
 public:
 	InfocenterDoor();
-	~InfocenterDoor() override; // vtable+0x00
+	~InfocenterDoor() override;
 
-	MxLong Notify(MxParam& p_param) override; // vtable+0x04
+	MxLong Notify(MxParam& p_param) override;
 
-	// FUNCTION: LEGO1 0x100377a0
-	MxBool VTable0x5c() override { return TRUE; } // vtable+0x5c
+	MxBool VTable0x5c() override { return TRUE; }
 
-	// FUNCTION: LEGO1 0x100377b0
-	// FUNCTION: BETA10 0x10032790
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f049c
-		return "InfocenterDoor";
-	}
+	const char* ClassName() const override { return "InfocenterDoor"; }
 
-	// FUNCTION: LEGO1 0x100377c0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, InfocenterDoor::ClassName()) ||
 			   LegoWorld::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
-	void ReadyWorld() override;                       // vtable+0x50
-	MxBool Escape() override;                         // vtable+0x64
-	void Enable(MxBool p_enable) override;            // vtable+0x68
+	MxResult Create(MxDSAction& p_dsAction) override;
+	void ReadyWorld() override;
+	MxBool Escape() override;
+	void Enable(MxBool p_enable) override;
 
-	// SYNTHETIC: LEGO1 0x100378d0
 	// InfocenterDoor::`scalar deleting destructor'
 
 private:
-	LegoGameState::Area m_destLocation; // 0xf8
-
+	LegoGameState::Area m_destLocation;
 	MxLong HandleControl(LegoControlManagerNotificationParam& p_param);
 };
 

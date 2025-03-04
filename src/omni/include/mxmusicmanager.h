@@ -5,17 +5,14 @@
 
 #include <windows.h>
 
-// VTABLE: LEGO1 0x100dc930
-// SIZE 0x58
 class MxMusicManager : public MxAudioManager {
 public:
 	MxMusicManager();
 	~MxMusicManager() override;
 
-	void Destroy() override;                 // vtable+18
-	void SetVolume(MxS32 p_volume) override; // vtable+2c
-	virtual MxResult
-	Create(MxU32 p_frequencyMS, MxBool p_createThread); // vtable+30
+	void Destroy() override;
+	void SetVolume(MxS32 p_volume) override;
+	virtual MxResult Create(MxU32 p_frequencyMS, MxBool p_createThread);
 
 	MxBool GetMIDIInitialized() { return m_midiInitialized; }
 	void GetMIDIVolume(DWORD& p_volume) {
@@ -44,18 +41,17 @@ private:
 		DWORD p_dw2
 	);
 
-	HMIDISTRM m_midiStreamH;     // 0x30
-	MxBool m_midiInitialized;    // 0x34
-	MxU32 m_bufferSize;          // 0x38
-	MxU32 m_bufferCurrentSize;   // 0x3c
-	MxU8* m_bufferOffset;        // 0x40
-	MxU8* m_bufferCurrentOffset; // 0x44
-	MxU32 m_loopCount;           // 0x48
-	MIDIHDR* m_midiHdrP;         // 0x4c
-	MxS32 m_multiplier;          // 0x50
-	DWORD m_midiVolume;          // 0x54
+	HMIDISTRM m_midiStreamH;
+	MxBool m_midiInitialized;
+	MxU32 m_bufferSize;
+	MxU32 m_bufferCurrentSize;
+	MxU8* m_bufferOffset;
+	MxU8* m_bufferCurrentOffset;
+	MxU32 m_loopCount;
+	MIDIHDR* m_midiHdrP;
+	MxS32 m_multiplier;
+	DWORD m_midiVolume;
 
-	// SYNTHETIC: LEGO1 0x100c0610
 	// MxMusicManager::`scalar deleting destructor'
 
 protected:

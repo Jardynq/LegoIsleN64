@@ -9,8 +9,6 @@
 
 #include <assert.h>
 
-// FUNCTION: LEGO1 0x10043430
-// FUNCTION: BETA10 0x10097570
 LegoMeterPresenter::LegoMeterPresenter() {
 	m_meterPixels = NULL;
 	m_fillColor = 1;
@@ -19,14 +17,10 @@ LegoMeterPresenter::LegoMeterPresenter() {
 	m_flags.m_bit1 = FALSE;
 }
 
-// FUNCTION: LEGO1 0x10043780
-// FUNCTION: BETA10 0x1009764a
 LegoMeterPresenter::~LegoMeterPresenter() {
 	delete m_meterPixels;
 }
 
-// FUNCTION: LEGO1 0x10043800
-// FUNCTION: BETA10 0x100976ec
 void LegoMeterPresenter::ParseExtra() {
 	MxStillPresenter::ParseExtra();
 
@@ -67,8 +61,6 @@ void LegoMeterPresenter::ParseExtra() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10043990
-// FUNCTION: BETA10 0x10097917
 void LegoMeterPresenter::StreamingTickle() {
 	MxStillPresenter::StreamingTickle();
 
@@ -90,15 +82,11 @@ void LegoMeterPresenter::StreamingTickle() {
 	m_meterRect.SetBottom(m_frameBitmap->GetBmiHeightAbs() - 1);
 }
 
-// FUNCTION: LEGO1 0x10043a30
-// FUNCTION: BETA10 0x10097a1a
 void LegoMeterPresenter::RepeatingTickle() {
 	DrawMeter();
 	MxStillPresenter::RepeatingTickle();
 }
 
-// FUNCTION: LEGO1 0x10043a50
-// FUNCTION: BETA10 0x10097a40
 void LegoMeterPresenter::DrawMeter() {
 	const char* strval = VariableTable()->GetVariable(m_variable.GetData());
 	MxFloat percent = atof(strval);

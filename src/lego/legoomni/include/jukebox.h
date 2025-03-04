@@ -7,9 +7,6 @@
 
 class LegoControlManagerNotificationParam;
 
-// VTABLE: LEGO1 0x100d4a90
-// VTABLE: BETA10 0x101ba6e8
-// SIZE 0x10
 class JukeBoxState : public LegoState {
 public:
 	enum Music {
@@ -23,73 +20,50 @@ public:
 
 	JukeBoxState() : m_music(e_pasquell), m_active(FALSE) {}
 
-	// FUNCTION: LEGO1 0x1000f300
-	MxBool IsSerializable() override { return FALSE; } // vtable+0x14
+	MxBool IsSerializable() override { return FALSE; }
 
-	// FUNCTION: LEGO1 0x1000f310
-	// FUNCTION: BETA10 0x100389c0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f02bc
-		return "JukeBoxState";
-	}
+	const char* ClassName() const override { return "JukeBoxState"; }
 
-	// FUNCTION: LEGO1 0x1000f320
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, JukeBoxState::ClassName()) ||
 			   LegoState::IsA(p_name);
 	}
 
-	// SYNTHETIC: LEGO1 0x1000f3d0
 	// JukeBoxState::`scalar deleting destructor'
 
-	Music m_music;  // 0x08
-	MxU32 m_active; // 0x0c
+	Music m_music;
+	MxU32 m_active;
 };
 
-// VTABLE: LEGO1 0x100d8958
-// VTABLE: BETA10 0x101ba670
-// SIZE 0x104
 class JukeBox : public LegoWorld {
 public:
 	JukeBox();
 	~JukeBox() override;
 
-	MxLong Notify(MxParam& p_param) override; // vtable+0x04
-	MxResult Tickle() override;               // vtable+0x08
+	MxLong Notify(MxParam& p_param) override;
+	MxResult Tickle() override;
 
-	// FUNCTION: LEGO1 0x1005d6e0
-	MxBool VTable0x5c() override { return TRUE; } // vtable+0x5c
+	MxBool VTable0x5c() override { return TRUE; }
 
-	// FUNCTION: LEGO1 0x1005d6f0
-	// FUNCTION: BETA10 0x100388d0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f02cc
-		return "JukeBox";
-	}
+	const char* ClassName() const override { return "JukeBox"; }
 
-	// FUNCTION: LEGO1 0x1005d700
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, JukeBox::ClassName()) || LegoWorld::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
-	void ReadyWorld() override;                       // vtable+0x50
-	MxBool Escape() override;                         // vtable+0x64
-	void Enable(MxBool p_enable) override;            // vtable+0x68
+	MxResult Create(MxDSAction& p_dsAction) override;
+	void ReadyWorld() override;
+	MxBool Escape() override;
+	void Enable(MxBool p_enable) override;
 
-	// SYNTHETIC: LEGO1 0x1005d810
 	// JukeBox::`scalar deleting destructor'
 
 private:
 	MxBool HandleControl(LegoControlManagerNotificationParam& p_param);
 
-	LegoGameState::Area m_destLocation; // 0xf8
-	JukeBoxState* m_state;              // 0xfc
-	undefined2 m_unk0x100;              // 0x100
+	LegoGameState::Area m_destLocation;
+	JukeBoxState* m_state;
+	undefined2 m_unk0x100;
 };
 
 #endif // JUKEBOX_H

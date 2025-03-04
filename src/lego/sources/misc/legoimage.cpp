@@ -3,14 +3,12 @@
 #include "legostorage.h"
 #include "memory.h"
 
-// FUNCTION: LEGO1 0x100994c0
 LegoPaletteEntry::LegoPaletteEntry() {
 	m_red = 0;
 	m_green = 0;
 	m_blue = 0;
 }
 
-// FUNCTION: LEGO1 0x100994d0
 LegoResult LegoPaletteEntry::Read(LegoStorage* p_storage) {
 	LegoResult result;
 	if ((result = p_storage->Read(&m_red, sizeof(m_red))) != SUCCESS) {
@@ -25,7 +23,6 @@ LegoResult LegoPaletteEntry::Read(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10099520
 LegoResult LegoPaletteEntry::Write(LegoStorage* p_storage) {
 	LegoResult result;
 	if ((result = p_storage->Write(&m_red, sizeof(m_red))) != SUCCESS) {
@@ -40,7 +37,6 @@ LegoResult LegoPaletteEntry::Write(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10099570
 LegoImage::LegoImage() {
 	m_width = 0;
 	m_height = 0;
@@ -48,7 +44,6 @@ LegoImage::LegoImage() {
 	m_bits = NULL;
 }
 
-// FUNCTION: LEGO1 0x100995a0
 LegoImage::LegoImage(LegoU32 p_width, LegoU32 p_height) {
 	m_width = p_width;
 	m_height = p_height;
@@ -56,14 +51,12 @@ LegoImage::LegoImage(LegoU32 p_width, LegoU32 p_height) {
 	m_bits = new LegoU8[m_width * m_height];
 }
 
-// FUNCTION: LEGO1 0x100995f0
 LegoImage::~LegoImage() {
 	if (m_bits) {
 		delete[] m_bits;
 	}
 }
 
-// FUNCTION: LEGO1 0x10099610
 LegoResult LegoImage::Read(LegoStorage* p_storage, LegoU32 p_square) {
 	LegoResult result;
 	if ((result = p_storage->Read(&m_width, sizeof(m_width))) != SUCCESS) {
@@ -137,7 +130,6 @@ LegoResult LegoImage::Read(LegoStorage* p_storage, LegoU32 p_square) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100997e0
 LegoResult LegoImage::Write(LegoStorage* p_storage) {
 	LegoResult result;
 	if ((result = p_storage->Write(&m_width, sizeof(m_width))) != SUCCESS) {

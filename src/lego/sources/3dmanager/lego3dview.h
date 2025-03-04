@@ -9,15 +9,13 @@ class ViewROI;
 /////////////////////////////////////////////////////////////////////////////
 // Lego3DView
 
-// VTABLE: LEGO1 0x100dbf78
-// SIZE 0xa8
 class Lego3DView : public LegoView1 {
 public:
 	Lego3DView();
 	~Lego3DView() override;
 
 	BOOL Create(const CreateStruct&, Tgl::Renderer*);
-	void Destroy() override; // vtable+0x08
+	void Destroy() override;
 
 	BOOL Add(ViewROI&);
 	BOOL Remove(ViewROI&);
@@ -32,20 +30,18 @@ public:
 	ViewManager* GetViewManager();
 
 private:
-	ViewManager* m_pViewManager; // 0x88
-	double m_previousRenderTime; // 0x90
-	double m_unk0x98;            // 0x98
-	ViewROI* m_pPointOfView;     // 0xa0
+	ViewManager* m_pViewManager;
+	double m_previousRenderTime;
+	double m_unk0x98;
+	ViewROI* m_pPointOfView;
 };
 
-// SYNTHETIC: LEGO1 0x100aaf10
 // Lego3DView::`scalar deleting destructor'
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Lego3DView implementation
 
-// FUNCTION: BETA10 0x10011810
 inline ViewManager* Lego3DView::GetViewManager() {
 	return m_pViewManager;
 }

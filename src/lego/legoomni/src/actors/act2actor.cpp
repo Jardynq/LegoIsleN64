@@ -20,8 +20,6 @@
 
 #include <vec.h>
 
-// GLOBAL: LEGO1 0x100f0db8
-// GLOBAL: BETA10 0x101dbd00
 Act2Actor::Location g_brickstrLocations[] = {
 	{{-47.92, 7.0699968, -31.58},
 	 {-0.999664, 0.0, -0.025916},
@@ -60,75 +58,43 @@ Act2Actor::Location g_brickstrLocations[] = {
 	{{-44.6, 0.1, 45.3}, {0.95, 0.0, -0.3}, "edg00_154", FALSE},
 };
 
-// GLOBAL: LEGO1 0x100f0f1c
 MxFloat g_unk0x100f0f1c = 0.0f;
 
-// GLOBAL: LEGO1 0x100f0f20
-// GLOBAL: BETA10 0x101dbe40
 MxBool g_unk0x100f0f20 = FALSE;
 
-// GLOBAL: LEGO1 0x100f0f24
 MxBool g_unk0x100f0f24 = FALSE;
 
-// GLOBAL: LEGO1 0x100f0f28
-// GLOBAL: BETA10 0x101dbe44
 MxBool g_unk0x100f0f28 = FALSE;
 
 // --- All of these are indices into g_plantInfo (0x10103180) ---
 
-// GLOBAL: LEGO1 0x100f0f30
-// GLOBAL: BETA10 0x101dbe48
 MxS32 g_unk0x100f0f30[] = {2, 23, 32, 66, 71, 72, 73, -1};
 
-// GLOBAL: LEGO1 0x100f0f50
-// GLOBAL: BETA10 0x101dbe68
 MxS32 g_unk0x100f0f50[] =
 	{0, 7, 16, 18, 20, 21, 34, 49, 58, 59, 63, 65, 69, 74, -1};
 
-// GLOBAL: LEGO1 0x100f0f90
-// GLOBAL: BETA10 0x101dbea8
 MxS32 g_unk0x100f0f90[] = {12, 19, 24, 48, 60, -1};
 
-// GLOBAL: LEGO1 0x100f0fa8
-// GLOBAL: BETA10 0x101dbec0
 MxS32 g_unk0x100f0fa8[] = {8, 15, 46, -1};
 
-// GLOBAL: LEGO1 0x100f0fb8
-// GLOBAL: BETA10 0x101dbed0
 MxS32 g_unk0x100f0fb8[] = {25, 26, 28, 29, 38, 39, 42, 50, 51, 56, -1};
 
-// GLOBAL: LEGO1 0x100f0fe8
-// GLOBAL: BETA10 0x101dbf00
 MxS32 g_unk0x100f0fe8[] = {3, 40, 53, 55, -1};
 
-// GLOBAL: LEGO1 0x100f1000
-// GLOBAL: BETA10 0x101dbf18
 MxS32 g_unk0x100f1000[] = {22, 33, 41, 45, 67, -1};
 
-// GLOBAL: LEGO1 0x100f1018
-// GLOBAL: BETA10 0x101dbf30
 MxS32 g_unk0x100f1018[] = {13, 30, 31, 62, -1};
 
-// GLOBAL: LEGO1 0x100f1030
-// GLOBAL: BETA10 0x101dbf48
 MxS32 g_unk0x100f1030[] = {1, 27, 37, 44, 47, 54, 61, 64, -1};
 
 // --- End of indices into g_plantInfo ---
 
-// GLOBAL: LEGO1 0x10102b1c
-// GLOBAL: BETA10 0x10209f60
 undefined4 g_nextHeadWavIndex = 0;
 
-// GLOBAL: LEGO1 0x10102b20
-// GLOBAL: BETA10 0x10209f64
 undefined4 g_nextBehindWavIndex = 0;
 
-// GLOBAL: LEGO1 0x10102b24
-// GLOBAL: BETA10 0x10209f68
 undefined4 g_nextInterruptWavIndex = 0;
 
-// FUNCTION: LEGO1 0x100187e0
-// FUNCTION: BETA10 0x1000c7fb
 Act2Actor::Act2Actor() {
 	m_unk0x1c = 0;
 	m_unk0x1d = 0;
@@ -153,15 +119,11 @@ Act2Actor::Act2Actor() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10018940
-// FUNCTION: BETA10 0x1003d65f
 void Act2Actor::SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2) {
 	LegoAnimActor::SetROI(p_roi, p_bool1, p_bool2);
 	m_roi->SetVisibility(FALSE);
 }
 
-// FUNCTION: LEGO1 0x10018980
-// FUNCTION: BETA10 0x1000c963
 void Act2Actor::FUN_10018980() {
 	for (MxS32 i = 0; i < m_animMaps.size(); i++) {
 		if (m_animMaps[i]->GetUnknown0x00() == -1.0f) {
@@ -177,8 +139,6 @@ void Act2Actor::FUN_10018980() {
 	m_roi->SetVisibility(TRUE);
 }
 
-// FUNCTION: LEGO1 0x100189f0
-// FUNCTION: BETA10 0x1000ca64
 MxResult Act2Actor::HitActor(LegoPathActor*, MxBool) {
 	if (m_unk0x1f == FALSE) {
 		m_unk0x1f = TRUE;
@@ -189,7 +149,6 @@ MxResult Act2Actor::HitActor(LegoPathActor*, MxBool) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10018a20
 MxResult Act2Actor::VTable0x9c() {
 	if (m_grec && !m_grec->GetBit1()) {
 		delete m_grec;
@@ -211,8 +170,6 @@ MxResult Act2Actor::VTable0x9c() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10018c30
-// FUNCTION: BETA10 0x1000cb52
 void Act2Actor::Animate(float p_time) {
 	int dummy1; // for BETA10, not sure what it is being used for
 
@@ -389,23 +346,17 @@ void Act2Actor::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10019250
-// FUNCTION: BETA10 0x1000d45c
 void Act2Actor::FUN_10019250(MxFloat p_speed, MxFloat p_param2) {
 	// The arguments have been changed from BETA10 to LEGO1
 	SetWorldSpeed(p_speed);
 	m_unk0x44 = p_param2;
 }
 
-// FUNCTION: LEGO1 0x10019280
-// FUNCTION: BETA10 0x1000d4a6
 void Act2Actor::SetWorldSpeed(MxFloat p_worldSpeed) {
 	LegoAnimActor::SetWorldSpeed(p_worldSpeed);
 	m_unk0x44 = 0;
 }
 
-// FUNCTION: LEGO1 0x100192a0
-// FUNCTION: BETA10 0x1000d4d6
 void Act2Actor::FUN_100192a0(undefined4 p_location) {
 	Mx3DPointFloat newPosition(0.0, 0.0, 0.0);
 	Mx3DPointFloat newDirection(0.0, 0.0, 0.0);
@@ -443,22 +394,18 @@ void Act2Actor::FUN_100192a0(undefined4 p_location) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10019520
 void Act2Actor::FUN_10019520() {
 	m_unk0x1e = 4;
 	SetWorldSpeed(m_unk0x28 + 3);
 	FUN_100192a0(10);
 }
 
-// FUNCTION: LEGO1 0x10019560
 void Act2Actor::FUN_10019560() {
 	m_unk0x1e = 5;
 	SetWorldSpeed(m_unk0x28 + 5);
 	FUN_100192a0(9);
 }
 
-// FUNCTION: LEGO1 0x100195a0
-// FUNCTION: BETA10 0x1000d7d3
 MxS32 Act2Actor::VTable0xa0() {
 	undefined4 newLocation;
 
@@ -561,8 +508,6 @@ MxS32 Act2Actor::VTable0xa0() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10019700
-// FUNCTION: BETA10 0x1000dd27
 MxU32 Act2Actor::FUN_10019700(MxFloat p_param) {
 	if (!m_unk0x4c) {
 		g_unk0x100f0f20 = FALSE;
@@ -645,8 +590,6 @@ MxU32 Act2Actor::FUN_10019700(MxFloat p_param) {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x100199f0
-// FUNCTION: BETA10 0x1000e11a
 void Act2Actor::FUN_100199f0(MxS8 p_param) {
 	switch (p_param) {
 	case 0:
@@ -784,8 +727,6 @@ void Act2Actor::FUN_100199f0(MxS8 p_param) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10019b90
-// FUNCTION: BETA10 0x1000e374
 LegoEntity* Act2Actor::FUN_10019b90(MxBool* p_param) {
 	MxS32 i;
 	LegoBuildingInfo* buildingInfo = BuildingManager()->GetInfoArray(i);

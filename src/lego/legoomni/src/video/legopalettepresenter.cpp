@@ -8,22 +8,18 @@
 #include "mxpalette.h"
 #include "mxstreamchunk.h"
 
-// FUNCTION: LEGO1 0x10079e50
 LegoPalettePresenter::LegoPalettePresenter() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x1007a070
 LegoPalettePresenter::~LegoPalettePresenter() {
 	Destroy(TRUE);
 }
 
-// FUNCTION: LEGO1 0x1007a0d0
 void LegoPalettePresenter::Init() {
 	m_palette = NULL;
 }
 
-// FUNCTION: LEGO1 0x1007a0e0
 void LegoPalettePresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 	if (m_palette) {
@@ -36,12 +32,10 @@ void LegoPalettePresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1007a120
 void LegoPalettePresenter::Destroy() {
 	Destroy(FALSE);
 }
 
-// FUNCTION: LEGO1 0x1007a130
 MxResult LegoPalettePresenter::ParsePalette(MxStreamChunk* p_chunk) {
 	MxU8 buffer[40];
 	RGBQUAD palette[256];
@@ -65,7 +59,6 @@ MxResult LegoPalettePresenter::ParsePalette(MxStreamChunk* p_chunk) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1007a230
 void LegoPalettePresenter::ReadyTickle() {
 	MxStreamChunk* chunk = m_subscriber->PeekData();
 	if (chunk) {

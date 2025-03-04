@@ -10,8 +10,6 @@
 #include "mxstreamer.h"
 #include "mxstreamprovider.h"
 
-// FUNCTION: LEGO1 0x100c6470
-// FUNCTION: BETA10 0x10156f00
 MxDSBuffer::MxDSBuffer() {
 	m_pBuffer = NULL;
 	m_pIntoBuffer = NULL;
@@ -26,8 +24,6 @@ MxDSBuffer::MxDSBuffer() {
 	m_unk0x30 = 0;
 }
 
-// FUNCTION: LEGO1 0x100c6530
-// FUNCTION: BETA10 0x10156ff7
 MxDSBuffer::~MxDSBuffer() {
 	assert(m_referenceCount == 0);
 
@@ -51,8 +47,6 @@ MxDSBuffer::~MxDSBuffer() {
 	m_unk0x1c = 0;
 }
 
-// FUNCTION: LEGO1 0x100c6640
-// FUNCTION: BETA10 0x10157146
 MxResult MxDSBuffer::AllocateBuffer(MxU32 p_bufferSize, Type p_mode) {
 	MxResult result = FAILURE;
 
@@ -80,7 +74,6 @@ MxResult MxDSBuffer::AllocateBuffer(MxU32 p_bufferSize, Type p_mode) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100c6780
 MxResult MxDSBuffer::SetBufferPointer(MxU8* p_buffer, MxU32 p_size) {
 	m_pBuffer = p_buffer;
 	m_pIntoBuffer = p_buffer;
@@ -91,8 +84,6 @@ MxResult MxDSBuffer::SetBufferPointer(MxU8* p_buffer, MxU32 p_size) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100c67b0
-// FUNCTION: BETA10 0x10157295
 MxResult MxDSBuffer::FUN_100c67b0(
 	MxStreamController* p_controller,
 	MxDSAction* p_action,
@@ -162,8 +153,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100c68a0
-// FUNCTION: BETA10 0x10157450
 MxResult MxDSBuffer::CreateObject(
 	MxStreamController* p_controller,
 	MxU32* p_data,
@@ -204,7 +193,6 @@ MxResult MxDSBuffer::CreateObject(
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x100c6960
 MxResult MxDSBuffer::StartPresenterFromAction(
 	MxStreamController* p_controller,
 	MxDSAction* p_action1,
@@ -241,8 +229,6 @@ MxResult MxDSBuffer::StartPresenterFromAction(
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100c6a50
-// FUNCTION: BETA10 0x10157795
 MxResult MxDSBuffer::ParseChunk(
 	MxStreamController* p_controller,
 	MxU32* p_data,
@@ -335,8 +321,6 @@ MxResult MxDSBuffer::ParseChunk(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100c6d00
-// FUNCTION: BETA10 0x10157c94
 MxCore*
 MxDSBuffer::ReadChunk(MxDSBuffer* p_buffer, MxU32* p_chunkData, MxU16 p_flags) {
 	// This function reads a chunk. If it is an object, this function returns an
@@ -366,8 +350,6 @@ MxDSBuffer::ReadChunk(MxDSBuffer* p_buffer, MxU32* p_chunkData, MxU16 p_flags) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100c6df0
-// FUNCTION: BETA10 0x10157e0a
 MxU8* MxDSBuffer::SkipToData() {
 	MxU8* result = NULL;
 
@@ -414,7 +396,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100c6ec0
 MxU8 MxDSBuffer::ReleaseRef(MxDSChunk*) {
 	if (m_referenceCount != 0) {
 		m_referenceCount--;
@@ -422,15 +403,12 @@ MxU8 MxDSBuffer::ReleaseRef(MxDSChunk*) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x100c6ee0
 void MxDSBuffer::AddRef(MxDSChunk* p_chunk) {
 	if (p_chunk) {
 		m_referenceCount++;
 	}
 }
 
-// FUNCTION: LEGO1 0x100c6ef0
-// FUNCTION: BETA10 0x101580ad
 MxResult MxDSBuffer::CalcBytesRemaining(MxU8* p_data) {
 	MxResult result = FAILURE;
 
@@ -468,7 +446,6 @@ MxResult MxDSBuffer::CalcBytesRemaining(MxU8* p_data) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100c6f80
 void MxDSBuffer::FUN_100c6f80(MxU32 p_writeOffset) {
 	if (p_writeOffset < m_writeOffset) {
 		m_pIntoBuffer2 = m_pBuffer + p_writeOffset;
@@ -476,7 +453,6 @@ void MxDSBuffer::FUN_100c6f80(MxU32 p_writeOffset) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c6fa0
 MxU8* MxDSBuffer::FUN_100c6fa0(MxU8* p_data) {
 	MxU8* current = p_data ? p_data : m_pBuffer;
 	MxU8* end = m_writeOffset + m_pBuffer - 8;
@@ -510,8 +486,6 @@ MxU8* MxDSBuffer::FUN_100c6fa0(MxU8* p_data) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x100c7090
-// FUNCTION: BETA10 0x1015842d
 MxResult MxDSBuffer::FUN_100c7090(MxDSBuffer* p_buf) {
 	MxResult result = FAILURE;
 
@@ -524,7 +498,6 @@ MxResult MxDSBuffer::FUN_100c7090(MxDSBuffer* p_buf) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100c70d0
 MxResult MxDSBuffer::Append(MxU8* p_buffer1, MxU8* p_buffer2) {
 	if (p_buffer1 && p_buffer2) {
 		MxU32 size = ((MxU32*) p_buffer2)[1] - MxDSChunk::GetHeaderSize();

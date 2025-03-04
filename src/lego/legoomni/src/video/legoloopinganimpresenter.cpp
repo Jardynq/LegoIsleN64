@@ -7,8 +7,6 @@
 #include "mxdsaction.h"
 #include "mxdssubscriber.h"
 
-// FUNCTION: LEGO1 0x1006caa0
-// FUNCTION: BETA10 0x1005223d
 void LegoLoopingAnimPresenter::StreamingTickle() {
 	if (m_subscriber->PeekData()) {
 		MxStreamChunk* chunk = m_subscriber->PopData();
@@ -32,8 +30,6 @@ void LegoLoopingAnimPresenter::StreamingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1006cb40
-// FUNCTION: BETA10 0x1005239a
 void LegoLoopingAnimPresenter::PutFrame() {
 	MxLong time;
 

@@ -6,9 +6,6 @@
 
 class LegoCacheSound;
 
-// VTABLE: LEGO1 0x100d6d68
-// VTABLE: BETA10 0x101ba970
-// SIZE 0x78
 class LegoActor : public LegoEntity {
 public:
 	enum { c_none = 0, c_pepper, c_mama, c_papa, c_nick, c_laura, c_brickster };
@@ -16,64 +13,41 @@ public:
 	LegoActor();
 	~LegoActor() override;
 
-	// FUNCTION: LEGO1 0x1002d210
-	// FUNCTION: BETA10 0x10012760
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f0124
-		return "LegoActor";
-	}
+	const char* ClassName() const override { return "LegoActor"; }
 
-	// FUNCTION: LEGO1 0x1002d220
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, LegoActor::ClassName()) ||
 			   LegoEntity::IsA(p_name);
 	}
 
-	void ParseAction(char* p_extra) override; // vtable+0x20
-	void SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2)
-		override; // vtable+0x24
+	void ParseAction(char* p_extra) override;
+	void SetROI(LegoROI* p_roi, MxBool p_bool1, MxBool p_bool2) override;
 
-	// FUNCTION: LEGO1 0x10002cc0
-	virtual MxFloat GetSoundFrequencyFactor() {
-		return m_frequencyFactor;
-	} // vtable+0x50
+	virtual MxFloat GetSoundFrequencyFactor() { return m_frequencyFactor; }
 
-	// FUNCTION: LEGO1 0x10002cd0
 	virtual void SetSoundFrequencyFactor(MxFloat p_frequencyFactor) {
 		m_frequencyFactor = p_frequencyFactor;
-	} // vtable+0x54
+	}
 
-	// FUNCTION: LEGO1 0x10002ce0
-	virtual void VTable0x58(MxFloat p_unk0x70) {
-		m_unk0x70 = p_unk0x70;
-	} // vtable+0x58
+	virtual void VTable0x58(MxFloat p_unk0x70) { m_unk0x70 = p_unk0x70; }
 
-	// FUNCTION: LEGO1 0x10002cf0
-	virtual MxFloat VTable0x5c() { return m_unk0x70; } // vtable+0x5c
+	virtual MxFloat VTable0x5c() { return m_unk0x70; }
 
-	// FUNCTION: LEGO1 0x10002d00
-	// FUNCTION: BETA10 0x1000f4a0
-	virtual MxU8 GetActorId() { return m_actorId; } // vtable+0x60
+	virtual MxU8 GetActorId() { return m_actorId; }
 
-	// FUNCTION: LEGO1 0x10002d10
-	virtual void SetActorId(MxU8 p_actorId) {
-		m_actorId = p_actorId;
-	} // vtable+0x64
+	virtual void SetActorId(MxU8 p_actorId) { m_actorId = p_actorId; }
 
 	static const char* GetActorName(MxU8 p_id);
 
 	void Mute(MxBool p_muted);
 
 protected:
-	MxFloat m_frequencyFactor; // 0x68
-	LegoCacheSound* m_sound;   // 0x6c
-	MxFloat m_unk0x70;         // 0x70
-	MxU8 m_actorId;            // 0x74
+	MxFloat m_frequencyFactor;
+	LegoCacheSound* m_sound;
+	MxFloat m_unk0x70;
+	MxU8 m_actorId;
 };
 
-// SYNTHETIC: LEGO1 0x1002d300
 // LegoActor::`scalar deleting destructor'
 
 #endif // LEGOACTOR_H

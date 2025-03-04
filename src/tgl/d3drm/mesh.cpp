@@ -2,12 +2,10 @@
 
 using namespace TglImpl;
 
-// FUNCTION: LEGO1 0x100a3ed0
 void* MeshImpl::ImplementationDataPtr() {
 	return reinterpret_cast<void*>(&m_data);
 }
 
-// FUNCTION: LEGO1 0x100a3ee0
 Result MeshImpl::SetColor(float r, float g, float b, float a) {
 	// The first instruction makes no sense here:
 	// cmp dword ptr [esp + 0x10], 0
@@ -26,7 +24,6 @@ Result MeshImpl::SetColor(float r, float g, float b, float a) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100a3f50
 Result MeshImpl::SetTexture(const Texture* pTexture) {
 	IDirect3DRMTexture* texture =
 		pTexture
@@ -37,7 +34,6 @@ Result MeshImpl::SetTexture(const Texture* pTexture) {
 	);
 }
 
-// FUNCTION: LEGO1 0x100a3f80
 Result MeshImpl::SetTextureMappingMode(TextureMappingMode mode) {
 	if (mode == PerspectiveCorrect) {
 		return ResultVal(m_data->groupMesh->SetGroupMapping(
@@ -51,7 +47,6 @@ Result MeshImpl::SetTextureMappingMode(TextureMappingMode mode) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100a3fc0
 Result MeshImpl::SetShadingModel(ShadingModel model) {
 	D3DRMRENDERQUALITY mode;
 	switch (model) {
@@ -76,7 +71,6 @@ Result MeshImpl::SetShadingModel(ShadingModel model) {
 	);
 }
 
-// FUNCTION: LEGO1 0x100a4030
 Mesh* MeshImpl::DeepClone(MeshBuilder* pMeshBuilder) {
 	// Create group
 	MeshImpl* newMesh = new MeshImpl();
@@ -138,7 +132,6 @@ Mesh* MeshImpl::DeepClone(MeshBuilder* pMeshBuilder) {
 	return newMesh;
 }
 
-// FUNCTION: LEGO1 0x100a4240
 Mesh* MeshImpl::ShallowClone(MeshBuilder* pMeshBuilder) {
 	MeshImpl* newGroup = new MeshImpl();
 	MeshData* newData = new MeshData();
@@ -154,7 +147,6 @@ Mesh* MeshImpl::ShallowClone(MeshBuilder* pMeshBuilder) {
 	return newGroup;
 }
 
-// FUNCTION: LEGO1 0x100a4330
 Result MeshImpl::GetTexture(Texture*& rpTexture) {
 	IDirect3DRMTexture* texture;
 	TextureImpl* holder = new TextureImpl();

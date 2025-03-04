@@ -3,7 +3,6 @@
 
 #include "legovertex.h"
 
-// SIZE 0x18
 class LegoBox {
 public:
 	LegoVertex& GetMin() { return m_min; }
@@ -25,8 +24,8 @@ public:
 	LegoResult Read(LegoStorage* p_storage);
 
 protected:
-	LegoVertex m_min; // 0x00
-	LegoVertex m_max; // 0x0c
+	LegoVertex m_min;
+	LegoVertex m_max;
 };
 
 #endif // __LEGOBOX_H

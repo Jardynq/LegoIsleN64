@@ -9,7 +9,6 @@ inline TglD3DRMIMAGE* TextureGetImage(IDirect3DRMTexture* pTexture) {
 // Forward declare to satisfy order check
 void TextureDestroyCallback(IDirect3DRMObject* pObject, void* pArg);
 
-// FUNCTION: LEGO1 0x100a12a0
 Result TextureImpl::SetImage(IDirect3DRMTexture* pSelf, TglD3DRMIMAGE* pImage) {
 	void* appData;
 	Result result;
@@ -31,7 +30,6 @@ Result TextureImpl::SetImage(IDirect3DRMTexture* pSelf, TglD3DRMIMAGE* pImage) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a1300
 void TextureDestroyCallback(IDirect3DRMObject* pObject, void* pArg) {
 	TglD3DRMIMAGE* pImage =
 		reinterpret_cast<TglD3DRMIMAGE*>(pObject->GetAppData());
@@ -39,7 +37,6 @@ void TextureDestroyCallback(IDirect3DRMObject* pObject, void* pArg) {
 	pObject->SetAppData(0);
 }
 
-// FUNCTION: LEGO1 0x100a1330
 TglD3DRMIMAGE::TglD3DRMIMAGE(
 	int width,
 	int height,
@@ -73,7 +70,6 @@ TglD3DRMIMAGE::TglD3DRMIMAGE(
 	}
 }
 
-// FUNCTION: LEGO1 0x100a13b0
 void TglD3DRMIMAGE::Destroy() {
 	if (m_texelsAllocatedByClient == 0) {
 		delete[]((char*) m_image.buffer1);
@@ -92,7 +88,6 @@ inline static int IsPowerOfTwo(int v) {
 	return v == 2 && m == 0;
 }
 
-// FUNCTION: LEGO1 0x100a13e0
 Result TglD3DRMIMAGE::CreateBuffer(
 	int width,
 	int height,
@@ -126,7 +121,6 @@ Result TglD3DRMIMAGE::CreateBuffer(
 	return Success;
 }
 
-// FUNCTION: LEGO1 0x100a1510
 Result TglD3DRMIMAGE::FillRowsOfTexture(int y, int height, char* pContent) {
 	// The purpose is clearly this but I can't get the assembly to line up.
 	memcpy(
@@ -137,7 +131,6 @@ Result TglD3DRMIMAGE::FillRowsOfTexture(int y, int height, char* pContent) {
 	return Success;
 }
 
-// FUNCTION: LEGO1 0x100a1550
 Result
 TglD3DRMIMAGE::InitializePalette(int paletteSize, PaletteEntry* pEntries) {
 	// This function is a 100% match if the PaletteEntry class is copied
@@ -164,7 +157,6 @@ TglD3DRMIMAGE::InitializePalette(int paletteSize, PaletteEntry* pEntries) {
 	return Success;
 }
 
-// FUNCTION: LEGO1 0x100a3c10
 Result
 TextureImpl::SetTexels(int width, int height, int bitsPerTexel, void* pTexels) {
 	TglD3DRMIMAGE* image = TextureGetImage(m_data);
@@ -176,18 +168,15 @@ TextureImpl::SetTexels(int width, int height, int bitsPerTexel, void* pTexels) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a3c60
 void TextureImpl::FillRowsOfTexture(int y, int height, void* pBuffer) {
 	TglD3DRMIMAGE* image = TextureGetImage(m_data);
 	image->FillRowsOfTexture(y, height, (char*) pBuffer);
 }
 
-// FUNCTION: LEGO1 0x100a3c90
 Result TextureImpl::Changed(int texelsChanged, int paletteChanged) {
 	return ResultVal(m_data->Changed(texelsChanged, paletteChanged));
 }
 
-// FUNCTION: LEGO1 0x100a3cc0
 Result TextureImpl::GetBufferAndPalette(
 	int* width,
 	int* height,
@@ -211,7 +200,6 @@ Result TextureImpl::GetBufferAndPalette(
 	return Success;
 }
 
-// FUNCTION: LEGO1 0x100a3d40
 Result TextureImpl::SetPalette(int entryCount, PaletteEntry* pEntries) {
 	// Not 100% confident this is supposed to directly be forwarding arguments,
 	// but it probably is given FillRowsOfTexture matches doing that.
@@ -221,7 +209,6 @@ Result TextureImpl::SetPalette(int entryCount, PaletteEntry* pEntries) {
 	return Success;
 }
 
-// FUNCTION: LEGO1 0x100a3d70
 void* TextureImpl::ImplementationDataPtr() {
 	return reinterpret_cast<void*>(&m_data);
 }

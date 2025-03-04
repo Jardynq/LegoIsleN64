@@ -17,7 +17,6 @@ struct LegoCharacterComparator {
 	}
 };
 
-// SIZE 0x08
 struct LegoCharacter {
 	LegoCharacter(LegoROI* p_roi) {
 		m_roi = p_roi;
@@ -34,24 +33,21 @@ struct LegoCharacter {
 		return m_refCount;
 	}
 
-	LegoROI* m_roi;   // 0x00
-	MxU32 m_refCount; // 0x04
+	LegoROI* m_roi;
+	MxU32 m_refCount;
 };
 
 struct LegoActorInfo;
 
 typedef map<char*, LegoCharacter*, LegoCharacterComparator> LegoCharacterMap;
 
-// VTABLE: LEGO1 0x100da878
-// SIZE 0x24
 class CustomizeAnimFileVariable : public MxVariable {
 public:
 	CustomizeAnimFileVariable(const char* p_key);
 
-	void SetValue(const char* p_value) override; // vtable+0x04
+	void SetValue(const char* p_value) override;
 };
 
-// SIZE 0x08
 class LegoCharacterManager {
 public:
 	LegoCharacterManager();
@@ -108,51 +104,51 @@ private:
 	static MxU32 g_maxMove;
 	static MxU32 g_maxSound;
 
-	LegoCharacterMap* m_characters;                 // 0x00
-	CustomizeAnimFileVariable* m_customizeAnimFile; // 0x04
+	LegoCharacterMap* m_characters;
+	CustomizeAnimFileVariable* m_customizeAnimFile;
 };
 
 // clang-format off
-// TEMPLATE: LEGO1 0x1001a690
+
 // list<ROI *,allocator<ROI *> >::_Buynode
 
-// TEMPLATE: LEGO1 0x10035790
+
 // ?_Construct@@YAXPAPAVROI@@ABQAV1@@Z
 
-// TEMPLATE: LEGO1 0x10082b90
+
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::~_Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >
 
-// TEMPLATE: LEGO1 0x10082c60
+
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::iterator::_Inc
 
-// TEMPLATE: LEGO1 0x10082ca0
+
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::erase
 
-// TEMPLATE: LEGO1 0x100830f0
+
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::_Erase
 
-// TEMPLATE: LEGO1 0x10083130
+
 // map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::~map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >
 
-// TEMPLATE: LEGO1 0x10083840
+
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::iterator::_Dec
 
-// TEMPLATE: LEGO1 0x10083890
+
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::_Insert
 
-// TEMPLATE: LEGO1 0x10085500
+
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::insert
 
-// TEMPLATE: LEGO1 0x10085790
+
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::_Buynode
 
-// TEMPLATE: LEGO1 0x100857b0
+
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::_Lrotate
 
-// TEMPLATE: LEGO1 0x10085810
+
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::_Rrotate
 
-// GLOBAL: LEGO1 0x100fc508
+
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::_Nil
 // clang-format on
 

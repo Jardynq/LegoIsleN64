@@ -23,7 +23,6 @@
 // Flags used in isle.cpp
 extern MxU32 g_isleFlags;
 
-// FUNCTION: LEGO1 0x1004c720
 TowTrack::TowTrack() {
 	m_unk0x168 = 0;
 	m_actorId = -1;
@@ -36,13 +35,10 @@ TowTrack::TowTrack() {
 	m_fuel = 1.0;
 }
 
-// FUNCTION: LEGO1 0x1004c970
 TowTrack::~TowTrack() {
 	ControlManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x1004c9e0
-// FUNCTION: BETA10 0x100f6bf1
 MxResult TowTrack::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 
@@ -69,7 +65,6 @@ MxResult TowTrack::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1004cb10
 void TowTrack::Animate(float p_time) {
 	IslePathActor::Animate(p_time);
 
@@ -99,7 +94,6 @@ void TowTrack::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004cc40
 void TowTrack::CreateState() {
 	m_state =
 		(TowTrackMissionState*) GameState()->GetState("TowTrackMissionState");
@@ -110,8 +104,6 @@ void TowTrack::CreateState() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004cc80
-// FUNCTION: BETA10 0x100f6de2
 MxLong TowTrack::Notify(MxParam& p_param) {
 	MxLong result = 0;
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
@@ -140,13 +132,10 @@ MxLong TowTrack::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1004cd30
 MxLong TowTrack::HandleEndAnim(LegoEndAnimNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x1004cd40
-// FUNCTION: BETA10 0x100f6f1f
 MxLong TowTrack::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	if (p_param.GetAction() != NULL) {
 		IsleScript::Script objectId =
@@ -276,12 +265,8 @@ MxLong TowTrack::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x1004d330
-// FUNCTION: BETA10 0x100f74c0
 MxLong TowTrack::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	MxDSAction action;
-
-	// 0x168 corresponds to the path at the gas station
 	if (p_param.GetData() == 0x168) {
 		m_fuel = 1.0f;
 	}
@@ -401,7 +386,6 @@ MxLong TowTrack::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x1004d690
 MxLong TowTrack::HandleClick() {
 	if (((Act1State*) GameState()->GetState("Act1State"))->m_unk0x018 != 8) {
 		return 1;
@@ -492,7 +476,6 @@ MxLong TowTrack::HandleClick() {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x1004d8f0
 void TowTrack::Exit() {
 	GameState()->m_currentArea = LegoGameState::e_garageExterior;
 	StopActions();
@@ -500,7 +483,6 @@ void TowTrack::Exit() {
 	Leave();
 }
 
-// FUNCTION: LEGO1 0x1004d920
 void TowTrack::Leave() {
 	IslePathActor::Exit();
 	CurrentWorld()->RemoveActor(this);
@@ -518,7 +500,6 @@ void TowTrack::Leave() {
 	ControlManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x1004d9e0
 MxLong TowTrack::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxLong result = 0;
 
@@ -556,13 +537,11 @@ MxLong TowTrack::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1004dab0
 void TowTrack::FUN_1004dab0() {
 	m_state->m_unk0x08 = 1;
 	HandleClick();
 }
 
-// FUNCTION: LEGO1 0x1004dad0
 void TowTrack::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_JBMusic2);
 
@@ -575,7 +554,6 @@ void TowTrack::ActivateSceneActions() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004db10
 void TowTrack::StopActions() {
 	InvokeAction(
 		Extra::e_stop,
@@ -633,7 +611,6 @@ void TowTrack::StopActions() {
 	);
 }
 
-// FUNCTION: LEGO1 0x1004dbe0
 void TowTrack::FUN_1004dbe0() {
 	if (m_lastAction != -1) {
 		InvokeAction(Extra::e_stop, *g_isleScript, m_lastAction, NULL);
@@ -651,8 +628,6 @@ void TowTrack::FUN_1004dbe0() {
 	m_unk0x16e = 0;
 }
 
-// FUNCTION: LEGO1 0x1004dc80
-// FUNCTION: BETA10 0x100f86a0
 void TowTrack::PlayFinalAnimation(IsleScript::Script p_objectId) {
 	AnimationManager()->FUN_10060dc0(
 		p_objectId,
@@ -668,7 +643,6 @@ void TowTrack::PlayFinalAnimation(IsleScript::Script p_objectId) {
 	m_lastAnimation = p_objectId;
 }
 
-// FUNCTION: LEGO1 0x1004dcb0
 void TowTrack::FUN_1004dcb0(IsleScript::Script p_objectId) {
 	AnimationManager()->FUN_1005f6d0(TRUE);
 	AnimationManager()->FUN_10060dc0(
@@ -685,7 +659,6 @@ void TowTrack::FUN_1004dcb0(IsleScript::Script p_objectId) {
 	m_lastAnimation = p_objectId;
 }
 
-// FUNCTION: LEGO1 0x1004dcf0
 void TowTrack::PlayAction(IsleScript::Script p_objectId) {
 	if (p_objectId != IsleScript::c_noneIsle) {
 		InvokeAction(Extra::e_start, *g_isleScript, p_objectId, NULL);
@@ -695,7 +668,6 @@ void TowTrack::PlayAction(IsleScript::Script p_objectId) {
 	BackgroundAudioManager()->LowerVolume();
 }
 
-// FUNCTION: LEGO1 0x1004dd30
 TowTrackMissionState::TowTrackMissionState() {
 	m_unk0x08 = 0;
 	m_startTime = 0;

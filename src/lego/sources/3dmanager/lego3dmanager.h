@@ -18,22 +18,19 @@ class ViewLODListManager;
 //
 // Lego3DManager
 
-// VTABLE: LEGO1 0x100dbfa4
-// SIZE 0x10
 class Lego3DManager {
 public:
-	// SIZE 0x28
 	struct CreateStruct {
-		const GUID* m_pDriverGUID;          // 0x00
-		HWND m_hWnd;                        // 0x04
-		IDirectDraw* m_pDirectDraw;         // 0x08
-		IDirectDrawSurface* m_pFrontBuffer; // 0x0c
-		IDirectDrawSurface* m_pBackBuffer;  // 0x10
-		IDirectDrawPalette* m_pPalette;     // 0x14
-		BOOL m_isFullScreen;                // 0x18
-		BOOL m_isWideViewAngle;             // 0x1c
-		IDirect3D2* m_direct3d;             // 0x20
-		IDirect3DDevice2* m_d3dDevice;      // 0x24
+		const GUID* m_pDriverGUID;
+		HWND m_hWnd;
+		IDirectDraw* m_pDirectDraw;
+		IDirectDrawSurface* m_pFrontBuffer;
+		IDirectDrawSurface* m_pBackBuffer;
+		IDirectDrawPalette* m_pPalette;
+		BOOL m_isFullScreen;
+		BOOL m_isWideViewAngle;
+		IDirect3D2* m_direct3d;
+		IDirect3DDevice2* m_d3dDevice;
 	};
 
 public:
@@ -58,42 +55,36 @@ public:
 	// ??? for now
 	ViewLODListManager* GetViewLODListManager();
 
-	// SYNTHETIC: LEGO1 0x100ab340
 	// Lego3DManager::`scalar deleting destructor'
 
 private:
-	Tgl::Renderer* m_pRenderer; // 0x04
-
-	Lego3DView* m_pLego3DView;                 // 0x08
-	ViewLODListManager* m_pViewLODListManager; // 0x0c
+	Tgl::Renderer* m_pRenderer;
+	Lego3DView* m_pLego3DView;
+	ViewLODListManager* m_pViewLODListManager;
 };
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Lego3DManager implementaion
 
-// FUNCTION: BETA10 0x10079bd0
 inline BOOL Lego3DManager::Add(ViewROI& rROI) {
 	assert(m_pLego3DView);
 
 	return m_pLego3DView->Add(rROI);
 }
 
-// FUNCTION: BETA10 0x10037430
 inline BOOL Lego3DManager::Remove(ViewROI& rROI) {
 	assert(m_pLego3DView);
 
 	return m_pLego3DView->Remove(rROI);
 }
 
-// FUNCTION: BETA10 0x100d8990
 inline BOOL Lego3DManager::SetPointOfView(ViewROI& rROI) {
 	assert(m_pLego3DView);
 
 	return m_pLego3DView->SetPointOfView(rROI);
 }
 
-// FUNCTION: BETA10 0x1004af70
 inline BOOL Lego3DManager::Moved(ViewROI& rROI) {
 	assert(m_pLego3DView);
 
@@ -110,7 +101,6 @@ inline Tgl::Group* Lego3DManager::GetScene() {
 	return m_pLego3DView->GetScene();
 }
 
-// FUNCTION: BETA10 0x10011840
 inline Lego3DView* Lego3DManager::GetLego3DView() {
 	return m_pLego3DView;
 }

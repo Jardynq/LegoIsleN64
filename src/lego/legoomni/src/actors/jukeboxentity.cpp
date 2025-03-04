@@ -15,18 +15,14 @@
 #include "mxtransitionmanager.h"
 #include "scripts.h"
 
-// FUNCTION: LEGO1 0x10085bc0
 JukeBoxEntity::JukeBoxEntity() {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x10085dd0
 JukeBoxEntity::~JukeBoxEntity() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x10085e40
-// FUNCTION: BETA10 0x10038c37
 MxLong JukeBoxEntity::Notify(MxParam& p_param) {
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
 
@@ -49,7 +45,6 @@ MxLong JukeBoxEntity::Notify(MxParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x10085ed0
 void JukeBoxEntity::StartAction() {
 	MxDSAction action;
 	BackgroundAudioManager()->Stop();
@@ -124,7 +119,6 @@ void JukeBoxEntity::StartAction() {
 	BackgroundAudioManager()->PlayMusic(action, 5, MxPresenter::e_repeating);
 }
 
-// FUNCTION: LEGO1 0x100860f0
 void JukeBoxEntity::StopAction(JukeboxScript::Script p_script) {
 	JukeBoxState* state = (JukeBoxState*) GameState()->GetState("JukeBoxState");
 

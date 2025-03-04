@@ -32,11 +32,8 @@ extern const char* g_varJSWNSHY5;
 // Defined in legopathactor.cpp
 extern const char* g_strHIT_WALL_SOUND;
 
-// GLOBAL: LEGO1 0x100f0c78
 MxS32 JetskiRace::g_unk0x100f0c78 = 2;
 
-// FUNCTION: LEGO1 0x100162c0
-// FUNCTION: BETA10 0x100c7e6f
 MxResult JetskiRace::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoRace::Create(p_dsAction);
 
@@ -81,8 +78,6 @@ MxResult JetskiRace::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100163b0
-// FUNCTION: BETA10 0x100c7f10
 void JetskiRace::ReadyWorld() {
 	assert(m_hideAnim);
 	LegoWorld::ReadyWorld();
@@ -116,7 +111,6 @@ void JetskiRace::ReadyWorld() {
 	);
 }
 
-// FUNCTION: LEGO1 0x10016520
 MxLong JetskiRace::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	MxLong result = 0;
 
@@ -133,7 +127,6 @@ MxLong JetskiRace::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100165a0
 MxLong JetskiRace::HandleClick(LegoEventNotificationParam& p_param) {
 	MxLong result = 0;
 
@@ -176,8 +169,6 @@ MxLong JetskiRace::HandleClick(LegoEventNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100166a0
-// FUNCTION: BETA10 0x100c8085
 MxLong JetskiRace::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	MxLong result = 0;
 	MxEntity* sender = (MxEntity*) p_param.GetSender();
@@ -291,7 +282,6 @@ MxLong JetskiRace::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10016930
 void JetskiRace::FUN_10016930(MxS32 p_param1, MxS16 p_param2) {
 	MxS32 local4;
 	MxStillPresenter* presenter;
@@ -317,7 +307,6 @@ void JetskiRace::FUN_10016930(MxS32 p_param1, MxS16 p_param2) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10016a10
 MxBool JetskiRace::Escape() {
 	AnimationManager()->FUN_10061010(FALSE);
 	DeleteObjects(&m_atomId, 500, 999);

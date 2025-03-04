@@ -2,12 +2,10 @@
 
 using namespace TglImpl;
 
-// FUNCTION: LEGO1 0x100a3830
 void* MeshBuilderImpl::ImplementationDataPtr() {
 	return reinterpret_cast<void*>(&m_data);
 }
 
-// FUNCTION: LEGO1 0x100a3840
 Mesh* MeshBuilderImpl::CreateMesh(
 	unsigned int faceCount,
 	unsigned int vertexCount,
@@ -156,7 +154,6 @@ inline Result MeshBuilderImpl::CreateMeshImpl(
 	);
 }
 
-// FUNCTION: LEGO1 0x100a3ae0
 Result MeshBuilderImpl::GetBoundingBox(float min[3], float max[3]) const {
 	D3DRMBOX box;
 	Result result = ResultVal(m_data->GetBox(&box));
@@ -171,7 +168,6 @@ Result MeshBuilderImpl::GetBoundingBox(float min[3], float max[3]) const {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a3b40
 MeshBuilder* MeshBuilderImpl::Clone() {
 	MeshBuilderImpl* mesh = new MeshBuilderImpl();
 	int ret = m_data->Clone(0, IID_IDirect3DRMMesh, (void**) &mesh->m_data);

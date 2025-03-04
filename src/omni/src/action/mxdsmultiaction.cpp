@@ -1,22 +1,17 @@
 #include "mxdsmultiaction.h"
 
-// FUNCTION: LEGO1 0x100c9b90
-// FUNCTION: BETA10 0x10159410
 MxDSMultiAction::MxDSMultiAction() {
 	this->SetType(e_multiAction);
 	this->m_actions = new MxDSActionList;
 	this->m_actions->SetDestroy(MxDSActionList::Destroy);
 }
 
-// FUNCTION: LEGO1 0x100ca060
 MxDSMultiAction::~MxDSMultiAction() {
 	if (this->m_actions) {
 		delete this->m_actions;
 	}
 }
 
-// FUNCTION: LEGO1 0x100ca0d0
-// FUNCTION: BETA10 0x101595ad
 void MxDSMultiAction::CopyFrom(MxDSMultiAction& p_dsMultiAction) {
 	this->m_actions->DeleteAll();
 
@@ -27,7 +22,6 @@ void MxDSMultiAction::CopyFrom(MxDSMultiAction& p_dsMultiAction) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100ca260
 MxDSMultiAction& MxDSMultiAction::operator=(MxDSMultiAction& p_dsMultiAction) {
 	if (this == &p_dsMultiAction) {
 		return *this;
@@ -38,7 +32,6 @@ MxDSMultiAction& MxDSMultiAction::operator=(MxDSMultiAction& p_dsMultiAction) {
 	return *this;
 }
 
-// FUNCTION: LEGO1 0x100ca290
 void MxDSMultiAction::SetUnknown90(MxLong p_unk0x90) {
 	this->m_unk0x90 = p_unk0x90;
 
@@ -49,7 +42,6 @@ void MxDSMultiAction::SetUnknown90(MxLong p_unk0x90) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100ca370
 void MxDSMultiAction::MergeFrom(MxDSAction& p_dsMultiAction) {
 	MxDSAction::MergeFrom(p_dsMultiAction);
 
@@ -60,7 +52,6 @@ void MxDSMultiAction::MergeFrom(MxDSAction& p_dsMultiAction) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100ca450
 MxBool MxDSMultiAction::HasId(MxU32 p_objectId) {
 	if (this->GetObjectId() == p_objectId) {
 		return TRUE;
@@ -77,7 +68,6 @@ MxBool MxDSMultiAction::HasId(MxU32 p_objectId) {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x100ca550
 MxDSAction* MxDSMultiAction::Clone() {
 	MxDSMultiAction* clone = new MxDSMultiAction();
 
@@ -88,7 +78,6 @@ MxDSAction* MxDSMultiAction::Clone() {
 	return clone;
 }
 
-// FUNCTION: LEGO1 0x100ca5e0
 undefined4 MxDSMultiAction::VTable0x14() {
 	undefined4 result = MxDSAction::VTable0x14();
 
@@ -101,7 +90,6 @@ undefined4 MxDSMultiAction::VTable0x14() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100ca6c0
 MxU32 MxDSMultiAction::GetSizeOnDisk() {
 	MxU32 totalSizeOnDisk = MxDSAction::GetSizeOnDisk() + 16;
 
@@ -116,7 +104,6 @@ MxU32 MxDSMultiAction::GetSizeOnDisk() {
 	return totalSizeOnDisk;
 }
 
-// FUNCTION: LEGO1 0x100ca7b0
 void MxDSMultiAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 	MxDSAction::Deserialize(p_source, p_unk0x24);
 
@@ -142,7 +129,6 @@ void MxDSMultiAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 	p_source += extraFlag;
 }
 
-// FUNCTION: LEGO1 0x100ca8c0
 void MxDSMultiAction::SetAtomId(MxAtomId p_atomId) {
 	MxDSAction::SetAtomId(p_atomId);
 

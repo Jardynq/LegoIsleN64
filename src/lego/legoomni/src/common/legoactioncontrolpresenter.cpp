@@ -12,7 +12,6 @@
 #include "mxticklemanager.h"
 #include "mxutilities.h"
 
-// FUNCTION: LEGO1 0x10043ce0
 void LegoActionControlPresenter::ReadyTickle() {
 	MxStreamChunk* chunk = NextChunk();
 
@@ -29,7 +28,6 @@ void LegoActionControlPresenter::ReadyTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10043d40
 void LegoActionControlPresenter::RepeatingTickle() {
 	if (IsEnabled()) {
 		if (m_unk0x50 == 0) {
@@ -46,7 +44,6 @@ void LegoActionControlPresenter::RepeatingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10043df0
 MxResult LegoActionControlPresenter::AddToManager() {
 	MxResult result = FAILURE;
 
@@ -58,7 +55,6 @@ MxResult LegoActionControlPresenter::AddToManager() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10043e20
 void LegoActionControlPresenter::Destroy(MxBool p_fromDestructor) {
 	if (TickleManager()) {
 		TickleManager()->UnregisterClient(this);
@@ -69,7 +65,6 @@ void LegoActionControlPresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10043e50
 void LegoActionControlPresenter::ParseExtra() {
 	MxU16 extraLength;
 	char* extraData;

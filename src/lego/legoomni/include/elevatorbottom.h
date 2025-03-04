@@ -6,45 +6,31 @@
 
 class LegoControlManagerNotificationParam;
 
-// VTABLE: LEGO1 0x100d5f20
-// VTABLE: BETA10 0x101b96f0
-// SIZE 0xfc
 class ElevatorBottom : public LegoWorld {
 public:
 	ElevatorBottom();
-	~ElevatorBottom() override; // vtable+0x00
+	~ElevatorBottom() override;
 
-	MxLong Notify(MxParam& p_param) override; // vtable+0x04
+	MxLong Notify(MxParam& p_param) override;
 
-	// FUNCTION: LEGO1 0x10017f10
-	MxBool VTable0x5c() override { return TRUE; } // vtable+0x5c
+	MxBool VTable0x5c() override { return TRUE; }
 
-	// FUNCTION: LEGO1 0x10017f20
-	// FUNCTION: BETA10 0x10028130
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f04ac
-		return "ElevatorBottom";
-	}
+	const char* ClassName() const override { return "ElevatorBottom"; }
 
-	// FUNCTION: LEGO1 0x10017f30
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, ElevatorBottom::ClassName()) ||
 			   LegoWorld::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
-	void ReadyWorld() override;                       // vtable+0x50
-	MxBool Escape() override;                         // vtable+0x64
-	void Enable(MxBool p_enable) override;            // vtable+0x68
+	MxResult Create(MxDSAction& p_dsAction) override;
+	void ReadyWorld() override;
+	MxBool Escape() override;
+	void Enable(MxBool p_enable) override;
 
-	// SYNTHETIC: LEGO1 0x10018040
 	// ElevatorBottom::`scalar deleting destructor'
 
 private:
-	LegoGameState::Area m_destLocation; // 0xf8
-
+	LegoGameState::Area m_destLocation;
 	MxLong HandleControl(LegoControlManagerNotificationParam& p_param);
 };
 

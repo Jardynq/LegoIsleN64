@@ -14,18 +14,14 @@
 
 #include <assert.h>
 
-// FUNCTION: LEGO1 0x10027220
 BumpBouy::BumpBouy() {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x10027360
 BumpBouy::~BumpBouy() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x10027400
-// FUNCTION: BETA10 0x100262d9
 MxLong BumpBouy::Notify(MxParam& p_param) {
 	MxLong result = 0;
 	MxNotificationParam& param = (MxNotificationParam&) p_param;

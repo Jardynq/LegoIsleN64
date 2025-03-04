@@ -9,8 +9,6 @@
 class MxBitmap;
 class MxPalette;
 
-// VTABLE: LEGO1 0x100dc768
-// SIZE 0xac
 class MxDisplaySurface : public MxCore {
 public:
 	MxDisplaySurface();
@@ -21,10 +19,10 @@ public:
 		LPDIRECTDRAWSURFACE p_ddSurface1,
 		LPDIRECTDRAWSURFACE p_ddSurface2,
 		LPDIRECTDRAWCLIPPER p_ddClipper
-	);                                                   // vtable+0x14
-	virtual MxResult Create(MxVideoParam& p_videoParam); // vtable+0x18
-	virtual void Destroy();                              // vtable+0x1c
-	virtual void SetPalette(MxPalette* p_palette);       // vtable+0x20
+	);
+	virtual MxResult Create(MxVideoParam& p_videoParam);
+	virtual void Destroy();
+	virtual void SetPalette(MxPalette* p_palette);
 	virtual void VTable0x24(
 		LPDDSURFACEDESC p_desc,
 		MxBitmap* p_bitmap,
@@ -34,7 +32,7 @@ public:
 		MxS32 p_bottom,
 		MxS32 p_width,
 		MxS32 p_height
-	); // vtable+0x24
+	);
 	virtual void VTable0x28(
 		MxBitmap* p_bitmap,
 		MxS32 p_left,
@@ -43,7 +41,7 @@ public:
 		MxS32 p_bottom,
 		MxS32 p_width,
 		MxS32 p_height
-	); // vtable+0x28
+	);
 	virtual void VTable0x2c(
 		LPDDSURFACEDESC p_desc,
 		MxBitmap* p_bitmap,
@@ -54,7 +52,7 @@ public:
 		MxS32 p_width,
 		MxS32 p_height,
 		MxBool p_RLE
-	); // vtable+0x2c
+	);
 	virtual void VTable0x30(
 		MxBitmap* p_bitmap,
 		MxS32 p_left,
@@ -64,7 +62,7 @@ public:
 		MxS32 p_width,
 		MxS32 p_height,
 		MxBool p_RLE
-	); // vtable+0x30
+	);
 	virtual void VTable0x34(
 		MxU8* p_pixels,
 		MxS32 p_bpp,
@@ -72,7 +70,7 @@ public:
 		MxS32 p_height,
 		MxS32 p_x,
 		MxS32 p_y
-	); // vtable+0x34
+	);
 	virtual void Display(
 		MxS32 p_left,
 		MxS32 p_top,
@@ -80,15 +78,15 @@ public:
 		MxS32 p_top2,
 		MxS32 p_width,
 		MxS32 p_height
-	);                                 // vtable+0x38
-	virtual void GetDC(HDC* p_hdc);    // vtable+0x3c
-	virtual void ReleaseDC(HDC p_hdc); // vtable+0x40
+	);
+	virtual void GetDC(HDC* p_hdc);
+	virtual void ReleaseDC(HDC p_hdc);
 	virtual LPDIRECTDRAWSURFACE VTable0x44(
 		MxBitmap* p_bitmap,
 		undefined4* p_ret,
 		undefined4 p_doNotWriteToSurface,
 		undefined4 p_transparent
-	); // vtable+0x44
+	);
 
 	void ClearScreen();
 	static LPDIRECTDRAWSURFACE CreateCursorSurface();
@@ -116,16 +114,15 @@ private:
 
 	void Init();
 
-	MxVideoParam m_videoParam;        // 0x08
-	LPDIRECTDRAWSURFACE m_ddSurface1; // 0x2c
-	LPDIRECTDRAWSURFACE m_ddSurface2; // 0x30
-	LPDIRECTDRAWCLIPPER m_ddClipper;  // 0x34
-	MxBool m_initialized;             // 0x38
-	DDSURFACEDESC m_surfaceDesc;      // 0x3c
-	MxU16* m_16bitPal;                // 0xa8
+	MxVideoParam m_videoParam;
+	LPDIRECTDRAWSURFACE m_ddSurface1;
+	LPDIRECTDRAWSURFACE m_ddSurface2;
+	LPDIRECTDRAWCLIPPER m_ddClipper;
+	MxBool m_initialized;
+	DDSURFACEDESC m_surfaceDesc;
+	MxU16* m_16bitPal;
 };
 
-// SYNTHETIC: LEGO1 0x100ba580
 // MxDisplaySurface::`scalar deleting destructor'
 
 #endif // MXDISPLAYSURFACE_H

@@ -9,9 +9,6 @@ class MxDSStreamingAction;
 class MxStreamChunk;
 class MxDSChunk;
 
-// VTABLE: LEGO1 0x100dcca0
-// VTABLE: BETA10 0x101c2898
-// SIZE 0x34
 class MxDSBuffer : public MxCore {
 public:
 	enum Type {
@@ -24,13 +21,7 @@ public:
 	MxDSBuffer();
 	~MxDSBuffer() override;
 
-	// FUNCTION: LEGO1 0x100c6500
-	// FUNCTION: BETA10 0x10158510
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x101025b8
-		return "MxDSBuffer";
-	}
+	const char* ClassName() const override { return "MxDSBuffer"; }
 
 	MxResult AllocateBuffer(MxU32 p_bufferSize, Type p_mode);
 	MxResult SetBufferPointer(MxU8* p_buffer, MxU32 p_size);
@@ -69,48 +60,40 @@ public:
 	ReadChunk(MxDSBuffer* p_buffer, MxU32* p_chunkData, MxU16 p_flags);
 	static MxResult Append(MxU8* p_buffer1, MxU8* p_buffer2);
 
-	// FUNCTION: BETA10 0x10148c60
 	MxU8* GetBuffer() { return m_pBuffer; }
 
-	// FUNCTION: BETA10 0x10164240
 	undefined4 GetUnknown14() { return m_unk0x14; }
 
-	// FUNCTION: BETA10 0x10156420
 	MxBool HasRef() { return m_referenceCount != 0; }
 
 	MxU16 GetRefCount() { return m_referenceCount; }
 	Type GetMode() { return m_mode; }
 
-	// FUNCTION: BETA10 0x10148c40
 	MxU32 GetWriteOffset() { return m_writeOffset; }
 
-	// FUNCTION: BETA10 0x101590d0
 	MxU32 GetBytesRemaining() { return m_bytesRemaining; }
 
 	void SetUnknown14(undefined4 p_unk0x14) { m_unk0x14 = p_unk0x14; }
 	void SetUnknown1c(undefined4 p_unk0x1c) { m_unk0x1c = p_unk0x1c; }
 
-	// FUNCTION: BETA10 0x10164260
 	void SetMode(Type p_mode) { m_mode = p_mode; }
 
 	void SetUnk30(MxDSStreamingAction* p_unk0x30) { m_unk0x30 = p_unk0x30; }
 
-	// SYNTHETIC: LEGO1 0x100c6510
-	// SYNTHETIC: BETA10 0x10158530
 	// MxDSBuffer::`scalar deleting destructor'
 
 private:
-	MxU8* m_pBuffer;                // 0x08
-	MxU8* m_pIntoBuffer;            // 0x0c
-	MxU8* m_pIntoBuffer2;           // 0x10
-	undefined4 m_unk0x14;           // 0x14
-	undefined4 m_unk0x18;           // 0x18
-	undefined4 m_unk0x1c;           // 0x1c
-	MxU16 m_referenceCount;         // 0x20
-	Type m_mode;                    // 0x24
-	MxU32 m_writeOffset;            // 0x28
-	MxU32 m_bytesRemaining;         // 0x2c
-	MxDSStreamingAction* m_unk0x30; // 0x30
+	MxU8* m_pBuffer;
+	MxU8* m_pIntoBuffer;
+	MxU8* m_pIntoBuffer2;
+	undefined4 m_unk0x14;
+	undefined4 m_unk0x18;
+	undefined4 m_unk0x1c;
+	MxU16 m_referenceCount;
+	Type m_mode;
+	MxU32 m_writeOffset;
+	MxU32 m_bytesRemaining;
+	MxDSStreamingAction* m_unk0x30;
 };
 
 #endif // MXDSBUFFER_H

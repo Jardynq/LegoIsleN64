@@ -15,14 +15,12 @@
 #include "police_actions.h"
 #include "scripts.h"
 
-// FUNCTION: LEGO1 0x1005e130
 Police::Police() {
 	m_policeState = NULL;
 	m_destLocation = LegoGameState::e_undefined;
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x1005e320
 Police::~Police() {
 	if (InputManager()->GetWorld() == this) {
 		InputManager()->ClearWorld();
@@ -33,7 +31,6 @@ Police::~Police() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x1005e3e0
 MxResult Police::Create(MxDSAction& p_dsAction) {
 	MxResult ret = LegoWorld::Create(p_dsAction);
 	if (ret == SUCCESS) {
@@ -57,8 +54,6 @@ MxResult Police::Create(MxDSAction& p_dsAction) {
 	return ret;
 }
 
-// FUNCTION: LEGO1 0x1005e480
-// FUNCTION: BETA10 0x100f04a3
 MxLong Police::Notify(MxParam& p_param) {
 	MxLong result = 0;
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
@@ -85,7 +80,6 @@ MxLong Police::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1005e530
 void Police::ReadyWorld() {
 	LegoWorld::ReadyWorld();
 	PlayMusic(JukeboxScript::c_PoliceStation_Music);
@@ -96,7 +90,6 @@ void Police::ReadyWorld() {
 	);
 }
 
-// FUNCTION: LEGO1 0x1005e550
 MxLong Police::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	if (p_param.GetUnknown0x28() == 1) {
 		switch (p_param.GetClickedObjectId()) {
@@ -163,7 +156,6 @@ MxLong Police::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x1005e6a0
 MxLong Police::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	MxDSAction* action = p_param.GetAction();
 
@@ -179,7 +171,6 @@ MxLong Police::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x1005e6f0
 MxLong Police::HandleKeyPress(LegoEventNotificationParam& p_param) {
 	MxLong result = 0;
 
@@ -196,7 +187,6 @@ MxLong Police::HandleKeyPress(LegoEventNotificationParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x1005e740
 void Police::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
@@ -210,22 +200,18 @@ void Police::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1005e790
 MxBool Police::Escape() {
 	DeleteObjects(&m_atomId, PoliceScript::c_nps001ni_RunAnim, 510);
 	m_destLocation = LegoGameState::e_infomain;
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1005e7c0
 PoliceState::PoliceState() {
 	m_unk0x0c = 0;
 	m_policeScript = (rand() % 2 == 0) ? PoliceScript::c_nps002la_RunAnim
 									   : PoliceScript::c_nps001ni_RunAnim;
 }
 
-// FUNCTION: LEGO1 0x1005e990
-// FUNCTION: BETA10 0x100f08b0
 MxResult PoliceState::Serialize(LegoStorage* p_storage) {
 	LegoState::Serialize(p_storage);
 
@@ -238,7 +224,6 @@ MxResult PoliceState::Serialize(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1005ea40
 void PoliceState::FUN_1005ea40() {
 	PoliceScript::Script policeScript;
 

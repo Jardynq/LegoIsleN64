@@ -6,15 +6,10 @@
 
 class MxEndActionNotificationParam;
 
-// VTABLE: LEGO1 0x100d72a0
-// VTABLE: BETA10 0x101b91a8
-// SIZE 0x24
 class AmbulanceMissionState : public LegoState {
 public:
 	AmbulanceMissionState();
 
-	// FUNCTION: LEGO1 0x10037440
-	// FUNCTION: BETA10 0x10024480
 	MxResult Serialize(LegoStorage* p_storage) override {
 		LegoState::Serialize(p_storage);
 
@@ -43,24 +38,15 @@ public:
 		}
 
 		return SUCCESS;
-	} // vtable+0x1c
-
-	// FUNCTION: LEGO1 0x10037600
-	// FUNCTION: BETA10 0x100246c0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f00e8
-		return "AmbulanceMissionState";
 	}
 
-	// FUNCTION: LEGO1 0x10037610
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	const char* ClassName() const override { return "AmbulanceMissionState"; }
+
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, AmbulanceMissionState::ClassName()) ||
 			   LegoState::IsA(p_name);
 	}
 
-	// FUNCTION: BETA10 0x10088770
 	MxS16 GetHighScore(MxU8 p_actorId) {
 		switch (p_actorId) {
 		case LegoActor::c_pepper:
@@ -83,7 +69,6 @@ public:
 		return 0;
 	}
 
-	// FUNCTION: BETA10 0x100242d0
 	void UpdateScore(ScoreColor p_score, MxS16 p_actorId) {
 		switch (p_actorId) {
 		case LegoActor::c_pepper:
@@ -119,64 +104,48 @@ public:
 		}
 	}
 
-	// SYNTHETIC: LEGO1 0x100376c0
 	// AmbulanceMissionState::`scalar deleting destructor'
 
-	undefined4 m_unk0x08; // 0x08
-	MxLong m_startTime;   // 0x0c
-	MxS16 m_peScore;      // 0x10
-	MxS16 m_maScore;      // 0x12
-	MxS16 m_paScore;      // 0x14
-	MxS16 m_niScore;      // 0x16
-	MxS16 m_laScore;      // 0x18
-	MxS16 m_peHighScore;  // 0x1a
-	MxS16 m_maHighScore;  // 0x1c
-	MxS16 m_paHighScore;  // 0x1e
-	MxS16 m_niHighScore;  // 0x20
-	MxS16 m_laHighScore;  // 0x22
+	undefined4 m_unk0x08;
+	MxLong m_startTime;
+	MxS16 m_peScore;
+	MxS16 m_maScore;
+	MxS16 m_paScore;
+	MxS16 m_niScore;
+	MxS16 m_laScore;
+	MxS16 m_peHighScore;
+	MxS16 m_maHighScore;
+	MxS16 m_paHighScore;
+	MxS16 m_niHighScore;
+	MxS16 m_laHighScore;
 };
 
-// VTABLE: LEGO1 0x100d71a8
-// VTABLE: BETA10 0x101b8f70
-// SIZE 0x184
 class Ambulance : public IslePathActor {
 public:
 	Ambulance();
 	~Ambulance() override;
 
-	MxLong Notify(MxParam& p_param) override; // vtable+0x04
-	MxResult Tickle() override;               // vtable+0x08
+	MxLong Notify(MxParam& p_param) override;
+	MxResult Tickle() override;
 
-	// FUNCTION: LEGO1 0x10035f90
-	void Destroy(MxBool p_fromDestructor) override {} // vtable+0x1c
+	void Destroy(MxBool p_fromDestructor) override {}
 
-	// FUNCTION: LEGO1 0x10035fa0
-	// FUNCTION: BETA10 0x100240b0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f03c4
-		return "Ambulance";
-	}
+	const char* ClassName() const override { return "Ambulance"; }
 
-	// FUNCTION: LEGO1 0x10035fb0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, Ambulance::ClassName()) ||
 			   IslePathActor::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
-	void Animate(float p_time) override;              // vtable+0x70
-	MxLong HandleClick() override;                    // vtable+0xcc
-	MxLong HandleControl(LegoControlManagerNotificationParam& p_param
-	) override; // vtable+0xd4
-	MxLong HandlePathStruct(LegoPathStructNotificationParam& p_param
-	) override;           // vtable+0xdc
-	void Exit() override; // vtable+0xe4
+	MxResult Create(MxDSAction& p_dsAction) override;
+	void Animate(float p_time) override;
+	MxLong HandleClick() override;
+	MxLong HandleControl(LegoControlManagerNotificationParam& p_param) override;
+	MxLong HandlePathStruct(LegoPathStructNotificationParam& p_param) override;
+	void Exit() override;
 	virtual MxLong HandleButtonDown(LegoControlManagerNotificationParam& p_param
-	); // vtable+0xf0
-	virtual MxLong HandleEndAction(MxEndActionNotificationParam& p_param
-	); // vtable+0xf4
+	);
+	virtual MxLong HandleEndAction(MxEndActionNotificationParam& p_param);
 
 	void CreateState();
 	void FUN_10036e60();
@@ -184,7 +153,6 @@ public:
 	void StopActions();
 	void FUN_10037250();
 
-	// SYNTHETIC: LEGO1 0x10036130
 	// Ambulance::`scalar deleting destructor'
 
 private:
@@ -194,18 +162,18 @@ private:
 	void PlayAction(IsleScript::Script p_objectId);
 	void Leave();
 
-	undefined m_unk0x160[4];            // 0x160
-	AmbulanceMissionState* m_state;     // 0x164
-	MxS16 m_unk0x168;                   // 0x168
-	MxS16 m_actorId;                    // 0x16a
-	MxS16 m_unk0x16c;                   // 0x16c
-	MxS16 m_unk0x16e;                   // 0x16e
-	MxS16 m_unk0x170;                   // 0x170
-	MxS16 m_unk0x172;                   // 0x172
-	IsleScript::Script m_lastAction;    // 0x174
-	IsleScript::Script m_lastAnimation; // 0x178
-	MxFloat m_fuel;                     // 0x17c
-	MxFloat m_time;                     // 0x180
+	undefined m_unk0x160[4];
+	AmbulanceMissionState* m_state;
+	MxS16 m_unk0x168;
+	MxS16 m_actorId;
+	MxS16 m_unk0x16c;
+	MxS16 m_unk0x16e;
+	MxS16 m_unk0x170;
+	MxS16 m_unk0x172;
+	IsleScript::Script m_lastAction;
+	IsleScript::Script m_lastAnimation;
+	MxFloat m_fuel;
+	MxFloat m_time;
 };
 
 #endif // AMBULANCE_H

@@ -8,7 +8,6 @@
 #include "mxregioncursor.h"
 #include "mxvideomanager.h"
 
-// FUNCTION: LEGO1 0x100b24f0
 MxVideoPresenter::AlphaMask::AlphaMask(const MxBitmap& p_bitmap) {
 	m_width = p_bitmap.GetBmiWidth();
 	// DECOMP: ECX becomes word-sized if these are not two separate actions.
@@ -86,7 +85,6 @@ MxVideoPresenter::AlphaMask::AlphaMask(const MxBitmap& p_bitmap) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b2670
 MxVideoPresenter::AlphaMask::AlphaMask(
 	const MxVideoPresenter::AlphaMask& p_alpha
 ) {
@@ -98,14 +96,12 @@ MxVideoPresenter::AlphaMask::AlphaMask(
 	memcpy(m_bitmask, p_alpha.m_bitmask, size);
 }
 
-// FUNCTION: LEGO1 0x100b26d0
 MxVideoPresenter::AlphaMask::~AlphaMask() {
 	if (m_bitmask) {
 		delete[] m_bitmask;
 	}
 }
 
-// FUNCTION: LEGO1 0x100b26f0
 MxS32 MxVideoPresenter::AlphaMask::IsHit(MxU32 p_x, MxU32 p_y) {
 	if (p_x >= m_width || p_y >= m_height) {
 		return 0;
@@ -115,7 +111,6 @@ MxS32 MxVideoPresenter::AlphaMask::IsHit(MxU32 p_x, MxU32 p_y) {
 	return m_bitmask[pos / 8] & (1 << abs(abs(pos) & 7)) ? 1 : 0;
 }
 
-// FUNCTION: LEGO1 0x100b2760
 void MxVideoPresenter::Init() {
 	m_frameBitmap = NULL;
 	m_alpha = NULL;
@@ -134,7 +129,6 @@ void MxVideoPresenter::Init() {
 	SetBit4(FALSE);
 }
 
-// FUNCTION: LEGO1 0x100b27b0
 void MxVideoPresenter::Destroy(MxBool p_fromDestructor) {
 	if (MVideoManager() != NULL) {
 		MVideoManager()->UnregisterPresenter(*this);
@@ -174,8 +168,6 @@ void MxVideoPresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b28b0
-// FUNCTION: BETA10 0x101389c1
 void MxVideoPresenter::NextFrame() {
 	MxStreamChunk* chunk = NextChunk();
 
@@ -188,8 +180,6 @@ void MxVideoPresenter::NextFrame() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b2900
-// FUNCTION: BETA10 0x10138a3a
 MxBool MxVideoPresenter::IsHit(MxS32 p_x, MxS32 p_y) {
 	MxDSAction* action = GetAction();
 	if ((action == NULL) ||
@@ -280,8 +270,8 @@ inline MxS32 MxVideoPresenter::PrepareRects(RECT& p_rectDest, RECT& p_rectSrc) {
 	if ((height = (p_rectDest.bottom - p_rectDest.top) + 1) <= 1 ||
 		(width = (p_rectDest.right - p_rectDest.left) + 1) <= 1) {
 		return -1;
-	}
-	else if ((p_rectSrc.right - p_rectSrc.left + 1) == width && (p_rectSrc.bottom - p_rectSrc.top + 1) == height) {
+	} else if ((p_rectSrc.right - p_rectSrc.left + 1) == width &&
+			   (p_rectSrc.bottom - p_rectSrc.top + 1) == height) {
 		return 1;
 	} else {
 		p_rectSrc.right = (p_rectSrc.left + width) - 1;
@@ -290,7 +280,6 @@ inline MxS32 MxVideoPresenter::PrepareRects(RECT& p_rectDest, RECT& p_rectSrc) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b2a70
 void MxVideoPresenter::PutFrame() {
 	MxDisplaySurface* displaySurface = MVideoManager()->GetDisplaySurface();
 	MxRegion* region = MVideoManager()->GetRegion();
@@ -399,7 +388,6 @@ void MxVideoPresenter::PutFrame() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b2f60
 void MxVideoPresenter::ReadyTickle() {
 	MxStreamChunk* chunk = NextChunk();
 
@@ -411,7 +399,6 @@ void MxVideoPresenter::ReadyTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b2fa0
 void MxVideoPresenter::StartingTickle() {
 	MxStreamChunk* chunk = CurrentChunk();
 
@@ -421,7 +408,6 @@ void MxVideoPresenter::StartingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b2fe0
 void MxVideoPresenter::StreamingTickle() {
 	if (m_action->GetFlags() & MxDSAction::c_bit10) {
 		if (!m_currentChunk) {
@@ -462,7 +448,6 @@ void MxVideoPresenter::StreamingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b3080
 void MxVideoPresenter::RepeatingTickle() {
 	if (IsEnabled()) {
 		if (m_action->GetFlags() & MxDSAction::c_bit10) {
@@ -505,7 +490,6 @@ void MxVideoPresenter::RepeatingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b3130
 void MxVideoPresenter::FreezingTickle() {
 	MxLong sustainTime = ((MxDSMediaAction*) m_action)->GetSustainTime();
 
@@ -525,7 +509,6 @@ void MxVideoPresenter::FreezingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b31a0
 MxResult MxVideoPresenter::AddToManager() {
 	MxResult result = FAILURE;
 
@@ -537,8 +520,6 @@ MxResult MxVideoPresenter::AddToManager() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100b31d0
-// FUNCTION: BETA10 0x101396d9
 void MxVideoPresenter::EndAction() {
 	if (m_action) {
 		MxMediaPresenter::EndAction();
@@ -557,8 +538,6 @@ void MxVideoPresenter::EndAction() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b3280
-// FUNCTION: BETA10 0x101397c0
 MxResult MxVideoPresenter::PutData() {
 	AUTOLOCK(m_criticalSection);
 
@@ -570,7 +549,6 @@ MxResult MxVideoPresenter::PutData() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100b3300
 undefined MxVideoPresenter::VTable0x74() {
 	return 0;
 }

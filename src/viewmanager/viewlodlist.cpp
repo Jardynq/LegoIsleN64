@@ -4,18 +4,11 @@
 
 #include <stdio.h>
 
-// GLOBAL: LEGO1 0x10101064
-// GLOBAL: BETA10 0x10205d08
 int ViewLODListManager::g_ROINameUID = 0;
 
-// FUNCTION: LEGO1 0x100a6fd0
-// FUNCTION: BETA10 0x101783a3
 ViewLODListManager::ViewLODListManager() {
 }
 
-// FUNCTION: LEGO1 0x100a7130
-// FUNCTION: BETA10 0x1017841c
-// FUNCTION: ALPHA 0x100e3402
 ViewLODListManager::~ViewLODListManager() {
 	ViewLODListMap::iterator iterator;
 
@@ -40,9 +33,6 @@ ViewLODListManager::~ViewLODListManager() {
 	assert(m_map.begin() == m_map.end());
 }
 
-// FUNCTION: LEGO1 0x100a72c0
-// FUNCTION: BETA10 0x101785ef
-// FUNCTION: ALPHA 0x100e35d2
 ViewLODList* ViewLODListManager::Create(const ROIName& rROIName, int lodCount) {
 	// returned ViewLODList has a refCount of 1, i.e. caller must call Release()
 	// when it no longer holds on to the list
@@ -80,8 +70,6 @@ ViewLODList* ViewLODListManager::Create(const ROIName& rROIName, int lodCount) {
 	return pLODList;
 }
 
-// FUNCTION: LEGO1 0x100a75b0
-// FUNCTION: BETA10 0x101787d8
 ViewLODList* ViewLODListManager::Lookup(const ROIName& p_roiName) const {
 	// returned ViewLODList's refCount is increased, i.e. caller must call
 	// Release() when it no longer holds on to the list
@@ -99,8 +87,6 @@ ViewLODList* ViewLODListManager::Lookup(const ROIName& p_roiName) const {
 	return pLODList;
 }
 
-// FUNCTION: LEGO1 0x100a7680
-// FUNCTION: BETA10 0x1017886b
 unsigned char ViewLODListManager::Destroy(ViewLODList* lodList) {
 	ViewLODListMap::iterator iterator;
 	char deleted = FALSE;

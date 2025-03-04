@@ -6,30 +6,23 @@
 
 #include <stdio.h>
 
-// VTABLE: LEGO1 0x100d7d80
-// SIZE 0x08
 class LegoStorage {
 public:
 	enum OpenFlags { c_read = 1, c_write = 2, c_text = 4 };
 
 	LegoStorage() : m_mode(0) {}
 
-	// FUNCTION: LEGO1 0x10045ad0
 	virtual ~LegoStorage() {}
 
-	virtual LegoResult Read(void* p_buffer, LegoU32 p_size) = 0; // vtable+0x04
-	virtual LegoResult
-	Write(const void* p_buffer, LegoU32 p_size) = 0;         // vtable+0x08
-	virtual LegoResult GetPosition(LegoU32& p_position) = 0; // vtable+0x0c
-	virtual LegoResult SetPosition(LegoU32 p_position) = 0;  // vtable+0x10
+	virtual LegoResult Read(void* p_buffer, LegoU32 p_size) = 0;
+	virtual LegoResult Write(const void* p_buffer, LegoU32 p_size) = 0;
+	virtual LegoResult GetPosition(LegoU32& p_position) = 0;
+	virtual LegoResult SetPosition(LegoU32 p_position) = 0;
 
-	// FUNCTION: LEGO1 0x10045ae0
-	virtual LegoBool IsWriteMode() { return m_mode == c_write; } // vtable+0x14
+	virtual LegoBool IsWriteMode() { return m_mode == c_write; }
 
-	// FUNCTION: LEGO1 0x10045af0
-	virtual LegoBool IsReadMode() { return m_mode == c_read; } // vtable+0x18
+	virtual LegoBool IsReadMode() { return m_mode == c_read; }
 
-	// FUNCTION: BETA10 0x10017c80
 	LegoStorage* WriteString(const char* p_data) {
 		LegoS16 length = strlen(p_data);
 		WriteS16(length);
@@ -37,19 +30,16 @@ public:
 		return this;
 	}
 
-	// FUNCTION: BETA10 0x1004b0d0
 	LegoStorage* WriteU8(LegoU8 p_data) {
 		Write(&p_data, sizeof(p_data));
 		return this;
 	}
 
-	// FUNCTION: BETA10 0x10017ce0
 	LegoStorage* WriteS16(LegoS16 p_data) {
 		Write(&p_data, sizeof(p_data));
 		return this;
 	}
 
-	// FUNCTION: BETA10 0x1004b110
 	LegoStorage* WriteU16(LegoU16 p_data) {
 		Write(&p_data, sizeof(p_data));
 		return this;
@@ -69,13 +59,11 @@ public:
 		return this;
 	}
 
-	// FUNCTION: BETA10 0x10073610
 	LegoStorage* WriteFloat(LegoFloat p_data) {
 		Write(&p_data, sizeof(p_data));
 		return this;
 	}
 
-	// FUNCTION: LEGO1 0x100343d0
 	LegoStorage* WriteVector(Mx3DPointFloat p_data) {
 		WriteFloat(p_data[0]);
 		WriteFloat(p_data[1]);
@@ -83,14 +71,11 @@ public:
 		return this;
 	}
 
-	// FUNCTION: LEGO1 0x10006030
-	// FUNCTION: BETA10 0x10017bb0
 	LegoStorage* WriteMxString(const MxString& p_data) {
 		WriteString(p_data.GetData());
 		return this;
 	}
 
-	// FUNCTION: BETA10 0x10073690
 	LegoStorage* ReadString(char* p_data) {
 		LegoS16 length = 0;
 		ReadS16(length);
@@ -99,19 +84,16 @@ public:
 		return this;
 	}
 
-	// FUNCTION: BETA10 0x1004b190
 	LegoStorage* ReadU8(LegoU8& p_data) {
 		Read(&p_data, sizeof(p_data));
 		return this;
 	}
 
-	// FUNCTION: BETA10 0x10024680
 	LegoStorage* ReadS16(LegoS16& p_data) {
 		Read(&p_data, sizeof(p_data));
 		return this;
 	}
 
-	// FUNCTION: BETA10 0x1004b1d0
 	LegoStorage* ReadU16(LegoU16& p_data) {
 		Read(&p_data, sizeof(p_data));
 		return this;
@@ -131,13 +113,11 @@ public:
 		return this;
 	}
 
-	// FUNCTION: BETA10 0x10073650
 	LegoStorage* ReadFloat(LegoFloat& p_data) {
 		Read(&p_data, sizeof(p_data));
 		return this;
 	}
 
-	// FUNCTION: LEGO1 0x10034430
 	LegoStorage* ReadVector(Mx3DPointFloat& p_data) {
 		ReadFloat(p_data[0]);
 		ReadFloat(p_data[1]);
@@ -145,7 +125,6 @@ public:
 		return this;
 	}
 
-	// FUNCTION: LEGO1 0x10034470
 	LegoStorage* ReadMxString(MxString& p_data) {
 		LegoS16 length = 0;
 		ReadS16(length);
@@ -159,66 +138,52 @@ public:
 		return this;
 	}
 
-	// SYNTHETIC: LEGO1 0x10045b00
 	// LegoStorage::`scalar deleting destructor'
 
 protected:
-	LegoU8 m_mode; // 0x04
+	LegoU8 m_mode;
 };
 
-// VTABLE: LEGO1 0x100db710
-// SIZE 0x10
 class LegoMemory : public LegoStorage {
 public:
 	LegoMemory(void* p_buffer);
-	LegoResult Read(void* p_buffer, LegoU32 p_size) override; // vtable+0x04
-	LegoResult
-	Write(const void* p_buffer, LegoU32 p_size) override; // vtable+0x08
+	LegoResult Read(void* p_buffer, LegoU32 p_size) override;
+	LegoResult Write(const void* p_buffer, LegoU32 p_size) override;
 
-	// FUNCTION: LEGO1 0x100994a0
-	LegoResult GetPosition(LegoU32& p_position) override // vtable+0x0c
-	{
+	LegoResult GetPosition(LegoU32& p_position) override {
 		p_position = m_position;
 		return SUCCESS;
 	}
 
-	// FUNCTION: LEGO1 0x100994b0
-	LegoResult SetPosition(LegoU32 p_position) override // vtable+0x10
-	{
+	LegoResult SetPosition(LegoU32 p_position) override {
 		m_position = p_position;
 		return SUCCESS;
 	}
 
-	// SYNTHETIC: LEGO1 0x10045a80
 	// LegoMemory::~LegoMemory
 
-	// SYNTHETIC: LEGO1 0x100990f0
 	// LegoMemory::`scalar deleting destructor'
 
 protected:
-	LegoU8* m_buffer;   // 0x04
-	LegoU32 m_position; // 0x08
+	LegoU8* m_buffer;
+	LegoU32 m_position;
 };
 
-// VTABLE: LEGO1 0x100db730
-// SIZE 0x0c
 class LegoFile : public LegoStorage {
 public:
 	LegoFile();
 	~LegoFile() override;
 
-	LegoResult Read(void* p_buffer, LegoU32 p_size) override; // vtable+0x04
-	LegoResult
-	Write(const void* p_buffer, LegoU32 p_size) override; // vtable+0x08
-	LegoResult GetPosition(LegoU32& p_position) override; // vtable+0x0c
-	LegoResult SetPosition(LegoU32 p_position) override;  // vtable+0x10
+	LegoResult Read(void* p_buffer, LegoU32 p_size) override;
+	LegoResult Write(const void* p_buffer, LegoU32 p_size) override;
+	LegoResult GetPosition(LegoU32& p_position) override;
+	LegoResult SetPosition(LegoU32 p_position) override;
 	LegoResult Open(const char* p_name, LegoU32 p_mode);
 
-	// SYNTHETIC: LEGO1 0x10099230
 	// LegoFile::`scalar deleting destructor'
 
 protected:
-	FILE* m_file; // 0x08
+	FILE* m_file;
 };
 
 #endif // __LEGOSTORAGE_H

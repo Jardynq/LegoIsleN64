@@ -38,16 +38,13 @@
 #include "towtrack.h"
 #include "viewmanager/viewmanager.h"
 
-// GLOBAL: LEGO1 0x100f1198
 MxU32 g_isleFlags = 0x7f;
 
-// GLOBAL: LEGO1 0x100f37f0
 IsleScript::Script g_cptClickDialogue[] = {
 	IsleScript::c_Avo905Ps_PlayWav,
 	IsleScript::c_Avo906Ps_PlayWav,
 	IsleScript::c_Avo907Ps_PlayWav};
 
-// FUNCTION: LEGO1 0x10030820
 Isle::Isle() {
 	m_pizza = NULL;
 	m_pizzeria = NULL;
@@ -67,7 +64,6 @@ Isle::Isle() {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x10030a50
 Isle::~Isle() {
 	TransitionManager()->SetWaitIndicator(NULL);
 	ControlManager()->Unregister(this);
@@ -83,7 +79,6 @@ Isle::~Isle() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x10030b20
 MxResult Isle::Create(MxDSAction& p_dsAction) {
 	GameState()->FindLoadedAct();
 	MxResult result = LegoWorld::Create(p_dsAction);
@@ -123,8 +118,6 @@ MxResult Isle::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10030c10
-// FUNCTION: BETA10 0x10032b63
 MxLong Isle::Notify(MxParam& p_param) {
 	MxLong result = 0;
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
@@ -179,7 +172,6 @@ MxLong Isle::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10030d90
 MxLong Isle::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	MxLong result;
 
@@ -236,7 +228,6 @@ MxLong Isle::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10030ef0
 void Isle::HandleElevatorEndAction() {
 	switch (m_act1state->m_elevFloor) {
 	case Act1State::c_floor1:
@@ -270,7 +261,6 @@ void Isle::HandleElevatorEndAction() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10030fc0
 void Isle::ReadyWorld() {
 	LegoWorld::ReadyWorld();
 
@@ -290,7 +280,6 @@ void Isle::ReadyWorld() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10031030
 MxLong Isle::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	if (p_param.GetUnknown0x28() == 1) {
 		MxDSAction action;
@@ -562,7 +551,6 @@ MxLong Isle::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x10031590
 void Isle::UpdateGlobe() {
 	MxS32 lightPosition = atoi(VariableTable()->GetVariable("lightposition"));
 
@@ -576,8 +564,6 @@ void Isle::UpdateGlobe() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100315f0
-// FUNCTION: BETA10 0x10033e46
 MxLong Isle::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	MxLong result = 0;
 
@@ -646,8 +632,6 @@ MxLong Isle::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10031820
-// FUNCTION: BETA10 0x10034158
 void Isle::Enable(MxBool p_enable) {
 	if ((MxBool) m_set0xd0.empty() == p_enable) {
 		return;
@@ -1009,7 +993,6 @@ void Isle::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10032620
 void Isle::FUN_10032620() {
 	VideoManager()->Get3DManager()->SetFrustrum(90.0, 0.1, 250.0);
 
@@ -1042,7 +1025,6 @@ void Isle::FUN_10032620() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100327a0
 MxLong Isle::HandleTransitionEnd() {
 	InvokeAction(
 		Extra::e_stop,
@@ -1281,7 +1263,6 @@ MxLong Isle::HandleTransitionEnd() {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10032d30
 void Isle::FUN_10032d30(
 	IsleScript::Script p_script,
 	JukeboxScript::Script p_music,
@@ -1335,7 +1316,6 @@ void Isle::FUN_10032d30(
 	}
 }
 
-// FUNCTION: LEGO1 0x10032f10
 void Isle::Add(MxCore* p_object) {
 	LegoWorld::Add(p_object);
 
@@ -1366,7 +1346,6 @@ void Isle::Add(MxCore* p_object) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10033050
 void Isle::VTable0x6c(LegoPathActor* p_actor) {
 	LegoWorld::Remove(p_actor);
 
@@ -1381,7 +1360,6 @@ void Isle::VTable0x6c(LegoPathActor* p_actor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100330e0
 void Isle::CreateState() {
 	m_act1state = (Act1State*) GameState()->GetState("Act1State");
 	if (!m_act1state) {
@@ -1400,12 +1378,10 @@ void Isle::CreateState() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10033170
 void Isle::VTable0x60() {
 	// empty
 }
 
-// FUNCTION: LEGO1 0x10033180
 MxBool Isle::Escape() {
 	m_radio.Stop();
 	BackgroundAudioManager()->Stop();
@@ -1465,7 +1441,6 @@ MxBool Isle::Escape() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x10033350
 void Isle::FUN_10033350() {
 	if (m_act1state->m_unk0x018 == 10) {
 		if (UserActor() != NULL && !UserActor()->IsA("Ambulance")) {
@@ -1508,8 +1483,6 @@ void Isle::FUN_10033350() {
 	m_destLocation = LegoGameState::e_infomain;
 }
 
-// FUNCTION: LEGO1 0x100334b0
-// FUNCTION: BETA10 0x10035197
 Act1State::Act1State() {
 	m_elevFloor = Act1State::c_floor1;
 	m_unk0x018 = 1;
@@ -1540,8 +1513,6 @@ Act1State::Act1State() {
 	Reset();
 }
 
-// FUNCTION: LEGO1 0x10033ac0
-// FUNCTION: BETA10 0x1003524f
 MxResult Act1State::Serialize(LegoStorage* p_storage) {
 	LegoState::Serialize(p_storage);
 
@@ -1671,7 +1642,6 @@ MxResult Act1State::Serialize(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10034660
 void Act1State::PlayCptClickDialogue() {
 	StopCptClickDialogue();
 	m_currentCptClickDialogue = (IsleScript::Script) m_cptClickDialogue.Next();
@@ -1687,7 +1657,6 @@ void Act1State::PlayCptClickDialogue() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100346a0
 void Act1State::StopCptClickDialogue() {
 	if (m_currentCptClickDialogue != IsleScript::c_noneIsle) {
 		InvokeAction(
@@ -1700,7 +1669,6 @@ void Act1State::StopCptClickDialogue() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100346d0
 MxBool Act1State::Reset() {
 	m_motocyclePlane.m_name = "";
 	m_bikePlane.m_name = "";
@@ -1779,7 +1747,6 @@ MxBool Act1State::Reset() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x10034b60
 void Act1State::RemoveActors() {
 	Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
 
@@ -1824,7 +1791,6 @@ void Act1State::RemoveActors() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10034d00
 void Act1State::PlaceActors() {
 	Isle* isle = (Isle*) FindWorld(*g_isleScript, IsleScript::c__Isle);
 

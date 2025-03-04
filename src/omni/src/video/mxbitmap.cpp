@@ -3,12 +3,8 @@
 #include "mxpalette.h"
 #include "mxutilities.h"
 
-// GLOBAL: LEGO1 0x10102184
-// GLOBAL: BETA10 0x10203030
 MxU16 g_bitmapSignature = TWOCC('B', 'M');
 
-// FUNCTION: LEGO1 0x100bc980
-// FUNCTION: BETA10 0x1013cab0
 MxBitmap::MxBitmap() {
 	m_info = NULL;
 	m_bmiHeader = NULL;
@@ -18,8 +14,6 @@ MxBitmap::MxBitmap() {
 	m_palette = NULL;
 }
 
-// FUNCTION: LEGO1 0x100bca10
-// FUNCTION: BETA10 0x1013cb58
 MxBitmap::~MxBitmap() {
 	if (m_info) {
 		delete m_info;
@@ -32,8 +26,6 @@ MxBitmap::~MxBitmap() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100bcaa0
-// FUNCTION: BETA10 0x1013cc47
 MxResult MxBitmap::SetSize(
 	MxS32 p_width,
 	MxS32 p_height,
@@ -91,8 +83,6 @@ done:
 	return ret;
 }
 
-// FUNCTION: LEGO1 0x100bcba0
-// FUNCTION: BETA10 0x1013ce25
 MxResult MxBitmap::ImportBitmapInfo(MxBITMAPINFO* p_info) {
 	MxResult result = FAILURE;
 	MxLong size = AlignToFourByte(p_info->m_bmiHeader.biWidth) *
@@ -129,8 +119,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100bcc40
-// FUNCTION: BETA10 0x1013cf6d
 MxResult MxBitmap::ImportBitmap(MxBitmap* p_bitmap) {
 	MxResult result = FAILURE;
 
@@ -167,8 +155,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100bcd10
-// FUNCTION: BETA10 0x1013d0c7
 MxLong MxBitmap::Read(const char* p_filename) {
 	MxResult result = FAILURE;
 	HANDLE handle = 0;
@@ -201,8 +187,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100bcd60
-// FUNCTION: BETA10 0x1013d169
 MxResult MxBitmap::LoadFile(HANDLE p_handle) {
 	MxResult result = FAILURE;
 	MxLong unused = 0;
@@ -265,8 +249,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100bce70
-// FUNCTION: BETA10 0x1013d399
 void MxBitmap::BitBlt(
 	MxBitmap* p_src,
 	MxS32 p_srcLeft,
@@ -303,8 +285,6 @@ void MxBitmap::BitBlt(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bd020
-// FUNCTION: BETA10 0x1013d4ea
 void MxBitmap::BitBltTransparent(
 	MxBitmap* p_src,
 	MxS32 p_srcLeft,
@@ -348,8 +328,6 @@ void MxBitmap::BitBltTransparent(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bd1c0
-// FUNCTION: BETA10 0x1013d684
 MxPalette* MxBitmap::CreatePalette() {
 	MxBool success = FALSE;
 	MxPalette* palette = NULL;
@@ -382,8 +360,6 @@ done:
 	return palette;
 }
 
-// FUNCTION: LEGO1 0x100bd280
-// FUNCTION: BETA10 0x1013d80e
 void MxBitmap::ImportPalette(MxPalette* p_palette) {
 	// Odd to use a switch on a boolean, but it matches.
 	switch (m_isHighColor) {
@@ -398,8 +374,6 @@ void MxBitmap::ImportPalette(MxPalette* p_palette) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100bd2d0
-// FUNCTION: BETA10 0x1013d8a9
 MxResult MxBitmap::SetBitDepth(MxBool p_isHighColor) {
 	MxResult ret = FAILURE;
 	MxPalette* pal = NULL;
@@ -447,8 +421,6 @@ done:
 	return ret;
 }
 
-// FUNCTION: LEGO1 0x100bd3e0
-// FUNCTION: BETA10 0x1013dad2
 MxResult MxBitmap::StretchBits(
 	HDC p_hdc,
 	MxS32 p_xSrc,
@@ -480,8 +452,6 @@ MxResult MxBitmap::StretchBits(
 	);
 }
 
-// FUNCTION: LEGO1 0x100bd450
-// FUNCTION: BETA10 0x1013db55
 MxResult
 MxBitmap::ImportColorsToPalette(RGBQUAD* p_rgbquad, MxPalette* p_palette) {
 	MxResult ret = FAILURE;

@@ -17,24 +17,17 @@
 #include "scripts.h"
 
 // These two have been changed between BETA10 and LEGO1
-// GLOBAL: LEGO1 0x100f7ab8
-// STRING: LEGO1 0x100f3ce0
-// GLOBAL: BETA10 0x101e0be4
+
 const char* g_varJSFRNTY5 = "c_jsfrnty5";
 
-// GLOBAL: LEGO1 0x100f7abc
-// STRING: LEGO1 0x100f3ca4
-// GLOBAL: BETA10 0x101e0be0
 const char* g_varJSWNSHY5 = "c_jswnshy5";
 
-// FUNCTION: LEGO1 0x1007e3b0
 Jetski::Jetski() {
 	m_maxLinearVel = 25.0;
 	m_unk0x150 = 2.0;
 	m_unk0x148 = 1;
 }
 
-// FUNCTION: LEGO1 0x1007e630
 MxResult Jetski::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 	m_world = CurrentWorld();
@@ -47,7 +40,6 @@ MxResult Jetski::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1007e680
 void Jetski::Animate(float p_time) {
 	IslePathActor::Animate(p_time);
 
@@ -59,7 +51,6 @@ void Jetski::Animate(float p_time) {
 	VariableTable()->SetVariable(g_varJETSPEED, buf);
 }
 
-// FUNCTION: LEGO1 0x1007e6f0
 void Jetski::Exit() {
 	SpawnPlayer(
 		LegoGameState::e_unk45,
@@ -74,8 +65,6 @@ void Jetski::Exit() {
 	ControlManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x1007e750
-// FUNCTION: BETA10 0x10037621
 MxLong Jetski::HandleClick() {
 #ifndef BETA10
 	if (!FUN_1003ef60()) {
@@ -133,7 +122,6 @@ MxLong Jetski::HandleClick() {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x1007e880
 void Jetski::RemoveFromWorld() {
 	RemoveFromCurrentWorld(*g_isleScript, m_jetskiDashboardStreamId);
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_JetskiArms_Ctl);
@@ -142,7 +130,6 @@ void Jetski::RemoveFromWorld() {
 	RemoveFromCurrentWorld(*g_isleScript, IsleScript::c_JetskiFuelMeter);
 }
 
-// FUNCTION: LEGO1 0x1007e8e0
 MxLong Jetski::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	if (p_param.GetUnknown0x28() == 1 && CurrentWorld()->IsA("Isle")) {
 		switch (p_param.GetClickedObjectId()) {
@@ -173,7 +160,6 @@ MxLong Jetski::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x1007e990
 void Jetski::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_JetskiRace_Music);
 

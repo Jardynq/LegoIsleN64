@@ -7,17 +7,14 @@
 #include "shape/legomesh.h"
 #include "tgl/d3drm/impl.h"
 
-// GLOBAL: LEGO1 0x101013d4
 LPDIRECT3DRMMATERIAL g_unk0x101013d4 = NULL;
 
-// GLOBAL: LEGO1 0x101013dc
 const char* g_unk0x101013dc = "inh";
 
 inline IDirect3DRM2* GetD3DRM(Tgl::Renderer* pRenderer);
 inline BOOL
 GetMeshData(IDirect3DRMMesh*& mesh, D3DRMGROUPINDEX& index, Tgl::Mesh* pMesh);
 
-// FUNCTION: LEGO1 0x100aa380
 LegoLOD::LegoLOD(Tgl::Renderer* p_renderer) : ViewLOD(p_renderer) {
 	if (g_unk0x101013d4 == NULL) {
 		GetD3DRM(p_renderer)->CreateMaterial(10.0, &g_unk0x101013d4);
@@ -30,7 +27,6 @@ LegoLOD::LegoLOD(Tgl::Renderer* p_renderer) : ViewLOD(p_renderer) {
 	m_unk0x1c = 0;
 }
 
-// FUNCTION: LEGO1 0x100aa450
 LegoLOD::~LegoLOD() {
 	if (m_numMeshes && m_melems != NULL) {
 		for (LegoU32 i = 0; i < m_numMeshes; i++) {
@@ -46,7 +42,6 @@ LegoLOD::~LegoLOD() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100aa510
 LegoResult LegoLOD::Read(
 	Tgl::Renderer* p_renderer,
 	LegoTextureContainer* p_textureContainer,
@@ -321,7 +316,6 @@ done:
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x100aabb0
 LegoLOD* LegoLOD::Clone(Tgl::Renderer* p_renderer) {
 	LegoLOD* dupLod = new LegoLOD(p_renderer);
 
@@ -343,7 +337,6 @@ LegoLOD* LegoLOD::Clone(Tgl::Renderer* p_renderer) {
 	return dupLod;
 }
 
-// FUNCTION: LEGO1 0x100aacb0
 LegoResult LegoLOD::FUN_100aacb0(
 	LegoFloat p_red,
 	LegoFloat p_green,
@@ -359,7 +352,6 @@ LegoResult LegoLOD::FUN_100aacb0(
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100aad00
 LegoResult LegoLOD::FUN_100aad00(LegoTextureInfo* p_textureInfo) {
 	for (LegoU32 i = m_unk0x1c; i < m_numMeshes; i++) {
 		if (m_melems[i].m_unk0x04) {
@@ -375,7 +367,6 @@ LegoResult LegoLOD::FUN_100aad00(LegoTextureInfo* p_textureInfo) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100aad70
 LegoResult LegoLOD::FUN_100aad70(LegoTextureInfo* p_textureInfo) {
 	for (LegoU32 i = m_unk0x1c; i < m_numMeshes; i++) {
 		if (m_melems[i].m_unk0x04) {
@@ -389,7 +380,6 @@ LegoResult LegoLOD::FUN_100aad70(LegoTextureInfo* p_textureInfo) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100aadc0
 LegoResult LegoLOD::GetTexture(LegoTextureInfo*& p_textureInfo) {
 	for (LegoU32 i = m_unk0x1c; i < m_numMeshes; i++) {
 		if (m_melems[i].m_unk0x04) {
@@ -405,7 +395,6 @@ LegoResult LegoLOD::GetTexture(LegoTextureInfo*& p_textureInfo) {
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x100aae20
 LegoBool LegoLOD::FUN_100aae20(const LegoChar* p_name) {
 	if (p_name != NULL) {
 		if (!strnicmp(p_name, g_unk0x101013dc, strlen(g_unk0x101013dc))) {
@@ -416,8 +405,6 @@ LegoBool LegoLOD::FUN_100aae20(const LegoChar* p_name) {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x100aae60
-// FUNCTION: BETA10 0x1018e50f
 void LegoLOD::FUN_100aae60() {
 	m_unk0x1c = 0;
 }

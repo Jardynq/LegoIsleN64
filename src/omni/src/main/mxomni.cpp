@@ -18,38 +18,29 @@
 #include "mxvariabletable.h"
 #include "mxvideomanager.h"
 
-// GLOBAL: LEGO1 0x101015b8
 char g_hdPath[1024] = "";
 
-// GLOBAL: LEGO1 0x101019b8
 char g_cdPath[1024] = "E:";
 
-// GLOBAL: LEGO1 0x10101db8
 MxBool g_use3dSound = FALSE;
 
-// GLOBAL: LEGO1 0x101015b0
 MxOmni* MxOmni::g_instance = NULL;
 
-// FUNCTION: LEGO1 0x100aef10
 MxOmni::MxOmni() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100aefb0
 MxEntity* MxOmni::AddToWorld(const char*, MxS32, MxPresenter*) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x100aefc0
 void MxOmni::NotifyCurrentEntity(const MxNotificationParam& p_param) {
 }
 
-// FUNCTION: LEGO1 0x100aeff0
 MxOmni::~MxOmni() {
 	Destroy();
 }
 
-// FUNCTION: LEGO1 0x100af080
 void MxOmni::Init() {
 	m_windowHandle = NULL;
 	m_objectFactory = NULL;
@@ -66,13 +57,10 @@ void MxOmni::Init() {
 	m_paused = FALSE;
 }
 
-// FUNCTION: LEGO1 0x100af0b0
 void MxOmni::SetInstance(MxOmni* p_instance) {
 	g_instance = p_instance;
 }
 
-// FUNCTION: LEGO1 0x100af0c0
-// FUNCTION: BETA10 0x1012f3ff
 MxResult MxOmni::Create(MxOmniCreateParam& p_param) {
 	MxResult result = FAILURE;
 
@@ -170,8 +158,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100afe90
-// FUNCTION: BETA10 0x1012fe5b
 void MxOmni::Destroy() {
 	{
 		MxDSAction action;
@@ -214,7 +200,6 @@ void MxOmni::Destroy() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100b0090
 MxResult MxOmni::Start(MxDSAction* p_dsAction) {
 	MxResult result = FAILURE;
 	if (p_dsAction->GetAtomId().GetInternal() != NULL &&
@@ -225,14 +210,12 @@ MxResult MxOmni::Start(MxDSAction* p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100b00c0
 void MxOmni::DeleteObject(MxDSAction& p_dsAction) {
 	if (m_streamer != NULL) {
 		m_streamer->DeleteObject(&p_dsAction);
 	}
 }
 
-// FUNCTION: LEGO1 0x100b00e0
 MxResult MxOmni::CreatePresenter(
 	MxStreamController* p_controller,
 	MxDSAction& p_action
@@ -285,12 +268,10 @@ MxResult MxOmni::CreatePresenter(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100b0680
 MxOmni* MxOmni::GetInstance() {
 	return g_instance;
 }
 
-// FUNCTION: LEGO1 0x100b0690
 void MxOmni::DestroyInstance() {
 	if (g_instance != NULL) {
 		delete g_instance;
@@ -298,7 +279,6 @@ void MxOmni::DestroyInstance() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b06b0
 MxBool MxOmni::ActionSourceEquals(MxDSAction* p_action, const char* p_name) {
 	if (!strcmp(p_action->GetSourceName(), p_name)) {
 		return TRUE;
@@ -320,7 +300,6 @@ MxBool MxOmni::ActionSourceEquals(MxDSAction* p_action, const char* p_name) {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x100b07f0
 MxLong MxOmni::Notify(MxParam& p_param) {
 	AUTOLOCK(m_criticalSection);
 
@@ -332,7 +311,6 @@ MxLong MxOmni::Notify(MxParam& p_param) {
 	return HandleEndAction(p_param);
 }
 
-// FUNCTION: LEGO1 0x100b0880
 MxLong MxOmni::HandleEndAction(MxParam& p_param) {
 	MxDSAction* action = ((MxEndActionNotificationParam&) p_param).GetAction();
 	MxStreamController* controller =
@@ -359,37 +337,30 @@ MxLong MxOmni::HandleEndAction(MxParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x100b0900
 const char* MxOmni::GetHD() {
 	return g_hdPath;
 }
 
-// FUNCTION: LEGO1 0x100b0910
 void MxOmni::SetHD(const char* p_hd) {
 	strcpy(g_hdPath, p_hd);
 }
 
-// FUNCTION: LEGO1 0x100b0940
 const char* MxOmni::GetCD() {
 	return g_cdPath;
 }
 
-// FUNCTION: LEGO1 0x100b0950
 void MxOmni::SetCD(const char* p_cd) {
 	strcpy(g_cdPath, p_cd);
 }
 
-// FUNCTION: LEGO1 0x100b0980
 MxBool MxOmni::IsSound3D() {
 	return g_use3dSound;
 }
 
-// FUNCTION: LEGO1 0x100b0990
 void MxOmni::SetSound3D(MxBool p_use3dSound) {
 	g_use3dSound = p_use3dSound;
 }
 
-// FUNCTION: LEGO1 0x100b09a0
 MxBool MxOmni::DoesEntityExist(MxDSAction& p_dsAction) {
 	if (m_streamer->FUN_100b9b30(p_dsAction)) {
 		MxNotificationPtrList* notifications =
@@ -402,7 +373,6 @@ MxBool MxOmni::DoesEntityExist(MxDSAction& p_dsAction) {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x100b09d0
 void MxOmni::Pause() {
 	if (m_paused == FALSE && m_timer != NULL && m_soundManager != NULL) {
 		m_timer->Start();
@@ -411,7 +381,6 @@ void MxOmni::Pause() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b0a00
 void MxOmni::Resume() {
 	if (m_paused != FALSE && m_timer != NULL && m_soundManager != NULL) {
 		m_timer->Stop();

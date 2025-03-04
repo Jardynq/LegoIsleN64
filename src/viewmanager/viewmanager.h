@@ -6,8 +6,6 @@
 
 #include <d3drm.h>
 
-// VTABLE: LEGO1 0x100dbd88
-// SIZE 0x1bc
 class ViewManager {
 public:
 	enum Flags { c_bit1 = 0x01, c_bit2 = 0x02, c_bit3 = 0x04, c_bit4 = 0x08 };
@@ -38,47 +36,40 @@ public:
 	CalculateLODLevel(float p_und1, float p_und2, ViewROI* p_roi);
 	inline static int IsROIVisibleAtLOD(ViewROI* p_roi);
 
-	// FUNCTION: BETA10 0x100576b0
 	const CompoundObject& GetROIs() { return rois; }
 
-	// FUNCTION: BETA10 0x100e1260
 	void Add(ViewROI* p_roi) { rois.push_back(p_roi); }
 
-	// SYNTHETIC: LEGO1 0x100a6000
 	// ViewManager::`scalar deleting destructor'
 
 private:
-	Tgl::Group* scene;              // 0x04
-	CompoundObject rois;            // 0x08
-	RealtimeView rt_view;           // 0x14
-	ROIList visible_rois;           // 0x18
-	float prev_render_time;         // 0x28
-	float view_area_at_one;         // 0x2c
-	unsigned int flags;             // 0x30
-	float width;                    // 0x34
-	float height;                   // 0x38
-	float view_angle;               // 0x3c
-	MxMatrix pov;                   // 0x40
-	float front;                    // 0x88
-	float back;                     // 0x8c
-	float frustum_vertices[8][3];   // 0x90
-	float transformed_points[8][3]; // 0xf0
-	float frustum_planes[6][4];     // 0x150
-	IDirect3DRM2* d3drm;            // 0x1b0
-	IDirect3DRMFrame2* frame;       // 0x1b4
-	float seconds_allowed;          // 0x1b8
+	Tgl::Group* scene;
+	CompoundObject rois;
+	RealtimeView rt_view;
+	ROIList visible_rois;
+	float prev_render_time;
+	float view_area_at_one;
+	unsigned int flags;
+	float width;
+	float height;
+	float view_angle;
+	MxMatrix pov;
+	float front;
+	float back;
+	float frustum_vertices[8][3];
+	float transformed_points[8][3];
+	float frustum_planes[6][4];
+	IDirect3DRM2* d3drm;
+	IDirect3DRMFrame2* frame;
+	float seconds_allowed;
 };
 
-// TEMPLATE: LEGO1 0x10022030
 // list<ROI *,allocator<ROI *> >::insert
 
-// TEMPLATE: LEGO1 0x100a6020
 // List<ROI *>::~List<ROI *>
 
-// TEMPLATE: LEGO1 0x100a6070
 // Vector<ROI const *>::~Vector<ROI const *>
 
-// TEMPLATE: LEGO1 0x100a6f80
 // vector<ROI const *,allocator<ROI const *> >::~vector<ROI const
 // *,allocator<ROI const *> >
 

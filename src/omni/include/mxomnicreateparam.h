@@ -8,8 +8,6 @@
 
 #include <windows.h>
 
-// VTABLE: LEGO1 0x100dc218
-// VTABLE: BETA10 0x101c1ca8
 class MxOmniCreateParam : public MxParam {
 public:
 	MxOmniCreateParam(
@@ -18,25 +16,20 @@ public:
 		MxOmniCreateFlags p_flags
 	);
 
-	// FUNCTION: BETA10 0x10092cb0
 	MxOmniCreateFlags& CreateFlags() { return this->m_createFlags; }
 
 	HWND GetWindowHandle() const { return m_windowHandle; }
 	MxVideoParam& GetVideoParam() { return m_videoParam; }
 	const MxVideoParam& GetVideoParam() const { return m_videoParam; }
 
-	// SYNTHETIC: LEGO1 0x100b0a70
-	// SYNTHETIC: BETA10 0x10132740
 	// MxOmniCreateParam::`scalar deleting destructor'
 
 private:
-	HWND m_windowHandle;             // 0x14
-	MxVideoParam m_videoParam;       // 0x18
-	MxOmniCreateFlags m_createFlags; // 0x3c
+	HWND m_windowHandle;
+	MxVideoParam m_videoParam;
+	MxOmniCreateFlags m_createFlags;
 };
 
-// SYNTHETIC: ISLE 0x4014b0
-// SYNTHETIC: BETA10 0x10132780
 // MxOmniCreateParam::~MxOmniCreateParam
 
 #endif // MXOMNICREATEPARAM_H

@@ -3,8 +3,6 @@
 #include "mxdebug.h"
 #include "mxutilities.h"
 
-// FUNCTION: LEGO1 0x100c8b40
-// FUNCTION: BETA10 0x1015c760
 MxDSMediaAction::MxDSMediaAction() {
 	m_type = e_mediaAction;
 	m_mediaSrcPath = NULL;
@@ -17,14 +15,10 @@ MxDSMediaAction::MxDSMediaAction() {
 	m_sustainTime = 0;
 }
 
-// FUNCTION: LEGO1 0x100c8cf0
-// FUNCTION: BETA10 0x1015c846
 MxDSMediaAction::~MxDSMediaAction() {
 	delete[] m_mediaSrcPath;
 }
 
-// FUNCTION: LEGO1 0x100c8d60
-// FUNCTION: BETA10 0x1015c8cc
 void MxDSMediaAction::CopyFrom(MxDSMediaAction& p_dsMediaAction) {
 	CopyMediaSrcPath(p_dsMediaAction.m_mediaSrcPath);
 
@@ -35,14 +29,11 @@ void MxDSMediaAction::CopyFrom(MxDSMediaAction& p_dsMediaAction) {
 	m_sustainTime = p_dsMediaAction.m_sustainTime;
 }
 
-// FUNCTION: BETA10 0x1015c959
 MxDSMediaAction::MxDSMediaAction(MxDSMediaAction& p_dsMediaAction)
 	: MxDSAction(p_dsMediaAction) {
 	CopyFrom(p_dsMediaAction);
 }
 
-// FUNCTION: LEGO1 0x100c8dc0
-// FUNCTION: BETA10 0x1015c9da
 MxDSMediaAction& MxDSMediaAction::operator=(MxDSMediaAction& p_dsMediaAction) {
 	if (this == &p_dsMediaAction) {
 		return *this;
@@ -53,8 +44,6 @@ MxDSMediaAction& MxDSMediaAction::operator=(MxDSMediaAction& p_dsMediaAction) {
 	return *this;
 }
 
-// FUNCTION: LEGO1 0x100c8df0
-// FUNCTION: BETA10 0x1015ca21
 MxDSAction* MxDSMediaAction::Clone() {
 	MxDSMediaAction* clone = new MxDSMediaAction();
 
@@ -65,8 +54,6 @@ MxDSAction* MxDSMediaAction::Clone() {
 	return clone;
 }
 
-// FUNCTION: LEGO1 0x100c8e80
-// FUNCTION: BETA10 0x1015cacb
 void MxDSMediaAction::CopyMediaSrcPath(const char* p_mediaSrcPath) {
 	if (m_mediaSrcPath == p_mediaSrcPath) {
 		MxTrace(
@@ -93,14 +80,10 @@ void MxDSMediaAction::CopyMediaSrcPath(const char* p_mediaSrcPath) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c8f00
-// FUNCTION: BETA10 0x1015cbf5
 undefined4 MxDSMediaAction::VTable0x14() {
 	return MxDSAction::VTable0x14();
 }
 
-// FUNCTION: LEGO1 0x100c8f10
-// FUNCTION: BETA10 0x1015cc13
 MxU32 MxDSMediaAction::GetSizeOnDisk() {
 	MxU32 totalSizeOnDisk = MxDSAction::GetSizeOnDisk();
 
@@ -121,8 +104,6 @@ MxU32 MxDSMediaAction::GetSizeOnDisk() {
 	return totalSizeOnDisk;
 }
 
-// FUNCTION: LEGO1 0x100c8f60
-// FUNCTION: BETA10 0x1015cc93
 void MxDSMediaAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 	MxDSAction::Deserialize(p_source, p_unk0x24);
 

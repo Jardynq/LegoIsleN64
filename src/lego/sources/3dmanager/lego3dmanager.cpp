@@ -7,7 +7,6 @@
 
 //////////////////////////////////////////////////////////////////////////////
 
-// FUNCTION: LEGO1 0x100ab2d0
 BOOL InitializeCreateStruct(
 	TglSurface::CreateStruct& rTglSurfaceCreateStruct,
 	const Lego3DManager::CreateStruct& rCreateStruct
@@ -28,7 +27,6 @@ BOOL InitializeCreateStruct(
 
 //////////////////////////////////////////////////////////////////////////////
 
-// FUNCTION: LEGO1 0x100ab320
 Lego3DManager::Lego3DManager() {
 	// Tgl things
 	m_pRenderer = 0;
@@ -37,12 +35,10 @@ Lego3DManager::Lego3DManager() {
 	m_pViewLODListManager = 0;
 }
 
-// FUNCTION: LEGO1 0x100ab360
 Lego3DManager::~Lego3DManager() {
 	Destroy();
 }
 
-// FUNCTION: LEGO1 0x100ab370
 BOOL Lego3DManager::Create(CreateStruct& rCreateStruct) {
 	TglSurface::CreateStruct tglSurfaceCreateStruct;
 	BOOL result;
@@ -68,7 +64,6 @@ BOOL Lego3DManager::Create(CreateStruct& rCreateStruct) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100ab460
 void Lego3DManager::Destroy() {
 	delete m_pLego3DView;
 	m_pLego3DView = 0;
@@ -80,15 +75,12 @@ void Lego3DManager::Destroy() {
 	m_pViewLODListManager = 0;
 }
 
-// FUNCTION: LEGO1 0x100ab4b0
 double Lego3DManager::Render(double p_und) {
 	assert(m_pLego3DView);
 
 	return m_pLego3DView->Render(p_und);
 }
 
-// FUNCTION: LEGO1 0x100ab4d0
-// FUNCTION: BETA10 0x1017baeb
 int Lego3DManager::SetFrustrum(float p_fov, float p_front, float p_back) {
 	m_pLego3DView->GetView()->SetFrustrum(p_front, p_back, p_fov);
 	m_pLego3DView->GetViewManager()->SetFrustrum(p_fov, p_front, p_back);

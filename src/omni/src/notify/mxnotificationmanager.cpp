@@ -6,7 +6,6 @@
 #include "mxparam.h"
 #include "mxticklemanager.h"
 
-// FUNCTION: LEGO1 0x100ac220
 MxNotification::MxNotification(
 	MxCore* p_target,
 	const MxNotificationParam& p_param
@@ -15,13 +14,10 @@ MxNotification::MxNotification(
 	m_param = p_param.Clone();
 }
 
-// FUNCTION: LEGO1 0x100ac240
 MxNotification::~MxNotification() {
 	delete m_param;
 }
 
-// FUNCTION: LEGO1 0x100ac250
-// FUNCTION: BETA10 0x10125805
 MxNotificationManager::MxNotificationManager()
 	: MxCore(), m_lock(), m_listenerIds() {
 	m_unk0x2c = 0;
@@ -30,7 +26,6 @@ MxNotificationManager::MxNotificationManager()
 	m_sendList = NULL;
 }
 
-// FUNCTION: LEGO1 0x100ac450
 MxNotificationManager::~MxNotificationManager() {
 	AUTOLOCK(m_lock);
 	Tickle();
@@ -40,7 +35,6 @@ MxNotificationManager::~MxNotificationManager() {
 	TickleManager()->UnregisterClient(this);
 }
 
-// FUNCTION: LEGO1 0x100ac600
 MxResult
 MxNotificationManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 	MxResult result = SUCCESS;
@@ -55,8 +49,6 @@ MxNotificationManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100ac6c0
-// FUNCTION: BETA10 0x10125b57
 MxResult MxNotificationManager::Send(
 	MxCore* p_listener,
 	const MxNotificationParam& p_param
@@ -82,7 +74,6 @@ MxResult MxNotificationManager::Send(
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x100ac800
 MxResult MxNotificationManager::Tickle() {
 	m_sendList = new MxNotificationPtrList();
 	if (m_sendList == NULL) {
@@ -109,7 +100,6 @@ MxResult MxNotificationManager::Tickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100ac990
 void MxNotificationManager::FlushPending(MxCore* p_listener) {
 	MxNotificationPtrList pending;
 	MxNotification* notif;
@@ -158,7 +148,6 @@ void MxNotificationManager::FlushPending(MxCore* p_listener) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100acd20
 void MxNotificationManager::Register(MxCore* p_listener) {
 	AUTOLOCK(m_lock);
 
@@ -171,8 +160,6 @@ void MxNotificationManager::Register(MxCore* p_listener) {
 	m_listenerIds.push_back(p_listener->GetId());
 }
 
-// FUNCTION: LEGO1 0x100acdf0
-// FUNCTION: BETA10 0x10126785
 void MxNotificationManager::Unregister(MxCore* p_listener) {
 	AUTOLOCK(m_lock);
 

@@ -10,7 +10,6 @@ class LegoWorld;
 class LegoCacheSound;
 class LegoPathBoundary;
 
-// SIZE 0x2c
 struct LegoBuildingInfo {
 	enum {
 		c_hasVariants = 0x01,
@@ -19,45 +18,40 @@ struct LegoBuildingInfo {
 		c_hasMoods = 0x08
 	};
 
-	LegoEntity* m_entity;         // 0x00
-	const char* m_variant;        // 0x04
-	MxU32 m_sound;                // 0x08
-	MxU32 m_move;                 // 0x0c
-	MxU8 m_mood;                  // 0x10
-	MxS8 m_unk0x11;               // 0x11
-	MxS8 m_initialUnk0x11;        // 0x12 - initial value loaded to m_unk0x11
-	MxU8 m_flags;                 // 0x13
-	float m_unk0x14;              // 0x14
-	const char* m_boundaryName;   // 0x18
-	float m_x;                    // 0x1c
-	float m_y;                    // 0x20
-	float m_z;                    // 0x24
-	LegoPathBoundary* m_boundary; // 0x28
+	LegoEntity* m_entity;
+	const char* m_variant;
+	MxU32 m_sound;
+	MxU32 m_move;
+	MxU8 m_mood;
+	MxS8 m_unk0x11;
+	MxS8 m_initialUnk0x11;
+	MxU8 m_flags;
+	float m_unk0x14;
+	const char* m_boundaryName;
+	float m_x;
+	float m_y;
+	float m_z;
+	LegoPathBoundary* m_boundary;
 };
 
-// VTABLE: LEGO1 0x100d6f50
-// SIZE 0x30
 class LegoBuildingManager : public MxCore {
 public:
-	// SIZE 0x14
 	struct AnimEntry {
-		LegoEntity* m_entity; // 0x00
-		LegoROI* m_roi;       // 0x04
-		MxLong m_time;        // 0x08
-		float m_unk0x0c;      // 0x0c
-		MxBool m_muted;       // 0x10
+		LegoEntity* m_entity;
+		LegoROI* m_roi;
+		MxLong m_time;
+		float m_unk0x0c;
+		MxBool m_muted;
 	};
 
 	LegoBuildingManager();
 	~LegoBuildingManager() override;
 
-	MxResult Tickle() override; // vtable+0x08
+	MxResult Tickle() override;
 
-	// FUNCTION: LEGO1 0x1002f930
-	const char* ClassName() const override // vtable+0x0c
-	{
+	const char* ClassName() const override {
 		// not in BETA10
-		// STRING: LEGO1 0x100f37d0
+
 		return "LegoBuildingManager";
 	}
 
@@ -95,7 +89,6 @@ public:
 
 	static const char* GetCustomizeAnimFile() { return g_customizeAnimFile; }
 
-	// SYNTHETIC: LEGO1 0x1002f940
 	// LegoBuildingManager::`scalar deleting destructor'
 
 private:
@@ -103,13 +96,13 @@ private:
 	static MxS32 g_maxMove[16];
 	static MxU32 g_maxSound;
 
-	MxU8 m_nextVariant;      // 0x08
-	MxBool m_unk0x09;        // 0x09
-	AnimEntry* m_entries[5]; // 0x0c
-	MxS8 m_numEntries;       // 0x20
-	LegoCacheSound* m_sound; // 0x24
-	MxBool m_unk0x28;        // 0x28
-	LegoWorld* m_world;      // 0x2c
+	MxU8 m_nextVariant;
+	MxBool m_unk0x09;
+	AnimEntry* m_entries[5];
+	MxS8 m_numEntries;
+	LegoCacheSound* m_sound;
+	MxBool m_unk0x28;
+	LegoWorld* m_world;
 };
 
 #endif // LEGOBUILDINGMANAGER_H

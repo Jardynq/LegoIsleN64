@@ -5,9 +5,6 @@
 
 // File name validated by BETA10 0x1011cba3; directory unknown
 
-// FUNCTION: CONFIG 0x00402560
-// FUNCTION: LEGO1 0x1009ce60
-// FUNCTION: BETA10 0x1011c7e0
 int LegoDeviceEnumerate::ParseDeviceName(const char* p_deviceId) {
 	if (!IsInitialized()) {
 		return -1;
@@ -45,9 +42,6 @@ int LegoDeviceEnumerate::ParseDeviceName(const char* p_deviceId) {
 	return result;
 }
 
-// FUNCTION: CONFIG 0x00402620
-// FUNCTION: LEGO1 0x1009cf20
-// FUNCTION: BETA10 0x1011c8b3
 int LegoDeviceEnumerate::ProcessDeviceBytes(int p_deviceNum, GUID& p_guid) {
 	if (!IsInitialized()) {
 		return -1;
@@ -88,9 +82,6 @@ int LegoDeviceEnumerate::ProcessDeviceBytes(int p_deviceNum, GUID& p_guid) {
 	return -1;
 }
 
-// FUNCTION: CONFIG 0x00402730
-// FUNCTION: LEGO1 0x1009d030
-// FUNCTION: BETA10 0x1011ca54
 int LegoDeviceEnumerate::GetDevice(
 	int p_deviceNum,
 	MxDriver*& p_driver,
@@ -121,8 +112,6 @@ int LegoDeviceEnumerate::GetDevice(
 	return -1;
 }
 
-// FUNCTION: CONFIG 0x004027d0
-// FUNCTION: BETA10 0x1011cb70
 int LegoDeviceEnumerate::FormatDeviceName(
 	char* p_buffer,
 	const MxDriver* p_ddInfo,
@@ -153,7 +142,6 @@ int LegoDeviceEnumerate::FormatDeviceName(
 	return -1;
 }
 
-// FUNCTION: BETA10 0x1011cc65
 int LegoDeviceEnumerate::BETA_1011cc65(int p_idx, char* p_buffer) {
 	if (p_idx < 0 || !IsInitialized()) {
 		return -1;
@@ -195,9 +183,6 @@ int LegoDeviceEnumerate::BETA_1011cc65(int p_idx, char* p_buffer) {
 	return -1;
 }
 
-// FUNCTION: CONFIG 0x00402860
-// FUNCTION: LEGO1 0x1009d0d0
-// FUNCTION: BETA10 0x1011cdb4
 int LegoDeviceEnumerate::FUN_1009d0d0() {
 	if (!IsInitialized()) {
 		return -1;
@@ -236,9 +221,6 @@ int LegoDeviceEnumerate::FUN_1009d0d0() {
 	return k;
 }
 
-// FUNCTION: CONFIG 0x00402930
-// FUNCTION: LEGO1 0x1009d1a0
-// FUNCTION: BETA10 0x1011cf54
 int LegoDeviceEnumerate::SupportsMMX() {
 	if (!SupportsCPUID()) {
 		return 0;
@@ -282,9 +264,6 @@ int LegoDeviceEnumerate::SupportsMMX() {
 	return supports_mmx;
 }
 
-// FUNCTION: CONFIG 0x00402970
-// FUNCTION: LEGO1 0x1009d1e0
-// FUNCTION: BETA10 0x1011cf97
 int LegoDeviceEnumerate::SupportsCPUID() {
 	int has_cpuid;
 #ifdef _MSC_VER
@@ -328,9 +307,6 @@ int LegoDeviceEnumerate::SupportsCPUID() {
 	return has_cpuid;
 }
 
-// FUNCTION: CONFIG 0x004029a0
-// FUNCTION: LEGO1 0x1009d210
-// FUNCTION: BETA10 0x1011cfc4
 int LegoDeviceEnumerate::FUN_1009d210() {
 	if (!IsInitialized()) {
 		return -1;
@@ -367,9 +343,6 @@ int LegoDeviceEnumerate::FUN_1009d210() {
 	return 0;
 }
 
-// FUNCTION: CONFIG 0x00402b00
-// FUNCTION: LEGO1 0x1009d370
-// FUNCTION: BETA10 0x1011d176
 unsigned char
 LegoDeviceEnumerate::DriverSupportsRequiredDisplayMode(MxDriver& p_driver) {
 	for (list<MxDisplayMode>::iterator it = p_driver.m_displayModes.begin();
@@ -385,9 +358,6 @@ LegoDeviceEnumerate::DriverSupportsRequiredDisplayMode(MxDriver& p_driver) {
 	return FALSE;
 }
 
-// FUNCTION: CONFIG 0x00402b60
-// FUNCTION: LEGO1 0x1009d3d0
-// FUNCTION: BETA10 0x1011d235
 unsigned char LegoDeviceEnumerate::FUN_1009d3d0(Direct3DDeviceInfo& p_device) {
 	if (m_list.size() <= 0) {
 		return FALSE;

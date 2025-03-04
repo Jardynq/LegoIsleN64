@@ -5,7 +5,6 @@
 
 class MxMatrix;
 
-// SIZE 0x50
 class LegoUnknown {
 public:
 	LegoUnknown();
@@ -21,7 +20,7 @@ public:
 	FUN_1009a1e0(float p_f1, MxMatrix& p_mat, Vector3& p_v, LegoU32 p_und);
 
 private:
-	Mx3DPointFloat m_unk0x00[4]; // 0x00
+	Mx3DPointFloat m_unk0x00[4];
 };
 
 #endif // __LEGOUNKNOWN_H

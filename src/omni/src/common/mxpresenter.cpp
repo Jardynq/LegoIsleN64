@@ -26,7 +26,6 @@
 
 #include <string.h>
 
-// FUNCTION: LEGO1 0x100b4d50
 void MxPresenter::Init() {
 	m_currentTickleState = e_idle;
 	m_action = NULL;
@@ -36,8 +35,6 @@ void MxPresenter::Init() {
 	m_previousTickleStates = 0;
 }
 
-// FUNCTION: LEGO1 0x100b4d80
-// FUNCTION: BETA10 0x1012e120
 MxResult MxPresenter::StartAction(MxStreamController*, MxDSAction* p_action) {
 	AUTOLOCK(m_criticalSection);
 
@@ -51,7 +48,6 @@ MxResult MxPresenter::StartAction(MxStreamController*, MxDSAction* p_action) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100b4e40
 void MxPresenter::EndAction() {
 	if (m_action == NULL) {
 		return;
@@ -74,7 +70,6 @@ void MxPresenter::EndAction() {
 	m_currentTickleState = e_idle;
 }
 
-// FUNCTION: LEGO1 0x100b4fc0
 void MxPresenter::ParseExtra() {
 	AUTOLOCK(m_criticalSection);
 
@@ -107,8 +102,6 @@ void MxPresenter::ParseExtra() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b5120
-// FUNCTION: BETA10 0x1012e5d8
 void MxPresenter::SendToCompositePresenter(MxOmni* p_omni) {
 	if (m_compositePresenter) {
 		AUTOLOCK(m_criticalSection);
@@ -122,7 +115,6 @@ void MxPresenter::SendToCompositePresenter(MxOmni* p_omni) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b5200
 MxResult MxPresenter::Tickle() {
 	AUTOLOCK(m_criticalSection);
 
@@ -166,7 +158,6 @@ MxResult MxPresenter::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100b52d0
 void MxPresenter::Enable(MxBool p_enable) {
 	if (m_action && IsEnabled() != p_enable) {
 		MxU32 flags = m_action->GetFlags();
@@ -179,8 +170,6 @@ void MxPresenter::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b5310
-// FUNCTION: BETA10 0x1012e8bd
 const char* PresenterNameDispatch(const MxDSAction& p_action) {
 	const char* name = p_action.GetSourceName();
 	MxS32 format;
@@ -236,7 +225,6 @@ const char* PresenterNameDispatch(const MxDSAction& p_action) {
 	return name;
 }
 
-// FUNCTION: LEGO1 0x100b5410
 MxEntity* MxPresenter::CreateEntity(const char* p_defaultName) {
 	// create an object from LegoObjectFactory based on OBJECT: value in extra
 	// data. If that is missing, p_defaultName is used
@@ -258,8 +246,6 @@ MxEntity* MxPresenter::CreateEntity(const char* p_defaultName) {
 	return (MxEntity*) ObjectFactory()->Create(objectName);
 }
 
-// FUNCTION: LEGO1 0x100b54c0
-// FUNCTION: BETA10 0x1012ebaf
 MxBool MxPresenter::IsEnabled() {
 	return m_action && m_action->GetFlags() & MxDSAction::c_enabled;
 }

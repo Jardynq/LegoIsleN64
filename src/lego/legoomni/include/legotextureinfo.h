@@ -8,7 +8,6 @@
 
 class LegoTexture;
 
-// SIZE 0x10
 class LegoTextureInfo {
 public:
 	LegoTextureInfo();
@@ -23,13 +22,12 @@ public:
 	LegoResult FUN_10066010(const LegoU8* p_bits);
 
 	// private:
-	char* m_name;                   // 0x00
-	LPDIRECTDRAWSURFACE m_surface;  // 0x04
-	LPDIRECTDRAWPALETTE m_palette;  // 0x08
-	LPDIRECT3DRMTEXTURE2 m_texture; // 0x0c
+	char* m_name;
+	LPDIRECTDRAWSURFACE m_surface;
+	LPDIRECTDRAWPALETTE m_palette;
+	LPDIRECT3DRMTEXTURE2 m_texture;
 };
 
-// GLOBAL: LEGO1 0x100db6f0
 // IID_IDirect3DRMTexture2
 
 #endif // LEGOTEXTUREINFO_H

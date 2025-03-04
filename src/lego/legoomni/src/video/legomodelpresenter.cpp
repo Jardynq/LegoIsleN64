@@ -19,17 +19,14 @@
 #include "realtime/realtime.h"
 #include "roi/legoroi.h"
 
-// GLOBAL: LEGO1 0x100f7ae0
 MxS32 g_modelPresenterConfig = 1;
 
-// FUNCTION: LEGO1 0x1007f660
 void LegoModelPresenter::configureLegoModelPresenter(
 	MxS32 p_modelPresenterConfig
 ) {
 	g_modelPresenterConfig = p_modelPresenterConfig;
 }
 
-// FUNCTION: LEGO1 0x1007f670
 void LegoModelPresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 	m_roi = NULL;
@@ -41,8 +38,6 @@ void LegoModelPresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1007f6b0
-// FUNCTION: BETA10 0x1009845e
 MxResult LegoModelPresenter::CreateROI(MxDSChunk* p_chunk) {
 	MxResult result = FAILURE;
 	LegoU32 numROIs;
@@ -206,8 +201,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1007ff70
-// FUNCTION: BETA10 0x10099061
 MxResult LegoModelPresenter::FUN_1007ff70(
 	MxDSChunk& p_chunk,
 	LegoEntity* p_entity,
@@ -238,8 +231,6 @@ MxResult LegoModelPresenter::FUN_1007ff70(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10080050
-// FUNCTION: BETA10 0x100991c2
 void LegoModelPresenter::ReadyTickle() {
 	if (m_compositePresenter != NULL &&
 		m_compositePresenter->IsA("LegoEntityPresenter") &&
@@ -307,8 +298,6 @@ void LegoModelPresenter::ReadyTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100801b0
-// FUNCTION: BETA10 0x10099443
 void LegoModelPresenter::ParseExtra() {
 	MxU16 extraLength;
 	char* extraData;

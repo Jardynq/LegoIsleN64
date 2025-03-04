@@ -22,7 +22,6 @@
 #include "mxvariabletable.h"
 #include "scripts.h"
 
-// GLOBAL: LEGO1 0x100d5d10
 MxS32 CarRace::g_unk0x100d5d10[] = {
 	CarraceScript::c_srt001sl_RunAnim,
 	CarraceScript::c_srt002sl_RunAnim,
@@ -33,50 +32,38 @@ MxS32 CarRace::g_unk0x100d5d10[] = {
 	CarraceScript::c_srt002rh_RunAnim,
 	CarraceScript::c_srt003rh_RunAnim};
 
-// GLOBAL: LEGO1 0x100d5d30
 MxS32 CarRace::g_unk0x100d5d30[] = {
 	CarraceScript::c_srt011sl_RunAnim,
 	CarraceScript::c_srt012sl_RunAnim,
 	CarraceScript::c_srt013sl_RunAnim,
 	CarraceScript::c_srt014sl_RunAnim};
 
-// GLOBAL: LEGO1 0x100d5d40
 MxS32 CarRace::g_unk0x100d5d40[] = {
 	CarraceScript::c_srt015sl_RunAnim,
 	CarraceScript::c_srt016sl_RunAnim,
 	CarraceScript::c_srt017sl_RunAnim};
 
-// GLOBAL: LEGO1 0x100d5d50
 MxS32 CarRace::g_unk0x100d5d50[] = {
 	CarraceScript::c_srt007rh_RunAnim,
 	CarraceScript::c_srt008rh_RunAnim,
 	CarraceScript::c_srt009rh_RunAnim};
 
-// GLOBAL: LEGO1 0x100d5d60
 MxS32 CarRace::g_unk0x100d5d60[] = {
 	CarraceScript::c_srt010rh_RunAnim,
 	CarraceScript::c_srt011rh_RunAnim,
 	CarraceScript::c_srt012rh_RunAnim};
 
-// GLOBAL: LEGO1 0x100f0c70
-// STRING: LEGO1 0x100f0c48
 const LegoChar* g_strCRCFRNTY6 = "C_RCFRNTY6";
 
-// GLOBAL: LEGO1 0x100f0c74
-// STRING: LEGO1 0x100f0c3c
 const LegoChar* g_strCRCEDGEY0 = "C_RCEDGEY0";
 
-// GLOBAL: LEGO1 0x100f0c7c
 MxS32 g_unk0x100f0c7c = 2;
 
-// FUNCTION: LEGO1 0x10016a90
 CarRace::CarRace() {
 	m_skeleton = NULL;
 	m_unk0x130 = MxRect32(0x16c, 0x154, 0x1ec, 0x15e);
 }
 
-// FUNCTION: LEGO1 0x10016ce0
-// FUNCTION: BETA10 0x100c8364
 MxResult CarRace::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoRace::Create(p_dsAction);
 
@@ -115,8 +102,6 @@ MxResult CarRace::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10016dd0
-// FUNCTION: BETA10 0x100c8490
 void CarRace::ReadyWorld() {
 	assert(m_hideAnim);
 	LegoWorld::ReadyWorld();
@@ -156,8 +141,6 @@ void CarRace::ReadyWorld() {
 	VariableTable()->SetVariable("DISTANCE", "0.036");
 }
 
-// FUNCTION: LEGO1 0x10016f60
-// FUNCTION: BETA10 0x100c85eb
 MxLong CarRace::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	MxLong result = 0;
 
@@ -200,8 +183,6 @@ MxLong CarRace::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100170e0
-// FUNCTION: BETA10 0x100c87ac
 MxLong CarRace::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	MxLong result = 0;
 
@@ -363,7 +344,6 @@ MxLong CarRace::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10017650
 MxLong CarRace::HandleClick(LegoEventNotificationParam& p_param) {
 	LegoControlManagerNotificationParam* param =
 		(LegoControlManagerNotificationParam*) &p_param;
@@ -421,8 +401,6 @@ MxLong CarRace::HandleClick(LegoEventNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x100177e0
-// FUNCTION: BETA10 0x100c8f59
 MxLong CarRace::HandleType0Notification(MxNotificationParam&) {
 	if (m_raceState->m_unk0x28 == 2) {
 		m_destLocation = LegoGameState::e_unk21;
@@ -433,7 +411,6 @@ MxLong CarRace::HandleType0Notification(MxNotificationParam&) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10017820
 void CarRace::FUN_10017820(MxS32 p_param1, MxS16 p_param2) {
 	MxS32 local4;
 	MxStillPresenter* presenter;
@@ -459,7 +436,6 @@ void CarRace::FUN_10017820(MxS32 p_param1, MxS16 p_param2) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10017900
 MxBool CarRace::Escape() {
 	InvokeAction(
 		Extra::e_stop,

@@ -11,7 +11,6 @@
 #define MXIO_MINFO_MFILE
 #endif
 
-// SIZE 0x48
 class MXIOINFO {
 public:
 	MXIOINFO();

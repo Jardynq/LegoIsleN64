@@ -9,7 +9,6 @@
 #include "mxpresenter.h"
 #include "mxticklemanager.h"
 
-// FUNCTION: LEGO1 0x10028520
 LegoControlManager::LegoControlManager() {
 	m_presenterList = NULL;
 	m_unk0x08 = 0;
@@ -19,26 +18,20 @@ LegoControlManager::LegoControlManager() {
 	TickleManager()->RegisterClient(this, 10);
 }
 
-// FUNCTION: LEGO1 0x10028d60
 LegoControlManager::~LegoControlManager() {
 	TickleManager()->UnregisterClient(this);
 }
 
-// FUNCTION: LEGO1 0x10028df0
 void LegoControlManager::FUN_10028df0(MxPresenterList* p_presenterList) {
 	m_presenterList = p_presenterList;
 	g_unk0x100f31b0 = -1;
 	g_unk0x100f31b4 = NULL;
 }
 
-// FUNCTION: LEGO1 0x10028e10
-// FUNCTION: BETA10 0x1007c232
 void LegoControlManager::Register(MxCore* p_listener) {
 	m_notifyList.Append(p_listener);
 }
 
-// FUNCTION: LEGO1 0x10028ea0
-// FUNCTION: BETA10 0x1007c330
 void LegoControlManager::Unregister(MxCore* p_listener) {
 	LegoNotifyListCursor cursor(&m_notifyList);
 	if (cursor.Find(p_listener)) {
@@ -46,7 +39,6 @@ void LegoControlManager::Unregister(MxCore* p_listener) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10029210
 MxBool LegoControlManager::FUN_10029210(
 	LegoEventNotificationParam& p_param,
 	MxPresenter* p_presenter
@@ -96,7 +88,6 @@ MxBool LegoControlManager::FUN_10029210(
 	}
 }
 
-// FUNCTION: LEGO1 0x100292e0
 void LegoControlManager::FUN_100292e0() {
 	LegoNotifyListCursor cursor(&m_notifyList);
 	MxCore* target;
@@ -108,7 +99,6 @@ void LegoControlManager::FUN_100292e0() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100293c0
 void LegoControlManager::FUN_100293c0(
 	MxU32 p_objectId,
 	const char* p_atom,
@@ -135,7 +125,6 @@ void LegoControlManager::FUN_100293c0(
 	}
 }
 
-// FUNCTION: LEGO1 0x100294e0
 MxControlPresenter* LegoControlManager::FUN_100294e0(MxS32 p_x, MxS32 p_y) {
 	if (m_presenterList) {
 		MxPresenterListCursor cursor(m_presenterList);
@@ -156,7 +145,6 @@ MxControlPresenter* LegoControlManager::FUN_100294e0(MxS32 p_x, MxS32 p_y) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x10029600
 MxResult LegoControlManager::Tickle() {
 	if (m_unk0x08 == 2 && m_unk0x0c == 1) {
 		m_event.SetNotification(c_notificationButtonUp);
@@ -168,7 +156,6 @@ MxResult LegoControlManager::Tickle() {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x10029630
 MxBool LegoControlManager::FUN_10029630() {
 	MxPresenterListCursor cursor(m_presenterList);
 	MxPresenter* presenter;
@@ -187,7 +174,6 @@ MxBool LegoControlManager::FUN_10029630() {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x10029750
 MxBool LegoControlManager::FUN_10029750() {
 	MxPresenterListCursor cursor(m_presenterList);
 	MxPresenter* presenter;

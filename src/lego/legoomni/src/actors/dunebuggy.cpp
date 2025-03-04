@@ -17,17 +17,13 @@
 #include "mxtransitionmanager.h"
 #include "mxvariabletable.h"
 
-// GLOBAL: LEGO1 0x100f7660
-// STRING: LEGO1 0x100f7634
 const char* g_varDBFRFNY4 = "C_DBFRFNY4";
 
-// FUNCTION: LEGO1 0x10067bb0
 DuneBuggy::DuneBuggy() {
 	m_maxLinearVel = 25.0;
 	m_fuel = 1.0;
 }
 
-// FUNCTION: LEGO1 0x10067e30
 MxResult DuneBuggy::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 	m_world = CurrentWorld();
@@ -42,7 +38,6 @@ MxResult DuneBuggy::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10067ec0
 void DuneBuggy::Animate(float p_time) {
 	IslePathActor::Animate(p_time);
 
@@ -64,7 +59,6 @@ void DuneBuggy::Animate(float p_time) {
 	VariableTable()->SetVariable(g_varDUNEFUEL, buf);
 }
 
-// FUNCTION: LEGO1 0x10067fa0
 void DuneBuggy::Exit() {
 	IslePathActor::Exit();
 	GameState()->m_currentArea = LegoGameState::e_dunecar;
@@ -78,7 +72,6 @@ void DuneBuggy::Exit() {
 	ControlManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x10068060
 MxLong DuneBuggy::HandleClick() {
 	if (!FUN_1003ef60()) {
 		return 1;
@@ -115,7 +108,6 @@ MxLong DuneBuggy::HandleClick() {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x100681b0
 MxLong DuneBuggy::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxLong result = 0;
 
@@ -152,9 +144,7 @@ MxLong DuneBuggy::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10068270
 MxLong DuneBuggy::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
-	// 0x168 corresponds to the path at the gas station
 	if (p_param.GetData() == 0x168) {
 		m_fuel = 1.0f;
 	}
@@ -162,8 +152,6 @@ MxLong DuneBuggy::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x10068290
-// FUNCTION: BETA10 0x1002765d
 MxS32 DuneBuggy::GetColorOffset(const char* p_variable) {
 	MxS32 offset = 1;
 	const char* color = VariableTable()->GetVariable(p_variable);
@@ -186,7 +174,6 @@ MxS32 DuneBuggy::GetColorOffset(const char* p_variable) {
 	return offset;
 }
 
-// FUNCTION: LEGO1 0x10068350
 void DuneBuggy::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_GarageArea_Music);
 

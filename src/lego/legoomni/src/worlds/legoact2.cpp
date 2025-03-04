@@ -29,11 +29,8 @@
 
 #include <vec.h>
 
-// GLOBAL: LEGO1 0x100f4474
 Act2mainScript::Script g_unk0x100f4474 = (Act2mainScript::Script) 0;
 
-// GLOBAL: LEGO1 0x100f43f0
-// GLOBAL: BETA10 0x101e14a8
 MxS32 g_unk0x100f43f0[] = {
 	Act2mainScript::c_tns030bd_RunAnim,
 	Act2mainScript::c_tns030pg_RunAnim,
@@ -44,10 +41,8 @@ MxS32 g_unk0x100f43f0[] = {
 	Act2mainScript::c_snsx37ro_RunAnim,
 	Act2mainScript::c_snsx48cl_RunAnim};
 
-// GLOBAL: LEGO1 0x100f4410
 const LegoChar* g_unk0x100f4410[] = {"bd", "pg", "rd", "sy", "ro", "cl"};
 
-// GLOBAL: LEGO1 0x100f4428
 MxS32 g_unk0x100f4428[] = {
 	Act2mainScript::c_snsx07pa_RunAnim,
 	Act2mainScript::c_snsx12ni_RunAnim,
@@ -62,12 +57,9 @@ MxS32 g_unk0x100f4428[] = {
 	0,
 	0};
 
-// GLOBAL: LEGO1 0x100f4458
 const LegoChar* g_unk0x100f4458[] =
 	{"papa", "nick", "laura", "cl", "pg", "rd", "sy"};
 
-// FUNCTION: LEGO1 0x1004fce0
-// FUNCTION: BETA10 0x1003a5a0
 LegoAct2::LegoAct2() {
 	m_unk0x10c4 = 0;
 	m_gameState = NULL;
@@ -87,8 +79,6 @@ LegoAct2::LegoAct2() {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x1004fe40
-// FUNCTION: BETA10 0x1003a6f0
 LegoAct2::~LegoAct2() {
 	if (m_ready) {
 		TickleManager()->UnregisterClient(this);
@@ -103,8 +93,6 @@ LegoAct2::~LegoAct2() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x1004ff20
-// FUNCTION: BETA10 0x1003a7ff
 MxResult LegoAct2::Create(MxDSAction& p_dsAction) {
 	GameState()->FindLoadedAct();
 
@@ -149,8 +137,6 @@ MxResult LegoAct2::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10050040
-// FUNCTION: BETA10 0x1003a976
 MxResult LegoAct2::Tickle() {
 	MxFloat distance;
 
@@ -292,8 +278,6 @@ MxResult LegoAct2::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10050380
-// FUNCTION: BETA10 0x1003b049
 MxLong LegoAct2::Notify(MxParam& p_param) {
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
 	MxLong result = 0;
@@ -382,7 +366,6 @@ MxLong LegoAct2::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100506f0
 MxLong LegoAct2::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	if (m_gameState->m_enabled && p_param.GetAction() != NULL) {
 		MxU32 objectId = p_param.GetAction()->GetObjectId();
@@ -521,7 +504,6 @@ MxLong LegoAct2::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x10050a50
 MxLong LegoAct2::HandleTransitionEnd() {
 	if (m_destLocation != LegoGameState::e_undefined) {
 		GameState()->SwitchArea(m_destLocation);
@@ -531,7 +513,6 @@ MxLong LegoAct2::HandleTransitionEnd() {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10050a80
 void LegoAct2::ReadyWorld() {
 	LegoWorld::ReadyWorld();
 
@@ -576,8 +557,6 @@ void LegoAct2::ReadyWorld() {
 	m_gameState->m_enabled = TRUE;
 }
 
-// FUNCTION: LEGO1 0x10050cf0
-// FUNCTION: BETA10 0x1003bb2d
 void LegoAct2::Enable(MxBool p_enable) {
 	if ((MxBool) m_set0xd0.empty() == p_enable) {
 		return;
@@ -656,8 +635,6 @@ void LegoAct2::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10051460
-// FUNCTION: BETA10 0x1003bb72
 MxLong LegoAct2::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	if (m_unk0x10c4 == 5 && p_param.GetData() == 0x32) {
 		LegoPathActor* actor = (LegoPathActor*) m_pepper->GetEntity();
@@ -743,8 +720,6 @@ MxLong LegoAct2::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x100516b0
-// FUNCTION: BETA10 0x1003bcbc
 MxResult LegoAct2::FUN_100516b0() {
 	if (m_nextBrick > 4) {
 		return FAILURE;
@@ -767,7 +742,6 @@ MxResult LegoAct2::FUN_100516b0() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100517b0
 void LegoAct2::FUN_100517b0() {
 	Act2Brick& brick = m_bricks[m_nextBrick];
 	brick.Create(m_nextBrick);
@@ -782,7 +756,6 @@ void LegoAct2::FUN_100517b0() {
 	m_nextBrick++;
 }
 
-// FUNCTION: LEGO1 0x10051840
 void LegoAct2::PlayMusic(JukeboxScript::Script p_objectId) {
 	MxDSAction action;
 	action.SetAtomId(*g_jukeboxScript);
@@ -792,8 +765,6 @@ void LegoAct2::PlayMusic(JukeboxScript::Script p_objectId) {
 	m_music = p_objectId;
 }
 
-// FUNCTION: LEGO1 0x10051900
-// FUNCTION: BETA10 0x1003bed1
 void LegoAct2::FUN_10051900() {
 	if (AnimationManager()) {
 		AnimationManager()->Suspend();
@@ -805,8 +776,6 @@ void LegoAct2::FUN_10051900() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10051960
-// FUNCTION: BETA10 0x1003bf2c
 void LegoAct2::FUN_10051960() {
 	LegoROI* roi;
 
@@ -829,12 +798,10 @@ void LegoAct2::FUN_10051960() {
 		->SetActorState(LegoPathActor::c_initial);
 }
 
-// FUNCTION: LEGO1 0x100519c0
 void LegoAct2::VTable0x60() {
 	// empty
 }
 
-// FUNCTION: LEGO1 0x100519d0
 MxBool LegoAct2::Escape() {
 	BackgroundAudioManager()->Stop();
 	AnimationManager()->FUN_10061010(FALSE);
@@ -854,7 +821,6 @@ MxBool LegoAct2::Escape() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x10051a60
 void LegoAct2::InitBricks() {
 	for (MxS32 i = 0; i < (MxS32) sizeOfArray(m_bricks); i++) {
 		if (m_bricks[i].GetROI() != NULL &&
@@ -864,7 +830,6 @@ void LegoAct2::InitBricks() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10051a90
 void LegoAct2::UninitBricks() {
 	for (MxS32 i = 0; i < (MxS32) sizeOfArray(m_bricks); i++) {
 		if (m_bricks[i].GetROI() != NULL) {
@@ -873,8 +838,6 @@ void LegoAct2::UninitBricks() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10051ac0
-// FUNCTION: BETA10 0x100138c0
 void LegoAct2::SpawnBricks() {
 	MxFloat infobridge[] = {79.0625f, 0.5f, -19.75f};
 	MxFloat palmTreeInPark[] = {67.62728f, 0.917197f, 11.49833f};
@@ -998,8 +961,6 @@ void LegoAct2::SpawnBricks() {
 	m_nextBrick++;
 }
 
-// FUNCTION: LEGO1 0x10051f20
-// FUNCTION: BETA10 0x10013f48
 MxResult LegoAct2::BadEnding() {
 	for (MxS32 i = 0; i < (MxS32) sizeOfArray(m_bricks); i++) {
 		m_bricks[i].Remove();
@@ -1018,8 +979,6 @@ MxResult LegoAct2::BadEnding() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10051fa0
-// FUNCTION: BETA10 0x10013fd3
 void LegoAct2::FUN_10051fa0(MxS32 p_param1) {
 	MxU8 randN = rand() / (RAND_MAX / 3);
 	randN++;
@@ -1229,8 +1188,6 @@ void LegoAct2::FUN_10051fa0(MxS32 p_param1) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100521f0
-// FUNCTION: BETA10 0x100142f1
 void LegoAct2::FUN_100521f0(MxS32 p_param1) {
 	Act2mainScript::Script objectId = (Act2mainScript::Script) 0;
 	Mx3DPointFloat vec;
@@ -1284,8 +1241,6 @@ void LegoAct2::FUN_100521f0(MxS32 p_param1) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10052560
-// FUNCTION: BETA10 0x100145c6
 MxResult LegoAct2::FUN_10052560(
 	Act2mainScript::Script p_objectId,
 	MxBool p_param2,
@@ -1391,8 +1346,6 @@ MxResult LegoAct2::FUN_10052560(
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10052800
-// FUNCTION: BETA10 0x10014aa8
 MxResult LegoAct2::FUN_10052800() {
 	LegoPathActor* actor = m_unk0x1138;
 	LegoLocomotionAnimPresenter* ap;

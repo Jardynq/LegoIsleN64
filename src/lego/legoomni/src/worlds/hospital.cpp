@@ -20,16 +20,12 @@
 #include "mxtransitionmanager.h"
 #include "scripts.h"
 
-// GLOBAL: LEGO1 0x100f7918
 undefined4 g_unk0x100f7918 = 3;
 
-// GLOBAL: LEGO1 0x100f791c
 MxBool g_copLedEnabled = FALSE;
 
-// GLOBAL: LEGO1 0x100f7920
 MxBool g_pizzaLedEnabled = FALSE;
 
-// FUNCTION: LEGO1 0x100745e0
 Hospital::Hospital() {
 	m_currentActorId = LegoActor::c_none;
 	m_unk0x100 = 0;
@@ -46,7 +42,6 @@ Hospital::Hospital() {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x100747f0
 Hospital::~Hospital() {
 	InputManager()->UnRegister(this);
 	if (InputManager()->GetWorld() == this) {
@@ -62,7 +57,6 @@ Hospital::~Hospital() {
 	g_unk0x100f7918 = 3;
 }
 
-// FUNCTION: LEGO1 0x100748c0
 MxResult Hospital::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 	if (result == SUCCESS) {
@@ -92,8 +86,6 @@ MxResult Hospital::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10074990
-// FUNCTION: BETA10 0x1002ca3b
 MxLong Hospital::Notify(MxParam& p_param) {
 	MxLong result = 0;
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
@@ -129,7 +121,6 @@ MxLong Hospital::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10074a60
 void Hospital::ReadyWorld() {
 	PlayMusic(JukeboxScript::c_Hospital_Music);
 
@@ -216,7 +207,6 @@ void Hospital::ReadyWorld() {
 	);
 }
 
-// FUNCTION: LEGO1 0x10074dd0
 MxLong Hospital::HandleKeyPress(MxS8 p_key) {
 	MxLong result = 0;
 
@@ -232,7 +222,6 @@ MxLong Hospital::HandleKeyPress(MxS8 p_key) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10074e00
 MxLong Hospital::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	MxLong result = 0;
 	MxDSAction* action = p_param.GetAction();
@@ -410,8 +399,6 @@ MxLong Hospital::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10075710
-// FUNCTION: BETA10 0x1002d2b1
 MxLong Hospital::HandleButtonDown(LegoControlManagerNotificationParam& p_param
 ) {
 	if (m_unk0x100 == 1) {
@@ -583,7 +570,6 @@ MxLong Hospital::HandleButtonDown(LegoControlManagerNotificationParam& p_param
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x10075f90
 MxBool Hospital::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	if (p_param.GetUnknown0x28() == 1) {
 		switch (p_param.GetClickedObjectId()) {
@@ -659,7 +645,6 @@ MxBool Hospital::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x10076220
 void Hospital::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
@@ -682,7 +667,6 @@ inline void Hospital::PlayAction(MxU32 p_objectId) {
 	Start(&action);
 }
 
-// FUNCTION: LEGO1 0x10076270
 MxResult Hospital::Tickle() {
 	if (!m_worldStarted) {
 		LegoWorld::Tickle();
@@ -712,7 +696,6 @@ MxResult Hospital::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10076330
 MxBool Hospital::Escape() {
 	DeleteObjects(&m_atomId, HospitalScript::c_hho002cl_RunAnim, 999);
 	m_hospitalState->m_unk0x08 = 0;
@@ -722,7 +705,6 @@ MxBool Hospital::Escape() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x10076370
 HospitalState::HospitalState() {
 	m_unk0x0c = 0;
 	m_unk0x0e = 0;
@@ -732,8 +714,6 @@ HospitalState::HospitalState() {
 	m_unk0x16 = 0;
 }
 
-// FUNCTION: LEGO1 0x10076530
-// FUNCTION: BETA10 0x1002db26
 MxResult HospitalState::Serialize(LegoStorage* p_storage) {
 	LegoState::Serialize(p_storage);
 

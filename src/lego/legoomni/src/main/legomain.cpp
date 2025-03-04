@@ -32,21 +32,16 @@
 #include "scripts.h"
 #include "viewmanager/viewmanager.h"
 
-// GLOBAL: LEGO1 0x100f6718
-// STRING: LEGO1 0x100f6710
 const char* g_current = "current";
 
-// FUNCTION: LEGO1 0x10058a00
 LegoOmni::LegoOmni() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x10058b50
 LegoOmni::~LegoOmni() {
 	Destroy();
 }
 
-// FUNCTION: LEGO1 0x10058bd0
 void LegoOmni::Init() {
 	MxOmni::Init();
 	m_worlds = NULL;
@@ -67,7 +62,6 @@ void LegoOmni::Init() {
 	m_transitionManager = NULL;
 }
 
-// FUNCTION: LEGO1 0x10058c30
 void LegoOmni::Destroy() {
 	AUTOLOCK(m_criticalSection);
 
@@ -142,8 +136,6 @@ void LegoOmni::Destroy() {
 	MxOmni::Destroy();
 }
 
-// FUNCTION: LEGO1 0x10058e70
-// FUNCTION: BETA10 0x1008d6bf
 MxResult LegoOmni::Create(MxOmniCreateParam& p_param) {
 	AllocConsole();
 	freopen("CON", "w", stdout);
@@ -279,7 +271,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1005a5f0
 MxResult LegoOmni::RegisterWorlds() {
 	m_worlds = new WorldContainer[e_numWorlds];
 
@@ -309,23 +300,19 @@ MxResult LegoOmni::RegisterWorlds() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1005ac90
 void LegoOmni::CreateInstance() {
 	MxOmni::DestroyInstance();
 	MxOmni::SetInstance(new LegoOmni());
 }
 
-// FUNCTION: LEGO1 0x1005ad10
 LegoOmni* LegoOmni::GetInstance() {
 	return (LegoOmni*) MxOmni::GetInstance();
 }
 
-// FUNCTION: LEGO1 0x1005ad20
 void LegoOmni::AddWorld(LegoWorld* p_world) {
 	m_worldList->Append(p_world);
 }
 
-// FUNCTION: LEGO1 0x1005adb0
 void LegoOmni::DeleteWorld(LegoWorld* p_world) {
 	if (m_worldList) {
 		LegoWorldListCursor cursor(m_worldList);
@@ -342,7 +329,6 @@ void LegoOmni::DeleteWorld(LegoWorld* p_world) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1005af10
 void LegoOmni::RemoveWorld(const MxAtomId& p_atom, MxLong p_objectId) {
 	if (m_worldList) {
 		LegoWorldListCursor a(m_worldList);
@@ -365,8 +351,6 @@ void LegoOmni::RemoveWorld(const MxAtomId& p_atom, MxLong p_objectId) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1005b0c0
-// FUNCTION: BETA10 0x1008e827
 LegoWorld* LegoOmni::FindWorld(const MxAtomId& p_atom, MxS32 p_entityid) {
 	if (m_worldList) {
 		LegoWorldListCursor cursor(m_worldList);
@@ -383,7 +367,6 @@ LegoWorld* LegoOmni::FindWorld(const MxAtomId& p_atom, MxS32 p_entityid) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x1005b1d0
 void LegoOmni::DeleteObject(MxDSAction& p_dsAction) {
 	if (p_dsAction.GetAtomId().GetInternal() != NULL) {
 		LegoWorld* world =
@@ -416,8 +399,6 @@ void LegoOmni::DeleteObject(MxDSAction& p_dsAction) {
 	MxOmni::DeleteObject(p_dsAction);
 }
 
-// FUNCTION: LEGO1 0x1005b270
-// FUNCTION: BETA10 0x1008ea6d
 LegoROI* LegoOmni::FindROI(const char* p_name) {
 	const CompoundObject& rois = ((LegoVideoManager*) m_videoManager)
 									 ->Get3DManager()
@@ -442,7 +423,6 @@ LegoROI* LegoOmni::FindROI(const char* p_name) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x1005b2f0
 MxEntity* LegoOmni::AddToWorld(
 	const char* p_id,
 	MxS32 p_entityId,
@@ -463,14 +443,12 @@ MxEntity* LegoOmni::AddToWorld(
 	return world;
 }
 
-// FUNCTION: LEGO1 0x1005b3a0
 void LegoOmni::NotifyCurrentEntity(const MxNotificationParam& p_param) {
 	if (m_currentWorld) {
 		NotificationManager()->Send(m_currentWorld, p_param);
 	}
 }
 
-// FUNCTION: LEGO1 0x1005b3c0
 MxBool LegoOmni::DoesEntityExist(MxDSAction& p_dsAction) {
 	if (MxOmni::DoesEntityExist(p_dsAction)) {
 		if (FindWorld(p_dsAction.GetAtomId(), p_dsAction.GetObjectId()) ==
@@ -481,7 +459,6 @@ MxBool LegoOmni::DoesEntityExist(MxDSAction& p_dsAction) {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x1005b400
 MxS32 LegoOmni::GetCurrPathInfo(LegoPathBoundary** p_path, MxS32& p_value) {
 	if (::CurrentWorld() == NULL) {
 		return FAILURE;
@@ -490,7 +467,6 @@ MxS32 LegoOmni::GetCurrPathInfo(LegoPathBoundary** p_path, MxS32& p_value) {
 	return ::CurrentWorld()->GetCurrPathInfo(p_path, p_value);
 }
 
-// FUNCTION: LEGO1 0x1005b430
 const char* LegoOmni::GetWorldName(LegoOmni::World p_worldId) {
 	for (MxS32 i = 0; i < e_numWorlds; i++) {
 		if (m_worlds[i].m_id == p_worldId) {
@@ -501,8 +477,6 @@ const char* LegoOmni::GetWorldName(LegoOmni::World p_worldId) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x1005b460
-// FUNCTION: BETA10 0x1008edd8
 MxAtomId* LegoOmni::GetWorldAtom(LegoOmni::World p_worldId) {
 	for (MxS32 i = 0; i < e_numWorlds; i++) {
 		if (m_worlds[i].m_id == p_worldId) {
@@ -515,7 +489,6 @@ MxAtomId* LegoOmni::GetWorldAtom(LegoOmni::World p_worldId) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x1005b490
 LegoOmni::World LegoOmni::GetWorldId(const char* p_key) {
 	for (MxS32 i = 0; i < e_numWorlds; i++) {
 		if ((MxS32) &m_worlds[i] != -4 &&
@@ -527,7 +500,6 @@ LegoOmni::World LegoOmni::GetWorldId(const char* p_key) {
 	return e_undefined;
 }
 
-// FUNCTION: LEGO1 0x1005b4f0
 void LegoOmni::FUN_1005b4f0(MxBool p_disable, MxU16 p_flags) {
 	if (p_disable) {
 		if (p_flags & c_disableInput) {
@@ -548,14 +520,12 @@ void LegoOmni::FUN_1005b4f0(MxBool p_disable, MxU16 p_flags) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1005b560
 void LegoOmni::CreateBackgroundAudio() {
 	if (m_bkgAudioManager) {
 		m_bkgAudioManager->Create(*g_jukeboxScript, 100);
 	}
 }
 
-// FUNCTION: LEGO1 0x1005b580
 MxResult LegoOmni::Start(MxDSAction* p_dsAction) {
 	MxResult result = MxOmni::Start(p_dsAction);
 	this->m_action.SetAtomId(p_dsAction->GetAtomId());
@@ -564,7 +534,6 @@ MxResult LegoOmni::Start(MxDSAction* p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1005b5c0
 void LegoOmni::DeleteAction() {
 	if (m_action.GetObjectId() != -1) {
 		DeleteObject(m_action);
@@ -572,7 +541,6 @@ void LegoOmni::DeleteAction() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1005b5f0
 MxLong LegoOmni::Notify(MxParam& p_param) {
 	MxBool isCD = FALSE;
 
@@ -592,13 +560,11 @@ MxLong LegoOmni::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1005b640
 void LegoOmni::Pause() {
 	MxOmni::Pause();
 	SetAppCursor(e_cursorNo);
 }
 
-// FUNCTION: LEGO1 0x1005b650
 void LegoOmni::Resume() {
 	MxOmni::Resume();
 	SetAppCursor(e_cursorArrow);

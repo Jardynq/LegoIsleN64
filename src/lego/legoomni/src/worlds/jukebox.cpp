@@ -15,14 +15,12 @@
 #include "mxtransitionmanager.h"
 #include "mxvideopresenter.h"
 
-// FUNCTION: LEGO1 0x1005d660
 JukeBox::JukeBox() {
 	m_unk0x100 = 0;
 	m_state = NULL;
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x1005d830
 JukeBox::~JukeBox() {
 	if (InputManager()->GetWorld() == this) {
 		InputManager()->ClearWorld();
@@ -33,7 +31,6 @@ JukeBox::~JukeBox() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x1005d8d0
 MxResult JukeBox::Create(MxDSAction& p_dsAction) {
 	MxResult ret = LegoWorld::Create(p_dsAction);
 	if (ret == SUCCESS) {
@@ -55,8 +52,6 @@ MxResult JukeBox::Create(MxDSAction& p_dsAction) {
 	return ret;
 }
 
-// FUNCTION: LEGO1 0x1005d980
-// FUNCTION: BETA10 0x10037daf
 MxLong JukeBox::Notify(MxParam& p_param) {
 	MxLong result = 0;
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
@@ -78,8 +73,6 @@ MxLong JukeBox::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1005d9f0
-// FUNCTION: BETA10 0x10037e39
 void JukeBox::ReadyWorld() {
 	MxStillPresenter* presenter = NULL;
 
@@ -115,8 +108,6 @@ void JukeBox::ReadyWorld() {
 	m_unk0x100 = 1;
 }
 
-// FUNCTION: LEGO1 0x1005da70
-// FUNCTION: BETA10 0x10037f6d
 MxBool JukeBox::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxStillPresenter* presenter;
 
@@ -240,7 +231,6 @@ MxBool JukeBox::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1005dde0
 void JukeBox::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
@@ -254,7 +244,6 @@ void JukeBox::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1005de30
 MxResult JukeBox::Tickle() {
 	if (m_worldStarted == FALSE) {
 		LegoWorld::Tickle();
@@ -273,7 +262,6 @@ MxResult JukeBox::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1005de70
 MxBool JukeBox::Escape() {
 	m_destLocation = LegoGameState::e_infomain;
 	return TRUE;

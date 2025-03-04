@@ -10,17 +10,14 @@
 #include "mxmisc.h"
 #include "mxvariabletable.h"
 
-// FUNCTION: LEGO1 0x1006cdd0
 LegoLocomotionAnimPresenter::LegoLocomotionAnimPresenter() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x1006d050
 LegoLocomotionAnimPresenter::~LegoLocomotionAnimPresenter() {
 	Destroy(TRUE);
 }
 
-// FUNCTION: LEGO1 0x1006d0b0
 void LegoLocomotionAnimPresenter::Init() {
 	m_unk0xc0 = 0;
 	m_unk0xc4 = NULL;
@@ -30,7 +27,6 @@ void LegoLocomotionAnimPresenter::Init() {
 	m_unk0xd4 = 0;
 }
 
-// FUNCTION: LEGO1 0x1006d0e0
 void LegoLocomotionAnimPresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 
@@ -52,14 +48,11 @@ void LegoLocomotionAnimPresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1006d140
 MxResult LegoLocomotionAnimPresenter::CreateAnim(MxStreamChunk* p_chunk) {
 	MxResult result = LegoAnimPresenter::CreateAnim(p_chunk);
 	return result == SUCCESS ? SUCCESS : result;
 }
 
-// FUNCTION: LEGO1 0x1006d160
-// FUNCTION: BETA10 0x100528c7
 MxResult LegoLocomotionAnimPresenter::AddToManager() {
 	m_roiMapList = new LegoROIMapList();
 
@@ -70,17 +63,14 @@ MxResult LegoLocomotionAnimPresenter::AddToManager() {
 	return LegoAnimPresenter::AddToManager();
 }
 
-// FUNCTION: LEGO1 0x1006d5b0
 void LegoLocomotionAnimPresenter::Destroy() {
 	Destroy(FALSE);
 }
 
-// FUNCTION: LEGO1 0x1006d5c0
 void LegoLocomotionAnimPresenter::PutFrame() {
 	// Empty
 }
 
-// FUNCTION: LEGO1 0x1006d5d0
 void LegoLocomotionAnimPresenter::ReadyTickle() {
 	LegoLoopingAnimPresenter::ReadyTickle();
 
@@ -94,8 +84,6 @@ void LegoLocomotionAnimPresenter::ReadyTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1006d610
-// FUNCTION: BETA10 0x10052a34
 void LegoLocomotionAnimPresenter::StartingTickle() {
 	if (m_subscriber->PeekData()) {
 		MxStreamChunk* chunk = m_subscriber->PopData();
@@ -107,22 +95,18 @@ void LegoLocomotionAnimPresenter::StartingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1006d660
 void LegoLocomotionAnimPresenter::StreamingTickle() {
 	if (m_unk0xd4 == 0) {
 		EndAction();
 	}
 }
 
-// FUNCTION: LEGO1 0x1006d670
 void LegoLocomotionAnimPresenter::EndAction() {
 	if (m_action) {
 		MxVideoPresenter::EndAction();
 	}
 }
 
-// FUNCTION: LEGO1 0x1006d680
-// FUNCTION: BETA10 0x10052b3d
 void LegoLocomotionAnimPresenter::FUN_1006d680(
 	LegoAnimActor* p_actor,
 	MxFloat p_value

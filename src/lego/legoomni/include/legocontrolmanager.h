@@ -8,8 +8,6 @@
 
 class MxControlPresenter;
 
-// VTABLE: LEGO1 0x100d6a98
-// SIZE 0x2c
 class LegoControlManagerNotificationParam : public LegoEventNotificationParam {
 public:
 	LegoControlManagerNotificationParam() : LegoEventNotificationParam() {
@@ -31,42 +29,27 @@ public:
 	}
 	void SetUnknown0x28(MxS16 p_unk0x28) { m_unk0x28 = p_unk0x28; }
 
-	MxS32 m_clickedObjectId;   // 0x20
-	const char* m_clickedAtom; // 0x24
-	MxS16 m_unk0x28;           // 0x28
+	MxS32 m_clickedObjectId;
+	const char* m_clickedAtom;
+	MxS16 m_unk0x28;
 };
 
-// SYNTHETIC: LEGO1 0x10028bf0
 // LegoControlManagerNotificationParam::`scalar deleting destructor'
 
-// SYNTHETIC: LEGO1 0x10028c60
 // LegoControlManagerNotificationParam::~LegoControlManagerNotificationParam
 
-// VTABLE: LEGO1 0x100d6a80
-// VTABLE: BETA10 0x101bc610
 class LegoControlManager : public MxCore {
 public:
 	LegoControlManager();
-	~LegoControlManager() override; // vtable+0x00
+	~LegoControlManager() override;
 
-	MxResult Tickle() override; // vtable+0x08
+	MxResult Tickle() override;
 
-	// FUNCTION: BETA10 0x1008af70
-	static const char* HandlerClassName() {
-		// STRING: LEGO1 0x100f31b8
-		return "LegoControlManager";
-	}
+	static const char* HandlerClassName() { return "LegoControlManager"; }
 
-	// FUNCTION: LEGO1 0x10028cb0
-	// FUNCTION: BETA10 0x1008af40
-	const char* ClassName() const override // vtable+0x0c
-	{
-		return HandlerClassName();
-	}
+	const char* ClassName() const override { return HandlerClassName(); }
 
-	// FUNCTION: LEGO1 0x10028cc0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, LegoControlManager::ClassName()) ||
 			   MxCore::IsA(p_name);
 	}
@@ -85,17 +68,16 @@ public:
 	undefined4 GetUnknown0x0c() { return m_unk0x0c; }
 	undefined GetUnknown0x10() { return m_unk0x10; }
 
-	// SYNTHETIC: LEGO1 0x10028d40
 	// LegoControlManager::`scalar deleting destructor'
 
 private:
-	undefined4 m_unk0x08;                        // 0x08
-	undefined4 m_unk0x0c;                        // 0x0c
-	MxBool m_unk0x10;                            // 0x10
-	MxPresenter* m_unk0x14;                      // 0x14
-	LegoControlManagerNotificationParam m_event; // 0x18
-	MxPresenterList* m_presenterList;            // 0x44
-	LegoNotifyList m_notifyList;                 // 0x48
+	undefined4 m_unk0x08;
+	undefined4 m_unk0x0c;
+	MxBool m_unk0x10;
+	MxPresenter* m_unk0x14;
+	LegoControlManagerNotificationParam m_event;
+	MxPresenterList* m_presenterList;
+	LegoNotifyList m_notifyList;
 };
 
 #endif // LEGOCONTROLMANAGER_H

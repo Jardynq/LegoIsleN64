@@ -5,12 +5,10 @@
 
 #include <limits.h>
 
-// FUNCTION: LEGO1 0x1009f000
 LegoUnknownKey::LegoUnknownKey() {
 	m_z = 0.0f;
 }
 
-// FUNCTION: LEGO1 0x1009f020
 LegoResult LegoUnknownKey::Read(LegoStorage* p_storage) {
 	LegoResult result;
 
@@ -25,8 +23,6 @@ LegoResult LegoUnknownKey::Read(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009f060
-// FUNCTION: BETA10 0x1018133f
 LegoResult LegoUnknownKey::Write(LegoStorage* p_storage) {
 	LegoResult result;
 
@@ -41,7 +37,6 @@ LegoResult LegoUnknownKey::Write(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009f0a0
 LegoAnimScene::LegoAnimScene() {
 	m_unk0x00 = 0;
 	m_unk0x04 = NULL;
@@ -54,7 +49,6 @@ LegoAnimScene::LegoAnimScene() {
 	m_unk0x20 = 0;
 }
 
-// FUNCTION: LEGO1 0x1009f0d0
 LegoAnimScene::~LegoAnimScene() {
 	if (m_unk0x04 != NULL) {
 		delete[] m_unk0x04;
@@ -72,8 +66,6 @@ LegoAnimScene::~LegoAnimScene() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009f120
-// FUNCTION: BETA10 0x101814be
 LegoResult LegoAnimScene::Write(LegoStorage* p_storage) {
 	LegoResult result;
 	LegoS32 i;
@@ -114,7 +106,6 @@ LegoResult LegoAnimScene::Write(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009f200
 LegoResult LegoAnimScene::Read(LegoStorage* p_storage) {
 	LegoResult result;
 	LegoS32 i;
@@ -179,8 +170,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1009f490
-// FUNCTION: BETA10 0x10181a83
 LegoResult LegoAnimScene::FUN_1009f490(LegoFloat p_time, Matrix4& p_matrix) {
 	MxMatrix localb0;
 	MxMatrix local4c;
@@ -281,14 +270,11 @@ LegoResult LegoAnimScene::FUN_1009f490(LegoFloat p_time, Matrix4& p_matrix) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009f900
-// FUNCTION: BETA10 0x1017df90
 LegoAnimKey::LegoAnimKey() {
 	m_time = 0;
 	m_flags = 0;
 }
 
-// FUNCTION: LEGO1 0x1009f910
 LegoResult LegoAnimKey::Read(LegoStorage* p_storage) {
 	LegoResult result;
 	LegoS32 timeAndFlags;
@@ -303,8 +289,6 @@ LegoResult LegoAnimKey::Read(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009f950
-// FUNCTION: BETA10 0x1017e018
 LegoResult LegoAnimKey::Write(LegoStorage* p_storage) {
 	LegoResult result;
 	LegoS32 timeAndFlags = (LegoS32) m_time | (m_flags << 24);
@@ -317,14 +301,12 @@ LegoResult LegoAnimKey::Write(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009f990
 LegoTranslationKey::LegoTranslationKey() {
 	m_x = 0.0F;
 	m_y = 0.0F;
 	m_z = 0.0F;
 }
 
-// FUNCTION: LEGO1 0x1009f9b0
 LegoResult LegoTranslationKey::Read(LegoStorage* p_storage) {
 	LegoResult result;
 
@@ -352,8 +334,6 @@ LegoResult LegoTranslationKey::Read(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009fa40
-// FUNCTION: BETA10 0x1017e1fd
 LegoResult LegoTranslationKey::Write(LegoStorage* p_storage) {
 	LegoResult result;
 
@@ -376,8 +356,6 @@ LegoResult LegoTranslationKey::Write(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009faa0
-// FUNCTION: BETA10 0x1017e2b3
 LegoRotationKey::LegoRotationKey() {
 	m_angle = 1.0F;
 	m_x = 0.0F;
@@ -385,7 +363,6 @@ LegoRotationKey::LegoRotationKey() {
 	m_z = 0.0F;
 }
 
-// FUNCTION: LEGO1 0x1009fac0
 LegoResult LegoRotationKey::Read(LegoStorage* p_storage) {
 	LegoResult result;
 
@@ -416,8 +393,6 @@ LegoResult LegoRotationKey::Read(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009fb30
-// FUNCTION: BETA10 0x1017e3fc
 LegoResult LegoRotationKey::Write(LegoStorage* p_storage) {
 	LegoResult result;
 
@@ -444,14 +419,12 @@ LegoResult LegoRotationKey::Write(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009fba0
 LegoScaleKey::LegoScaleKey() {
 	m_x = 1.0F;
 	m_y = 1.0F;
 	m_z = 1.0F;
 }
 
-// FUNCTION: LEGO1 0x1009fbc0
 LegoResult LegoScaleKey::Read(LegoStorage* p_storage) {
 	LegoResult result;
 
@@ -479,8 +452,6 @@ LegoResult LegoScaleKey::Read(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009fc90
-// FUNCTION: BETA10 0x1017e664
 LegoResult LegoScaleKey::Write(LegoStorage* p_storage) {
 	LegoResult result;
 
@@ -503,8 +474,6 @@ LegoResult LegoScaleKey::Write(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1009fcf0
-// FUNCTION: BETA10 0x1017e71a
 LegoAnimNodeData::LegoAnimNodeData() {
 	m_numTranslationKeys = 0;
 	m_numRotationKeys = 0;
@@ -524,7 +493,6 @@ LegoAnimNodeData::LegoAnimNodeData() {
 	m_morphIndex = 0;
 }
 
-// FUNCTION: LEGO1 0x1009fda0
 LegoAnimNodeData::~LegoAnimNodeData() {
 	if (m_name) {
 		delete[] m_name;
@@ -543,8 +511,6 @@ LegoAnimNodeData::~LegoAnimNodeData() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009fe60
-// FUNCTION: BETA10 0x1017e949
 LegoResult LegoAnimNodeData::Read(LegoStorage* p_storage) {
 	LegoResult result;
 
@@ -640,8 +606,6 @@ LegoResult LegoAnimNodeData::Read(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100a01e0
-// FUNCTION: BETA10 0x1017ef0f
 LegoResult LegoAnimNodeData::Write(LegoStorage* p_storage) {
 	LegoResult result;
 	LegoU32 length = 0;
@@ -714,8 +678,6 @@ LegoResult LegoAnimNodeData::Write(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100a0360
-// FUNCTION: BETA10 0x1017f1e5
 void LegoAnimNodeData::SetName(LegoChar* p_name) {
 	if (m_name != NULL) {
 		delete[] m_name;
@@ -725,7 +687,6 @@ void LegoAnimNodeData::SetName(LegoChar* p_name) {
 	strcpy(m_name, p_name);
 }
 
-// FUNCTION: LEGO1 0x100a03c0
 LegoResult
 LegoAnimNodeData::CreateLocalTransform(LegoFloat p_time, Matrix4& p_matrix) {
 	LegoU32 index;
@@ -767,7 +728,6 @@ LegoAnimNodeData::CreateLocalTransform(LegoFloat p_time, Matrix4& p_matrix) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100a0600
 inline void LegoAnimNodeData::GetTranslation(
 	LegoU16 p_numTranslationKeys,
 	LegoTranslationKey* p_translationKeys,
@@ -831,7 +791,6 @@ inline void LegoAnimNodeData::GetTranslation(
 	p_matrix.TranslateBy(x, y, z);
 }
 
-// FUNCTION: LEGO1 0x100a06f0
 /*inline*/ void LegoAnimNodeData::GetRotation(
 	LegoU16 p_numRotationKeys,
 	LegoRotationKey* p_rotationKeys,
@@ -956,7 +915,6 @@ inline void LegoAnimNodeData::GetScale(
 	p_matrix.Scale(x, y, z);
 }
 
-// FUNCTION: LEGO1 0x100a0990
 LegoBool LegoAnimNodeData::FUN_100a0990(LegoFloat p_time) {
 	LegoU32 i, n;
 	LegoU32 index = GetMorphIndex();
@@ -985,7 +943,6 @@ LegoBool LegoAnimNodeData::FUN_100a0990(LegoFloat p_time) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a0a00
 LegoU32 LegoAnimNodeData::FindKeys(
 	LegoFloat p_time,
 	LegoU32 p_numKeys,
@@ -1030,7 +987,6 @@ LegoU32 LegoAnimNodeData::FindKeys(
 	return numKeys;
 }
 
-// FUNCTION: LEGO1 0x100a0b00
 inline LegoFloat LegoAnimNodeData::Interpolate(
 	LegoFloat p_time,
 	LegoAnimKey& p_key1,
@@ -1047,7 +1003,6 @@ LegoAnimNodeData::GetKey(LegoU32 p_i, LegoAnimKey* p_keys, LegoU32 p_size) {
 	return *((LegoAnimKey*) (((LegoU8*) p_keys) + (p_i * p_size)));
 }
 
-// FUNCTION: LEGO1 0x100a0b30
 LegoAnim::LegoAnim() {
 	m_duration = 0;
 	m_modelList = NULL;
@@ -1055,7 +1010,6 @@ LegoAnim::LegoAnim() {
 	m_camAnim = NULL;
 }
 
-// FUNCTION: LEGO1 0x100a0bc0
 LegoAnim::~LegoAnim() {
 	if (m_modelList != NULL) {
 		for (LegoU32 i = 0; i < m_numActors; i++) {
@@ -1070,7 +1024,6 @@ LegoAnim::~LegoAnim() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100a0c70
 LegoResult LegoAnim::Read(LegoStorage* p_storage, LegoS32 p_parseScene) {
 	LegoResult result = FAILURE;
 	LegoU32 length, i;
@@ -1139,8 +1092,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a0e30
-// FUNCTION: BETA10 0x1017fe3a
 LegoResult LegoAnim::Write(LegoStorage* p_storage) {
 	LegoResult result = FAILURE;
 	LegoU32 i;
@@ -1186,8 +1137,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a0f20
-// FUNCTION: BETA10 0x101801fd
 const LegoChar* LegoAnim::GetActorName(LegoU32 p_index) {
 	if (p_index < m_numActors) {
 		return m_modelList[p_index].m_name;
@@ -1196,8 +1145,6 @@ const LegoChar* LegoAnim::GetActorName(LegoU32 p_index) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x100a0f40
-// FUNCTION: BETA10 0x1018023c
 undefined4 LegoAnim::GetActorUnknown0x04(LegoU32 p_index) {
 	if (p_index < m_numActors) {
 		return m_modelList[p_index].m_unk0x04;
@@ -1206,13 +1153,10 @@ undefined4 LegoAnim::GetActorUnknown0x04(LegoU32 p_index) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x100a0f60
-// FUNCTION: BETA10 0x1018027c
 LegoMorphKey::LegoMorphKey() {
 	m_unk0x08 = 0;
 }
 
-// FUNCTION: LEGO1 0x100a0f70
 LegoResult LegoMorphKey::Read(LegoStorage* p_storage) {
 	LegoResult result;
 
@@ -1227,8 +1171,6 @@ LegoResult LegoMorphKey::Read(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100a0fb0
-// FUNCTION: BETA10 0x10180308
 LegoResult LegoMorphKey::Write(LegoStorage* p_storage) {
 	LegoResult result;
 

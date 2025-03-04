@@ -12,10 +12,8 @@
 #include "mxticklemanager.h"
 #include "mxvideopresenter.h"
 
-// GLOBAL: LEGO1 0x100f4378
 RECT g_fullScreenRect = {0, 0, 640, 480};
 
-// FUNCTION: LEGO1 0x1004b8d0
 MxTransitionManager::MxTransitionManager() {
 	m_animationTimer = 0;
 	m_mode = e_idle;
@@ -27,7 +25,6 @@ MxTransitionManager::MxTransitionManager() {
 	m_unk0x24 = 0;
 }
 
-// FUNCTION: LEGO1 0x1004ba00
 MxTransitionManager::~MxTransitionManager() {
 	delete[] m_copyBuffer;
 
@@ -39,15 +36,12 @@ MxTransitionManager::~MxTransitionManager() {
 	TickleManager()->UnregisterClient(this);
 }
 
-// FUNCTION: LEGO1 0x1004baa0
-MxResult MxTransitionManager::GetDDrawSurfaceFromVideoManager() // vtable+0x14
-{
+MxResult MxTransitionManager::GetDDrawSurfaceFromVideoManager() {
 	LegoVideoManager* videoManager = VideoManager();
 	m_ddSurface = videoManager->GetDisplaySurface()->GetDirectDrawSurface2();
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1004bac0
 MxResult MxTransitionManager::Tickle() {
 	MxULong time = m_animationSpeed + m_systemTime;
 	if (time > timeGetTime()) {
@@ -79,8 +73,6 @@ MxResult MxTransitionManager::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1004bb70
-// FUNCTION: BETA10 0x100ec4c1
 MxResult MxTransitionManager::StartTransition(
 	TransitionType p_animationType,
 	MxS32 p_speed,
@@ -129,7 +121,6 @@ MxResult MxTransitionManager::StartTransition(
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x1004bc30
 void MxTransitionManager::EndTransition(MxBool p_notifyWorld) {
 	if (m_mode != e_idle) {
 		m_mode = e_idle;
@@ -149,14 +140,12 @@ void MxTransitionManager::EndTransition(MxBool p_notifyWorld) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004bcf0
 void MxTransitionManager::NoTransition() {
 	LegoVideoManager* videoManager = VideoManager();
 	videoManager->GetDisplaySurface()->ClearScreen();
 	EndTransition(TRUE);
 }
 
-// FUNCTION: LEGO1 0x1004bd10
 void MxTransitionManager::DissolveTransition() {
 	// If the animation is finished
 	if (m_animationTimer == 40) {
@@ -243,7 +232,6 @@ void MxTransitionManager::DissolveTransition() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004bed0
 void MxTransitionManager::MosaicTransition() {
 	if (m_animationTimer == 16) {
 		m_animationTimer = 0;
@@ -364,7 +352,6 @@ void MxTransitionManager::MosaicTransition() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004c170
 void MxTransitionManager::WipeDownTransition() {
 	// If the animation is finished
 	if (m_animationTimer == 240) {
@@ -403,7 +390,6 @@ void MxTransitionManager::WipeDownTransition() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004c270
 void MxTransitionManager::WindowsTransition() {
 	if (m_animationTimer == 240) {
 		m_animationTimer = 0;
@@ -452,7 +438,6 @@ void MxTransitionManager::WindowsTransition() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004c3e0
 void MxTransitionManager::BrokenTransition() {
 	// This function has no actual animation logic.
 	// It also never calls EndTransition to
@@ -476,7 +461,6 @@ void MxTransitionManager::BrokenTransition() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004c470
 void MxTransitionManager::SetWaitIndicator(MxVideoPresenter* p_waitIndicator) {
 	// End current wait indicator
 	if (m_waitIndicator != NULL) {
@@ -505,7 +489,6 @@ void MxTransitionManager::SetWaitIndicator(MxVideoPresenter* p_waitIndicator) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004c4d0
 void MxTransitionManager::SubmitCopyRect(LPDDSURFACEDESC p_ddsc) {
 	// Check if the copy rect is setup
 	if (m_copyFlags.m_bit0 == FALSE || m_waitIndicator == NULL ||
@@ -538,7 +521,6 @@ void MxTransitionManager::SubmitCopyRect(LPDDSURFACEDESC p_ddsc) {
 	m_copyBuffer = NULL;
 }
 
-// FUNCTION: LEGO1 0x1004c580
 void MxTransitionManager::SetupCopyRect(LPDDSURFACEDESC p_ddsc) {
 	// Check if the copy rect is setup
 	if (m_copyFlags.m_bit0 == FALSE || m_waitIndicator == NULL) {

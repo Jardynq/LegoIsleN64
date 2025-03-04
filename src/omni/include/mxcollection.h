@@ -8,7 +8,7 @@ class MxCollection : public MxCore {
 public:
 	MxCollection() : m_count(0) { SetDestroy(Destroy); }
 
-	virtual MxS8 Compare(T, T) { return 0; } // vtable+0x14
+	virtual MxS8 Compare(T, T) { return 0; }
 
 	~MxCollection() override {}
 
@@ -19,8 +19,8 @@ public:
 	}
 
 protected:
-	MxU32 m_count;                 // 0x08
-	void (*m_customDestructor)(T); // 0x0c
+	MxU32 m_count;
+	void (*m_customDestructor)(T);
 };
 
 #endif // MXCOLLECTION_H

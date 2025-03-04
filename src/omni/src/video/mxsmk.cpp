@@ -4,8 +4,6 @@
 
 #include <string.h>
 
-// FUNCTION: LEGO1 0x100c5a90
-// FUNCTION: BETA10 0x10151e70
 MxResult MxSmk::LoadHeader(MxU8* p_data, MxSmk* p_mxSmk) {
 	// Macros for readability
 	// If bit0 of SmackerType is set, there is an extra frame ("ring frame")
@@ -133,8 +131,6 @@ done:
 #undef FRAME_COUNT
 }
 
-// FUNCTION: LEGO1 0x100c5d40
-// FUNCTION: BETA10 0x10152298
 void MxSmk::Destroy(MxSmk* p_mxSmk) {
 	if (p_mxSmk->m_frameSizes) {
 		delete[] p_mxSmk->m_frameSizes;
@@ -153,8 +149,6 @@ void MxSmk::Destroy(MxSmk* p_mxSmk) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c5db0
-// FUNCTION: BETA10 0x10152391
 MxResult MxSmk::LoadFrame(
 	MxBITMAPINFO* p_bitmapInfo,
 	MxU8* p_bitmapData,
@@ -237,8 +231,6 @@ MxResult MxSmk::LoadFrame(
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100c6050
-// FUNCTION: BETA10 0x10152739
 MxBool MxSmk::GetRect(
 	MxU8* p_unk0x6b4,
 	MxU16* p_und,

@@ -3,7 +3,6 @@
 #include "legoworld.h"
 #include "misc.h"
 
-// FUNCTION: LEGO1 0x1003cf20
 LegoCacheSoundManager::~LegoCacheSoundManager() {
 	LegoCacheSound* sound;
 
@@ -24,7 +23,6 @@ LegoCacheSoundManager::~LegoCacheSoundManager() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1003d050
 MxResult LegoCacheSoundManager::Tickle() {
 	Set100d6b4c::iterator setIter;
 	for (setIter = m_set.begin(); setIter != m_set.end(); setIter++) {
@@ -51,7 +49,6 @@ MxResult LegoCacheSoundManager::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1003d170
 LegoCacheSound* LegoCacheSoundManager::FindSoundByKey(const char* p_key) {
 	char* key = new char[strlen(p_key) + 1];
 	strcpy(key, p_key);
@@ -64,7 +61,6 @@ LegoCacheSound* LegoCacheSoundManager::FindSoundByKey(const char* p_key) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x1003d290
 LegoCacheSound* LegoCacheSoundManager::ManageSoundEntry(LegoCacheSound* p_sound
 ) {
 	Set100d6b4c::iterator it = m_set.find(LegoCacheSoundEntry(p_sound));
@@ -89,8 +85,6 @@ LegoCacheSound* LegoCacheSoundManager::ManageSoundEntry(LegoCacheSound* p_sound
 	return p_sound;
 }
 
-// FUNCTION: LEGO1 0x1003dae0
-// FUNCTION: BETA10 0x10065502
 LegoCacheSound* LegoCacheSoundManager::Play(
 	const char* p_key,
 	const char* p_name,
@@ -99,8 +93,6 @@ LegoCacheSound* LegoCacheSoundManager::Play(
 	return Play(FindSoundByKey(p_key), p_name, p_looping);
 }
 
-// FUNCTION: LEGO1 0x1003db10
-// FUNCTION: BETA10 0x10065537
 LegoCacheSound* LegoCacheSoundManager::Play(
 	LegoCacheSound* p_sound,
 	const char* p_name,
@@ -126,8 +118,6 @@ LegoCacheSound* LegoCacheSoundManager::Play(
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x1003db80
-// FUNCTION: BETA10 0x100656a7
 void LegoCacheSoundManager::Stop(LegoCacheSound*& p_sound) {
 	Set100d6b4c::iterator setIter;
 	for (setIter = m_set.begin(); setIter != m_set.end(); setIter++) {
@@ -151,7 +141,6 @@ void LegoCacheSoundManager::Stop(LegoCacheSound*& p_sound) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1003dc40
 void LegoCacheSoundManager::Destroy(LegoCacheSound*& p_sound) {
 	Set100d6b4c::iterator setIter;
 	for (setIter = m_set.begin(); setIter != m_set.end(); setIter++) {

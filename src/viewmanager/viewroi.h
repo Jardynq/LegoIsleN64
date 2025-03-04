@@ -11,8 +11,6 @@
 	by the view manager is a ViewROI.
 */
 
-// VTABLE: LEGO1 0x100dbe70
-// SIZE 0xe4
 class ViewROI : public OrientableROI {
 public:
 	ViewROI(Tgl::Renderer* pRenderer, ViewLODList* lodList)
@@ -20,7 +18,6 @@ public:
 		SetLODList(lodList);
 	}
 
-	// FUNCTION: LEGO1 0x100a9e20
 	~ViewROI() override {
 		// SetLODList() will decrease refCount of LODList
 		SetLODList(0);
@@ -44,12 +41,12 @@ public:
 		}
 	}
 
-	float IntrinsicImportance() const override;                  // vtable+0x04
-	void VTable0x1c() override;                                  // vtable+0x1c
-	void SetLocalTransform(const Matrix4& p_transform) override; // vtable+0x20
-	void VTable0x24(const Matrix4& p_transform) override;        // vtable+0x24
-	virtual Tgl::Group* GetGeometry();                           // vtable+0x30
-	virtual const Tgl::Group* GetGeometry() const;               // vtable+0x34
+	float IntrinsicImportance() const override;
+	void VTable0x1c() override;
+	void SetLocalTransform(const Matrix4& p_transform) override;
+	void VTable0x24(const Matrix4& p_transform) override;
+	virtual Tgl::Group* GetGeometry();
+	virtual const Tgl::Group* GetGeometry() const;
 
 	int GetUnknown0xe0() { return m_unk0xe0; }
 	void SetUnknown0xe0(int p_unk0xe0) { m_unk0xe0 = p_unk0xe0; }
@@ -57,13 +54,12 @@ public:
 	static undefined SetUnk101013d8(undefined p_flag);
 
 protected:
-	void UpdateWorldData(const Matrix4& parent2world) override; // vtable+0x28
+	void UpdateWorldData(const Matrix4& parent2world) override;
 
-	Tgl::Group* geometry; // 0xdc
-	int m_unk0xe0;        // 0xe0
+	Tgl::Group* geometry;
+	int m_unk0xe0;
 };
 
-// SYNTHETIC: LEGO1 0x100aa250
 // ViewROI::`scalar deleting destructor'
 
 #endif // VIEWROI_H

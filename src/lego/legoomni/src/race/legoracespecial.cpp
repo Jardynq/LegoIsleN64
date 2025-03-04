@@ -12,31 +12,16 @@
 
 // File name verified by BETA10 0x100cedf7
 
-// GLOBAL: LEGO1 0x100f0c68
-// STRING: LEGO1 0x100f0c5c
-// GLOBAL: BETA10 0x101f5b04
-// STRING: BETA10 0x101f5b14
 const char* g_raceState = "RACE_STATE";
 
-// GLOBAL: LEGO1 0x100f7af0
-// STRING: LEGO1 0x100f7ae4
 const char* g_fuel = "FUEL";
 
-// GLOBAL: LEGO1 0x100f0c6c
-// STRING: LEGO1 0x100f0c54
-// GLOBAL: BETA10 0x101f5b08
-// STRING: BETA10 0x101f5b20
 const char* g_racing = "RACING";
 
-// GLOBAL: LEGO1 0x100f7aec
 MxFloat LegoCarRaceActor::g_unk0x100f7aec = 8.0f;
 
-// GLOBAL: LEGO1 0x100da044
-// GLOBAL: BETA10 0x101be9fc
 MxFloat g_unk0x100da044 = 8.0f;
 
-// FUNCTION: LEGO1 0x10080350
-// FUNCTION: BETA10 0x100cd6b0
 LegoCarRaceActor::LegoCarRaceActor() {
 	m_unk0x08 = 1.0f;
 	m_unk0x70 = 0.0f;
@@ -53,8 +38,6 @@ LegoCarRaceActor::LegoCarRaceActor() {
 	VariableTable()->SetVariable(g_fuel, "0.8");
 }
 
-// FUNCTION: LEGO1 0x10080590
-// FUNCTION: BETA10 0x100cd8cf
 void LegoCarRaceActor::FUN_10080590(float p_time) {
 	MxFloat maxSpeed = m_maxLinearVel;
 	Mx3DPointFloat destEdgeUnknownVector;
@@ -107,8 +90,6 @@ void LegoCarRaceActor::FUN_10080590(float p_time) {
 	SetWorldSpeed(newWorldSpeed);
 }
 
-// FUNCTION: LEGO1 0x10080740
-// FUNCTION: BETA10 0x100cece0
 MxS32 LegoCarRaceActor::VTable0x1c(
 	LegoPathBoundary* p_boundary,
 	LegoEdge* p_edge
@@ -213,8 +194,6 @@ MxS32 LegoCarRaceActor::VTable0x1c(
 	}
 }
 
-// FUNCTION: LEGO1 0x10080b40
-// FUNCTION: BETA10 0x100cdb3c
 void LegoCarRaceActor::SwitchBoundary(
 	LegoPathBoundary*& p_boundary,
 	LegoUnknown100db7f4*& p_edge,
@@ -223,8 +202,6 @@ void LegoCarRaceActor::SwitchBoundary(
 	LegoPathActor::SwitchBoundary(m_boundary, m_destEdge, m_unk0xe4);
 }
 
-// FUNCTION: LEGO1 0x10080b70
-// FUNCTION: BETA10 0x100cdbae
 void LegoCarRaceActor::Animate(float p_time) {
 	// m_unk0x0c is not an MxBool, there are places where it is set to 2 or
 	// higher
@@ -243,8 +220,6 @@ void LegoCarRaceActor::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10080be0
-// FUNCTION: BETA10 0x100cdc54
 MxResult LegoCarRaceActor::VTable0x9c() {
 	LegoUnknown100db7f4* d = m_destEdge;
 
@@ -295,8 +270,6 @@ MxResult LegoCarRaceActor::VTable0x9c() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10080ef0
-// FUNCTION: BETA10 0x100a8990
 LegoJetskiRaceActor::LegoJetskiRaceActor() {
 	m_unk0x10 = 0.95f;
 	m_unk0x14 = 0.04f;
@@ -304,8 +277,6 @@ LegoJetskiRaceActor::LegoJetskiRaceActor() {
 	m_unk0x150 = 1.5f;
 }
 
-// FUNCTION: LEGO1 0x10081120
-// FUNCTION: BETA10 0x100ce19f
 MxS32 LegoJetskiRaceActor::VTable0x1c(
 	LegoPathBoundary* p_boundary,
 	LegoEdge* p_edge
@@ -400,7 +371,6 @@ MxS32 LegoJetskiRaceActor::VTable0x1c(
 	}
 }
 
-// FUNCTION: LEGO1 0x10081550
 void LegoJetskiRaceActor::Animate(float p_time) {
 	if (m_unk0x0c == 0) {
 		const LegoChar* raceState = VariableTable()->GetVariable(g_raceState);
@@ -418,8 +388,6 @@ void LegoJetskiRaceActor::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10081840
-// FUNCTION: BETA10 0x100cf680
 inline MxU32 LegoCarRaceActor::VTable0x6c(
 	LegoPathBoundary* p_boundary,
 	Vector3& p_v1,
@@ -428,7 +396,7 @@ inline MxU32 LegoCarRaceActor::VTable0x6c(
 	float p_f2,
 	Vector3& p_v3
 ) {
-	// STRING: LEGO1 0x100f7af4
+
 	const char* str_rcdor = "rcdor";
 
 	LegoAnimPresenterSet& presenters = p_boundary->GetPresenters();
@@ -525,7 +493,6 @@ inline MxU32 LegoCarRaceActor::VTable0x6c(
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x10081fd0
 inline MxU32 LegoJetskiRaceActor::VTable0x6c(
 	LegoPathBoundary* p_boundary,
 	Vector3& p_v1,

@@ -18,40 +18,32 @@ extern const char* g_varCAMERALOCATION;
 extern const char* g_varCURSOR;
 extern const char* g_varWHOAMI;
 
-// VTABLE: LEGO1 0x100d86c8
-// SIZE 0x24
 class VisibilityVariable : public MxVariable {
 public:
 	VisibilityVariable() { m_key = g_varVISIBILITY; }
 
-	void SetValue(const char* p_value) override; // vtable+0x04
+	void SetValue(const char* p_value) override;
 };
 
-// VTABLE: LEGO1 0x100d86b8
-// SIZE 0x24
 class CameraLocationVariable : public MxVariable {
 public:
 	CameraLocationVariable() { m_key = g_varCAMERALOCATION; }
 
-	void SetValue(const char* p_value) override; // vtable+0x04
+	void SetValue(const char* p_value) override;
 };
 
-// VTABLE: LEGO1 0x100d86a8
-// SIZE 0x24
 class CursorVariable : public MxVariable {
 public:
 	CursorVariable() { m_key = g_varCURSOR; }
 
-	void SetValue(const char* p_value) override; // vtable+0x04
+	void SetValue(const char* p_value) override;
 };
 
-// VTABLE: LEGO1 0x100d8698
-// SIZE 0x24
 class WhoAmIVariable : public MxVariable {
 public:
 	WhoAmIVariable() { m_key = g_varWHOAMI; }
 
-	void SetValue(const char* p_value) override; // vtable+0x04
+	void SetValue(const char* p_value) override;
 };
 
 #endif // LEGOVARIABLES_H

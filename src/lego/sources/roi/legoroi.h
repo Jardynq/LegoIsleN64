@@ -16,8 +16,6 @@ class LegoAnimNodeData;
 class LegoTreeNode;
 struct LegoAnimActorEntry;
 
-// VTABLE: LEGO1 0x100dbe38
-// SIZE 0x108
 class LegoROI : public ViewROI {
 public:
 	LegoROI(Tgl::Renderer* p_renderer);
@@ -77,8 +75,8 @@ public:
 	);
 	void SetName(const LegoChar* p_name);
 
-	float IntrinsicImportance() const override; // vtable+0x04
-	void UpdateWorldBoundingVolumes() override; // vtable+0x18
+	float IntrinsicImportance() const override;
+	void UpdateWorldBoundingVolumes() override;
 
 	void FUN_100a9dd0();
 	void SetDisplayBB(int p_displayBB);
@@ -108,15 +106,12 @@ public:
 		LegoU32 p_numEntries
 	);
 
-	// FUNCTION: BETA10 0x1000f320
 	const LegoChar* GetName() const { return m_name; }
 
-	// FUNCTION: BETA10 0x10015180
 	LegoEntity* GetEntity() { return m_entity; }
 
 	BoundingSphere& GetBoundingSphere() { return m_sphere; }
 
-	// FUNCTION: BETA10 0x10013400
 	void SetEntity(LegoEntity* p_entity) { m_entity = p_entity; }
 
 	void SetComp(CompoundObject* p_comp) { comp = p_comp; }
@@ -125,29 +120,25 @@ public:
 	}
 	void SetUnknown0x80(const BoundingBox& p_unk0x80) { m_unk0x80 = p_unk0x80; }
 
-	// SYNTHETIC: LEGO1 0x100a82b0
 	// LegoROI::`scalar deleting destructor'
 
 private:
-	LegoChar* m_name;        // 0xe4
-	BoundingSphere m_sphere; // 0xe8
-	undefined m_unk0x100;    // 0x100
-	LegoEntity* m_entity;    // 0x104
+	LegoChar* m_name;
+	BoundingSphere m_sphere;
+	undefined m_unk0x100;
+	LegoEntity* m_entity;
 };
 
-// VTABLE: LEGO1 0x100dbea8
-// SIZE 0x10c
 class TimeROI : public LegoROI {
 public:
 	TimeROI(Tgl::Renderer* p_renderer, ViewLODList* p_lodList, LegoTime p_time);
 
-	// SYNTHETIC: LEGO1 0x100a9ad0
 	// TimeROI::`scalar deleting destructor'
 
 	void FUN_100a9b40(Matrix4& p_matrix, LegoTime p_time);
 
 private:
-	LegoTime m_time; // 0x108
+	LegoTime m_time;
 };
 
 #endif // LEGOROI_H

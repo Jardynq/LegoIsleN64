@@ -6,7 +6,6 @@
 #include "mxnotificationparam.h"
 #include "scripts.h"
 
-// FUNCTION: LEGO1 0x1002c780
 MxResult IsleActor::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoEntity::Create(p_dsAction);
 
@@ -21,8 +20,6 @@ MxResult IsleActor::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1002c7b0
-// FUNCTION: BETA10 0x1003622e
 MxLong IsleActor::Notify(MxParam& p_param) {
 	MxLong result = 0;
 	MxNotificationParam& param = (MxNotificationParam&) p_param;

@@ -6,24 +6,20 @@
 #include "mxticklemanager.h"
 #include "stdio.h"
 
-// FUNCTION: LEGO1 0x100b84c0
 MxMediaManager::MxMediaManager() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100b8560
 MxMediaManager::~MxMediaManager() {
 	Destroy();
 }
 
-// FUNCTION: LEGO1 0x100b85d0
 MxResult MxMediaManager::Init() {
 	this->m_presenters = NULL;
 	this->m_thread = NULL;
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100b85e0
 MxResult MxMediaManager::Create() {
 	AUTOLOCK(m_criticalSection);
 
@@ -38,7 +34,6 @@ MxResult MxMediaManager::Create() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100b8710
 void MxMediaManager::Destroy() {
 	AUTOLOCK(m_criticalSection);
 
@@ -49,7 +44,6 @@ void MxMediaManager::Destroy() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100b8790
 MxResult MxMediaManager::Tickle() {
 	AUTOLOCK(m_criticalSection);
 	MxPresenter* presenter;
@@ -68,14 +62,12 @@ MxResult MxMediaManager::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100b88c0
 void MxMediaManager::RegisterPresenter(MxPresenter& p_presenter) {
 	AUTOLOCK(m_criticalSection);
 
 	this->m_presenters->Append(&p_presenter);
 }
 
-// FUNCTION: LEGO1 0x100b8980
 void MxMediaManager::UnregisterPresenter(MxPresenter& p_presenter) {
 	AUTOLOCK(m_criticalSection);
 	MxPresenterListCursor cursor(this->m_presenters);
@@ -85,7 +77,6 @@ void MxMediaManager::UnregisterPresenter(MxPresenter& p_presenter) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b8ac0
 void MxMediaManager::StopPresenters() {
 	AUTOLOCK(m_criticalSection);
 	MxPresenter* presenter;

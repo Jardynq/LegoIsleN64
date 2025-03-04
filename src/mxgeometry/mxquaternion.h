@@ -5,7 +5,6 @@
 
 #include <math.h>
 
-// SIZE 0x34
 class MxQuaternionTransformer {
 public:
 	enum { c_startSet = 0x01, c_endSet = 0x02 };
@@ -27,12 +26,11 @@ public:
 private:
 	inline int Interpolate(Vector4& p_v, float p_f);
 
-	Mx4DPointFloat m_startQuat; // 0x00
-	Mx4DPointFloat m_endQuat;   // 0x18
-	MxU32 m_flags;              // 0x30
+	Mx4DPointFloat m_startQuat;
+	Mx4DPointFloat m_endQuat;
+	MxU32 m_flags;
 };
 
-// FUNCTION: LEGO1 0x10004520
 int MxQuaternionTransformer::NormalizeDirection() {
 	if (!m_flags) {
 		return -1;
@@ -54,38 +52,31 @@ int MxQuaternionTransformer::NormalizeDirection() {
 	return 0;
 }
 
-// FUNCTION: BETA10 0x1004a9b0
 void MxQuaternionTransformer::SetStartEnd(Matrix4& p_m1, Matrix4& p_m2) {
 	SetStart(p_m1);
 	SetEnd(p_m2);
 }
 
-// FUNCTION: BETA10 0x1004a9f0
 void MxQuaternionTransformer::SetStart(Matrix4& p_m) {
 	p_m.ToQuaternion(m_startQuat);
 	m_flags |= c_startSet;
 }
 
-// FUNCTION: LEGO1 0x10004620
-// FUNCTION: BETA10 0x1004aa30
 void MxQuaternionTransformer::SetEnd(Matrix4& p_m) {
 	p_m.ToQuaternion(m_endQuat);
 	m_flags |= c_endSet;
 }
 
-// FUNCTION: BETA10 0x10180b80
 void MxQuaternionTransformer::SetStart(Vector4& p_v) {
 	m_startQuat = p_v;
 	m_flags |= c_startSet;
 }
 
-// FUNCTION: BETA10 0x10180bc0
 void MxQuaternionTransformer::SetEnd(Vector4& p_v) {
 	m_endQuat = p_v;
 	m_flags |= c_endSet;
 }
 
-// FUNCTION: BETA10 0x1004aaa0
 int MxQuaternionTransformer::InterpolateToMatrix(Matrix4& p_matrix, float p_f) {
 	float data[4];
 	Vector4 v(data);
@@ -97,8 +88,6 @@ int MxQuaternionTransformer::InterpolateToMatrix(Matrix4& p_matrix, float p_f) {
 	return -1;
 }
 
-// FUNCTION: LEGO1 0x100040a0
-// FUNCTION: BETA10 0x1004ab10
 int MxQuaternionTransformer::Interpolate(Vector4& p_v, float p_f) {
 	if (m_flags == c_startSet) {
 		p_v = m_startQuat;

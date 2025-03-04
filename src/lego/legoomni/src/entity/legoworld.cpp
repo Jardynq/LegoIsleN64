@@ -25,7 +25,6 @@
 #include "mxutilities.h"
 #include "viewmanager/viewmanager.h"
 
-// FUNCTION: LEGO1 0x1001ca40
 LegoWorld::LegoWorld() : m_list0x68(TRUE) {
 	m_startupTicks = e_four;
 	m_cameraController = NULL;
@@ -38,7 +37,6 @@ LegoWorld::LegoWorld() : m_list0x68(TRUE) {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x1001dfa0
 LegoWorld::~LegoWorld() {
 	Destroy(TRUE);
 
@@ -46,7 +44,6 @@ LegoWorld::~LegoWorld() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x1001e0b0
 MxResult LegoWorld::Create(MxDSAction& p_dsAction) {
 	MxEntity::Create(p_dsAction);
 
@@ -80,8 +77,6 @@ MxResult LegoWorld::Create(MxDSAction& p_dsAction) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1001e9d0
-// FUNCTION: BETA10 0x100d99ea
 void LegoWorld::Destroy(MxBool p_fromDestructor) {
 	m_destroyed = TRUE;
 
@@ -196,8 +191,6 @@ void LegoWorld::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1001f5e0
-// FUNCTION: BETA10 0x100d9f5f
 MxLong LegoWorld::Notify(MxParam& p_param) {
 	MxLong result = 0;
 
@@ -218,8 +211,6 @@ MxLong LegoWorld::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1001f630
-// FUNCTION: BETA10 0x100d9fc2
 LegoCameraController* LegoWorld::VTable0x54() {
 	MxBool success = FALSE;
 
@@ -251,8 +242,6 @@ done:
 	return m_cameraController;
 }
 
-// FUNCTION: LEGO1 0x1001f720
-// FUNCTION: BETA10 0x100da24b
 MxResult LegoWorld::PlaceActor(
 	LegoPathActor* p_actor,
 	const char* p_name,
@@ -280,7 +269,6 @@ MxResult LegoWorld::PlaceActor(
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x1001fa70
 MxResult LegoWorld::PlaceActor(LegoPathActor* p_actor) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
 	LegoPathController* controller;
@@ -294,7 +282,6 @@ MxResult LegoWorld::PlaceActor(LegoPathActor* p_actor) {
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x1001fb70
 MxResult LegoWorld::PlaceActor(
 	LegoPathActor* p_actor,
 	LegoAnimPresenter* p_presenter,
@@ -315,8 +302,6 @@ MxResult LegoWorld::PlaceActor(
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x1001fc80
-// FUNCTION: BETA10 0x100da4bf
 void LegoWorld::RemoveActor(LegoPathActor* p_actor) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
 	LegoPathController* controller;
@@ -328,7 +313,6 @@ void LegoWorld::RemoveActor(LegoPathActor* p_actor) {
 	}
 }
 
-// FUNCTION: BETA10 0x100da560
 MxBool LegoWorld::ActorExists(LegoPathActor* p_actor) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
 	LegoPathController* controller;
@@ -342,8 +326,6 @@ MxBool LegoWorld::ActorExists(LegoPathActor* p_actor) {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x1001fda0
-// FUNCTION: BETA10 0x100da621
 void LegoWorld::FUN_1001fda0(LegoAnimPresenter* p_presenter) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
 	LegoPathController* controller;
@@ -353,8 +335,6 @@ void LegoWorld::FUN_1001fda0(LegoAnimPresenter* p_presenter) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1001fe90
-// FUNCTION: BETA10 0x100da6b5
 void LegoWorld::FUN_1001fe90(LegoAnimPresenter* p_presenter) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
 	LegoPathController* controller;
@@ -364,14 +344,11 @@ void LegoWorld::FUN_1001fe90(LegoAnimPresenter* p_presenter) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1001ff80
 void LegoWorld::AddPath(LegoPathController* p_controller) {
 	p_controller->FUN_10046bb0(this);
 	m_list0x68.Append(p_controller);
 }
 
-// FUNCTION: LEGO1 0x10020020
-// FUNCTION: BETA10 0x100da77c
 LegoPathBoundary* LegoWorld::FindPathBoundary(const char* p_name) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
 	LegoPathController* controller;
@@ -387,7 +364,6 @@ LegoPathBoundary* LegoWorld::FindPathBoundary(const char* p_name) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x10020120
 MxResult
 LegoWorld::GetCurrPathInfo(LegoPathBoundary** p_boundaries, MxS32& p_numL) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
@@ -402,8 +378,6 @@ LegoWorld::GetCurrPathInfo(LegoPathBoundary** p_boundaries, MxS32& p_numL) {
 	return controller->FUN_10046b30(*p_boundaries, p_numL);
 }
 
-// FUNCTION: LEGO1 0x10020220
-// FUNCTION: BETA10 0x100da90b
 void LegoWorld::Add(MxCore* p_object) {
 	if (p_object == NULL || p_object->IsA("LegoWorld") ||
 		p_object->IsA("LegoWorldPresenter")) {
@@ -444,8 +418,9 @@ void LegoWorld::Add(MxCore* p_object) {
 		}
 
 		m_entityList->Append((LegoEntity*) p_object);
-	}
-	else if (p_object->IsA("LegoLocomotionAnimPresenter") || p_object->IsA("LegoHideAnimPresenter") || p_object->IsA("LegoLoopingAnimPresenter")) {
+	} else if (p_object->IsA("LegoLocomotionAnimPresenter") ||
+			   p_object->IsA("LegoHideAnimPresenter") ||
+			   p_object->IsA("LegoLoopingAnimPresenter")) {
 		MxPresenterListCursor cursor(&m_animPresenters);
 
 		if (cursor.Find((MxPresenter*) p_object)) {
@@ -495,8 +470,6 @@ void LegoWorld::Add(MxCore* p_object) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10020f10
-// FUNCTION: BETA10 0x100dad2a
 void LegoWorld::Remove(MxCore* p_object) {
 	MxCoreSet::iterator it;
 
@@ -512,8 +485,9 @@ void LegoWorld::Remove(MxCore* p_object) {
 			((MxControlPresenter*) p_object)->GetAction()->SetOrigin(Lego());
 			((MxControlPresenter*) p_object)->VTable0x68(TRUE);
 		}
-	}
-	else if (p_object->IsA("LegoLocomotionAnimPresenter") || p_object->IsA("LegoHideAnimPresenter") || p_object->IsA("LegoLoopingAnimPresenter")) {
+	} else if (p_object->IsA("LegoLocomotionAnimPresenter") ||
+			   p_object->IsA("LegoHideAnimPresenter") ||
+			   p_object->IsA("LegoLoopingAnimPresenter")) {
 		MxPresenterListCursor cursor(&m_animPresenters);
 
 		if (cursor.Find((MxPresenter*) p_object)) {
@@ -558,8 +532,6 @@ void LegoWorld::Remove(MxCore* p_object) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100213a0
-// FUNCTION: BETA10 0x100db027
 MxCore* LegoWorld::Find(const char* p_class, const char* p_name) {
 	if (!strcmp(p_class, "MxControlPresenter")) {
 		MxPresenterListCursor cursor(&m_controlPresenters);
@@ -624,7 +596,6 @@ MxCore* LegoWorld::Find(const char* p_class, const char* p_name) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x10021790
 MxCore* LegoWorld::Find(const MxAtomId& p_atom, MxS32 p_entityId) {
 	LegoEntityListCursor entityCursor(m_entityList);
 	LegoEntity* entity;
@@ -677,8 +648,6 @@ MxCore* LegoWorld::Find(const MxAtomId& p_atom, MxS32 p_entityId) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x10021a70
-// FUNCTION: BETA10 0x100db758
 void LegoWorld::Enable(MxBool p_enable) {
 	MxCoreSet::iterator it;
 
@@ -803,7 +772,6 @@ void LegoWorld::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10022080
 MxResult LegoWorld::Tickle() {
 	if (!m_worldStarted) {
 		switch (m_startupTicks) {
@@ -824,7 +792,6 @@ MxResult LegoWorld::Tickle() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100220e0
 MxBool LegoWorld::PresentersPending() {
 	MxPresenterListCursor controlPresenterCursor(&m_controlPresenters);
 	MxPresenter* presenter;
@@ -867,7 +834,6 @@ MxBool LegoWorld::PresentersPending() {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x10022340
 void LegoWorld::ReadyWorld() {
 	TickleManager()->UnregisterClient(this);
 }

@@ -3,7 +3,6 @@
 
 #include <windows.h>
 
-// SIZE 0x1c
 class MxCriticalSection {
 public:
 	MxCriticalSection();
@@ -15,8 +14,8 @@ public:
 	void Leave();
 
 private:
-	CRITICAL_SECTION m_criticalSection; // 0x00
-	HANDLE m_mutex;                     // 0x18
+	CRITICAL_SECTION m_criticalSection;
+	HANDLE m_mutex;
 };
 
 #endif // MXCRITICALSECTION_H

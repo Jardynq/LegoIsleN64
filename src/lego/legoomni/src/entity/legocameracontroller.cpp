@@ -12,7 +12,6 @@
 
 #include <vec.h>
 
-// FUNCTION: LEGO1 0x10011d50
 LegoCameraController::LegoCameraController() {
 	SetWorldTransform(
 		Mx3DPointFloat(0, 0, 0),
@@ -21,7 +20,6 @@ LegoCameraController::LegoCameraController() {
 	);
 }
 
-// FUNCTION: LEGO1 0x10011f70
 LegoCameraController::~LegoCameraController() {
 	if (InputManager()) {
 		if (InputManager()->GetCamera() == this) {
@@ -30,7 +28,6 @@ LegoCameraController::~LegoCameraController() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10011ff0
 MxResult LegoCameraController::Create() {
 	InputManager()->SetCamera(this);
 	return LegoPointOfViewController::Create(
@@ -38,8 +35,6 @@ MxResult LegoCameraController::Create() {
 	);
 }
 
-// FUNCTION: LEGO1 0x10012020
-// FUNCTION: BETA10 0x10067852
 MxLong LegoCameraController::Notify(MxParam& p_param) {
 	switch (((MxNotificationParam&) p_param).GetNotification()) {
 	case c_notificationDragEnd: {
@@ -84,27 +79,22 @@ MxLong LegoCameraController::Notify(MxParam& p_param) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100121b0
 void LegoCameraController::OnLButtonDown(MxPoint32 p_point) {
 	LeftDown(p_point.GetX(), p_point.GetY());
 }
 
-// FUNCTION: LEGO1 0x100121d0
 void LegoCameraController::OnLButtonUp(MxPoint32 p_point) {
 	LeftUp(p_point.GetX(), p_point.GetY());
 }
 
-// FUNCTION: LEGO1 0x100121f0
 void LegoCameraController::OnRButtonDown(MxPoint32 p_point) {
 	RightDown(p_point.GetX(), p_point.GetY());
 }
 
-// FUNCTION: LEGO1 0x10012210
 void LegoCameraController::OnRButtonUp(MxPoint32 p_point) {
 	RightUp(p_point.GetX(), p_point.GetY());
 }
 
-// FUNCTION: LEGO1 0x10012230
 void LegoCameraController::OnMouseMove(MxU8 p_modifier, MxPoint32 p_point) {
 	if (p_modifier & LegoEventNotificationParam::c_lButtonState) {
 		LeftDrag(p_point.GetX(), p_point.GetY());
@@ -113,7 +103,6 @@ void LegoCameraController::OnMouseMove(MxU8 p_modifier, MxPoint32 p_point) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10012260
 void LegoCameraController::SetWorldTransform(
 	const Vector3& p_at,
 	const Vector3& p_dir,
@@ -123,21 +112,16 @@ void LegoCameraController::SetWorldTransform(
 	m_matrix2 = m_matrix1;
 }
 
-// FUNCTION: LEGO1 0x10012290
-// FUNCTION: BETA10 0x10068c34
 void LegoCameraController::FUN_10012290(float p_angle) {
 	m_matrix1 = m_matrix2;
 	m_matrix1.RotateZ(p_angle);
 }
 
-// FUNCTION: LEGO1 0x10012320
-// FUNCTION: BETA10 0x10068c73
 void LegoCameraController::FUN_10012320(float p_angle) {
 	m_matrix1 = m_matrix2;
 	m_matrix1.RotateY(p_angle);
 }
 
-// FUNCTION: LEGO1 0x100123b0
 MxResult LegoCameraController::FUN_100123b0(Matrix4& p_matrix) {
 	if (m_lego3DView) {
 		ViewROI* pov = m_lego3DView->GetPointOfView();
@@ -150,8 +134,6 @@ MxResult LegoCameraController::FUN_100123b0(Matrix4& p_matrix) {
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x100123e0
-// FUNCTION: BETA10 0x10068cb2
 void LegoCameraController::FUN_100123e0(
 	const Matrix4& p_transform,
 	MxU32 p_und
@@ -182,7 +164,6 @@ void LegoCameraController::FUN_100123e0(
 	}
 }
 
-// FUNCTION: LEGO1 0x10012740
 Mx3DPointFloat LegoCameraController::GetWorldUp() {
 	if (m_lego3DView && m_lego3DView->GetPointOfView()) {
 		Mx3DPointFloat vec;
@@ -193,7 +174,6 @@ Mx3DPointFloat LegoCameraController::GetWorldUp() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100127f0
 Mx3DPointFloat LegoCameraController::GetWorldLocation() {
 	if (m_lego3DView && m_lego3DView->GetPointOfView()) {
 		Mx3DPointFloat vec;
@@ -204,7 +184,6 @@ Mx3DPointFloat LegoCameraController::GetWorldLocation() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100128a0
 Mx3DPointFloat LegoCameraController::GetWorldDirection() {
 	if (m_lego3DView && m_lego3DView->GetPointOfView()) {
 		Mx3DPointFloat vec;

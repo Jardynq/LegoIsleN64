@@ -8,7 +8,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Lego3DView
 
-// FUNCTION: LEGO1 0x100aae90
 Lego3DView::Lego3DView() {
 	m_pViewManager = 0;
 	m_previousRenderTime = 0;
@@ -16,12 +15,10 @@ Lego3DView::Lego3DView() {
 	m_pPointOfView = 0;
 }
 
-// FUNCTION: LEGO1 0x100aaf30
 Lego3DView::~Lego3DView() {
 	Destroy();
 }
 
-// FUNCTION: LEGO1 0x100aaf90
 BOOL Lego3DView::Create(
 	const TglSurface::CreateStruct& rCreateStruct,
 	Tgl::Renderer* pRenderer
@@ -59,7 +56,6 @@ BOOL Lego3DView::Create(
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100ab0b0
 void Lego3DView::Destroy() {
 	if (m_pPointOfView) {
 		m_pPointOfView = 0;
@@ -72,8 +68,6 @@ void Lego3DView::Destroy() {
 	LegoView1::Destroy();
 }
 
-// FUNCTION: LEGO1 0x100ab100
-// FUNCTION: BETA10 0x1017d038
 BOOL Lego3DView::Add(ViewROI& rROI) {
 	assert(m_pViewManager);
 
@@ -82,8 +76,6 @@ BOOL Lego3DView::Add(ViewROI& rROI) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100ab170
-// FUNCTION: BETA10 0x1017d096
 BOOL Lego3DView::Remove(ViewROI& rROI) {
 	assert(m_pViewManager);
 
@@ -97,8 +89,6 @@ BOOL Lego3DView::Remove(ViewROI& rROI) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100ab1b0
-// FUNCTION: BETA10 0x1017d123
 BOOL Lego3DView::SetPointOfView(ViewROI& rROI) {
 	Tgl::FloatMatrix4 transformation;
 	Matrix4 mat(transformation);
@@ -117,8 +107,6 @@ BOOL Lego3DView::SetPointOfView(ViewROI& rROI) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100ab210
-// FUNCTION: BETA10 0x1017d230
 BOOL Lego3DView::Moved(ViewROI& rROI) {
 	assert(m_pViewManager);
 
@@ -139,7 +127,6 @@ BOOL Lego3DView::Moved(ViewROI& rROI) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100ab270
 double Lego3DView::Render(double p_und) {
 	assert(m_pViewManager);
 	m_pViewManager->Update(m_previousRenderTime, p_und);
@@ -147,7 +134,6 @@ double Lego3DView::Render(double p_und) {
 	return m_previousRenderTime;
 }
 
-// FUNCTION: LEGO1 0x100ab2b0
 ViewROI* Lego3DView::Pick(unsigned int x, unsigned int y) {
 	return m_pViewManager->Pick(GetView(), x, y);
 }

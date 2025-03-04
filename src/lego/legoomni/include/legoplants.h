@@ -4,7 +4,6 @@
 class LegoEntity;
 class LegoPathBoundary;
 
-// SIZE 0x54
 struct LegoPlantInfo {
 	// See LegoOmni::RegisterWorlds for IDs
 	enum World {
@@ -20,24 +19,24 @@ struct LegoPlantInfo {
 
 	enum Color { e_white = 0, e_black, e_yellow, e_red, e_green };
 
-	LegoEntity* m_entity;         // 0x00
-	MxU32 m_worlds;               // 0x04 - see enum for possible bit flags
-	MxU8 m_variant;               // 0x08 - see enum for possible values
-	MxU32 m_sound;                // 0x0c
-	MxU32 m_move;                 // 0x10
-	MxU8 m_mood;                  // 0x14
-	MxU8 m_color;                 // 0x15 - see enum for possible values
-	MxS8 m_unk0x16;               // 0x16
-	MxS8 m_initialUnk0x16;        // 0x17 - initial value loaded to m_unk0x16
-	const char* m_name;           // 0x18
-	undefined4 m_unk0x1c;         // 0x1c
-	float m_x;                    // 0x20
-	float m_y;                    // 0x24
-	float m_z;                    // 0x28
-	LegoPathBoundary* m_boundary; // 0x2c
-	float m_position[3];          // 0x30
-	float m_direction[3];         // 0x3c
-	float m_up[3];                // 0x48
+	LegoEntity* m_entity;
+	MxU32 m_worlds;
+	MxU8 m_variant;
+	MxU32 m_sound;
+	MxU32 m_move;
+	MxU8 m_mood;
+	MxU8 m_color;
+	MxS8 m_unk0x16;
+	MxS8 m_initialUnk0x16;
+	const char* m_name;
+	undefined4 m_unk0x1c;
+	float m_x;
+	float m_y;
+	float m_z;
+	LegoPathBoundary* m_boundary;
+	float m_position[3];
+	float m_direction[3];
+	float m_up[3];
 };
 
 extern LegoPlantInfo g_plantInfoInit[81];

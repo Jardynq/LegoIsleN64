@@ -4,7 +4,6 @@
 class LegoImage;
 class LegoStorage;
 
-// SIZE 0x04
 class LegoTexture {
 public:
 	LegoTexture();
@@ -15,7 +14,7 @@ public:
 	LegoResult Write(LegoStorage* p_storage);
 
 protected:
-	LegoImage* m_image; // 0x00
+	LegoImage* m_image;
 };
 
 #endif // __LEGOTEXTURE_H

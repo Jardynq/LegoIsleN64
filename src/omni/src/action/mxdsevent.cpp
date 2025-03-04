@@ -1,20 +1,15 @@
 #include "mxdsevent.h"
 
-// FUNCTION: LEGO1 0x100c95f0
-// FUNCTION: BETA10 0x1015d2e5
 MxDSEvent::MxDSEvent() {
 	this->SetType(e_event);
 }
 
-// FUNCTION: LEGO1 0x100c97a0
 MxDSEvent::~MxDSEvent() {
 }
 
-// FUNCTION: LEGO1 0x100c97f0
 void MxDSEvent::CopyFrom(MxDSEvent& p_dsEvent) {
 }
 
-// FUNCTION: LEGO1 0x100c9800
 MxDSEvent& MxDSEvent::operator=(MxDSEvent& p_dsEvent) {
 	if (this == &p_dsEvent) {
 		return *this;
@@ -25,7 +20,6 @@ MxDSEvent& MxDSEvent::operator=(MxDSEvent& p_dsEvent) {
 	return *this;
 }
 
-// FUNCTION: LEGO1 0x100c9830
 MxDSAction* MxDSEvent::Clone() {
 	MxDSEvent* clone = new MxDSEvent();
 

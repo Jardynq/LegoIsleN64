@@ -7,22 +7,18 @@
 #include "mxmisc.h"
 #include "mxvariabletable.h"
 
-// FUNCTION: LEGO1 0x100c2b70
 MxEventPresenter::MxEventPresenter() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100c2d40
 MxEventPresenter::~MxEventPresenter() {
 	Destroy();
 }
 
-// FUNCTION: LEGO1 0x100c2da0
 void MxEventPresenter::Init() {
 	m_data = NULL;
 }
 
-// FUNCTION: LEGO1 0x100c2db0
 MxResult MxEventPresenter::AddToManager() {
 	MxResult ret = FAILURE;
 
@@ -34,7 +30,6 @@ MxResult MxEventPresenter::AddToManager() {
 	return ret;
 }
 
-// FUNCTION: LEGO1 0x100c2de0
 void MxEventPresenter::Destroy() {
 	if (EventManager()) {
 		EventManager()->UnregisterPresenter(*this);
@@ -51,13 +46,11 @@ void MxEventPresenter::Destroy() {
 	m_criticalSection.Leave();
 }
 
-// FUNCTION: LEGO1 0x100c2e30
 void MxEventPresenter::CopyData(MxStreamChunk* p_chunk) {
 	m_data = new MxU8[p_chunk->GetLength()];
 	memcpy(m_data, p_chunk->GetData(), p_chunk->GetLength());
 }
 
-// FUNCTION: LEGO1 0x100c2e70
 void MxEventPresenter::ReadyTickle() {
 	MxStreamChunk* chunk = NextChunk();
 
@@ -69,7 +62,6 @@ void MxEventPresenter::ReadyTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c2eb0
 void MxEventPresenter::StartingTickle() {
 	MxStreamChunk* chunk = CurrentChunk();
 
@@ -78,7 +70,6 @@ void MxEventPresenter::StartingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c2ef0
 MxResult MxEventPresenter::PutData() {
 	AUTOLOCK(m_criticalSection);
 

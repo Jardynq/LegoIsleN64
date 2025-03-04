@@ -11,7 +11,7 @@ public:
 	~MxAutoLock();
 
 private:
-	MxCriticalSection* m_criticalSection; // 0x00
+	MxCriticalSection* m_criticalSection;
 };
 
 #endif // MXAUTOLOCK_H

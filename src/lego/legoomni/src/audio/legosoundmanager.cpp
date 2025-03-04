@@ -4,23 +4,19 @@
 #include "mxautolock.h"
 #include "mxomni.h"
 
-// FUNCTION: LEGO1 0x100298a0
 LegoSoundManager::LegoSoundManager() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x10029940
 LegoSoundManager::~LegoSoundManager() {
 	Destroy(TRUE);
 }
 
-// FUNCTION: LEGO1 0x100299a0
 void LegoSoundManager::Init() {
 	m_cacheSoundManager = NULL;
 	m_listener = NULL;
 }
 
-// FUNCTION: LEGO1 0x100299b0
 void LegoSoundManager::Destroy(MxBool p_fromDestructor) {
 	delete m_cacheSoundManager;
 	Init();
@@ -30,7 +26,6 @@ void LegoSoundManager::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100299f0
 MxResult LegoSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 	MxBool locked = FALSE;
 	MxResult result = FAILURE;
@@ -80,12 +75,10 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1002a390
 void LegoSoundManager::Destroy() {
 	Destroy(FALSE);
 }
 
-// FUNCTION: LEGO1 0x1002a3a0
 MxResult LegoSoundManager::Tickle() {
 	MxSoundManager::Tickle();
 
@@ -93,8 +86,6 @@ MxResult LegoSoundManager::Tickle() {
 	return m_cacheSoundManager->Tickle();
 }
 
-// FUNCTION: LEGO1 0x1002a410
-// FUNCTION: BETA10 0x100d03a5
 void LegoSoundManager::UpdateListener(
 	const float* p_position,
 	const float* p_direction,

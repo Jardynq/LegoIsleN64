@@ -10,7 +10,6 @@
 // Defined in legopathstruct.cpp
 extern MxBool g_unk0x100f119c;
 
-// FUNCTION: LEGO1 0x10015aa0
 LegoRace::LegoRace() {
 	m_unk0xf8 = 0;
 	m_unk0xfc = 0;
@@ -30,8 +29,6 @@ LegoRace::LegoRace() {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x10015ce0
-// FUNCTION: BETA10 0x100c7a71
 MxResult LegoRace::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 
@@ -46,7 +43,6 @@ MxResult LegoRace::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10015d40
 LegoRace::~LegoRace() {
 	g_unk0x100f119c = FALSE;
 	if (m_pathActor) {
@@ -59,8 +55,6 @@ LegoRace::~LegoRace() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x10015e00
-// FUNCTION: BETA10 0x100c7b3d
 MxLong LegoRace::Notify(MxParam& p_param) {
 	LegoWorld::Notify(p_param);
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
@@ -90,8 +84,6 @@ MxLong LegoRace::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10015ed0
-// FUNCTION: BETA10 0x100c7c3f
 void LegoRace::Enable(MxBool p_enable) {
 	if (GetUnknown0xd0Empty() != p_enable && !p_enable) {
 		Remove(UserActor());
@@ -104,7 +96,6 @@ void LegoRace::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 }
 
-// FUNCTION: LEGO1 0x10015f30
 RaceState::RaceState() {
 	m_state[0].m_id = 1;
 	m_state[0].m_unk0x02 = 0;
@@ -124,8 +115,6 @@ RaceState::RaceState() {
 	m_unk0x28 = 0;
 }
 
-// FUNCTION: LEGO1 0x10016140
-// FUNCTION: BETA10 0x100c7d9f
 MxResult RaceState::Serialize(LegoStorage* p_storage) {
 	LegoState::Serialize(p_storage);
 
@@ -136,8 +125,6 @@ MxResult RaceState::Serialize(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10016280
-// FUNCTION: BETA10 0x100c7dfd
 RaceState::Entry* RaceState::GetState(MxU8 p_id) {
 	for (MxS16 i = 0;; i++) {
 		if (i >= 5) {

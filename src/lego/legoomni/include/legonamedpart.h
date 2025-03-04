@@ -4,7 +4,6 @@
 #include "legolodlist.h"
 #include "mxstring.h"
 
-// SIZE 0x14
 class LegoNamedPart {
 public:
 	LegoNamedPart(const char* p_name, LegoLODList* p_list)
@@ -25,8 +24,8 @@ public:
 	LegoLODList* GetList() { return m_list; }
 
 private:
-	MxString m_name;     // 0x00
-	LegoLODList* m_list; // 0x04
+	MxString m_name;
+	LegoLODList* m_list;
 };
 
 #endif // LEGONAMEDPART_H

@@ -1,6 +1,5 @@
 #include "legolocations.h"
 
-// GLOBAL: LEGO1 0x100f4c60
 LegoLocation g_locations[] = {
 	{0,
 	 "look at origin from z=-8",

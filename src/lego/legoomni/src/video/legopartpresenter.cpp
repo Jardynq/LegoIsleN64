@@ -10,13 +10,10 @@
 #include "mxdssubscriber.h"
 #include "viewmanager/viewlodlist.h"
 
-// GLOBAL: LEGO1 0x100f7aa0
 MxS32 g_partPresenterConfig1 = 1;
 
-// GLOBAL: LEGO1 0x100f7aa4
 MxS32 g_partPresenterConfig2 = 100;
 
-// FUNCTION: LEGO1 0x1007c990
 void LegoPartPresenter::configureLegoPartPresenter(
 	MxS32 p_partPresenterConfig1,
 	MxS32 p_partPresenterConfig2
@@ -25,13 +22,11 @@ void LegoPartPresenter::configureLegoPartPresenter(
 	g_partPresenterConfig2 = p_partPresenterConfig2;
 }
 
-// FUNCTION: LEGO1 0x1007c9b0
 MxResult LegoPartPresenter::AddToManager() {
 	VideoManager()->RegisterPresenter(*this);
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1007c9d0
 void LegoPartPresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 	VideoManager()->UnregisterPresenter(*this);
@@ -48,7 +43,6 @@ void LegoPartPresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1007ca30
 MxResult LegoPartPresenter::Read(MxDSChunk& p_chunk) {
 	MxResult result = FAILURE;
 	LegoU32 numROIs, numLODs;
@@ -217,7 +211,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1007deb0
 void LegoPartPresenter::ReadyTickle() {
 	MxStreamChunk* chunk = m_subscriber->PeekData();
 
@@ -237,7 +230,6 @@ void LegoPartPresenter::ReadyTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1007df20
 void LegoPartPresenter::Store() {
 	LegoNamedPartListCursor partCursor(m_parts);
 	LegoNamedPart* part;

@@ -1,6 +1,5 @@
 #include "legoplants.h"
 
-// GLOBAL: LEGO1 0x100f16c8
 LegoPlantInfo g_plantInfoInit[81] = {
 	{NULL,
 	 LegoPlantInfo::c_act1 | LegoPlantInfo::c_act2 | LegoPlantInfo::c_act3,

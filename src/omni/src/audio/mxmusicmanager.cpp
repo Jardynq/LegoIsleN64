@@ -6,23 +6,19 @@
 
 #include <windows.h>
 
-// FUNCTION: LEGO1 0x100c05a0
 MxMusicManager::MxMusicManager() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100c0630
 MxMusicManager::~MxMusicManager() {
 	Destroy(TRUE);
 }
 
-// FUNCTION: LEGO1 0x100c0690
 void MxMusicManager::Init() {
 	m_multiplier = 100;
 	InitData();
 }
 
-// FUNCTION: LEGO1 0x100c06a0
 void MxMusicManager::InitData() {
 	m_midiStreamH = 0;
 	m_midiInitialized = FALSE;
@@ -34,7 +30,6 @@ void MxMusicManager::InitData() {
 	m_midiHdrP = NULL;
 }
 
-// FUNCTION: LEGO1 0x100c06c0
 void MxMusicManager::Destroy(MxBool p_fromDestructor) {
 	if (m_thread) {
 		m_thread->Terminate();
@@ -55,7 +50,6 @@ void MxMusicManager::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c0720
 MxResult MxMusicManager::ResetStream() {
 	MxResult result = FAILURE;
 
@@ -111,13 +105,11 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100c07e0
 void MxMusicManager::ResetBuffer() {
 	m_bufferCurrentOffset = m_bufferOffset;
 	m_bufferCurrentSize = m_bufferSize;
 }
 
-// FUNCTION: LEGO1 0x100c07f0
 void MxMusicManager::SetMIDIVolume() {
 	MxS32 result = (m_volume * m_multiplier) / 0x64;
 	HMIDISTRM streamHandle = m_midiStreamH;
@@ -128,7 +120,6 @@ void MxMusicManager::SetMIDIVolume() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c0820
 void CALLBACK MxMusicManager::MidiCallbackProc(
 	HDRVR p_hdrvr,
 	UINT p_uMsg,
@@ -141,7 +132,6 @@ void CALLBACK MxMusicManager::MidiCallbackProc(
 	}
 }
 
-// FUNCTION: LEGO1 0x100c0840
 MxResult MxMusicManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
 	MxResult status = FAILURE;
 	MxBool locked = FALSE;
@@ -174,12 +164,10 @@ done:
 	return status;
 }
 
-// FUNCTION: LEGO1 0x100c0930
 void MxMusicManager::Destroy() {
 	Destroy(FALSE);
 }
 
-// FUNCTION: LEGO1 0x100c0940
 void MxMusicManager::SetVolume(MxS32 p_volume) {
 	MxAudioManager::SetVolume(p_volume);
 	m_criticalSection.Enter();
@@ -187,7 +175,6 @@ void MxMusicManager::SetVolume(MxS32 p_volume) {
 	m_criticalSection.Leave();
 }
 
-// FUNCTION: LEGO1 0x100c0970
 void MxMusicManager::SetMultiplier(MxS32 p_multiplier) {
 	m_criticalSection.Enter();
 	m_multiplier = p_multiplier;
@@ -195,13 +182,11 @@ void MxMusicManager::SetMultiplier(MxS32 p_multiplier) {
 	m_criticalSection.Leave();
 }
 
-// FUNCTION: LEGO1 0x100c09a0
 MxS32 MxMusicManager::CalculateVolume(MxS32 p_volume) {
 	MxS32 result = (p_volume * 0xffff) / 100;
 	return (result << 0x10) | result;
 }
 
-// FUNCTION: LEGO1 0x100c09c0
 MxResult MxMusicManager::InitializeMIDI(MxU8* p_data, MxS32 p_loopCount) {
 	MxResult result = FAILURE;
 
@@ -281,7 +266,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100c0b20
 void MxMusicManager::DeinitializeMIDI() {
 	m_criticalSection.Enter();
 

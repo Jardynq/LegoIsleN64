@@ -7,29 +7,26 @@
 
 class MxThread;
 
-// VTABLE: LEGO1 0x100dc6b0
-// SIZE 0x2c
 class MxMediaManager : public MxCore {
 public:
 	MxMediaManager();
 	~MxMediaManager() override;
 
-	MxResult Tickle() override;                                 // vtable+08
-	virtual MxResult Create();                                  // vtable+14
-	virtual void Destroy();                                     // vtable+18
-	virtual void RegisterPresenter(MxPresenter& p_presenter);   // vtable+1c
-	virtual void UnregisterPresenter(MxPresenter& p_presenter); // vtable+20
-	virtual void StopPresenters();                              // vtable+24
+	MxResult Tickle() override;
+	virtual MxResult Create();
+	virtual void Destroy();
+	virtual void RegisterPresenter(MxPresenter& p_presenter);
+	virtual void UnregisterPresenter(MxPresenter& p_presenter);
+	virtual void StopPresenters();
 
 	MxResult Init();
 
-	// SYNTHETIC: LEGO1 0x100b8540
 	// MxMediaManager::`scalar deleting destructor'
 
 protected:
-	MxPresenterList* m_presenters;       // 0x08
-	MxThread* m_thread;                  // 0x0c
-	MxCriticalSection m_criticalSection; // 0x10
+	MxPresenterList* m_presenters;
+	MxThread* m_thread;
+	MxCriticalSection m_criticalSection;
 };
 
 #endif // MXMEDIAMANGER_H

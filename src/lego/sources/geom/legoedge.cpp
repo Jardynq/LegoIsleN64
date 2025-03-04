@@ -2,7 +2,6 @@
 
 #include "assert.h"
 
-// FUNCTION: LEGO1 0x1009a470
 LegoEdge::LegoEdge() {
 	m_faceA = NULL;
 	m_faceB = NULL;
@@ -14,11 +13,9 @@ LegoEdge::LegoEdge() {
 	m_pointB = NULL;
 }
 
-// FUNCTION: LEGO1 0x1009a4c0
 LegoEdge::~LegoEdge() {
 }
 
-// FUNCTION: LEGO1 0x1009a4d0
 LegoEdge* LegoEdge::GetClockwiseEdge(LegoWEEdge& p_face) {
 	if (&p_face == m_faceA) {
 		return m_cwA;
@@ -29,7 +26,6 @@ LegoEdge* LegoEdge::GetClockwiseEdge(LegoWEEdge& p_face) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009a4f0
 LegoEdge* LegoEdge::GetCounterclockwiseEdge(LegoWEEdge& p_face) {
 	if (&p_face == m_faceA) {
 		return m_ccwA;
@@ -40,8 +36,6 @@ LegoEdge* LegoEdge::GetCounterclockwiseEdge(LegoWEEdge& p_face) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009a510
-// FUNCTION: BETA10 0x10182433
 Vector3* LegoEdge::CWVertex(LegoWEEdge& p_face) {
 	if (m_faceA == &p_face) {
 		return m_pointB;
@@ -51,8 +45,6 @@ Vector3* LegoEdge::CWVertex(LegoWEEdge& p_face) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009a530
-// FUNCTION: BETA10 0x10182498
 Vector3* LegoEdge::CCWVertex(LegoWEEdge& p_face) {
 	if (m_faceB == &p_face) {
 		return m_pointB;

@@ -12,10 +12,8 @@
 #define DDSCAPS_3DDEVICE 0x00002000l
 #endif
 
-// GLOBAL: LEGO1 0x10100c68
 BOOL g_isPaletteIndexed8 = 0;
 
-// FUNCTION: LEGO1 0x1009d490
 MxDirectDraw::MxDirectDraw() {
 	m_pFrontBuffer = NULL;
 	m_pBackBuffer = NULL;
@@ -41,7 +39,6 @@ MxDirectDraw::MxDirectDraw() {
 	m_hFont = NULL;
 }
 
-// FUNCTION: LEGO1 0x1009d530
 MxDirectDraw::~MxDirectDraw() {
 	Destroy();
 
@@ -51,7 +48,6 @@ MxDirectDraw::~MxDirectDraw() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009d570
 int MxDirectDraw::GetPrimaryBitDepth() {
 	DWORD dwRGBBitCount;
 	LPDIRECTDRAW pDDraw;
@@ -73,7 +69,6 @@ int MxDirectDraw::GetPrimaryBitDepth() {
 	return dwRGBBitCount;
 }
 
-// FUNCTION: LEGO1 0x1009d5e0
 BOOL MxDirectDraw::Create(
 	HWND hWnd,
 	BOOL fullscreen,
@@ -116,13 +111,11 @@ BOOL MxDirectDraw::Create(
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009d690
 BOOL MxDirectDraw::RecreateDirectDraw(GUID** ppGUID) {
 	RELEASE(m_pDirectDraw);
 	return (DirectDrawCreate(*ppGUID, &m_pDirectDraw, 0) == DD_OK);
 }
 
-// FUNCTION: LEGO1 0x1009d6c0
 BOOL MxDirectDraw::CacheOriginalPaletteEntries() {
 	HDC hdc;
 
@@ -134,7 +127,6 @@ BOOL MxDirectDraw::CacheOriginalPaletteEntries() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009d700
 BOOL MxDirectDraw::SetPaletteEntries(
 	const PALETTEENTRY* pPaletteEntries,
 	int paletteEntryCount,
@@ -196,7 +188,6 @@ BOOL MxDirectDraw::SetPaletteEntries(
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009d800
 void MxDirectDraw::Destroy() {
 	DestroyButNotDirectDraw();
 
@@ -212,7 +203,6 @@ void MxDirectDraw::Destroy() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009d860
 void MxDirectDraw::DestroyButNotDirectDraw() {
 	RestoreOriginalPaletteEntries();
 	if (m_bFullScreen) {
@@ -232,7 +222,6 @@ void MxDirectDraw::DestroyButNotDirectDraw() {
 	RELEASE(m_pFrontBuffer);
 }
 
-// FUNCTION: LEGO1 0x1009d920
 void MxDirectDraw::FUN_1009d920() {
 	RestoreOriginalPaletteEntries();
 	if (m_pDirectDraw != NULL) {
@@ -243,7 +232,6 @@ void MxDirectDraw::FUN_1009d920() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009d960
 BOOL MxDirectDraw::DDInit(BOOL fullscreen) {
 	HRESULT result;
 
@@ -268,7 +256,6 @@ BOOL MxDirectDraw::DDInit(BOOL fullscreen) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009d9d0
 BOOL MxDirectDraw::IsSupportedMode(int width, int height, int bpp) {
 	DeviceModesInfo::Mode mode = {width, height, bpp};
 
@@ -281,7 +268,6 @@ BOOL MxDirectDraw::IsSupportedMode(int width, int height, int bpp) {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x1009da20
 void EnableResizing(HWND p_hwnd, BOOL p_flag) {
 	static DWORD g_dwStyle;
 
@@ -299,7 +285,6 @@ void EnableResizing(HWND p_hwnd, BOOL p_flag) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009da80
 BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 	HRESULT result;
 
@@ -407,7 +392,7 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 
 	if (m_bPrimaryPalettized) {
 		result = m_pDirectDraw->CreatePalette(
-			DDPCAPS_8BIT | DDPCAPS_ALLOW256 | DDPCAPS_INITIALIZE, // 0x4c
+			DDPCAPS_8BIT | DDPCAPS_ALLOW256 | DDPCAPS_INITIALIZE,
 			m_paletteEntries,
 			&m_pPalette,
 			NULL
@@ -429,7 +414,6 @@ BOOL MxDirectDraw::DDSetMode(int width, int height, int bpp) {
 	return m_bFullScreen || CreateTextSurfaces();
 }
 
-// FUNCTION: LEGO1 0x1009dd80
 HRESULT MxDirectDraw::CreateDDSurface(
 	LPDDSURFACEDESC p_lpDDSurfDesc,
 	LPDIRECTDRAWSURFACE FAR* p_lpDDSurface,
@@ -439,7 +423,6 @@ HRESULT MxDirectDraw::CreateDDSurface(
 		->CreateSurface(p_lpDDSurfDesc, p_lpDDSurface, p_pUnkOuter);
 }
 
-// FUNCTION: LEGO1 0x1009dda0
 BOOL MxDirectDraw::GetDDSurfaceDesc(
 	LPDDSURFACEDESC lpDDSurfDesc,
 	LPDIRECTDRAWSURFACE lpDDSurf
@@ -456,7 +439,6 @@ BOOL MxDirectDraw::GetDDSurfaceDesc(
 	return (result == DD_OK);
 }
 
-// FUNCTION: LEGO1 0x1009ddf0
 BOOL MxDirectDraw::DDCreateSurfaces() {
 	HRESULT result;
 	DDSURFACEDESC ddsd;
@@ -539,7 +521,6 @@ BOOL MxDirectDraw::DDCreateSurfaces() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009e020
 void MxDirectDraw::FUN_1009e020() {
 	HRESULT result;
 	byte* line;
@@ -577,7 +558,6 @@ void MxDirectDraw::FUN_1009e020() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009e110
 BOOL MxDirectDraw::TextToTextSurface(
 	const char* text,
 	IDirectDrawSurface* pSurface,
@@ -612,17 +592,14 @@ BOOL MxDirectDraw::TextToTextSurface(
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009e210
 BOOL MxDirectDraw::TextToTextSurface1(const char* text) {
 	return TextToTextSurface(text, m_pText1Surface, m_text1SizeOnSurface);
 }
 
-// FUNCTION: LEGO1 0x1009e230
 BOOL MxDirectDraw::TextToTextSurface2(const char* text) {
 	return TextToTextSurface(text, m_pText2Surface, m_text2SizeOnSurface);
 }
 
-// FUNCTION: LEGO1 0x1009e250
 BOOL MxDirectDraw::CreateTextSurfaces() {
 	HRESULT result;
 	DDCOLORKEY ddck;
@@ -705,7 +682,6 @@ BOOL MxDirectDraw::CreateTextSurfaces() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009e4d0
 BOOL MxDirectDraw::RestoreSurfaces() {
 	HRESULT result;
 
@@ -762,7 +738,6 @@ BOOL MxDirectDraw::RestoreSurfaces() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009e5e0
 BOOL MxDirectDraw::CreateZBuffer(DWORD memorytype, DWORD depth) {
 	HRESULT result;                // eax
 	LPDIRECTDRAWSURFACE lpZBuffer; // [esp+8h] [ebp-70h] BYREF
@@ -792,7 +767,6 @@ BOOL MxDirectDraw::CreateZBuffer(DWORD memorytype, DWORD depth) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009e6a0
 int MxDirectDraw::Pause(BOOL p_pause) {
 	if (p_pause) {
 		++m_pauseCount;
@@ -832,7 +806,6 @@ int MxDirectDraw::Pause(BOOL p_pause) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009e750
 BOOL MxDirectDraw::RestorePaletteEntries() {
 
 	if (m_bFullScreen && m_bPrimaryPalettized) {
@@ -855,7 +828,6 @@ BOOL MxDirectDraw::RestorePaletteEntries() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009e7a0
 BOOL MxDirectDraw::RestoreOriginalPaletteEntries() {
 	if (m_bPrimaryPalettized) {
 		if (m_pPalette) {
@@ -878,7 +850,6 @@ BOOL MxDirectDraw::RestoreOriginalPaletteEntries() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009e7f0
 int MxDirectDraw::FlipToGDISurface() {
 
 	if (m_pDirectDraw) {
@@ -894,7 +865,6 @@ int MxDirectDraw::FlipToGDISurface() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x1009e830
 void MxDirectDraw::Error(const char* p_message, int p_error) {
 	// at LEGO1 0x10100c70, needs no annotation
 	static BOOL g_isInsideError = FALSE;
@@ -909,7 +879,6 @@ void MxDirectDraw::Error(const char* p_message, int p_error) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009e880
 const char* MxDirectDraw::ErrorToString(HRESULT p_error) {
 	switch (p_error) {
 	case DD_OK:

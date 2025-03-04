@@ -15,12 +15,10 @@ struct LegoContainerInfoComparator {
 	}
 };
 
-// SIZE 0x10
 template <class T>
 class LegoContainerInfo
 	: public map<const char*, T*, LegoContainerInfoComparator> {};
 
-// SIZE 0x18
 template <class T>
 class LegoContainer {
 public:
@@ -81,18 +79,15 @@ public:
 	void SetOwnership(LegoBool p_ownership) { m_ownership = p_ownership; }
 
 protected:
-	LegoBool m_ownership;       // 0x04
-	LegoContainerInfo<T> m_map; // 0x08
+	LegoBool m_ownership;
+	LegoContainerInfo<T> m_map;
 };
 
-// VTABLE: LEGO1 0x100d86d4
 // class LegoContainer<LegoTextureInfo>
 
 typedef pair<LegoTextureInfo*, BOOL> LegoCachedTexture;
 typedef list<LegoCachedTexture> LegoCachedTextureList;
 
-// VTABLE: LEGO1 0x100d86fc
-// SIZE 0x24
 class LegoTextureContainer : public LegoContainer<LegoTextureInfo> {
 public:
 	~LegoTextureContainer() override;
@@ -101,81 +96,79 @@ public:
 	void EraseCached(LegoTextureInfo* p_textureInfo);
 
 protected:
-	LegoCachedTextureList m_cached; // 0x18
+	LegoCachedTextureList m_cached;
 };
 
-// TEMPLATE: LEGO1 0x10059c50
 // allocator<LegoTextureInfo *>::_Charalloc
 
 // clang-format off
-// TEMPLATE: LEGO1 0x10001cc0
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Lbound
 
-// TEMPLATE: LEGO1 0x1004f740
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::find
 
-// TEMPLATE: LEGO1 0x1004f800
+
 // map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::insert
 
-// TEMPLATE: LEGO1 0x1004f960
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::iterator::_Dec
 
-// TEMPLATE: LEGO1 0x1004f9b0
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Insert
 
-// TEMPLATE: LEGO1 0x10059c70
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Color
 
-// TEMPLATE: LEGO1 0x10059c80
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Left
 
-// TEMPLATE: LEGO1 0x10059c90
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Parent
 
-// TEMPLATE: LEGO1 0x10059ca0
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Right
 
-// TEMPLATE: LEGO1 0x10059cb0
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::~_Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >
 
-// TEMPLATE: LEGO1 0x10059d80
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::iterator::_Inc
 
-// TEMPLATE: LEGO1 0x10059dc0
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::erase
 
-// TEMPLATE: LEGO1 0x1005a210
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Erase
 
-// TEMPLATE: LEGO1 0x1005a250
+
 // list<pair<LegoTextureInfo *,int>,allocator<pair<LegoTextureInfo *,int> > >::~list<pair<LegoTextureInfo *,int>,allocator<pair<LegoTextureInfo *,int> > >
 
-// TEMPLATE: LEGO1 0x1005a2c0
+
 // map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::~map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >
 
-// TEMPLATE: LEGO1 0x1005a310
+
 // LegoContainer<LegoTextureInfo>::`scalar deleting destructor'
 
-// TEMPLATE: LEGO1 0x1005a400
+
 // LegoContainerInfo<LegoTextureInfo>::~LegoContainerInfo<LegoTextureInfo>
 
-// TEMPLATE: LEGO1 0x1005a450
+
 // Map<char const *,LegoTextureInfo *,LegoContainerInfoComparator>::~Map<char const *,LegoTextureInfo *,LegoContainerInfoComparator>
 
-// SYNTHETIC: LEGO1 0x1005a580
+
 // LegoTextureContainer::`scalar deleting destructor'
 
-// TEMPLATE: LEGO1 0x1005a5a0
+
 // List<pair<LegoTextureInfo *,int> >::~List<pair<LegoTextureInfo *,int> >
 
-// TEMPLATE: LEGO1 0x1005b660
+
 // LegoContainer<LegoTextureInfo>::~LegoContainer<LegoTextureInfo>
 
-// GLOBAL: LEGO1 0x100f0100
+
 // _Tree<char const *,pair<char const * const,LegoTextureInfo *>,map<char const *,LegoTextureInfo *,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Kfn,LegoContainerInfoComparator,allocator<LegoTextureInfo *> >::_Nil
 // clang-format on
 
-// TEMPLATE: BETA10 0x1007bc00
 // LegoContainer<LegoTextureInfo>::Get
 
 #endif // LEGOCONTAINER_H

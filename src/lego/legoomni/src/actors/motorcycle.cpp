@@ -16,7 +16,6 @@
 #include "mxtransitionmanager.h"
 #include "mxvariabletable.h"
 
-// FUNCTION: LEGO1 0x100357b0
 Motocycle::Motocycle() {
 	m_maxLinearVel = 40.0;
 	m_unk0x150 = 1.75;
@@ -24,7 +23,6 @@ Motocycle::Motocycle() {
 	m_fuel = 1.0;
 }
 
-// FUNCTION: LEGO1 0x10035a40
 MxResult Motocycle::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 	m_world = CurrentWorld();
@@ -39,7 +37,6 @@ MxResult Motocycle::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10035ad0
 void Motocycle::Animate(float p_time) {
 	IslePathActor::Animate(p_time);
 
@@ -63,7 +60,6 @@ void Motocycle::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10035bc0
 void Motocycle::Exit() {
 	IslePathActor::Exit();
 	GameState()->m_currentArea = LegoGameState::e_motocycle;
@@ -78,7 +74,6 @@ void Motocycle::Exit() {
 	ControlManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x10035c50
 MxLong Motocycle::HandleClick() {
 	if (!FUN_1003ef60()) {
 		return 1;
@@ -112,7 +107,6 @@ MxLong Motocycle::HandleClick() {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10035d70
 MxLong Motocycle::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxLong result = 0;
 
@@ -141,9 +135,7 @@ MxLong Motocycle::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10035df0
 MxLong Motocycle::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
-	// 0x168 corresponds to the path at the gas station
 	if (p_param.GetData() == 0x168) {
 		m_fuel = 1.0f;
 	}
@@ -151,7 +143,6 @@ MxLong Motocycle::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x10035e10
 void Motocycle::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_PoliceStation_Music);
 

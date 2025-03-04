@@ -25,7 +25,6 @@
 
 #include <vec.h>
 
-// GLOBAL: LEGO1 0x100d94f8
 Act3Script::Script g_unk0x100d94f8[] = {
 	Act3Script::c_sns02xni_PlayWav,
 	Act3Script::c_sns03xni_PlayWav,
@@ -44,7 +43,6 @@ Act3Script::Script g_unk0x100d94f8[] = {
 	Act3Script::c_sns16xla_PlayWav,
 	Act3Script::c_sns17xla_PlayWav};
 
-// GLOBAL: LEGO1 0x100d9538
 Act3Script::Script g_unk0x100d9538[] = {
 	Act3Script::c_sns19xni_PlayWav,
 	Act3Script::c_sns20xni_PlayWav,
@@ -53,7 +51,6 @@ Act3Script::Script g_unk0x100d9538[] = {
 	Act3Script::c_sns35xla_PlayWav,
 	(Act3Script::Script) 0};
 
-// GLOBAL: LEGO1 0x100d9550
 Act3Script::Script g_unk0x100d9550[] = {
 	Act3Script::c_sns25xni_PlayWav,
 	Act3Script::c_sns26xni_PlayWav,
@@ -64,7 +61,6 @@ Act3Script::Script g_unk0x100d9550[] = {
 	Act3Script::c_sns38xla_PlayWav,
 	Act3Script::c_sns39xla_PlayWav};
 
-// GLOBAL: LEGO1 0x100d9570
 Act3Script::Script g_unk0x100d9570[] = {
 	Act3Script::c_sns30xni_PlayWav,
 	Act3Script::c_sns31xni_PlayWav,
@@ -73,7 +69,6 @@ Act3Script::Script g_unk0x100d9570[] = {
 	Act3Script::c_sns41xla_PlayWav,
 	Act3Script::c_sns42xla_PlayWav};
 
-// GLOBAL: LEGO1 0x100d9588
 Act3Script::Script g_unk0x100d9588[] = {
 	Act3Script::c_sns43xma_PlayWav, Act3Script::c_sns46xin_PlayWav,
 	Act3Script::c_sns60xna_PlayWav, Act3Script::c_sns52xro_PlayWav,
@@ -86,23 +81,19 @@ Act3Script::Script g_unk0x100d9588[] = {
 	Act3Script::c_sns49xin_PlayWav, Act3Script::c_sns62xmg_PlayWav,
 	Act3Script::c_sns54xro_PlayWav, Act3Script::c_sns50xin_PlayWav};
 
-// GLOBAL: LEGO1 0x100d95d8
 Act3Script::Script g_unk0x100d95d8[] = {
 	Act3Script::c_tns080br_PlayWav,
 	Act3Script::c_tnsx07br_PlayWav,
 	Act3Script::c_snsxx2br_PlayWav,
 	Act3Script::c_snsy23br_PlayWav};
 
-// GLOBAL: LEGO1 0x100f7814
 MxU8 g_unk0x100f7814 = 0;
 
-// GLOBAL: LEGO1 0x100d95e8
 Act3Script::Script g_unk0x100d95e8[] = {
 	Act3Script::c_tlp053in_RunAnim,
 	Act3Script::c_tlp064la_RunAnim,
 	Act3Script::c_tlp068in_RunAnim};
 
-// FUNCTION: LEGO1 0x10071d40
 void Act3List::Insert(MxS32 p_objectId, MxS32 p_option) {
 	if (m_unk0x0c) {
 		return;
@@ -135,12 +126,10 @@ void Act3List::Insert(MxS32 p_objectId, MxS32 p_option) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10071fa0
 void Act3List::FUN_10071fa0() {
 	DeleteAction();
 }
 
-// FUNCTION: LEGO1 0x10071fb0
 void Act3List::Clear() {
 	m_unk0x0c = 1;
 	BackgroundAudioManager()->Stop();
@@ -161,7 +150,6 @@ void Act3List::Clear() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100720d0
 void Act3List::FUN_100720d0(MxU32 p_objectId) {
 	if (m_unk0x0c == 0) {
 		MxU32 removed = FALSE;
@@ -212,8 +200,6 @@ void Act3List::FUN_100720d0(MxU32 p_objectId) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10072270
-// FUNCTION: BETA10 0x10015470
 Act3::Act3() {
 	m_state = NULL;
 	m_unk0x41fc = 0;
@@ -236,44 +222,32 @@ Act3::Act3() {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x100726a0
-// FUNCTION: BETA10 0x100155da
 Act3::~Act3() {
 	Destroy(TRUE);
 	NotificationManager()->Unregister(this);
 	TickleManager()->UnregisterClient(this);
 }
 
-// FUNCTION: LEGO1 0x10072780
-// FUNCTION: BETA10 0x100156ac
 void Act3::EatPizza(MxS32 p_index) {
 	assert(p_index < MAX_PIZZAS);
 	RemovePizza(m_pizzas[p_index]);
 }
 
-// FUNCTION: LEGO1 0x100727a0
-// FUNCTION: BETA10 0x1001570d
 void Act3::EatDonut(MxS32 p_index) {
 	assert(p_index < MAX_DONUTS);
 	RemoveDonut(m_donuts[p_index]);
 }
 
-// FUNCTION: LEGO1 0x100727c0
-// FUNCTION: BETA10 0x1001576e
 void Act3::RemovePizza(Act3Ammo& p_p) {
 	assert(p_p.IsValid());
 	p_p.Remove();
 }
 
-// FUNCTION: LEGO1 0x100727d0
-// FUNCTION: BETA10 0x10015828
 void Act3::RemoveDonut(Act3Ammo& p_p) {
 	assert(p_p.IsValid());
 	p_p.Remove();
 }
 
-// FUNCTION: LEGO1 0x100727e0
-// FUNCTION: BETA10 0x100158e2
 MxResult Act3::ShootPizza(
 	LegoPathController* p_controller,
 	Vector3& p_location,
@@ -338,8 +312,6 @@ MxResult Act3::ShootPizza(
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x10072980
-// FUNCTION: BETA10 0x10015c69
 MxResult Act3::ShootDonut(
 	LegoPathController* p_controller,
 	Vector3& p_location,
@@ -386,8 +358,6 @@ MxResult Act3::ShootDonut(
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x10072ad0
-// FUNCTION: BETA10 0x10015eec
 void Act3::FUN_10072ad0(undefined4 p_param1) {
 	float time = Timer()->GetTime();
 	Act3Script::Script objectId;
@@ -448,8 +418,6 @@ void Act3::FUN_10072ad0(undefined4 p_param1) {
 	m_unk0x4220.Insert(objectId, 3);
 }
 
-// FUNCTION: LEGO1 0x10072c30
-// FUNCTION: BETA10 0x100160fb
 MxResult Act3::Create(MxDSAction& p_dsAction) {
 	GameState()->FindLoadedAct();
 
@@ -494,8 +462,6 @@ MxResult Act3::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10072d50
-// FUNCTION: BETA10 0x1001627f
 void Act3::Destroy(MxBool p_fromDestructor) {
 	NavController()->Reset();
 	ControlManager()->Unregister(this);
@@ -519,8 +485,6 @@ void Act3::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10072de0
-// FUNCTION: BETA10 0x10016322
 MxLong Act3::Notify(MxParam& p_param) {
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
 	LegoWorld::Notify(p_param);
@@ -649,7 +613,6 @@ MxLong Act3::Notify(MxParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x10073240
 MxLong Act3::HandleTransitionEnd() {
 	if (m_destLocation != LegoGameState::e_undefined) {
 		GameState()->SwitchArea(m_destLocation);
@@ -659,7 +622,6 @@ MxLong Act3::HandleTransitionEnd() {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10073270
 void Act3::ReadyWorld() {
 	PlantManager()->FUN_10027200();
 	BuildingManager()->FUN_10030800();
@@ -682,7 +644,6 @@ void Act3::ReadyWorld() {
 	m_state->m_unk0x08 = 1;
 }
 
-// FUNCTION: LEGO1 0x10073300
 MxResult Act3::Tickle() {
 	if (!m_worldStarted) {
 		LegoWorld::Tickle();
@@ -704,8 +665,6 @@ MxResult Act3::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10073360
-// FUNCTION: BETA10 0x100169d5
 MxResult Act3::FUN_10073360(Act3Ammo& p_ammo, const Vector3& p_param2) {
 	assert(m_brickster);
 	m_brickster->FUN_100417a0(p_ammo, p_param2);
@@ -713,8 +672,6 @@ MxResult Act3::FUN_10073360(Act3Ammo& p_ammo, const Vector3& p_param2) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10073390
-// FUNCTION: BETA10 0x10016a40
 MxResult Act3::FUN_10073390(Act3Ammo& p_ammo, const Vector3& p_param2) {
 	assert(m_cop1 && m_cop2);
 
@@ -729,8 +686,6 @@ MxResult Act3::FUN_10073390(Act3Ammo& p_ammo, const Vector3& p_param2) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100733d0
-// FUNCTION: BETA10 0x10016b5d
 void Act3::AddCop(Act3Cop* p_cop) {
 	if (m_cop1) {
 		m_cop2 = p_cop;
@@ -739,13 +694,10 @@ void Act3::AddCop(Act3Cop* p_cop) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100733f0
-// FUNCTION: BETA10 0x10016ba2
 void Act3::SetBrickster(Act3Brickster* p_brickster) {
 	m_brickster = p_brickster;
 }
 
-// FUNCTION: LEGO1 0x10073400
 void Act3::FUN_10073400() {
 	m_state->m_unk0x08 = 2;
 	m_destLocation = LegoGameState::e_infomain;
@@ -753,7 +705,6 @@ void Act3::FUN_10073400() {
 		->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
 }
 
-// FUNCTION: LEGO1 0x10073430
 void Act3::FUN_10073430() {
 	m_state->m_unk0x08 = 3;
 	m_destLocation = LegoGameState::e_infomain;
@@ -761,8 +712,6 @@ void Act3::FUN_10073430() {
 		->StartTransition(MxTransitionManager::e_mosaic, 50, FALSE, FALSE);
 }
 
-// FUNCTION: LEGO1 0x10073460
-// FUNCTION: BETA10 0x10016bc6
 void Act3::GoodEnding(const Matrix4& p_destination) {
 	assert(m_cop1 && m_cop2 && m_brickster && m_state);
 
@@ -783,12 +732,10 @@ void Act3::GoodEnding(const Matrix4& p_destination) {
 	);
 }
 
-// FUNCTION: LEGO1 0x10073500
 void Act3::DebugPrintf(const char* p_format, ...) {
 	// empty
 }
 
-// FUNCTION: LEGO1 0x10073510
 void Act3::DebugCopter(
 	const Matrix4& p_copter,
 	const Matrix4& p_destination,
@@ -798,11 +745,10 @@ void Act3::DebugCopter(
 ) {
 	DebugPrintf("Copter matrix...\n\n");
 
-	// STRING: LEGO1 0x100f78e0
 	DebugPrintf("\t%g, %g, %g, %g", EXPAND4(p_copter[0]));
 	DebugPrintf("\t%g, %g, %g, %g", EXPAND4(p_copter[1]));
 	DebugPrintf("\t%g, %g, %g, %g", EXPAND4(p_copter[2]));
-	// STRING: LEGO1 0x100f78cc
+
 	DebugPrintf("\t%g, %g, %g, %g\n\n", EXPAND4(p_copter[3]));
 
 	DebugPrintf("Destination matrix...");
@@ -831,7 +777,7 @@ void Act3::DebugCopter(
 		unk0x18 = p_unk0x1f4.GetEndQuat();
 
 		DebugPrintf("Source quaternion...");
-		// STRING: LEGO1 0x100f7864
+
 		DebugPrintf("\t%g, %g, %g, %g\n", EXPAND4(unk0x00));
 
 		DebugPrintf("Destination quaternion...");
@@ -839,8 +785,6 @@ void Act3::DebugCopter(
 	}
 }
 
-// FUNCTION: LEGO1 0x100739c0
-// FUNCTION: BETA10 0x10016cc4
 void Act3::BadEnding(const Matrix4& p_destination) {
 	assert(m_cop1 && m_cop2 && m_brickster && m_state);
 
@@ -861,13 +805,11 @@ void Act3::BadEnding(const Matrix4& p_destination) {
 	);
 }
 
-// FUNCTION: LEGO1 0x10073a60
 void Act3::FUN_10073a60() {
 	m_unk0x421e--;
 	m_helicopterDots[m_unk0x421e]->Enable(FALSE);
 }
 
-// FUNCTION: LEGO1 0x10073a90
 void Act3::Enable(MxBool p_enable) {
 	if ((MxBool) m_set0xd0.empty() == p_enable) {
 		return;
@@ -958,12 +900,10 @@ void Act3::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10073e40
 void Act3::VTable0x60() {
 	// empty
 }
 
-// FUNCTION: LEGO1 0x10073e50
 MxBool Act3::Escape() {
 	BackgroundAudioManager()->Stop();
 	AnimationManager()->FUN_10061010(FALSE);

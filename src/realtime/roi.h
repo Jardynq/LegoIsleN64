@@ -9,7 +9,7 @@
 /*
  * A simple bounding box object with Min and Max accessor methods.
  */
-// SIZE 0x28
+
 class BoundingBox {
 public:
 	const Vector3& Min() const { return min; }
@@ -18,14 +18,14 @@ public:
 	Vector3& Max() { return max; }
 
 private:
-	Mx3DPointFloat min; // 0x00
-	Mx3DPointFloat max; // 0x14
+	Mx3DPointFloat min;
+	Mx3DPointFloat max;
 };
 
 /*
  * A simple bounding sphere object with center and radius accessor methods.
  */
-// SIZE 0x18
+
 class BoundingSphere {
 public:
 	const Vector3& Center() const { return center; }
@@ -33,33 +33,29 @@ public:
 	const float& Radius() const { return radius; }
 	float& Radius() { return radius; }
 
-	// SYNTHETIC: BETA10 0x1001fb90
 	// BoundingSphere::operator=
 
 private:
-	Mx3DPointFloat center; // 0x00
-	float radius;          // 0x14
+	Mx3DPointFloat center;
+	float radius;
 };
 
 /*
  * Abstract base class representing a single LOD version of
  * a geometric object.
  */
-// VTABLE: LEGO1 0x100dbd90
-// SIZE 0x04
+
 class LODObject {
 public:
 	// LODObject();
 
-	// FUNCTION: LEGO1 0x100a6f00
 	virtual ~LODObject() {}
 
-	virtual double AveragePolyArea() const = 0; // vtable+0x04
-	virtual int NVerts() const = 0;             // vtable+0x08
-	virtual int NumPolys() const = 0;           // vtable+0x0c
-	virtual float VTable0x10() = 0;             // vtable+0x10
+	virtual double AveragePolyArea() const = 0;
+	virtual int NVerts() const = 0;
+	virtual int NumPolys() const = 0;
+	virtual float VTable0x10() = 0;
 
-	// SYNTHETIC: LEGO1 0x100a6f10
 	// LODObject::`scalar deleting destructor'
 };
 
@@ -82,8 +78,6 @@ typedef vector<const ROI*> ROIList;
  */
 typedef vector<int> IntList;
 
-// VTABLE: LEGO1 0x100dbc38
-// SIZE 0x10
 class ROI {
 public:
 	ROI() : comp(0), lods(0), m_visible(true) {}
@@ -92,11 +86,10 @@ public:
 		assert(!comp);
 		assert(!lods);
 	}
-	virtual float IntrinsicImportance() const = 0;              // vtable+0x04
-	virtual const float* GetWorldVelocity() const = 0;          // vtable+0x08
-	virtual const BoundingBox& GetWorldBoundingBox() const = 0; // vtable+0x0c
-	virtual const BoundingSphere&
-	GetWorldBoundingSphere() const = 0; // vtable+0x10
+	virtual float IntrinsicImportance() const = 0;
+	virtual const float* GetWorldVelocity() const = 0;
+	virtual const BoundingBox& GetWorldBoundingBox() const = 0;
+	virtual const BoundingSphere& GetWorldBoundingSphere() const = 0;
 
 	const LODListBase* GetLODs() const { return lods; }
 	const LODObject* GetLOD(int i) const {
@@ -105,28 +98,22 @@ public:
 	}
 	int GetLODCount() const { return lods ? lods->Size() : 0; }
 
-	// FUNCTION: BETA10 0x10027110
 	const CompoundObject* GetComp() const { return comp; }
 
-	// FUNCTION: BETA10 0x10049e10
 	unsigned char GetVisibility() { return m_visible; }
 
-	// FUNCTION: BETA10 0x10011720
 	void SetVisibility(unsigned char p_visible) { m_visible = p_visible; }
 
-	// SYNTHETIC: LEGO1 0x100a5d60
 	// ROI::`scalar deleting destructor'
 
 protected:
-	CompoundObject* comp;    // 0x04
-	LODListBase* lods;       // 0x08
-	unsigned char m_visible; // 0x0c
+	CompoundObject* comp;
+	LODListBase* lods;
+	unsigned char m_visible;
 };
 
-// TEMPLATE: LEGO1 0x10084930
 // list<ROI *,allocator<ROI *> >::~list<ROI *,allocator<ROI *> >
 
-// SYNTHETIC: LEGO1 0x100a5d50
 // ROI::~ROI
 
 #endif // ROI_H

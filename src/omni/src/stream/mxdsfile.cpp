@@ -7,15 +7,11 @@
 #define SI_MAJOR_VERSION 2
 #define SI_MINOR_VERSION 2
 
-// FUNCTION: LEGO1 0x100cc4b0
-// FUNCTION: BETA10 0x1015db90
 MxDSFile::MxDSFile(const char* p_filename, MxULong p_skipReadingChunks) {
 	SetFileName(p_filename);
 	m_skipReadingChunks = p_skipReadingChunks;
 }
 
-// FUNCTION: LEGO1 0x100cc590
-// FUNCTION: BETA10 0x1015dc57
 MxResult MxDSFile::Open(MxULong p_uStyle) {
 	MxResult result = -FAILURE; // Non-standard value of 1 here
 	memset(&m_io, 0, sizeof(MXIOINFO));
@@ -40,8 +36,6 @@ MxResult MxDSFile::Open(MxULong p_uStyle) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100cc620
-// FUNCTION: BETA10 0x1015dd18
 MxResult MxDSFile::ReadChunks() {
 	_MMCKINFO topChunk;
 	_MMCKINFO childChunk;
@@ -84,8 +78,6 @@ MxResult MxDSFile::ReadChunks() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100cc740
-// FUNCTION: BETA10 0x1015ded2
 MxLong MxDSFile::Close() {
 	m_io.Close(0);
 	m_position = -1;
@@ -99,8 +91,6 @@ MxLong MxDSFile::Close() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100cc780
-// FUNCTION: BETA10 0x1015df50
 MxResult MxDSFile::Read(unsigned char* p_buf, MxULong p_nbytes) {
 	if (m_io.Read(p_buf, p_nbytes) != p_nbytes) {
 		return FAILURE;
@@ -110,8 +100,6 @@ MxResult MxDSFile::Read(unsigned char* p_buf, MxULong p_nbytes) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100cc7b0
-// FUNCTION: BETA10 0x1015dfee
 MxResult MxDSFile::Seek(MxLong p_lOffset, MxS32 p_iOrigin) {
 	m_position = m_io.Seek(p_lOffset, p_iOrigin);
 	if (m_position == -1) {
@@ -121,14 +109,10 @@ MxResult MxDSFile::Seek(MxLong p_lOffset, MxS32 p_iOrigin) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100cc7e0
-// FUNCTION: BETA10 0x10148d80
 MxULong MxDSFile::GetBufferSize() {
 	return m_header.m_bufferSize;
 }
 
-// FUNCTION: LEGO1 0x100cc7f0
-// FUNCTION: BETA10 0x10148da0
 MxULong MxDSFile::GetStreamBuffersNum() {
 	return m_header.m_streamBuffersNum;
 }

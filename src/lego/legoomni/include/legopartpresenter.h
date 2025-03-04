@@ -4,44 +4,28 @@
 #include "legonamedpartlist.h"
 #include "mxmediapresenter.h"
 
-// VTABLE: LEGO1 0x100d4df0
-// SIZE 0x54
 class LegoPartPresenter : public MxMediaPresenter {
 public:
 	LegoPartPresenter() { Reset(); }
 
-	// FUNCTION: LEGO1 0x10067300
 	~LegoPartPresenter() override { Destroy(TRUE); }
 
-	// FUNCTION: LEGO1 0x1000cf60
-	void Destroy() override { Destroy(FALSE); } // vtable+0x38
+	void Destroy() override { Destroy(FALSE); }
 
-	// FUNCTION: BETA10 0x100a75d0
-	static const char* HandlerClassName() {
-		// STRING: LEGO1 0x100f05d8
-		return "LegoPartPresenter";
-	}
+	static const char* HandlerClassName() { return "LegoPartPresenter"; }
 
-	// FUNCTION: LEGO1 0x1000cf70
-	// FUNCTION: BETA10 0x100a75a0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		return HandlerClassName();
-	}
+	const char* ClassName() const override { return HandlerClassName(); }
 
-	// FUNCTION: LEGO1 0x1000cf80
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, LegoPartPresenter::ClassName()) ||
 			   MxMediaPresenter::IsA(p_name);
 	}
 
-	void ReadyTickle() override;      // vtable+0x18
-	MxResult AddToManager() override; // vtable+0x34
+	void ReadyTickle() override;
+	MxResult AddToManager() override;
 
 	static void configureLegoPartPresenter(MxS32, MxS32);
 
-	// SYNTHETIC: LEGO1 0x1000d060
 	// LegoPartPresenter::`scalar deleting destructor'
 
 	void Reset() { m_parts = NULL; }
@@ -52,7 +36,7 @@ public:
 private:
 	void Destroy(MxBool p_fromDestructor);
 
-	LegoNamedPartList* m_parts; // 0x50
+	LegoNamedPartList* m_parts;
 };
 
 #endif // LEGOPARTPRESENTER_H

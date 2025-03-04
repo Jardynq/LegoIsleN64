@@ -10,27 +10,16 @@ class Vector3;
 //
 // LegoMouseController
 
-// VTABLE: LEGO1 0x100d85b8
-// VTABLE: BETA10 0x101bcc80
-// SIZE 0x70
 class LegoNavController : public MxCore {
 public:
 	LegoNavController();
 	~LegoNavController() override;
 
-	MxLong Notify(MxParam& p_param) override; // vtable+0x04
+	MxLong Notify(MxParam& p_param) override;
 
-	// FUNCTION: LEGO1 0x10054b80
-	// FUNCTION: BETA10 0x1009e5f0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f66d8
-		return "LegoNavController";
-	}
+	const char* ClassName() const override { return "LegoNavController"; }
 
-	// FUNCTION: LEGO1 0x10054b90
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, ClassName()) || MxCore::IsA(p_name);
 	}
 
@@ -76,18 +65,14 @@ public:
 	static MxS32 GetNumLocations();
 	static LegoLocation* GetLocation(MxU32 p_location);
 
-	// FUNCTION: BETA10 0x100b0f40
 	void SetLinearVel(MxFloat p_linearVel) { m_linearVel = p_linearVel; }
 
-	// FUNCTION: BETA10 0x100c99e0
 	void SetDeadZone(MxS32 p_deadZone) { m_deadZone = p_deadZone; }
 
-	// FUNCTION: BETA10 0x100c7880
 	void SetTrackDefault(MxS32 p_trackDefault) {
 		m_trackDefault = p_trackDefault;
 	}
 
-	// FUNCTION: BETA10 0x100178a0
 	void Reset() {
 		m_trackDefault = TRUE;
 		SetToDefaultParams();
@@ -111,10 +96,8 @@ public:
 		m_trackDefault = FALSE;
 	}
 
-	// FUNCTION: BETA10 0x100c9a10
 	int GetDefaultDeadZone() { return g_defdeadZone; }
 
-	// SYNTHETIC: LEGO1 0x10054c10
 	// LegoNavController::`scalar deleting destructor'
 
 protected:
@@ -130,34 +113,33 @@ protected:
 	MxResult ProcessJoystickInput(MxBool& p_und);
 	MxResult ProcessKeyboardInput();
 
-	int m_hMax;                  // 0x08
-	int m_vMax;                  // 0x0c
-	int m_deadZone;              // 0x10
-	float m_zeroThreshold;       // 0x14
-	float m_linearVel;           // 0x18
-	float m_rotationalVel;       // 0x1c
-	float m_targetLinearVel;     // 0x20
-	float m_targetRotationalVel; // 0x24
-	float m_maxLinearVel;        // 0x28
-	float m_maxRotationalVel;    // 0x2c
-	float m_linearAccel;         // 0x30
-	float m_rotationalAccel;     // 0x34
-	float m_maxLinearAccel;      // 0x38
-	float m_maxRotationalAccel;  // 0x3c
-	float m_minLinearAccel;      // 0x40
-	float m_minRotationalAccel;  // 0x44
-	float m_maxLinearDeccel;     // 0x48
-	float m_maxRotationalDeccel; // 0x4c
-	float m_rotSensitivity;      // 0x50
-	MxBool m_useRotationalVel;   // 0x54
-	MxTime m_lastTime;           // 0x58
-	MxBool m_trackDefault;       // 0x5c
-	MxBool m_unk0x5d;            // 0x5d
-	float m_unk0x60;             // 0x60
-	float m_unk0x64;             // 0x64
-	float m_unk0x68;             // 0x68
-	MxBool m_unk0x6c;            // 0x6c
-
+	int m_hMax;
+	int m_vMax;
+	int m_deadZone;
+	float m_zeroThreshold;
+	float m_linearVel;
+	float m_rotationalVel;
+	float m_targetLinearVel;
+	float m_targetRotationalVel;
+	float m_maxLinearVel;
+	float m_maxRotationalVel;
+	float m_linearAccel;
+	float m_rotationalAccel;
+	float m_maxLinearAccel;
+	float m_maxRotationalAccel;
+	float m_minLinearAccel;
+	float m_minRotationalAccel;
+	float m_maxLinearDeccel;
+	float m_maxRotationalDeccel;
+	float m_rotSensitivity;
+	MxBool m_useRotationalVel;
+	MxTime m_lastTime;
+	MxBool m_trackDefault;
+	MxBool m_unk0x5d;
+	float m_unk0x60;
+	float m_unk0x64;
+	float m_unk0x68;
+	MxBool m_unk0x6c;
 	// one copy of defaults (these can be set by App.)
 	static int g_defdeadZone;
 	static float g_defzeroThreshold;

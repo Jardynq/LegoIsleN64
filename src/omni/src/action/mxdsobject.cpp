@@ -17,8 +17,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// FUNCTION: LEGO1 0x100bf6a0
-// FUNCTION: BETA10 0x101478c0
 MxDSObject::MxDSObject() {
 	m_type = e_object;
 	m_sourceName = NULL;
@@ -29,15 +27,11 @@ MxDSObject::MxDSObject() {
 	m_unk0x28 = NULL;
 }
 
-// FUNCTION: LEGO1 0x100bf7e0
-// FUNCTION: BETA10 0x1014798e
 MxDSObject::~MxDSObject() {
 	delete[] m_objectName;
 	delete[] m_sourceName;
 }
 
-// FUNCTION: LEGO1 0x100bf870
-// FUNCTION: BETA10 0x10147a45
 void MxDSObject::CopyFrom(MxDSObject& p_dsObject) {
 	SetSourceName(p_dsObject.m_sourceName);
 	m_unk0x14 = p_dsObject.m_unk0x14;
@@ -48,13 +42,10 @@ void MxDSObject::CopyFrom(MxDSObject& p_dsObject) {
 	m_unk0x28 = p_dsObject.m_unk0x28;
 }
 
-// FUNCTION: BETA10 0x10147abf
 MxDSObject::MxDSObject(MxDSObject& p_dsObject) {
 	CopyFrom(p_dsObject);
 }
 
-// FUNCTION: LEGO1 0x100bf8c0
-// FUNCTION: BETA10 0x10147b57
 MxDSObject& MxDSObject::operator=(MxDSObject& p_dsObject) {
 	if (this == &p_dsObject) {
 		return *this;
@@ -64,8 +55,6 @@ MxDSObject& MxDSObject::operator=(MxDSObject& p_dsObject) {
 	return *this;
 }
 
-// FUNCTION: LEGO1 0x100bf8e0
-// FUNCTION: BETA10 0x10147b92
 void MxDSObject::SetObjectName(const char* p_objectName) {
 	if (p_objectName == m_objectName) {
 		return;
@@ -84,8 +73,6 @@ void MxDSObject::SetObjectName(const char* p_objectName) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100bf950
-// FUNCTION: BETA10 0x10147c2e
 void MxDSObject::SetSourceName(const char* p_sourceName) {
 	if (p_sourceName == m_sourceName) {
 		return;
@@ -104,15 +91,11 @@ void MxDSObject::SetSourceName(const char* p_sourceName) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100bf9c0
-// FUNCTION: BETA10 0x10147cca
 undefined4 MxDSObject::VTable0x14() {
 	// DECOMP: Rendered as 8 + 2 in beta. Maybe a sizeof() call?
 	return 10;
 }
 
-// FUNCTION: LEGO1 0x100bf9d0
-// FUNCTION: BETA10 0x10147cee
 MxU32 MxDSObject::GetSizeOnDisk() {
 	MxU32 sizeOnDisk = 0;
 
@@ -138,8 +121,6 @@ MxU32 MxDSObject::GetSizeOnDisk() {
 	return sizeOnDisk;
 }
 
-// FUNCTION: LEGO1 0x100bfa20
-// FUNCTION: BETA10 0x10147d73
 void MxDSObject::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 	SetSourceName((char*) p_source);
 	p_source += strlen(m_sourceName) + 1;
@@ -156,8 +137,6 @@ void MxDSObject::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 	m_unk0x24 = p_unk0x24;
 }
 
-// FUNCTION: LEGO1 0x100bfa80
-// FUNCTION: BETA10 0x10147e02
 MxDSObject*
 MxDSObjectList::FindInternal(MxDSObject* p_action, MxBool p_delete) {
 	// DECOMP ALPHA 0x1008b99d ?
@@ -186,8 +165,6 @@ MxDSObjectList::FindInternal(MxDSObject* p_action, MxBool p_delete) {
 	return found;
 }
 
-// FUNCTION: LEGO1 0x100bfb30
-// FUNCTION: BETA10 0x10147f35
 MxDSObject* DeserializeDSObjectDispatch(MxU8*& p_source, MxS16 p_flags) {
 	MxDSObject* obj = NULL;
 
@@ -242,7 +219,6 @@ MxDSObject* DeserializeDSObjectDispatch(MxU8*& p_source, MxS16 p_flags) {
 	return obj;
 }
 
-// FUNCTION: LEGO1 0x100c0280
 MxDSObject* CreateStreamObject(MxDSFile* p_file, MxS16 p_ofs) {
 	MxU8* buf;
 	_MMCKINFO tmpChunk;

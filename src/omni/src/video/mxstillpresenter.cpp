@@ -11,7 +11,6 @@
 #include "mxutilities.h"
 #include "mxvideomanager.h"
 
-// FUNCTION: LEGO1 0x100b9c70
 void MxStillPresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 
@@ -27,7 +26,6 @@ void MxStillPresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b9cc0
 void MxStillPresenter::LoadHeader(MxStreamChunk* p_chunk) {
 	if (m_bitmapInfo) {
 		delete m_bitmapInfo;
@@ -38,7 +36,6 @@ void MxStillPresenter::LoadHeader(MxStreamChunk* p_chunk) {
 	memcpy(m_bitmapInfo, p_chunk->GetData(), p_chunk->GetLength());
 }
 
-// FUNCTION: LEGO1 0x100b9d10
 void MxStillPresenter::CreateBitmap() {
 	if (m_frameBitmap) {
 		delete m_frameBitmap;
@@ -51,14 +48,12 @@ void MxStillPresenter::CreateBitmap() {
 	m_bitmapInfo = NULL;
 }
 
-// FUNCTION: LEGO1 0x100b9db0
 void MxStillPresenter::NextFrame() {
 	MxStreamChunk* chunk = NextChunk();
 	LoadFrame(chunk);
 	m_subscriber->FreeDataChunk(chunk);
 }
 
-// FUNCTION: LEGO1 0x100b9dd0
 void MxStillPresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	memcpy(m_frameBitmap->GetImage(), p_chunk->GetData(), p_chunk->GetLength());
 
@@ -97,14 +92,12 @@ void MxStillPresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b9f30
 void MxStillPresenter::RealizePalette() {
 	MxPalette* palette = m_frameBitmap->CreatePalette();
 	MVideoManager()->RealizePalette(palette);
 	delete palette;
 }
 
-// FUNCTION: LEGO1 0x100b9f60
 void MxStillPresenter::StartingTickle() {
 	MxVideoPresenter::StartingTickle();
 
@@ -114,7 +107,6 @@ void MxStillPresenter::StartingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b9f90
 void MxStillPresenter::StreamingTickle() {
 	MxStreamChunk* chunk = CurrentChunk();
 
@@ -129,7 +121,6 @@ void MxStillPresenter::StreamingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b9ff0
 void MxStillPresenter::RepeatingTickle() {
 	if (m_action->GetDuration() != -1) {
 		if (m_action->GetElapsedTime() >=
@@ -139,7 +130,6 @@ void MxStillPresenter::RepeatingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100ba040
 void MxStillPresenter::SetPosition(MxS32 p_x, MxS32 p_y) {
 	MxS32 x = m_location.GetX();
 	MxS32 y = m_location.GetY();
@@ -177,7 +167,6 @@ void MxStillPresenter::SetPosition(MxS32 p_x, MxS32 p_y) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100ba140
 void MxStillPresenter::Enable(MxBool p_enable) {
 	MxPresenter::Enable(p_enable);
 
@@ -199,7 +188,6 @@ void MxStillPresenter::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100ba1e0
 void MxStillPresenter::ParseExtra() {
 	MxPresenter::ParseExtra();
 
@@ -231,7 +219,6 @@ void MxStillPresenter::ParseExtra() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100ba2c0
 MxStillPresenter* MxStillPresenter::Clone() {
 	MxResult result = FAILURE;
 	MxStillPresenter* presenter = new MxStillPresenter;

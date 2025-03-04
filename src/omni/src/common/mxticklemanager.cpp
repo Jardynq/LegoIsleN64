@@ -5,7 +5,6 @@
 
 #define TICKLE_MANAGER_FLAG_DESTROY 0x01
 
-// FUNCTION: LEGO1 0x100bdd10
 MxTickleClient::MxTickleClient(MxCore* p_client, MxTime p_interval) {
 	m_flags = 0;
 	m_client = p_client;
@@ -13,7 +12,6 @@ MxTickleClient::MxTickleClient(MxCore* p_client, MxTime p_interval) {
 	m_lastUpdateTime = -m_interval;
 }
 
-// FUNCTION: LEGO1 0x100bdd30
 MxTickleManager::~MxTickleManager() {
 	while (m_clients.size() != 0) {
 		MxTickleClient* client = m_clients.front();
@@ -22,7 +20,6 @@ MxTickleManager::~MxTickleManager() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100bdde0
 MxResult MxTickleManager::Tickle() {
 	MxTime time = Timer()->GetTime();
 	MxTickleClientPtrList::iterator it;
@@ -51,7 +48,6 @@ MxResult MxTickleManager::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100bde80
 void MxTickleManager::RegisterClient(MxCore* p_client, MxTime p_interval) {
 	MxTime interval = GetClientTickleInterval(p_client);
 	if (interval == TICKLE_MANAGER_NOT_FOUND) {
@@ -62,7 +58,6 @@ void MxTickleManager::RegisterClient(MxCore* p_client, MxTime p_interval) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100bdf60
 void MxTickleManager::UnregisterClient(MxCore* p_client) {
 	MxTickleClientPtrList::iterator it = m_clients.begin();
 	while (it != m_clients.end()) {
@@ -76,7 +71,6 @@ void MxTickleManager::UnregisterClient(MxCore* p_client) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100bdfa0
 void MxTickleManager::SetClientTickleInterval(
 	MxCore* p_client,
 	MxTime p_interval
@@ -93,7 +87,6 @@ void MxTickleManager::SetClientTickleInterval(
 	}
 }
 
-// FUNCTION: LEGO1 0x100be000
 MxTime MxTickleManager::GetClientTickleInterval(MxCore* p_client) {
 	MxTickleClientPtrList::iterator it = m_clients.begin();
 	while (it != m_clients.end()) {

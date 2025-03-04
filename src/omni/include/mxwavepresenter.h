@@ -5,64 +5,46 @@
 
 #include <dsound.h>
 
-// VTABLE: LEGO1 0x100d49a8
-// SIZE 0x6c
 class MxWavePresenter : public MxSoundPresenter {
 public:
 	MxWavePresenter() { Init(); }
 
-	// FUNCTION: LEGO1 0x1000d640
-	~MxWavePresenter() override { Destroy(TRUE); } // vtable+0x00
+	~MxWavePresenter() override { Destroy(TRUE); }
 
-	// FUNCTION: LEGO1 0x1000d6a0
-	void Destroy() override { Destroy(FALSE); } // vtable+0x38
+	void Destroy() override { Destroy(FALSE); }
 
-	virtual void Pause();  // vtable+0x64
-	virtual void Resume(); // vtable+0x68
+	virtual void Pause();
+	virtual void Resume();
 
-	// FUNCTION: LEGO1 0x1000d6b0
-	virtual MxBool IsPaused() { return m_paused; } // vtable+0x6c
+	virtual MxBool IsPaused() { return m_paused; }
 
-	// FUNCTION: BETA10 0x1008cd00
-	static const char* HandlerClassName() {
-		// STRING: LEGO1 0x100f07b4
-		return "MxWavePresenter";
-	}
+	static const char* HandlerClassName() { return "MxWavePresenter"; }
 
-	// FUNCTION: LEGO1 0x1000d6c0
-	// FUNCTION: BETA10 0x1008ccd0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		return HandlerClassName();
-	}
+	const char* ClassName() const override { return HandlerClassName(); }
 
-	// FUNCTION: LEGO1 0x1000d6d0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, MxWavePresenter::ClassName()) ||
 			   MxSoundPresenter::IsA(p_name);
 	}
 
-	void ReadyTickle() override;                     // vtable+0x18
-	void StartingTickle() override;                  // vtable+0x1c
-	void StreamingTickle() override;                 // vtable+0x20
-	void DoneTickle() override;                      // vtable+0x2c
-	void ParseExtra() override;                      // vtable+0x30
-	MxResult AddToManager() override;                // vtable+0x34
-	void EndAction() override;                       // vtable+0x40
-	MxResult PutData() override;                     // vtable+0x4c
-	void Enable(MxBool p_enable) override;           // vtable+0x54
-	void LoopChunk(MxStreamChunk* p_chunk) override; // vtable+0x58
-	void SetVolume(MxS32 p_volume) override;         // vtable+0x60
+	void ReadyTickle() override;
+	void StartingTickle() override;
+	void StreamingTickle() override;
+	void DoneTickle() override;
+	void ParseExtra() override;
+	MxResult AddToManager() override;
+	void EndAction() override;
+	MxResult PutData() override;
+	void Enable(MxBool p_enable) override;
+	void LoopChunk(MxStreamChunk* p_chunk) override;
+	void SetVolume(MxS32 p_volume) override;
 
-	// SIZE 0x18
 	struct WaveFormat {
-		PCMWAVEFORMAT m_pcmWaveFormat; // 0x00
-		MxU32 m_dataSize;              // 0x10
-		MxU32 m_flags;                 // 0x14
+		PCMWAVEFORMAT m_pcmWaveFormat;
+		MxU32 m_dataSize;
+		MxU32 m_flags;
 	};
 
-	// SYNTHETIC: LEGO1 0x1000d810
 	// MxWavePresenter::`scalar deleting destructor'
 
 protected:
@@ -73,15 +55,15 @@ protected:
 	MxBool FUN_100b1ba0();
 	void WriteToSoundBuffer(void* p_audioPtr, MxU32 p_length);
 
-	WaveFormat* m_waveFormat;       // 0x54
-	LPDIRECTSOUNDBUFFER m_dsBuffer; // 0x58
-	MxU32 m_chunkLength;            // 0x5c
-	MxU32 m_lockSize;               // 0x60
-	MxU8 m_writtenChunks;           // 0x64
-	MxBool m_started;               // 0x65
-	MxBool m_is3d;                  // 0x66
-	MxS8 m_silenceData;             // 0x67
-	MxBool m_paused;                // 0x68
+	WaveFormat* m_waveFormat;
+	LPDIRECTSOUNDBUFFER m_dsBuffer;
+	MxU32 m_chunkLength;
+	MxU32 m_lockSize;
+	MxU8 m_writtenChunks;
+	MxBool m_started;
+	MxBool m_is3d;
+	MxS8 m_silenceData;
+	MxBool m_paused;
 };
 
 #endif // MXWAVEPRESENTER_H

@@ -16,20 +16,14 @@
 #define RAW_M_FILE m_file
 #endif
 
-// FUNCTION: LEGO1 0x100cc800
-// FUNCTION: BETA10 0x1015e140
 MXIOINFO::MXIOINFO() {
 	memset(&m_info, 0, sizeof(m_info));
 }
 
-// FUNCTION: LEGO1 0x100cc820
-// FUNCTION: BETA10 0x1015e169
 MXIOINFO::~MXIOINFO() {
 	Close(0);
 }
 
-// FUNCTION: LEGO1 0x100cc830
-// FUNCTION: BETA10 0x1015e189
 MxU16 MXIOINFO::Open(const char* p_filename, MxULong p_flags) {
 	OFSTRUCT unused;
 	MxU16 result = MMSYSERR_NOERROR;
@@ -72,8 +66,6 @@ MxU16 MXIOINFO::Open(const char* p_filename, MxULong p_flags) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100cc8e0
-// FUNCTION: BETA10 0x1015e30b
 MxU16 MXIOINFO::Close(MxLong p_unused) {
 	MxU16 result = MMSYSERR_NOERROR;
 
@@ -93,8 +85,6 @@ MxU16 MXIOINFO::Close(MxLong p_unused) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100cc930
-// FUNCTION: BETA10 0x1015e3b2
 MxLong MXIOINFO::Read(void* p_buf, MxLong p_len) {
 	MxLong bytesRead = 0;
 
@@ -140,7 +130,6 @@ MxLong MXIOINFO::Read(void* p_buf, MxLong p_len) {
 	return bytesRead;
 }
 
-// FUNCTION: BETA10 0x1015e4fc
 MxLong MXIOINFO::Write(void* p_buf, MxLong p_len) {
 	MxLong bytesWritten = 0;
 
@@ -193,8 +182,6 @@ MxLong MXIOINFO::Write(void* p_buf, MxLong p_len) {
 	return bytesWritten;
 }
 
-// FUNCTION: LEGO1 0x100cca00
-// FUNCTION: BETA10 0x1015e6c4
 MxLong MXIOINFO::Seek(MxLong p_offset, MxLong p_origin) {
 	MxLong result = -1;
 	MxLong bytesRead;
@@ -301,8 +288,6 @@ MxLong MXIOINFO::Seek(MxLong p_offset, MxLong p_origin) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100ccbc0
-// FUNCTION: BETA10 0x1015e9ad
 MxU16 MXIOINFO::SetBuffer(char* p_buf, MxLong p_len, MxLong p_unused) {
 	MxU16 result = MMSYSERR_NOERROR;
 	result = Flush(0);
@@ -320,8 +305,6 @@ MxU16 MXIOINFO::SetBuffer(char* p_buf, MxLong p_len, MxLong p_unused) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100ccc10
-// FUNCTION: BETA10 0x1015ea3e
 MxU16 MXIOINFO::Flush(MxU16 p_unused) {
 	MxU16 result = MMSYSERR_NOERROR;
 	MxLong bytesWritten;
@@ -370,8 +353,6 @@ MxU16 MXIOINFO::Flush(MxU16 p_unused) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100ccd00
-// FUNCTION: BETA10 0x1015eb8f
 MxU16 MXIOINFO::Advance(MxU16 p_option) {
 	MxU16 result = MMSYSERR_NOERROR;
 	MxULong rwmode = m_info.dwFlags & MMIO_RWMODE;
@@ -442,8 +423,6 @@ MxU16 MXIOINFO::Advance(MxU16 p_option) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100cce60
-// FUNCTION: BETA10 0x1015edef
 MxU16 MXIOINFO::Descend(
 	MMCKINFO* p_chunkInfo,
 	const MMCKINFO* p_parentInfo,
@@ -529,7 +508,6 @@ MxU16 MXIOINFO::Descend(
 	return result;
 }
 
-// FUNCTION: BETA10 0x1015f08b
 MxU16 MXIOINFO::Ascend(MMCKINFO* p_chunkInfo, MxU16 p_ascend) {
 	MxLong ofs;
 	MxULong size;
@@ -599,7 +577,6 @@ MxU16 MXIOINFO::Ascend(MMCKINFO* p_chunkInfo, MxU16 p_ascend) {
 	return result;
 }
 
-// FUNCTION: BETA10 0x1015f28b
 MxU16 MXIOINFO::CreateChunk(MMCKINFO* p_chunkInfo, MxU16 p_create) {
 	MxU16 result = MMSYSERR_NOERROR;
 

@@ -2,20 +2,17 @@
 
 #include "legounkown100db7f4.h"
 
-// FUNCTION: LEGO1 0x1009a550
 LegoWEEdge::LegoWEEdge() {
 	m_edges = NULL;
 	m_numEdges = 0;
 }
 
-// FUNCTION: LEGO1 0x1009a590
 LegoWEEdge::~LegoWEEdge() {
 	if (m_edges) {
 		delete m_edges;
 	}
 }
 
-// FUNCTION: LEGO1 0x1009a5b0
 LegoS32 LegoWEEdge::VTable0x04() {
 	for (LegoS32 i = 0; i < m_numEdges; i++) {
 		LegoUnknown100db7f4* e1 = m_edges[i];

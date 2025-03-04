@@ -3,39 +3,33 @@
 #include <memory.h>
 #include <string.h>
 
-// FUNCTION: LEGO1 0x10099080
 LegoMemory::LegoMemory(void* p_buffer) : LegoStorage() {
 	m_buffer = (LegoU8*) p_buffer;
 	m_position = 0;
 }
 
-// FUNCTION: LEGO1 0x10099160
 LegoResult LegoMemory::Read(void* p_buffer, LegoU32 p_size) {
 	memcpy(p_buffer, m_buffer + m_position, p_size);
 	m_position += p_size;
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10099190
 LegoResult LegoMemory::Write(const void* p_buffer, LegoU32 p_size) {
 	memcpy(m_buffer + m_position, p_buffer, p_size);
 	m_position += p_size;
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100991c0
 LegoFile::LegoFile() {
 	m_file = NULL;
 }
 
-// FUNCTION: LEGO1 0x10099250
 LegoFile::~LegoFile() {
 	if (m_file) {
 		fclose(m_file);
 	}
 }
 
-// FUNCTION: LEGO1 0x100992c0
 LegoResult LegoFile::Read(void* p_buffer, LegoU32 p_size) {
 	if (!m_file) {
 		return FAILURE;
@@ -46,7 +40,6 @@ LegoResult LegoFile::Read(void* p_buffer, LegoU32 p_size) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10099300
 LegoResult LegoFile::Write(const void* p_buffer, LegoU32 p_size) {
 	if (!m_file) {
 		return FAILURE;
@@ -57,7 +50,6 @@ LegoResult LegoFile::Write(const void* p_buffer, LegoU32 p_size) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10099340
 LegoResult LegoFile::GetPosition(LegoU32& p_position) {
 	if (!m_file) {
 		return FAILURE;
@@ -70,7 +62,6 @@ LegoResult LegoFile::GetPosition(LegoU32& p_position) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10099370
 LegoResult LegoFile::SetPosition(LegoU32 p_position) {
 	if (!m_file) {
 		return FAILURE;
@@ -81,7 +72,6 @@ LegoResult LegoFile::SetPosition(LegoU32 p_position) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100993a0
 LegoResult LegoFile::Open(const char* p_name, LegoU32 p_mode) {
 	if (m_file) {
 		fclose(m_file);

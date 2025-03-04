@@ -3,7 +3,6 @@
 
 #include "legovertex.h"
 
-// SIZE 0x10
 class LegoSphere {
 public:
 	LegoSphere() { m_radius = 0.0F; }
@@ -14,8 +13,8 @@ public:
 	LegoResult Read(LegoStorage* p_storage);
 
 protected:
-	LegoVertex m_center; // 0x00
-	LegoFloat m_radius;  // 0x0c
+	LegoVertex m_center;
+	LegoFloat m_radius;
 };
 
 #endif // __LEGOSPHERE_H

@@ -8,20 +8,12 @@
 
 #include <assert.h>
 
-// GLOBAL: LEGO1 0x100d8e7c
-// GLOBAL: BETA10 0x101b954c
 MxFloat g_unk0x100d8e7c = 1000.0f;
 
-// GLOBAL: LEGO1 0x100d8e80
-// GLOBAL: BETA10 0x101b9550
 MxFloat g_unk0x100d8e80 = 4000.0f;
 
-// GLOBAL: LEGO1 0x100d8e84
-// GLOBAL: BETA10 0x101b9554
 MxFloat g_unk0x100d8e84 = 6000.0f;
 
-// FUNCTION: LEGO1 0x10066100
-// FUNCTION: BETA10 0x10026850
 MxResult Doors::HitActor(LegoPathActor* p_actor, MxBool p_bool) {
 	assert(m_ltDoor && m_rtDoor);
 
@@ -35,8 +27,6 @@ MxResult Doors::HitActor(LegoPathActor* p_actor, MxBool p_bool) {
 	return m_unk0x1f4 < 0.001 ? SUCCESS : FAILURE;
 }
 
-// FUNCTION: LEGO1 0x10066190
-// FUNCTION: BETA10 0x1002696b
 MxFloat Doors::VTable0xcc(float p_time) {
 	MxFloat fVar1;
 
@@ -59,8 +49,6 @@ MxFloat Doors::VTable0xcc(float p_time) {
 	return 0.0f;
 }
 
-// FUNCTION: LEGO1 0x10066250
-// FUNCTION: BETA10 0x10026a45
 void Doors::Animate(float p_time) {
 	assert(m_ltDoor && m_rtDoor);
 
@@ -109,8 +97,6 @@ void Doors::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100664e0
-// FUNCTION: BETA10 0x10026ceb
 void Doors::ParseAction(char* p_extra) {
 	LegoPathActor::ParseAction(p_extra);
 

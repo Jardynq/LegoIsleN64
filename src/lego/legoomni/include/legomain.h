@@ -26,9 +26,6 @@ class MxBackgroundAudioManager;
 class MxTransitionManager;
 class ViewLODListManager;
 
-// VTABLE: LEGO1 0x100d8638
-// VTABLE: BETA10 0x101bc8b8
-// SIZE 0x140
 class LegoOmni : public MxOmni {
 public:
 	enum { c_disableInput = 0x01, c_disable3d = 0x02, c_clearScreen = 0x04 };
@@ -56,9 +53,8 @@ public:
 		e_numWorlds = e_test + 2 // count e_undefined
 	};
 
-	// SIZE 0x1c
 	struct WorldContainer {
-		// FUNCTION: LEGO1 0x1005ac40
+
 		WorldContainer() : m_id(e_undefined), m_atomId(NULL) {}
 
 		WorldContainer(World p_id, const char* p_key, MxAtomId* p_atomId)
@@ -71,7 +67,6 @@ public:
 			m_atomId = p_atomId;
 		}
 
-		// FUNCTION: LEGO1 0x1005ac50
 		WorldContainer& operator=(const WorldContainer& p_container) {
 			m_id = p_container.m_id;
 			strcpy(m_key, p_container.m_key);
@@ -82,43 +77,34 @@ public:
 		World GetId() { return m_id; }
 		const char* GetKey() { return m_key; }
 
-		World m_id;         // 0x00
-		char m_key[20];     // 0x04
-		MxAtomId* m_atomId; // 0x18
+		World m_id;
+		char m_key[20];
+		MxAtomId* m_atomId;
 	};
 
 	LegoOmni();
 	~LegoOmni() override;
 
-	MxLong Notify(MxParam& p_param) override; // vtable+0x04
+	MxLong Notify(MxParam& p_param) override;
 
-	// FUNCTION: LEGO1 0x10058aa0
-	// FUNCTION: BETA10 0x1008f830
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f671c
-		return "LegoOmni";
-	}
+	const char* ClassName() const override { return "LegoOmni"; }
 
-	// FUNCTION: LEGO1 0x10058ab0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, LegoOmni::ClassName()) || MxOmni::IsA(p_name);
 	}
 
-	void Init() override;                                    // vtable+0x14
-	MxResult Create(MxOmniCreateParam& p_param) override;    // vtable+0x18
-	void Destroy() override;                                 // vtable+0x1c
-	MxResult Start(MxDSAction* p_dsAction) override;         // vtable+0x20
-	void DeleteObject(MxDSAction& p_dsAction) override;      // vtable+0x24
-	MxBool DoesEntityExist(MxDSAction& p_dsAction) override; // vtable+0x28
+	void Init() override;
+	MxResult Create(MxOmniCreateParam& p_param) override;
+	void Destroy() override;
+	MxResult Start(MxDSAction* p_dsAction) override;
+	void DeleteObject(MxDSAction& p_dsAction) override;
+	MxBool DoesEntityExist(MxDSAction& p_dsAction) override;
 	MxEntity*
 	AddToWorld(const char* p_id, MxS32 p_entityId, MxPresenter* p_presenter)
-		override; // vtable+0x30
-	void NotifyCurrentEntity(const MxNotificationParam& p_param
-	) override;             // vtable+0x34
-	void Pause() override;  // vtable+0x38
-	void Resume() override; // vtable+0x3c
+		override;
+	void NotifyCurrentEntity(const MxNotificationParam& p_param) override;
+	void Pause() override;
+	void Resume() override;
 
 	LegoWorld* FindWorld(const MxAtomId& p_atom, MxS32 p_entityid);
 	LegoROI* FindROI(const char* p_name);
@@ -144,7 +130,6 @@ public:
 		return (LegoSoundManager*) m_soundManager;
 	}
 
-	// FUNCTION: BETA10 0x1009e7a0
 	LegoInputManager* GetInputManager() { return m_inputManager; }
 
 	LegoTextureContainer* GetTextureContainer() { return m_textureContainer; }
@@ -153,18 +138,14 @@ public:
 	LegoNavController* GetNavController() { return m_navController; }
 	LegoPathActor* GetUserActor() { return m_userActor; }
 
-	// FUNCTION: BETA10 0x100e53a0
 	LegoPlantManager* GetPlantManager() { return m_plantManager; }
 
 	LegoAnimationManager* GetAnimationManager() { return m_animationManager; }
 
-	// FUNCTION: BETA10 0x100e53d0
 	LegoBuildingManager* GetBuildingManager() { return m_buildingManager; }
 
-	// FUNCTION: BETA10 0x100e52b0
 	LegoGameState* GetGameState() { return m_gameState; }
 
-	// FUNCTION: BETA10 0x100e5280
 	MxBackgroundAudioManager* GetBackgroundAudioManager() {
 		return m_bkgAudioManager;
 	}
@@ -182,7 +163,6 @@ public:
 		m_currentWorld = p_currentWorld;
 	}
 
-	// FUNCTION: BETA10 0x100d55c0
 	void SetExit(MxBool p_exit) { m_exit = p_exit; }
 
 	MxResult StartActionIfUnknown0x13c(MxDSAction& p_dsAction) {
@@ -192,30 +172,29 @@ public:
 
 	void CloseMainWindow() { PostMessageA(m_windowHandle, WM_CLOSE, 0, 0); }
 
-	// SYNTHETIC: LEGO1 0x10058b30
 	// LegoOmni::`scalar deleting destructor'
 
 private:
-	WorldContainer* m_worlds;                    // 0x68
-	ViewLODListManager* m_viewLODListManager;    // 0x6c
-	LegoInputManager* m_inputManager;            // 0x70
-	LegoTextureContainer* m_textureContainer;    // 0x74
-	LegoWorldList* m_worldList;                  // 0x78
-	LegoWorld* m_currentWorld;                   // 0x7c
-	MxBool m_exit;                               // 0x80
-	LegoNavController* m_navController;          // 0x84
-	LegoPathActor* m_userActor;                  // 0x88
-	LegoCharacterManager* m_characterManager;    // 0x8c
-	LegoPlantManager* m_plantManager;            // 0x90
-	LegoAnimationManager* m_animationManager;    // 0x94
-	LegoBuildingManager* m_buildingManager;      // 0x98
-	LegoGameState* m_gameState;                  // 0x9c
-	MxDSAction m_action;                         // 0xa0
-	MxBackgroundAudioManager* m_bkgAudioManager; // 0x134
-	MxTransitionManager* m_transitionManager;    // 0x138
+	WorldContainer* m_worlds;
+	ViewLODListManager* m_viewLODListManager;
+	LegoInputManager* m_inputManager;
+	LegoTextureContainer* m_textureContainer;
+	LegoWorldList* m_worldList;
+	LegoWorld* m_currentWorld;
+	MxBool m_exit;
+	LegoNavController* m_navController;
+	LegoPathActor* m_userActor;
+	LegoCharacterManager* m_characterManager;
+	LegoPlantManager* m_plantManager;
+	LegoAnimationManager* m_animationManager;
+	LegoBuildingManager* m_buildingManager;
+	LegoGameState* m_gameState;
+	MxDSAction m_action;
+	MxBackgroundAudioManager* m_bkgAudioManager;
+	MxTransitionManager* m_transitionManager;
 
 public:
-	MxBool m_unk0x13c; // 0x13c
+	MxBool m_unk0x13c;
 };
 
 #endif // LEGOMAIN_H

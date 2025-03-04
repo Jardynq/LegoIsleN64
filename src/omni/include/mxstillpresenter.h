@@ -3,59 +3,43 @@
 
 #include "mxvideopresenter.h"
 
-// VTABLE: LEGO1 0x100d7a38
-// SIZE 0x6c
 class MxStillPresenter : public MxVideoPresenter {
 public:
 	MxStillPresenter() { m_bitmapInfo = NULL; }
 
-	// FUNCTION: LEGO1 0x10043550
-	~MxStillPresenter() override { Destroy(TRUE); } // vtable+0x00
+	~MxStillPresenter() override { Destroy(TRUE); }
 
-	// FUNCTION: LEGO1 0x100435b0
-	void Destroy() override { Destroy(FALSE); } // vtable+0x38
+	void Destroy() override { Destroy(FALSE); }
 
-	// FUNCTION: BETA10 0x100980c0
-	static const char* HandlerClassName() {
-		// STRING: LEGO1 0x100f0184
-		return "MxStillPresenter";
-	}
+	static const char* HandlerClassName() { return "MxStillPresenter"; }
 
-	// FUNCTION: LEGO1 0x100435c0
-	// FUNCTION: BETA10 0x10098090
-	const char* ClassName() const override // vtable+0x0c
-	{
-		return HandlerClassName();
-	}
+	const char* ClassName() const override { return HandlerClassName(); }
 
-	// FUNCTION: LEGO1 0x100435d0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, MxStillPresenter::ClassName()) ||
 			   MxVideoPresenter::IsA(p_name);
 	}
 
-	void StartingTickle() override;                   // vtable+0x1c
-	void StreamingTickle() override;                  // vtable+0x20
-	void RepeatingTickle() override;                  // vtable+0x24
-	void ParseExtra() override;                       // vtable+0x30
-	void Enable(MxBool p_enable) override;            // vtable+0x54
-	void LoadHeader(MxStreamChunk* p_chunk) override; // vtable+0x5c
-	void CreateBitmap() override;                     // vtable+0x60
-	void NextFrame() override;                        // vtable+0x64
-	void LoadFrame(MxStreamChunk* p_chunk) override;  // vtable+0x68
-	void RealizePalette() override;                   // vtable+0x70
-	virtual void SetPosition(MxS32 p_x, MxS32 p_y);   // vtable+0x88
-	virtual MxStillPresenter* Clone();                // vtable+0x8c
+	void StartingTickle() override;
+	void StreamingTickle() override;
+	void RepeatingTickle() override;
+	void ParseExtra() override;
+	void Enable(MxBool p_enable) override;
+	void LoadHeader(MxStreamChunk* p_chunk) override;
+	void CreateBitmap() override;
+	void NextFrame() override;
+	void LoadFrame(MxStreamChunk* p_chunk) override;
+	void RealizePalette() override;
+	virtual void SetPosition(MxS32 p_x, MxS32 p_y);
+	virtual MxStillPresenter* Clone();
 
 private:
 	void Destroy(MxBool p_fromDestructor);
 
-	MxLong m_chunkTime;         // 0x64
-	MxBITMAPINFO* m_bitmapInfo; // 0x68
+	MxLong m_chunkTime;
+	MxBITMAPINFO* m_bitmapInfo;
 };
 
-// SYNTHETIC: LEGO1 0x100436e0
 // MxStillPresenter::`scalar deleting destructor'
 
 #endif // MXSTILLPRESENTER_H

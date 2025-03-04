@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 
-// FUNCTION: LEGO1 0x10014d00
 MxU32 LegoState::Playlist::Next() {
 	MxU32 objectId;
 
@@ -40,7 +39,6 @@ MxU32 LegoState::Playlist::Next() {
 	return objectId;
 }
 
-// FUNCTION: LEGO1 0x10014de0
 MxBool LegoState::Playlist::Contains(MxU32 p_objectId) {
 	for (MxS16 i = 0; i < m_length; i++) {
 		if (m_objectIds[i] == p_objectId) {

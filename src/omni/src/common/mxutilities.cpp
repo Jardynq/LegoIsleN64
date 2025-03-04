@@ -11,10 +11,8 @@
 
 #include <assert.h>
 
-// GLOBAL: LEGO1 0x101020e8
 void (*g_omniUserMessage)(const char*, MxS32) = NULL;
 
-// FUNCTION: LEGO1 0x100b6e10
 MxBool GetRectIntersection(
 	MxS32 p_rect1Width,
 	MxS32 p_rect1Height,
@@ -60,7 +58,6 @@ MxBool GetRectIntersection(
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100b6ff0
 void MakeSourceName(char* p_output, const char* p_input) {
 	const char* cln = strchr(p_input, ':');
 	if (cln) {
@@ -77,7 +74,6 @@ void MakeSourceName(char* p_output, const char* p_input) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b7050
 MxBool KeyValueStringParse(
 	char* p_output,
 	const char* p_command,
@@ -117,7 +113,6 @@ MxBool KeyValueStringParse(
 	return didMatch;
 }
 
-// FUNCTION: LEGO1 0x100b7170
 MxBool ContainsPresenter(
 	MxCompositePresenterList& p_presenterList,
 	MxPresenter* p_presenter
@@ -138,7 +133,6 @@ MxBool ContainsPresenter(
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x100b71e0
 void OmniError(const char* p_message, MxS32 p_status) {
 	if (g_omniUserMessage) {
 		g_omniUserMessage(p_message, p_status);
@@ -147,12 +141,10 @@ void OmniError(const char* p_message, MxS32 p_status) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b7210
 void SetOmniUserMessage(void (*p_omniUserMessage)(const char*, MxS32)) {
 	g_omniUserMessage = p_omniUserMessage;
 }
 
-// FUNCTION: LEGO1 0x100b7220
 void FUN_100b7220(MxDSAction* p_action, MxU32 p_newFlags, MxBool p_setFlags) {
 	p_action->SetFlags(
 		!p_setFlags ? p_action->GetFlags() & ~p_newFlags

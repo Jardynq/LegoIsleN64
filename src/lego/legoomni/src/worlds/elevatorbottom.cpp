@@ -15,13 +15,11 @@
 #include "mxtransitionmanager.h"
 #include "mxvariabletable.h"
 
-// FUNCTION: LEGO1 0x10017e90
 ElevatorBottom::ElevatorBottom() {
 	NotificationManager()->Register(this);
 	m_destLocation = LegoGameState::e_undefined;
 }
 
-// FUNCTION: LEGO1 0x10018060
 ElevatorBottom::~ElevatorBottom() {
 	if (InputManager()->GetWorld() == this) {
 		InputManager()->ClearWorld();
@@ -30,7 +28,6 @@ ElevatorBottom::~ElevatorBottom() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x100180f0
 MxResult ElevatorBottom::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 	if (result == SUCCESS) {
@@ -46,8 +43,6 @@ MxResult ElevatorBottom::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10018150
-// FUNCTION: BETA10 0x10027d60
 MxLong ElevatorBottom::Notify(MxParam& p_param) {
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
 	MxLong ret = 0;
@@ -68,7 +63,6 @@ MxLong ElevatorBottom::Notify(MxParam& p_param) {
 	return ret;
 }
 
-// FUNCTION: LEGO1 0x100181b0
 void ElevatorBottom::ReadyWorld() {
 	LegoWorld::ReadyWorld();
 	PlayMusic(JukeboxScript::c_InformationCenter_Music);
@@ -79,7 +73,6 @@ void ElevatorBottom::ReadyWorld() {
 	);
 }
 
-// FUNCTION: LEGO1 0x100181d0
 MxLong
 ElevatorBottom::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxLong result = 0;
@@ -131,7 +124,6 @@ ElevatorBottom::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100182c0
 void ElevatorBottom::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
@@ -145,7 +137,6 @@ void ElevatorBottom::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10018310
 MxBool ElevatorBottom::Escape() {
 	DeleteObjects(&m_atomId, ElevbottScript::c_iica31in_PlayWav, 999);
 	m_destLocation = LegoGameState::e_infomain;

@@ -8,18 +8,15 @@
 #include "misc.h"
 #include "mxtransitionmanager.h"
 
-// FUNCTION: LEGO1 0x10028200
 RaceCar::RaceCar() {
 	m_maxLinearVel = 40.0;
 }
 
-// FUNCTION: LEGO1 0x10028420
 RaceCar::~RaceCar() {
 	ControlManager()->Unregister(this);
 	Exit();
 }
 
-// FUNCTION: LEGO1 0x10028490
 MxResult RaceCar::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 	m_world = CurrentWorld();
@@ -32,7 +29,6 @@ MxResult RaceCar::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100284d0
 MxLong RaceCar::HandleClick() {
 	if (!FUN_1003ef60()) {
 		return 1;

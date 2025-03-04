@@ -9,7 +9,6 @@
 #include "mxsoundmanager.h"
 #include "mxutilities.h"
 
-// FUNCTION: LEGO1 0x100b1ad0
 void MxWavePresenter::Init() {
 	m_waveFormat = NULL;
 	m_dsBuffer = NULL;
@@ -21,14 +20,12 @@ void MxWavePresenter::Init() {
 	m_paused = FALSE;
 }
 
-// FUNCTION: LEGO1 0x100b1af0
 MxResult MxWavePresenter::AddToManager() {
 	MxResult result = MxSoundPresenter::AddToManager();
 	Init();
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100b1b10
 void MxWavePresenter::Destroy(MxBool p_fromDestructor) {
 	if (m_dsBuffer) {
 		m_dsBuffer->Stop();
@@ -46,7 +43,6 @@ void MxWavePresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b1b60
 MxS8 MxWavePresenter::GetPlayedChunks() {
 	DWORD dwCurrentPlayCursor, dwCurrentWriteCursor;
 	MxS8 playedChunks = -1;
@@ -61,12 +57,10 @@ MxS8 MxWavePresenter::GetPlayedChunks() {
 	return playedChunks;
 }
 
-// FUNCTION: LEGO1 0x100b1ba0
 MxBool MxWavePresenter::FUN_100b1ba0() {
 	return !m_started || GetPlayedChunks() != m_writtenChunks;
 }
 
-// FUNCTION: LEGO1 0x100b1bd0
 void MxWavePresenter::WriteToSoundBuffer(void* p_audioPtr, MxU32 p_length) {
 	DWORD dwStatus;
 	LPVOID pvAudioPtr1;
@@ -117,7 +111,6 @@ void MxWavePresenter::WriteToSoundBuffer(void* p_audioPtr, MxU32 p_length) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b1cf0
 void MxWavePresenter::ReadyTickle() {
 	MxStreamChunk* chunk = NextChunk();
 
@@ -130,7 +123,6 @@ void MxWavePresenter::ReadyTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b1d50
 void MxWavePresenter::StartingTickle() {
 	MxStreamChunk* chunk = CurrentChunk();
 
@@ -192,7 +184,6 @@ void MxWavePresenter::StartingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b1ea0
 void MxWavePresenter::StreamingTickle() {
 	if (!m_currentChunk) {
 		if (!(m_action->GetFlags() & MxDSAction::c_looping)) {
@@ -218,7 +209,6 @@ void MxWavePresenter::StreamingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b20c0
 void MxWavePresenter::DoneTickle() {
 	if (m_dsBuffer) {
 		DWORD dwCurrentPlayCursor, dwCurrentWriteCursor;
@@ -241,7 +231,6 @@ void MxWavePresenter::DoneTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b2130
 void MxWavePresenter::LoopChunk(MxStreamChunk* p_chunk) {
 	WriteToSoundBuffer(p_chunk->GetData(), p_chunk->GetLength());
 	if (IsEnabled()) {
@@ -249,7 +238,6 @@ void MxWavePresenter::LoopChunk(MxStreamChunk* p_chunk) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b2160
 MxResult MxWavePresenter::PutData() {
 	AUTOLOCK(m_criticalSection);
 
@@ -289,7 +277,6 @@ MxResult MxWavePresenter::PutData() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100b2280
 void MxWavePresenter::EndAction() {
 	if (m_action) {
 		AUTOLOCK(m_criticalSection);
@@ -301,7 +288,6 @@ void MxWavePresenter::EndAction() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b2300
 void MxWavePresenter::SetVolume(MxS32 p_volume) {
 	m_criticalSection.Enter();
 
@@ -318,7 +304,6 @@ void MxWavePresenter::SetVolume(MxS32 p_volume) {
 	m_criticalSection.Leave();
 }
 
-// FUNCTION: LEGO1 0x100b2360
 void MxWavePresenter::Enable(MxBool p_enable) {
 	if (IsEnabled() != p_enable) {
 		MxSoundPresenter::Enable(p_enable);
@@ -332,7 +317,6 @@ void MxWavePresenter::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b23a0
 void MxWavePresenter::ParseExtra() {
 	MxSoundPresenter::ParseExtra();
 
@@ -354,7 +338,6 @@ void MxWavePresenter::ParseExtra() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b2440
 void MxWavePresenter::Pause() {
 	if (!m_paused && m_started) {
 		if (m_dsBuffer) {
@@ -364,7 +347,6 @@ void MxWavePresenter::Pause() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b2470
 void MxWavePresenter::Resume() {
 	if (m_paused) {
 		if (m_dsBuffer && m_started) {

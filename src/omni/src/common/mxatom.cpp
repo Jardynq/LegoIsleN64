@@ -5,8 +5,6 @@
 
 #include <assert.h>
 
-// FUNCTION: LEGO1 0x100acf90
-// FUNCTION: BETA10 0x1012308b
 MxAtomId::MxAtomId(const char* p_str, LookupMode p_mode) {
 	if (!MxOmni::GetInstance()) {
 		return;
@@ -21,14 +19,10 @@ MxAtomId::MxAtomId(const char* p_str, LookupMode p_mode) {
 	atom->Inc();
 }
 
-// FUNCTION: LEGO1 0x100acfd0
-// FUNCTION: BETA10 0x10123130
 MxAtomId::~MxAtomId() {
 	Destroy();
 }
 
-// FUNCTION: LEGO1 0x100acfe0
-// FUNCTION: BETA10 0x101231a6
 void MxAtomId::Destroy() {
 	if (!m_internal) {
 		return;
@@ -53,8 +47,6 @@ void MxAtomId::Destroy() {
 	atom->Dec();
 }
 
-// FUNCTION: LEGO1 0x100ad1c0
-// FUNCTION: BETA10 0x101232b9
 MxAtomId& MxAtomId::operator=(const MxAtomId& p_atomId) {
 	if (m_internal) {
 		Destroy();
@@ -70,8 +62,6 @@ MxAtomId& MxAtomId::operator=(const MxAtomId& p_atomId) {
 	return *this;
 }
 
-// FUNCTION: LEGO1 0x100ad210
-// FUNCTION: BETA10 0x10123378
 MxAtom* MxAtomId::GetAtom(const char* p_str, LookupMode p_mode) {
 	MxAtomId unused;
 	MxAtom* atom = new MxAtom(p_str);
@@ -102,22 +92,16 @@ MxAtom* MxAtomId::GetAtom(const char* p_str, LookupMode p_mode) {
 	return atom;
 }
 
-// FUNCTION: LEGO1 0x100ad7e0
-// FUNCTION: BETA10 0x100553e0
 void MxAtomId::Clear() {
 	// Reset but do not delete MxAtomId object.
 	Destroy();
 	m_internal = NULL;
 }
 
-// FUNCTION: LEGO1 0x100ad7f0
-// FUNCTION: BETA10 0x101235d5
 void MxAtom::Inc() {
 	m_value++;
 }
 
-// FUNCTION: LEGO1 0x100ad800
-// FUNCTION: BETA10 0x1012364a
 void MxAtom::Dec() {
 	if (m_value) {
 		m_value--;

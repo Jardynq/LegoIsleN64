@@ -2,19 +2,16 @@
 
 using namespace TglImpl;
 
-// FUNCTION: LEGO1 0x100a31d0
 void* GroupImpl::ImplementationDataPtr() {
 	return reinterpret_cast<void*>(&m_data);
 }
 
-// FUNCTION: LEGO1 0x100a31e0
 Result GroupImpl::SetTransformation(FloatMatrix4& matrix) {
 	D3DRMMATRIX4D helper;
 	D3DRMMATRIX4D* d3dMatrix = Translate(matrix, helper);
 	return ResultVal(m_data->AddTransform(D3DRMCOMBINE_REPLACE, *d3dMatrix));
 }
 
-// FUNCTION: LEGO1 0x100a3240
 Result GroupImpl::SetColor(float r, float g, float b, float a) {
 	// The first instruction makes no sense here:
 	// cmp dword ptr [esp + 0x10], 0
@@ -29,7 +26,6 @@ Result GroupImpl::SetColor(float r, float g, float b, float a) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100a32b0
 Result GroupImpl::SetTexture(const Texture* pTexture) {
 	IDirect3DRMTexture* pD3DTexture =
 		pTexture
@@ -38,7 +34,6 @@ Result GroupImpl::SetTexture(const Texture* pTexture) {
 	return ResultVal(m_data->SetTexture(pD3DTexture));
 }
 
-// FUNCTION: LEGO1 0x100a32e0
 Result GroupImpl::GetTexture(Texture*& pTexture) {
 	IDirect3DRMTexture* pD3DTexture;
 	TextureImpl* holder = new TextureImpl();
@@ -57,7 +52,6 @@ Result GroupImpl::GetTexture(Texture*& pTexture) {
 	return Success;
 }
 
-// FUNCTION: LEGO1 0x100a33c0
 Result GroupImpl::SetMaterialMode(MaterialMode mode) {
 	D3DRMMATERIALMODE d3dMode;
 	switch (mode) {
@@ -74,20 +68,17 @@ Result GroupImpl::SetMaterialMode(MaterialMode mode) {
 	return ResultVal(m_data->SetMaterialMode(d3dMode));
 }
 
-// FUNCTION: LEGO1 0x100a3410
 Result GroupImpl::Add(const Group* pGroup) {
 	const GroupImpl* pGroupImpl = static_cast<const GroupImpl*>(pGroup);
 	return ResultVal(m_data->AddVisual(pGroupImpl->m_data));
 }
 
-// FUNCTION: LEGO1 0x100a3430
 Result GroupImpl::Add(const MeshBuilder* pMeshBuilder) {
 	const MeshBuilderImpl* pMeshBuilderImpl =
 		static_cast<const MeshBuilderImpl*>(pMeshBuilder);
 	return ResultVal(m_data->AddVisual(pMeshBuilderImpl->ImplementationData()));
 }
 
-// FUNCTION: LEGO1 0x100a3450
 Result GroupImpl::Remove(const MeshBuilder* pMeshBuilder) {
 	const MeshBuilderImpl* pMeshBuilderImpl =
 		static_cast<const MeshBuilderImpl*>(pMeshBuilder);
@@ -95,13 +86,11 @@ Result GroupImpl::Remove(const MeshBuilder* pMeshBuilder) {
 	));
 }
 
-// FUNCTION: LEGO1 0x100a3480
 Result GroupImpl::Remove(const Group* pGroup) {
 	const GroupImpl* pGroupImpl = static_cast<const GroupImpl*>(pGroup);
 	return ResultVal(m_data->DeleteVisual(pGroupImpl->m_data));
 }
 
-// FUNCTION: LEGO1 0x100a34b0
 Result GroupImpl::RemoveAll() {
 	IDirect3DRMVisualArray* visuals;
 	IDirect3DRMFrame2* frame = m_data;
@@ -122,7 +111,6 @@ Result GroupImpl::RemoveAll() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100a3540
 Result GroupImpl::Bounds(D3DVECTOR* p_min, D3DVECTOR* p_max) {
 	D3DRMBOX size;
 	IDirect3DRMFrame2* frame = m_data;

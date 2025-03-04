@@ -29,17 +29,12 @@
 #include "regbook_actions.h"
 #include "scripts.h"
 
-// GLOBAL: LEGO1 0x100d9924
-// GLOBAL: BETA10 0x101bfb3c
 const char* g_infoman = "infoman";
 
-// GLOBAL: LEGO1 0x100f7964
 MxLong g_checkboxBlinkTimer = 0;
 
-// GLOBAL: LEGO1 0x100f7968
 MxBool g_nextCheckbox = FALSE;
 
-// FUNCTION: LEGO1 0x10076d20
 RegistrationBook::RegistrationBook()
 	: m_registerDialogueTimer(0x80000000), m_unk0xfc(1) {
 	memset(m_alphabet, 0, sizeof(m_alphabet));
@@ -60,7 +55,6 @@ RegistrationBook::RegistrationBook()
 	m_checkboxNormal = NULL;
 }
 
-// FUNCTION: LEGO1 0x10076f50
 RegistrationBook::~RegistrationBook() {
 	for (MxS16 i = 0; i < 10; i++) {
 		for (MxS16 j = 0; j < 7; j++) {
@@ -85,7 +79,6 @@ RegistrationBook::~RegistrationBook() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10077060
 MxResult RegistrationBook::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 
@@ -105,8 +98,6 @@ MxResult RegistrationBook::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100770e0
-// FUNCTION: BETA10 0x100f2d98
 MxLong RegistrationBook::Notify(MxParam& p_param) {
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
 	MxLong result = 0;
@@ -143,7 +134,6 @@ MxLong RegistrationBook::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10077210
 MxLong RegistrationBook::HandleEndAction(MxEndActionNotificationParam& p_param
 ) {
 	if (p_param.GetAction()->GetAtomId() != m_atomId) {
@@ -174,7 +164,6 @@ MxLong RegistrationBook::HandleEndAction(MxEndActionNotificationParam& p_param
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x100772d0
 MxLong RegistrationBook::HandleKeyPress(MxU8 p_key) {
 	MxS16 key;
 	if (p_key >= 'a' && p_key <= 'z') {
@@ -235,7 +224,6 @@ MxLong RegistrationBook::HandleKeyPress(MxU8 p_key) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x100774a0
 MxLong
 RegistrationBook::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxS16 unk0x28 = p_param.GetUnknown0x28();
@@ -291,7 +279,6 @@ RegistrationBook::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x100775c0
 // STUB: BETA10 0x100f32b2
 void RegistrationBook::FUN_100775c0(MxS16 p_playerIndex) {
 	if (m_infocenterState->HasRegistered()) {
@@ -356,7 +343,6 @@ void RegistrationBook::FUN_100775c0(MxS16 p_playerIndex) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10077860
 void RegistrationBook::WriteInfocenterLetters(MxS16 p_user) {
 	for (MxS16 i = 0; i < 7; i++) {
 		delete m_infocenterState->GetNameLetter(i);
@@ -365,7 +351,6 @@ void RegistrationBook::WriteInfocenterLetters(MxS16 p_user) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100778c0
 void RegistrationBook::FUN_100778c0() {
 	if (GameState()->GetCurrentAct() == LegoGameState::e_act1) {
 		Act1State* act1state = (Act1State*) GameState()->GetState("Act1State");
@@ -462,8 +447,6 @@ void RegistrationBook::FUN_100778c0() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10077cc0
-// FUNCTION: BETA10 0x100f3671
 void RegistrationBook::ReadyWorld() {
 	// This function is very fragile and appears to oscillate between two
 	// versions on small changes. This even happens for commenting out
@@ -551,7 +534,6 @@ void RegistrationBook::ReadyWorld() {
 	}
 }
 
-// FUNCTION: BETA10 0x100f3424
 inline void RegistrationBook::PlayAction(MxU32 p_objectId) {
 	MxDSAction action;
 	action.SetAtomId(*g_regbookScript);
@@ -561,7 +543,6 @@ inline void RegistrationBook::PlayAction(MxU32 p_objectId) {
 	Start(&action);
 }
 
-// FUNCTION: LEGO1 0x10077fd0
 MxResult RegistrationBook::Tickle() {
 	if (!m_worldStarted) {
 		LegoWorld::Tickle();
@@ -599,7 +580,6 @@ MxResult RegistrationBook::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10078180
 void RegistrationBook::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
@@ -613,7 +593,6 @@ void RegistrationBook::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100781d0
 MxLong
 RegistrationBook::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	LegoPathActor* actor = NULL;
@@ -677,7 +656,6 @@ RegistrationBook::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10078350
 MxBool RegistrationBook::CreateSurface() {
 	MxCompositePresenterList* presenters = m_checkmark[0]->GetList();
 	MxStillPresenter *presenter, *uninitialized;
@@ -708,7 +686,6 @@ MxBool RegistrationBook::CreateSurface() {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x100783e0
 MxBool RegistrationBook::Escape() {
 	DeleteObjects(
 		&m_atomId,

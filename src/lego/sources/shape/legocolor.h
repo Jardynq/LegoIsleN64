@@ -3,7 +3,6 @@
 
 class LegoStorage;
 
-// SIZE 0x03
 class LegoColor {
 public:
 	LegoColor() { m_red = m_green = m_blue = 0; }
@@ -16,9 +15,9 @@ public:
 	LegoResult Read(LegoStorage* p_storage);
 
 protected:
-	LegoU8 m_red;   // 0x00
-	LegoU8 m_green; // 0x01
-	LegoU8 m_blue;  // 0x02
+	LegoU8 m_red;
+	LegoU8 m_green;
+	LegoU8 m_blue;
 };
 
 #endif // __LEGOCOLOR_H

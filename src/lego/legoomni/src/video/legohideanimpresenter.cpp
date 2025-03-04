@@ -5,22 +5,18 @@
 #include "legoworld.h"
 #include "misc.h"
 
-// FUNCTION: LEGO1 0x1006d7e0
 LegoHideAnimPresenter::LegoHideAnimPresenter() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x1006d9f0
 LegoHideAnimPresenter::~LegoHideAnimPresenter() {
 	Destroy(TRUE);
 }
 
-// FUNCTION: LEGO1 0x1006da50
 void LegoHideAnimPresenter::Init() {
 	m_boundaryMap = NULL;
 }
 
-// FUNCTION: LEGO1 0x1006da60
 void LegoHideAnimPresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 
@@ -37,22 +33,17 @@ void LegoHideAnimPresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1006dab0
 MxResult LegoHideAnimPresenter::AddToManager() {
 	return LegoAnimPresenter::AddToManager();
 }
 
-// FUNCTION: LEGO1 0x1006dac0
 void LegoHideAnimPresenter::Destroy() {
 	Destroy(FALSE);
 }
 
-// FUNCTION: LEGO1 0x1006dad0
 void LegoHideAnimPresenter::PutFrame() {
 }
 
-// FUNCTION: LEGO1 0x1006dae0
-// FUNCTION: BETA10 0x100530f4
 void LegoHideAnimPresenter::ReadyTickle() {
 	LegoLoopingAnimPresenter::ReadyTickle();
 
@@ -66,8 +57,6 @@ void LegoHideAnimPresenter::ReadyTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1006db20
-// FUNCTION: BETA10 0x1005316b
 void LegoHideAnimPresenter::StartingTickle() {
 	LegoLoopingAnimPresenter::StartingTickle();
 
@@ -77,14 +66,10 @@ void LegoHideAnimPresenter::StartingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1006db40
-// FUNCTION: BETA10 0x100531ab
 void LegoHideAnimPresenter::FUN_1006db40(LegoTime p_time) {
 	FUN_1006db60(m_anim->GetRoot(), p_time);
 }
 
-// FUNCTION: LEGO1 0x1006db60
-// FUNCTION: BETA10 0x100531de
 void LegoHideAnimPresenter::FUN_1006db60(
 	LegoTreeNode* p_node,
 	LegoTime p_time
@@ -119,8 +104,6 @@ void LegoHideAnimPresenter::FUN_1006db60(
 	}
 }
 
-// FUNCTION: LEGO1 0x1006dc10
-// FUNCTION: BETA10 0x100532fd
 void LegoHideAnimPresenter::FUN_1006dc10() {
 	LegoHideAnimStructMap anims;
 
@@ -141,8 +124,6 @@ void LegoHideAnimPresenter::FUN_1006dc10() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1006e3f0
-// FUNCTION: BETA10 0x1005345e
 void LegoHideAnimPresenter::FUN_1006e3f0(
 	LegoHideAnimStructMap& p_map,
 	LegoTreeNode* p_node
@@ -166,8 +147,6 @@ void LegoHideAnimPresenter::FUN_1006e3f0(
 	}
 }
 
-// FUNCTION: LEGO1 0x1006e470
-// FUNCTION: BETA10 0x10053520
 void LegoHideAnimPresenter::FUN_1006e470(
 	LegoHideAnimStructMap& p_map,
 	LegoAnimNodeData* p_data,
@@ -193,8 +172,6 @@ void LegoHideAnimPresenter::FUN_1006e470(
 	}
 }
 
-// FUNCTION: LEGO1 0x1006e9e0
-// FUNCTION: BETA10 0x100535ef
 void LegoHideAnimPresenter::EndAction() {
 	if (m_action) {
 		MxVideoPresenter::EndAction();

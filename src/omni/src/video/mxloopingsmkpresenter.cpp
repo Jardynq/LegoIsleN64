@@ -4,24 +4,20 @@
 #include "mxdsmediaaction.h"
 #include "mxdssubscriber.h"
 
-// FUNCTION: LEGO1 0x100b48b0
 MxLoopingSmkPresenter::MxLoopingSmkPresenter() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100b4950
 MxLoopingSmkPresenter::~MxLoopingSmkPresenter() {
 	Destroy(TRUE);
 }
 
-// FUNCTION: LEGO1 0x100b49b0
 void MxLoopingSmkPresenter::Init() {
 	m_elapsedDuration = 0;
 	SetBit1(FALSE);
 	SetBit2(FALSE);
 }
 
-// FUNCTION: LEGO1 0x100b49d0
 void MxLoopingSmkPresenter::Destroy(MxBool p_fromDestructor) {
 	m_criticalSection.Enter();
 	Init();
@@ -32,7 +28,6 @@ void MxLoopingSmkPresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b4a00
 void MxLoopingSmkPresenter::VTable0x88() {
 	if (m_mxSmk.m_smackTag.Frames == m_currentFrame) {
 		m_currentFrame = 0;
@@ -45,7 +40,6 @@ void MxLoopingSmkPresenter::VTable0x88() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b4a30
 void MxLoopingSmkPresenter::NextFrame() {
 	MxStreamChunk* chunk = NextChunk();
 
@@ -61,7 +55,6 @@ void MxLoopingSmkPresenter::NextFrame() {
 	m_subscriber->FreeDataChunk(chunk);
 }
 
-// FUNCTION: LEGO1 0x100b4a90
 void MxLoopingSmkPresenter::VTable0x8c() {
 	if (m_action->GetDuration() < m_elapsedDuration) {
 		ProgressTickleState(e_freezing);
@@ -74,7 +67,6 @@ void MxLoopingSmkPresenter::VTable0x8c() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b4b00
 void MxLoopingSmkPresenter::RepeatingTickle() {
 	for (MxS16 i = 0; i < m_unk0x5c; i++) {
 		if (!m_loopingChunkCursor->HasMatch()) {
@@ -114,13 +106,11 @@ void MxLoopingSmkPresenter::RepeatingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b4cd0
 MxResult MxLoopingSmkPresenter::AddToManager() {
 	AUTOLOCK(m_criticalSection);
 	return MxSmkPresenter::AddToManager();
 }
 
-// FUNCTION: LEGO1 0x100b4d40
 void MxLoopingSmkPresenter::Destroy() {
 	Destroy(FALSE);
 }

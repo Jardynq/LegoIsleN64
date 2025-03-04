@@ -1,13 +1,10 @@
 #include "modeldb.h"
 
-// FUNCTION: LEGO1 0x10027690
-// FUNCTION: BETA10 0x100e5620
 void ModelDbModel::Free() {
 	delete[] m_modelName;
 	delete[] m_presenterName;
 }
 
-// FUNCTION: LEGO1 0x100276b0
 MxResult ModelDbModel::Read(FILE* p_file) {
 	MxU32 len;
 
@@ -51,7 +48,6 @@ MxResult ModelDbModel::Read(FILE* p_file) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10027850
 MxResult ModelDbPart::Read(FILE* p_file) {
 	MxU32 len;
 	char buff[128];
@@ -77,7 +73,6 @@ MxResult ModelDbPart::Read(FILE* p_file) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10027910
 MxResult
 ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWorlds) {
 	p_worlds = NULL;
@@ -140,8 +135,6 @@ ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWorlds) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10028080
-// FUNCTION: BETA10 0x100e6431
 void FreeModelDbWorlds(ModelDbWorld*& p_worlds, MxS32 p_numWorlds) {
 	ModelDbWorld* worlds = p_worlds;
 

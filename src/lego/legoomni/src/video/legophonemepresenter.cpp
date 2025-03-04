@@ -7,16 +7,13 @@
 #include "mxcompositepresenter.h"
 #include "mxdsaction.h"
 
-// FUNCTION: LEGO1 0x1004e180
 LegoPhonemePresenter::LegoPhonemePresenter() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x1004e340
 LegoPhonemePresenter::~LegoPhonemePresenter() {
 }
 
-// FUNCTION: LEGO1 0x1004e3b0
 void LegoPhonemePresenter::Init() {
 	m_rectCount = 0;
 	m_textureInfo = NULL;
@@ -24,8 +21,6 @@ void LegoPhonemePresenter::Init() {
 	m_unk0x84 = FALSE;
 }
 
-// FUNCTION: LEGO1 0x1004e3d0
-// FUNCTION: BETA10 0x100c3646
 void LegoPhonemePresenter::StartingTickle() {
 	MxFlcPresenter::StartingTickle();
 
@@ -82,8 +77,6 @@ void LegoPhonemePresenter::StartingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004e800
-// FUNCTION: BETA10 0x100c3ac9
 void LegoPhonemePresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	MxU8* data = p_chunk->GetData();
 
@@ -103,8 +96,6 @@ void LegoPhonemePresenter::LoadFrame(MxStreamChunk* p_chunk) {
 	);
 }
 
-// FUNCTION: LEGO1 0x1004e840
-// FUNCTION: BETA10 0x100c3b5d
 void LegoPhonemePresenter::PutFrame() {
 	if (m_textureInfo != NULL && m_rectCount != 0) {
 		m_textureInfo->FUN_10066010(m_frameBitmap->GetImage());
@@ -112,8 +103,6 @@ void LegoPhonemePresenter::PutFrame() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1004e870
-// FUNCTION: BETA10 0x100c3c24
 void LegoPhonemePresenter::EndAction() {
 	if (m_action != NULL) {
 		MxFlcPresenter::EndAction();

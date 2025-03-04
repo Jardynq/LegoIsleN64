@@ -9,23 +9,16 @@
 #include "mxmisc.h"
 #include "mxtimer.h"
 
-// GLOBAL: LEGO1 0x100f31d0
 LegoWorld* g_unk0x100f31d0 = NULL;
 
-// GLOBAL: LEGO1 0x100f31d4
 LegoLocomotionAnimPresenter* m_assAnimP = NULL;
 
-// GLOBAL: LEGO1 0x100f31d8
 LegoLocomotionAnimPresenter* m_disAnimP = NULL;
 
-// GLOBAL: LEGO1 0x100f31dc
 MxS32 g_unk0x100f31dc = 0;
 
-// GLOBAL: LEGO1 0x10104c18
 Mx3DPointFloat g_unk0x10104c18 = Mx3DPointFloat(0.0f, 2.5f, 0.0f);
 
-// FUNCTION: LEGO1 0x1002a500
-// FUNCTION: BETA10 0x10080908
 LegoExtraActor::LegoExtraActor() {
 	m_unk0x70 = 0.0f;
 	m_scheduledTime = 0;
@@ -37,13 +30,11 @@ LegoExtraActor::LegoExtraActor() {
 	m_unk0x15 = 0;
 }
 
-// FUNCTION: LEGO1 0x1002a6b0
 LegoExtraActor::~LegoExtraActor() {
 	delete m_assAnim;
 	delete m_disAnim;
 }
 
-// FUNCTION: LEGO1 0x1002a720
 MxU32 LegoExtraActor::VTable0x90(float p_time, Matrix4& p_transform) {
 	switch (m_actorState & c_maxState) {
 	case c_initial:
@@ -102,7 +93,6 @@ MxU32 LegoExtraActor::VTable0x90(float p_time, Matrix4& p_transform) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1002aa90
 void LegoExtraActor::VTable0xa4(MxBool& p_und1, MxS32& p_und2) {
 	switch (m_unk0x0c) {
 	case 1:
@@ -120,7 +110,6 @@ void LegoExtraActor::VTable0xa4(MxBool& p_und1, MxS32& p_und2) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1002aae0
 MxResult LegoExtraActor::FUN_1002aae0() {
 	LegoPathBoundary* oldEdge = m_boundary;
 	Vector3 rightRef(m_unk0xec[0]);
@@ -181,8 +170,6 @@ inline void LegoExtraActor::FUN_1002ad8a() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1002aba0
-// FUNCTION: BETA10 0x1008114a
 MxResult LegoExtraActor::HitActor(LegoPathActor* p_actor, MxBool p_bool) {
 	if (p_actor->GetActorState() != c_initial || GetActorState() != c_initial) {
 		return FAILURE;
@@ -270,7 +257,6 @@ MxResult LegoExtraActor::HitActor(LegoPathActor* p_actor, MxBool p_bool) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1002b290
 MxResult LegoExtraActor::VTable0x9c() {
 	LegoPathBoundary* oldBoundary = m_boundary;
 	MxResult result = LegoPathActor::VTable0x9c();
@@ -299,7 +285,6 @@ MxResult LegoExtraActor::VTable0x9c() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1002b370
 void LegoExtraActor::Restart() {
 	if (m_unk0x0e != 0) {
 		MxU32 b = FALSE;
@@ -322,7 +307,6 @@ void LegoExtraActor::Restart() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1002b440
 void LegoExtraActor::Animate(float p_time) {
 	LegoAnimActorStruct* laas = NULL;
 
@@ -380,14 +364,12 @@ void LegoExtraActor::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1002b5d0
 void LegoExtraActor::VTable0x74(Matrix4& p_transform) {
 	if (m_whichAnim == 0) {
 		LegoAnimActor::VTable0x74(p_transform);
 	}
 }
 
-// FUNCTION: LEGO1 0x1002b5f0
 void LegoExtraActor::SetWorldSpeed(MxFloat p_worldSpeed) {
 	if (m_curAnim == 0 && p_worldSpeed > 0) {
 		VTable0xc4();
@@ -396,7 +378,6 @@ void LegoExtraActor::SetWorldSpeed(MxFloat p_worldSpeed) {
 	LegoAnimActor::SetWorldSpeed(p_worldSpeed);
 }
 
-// FUNCTION: LEGO1 0x1002b630
 void LegoExtraActor::VTable0xc4() {
 	if (m_curAnim != 0) {
 		return;
@@ -414,7 +395,6 @@ void LegoExtraActor::VTable0xc4() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1002b6f0
 MxS32 LegoExtraActor::VTable0x68(
 	Vector3& p_point1,
 	Vector3& p_point2,
@@ -423,7 +403,6 @@ MxS32 LegoExtraActor::VTable0x68(
 	return LegoPathActor::VTable0x68(p_point1, p_point2, p_point3);
 }
 
-// FUNCTION: LEGO1 0x1002b980
 inline MxU32 LegoExtraActor::VTable0x6c(
 	LegoPathBoundary* p_boundary,
 	Vector3& p_v1,

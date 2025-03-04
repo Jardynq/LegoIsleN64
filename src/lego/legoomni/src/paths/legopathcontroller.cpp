@@ -6,21 +6,14 @@
 #include "mxticklemanager.h"
 #include "mxtimer.h"
 
-// GLOBAL: LEGO1 0x100d7cc8
 MxU32 g_unk0x100d7cc8[] = {2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0};
 
-// GLOBAL: LEGO1 0x100d7d08
 MxU32 g_unk0x100d7d08[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-// GLOBAL: LEGO1 0x100f42e8
-// GLOBAL: BETA10 0x101f25f0
 LegoPathController::CtrlBoundary* LegoPathController::g_ctrlBoundariesA = NULL;
 
-// GLOBAL: LEGO1 0x100f42ec
-// GLOBAL: BETA10 0x101f25f4
 LegoPathController::CtrlEdge* LegoPathController::g_ctrlEdgesA = NULL;
 
-// GLOBAL: LEGO1 0x100f42f0
 const char* LegoPathController::g_unk0x100f42f0[] = {
 	"edg03_21",
 	"edg03_23",
@@ -39,7 +32,6 @@ const char* LegoPathController::g_unk0x100f42f0[] = {
 	"edg10_55",
 	"edg10_58"};
 
-// GLOBAL: LEGO1 0x100f4330
 const char* LegoPathController::g_unk0x100f4330[] = {
 	"edg03_06",
 	"edg03_21",
@@ -52,14 +44,10 @@ const char* LegoPathController::g_unk0x100f4330[] = {
 	"edg03_800",
 	"edg03_135"};
 
-// GLOBAL: LEGO1 0x100f4358
 LegoPathController::CtrlBoundary* LegoPathController::g_ctrlBoundariesB = NULL;
 
-// GLOBAL: LEGO1 0x100f435c
 LegoPathController::CtrlEdge* LegoPathController::g_ctrlEdgesB = NULL;
 
-// FUNCTION: LEGO1 0x10044f40
-// FUNCTION: BETA10 0x100b6860
 LegoPathController::LegoPathController() {
 	m_boundaries = NULL;
 	m_edges = NULL;
@@ -71,8 +59,6 @@ LegoPathController::LegoPathController() {
 	m_numT = 0;
 }
 
-// FUNCTION: LEGO1 0x10045880
-// FUNCTION: BETA10 0x100b6959
 MxResult LegoPathController::Create(
 	MxU8* p_data,
 	const Vector3& p_location,
@@ -128,8 +114,6 @@ MxResult LegoPathController::Create(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10045b20
-// FUNCTION: BETA10 0x100b6b8a
 void LegoPathController::Destroy() {
 	TickleManager()->UnregisterClient(this);
 
@@ -183,15 +167,11 @@ void LegoPathController::Destroy() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10045c10
-// FUNCTION: BETA10 0x100b6d60
 MxResult LegoPathController::Tickle() {
 	FUN_10046970();
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10045c20
-// FUNCTION: BETA10 0x100b6d80
 MxResult LegoPathController::PlaceActor(
 	LegoPathActor* p_actor,
 	const char* p_name,
@@ -237,8 +217,6 @@ MxResult LegoPathController::PlaceActor(
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10046050
-// FUNCTION: BETA10 0x100b6f35
 MxResult LegoPathController::PlaceActor(
 	LegoPathActor* p_actor,
 	LegoAnimPresenter* p_presenter,
@@ -320,8 +298,6 @@ MxResult LegoPathController::PlaceActor(
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x100466a0
-// FUNCTION: BETA10 0x100b71fe
 MxResult LegoPathController::PlaceActor(LegoPathActor* p_actor) {
 	if (p_actor->GetController() != NULL) {
 		p_actor->GetController()->RemoveActor(p_actor);
@@ -333,8 +309,6 @@ MxResult LegoPathController::PlaceActor(LegoPathActor* p_actor) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10046770
-// FUNCTION: BETA10 0x100b7264
 MxResult LegoPathController::RemoveActor(LegoPathActor* p_actor) {
 	MxResult result = FAILURE;
 
@@ -350,8 +324,6 @@ MxResult LegoPathController::RemoveActor(LegoPathActor* p_actor) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100468f0
-// FUNCTION: BETA10 0x100b72f7
 void LegoPathController::FUN_100468f0(LegoAnimPresenter* p_presenter) {
 	for (MxS32 i = 0; i < m_numL; i++) {
 		if (!(m_boundaries[i].m_flags & LegoWEGEdge::c_bit3)) {
@@ -360,16 +332,12 @@ void LegoPathController::FUN_100468f0(LegoAnimPresenter* p_presenter) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10046930
-// FUNCTION: BETA10 0x100b737b
 void LegoPathController::FUN_10046930(LegoAnimPresenter* p_presenter) {
 	for (MxS32 i = 0; i < m_numL; i++) {
 		m_boundaries[i].FUN_100586e0(p_presenter);
 	}
 }
 
-// FUNCTION: LEGO1 0x10046970
-// FUNCTION: BETA10 0x100b73d8
 void LegoPathController::FUN_10046970() {
 	float time = Timer()->GetTime();
 
@@ -387,7 +355,6 @@ void LegoPathController::FUN_10046970() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10046b30
 MxResult LegoPathController::FUN_10046b30(
 	LegoPathBoundary*& p_boundaries,
 	MxS32& p_numL
@@ -397,8 +364,6 @@ MxResult LegoPathController::FUN_10046b30(
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10046b50
-// FUNCTION: BETA10 0x100b7531
 LegoPathBoundary* LegoPathController::GetPathBoundary(const char* p_name) {
 	for (MxS32 i = 0; i < m_numL; i++) {
 		if (!strcmpi(m_boundaries[i].GetName(), p_name)) {
@@ -409,16 +374,12 @@ LegoPathBoundary* LegoPathController::GetPathBoundary(const char* p_name) {
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x10046bb0
-// FUNCTION: BETA10 0x100b75bc
 void LegoPathController::FUN_10046bb0(LegoWorld* p_world) {
 	for (MxS32 i = 0; i < m_numT; i++) {
 		m_structs[i].SetWorld(p_world);
 	}
 }
 
-// FUNCTION: LEGO1 0x10046be0
-// FUNCTION: BETA10 0x100b7614
 void LegoPathController::Enable(MxBool p_enable) {
 	if (p_enable) {
 		TickleManager()->RegisterClient(this, 10);
@@ -427,8 +388,6 @@ void LegoPathController::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10046c10
-// FUNCTION: BETA10 0x100b767a
 MxResult LegoPathController::Init() {
 	if (g_ctrlBoundariesA != NULL || g_ctrlEdgesA != NULL ||
 		g_ctrlBoundariesB != NULL || g_ctrlEdgesB != NULL) {
@@ -442,8 +401,6 @@ MxResult LegoPathController::Init() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10046de0
-// FUNCTION: BETA10 0x100b779e
 MxResult LegoPathController::Reset() {
 	if (g_ctrlBoundariesA == NULL || g_ctrlEdgesA == NULL) {
 		return FAILURE;
@@ -460,8 +417,6 @@ MxResult LegoPathController::Reset() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10046e50
-// FUNCTION: BETA10 0x100b781f
 MxResult LegoPathController::Read(LegoStorage* p_storage) {
 	if (p_storage->Read(&m_numT, sizeof(m_numT)) != SUCCESS) {
 		return FAILURE;
@@ -518,8 +473,6 @@ MxResult LegoPathController::Read(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10047b30
-// FUNCTION: BETA10 0x100b7cd6
 MxResult LegoPathController::ReadStructs(LegoStorage* p_storage) {
 	for (MxS32 i = 0; i < m_numT; i++) {
 		MxU8 length = 0;
@@ -549,8 +502,6 @@ MxResult LegoPathController::ReadStructs(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10047c10
-// FUNCTION: BETA10 0x100b7df3
 MxResult LegoPathController::ReadEdges(LegoStorage* p_storage) {
 	for (MxS32 i = 0; i < m_numE; i++) {
 		LegoPathCtrlEdge& edge = m_edges[i];
@@ -617,8 +568,6 @@ MxResult LegoPathController::ReadEdges(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10047e90
-// FUNCTION: BETA10 0x100b8293
 MxResult LegoPathController::ReadBoundaries(LegoStorage* p_storage) {
 	for (MxS32 i = 0; i < m_numL; i++) {
 		LegoPathBoundary& boundary = m_boundaries[i];
@@ -730,8 +679,6 @@ MxResult LegoPathController::ReadBoundaries(LegoStorage* p_storage) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100482b0
-// FUNCTION: BETA10 0x100b8864
 MxResult
 LegoPathController::ReadVector(LegoStorage* p_storage, Mx3DPointFloat& p_vec) {
 	if (p_storage->Read(p_vec.GetData(), sizeof(float) * 3) != SUCCESS) {
@@ -741,8 +688,6 @@ LegoPathController::ReadVector(LegoStorage* p_storage, Mx3DPointFloat& p_vec) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100482e0
-// FUNCTION: BETA10 0x100b88a1
 MxResult
 LegoPathController::ReadVector(LegoStorage* p_storage, Mx4DPointFloat& p_vec) {
 	if (p_storage->Read(p_vec.GetData(), sizeof(float) * 4) != SUCCESS) {
@@ -752,8 +697,6 @@ LegoPathController::ReadVector(LegoStorage* p_storage, Mx4DPointFloat& p_vec) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10048310
-// FUNCTION: BETA10 0x100b8911
 MxResult LegoPathController::FUN_10048310(
 	LegoPathEdgeContainer* p_grec,
 	const Vector3& p_oldPosition,
@@ -959,8 +902,6 @@ MxResult LegoPathController::FUN_10048310(
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x1004a240
-// FUNCTION: BETA10 0x100b9160
 MxS32 LegoPathController::FUN_1004a240(
 	LegoPathEdgeContainer& p_grec,
 	Vector3& p_v1,
@@ -991,8 +932,6 @@ MxS32 LegoPathController::FUN_1004a240(
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x1004a380
-// FUNCTION: BETA10 0x100b957f
 MxResult LegoPathController::FUN_1004a380(
 	Vector3& p_param1,
 	Vector3& p_param2,

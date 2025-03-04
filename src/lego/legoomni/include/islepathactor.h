@@ -10,21 +10,16 @@ class LegoEndAnimNotificationParam;
 class LegoWorld;
 class LegoPathStructNotificationParam;
 
-// VTABLE: LEGO1 0x100d4398
-// VTABLE: BETA10 0x101b9090
-// SIZE 0x160
 class IslePathActor : public LegoPathActor {
 public:
 	enum { c_LOCATIONS_NUM = 29 };
 
 	enum { c_spawnBit1 = 0x01, c_playMusic = 0x02, c_spawnBit3 = 0x04 };
 
-	// SIZE 0x38
 	struct SpawnLocation {
-		// FUNCTION: LEGO1 0x1001a6f0
+
 		SpawnLocation() {}
 
-		// FUNCTION: LEGO1 0x1001b1b0
 		SpawnLocation(
 			LegoGameState::Area p_area,
 			MxAtomId* p_script,
@@ -49,7 +44,6 @@ public:
 			m_music = p_music;
 		}
 
-		// FUNCTION: LEGO1 0x1001b230
 		SpawnLocation& operator=(const SpawnLocation& p_location) {
 			m_area = p_location.m_area;
 			m_script = p_location.m_script;
@@ -64,76 +58,57 @@ public:
 			return *this;
 		}
 
-		LegoGameState::Area m_area;    // 0x00
-		MxAtomId* m_script;            // 0x04
-		MxS32 m_entityId;              // 0x08
-		char m_name[20];               // 0x0c
-		MxS16 m_src;                   // 0x20
-		float m_srcScale;              // 0x24
-		MxS16 m_dest;                  // 0x28
-		float m_destScale;             // 0x2c
-		MxU32 m_location;              // 0x30
-		JukeboxScript::Script m_music; // 0x34
+		LegoGameState::Area m_area;
+		MxAtomId* m_script;
+		MxS32 m_entityId;
+		char m_name[20];
+		MxS16 m_src;
+		float m_srcScale;
+		MxS16 m_dest;
+		float m_destScale;
+		MxU32 m_location;
+		JukeboxScript::Script m_music;
 	};
 
 	IslePathActor();
 
-	// FUNCTION: LEGO1 0x10002e70
-	virtual MxLong HandleClick() { return 0; } // vtable+0xcc
+	virtual MxLong HandleClick() { return 0; }
 
-	// FUNCTION: LEGO1 0x10002df0
-	virtual MxLong HandleNotification0() { return 0; } // vtable+0xd0
+	virtual MxLong HandleNotification0() { return 0; }
 
-	// FUNCTION: LEGO1 0x10002e80
 	virtual MxLong HandleControl(LegoControlManagerNotificationParam&) {
 		return 0;
-	} // vtable+0xd4
+	}
 
-	// FUNCTION: LEGO1 0x10002e90
-	virtual MxLong HandleEndAnim(LegoEndAnimNotificationParam&) {
-		return 0;
-	} // vtable+0xd8
+	virtual MxLong HandleEndAnim(LegoEndAnimNotificationParam&) { return 0; }
 
-	// FUNCTION: LEGO1 0x10002e00
 	virtual MxLong HandlePathStruct(LegoPathStructNotificationParam&) {
 		return 0;
-	} // vtable+0xdc
+	}
 
-	virtual void Enter(); // vtable+0xe0
-	virtual void Exit();  // vtable+0xe4
-	virtual void SpawnPlayer(
-		LegoGameState::Area p_area,
-		MxBool p_enter,
-		MxU8 p_flags
-	); // vtable+0xe8
+	virtual void Enter();
+	virtual void Exit();
+	virtual void
+	SpawnPlayer(LegoGameState::Area p_area, MxBool p_enter, MxU8 p_flags);
 	virtual void VTable0xec(
 		MxMatrix p_transform,
 		LegoPathBoundary* p_boundary,
 		MxBool p_reset
-	); // vtable+0xec
+	);
 
-	// FUNCTION: LEGO1 0x10002e10
 	~IslePathActor() override { IslePathActor::Destroy(TRUE); }
 
-	MxLong Notify(MxParam& p_param) override; // vtable+0x04
+	MxLong Notify(MxParam& p_param) override;
 
-	// FUNCTION: LEGO1 0x10002ea0
-	// FUNCTION: BETA10 0x10023fa0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f0104
-		return "IslePathActor";
-	}
+	const char* ClassName() const override { return "IslePathActor"; }
 
-	// FUNCTION: LEGO1 0x10002eb0
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, IslePathActor::ClassName()) ||
 			   LegoPathActor::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
-	void Destroy(MxBool p_fromDestructor) override;   // vtable+0x1c
+	MxResult Create(MxDSAction& p_dsAction) override;
+	void Destroy(MxBool p_fromDestructor) override;
 
 	void FUN_1001b660();
 
@@ -141,13 +116,12 @@ public:
 
 	static void RegisterSpawnLocations();
 
-	// SYNTHETIC: LEGO1 0x10002ff0
 	// IslePathActor::`scalar deleting destructor'
 
 protected:
-	LegoWorld* m_world;             // 0x154
-	LegoPathActor* m_previousActor; // 0x158
-	MxFloat m_previousVel;          // 0x15c
+	LegoWorld* m_world;
+	LegoPathActor* m_previousActor;
+	MxFloat m_previousVel;
 };
 
 #endif // ISLEPATHACTOR_H

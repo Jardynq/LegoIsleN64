@@ -11,10 +11,8 @@
 #include "mxstring.h"
 #include "mxthread.h"
 
-// GLOBAL: LEGO1 0x10102878
 MxU32 g_unk0x10102878 = 0;
 
-// FUNCTION: LEGO1 0x100d0f30
 MxResult MxDiskStreamProviderThread::Run() {
 	if (m_target) {
 		((MxDiskStreamProvider*) m_target)->WaitForWorkToComplete();
@@ -25,21 +23,18 @@ MxResult MxDiskStreamProviderThread::Run() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100d0f50
 MxResult
 MxDiskStreamProviderThread::StartWithTarget(MxDiskStreamProvider* p_target) {
 	m_target = p_target;
 	return Start(0x1000, 0);
 }
 
-// FUNCTION: LEGO1 0x100d0f70
 MxDiskStreamProvider::MxDiskStreamProvider() {
 	m_pFile = NULL;
 	m_remainingWork = FALSE;
 	m_unk0x35 = FALSE;
 }
 
-// FUNCTION: LEGO1 0x100d1240
 MxDiskStreamProvider::~MxDiskStreamProvider() {
 	MxDSObject* action;
 	m_unk0x35 = FALSE;
@@ -78,7 +73,6 @@ MxDiskStreamProvider::~MxDiskStreamProvider() {
 	m_pFile = NULL;
 }
 
-// FUNCTION: LEGO1 0x100d13d0
 MxResult MxDiskStreamProvider::SetResourceToGet(MxStreamController* p_resource
 ) {
 	MxResult result = FAILURE;
@@ -113,7 +107,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100d15e0
 void MxDiskStreamProvider::VTable0x20(MxDSAction* p_action) {
 	MxDSObject* action;
 
@@ -164,7 +157,6 @@ void MxDiskStreamProvider::VTable0x20(MxDSAction* p_action) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100d1750
 MxResult MxDiskStreamProvider::WaitForWorkToComplete() {
 	while (m_remainingWork) {
 		m_busySemaphore.Wait(INFINITE);
@@ -176,7 +168,6 @@ MxResult MxDiskStreamProvider::WaitForWorkToComplete() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100d1780
 MxResult MxDiskStreamProvider::FUN_100d1780(MxDSStreamingAction* p_action) {
 	if (!m_remainingWork) {
 		return FAILURE;
@@ -212,7 +203,6 @@ MxResult MxDiskStreamProvider::FUN_100d1780(MxDSStreamingAction* p_action) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100d18f0
 void MxDiskStreamProvider::PerformWork() {
 	MxDiskStreamController* controller = (MxDiskStreamController*) m_pLookup;
 	MxDSObject* streamingAction = NULL;
@@ -287,7 +277,6 @@ done:
 	m_thread.Sleep(0);
 }
 
-// FUNCTION: LEGO1 0x100d1af0
 MxBool MxDiskStreamProvider::FUN_100d1af0(MxDSStreamingAction* p_action) {
 	if (p_action->GetUnknowna0()->GetWriteOffset() == 0x20000) {
 		return g_unk0x10102878 == 0;
@@ -296,8 +285,6 @@ MxBool MxDiskStreamProvider::FUN_100d1af0(MxDSStreamingAction* p_action) {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x100d1b20
-// FUNCTION: BETA10 0x10163712
 MxResult MxDiskStreamProvider::FUN_100d1b20(MxDSStreamingAction* p_action) {
 	MxDSBuffer* buffer = new MxDSBuffer();
 
@@ -400,22 +387,18 @@ MxResult MxDiskStreamProvider::FUN_100d1b20(MxDSStreamingAction* p_action) {
 #undef IntoType
 }
 
-// FUNCTION: LEGO1 0x100d1e90
 MxU32 MxDiskStreamProvider::GetFileSize() {
 	return m_pFile->GetBufferSize();
 }
 
-// FUNCTION: LEGO1 0x100d1ea0
 MxS32 MxDiskStreamProvider::GetStreamBuffersNum() {
 	return m_pFile->GetStreamBuffersNum();
 }
 
-// FUNCTION: LEGO1 0x100d1eb0
 MxU32 MxDiskStreamProvider::GetLengthInDWords() {
 	return m_pFile->GetLengthInDWords();
 }
 
-// FUNCTION: LEGO1 0x100d1ec0
 MxU32* MxDiskStreamProvider::GetBufferForDWords() {
 	return m_pFile->GetBuffer();
 }

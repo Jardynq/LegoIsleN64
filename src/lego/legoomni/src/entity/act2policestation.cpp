@@ -6,8 +6,6 @@
 #include "mxnotificationmanager.h"
 #include "mxnotificationparam.h"
 
-// FUNCTION: LEGO1 0x1004e0e0
-// FUNCTION: BETA10 0x100137c0
 MxLong Act2PoliceStation::Notify(MxParam& p_param) {
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
 

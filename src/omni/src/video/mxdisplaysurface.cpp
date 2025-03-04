@@ -13,20 +13,16 @@
 
 #define RGB555_CREATE(R, G, B) (((R) << 10) | (G) << 5 | (B) << 0)
 
-// GLOBAL: LEGO1 0x1010215c
 MxU32 g_unk0x1010215c = 0;
 
-// FUNCTION: LEGO1 0x100ba500
 MxDisplaySurface::MxDisplaySurface() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100ba5a0
 MxDisplaySurface::~MxDisplaySurface() {
 	Destroy();
 }
 
-// FUNCTION: LEGO1 0x100ba610
 void MxDisplaySurface::Init() {
 	m_ddSurface1 = NULL;
 	m_ddSurface2 = NULL;
@@ -36,7 +32,6 @@ void MxDisplaySurface::Init() {
 	memset(&m_surfaceDesc, 0, sizeof(m_surfaceDesc));
 }
 
-// FUNCTION: LEGO1 0x100ba640
 void MxDisplaySurface::ClearScreen() {
 	MxS32 backBuffers;
 	DDSURFACEDESC desc;
@@ -82,7 +77,6 @@ void MxDisplaySurface::ClearScreen() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100ba750
 MxU8 MxDisplaySurface::CountTotalBitsSetTo1(MxU32 p_param) {
 	MxU8 count = 0;
 
@@ -93,7 +87,6 @@ MxU8 MxDisplaySurface::CountTotalBitsSetTo1(MxU32 p_param) {
 	return count;
 }
 
-// FUNCTION: LEGO1 0x100ba770
 MxU8 MxDisplaySurface::CountContiguousBitsSetTo1(MxU32 p_param) {
 	MxU8 count = 0;
 
@@ -104,7 +97,6 @@ MxU8 MxDisplaySurface::CountContiguousBitsSetTo1(MxU32 p_param) {
 	return count;
 }
 
-// FUNCTION: LEGO1 0x100ba790
 MxResult MxDisplaySurface::Init(
 	MxVideoParam& p_videoParam,
 	LPDIRECTDRAWSURFACE p_ddSurface1,
@@ -129,7 +121,6 @@ MxResult MxDisplaySurface::Init(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100ba7f0
 MxResult MxDisplaySurface::Create(MxVideoParam& p_videoParam) {
 	DDSURFACEDESC ddsd;
 	MxResult result = FAILURE;
@@ -245,7 +236,6 @@ done:
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100baa90
 void MxDisplaySurface::Destroy() {
 	if (m_initialized) {
 		if (m_ddSurface2) {
@@ -268,7 +258,6 @@ void MxDisplaySurface::Destroy() {
 	Init();
 }
 
-// FUNCTION: LEGO1 0x100baae0
 void MxDisplaySurface::SetPalette(MxPalette* p_palette) {
 	if (m_surfaceDesc.ddpfPixelFormat.dwFlags & DDPF_PALETTEINDEXED8) {
 		m_ddSurface1->SetPalette(p_palette->CreateNativePalette());
@@ -329,8 +318,6 @@ void MxDisplaySurface::SetPalette(MxPalette* p_palette) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100bacc0
-// FUNCTION: BETA10 0x1014012b
 void MxDisplaySurface::VTable0x28(
 	MxBitmap* p_bitmap,
 	MxS32 p_left,
@@ -492,8 +479,6 @@ void MxDisplaySurface::VTable0x28(
 	m_ddSurface2->Unlock(ddsd.lpSurface);
 }
 
-// FUNCTION: LEGO1 0x100bb1d0
-// FUNCTION: BETA10 0x1014088e
 void MxDisplaySurface::VTable0x30(
 	MxBitmap* p_bitmap,
 	MxS32 p_left,
@@ -610,8 +595,6 @@ void MxDisplaySurface::VTable0x30(
 	m_ddSurface2->Unlock(ddsd.lpSurface);
 }
 
-// FUNCTION: LEGO1 0x100bb500
-// FUNCTION: BETA10 0x10140cd6
 void MxDisplaySurface::DrawTransparentRLE(
 	MxU8*& p_bitmapData,
 	MxU8*& p_surfaceData,
@@ -765,8 +748,6 @@ sixteen_bit:
 	}
 }
 
-// FUNCTION: LEGO1 0x100bb850
-// FUNCTION: BETA10 0x10141191
 void MxDisplaySurface::VTable0x34(
 	MxU8* p_pixels,
 	MxS32 p_bpp,
@@ -844,7 +825,6 @@ void MxDisplaySurface::VTable0x34(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bba50
 void MxDisplaySurface::Display(
 	MxS32 p_left,
 	MxS32 p_top,
@@ -917,7 +897,6 @@ void MxDisplaySurface::Display(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bbc10
 void MxDisplaySurface::GetDC(HDC* p_hdc) {
 	if (m_ddSurface2 && !m_ddSurface2->GetDC(p_hdc)) {
 		return;
@@ -926,15 +905,12 @@ void MxDisplaySurface::GetDC(HDC* p_hdc) {
 	*p_hdc = NULL;
 }
 
-// FUNCTION: LEGO1 0x100bbc40
 void MxDisplaySurface::ReleaseDC(HDC p_hdc) {
 	if (m_ddSurface2 && p_hdc) {
 		m_ddSurface2->ReleaseDC(p_hdc);
 	}
 }
 
-// FUNCTION: LEGO1 0x100bbc60
-// FUNCTION: BETA10 0x10141745
 LPDIRECTDRAWSURFACE MxDisplaySurface::VTable0x44(
 	MxBitmap* p_bitmap,
 	undefined4* p_ret,
@@ -1071,7 +1047,6 @@ error:
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x100bbfb0
 LPDIRECTDRAWSURFACE MxDisplaySurface::CopySurface(LPDIRECTDRAWSURFACE p_src) {
 	LPDIRECTDRAWSURFACE newSurface = NULL;
 	IDirectDraw* draw = MVideoManager()->GetDirectDraw();
@@ -1096,7 +1071,6 @@ LPDIRECTDRAWSURFACE MxDisplaySurface::CopySurface(LPDIRECTDRAWSURFACE p_src) {
 	return newSurface;
 }
 
-// FUNCTION: LEGO1 0x100bc070
 LPDIRECTDRAWSURFACE MxDisplaySurface::CreateCursorSurface() {
 	LPDIRECTDRAWSURFACE newSurface = NULL;
 	IDirectDraw* draw = MVideoManager()->GetDirectDraw();
@@ -1172,7 +1146,6 @@ done:
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x100bc200
 void MxDisplaySurface::VTable0x24(
 	LPDDSURFACEDESC p_desc,
 	MxBitmap* p_bitmap,
@@ -1322,7 +1295,6 @@ void MxDisplaySurface::VTable0x24(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bc630
 void MxDisplaySurface::VTable0x2c(
 	LPDDSURFACEDESC p_desc,
 	MxBitmap* p_bitmap,
@@ -1420,7 +1392,6 @@ void MxDisplaySurface::VTable0x2c(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bc8b0
 LPDIRECTDRAWSURFACE MxDisplaySurface::FUN_100bc8b0(MxS32 width, MxS32 height) {
 	LPDIRECTDRAWSURFACE surface = NULL;
 

@@ -31,13 +31,10 @@
 #include "sndanim_actions.h"
 #include "viewmanager/viewmanager.h"
 
-// GLOBAL: LEGO1 0x100f76a0
 const char* g_object2x4red = "2x4red";
 
-// GLOBAL: LEGO1 0x100f76a4
 const char* g_object2x4grn = "2x4grn";
 
-// GLOBAL: LEGO1 0x100f76a8
 InfomainScript::Script g_exitDialogueAct1[14] = {
 	InfomainScript::c_iic019in_RunAnim,
 	InfomainScript::c_iic020in_RunAnim,
@@ -54,7 +51,6 @@ InfomainScript::Script g_exitDialogueAct1[14] = {
 	InfomainScript::c_iic029in_RunAnim,
 	InfomainScript::c_iic032in_RunAnim};
 
-// GLOBAL: LEGO1 0x100f76e0
 InfomainScript::Script g_exitDialogueAct23[6] = {
 	InfomainScript::c_iic027in_RunAnim,
 	InfomainScript::c_iic029in_RunAnim,
@@ -64,7 +60,6 @@ InfomainScript::Script g_exitDialogueAct23[6] = {
 	// Zero-terminated
 };
 
-// GLOBAL: LEGO1 0x100f76f8
 InfomainScript::Script g_returnDialogueAct1[6] = {
 	InfomainScript::c_iicx26in_RunAnim,
 	InfomainScript::c_iic033in_RunAnim,
@@ -74,7 +69,6 @@ InfomainScript::Script g_returnDialogueAct1[6] = {
 	// Zero-terminated
 };
 
-// GLOBAL: LEGO1 0x100f7710
 InfomainScript::Script g_returnDialogueAct2[4] = {
 	InfomainScript::c_iic048in_RunAnim,
 	InfomainScript::c_iic049in_RunAnim,
@@ -82,28 +76,24 @@ InfomainScript::Script g_returnDialogueAct2[4] = {
 	// Zero-terminated
 };
 
-// GLOBAL: LEGO1 0x100f7720
 InfomainScript::Script g_returnDialogueAct3[4] = {
 	InfomainScript::c_iic055in_RunAnim,
 	InfomainScript::c_iic056in_RunAnim,
 	InfomainScript::c_iic057in_RunAnim,
 	InfomainScript::c_iic058in_RunAnim};
 
-// GLOBAL: LEGO1 0x100f7730
 InfomainScript::Script g_leaveDialogueAct1[4] = {
 	InfomainScript::c_iic039in_PlayWav,
 	InfomainScript::c_iic040in_PlayWav,
 	InfomainScript::c_iic041in_PlayWav,
 	InfomainScript::c_iic042in_PlayWav};
 
-// GLOBAL: LEGO1 0x100f7740
 InfomainScript::Script g_leaveDialogueAct2[4] = {
 	InfomainScript::c_iic051in_PlayWav,
 	InfomainScript::c_iic052in_PlayWav,
 	InfomainScript::c_iic053in_PlayWav,
 	InfomainScript::c_iic054in_PlayWav};
 
-// GLOBAL: LEGO1 0x100f7750
 InfomainScript::Script g_leaveDialogueAct3[4] = {
 	InfomainScript::c_iic059in_PlayWav,
 	InfomainScript::c_iic060in_PlayWav,
@@ -111,12 +101,10 @@ InfomainScript::Script g_leaveDialogueAct3[4] = {
 	// Zero-terminated
 };
 
-// GLOBAL: LEGO1 0x100f7760
 InfomainScript::Script g_bricksterDialogue[2] = {
 	InfomainScript::c_sbleh2br_PlayWav,
 	InfomainScript::c_snshahbr_PlayWav};
 
-// FUNCTION: LEGO1 0x1006ea20
 Infocenter::Infocenter() {
 	m_selectedCharacter = e_noCharacter;
 	m_unk0x11c = NULL;
@@ -138,11 +126,9 @@ Infocenter::Infocenter() {
 	m_unk0x1d6 = 0;
 }
 
-// FUNCTION: LEGO1 0x1006ec80
 InfocenterMapEntry::InfocenterMapEntry() {
 }
 
-// FUNCTION: LEGO1 0x1006ec90
 Infocenter::~Infocenter() {
 	BackgroundAudioManager()->Stop();
 
@@ -166,7 +152,6 @@ Infocenter::~Infocenter() {
 	TickleManager()->UnregisterClient(this);
 }
 
-// FUNCTION: LEGO1 0x1006ed90
 MxResult Infocenter::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 	if (result == SUCCESS) {
@@ -223,8 +208,6 @@ MxResult Infocenter::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1006ef10
-// FUNCTION: BETA10 0x1002eaca
 MxLong Infocenter::Notify(MxParam& p_param) {
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
 	MxLong result = 0;
@@ -278,7 +261,6 @@ MxLong Infocenter::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1006f080
 MxLong Infocenter::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	MxDSAction* action = p_param.GetAction();
 	if (action->GetAtomId() == *g_creditsScript &&
@@ -455,7 +437,6 @@ MxLong Infocenter::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1006f4e0
 void Infocenter::ReadyWorld() {
 	m_infoManDialogueTimer = 0;
 	m_bookAnimationTimer = 0;
@@ -681,8 +662,6 @@ void Infocenter::ReadyWorld() {
 	);
 }
 
-// FUNCTION: LEGO1 0x1006f9a0
-// FUNCTION: BETA10 0x1002ef2f
 void Infocenter::InitializeBitmaps() {
 	m_radio.Initialize(TRUE);
 
@@ -773,7 +752,6 @@ void Infocenter::InitializeBitmaps() {
 	UpdateFrameHot(TRUE);
 }
 
-// FUNCTION: LEGO1 0x1006fd00
 MxU8 Infocenter::HandleMouseMove(MxS32 p_x, MxS32 p_y) {
 	if (m_unk0x11c) {
 		if (!m_unk0x11c->IsEnabled()) {
@@ -795,8 +773,6 @@ MxU8 Infocenter::HandleMouseMove(MxS32 p_x, MxS32 p_y) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x1006fda0
-// FUNCTION: BETA10 0x1002f907
 MxLong Infocenter::HandleKeyPress(MxS8 p_key) {
 	MxLong result = 0;
 
@@ -842,8 +818,6 @@ MxLong Infocenter::HandleKeyPress(MxS8 p_key) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1006feb0
-// FUNCTION: BETA10 0x1002fa12
 MxU8 Infocenter::HandleButtonUp(MxS32 p_x, MxS32 p_y) {
 	if (m_unk0x11c) {
 		MxControlPresenter* control =
@@ -1035,7 +1009,6 @@ MxU8 Infocenter::HandleButtonUp(MxS32 p_x, MxS32 p_y) {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x10070370
 MxU8 Infocenter::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	if (p_param.GetUnknown0x28() == 1) {
 		m_infoManDialogueTimer = 0;
@@ -1228,7 +1201,6 @@ MxU8 Infocenter::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10070870
 MxLong Infocenter::HandleNotification0(MxNotificationParam& p_param) {
 	// MxLong result
 	MxCore* sender = p_param.GetSender();
@@ -1239,8 +1211,9 @@ MxLong Infocenter::HandleNotification0(MxNotificationParam& p_param) {
 			StopCutscene();
 			PlayAction(InfomainScript::c_iic043in_RunAnim);
 		}
-	}
-	else if (sender->IsA("MxEntity") && m_infocenterState->GetUnknown0x74() != 5 && m_infocenterState->GetUnknown0x74() != 12) {
+	} else if (sender->IsA("MxEntity") &&
+			   m_infocenterState->GetUnknown0x74() != 5 &&
+			   m_infocenterState->GetUnknown0x74() != 12) {
 		switch (((MxEntity*) sender)->GetEntityId()) {
 		case 5: {
 			m_infoManDialogueTimer = 0;
@@ -1305,7 +1278,6 @@ MxLong Infocenter::HandleNotification0(MxNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10070aa0
 void Infocenter::Enable(MxBool p_enable) {
 	LegoWorld::Enable(p_enable);
 
@@ -1319,7 +1291,6 @@ void Infocenter::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10070af0
 MxResult Infocenter::Tickle() {
 	if (m_worldStarted == FALSE) {
 		LegoWorld::Tickle();
@@ -1371,7 +1342,6 @@ MxResult Infocenter::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10070c20
 void Infocenter::PlayCutscene(Cutscene p_entityId, MxBool p_scale) {
 	m_currentCutscene = p_entityId;
 
@@ -1397,7 +1367,6 @@ void Infocenter::PlayCutscene(Cutscene p_entityId, MxBool p_scale) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10070cb0
 void Infocenter::StopCutscene() {
 	if (m_currentCutscene != e_noIntro) {
 		InvokeAction(
@@ -1418,12 +1387,10 @@ void Infocenter::StopCutscene() {
 	);
 }
 
-// FUNCTION: LEGO1 0x10070d00
 MxBool Infocenter::VTable0x5c() {
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x10070d10
 void Infocenter::FUN_10070d10(MxS32 p_x, MxS32 p_y) {
 	MxS16 i;
 	for (i = 0; i < (MxS32) (sizeof(m_glowInfo) / sizeof(m_glowInfo[0])); i++) {
@@ -1453,7 +1420,6 @@ void Infocenter::FUN_10070d10(MxS32 p_x, MxS32 p_y) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10070dc0
 void Infocenter::UpdateFrameHot(MxBool p_display) {
 	if (p_display) {
 		MxS32 x, y;
@@ -1498,7 +1464,6 @@ void Infocenter::UpdateFrameHot(MxBool p_display) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10070e90
 void Infocenter::Reset() {
 	switch (GameState()->GetCurrentAct()) {
 	case LegoGameState::e_act2:
@@ -1530,7 +1495,6 @@ void Infocenter::Reset() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10070f60
 MxBool Infocenter::Escape() {
 	if (m_infocenterState != NULL) {
 		MxU32 val = m_infocenterState->GetUnknown0x74();
@@ -1551,7 +1515,6 @@ MxBool Infocenter::Escape() {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x10071030
 void Infocenter::StartCredits() {
 	MxPresenter* presenter;
 
@@ -1607,7 +1570,6 @@ void Infocenter::StartCredits() {
 	SetAppCursor(e_cursorArrow);
 }
 
-// FUNCTION: LEGO1 0x10071250
 void Infocenter::StopCredits() {
 	MxDSAction action;
 	action.SetObjectId(CreditsScript::c_LegoCredits);
@@ -1616,7 +1578,6 @@ void Infocenter::StopCredits() {
 	DeleteObject(action);
 }
 
-// FUNCTION: LEGO1 0x10071300
 void Infocenter::PlayAction(InfomainScript::Script p_script) {
 	MxDSAction action;
 	action.SetObjectId(p_script);
@@ -1628,7 +1589,6 @@ void Infocenter::PlayAction(InfomainScript::Script p_script) {
 	Start(&action);
 }
 
-// FUNCTION: LEGO1 0x100713d0
 void Infocenter::StopCurrentAction() {
 	if (m_currentInfomainScript != InfomainScript::c_noneInfomain) {
 		MxDSAction action;
@@ -1640,7 +1600,6 @@ void Infocenter::StopCurrentAction() {
 	}
 }
 
-// FUNCTION: LEGO1 0x100714a0
 void Infocenter::PlayBookAnimation() {
 	MxDSAction action;
 	action.SetObjectId(SndanimScript::c_BookWig_Flic);
@@ -1648,7 +1607,6 @@ void Infocenter::PlayBookAnimation() {
 	Start(&action);
 }
 
-// FUNCTION: LEGO1 0x10071550
 void Infocenter::StopBookAnimation() {
 	MxDSAction action;
 	action.SetObjectId(SndanimScript::c_BookWig_Flic);
@@ -1657,7 +1615,6 @@ void Infocenter::StopBookAnimation() {
 	DeleteObject(action);
 }
 
-// FUNCTION: LEGO1 0x10071600
 InfocenterState::InfocenterState() {
 	m_exitDialogueAct1 = Playlist(
 		(MxU32*) g_exitDialogueAct1,
@@ -1715,7 +1672,6 @@ InfocenterState::InfocenterState() {
 	memset(m_letters, 0, sizeof(m_letters));
 }
 
-// FUNCTION: LEGO1 0x10071920
 InfocenterState::~InfocenterState() {
 	MxS16 i = 0;
 	do {

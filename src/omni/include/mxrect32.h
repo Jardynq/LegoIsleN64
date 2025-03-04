@@ -4,7 +4,6 @@
 #include "mxpoint32.h"
 #include "mxsize32.h"
 
-// SIZE 0x10
 class MxRect32 {
 public:
 	MxRect32() {}
@@ -98,7 +97,7 @@ private:
 	}
 
 	// The address might also be the constructor that calls CopyFrom
-	// FUNCTION: LEGO1 0x100b6fc0
+
 	MxRect32* CopyFrom(const MxPoint32& p_point, const MxSize32& p_size) {
 		this->m_left = p_point.GetX();
 		this->m_top = p_point.GetY();
@@ -110,10 +109,10 @@ private:
 	static MxS32 Min(MxS32 p_a, MxS32 p_b) { return p_a <= p_b ? p_a : p_b; }
 	static MxS32 Max(MxS32 p_a, MxS32 p_b) { return p_a <= p_b ? p_b : p_a; }
 
-	MxS32 m_left;   // 0x00
-	MxS32 m_top;    // 0x04
-	MxS32 m_right;  // 0x08
-	MxS32 m_bottom; // 0x0c
+	MxS32 m_left;
+	MxS32 m_top;
+	MxS32 m_right;
+	MxS32 m_bottom;
 };
 
 #endif // MXRECT32_H

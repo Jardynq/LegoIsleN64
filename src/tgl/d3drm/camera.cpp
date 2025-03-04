@@ -2,12 +2,10 @@
 
 using namespace TglImpl;
 
-// FUNCTION: LEGO1 0x100a36f0
 void* CameraImpl::ImplementationDataPtr() {
 	return reinterpret_cast<void*>(&m_data);
 }
 
-// FUNCTION: LEGO1 0x100a3700
 Result CameraImpl::SetTransformation(FloatMatrix4& matrix) {
 	D3DRMMATRIX4D helper;
 	D3DRMMATRIX4D* pTransformation = Translate(matrix, helper);

@@ -5,37 +5,25 @@
 
 class LegoTextureInfo;
 
-// VTABLE: LEGO1 0x100d89e0
-// SIZE 0x70
 class LegoFlcTexturePresenter : public MxFlcPresenter {
 public:
 	LegoFlcTexturePresenter();
 
-	// FUNCTION: BETA10 0x100837e0
-	static const char* HandlerClassName() {
-		// STRING: LEGO1 0x100f0634
-		return "LegoFlcTexturePresenter";
-	}
+	static const char* HandlerClassName() { return "LegoFlcTexturePresenter"; }
 
-	// FUNCTION: LEGO1 0x1005def0
-	// FUNCTION: BETA10 0x100837b0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		return HandlerClassName();
-	}
+	const char* ClassName() const override { return HandlerClassName(); }
 
-	void StartingTickle() override;                  // vtable+0x1c
-	void LoadFrame(MxStreamChunk* p_chunk) override; // vtable+0x68
-	void PutFrame() override;                        // vtable+0x6c
+	void StartingTickle() override;
+	void LoadFrame(MxStreamChunk* p_chunk) override;
+	void PutFrame() override;
 
-	// SYNTHETIC: LEGO1 0x1005df00
 	// LegoFlcTexturePresenter::`scalar deleting destructor'
 
 private:
 	void Init();
 
-	MxS32 m_rectCount;          // 0x68
-	LegoTextureInfo* m_texture; // 0x6c
+	MxS32 m_rectCount;
+	LegoTextureInfo* m_texture;
 };
 
 #endif // LEGOFLCTEXTUREPRESENTER_H

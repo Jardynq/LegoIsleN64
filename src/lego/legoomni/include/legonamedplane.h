@@ -5,12 +5,10 @@
 #include "mxgeometry/mxgeometry3d.h"
 #include "mxstring.h"
 
-// SIZE 0x4c
 struct LegoNamedPlane {
-	// FUNCTION: LEGO1 0x10033800
+
 	LegoNamedPlane() {}
 
-	// FUNCTION: LEGO1 0x10033a70
 	// LegoNamedPlane::~LegoNamedPlane
 
 	// Unclear whether getters/setters were used.
@@ -36,7 +34,6 @@ struct LegoNamedPlane {
 	MxBool IsPresent() { return strcmp(m_name.GetData(), "") != 0; }
 	void Reset() { m_name = ""; }
 
-	// FUNCTION: LEGO1 0x100344d0
 	MxResult Serialize(LegoStorage* p_storage) {
 		if (p_storage->IsWriteMode()) {
 			p_storage->WriteMxString(m_name);
@@ -53,10 +50,10 @@ struct LegoNamedPlane {
 		return SUCCESS;
 	}
 
-	MxString m_name;            // 0x00
-	Mx3DPointFloat m_position;  // 0x10
-	Mx3DPointFloat m_direction; // 0x24
-	Mx3DPointFloat m_up;        // 0x38
+	MxString m_name;
+	Mx3DPointFloat m_position;
+	Mx3DPointFloat m_direction;
+	Mx3DPointFloat m_up;
 };
 
 #endif // LEGONAMEDPLANE_H

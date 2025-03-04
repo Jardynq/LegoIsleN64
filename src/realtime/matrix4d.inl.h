@@ -6,62 +6,42 @@
 #include <math.h>
 #include <memory.h>
 
-// FUNCTION: LEGO1 0x10002320
-// FUNCTION: BETA10 0x1000fcb0
 void Matrix4::Equals(float (*p_data)[4]) {
 	memcpy(m_data, p_data, sizeof(float) * 4 * 4);
 }
 
-// FUNCTION: LEGO1 0x10002340
-// FUNCTION: BETA10 0x1000fcf0
 void Matrix4::Equals(const Matrix4& p_matrix) {
 	memcpy(m_data, p_matrix.m_data, sizeof(float) * 4 * 4);
 }
 
-// FUNCTION: LEGO1 0x10002360
-// FUNCTION: BETA10 0x1000fd30
 void Matrix4::SetData(float (*p_data)[4]) {
 	m_data = p_data;
 }
 
-// FUNCTION: LEGO1 0x10002370
-// FUNCTION: BETA10 0x1000fd60
 void Matrix4::SetData(UnknownMatrixType& p_matrix) {
 	m_data = p_matrix.m_data;
 }
 
-// FUNCTION: LEGO1 0x10002380
-// FUNCTION: BETA10 0x1000fd90
 float (*Matrix4::GetData())[4] {
 	return m_data;
 }
 
-// FUNCTION: LEGO1 0x10002390
-// FUNCTION: BETA10 0x1000fdc0
 float (*Matrix4::GetData() const)[4] {
 	return m_data;
 }
 
-// FUNCTION: LEGO1 0x100023a0
-// FUNCTION: BETA10 0x1000fdf0
 float* Matrix4::Element(int p_row, int p_col) {
 	return &m_data[p_row][p_col];
 }
 
-// FUNCTION: LEGO1 0x100023c0
-// FUNCTION: BETA10 0x1000fe30
 const float* Matrix4::Element(int p_row, int p_col) const {
 	return &m_data[p_row][p_col];
 }
 
-// FUNCTION: LEGO1 0x100023e0
-// FUNCTION: BETA10 0x1000fe70
 void Matrix4::Clear() {
 	memset(m_data, 0, 16 * sizeof(float));
 }
 
-// FUNCTION: LEGO1 0x100023f0
-// FUNCTION: BETA10 0x1000feb0
 void Matrix4::SetIdentity() {
 	Clear();
 	m_data[0][0] = 1.0f;
@@ -70,14 +50,10 @@ void Matrix4::SetIdentity() {
 	m_data[3][3] = 1.0f;
 }
 
-// FUNCTION: LEGO1 0x10002420
-// FUNCTION: BETA10 0x1000ff20
 void Matrix4::operator=(const Matrix4& p_matrix) {
 	Equals(p_matrix);
 }
 
-// FUNCTION: LEGO1 0x10002430
-// FUNCTION: BETA10 0x1000ff50
 Matrix4& Matrix4::operator+=(float (*p_data)[4]) {
 	for (int i = 0; i < 16; i++) {
 		((float*) m_data)[i] += ((float*) p_data)[i];
@@ -86,8 +62,6 @@ Matrix4& Matrix4::operator+=(float (*p_data)[4]) {
 	return *this;
 }
 
-// FUNCTION: LEGO1 0x10002460
-// FUNCTION: BETA10 0x1000ffc0
 void Matrix4::TranslateBy(
 	const float& p_x,
 	const float& p_y,
@@ -98,8 +72,6 @@ void Matrix4::TranslateBy(
 	m_data[3][2] += p_z;
 }
 
-// FUNCTION: LEGO1 0x100024a0
-// FUNCTION: BETA10 0x10010040
 void Matrix4::SetTranslation(
 	const float& p_x,
 	const float& p_y,
@@ -110,8 +82,6 @@ void Matrix4::SetTranslation(
 	m_data[3][2] = p_z;
 }
 
-// FUNCTION: LEGO1 0x100024d0
-// FUNCTION: BETA10 0x100100a0
 void Matrix4::Product(float (*p_a)[4], float (*p_b)[4]) {
 	float* cur = (float*) m_data;
 
@@ -126,14 +96,10 @@ void Matrix4::Product(float (*p_a)[4], float (*p_b)[4]) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10002530
-// FUNCTION: BETA10 0x10010180
 void Matrix4::Product(const Matrix4& p_a, const Matrix4& p_b) {
 	Product(p_a.m_data, p_b.m_data);
 }
 
-// FUNCTION: LEGO1 0x10002550
-// FUNCTION: BETA10 0x100101c0
 void Matrix4::ToQuaternion(Vector4& p_outQuat) {
 	float trace = NAN;
 	float localc = m_data[0][0] + m_data[1][1] + m_data[2][2];
@@ -146,7 +112,7 @@ void Matrix4::ToQuaternion(Vector4& p_outQuat) {
 		p_outQuat[1] = (m_data[0][2] - m_data[2][0]) * trace;
 		p_outQuat[2] = (m_data[1][0] - m_data[0][1]) * trace;
 	} else {
-		// GLOBAL: LEGO1 0x100d4090
+
 		static int rotateIndex[] = {1, 2, 0};
 
 		// Largest element along the trace
@@ -178,8 +144,6 @@ void Matrix4::ToQuaternion(Vector4& p_outQuat) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10002710
-// FUNCTION: BETA10 0x10010550
 int Matrix4::FromQuaternion(const Vector4& p_vec) {
 	float local14 = p_vec.LenSquared();
 
@@ -228,8 +192,6 @@ int Matrix4::FromQuaternion(const Vector4& p_vec) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100a0ff0
-// FUNCTION: BETA10 0x1001fe60
 void Matrix4::Scale(const float& p_x, const float& p_y, const float& p_z) {
 	for (int i = 0; i < 4; i++) {
 		m_data[i][0] *= p_x;
@@ -238,7 +200,6 @@ void Matrix4::Scale(const float& p_x, const float& p_y, const float& p_z) {
 	}
 }
 
-// FUNCTION: BETA10 0x1001c6a0
 void Matrix4::RotateX(const float& p_angle) {
 	float s = sin(p_angle);
 	float c = cos(p_angle);
@@ -251,7 +212,6 @@ void Matrix4::RotateX(const float& p_angle) {
 	}
 }
 
-// FUNCTION: BETA10 0x1001fd60
 void Matrix4::RotateY(const float& p_angle) {
 	float s = sin(p_angle);
 	float c = cos(p_angle);
@@ -264,7 +224,6 @@ void Matrix4::RotateY(const float& p_angle) {
 	}
 }
 
-// FUNCTION: BETA10 0x1006ab10
 void Matrix4::RotateZ(const float& p_angle) {
 	float s = sin(p_angle);
 	float c = cos(p_angle);
@@ -277,7 +236,6 @@ void Matrix4::RotateZ(const float& p_angle) {
 	}
 }
 
-// FUNCTION: BETA10 0x1005a590
 int Matrix4::BETA_1005a590(Matrix4& p_mat) {
 	float local5c[4][4];
 	Matrix4 localc(local5c);
@@ -342,7 +300,6 @@ int Matrix4::BETA_1005a590(Matrix4& p_mat) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x1006b500
 void Matrix4::Swap(int p_d1, int p_d2) {
 	for (int i = 0; i < 4; i++) {
 		float e = m_data[p_d1][i];

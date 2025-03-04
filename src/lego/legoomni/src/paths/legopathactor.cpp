@@ -27,16 +27,10 @@
 #endif
 #define DTOR(angle) ((angle) *M_PI / 180.)
 
-// GLOBAL: LEGO1 0x100f3304
-// STRING: LEGO1 0x100f32f4
 const char* g_strHIT_WALL_SOUND = "HIT_WALL_SOUND";
 
-// GLOBAL: LEGO1 0x100f3308
-// GLOBAL: BETA10 0x101f1e1c
 MxLong g_unk0x100f3308 = 0;
 
-// FUNCTION: LEGO1 0x1002d700
-// FUNCTION: BETA10 0x100ae6e0
 LegoPathActor::LegoPathActor() {
 	m_boundary = NULL;
 	m_actorTime = 0;
@@ -54,15 +48,12 @@ LegoPathActor::LegoPathActor() {
 	m_unk0x150 = 2.0f;
 }
 
-// FUNCTION: LEGO1 0x1002d820
-// FUNCTION: BETA10 0x100ae80e
 LegoPathActor::~LegoPathActor() {
 	if (m_grec) {
 		delete m_grec;
 	}
 }
 
-// FUNCTION: LEGO1 0x1002d8d0
 MxResult LegoPathActor::VTable0x80(
 	const Vector3& p_point1,
 	Vector3& p_point2,
@@ -87,8 +78,6 @@ MxResult LegoPathActor::VTable0x80(
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x1002d9c0
-// FUNCTION: BETA10 0x100ae9da
 MxResult LegoPathActor::VTable0x88(
 	LegoPathBoundary* p_boundary,
 	float p_time,
@@ -162,7 +151,6 @@ MxResult LegoPathActor::VTable0x88(
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1002de10
 MxResult LegoPathActor::VTable0x84(
 	LegoPathBoundary* p_boundary,
 	float p_time,
@@ -225,8 +213,6 @@ MxResult LegoPathActor::VTable0x84(
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1002e100
-// FUNCTION: BETA10 0x100b0520
 MxS32 LegoPathActor::VTable0x8c(float p_time, MxMatrix& p_transform) {
 	if (m_userNavFlag && m_actorState == c_initial) {
 		m_lastTime = p_time;
@@ -389,7 +375,6 @@ MxS32 LegoPathActor::VTable0x8c(float p_time, MxMatrix& p_transform) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x1002e740
 void LegoPathActor::VTable0x74(Matrix4& p_transform) {
 	if (m_userNavFlag) {
 		m_roi->WrappedSetLocalTransform(p_transform);
@@ -404,8 +389,6 @@ void LegoPathActor::VTable0x74(Matrix4& p_transform) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1002e790
-// FUNCTION: BETA10 0x100af208
 void LegoPathActor::Animate(float p_time) {
 	MxMatrix transform;
 	MxU32 b = FALSE;
@@ -450,8 +433,6 @@ void LegoPathActor::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1002e8b0
-// FUNCTION: BETA10 0x100af2f7
 void LegoPathActor::SwitchBoundary(
 	LegoPathBoundary*& p_boundary,
 	LegoUnknown100db7f4*& p_edge,
@@ -461,8 +442,6 @@ void LegoPathActor::SwitchBoundary(
 	m_boundary->SwitchBoundary(this, p_boundary, p_edge, p_unk0xe4);
 }
 
-// FUNCTION: LEGO1 0x1002e8d0
-// FUNCTION: BETA10 0x100b1010
 MxU32 LegoPathActor::VTable0x6c(
 	LegoPathBoundary* p_boundary,
 	Vector3& p_v1,
@@ -574,8 +553,6 @@ inline MxU32 LegoPathActor::FUN_1002edd0(
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x1002ebe0
-// FUNCTION: BETA10 0x100af35e
 MxS32 LegoPathActor::VTable0x68(Vector3& p_v1, Vector3& p_v2, Vector3& p_v3) {
 	assert(m_boundary && m_roi);
 
@@ -597,8 +574,6 @@ MxS32 LegoPathActor::VTable0x68(Vector3& p_v1, Vector3& p_v2, Vector3& p_v3) {
 	return FUN_1002edd0(boundaries, m_boundary, p_v1, v2, len, radius, p_v3, 0);
 }
 
-// FUNCTION: LEGO1 0x1002f020
-// FUNCTION: BETA10 0x100af54a
 void LegoPathActor::ParseAction(char* p_extra) {
 	LegoActor::ParseAction(p_extra);
 
@@ -642,8 +617,6 @@ void LegoPathActor::ParseAction(char* p_extra) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1002f1b0
-// FUNCTION: BETA10 0x100af899
 MxResult LegoPathActor::VTable0x9c() {
 	Mx3DPointFloat local34;
 	Mx3DPointFloat local48;
@@ -729,8 +702,6 @@ MxResult LegoPathActor::VTable0x9c() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x1002f650
-// FUNCTION: BETA10 0x100afd67
 void LegoPathActor::VTable0xa4(MxBool& p_und1, MxS32& p_und2) {
 	switch (GetActorId()) {
 	case c_pepper:
@@ -761,8 +732,6 @@ void LegoPathActor::VTable0xa4(MxBool& p_und1, MxS32& p_und2) {
 	}
 }
 
-// FUNCTION: LEGO1 0x1002f700
-// FUNCTION: BETA10 0x100afe4c
 void LegoPathActor::VTable0xa8() {
 	m_lastTime = Timer()->GetTime();
 	m_roi->FUN_100a58f0(m_unk0xec);
@@ -774,7 +743,6 @@ void LegoPathActor::VTable0xa8() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1002f770
 void LegoPathActor::UpdatePlane(LegoNamedPlane& p_namedPlane) {
 	p_namedPlane.SetName(m_boundary->GetName());
 	p_namedPlane.SetPosition(GetWorldPosition());
@@ -782,7 +750,6 @@ void LegoPathActor::UpdatePlane(LegoNamedPlane& p_namedPlane) {
 	p_namedPlane.SetUp(GetWorldUp());
 }
 
-// FUNCTION: LEGO1 0x1002f830
 void LegoPathActor::PlaceActor(LegoNamedPlane& p_namedPlane) {
 	if (p_namedPlane.IsPresent()) {
 		LegoWorld* world = CurrentWorld();

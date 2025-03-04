@@ -3,18 +3,14 @@
 
 #include "mxmediamanager.h"
 
-// VTABLE: LEGO1 0x100dc900
-// SIZE 0x2c
 class MxEventManager : public MxMediaManager {
 public:
 	MxEventManager();
 	~MxEventManager() override;
 
-	void Destroy() override; // vtable+18
-	virtual MxResult
-	Create(MxU32 p_frequencyMS, MxBool p_createThread); // vtable+28
+	void Destroy() override;
+	virtual MxResult Create(MxU32 p_frequencyMS, MxBool p_createThread);
 
-	// SYNTHETIC: LEGO1 0x100c03d0
 	// MxEventManager::`scalar deleting destructor'
 
 private:

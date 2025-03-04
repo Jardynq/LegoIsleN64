@@ -9,7 +9,6 @@
 #include "mxutilities.h"
 #include "mxvideopresenter.h"
 
-// FUNCTION: LEGO1 0x10043f50
 MxControlPresenter::MxControlPresenter() {
 	m_unk0x4c = 0;
 	m_unk0x4e = -1;
@@ -19,20 +18,17 @@ MxControlPresenter::MxControlPresenter() {
 	m_unk0x54 = 0;
 }
 
-// FUNCTION: LEGO1 0x10044110
 MxControlPresenter::~MxControlPresenter() {
 	if (m_unk0x58) {
 		delete m_unk0x58;
 	}
 }
 
-// FUNCTION: LEGO1 0x10044180
 MxResult MxControlPresenter::AddToManager() {
 	m_unk0x4e = 0;
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10044190
 MxResult MxControlPresenter::StartAction(
 	MxStreamController* p_controller,
 	MxDSAction* p_action
@@ -63,7 +59,6 @@ MxResult MxControlPresenter::StartAction(
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10044260
 void MxControlPresenter::EndAction() {
 	if (m_action) {
 		m_unk0x50 = TRUE;
@@ -71,8 +66,6 @@ void MxControlPresenter::EndAction() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10044270
-// FUNCTION: BETA10 0x100eae68
 MxBool MxControlPresenter::FUN_10044270(
 	MxS32 p_x,
 	MxS32 p_y,
@@ -159,7 +152,6 @@ MxBool MxControlPresenter::FUN_10044270(
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x10044480
 MxBool MxControlPresenter::FUN_10044480(
 	LegoControlManagerNotificationParam* p_param,
 	MxPresenter* p_presenter
@@ -196,7 +188,6 @@ MxBool MxControlPresenter::FUN_10044480(
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x10044540
 void MxControlPresenter::VTable0x6c(MxS16 p_unk0x4e) {
 	if (p_unk0x4e == -1) {
 		if ((MxS16) ((MxDSMultiAction*) m_action)->GetActionList()->GetCount() -
@@ -225,14 +216,12 @@ void MxControlPresenter::VTable0x6c(MxS16 p_unk0x4e) {
 	}
 }
 
-// FUNCTION: LEGO1 0x10044610
 void MxControlPresenter::ReadyTickle() {
 	MxPresenter::ParseExtra();
 	TickleManager()->UnregisterClient(this);
 	ProgressTickleState(e_repeating);
 }
 
-// FUNCTION: LEGO1 0x10044640
 void MxControlPresenter::ParseExtra() {
 	MxU16 extraLength;
 	char* extraData;
@@ -279,7 +268,6 @@ void MxControlPresenter::ParseExtra() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10044820
 void MxControlPresenter::Enable(MxBool p_enable) {
 	if (MxPresenter::IsEnabled() != p_enable) {
 		MxPresenter::Enable(p_enable);
@@ -302,7 +290,6 @@ void MxControlPresenter::Enable(MxBool p_enable) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100448a0
 MxBool MxControlPresenter::HasTickleStatePassed(TickleState p_tickleState) {
 	MxCompositePresenterList::iterator it = m_list.begin();
 	for (MxS16 i = m_unk0x4e; i > 0; i--, it++) {

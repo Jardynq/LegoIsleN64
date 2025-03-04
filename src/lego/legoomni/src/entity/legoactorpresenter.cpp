@@ -3,7 +3,6 @@
 #include "legoentity.h"
 #include "misc.h"
 
-// FUNCTION: LEGO1 0x10076c30
 void LegoActorPresenter::ReadyTickle() {
 	if (CurrentWorld()) {
 		m_entity = (LegoEntity*) CreateEntity("LegoActor");
@@ -19,7 +18,6 @@ void LegoActorPresenter::ReadyTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10076c90
 void LegoActorPresenter::StartingTickle() {
 	if (m_entity->GetROI()) {
 		ProgressTickleState(e_streaming);
@@ -27,7 +25,6 @@ void LegoActorPresenter::StartingTickle() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10076cc0
 void LegoActorPresenter::ParseExtra() {
 	MxU16 extraLength;
 	char* extraData;

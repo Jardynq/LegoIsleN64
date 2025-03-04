@@ -4,22 +4,17 @@
 #include "mxtimer.h"
 #include "mxvariabletable.h"
 
-// FUNCTION: LEGO1 0x100cb2b0
-// FUNCTION: BETA10 0x1015a515
 MxDSSelectAction::MxDSSelectAction() {
 	this->SetType(e_selectAction);
 	this->m_unk0xac = new MxStringList;
 }
 
-// FUNCTION: LEGO1 0x100cb8d0
 MxDSSelectAction::~MxDSSelectAction() {
 	if (this->m_unk0xac) {
 		delete this->m_unk0xac;
 	}
 }
 
-// FUNCTION: LEGO1 0x100cb950
-// FUNCTION: BETA10 0x1015a6ae
 void MxDSSelectAction::CopyFrom(MxDSSelectAction& p_dsSelectAction) {
 	this->m_unk0x9c = p_dsSelectAction.m_unk0x9c;
 
@@ -32,7 +27,6 @@ void MxDSSelectAction::CopyFrom(MxDSSelectAction& p_dsSelectAction) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100cbd50
 MxDSSelectAction& MxDSSelectAction::operator=(MxDSSelectAction& p_dsSelectAction
 ) {
 	if (this != &p_dsSelectAction) {
@@ -42,7 +36,6 @@ MxDSSelectAction& MxDSSelectAction::operator=(MxDSSelectAction& p_dsSelectAction
 	return *this;
 }
 
-// FUNCTION: LEGO1 0x100cbd80
 MxDSAction* MxDSSelectAction::Clone() {
 	MxDSSelectAction* clone = new MxDSSelectAction();
 
@@ -53,7 +46,6 @@ MxDSAction* MxDSSelectAction::Clone() {
 	return clone;
 }
 
-// FUNCTION: LEGO1 0x100cbe10
 MxU32 MxDSSelectAction::GetSizeOnDisk() {
 	MxU32 totalSizeOnDisk = MxDSParallelAction::GetSizeOnDisk();
 
@@ -66,14 +58,12 @@ MxU32 MxDSSelectAction::GetSizeOnDisk() {
 	}
 
 	// Note: unlike the other classes, MxDSSelectAction does not have its own
-	// sizeOnDisk member. Instead, it overrides the one from MxDSMultiAction.
+
 	this->m_sizeOnDisk = totalSizeOnDisk;
 
 	return totalSizeOnDisk;
 }
 
-// FUNCTION: LEGO1 0x100cbf60
-// FUNCTION: BETA10 0x1015aa30
 void MxDSSelectAction::Deserialize(MxU8*& p_source, MxS16 p_unk0x24) {
 	MxString string;
 	MxDSAction::Deserialize(p_source, p_unk0x24);

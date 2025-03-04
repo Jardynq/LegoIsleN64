@@ -25,8 +25,6 @@
 // Flags used in isle.cpp
 extern MxU32 g_isleFlags;
 
-// FUNCTION: LEGO1 0x10035ee0
-// FUNCTION: BETA10 0x10022820
 Ambulance::Ambulance() {
 	m_maxLinearVel = 40.0;
 	m_state = NULL;
@@ -41,15 +39,11 @@ Ambulance::Ambulance() {
 	m_fuel = 1.0;
 }
 
-// FUNCTION: LEGO1 0x10036150
-// FUNCTION: BETA10 0x100228fe
 Ambulance::~Ambulance() {
 	ControlManager()->Unregister(this);
 	TickleManager()->UnregisterClient(this);
 }
 
-// FUNCTION: LEGO1 0x100361d0
-// FUNCTION: BETA10 0x10022993
 MxResult Ambulance::Create(MxDSAction& p_dsAction) {
 	MxResult result = IslePathActor::Create(p_dsAction);
 
@@ -76,7 +70,6 @@ MxResult Ambulance::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10036300
 void Ambulance::Animate(float p_time) {
 	IslePathActor::Animate(p_time);
 
@@ -100,8 +93,6 @@ void Ambulance::Animate(float p_time) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100363f0
-// FUNCTION: BETA10 0x10022b2a
 void Ambulance::CreateState() {
 	LegoGameState* gameState = GameState();
 	AmbulanceMissionState* state =
@@ -116,8 +107,6 @@ void Ambulance::CreateState() {
 	m_state = state;
 }
 
-// FUNCTION: LEGO1 0x10036420
-// FUNCTION: BETA10 0x10022b84
 MxLong Ambulance::Notify(MxParam& p_param) {
 	MxLong result = 0;
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
@@ -147,8 +136,6 @@ MxLong Ambulance::Notify(MxParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100364d0
-// FUNCTION: BETA10 0x10022cc2
 MxLong Ambulance::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	if (p_param.GetAction() != NULL) {
 		IsleScript::Script objectId =
@@ -223,8 +210,6 @@ MxLong Ambulance::HandleEndAction(MxEndActionNotificationParam& p_param) {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x100367c0
-// FUNCTION: BETA10 0x100230bf
 MxLong Ambulance::HandleButtonDown(LegoControlManagerNotificationParam& p_param
 ) {
 	if (m_unk0x170 == 1) {
@@ -246,10 +231,7 @@ MxLong Ambulance::HandleButtonDown(LegoControlManagerNotificationParam& p_param
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x10036860
-// FUNCTION: BETA10 0x100231bf
 MxLong Ambulance::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
-	// 0x168 corresponds to the path at the gas station
 	if (p_param.GetData() == 0x168) {
 		m_fuel = 1.0f;
 	}
@@ -352,8 +334,6 @@ MxLong Ambulance::HandlePathStruct(LegoPathStructNotificationParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x10036ce0
-// FUNCTION: BETA10 0x10023506
 MxLong Ambulance::HandleClick() {
 	if (((Act1State*) GameState()->GetState("Act1State"))->m_unk0x018 != 10) {
 		return 1;
@@ -398,8 +378,6 @@ MxLong Ambulance::HandleClick() {
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x10036e60
-// FUNCTION: BETA10 0x100236bb
 void Ambulance::FUN_10036e60() {
 	m_state->m_unk0x08 = 2;
 	PlayAnimation(IsleScript::c_hho027en_RunAnim);
@@ -407,7 +385,6 @@ void Ambulance::FUN_10036e60() {
 	m_lastAnimation = IsleScript::c_noneIsle;
 }
 
-// FUNCTION: LEGO1 0x10036e90
 void Ambulance::Exit() {
 	GameState()->m_currentArea = LegoGameState::e_hospitalExterior;
 	StopActions();
@@ -415,7 +392,6 @@ void Ambulance::Exit() {
 	Leave();
 }
 
-// FUNCTION: LEGO1 0x10036ec0
 void Ambulance::Leave() {
 	IslePathActor::Exit();
 	CurrentWorld()->RemoveActor(this);
@@ -434,7 +410,6 @@ void Ambulance::Leave() {
 	TickleManager()->UnregisterClient(this);
 }
 
-// FUNCTION: LEGO1 0x10036f90
 MxLong Ambulance::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	MxLong result = 0;
 
@@ -472,7 +447,6 @@ MxLong Ambulance::HandleControl(LegoControlManagerNotificationParam& p_param) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10037060
 void Ambulance::ActivateSceneActions() {
 	PlayMusic(JukeboxScript::c_Hospital_Music);
 
@@ -516,8 +490,6 @@ void Ambulance::ActivateSceneActions() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10037160
-// FUNCTION: BETA10 0x100237df
 MxResult Ambulance::Tickle() {
 	if (m_unk0x172 == 0) {
 		m_unk0x172 = 1;
@@ -569,12 +541,10 @@ MxResult Ambulance::Tickle() {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x10037240
 void Ambulance::StopActions() {
 	StopAction(IsleScript::c_pns018rd_RunAnim);
 }
 
-// FUNCTION: LEGO1 0x10037250
 void Ambulance::FUN_10037250() {
 	StopAction(m_lastAction);
 	BackgroundAudioManager()->RaiseVolume();
@@ -589,8 +559,6 @@ void Ambulance::FUN_10037250() {
 	m_state = NULL;
 }
 
-// FUNCTION: LEGO1 0x100372e0
-// FUNCTION: BETA10 0x100241a0
 void Ambulance::PlayAnimation(IsleScript::Script p_objectId) {
 	AnimationManager()->FUN_10060dc0(
 		p_objectId,
@@ -606,8 +574,6 @@ void Ambulance::PlayAnimation(IsleScript::Script p_objectId) {
 	m_lastAnimation = p_objectId;
 }
 
-// FUNCTION: LEGO1 0x10037310
-// FUNCTION: BETA10 0x10024440
 void Ambulance::PlayFinalAnimation(IsleScript::Script p_objectId) {
 	AnimationManager()->FUN_10060dc0(
 		p_objectId,
@@ -623,14 +589,12 @@ void Ambulance::PlayFinalAnimation(IsleScript::Script p_objectId) {
 	m_lastAnimation = p_objectId;
 }
 
-// FUNCTION: LEGO1 0x10037340
 void Ambulance::StopAction(IsleScript::Script p_objectId) {
 	if (p_objectId != -1) {
 		InvokeAction(Extra::e_stop, *g_isleScript, p_objectId, NULL);
 	}
 }
 
-// FUNCTION: LEGO1 0x10037360
 void Ambulance::PlayAction(IsleScript::Script p_objectId) {
 	if (p_objectId != -1) {
 		InvokeAction(Extra::e_start, *g_isleScript, p_objectId, NULL);
@@ -640,7 +604,6 @@ void Ambulance::PlayAction(IsleScript::Script p_objectId) {
 	BackgroundAudioManager()->LowerVolume();
 }
 
-// FUNCTION: LEGO1 0x100373a0
 AmbulanceMissionState::AmbulanceMissionState() {
 	m_unk0x08 = 0;
 	m_startTime = 0;

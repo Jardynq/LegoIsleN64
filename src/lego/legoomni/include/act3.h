@@ -16,12 +16,10 @@ class MxQuaternionTransformer;
 #define MAX_PIZZAS 20
 #define MAX_DONUTS 20
 
-// SIZE 0x0c
 struct Act3ListElement {
-	MxU32 m_objectId;     // 0x00
-	undefined4 m_unk0x04; // 0x04
-	undefined m_unk0x08;  // 0x08
-
+	MxU32 m_objectId;
+	undefined4 m_unk0x04;
+	undefined m_unk0x08;
 	Act3ListElement() {}
 
 	Act3ListElement(MxU32 p_objectId, undefined4 p_unk0x04, undefined p_unk0x08)
@@ -31,7 +29,6 @@ struct Act3ListElement {
 	int operator<(Act3ListElement) const { return 0; }
 };
 
-// SIZE 0x10
 class Act3List : private list<Act3ListElement> {
 public:
 	Act3List() { m_unk0x0c = 0; }
@@ -42,78 +39,53 @@ public:
 	void FUN_100720d0(MxU32 p_objectId);
 
 private:
-	undefined4 m_unk0x0c; // 0x0c
+	undefined4 m_unk0x0c;
 };
 
-// VTABLE: LEGO1 0x100d4fc8
-// VTABLE: BETA10 0x101b89b8
-// SIZE 0x0c
 class Act3State : public LegoState {
 public:
 	Act3State() { m_unk0x08 = 0; }
 
-	// FUNCTION: LEGO1 0x1000e2f0
 	MxBool IsSerializable() override { return FALSE; }
 
-	// FUNCTION: LEGO1 0x1000e300
-	// FUNCTION: BETA10 0x10017e10
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f03f0
-		return "Act3State";
-	}
+	const char* ClassName() const override { return "Act3State"; }
 
-	// FUNCTION: LEGO1 0x1000e310
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, Act3State::ClassName()) ||
 			   LegoState::IsA(p_name);
 	}
 
-	// SYNTHETIC: LEGO1 0x1000e3c0
 	// Act3State::`scalar deleting destructor'
 
 	undefined4 GetUnknown0x08() { return m_unk0x08; }
 
 	// TODO: Most likely getters/setters are not used according to BETA.
 
-	undefined4 m_unk0x08; // 0x08
+	undefined4 m_unk0x08;
 };
 
-// VTABLE: LEGO1 0x100d9628
-// VTABLE: BETA10 0x101b8940
-// SIZE 0x4274
 class Act3 : public LegoWorld {
 public:
 	Act3();
 	~Act3() override;
 
-	MxLong Notify(MxParam& p_param) override; // vtable+0x04
-	MxResult Tickle() override;               // vtable+0x08
+	MxLong Notify(MxParam& p_param) override;
+	MxResult Tickle() override;
 
-	// FUNCTION: LEGO1 0x10072500
-	MxBool VTable0x5c() override { return TRUE; } // vtable+0x5c
+	MxBool VTable0x5c() override { return TRUE; }
 
-	// FUNCTION: LEGO1 0x10072510
-	// FUNCTION: BETA10 0x10017550
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x100f013c
-		return "Act3";
-	}
+	const char* ClassName() const override { return "Act3"; }
 
-	// FUNCTION: LEGO1 0x10072520
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, Act3::ClassName()) || LegoWorld::IsA(p_name);
 	}
 
-	MxResult Create(MxDSAction& p_dsAction) override; // vtable+0x18
-	void Destroy(MxBool p_fromDestructor) override;   // vtable+0x1c
-	void ReadyWorld() override;                       // vtable+0x50
-	void VTable0x60() override;                       // vtable+0x60
-	MxBool Escape() override;                         // vtable+0x64
-	void Enable(MxBool p_enable) override;            // vtable+0x68
+	MxResult Create(MxDSAction& p_dsAction) override;
+	void Destroy(MxBool p_fromDestructor) override;
+	void ReadyWorld() override;
+	void VTable0x60() override;
+	MxBool Escape() override;
+	void Enable(MxBool p_enable) override;
 
 	void SetHelicopter(Helicopter* p_copter) { m_copter = p_copter; }
 	void SetShark(Act3Shark* p_shark) { m_shark = p_shark; }
@@ -121,7 +93,6 @@ public:
 		m_destLocation = p_destLocation;
 	}
 
-	// SYNTHETIC: LEGO1 0x10072630
 	// Act3::`scalar deleting destructor'
 
 	void EatPizza(MxS32 p_index);
@@ -170,46 +141,40 @@ protected:
 		const MxQuaternionTransformer& p_unk0x1f4
 	);
 
-	Act3State* m_state;                 // 0xf8
-	Act3Ammo m_pizzas[MAX_PIZZAS];      // 0xfc
-	Act3Ammo m_donuts[MAX_DONUTS];      // 0x217c
-	undefined m_unk0x41fc;              // 0x41fc
-	Act3Cop* m_cop1;                    // 0x4200
-	Act3Cop* m_cop2;                    // 0x4204
-	Act3Brickster* m_brickster;         // 0x4208
-	Helicopter* m_copter;               // 0x420c
-	Act3Shark* m_shark;                 // 0x4210
-	MxFloat m_time;                     // 0x4214
-	MxU8 m_unk0x4218;                   // 0x4218
-	MxU8 m_unk0x4219;                   // 0x4219
-	MxU8 m_unk0x421a;                   // 0x421a
-	MxU8 m_unk0x421b;                   // 0x421b
-	MxU8 m_unk0x421c;                   // 0x421c
-	MxU8 m_unk0x421d;                   // 0x421d
-	undefined m_unk0x421e;              // 0x421e
-	Act3List m_unk0x4220;               // 0x4220
-	MxPresenter* m_helicopterDots[15];  // 0x4230
-	Act3Script::Script m_unk0x426c;     // 0x426c
-	LegoGameState::Area m_destLocation; // 0x4270
+	Act3State* m_state;
+	Act3Ammo m_pizzas[MAX_PIZZAS];
+	Act3Ammo m_donuts[MAX_DONUTS];
+	undefined m_unk0x41fc;
+	Act3Cop* m_cop1;
+	Act3Cop* m_cop2;
+	Act3Brickster* m_brickster;
+	Helicopter* m_copter;
+	Act3Shark* m_shark;
+	MxFloat m_time;
+	MxU8 m_unk0x4218;
+	MxU8 m_unk0x4219;
+	MxU8 m_unk0x421a;
+	MxU8 m_unk0x421b;
+	MxU8 m_unk0x421c;
+	MxU8 m_unk0x421d;
+	undefined m_unk0x421e;
+	Act3List m_unk0x4220;
+	MxPresenter* m_helicopterDots[15];
+	Act3Script::Script m_unk0x426c;
+	LegoGameState::Area m_destLocation;
 };
 
-// TEMPLATE: LEGO1 0x10071f10
 // list<Act3ListElement,allocator<Act3ListElement> >::insert
 
-// TEMPLATE: LEGO1 0x10071f70
 // list<Act3ListElement,allocator<Act3ListElement> >::_Buynode
 
-// TEMPLATE: LEGO1 0x10072220
 // list<Act3ListElement,allocator<Act3ListElement> >::erase
 
-// TEMPLATE: LEGO1 0x10072440
 // list<Act3ListElement,allocator<Act3ListElement>
 // >::~list<Act3ListElement,allocator<Act3ListElement> >
 
-// TEMPLATE: LEGO1 0x100724b0
 // List<Act3ListElement>::~List<Act3ListElement>
 
-// FUNCTION: LEGO1 0x10072650
 // Act3List::~Act3List
 
 #endif // ACT3_H

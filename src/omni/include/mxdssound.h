@@ -3,9 +3,6 @@
 
 #include "mxdsmediaaction.h"
 
-// VTABLE: LEGO1 0x100dcdd0
-// VTABLE: BETA10 0x101c2b68
-// SIZE 0xc0
 class MxDSSound : public MxDSMediaAction {
 public:
 	MxDSSound();
@@ -14,34 +11,24 @@ public:
 	void CopyFrom(MxDSSound& p_dsSound);
 	MxDSSound& operator=(MxDSSound& p_dsSound);
 
-	// FUNCTION: LEGO1 0x100c9330
-	// FUNCTION: BETA10 0x1015d950
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x101025e4
-		return "MxDSSound";
-	}
+	const char* ClassName() const override { return "MxDSSound"; }
 
-	// FUNCTION: LEGO1 0x100c9340
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, MxDSSound::ClassName()) ||
 			   MxDSMediaAction::IsA(p_name);
 	}
 
-	MxU32 GetSizeOnDisk() override;                              // vtable+18;
-	void Deserialize(MxU8*& p_source, MxS16 p_unk0x24) override; // vtable+1c;
-	MxDSAction* Clone() override;                                // vtable+2c;
+	MxU32 GetSizeOnDisk() override;
+	void Deserialize(MxU8*& p_source, MxS16 p_unk0x24) override;
+	MxDSAction* Clone() override;
 
-	// FUNCTION: BETA10 0x1008d060
 	MxS32 GetVolume() const { return m_volume; }
 
-	// SYNTHETIC: LEGO1 0x100c9450
 	// MxDSSound::`scalar deleting destructor'
 
 private:
-	MxU32 m_sizeOnDisk; // 0xb8
-	MxS32 m_volume;     // 0xbc
+	MxU32 m_sizeOnDisk;
+	MxS32 m_volume;
 };
 
 #endif // MXDSSOUND_H

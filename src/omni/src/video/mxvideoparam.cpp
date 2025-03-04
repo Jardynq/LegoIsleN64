@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// FUNCTION: LEGO1 0x100bec70
-// FUNCTION: BETA10 0x1012db3e
 MxVideoParam::MxVideoParam() {
 	m_rect = MxRect32(0, 0, 640, 480);
 	m_palette = NULL;
@@ -13,8 +11,6 @@ MxVideoParam::MxVideoParam() {
 	m_deviceId = NULL;
 }
 
-// FUNCTION: LEGO1 0x100beca0
-// FUNCTION: BETA10 0x1012dbb1
 MxVideoParam::MxVideoParam(
 	MxRect32& p_rect,
 	MxPalette* p_palette,
@@ -29,8 +25,6 @@ MxVideoParam::MxVideoParam(
 	m_deviceId = NULL;
 }
 
-// FUNCTION: LEGO1 0x100becf0
-// FUNCTION: BETA10 0x1012dc1e
 MxVideoParam::MxVideoParam(MxVideoParam& p_videoParam) {
 	m_rect = p_videoParam.m_rect;
 	m_palette = p_videoParam.m_palette;
@@ -41,16 +35,12 @@ MxVideoParam::MxVideoParam(MxVideoParam& p_videoParam) {
 	SetDeviceName(p_videoParam.m_deviceId);
 }
 
-// FUNCTION: LEGO1 0x100bed50
-// FUNCTION: BETA10 0x1012dca3
 MxVideoParam::~MxVideoParam() {
 	if (m_deviceId != NULL) {
 		delete[] m_deviceId;
 	}
 }
 
-// FUNCTION: LEGO1 0x100bed70
-// FUNCTION: BETA10 0x1012dce1
 void MxVideoParam::SetDeviceName(char* p_deviceId) {
 	if (m_deviceId != NULL) {
 		delete[] m_deviceId;
@@ -67,8 +57,6 @@ void MxVideoParam::SetDeviceName(char* p_deviceId) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100bede0
-// FUNCTION: BETA10 0x1012dd76
 MxVideoParam& MxVideoParam::operator=(const MxVideoParam& p_videoParam) {
 	m_rect = p_videoParam.m_rect;
 	m_palette = p_videoParam.m_palette;

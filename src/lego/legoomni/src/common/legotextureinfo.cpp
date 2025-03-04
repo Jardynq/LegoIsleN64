@@ -7,7 +7,6 @@
 #include "mxdirectx/mxdirect3d.h"
 #include "tgl/d3drm/impl.h"
 
-// FUNCTION: LEGO1 0x10065bf0
 LegoTextureInfo::LegoTextureInfo() {
 	m_name = NULL;
 	m_surface = NULL;
@@ -15,7 +14,6 @@ LegoTextureInfo::LegoTextureInfo() {
 	m_texture = NULL;
 }
 
-// FUNCTION: LEGO1 0x10065c00
 LegoTextureInfo::~LegoTextureInfo() {
 	if (m_name) {
 		delete[] m_name;
@@ -38,7 +36,6 @@ LegoTextureInfo::~LegoTextureInfo() {
 	}
 }
 
-// FUNCTION: LEGO1 0x10065c60
 LegoTextureInfo*
 LegoTextureInfo::Create(const char* p_name, LegoTexture* p_texture) {
 	LegoTextureInfo* textureInfo = new LegoTextureInfo();
@@ -157,7 +154,6 @@ done:
 	return NULL;
 }
 
-// FUNCTION: LEGO1 0x10065f60
 BOOL LegoTextureInfo::SetGroupTexture(
 	Tgl::Mesh* pMesh,
 	LegoTextureInfo* p_textureInfo
@@ -171,7 +167,6 @@ BOOL LegoTextureInfo::SetGroupTexture(
 	return TRUE;
 }
 
-// FUNCTION: LEGO1 0x10065f90
 BOOL LegoTextureInfo::GetGroupTexture(
 	Tgl::Mesh* pMesh,
 	LegoTextureInfo*& p_textureInfo
@@ -201,7 +196,6 @@ BOOL LegoTextureInfo::GetGroupTexture(
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x10066010
 LegoResult LegoTextureInfo::FUN_10066010(const LegoU8* p_bits) {
 	if (m_surface != NULL && m_texture != NULL) {
 		DDSURFACEDESC desc;

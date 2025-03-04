@@ -4,8 +4,6 @@
 
 #include <assert.h>
 
-// FUNCTION: LEGO1 0x1009a730
-// FUNCTION: BETA10 0x101830ec
 LegoWEGEdge::LegoWEGEdge() {
 	m_unk0x0d = 0;
 	m_name = NULL;
@@ -17,7 +15,6 @@ LegoWEGEdge::LegoWEGEdge() {
 	m_unk0x50 = NULL;
 }
 
-// FUNCTION: LEGO1 0x1009a800
 LegoWEGEdge::~LegoWEGEdge() {
 	if (m_edges) {
 		delete[] m_edges;
@@ -37,8 +34,6 @@ LegoWEGEdge::~LegoWEGEdge() {
 	}
 }
 
-// FUNCTION: LEGO1 0x1009a8c0
-// FUNCTION: BETA10 0x101832f7
 LegoS32 LegoWEGEdge::VTable0x04() {
 	LegoS32 result = 0;
 	m_unk0x30.Clear();
@@ -209,8 +204,6 @@ LegoS32 LegoWEGEdge::VTable0x04() {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x1009aea0
-// FUNCTION: BETA10 0x10183e2a
 LegoS32 LegoWEGEdge::FUN_1009aea0() {
 	LegoU32 localc = FALSE;
 	Mx3DPointFloat local24;

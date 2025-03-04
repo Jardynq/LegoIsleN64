@@ -3,7 +3,6 @@
 #include "mxmisc.h"
 #include "mxsoundmanager.h"
 
-// FUNCTION: LEGO1 0x100b1a50
 void MxSoundPresenter::Destroy(MxBool p_fromDestructor) {
 	if (MSoundManager()) {
 		MSoundManager()->UnregisterPresenter(*this);
@@ -18,7 +17,6 @@ void MxSoundPresenter::Destroy(MxBool p_fromDestructor) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100b1aa0
 MxResult MxSoundPresenter::AddToManager() {
 	MxResult ret = FAILURE;
 

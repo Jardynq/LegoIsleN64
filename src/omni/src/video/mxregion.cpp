@@ -2,34 +2,26 @@
 
 #include <limits.h>
 
-// FUNCTION: LEGO1 0x100c31c0
-// FUNCTION: BETA10 0x10148f00
 MxRegion::MxRegion() {
 	m_list = new MxRegionTopBottomList;
 	m_rect = MxRect32(INT_MAX, INT_MAX, -1, -1);
 }
 
-// FUNCTION: LEGO1 0x100c3660
 MxBool MxRegion::VTable0x20() {
 	return m_list->GetCount() == 0;
 }
 
-// FUNCTION: LEGO1 0x100c3690
 MxRegion::~MxRegion() {
 	if (m_list) {
 		delete m_list;
 	}
 }
 
-// FUNCTION: LEGO1 0x100c3700
-// FUNCTION: BETA10 0x1014907a
 void MxRegion::Reset() {
 	m_list->DeleteAll();
 	m_rect = MxRect32(INT_MAX, INT_MAX, -1, -1);
 }
 
-// FUNCTION: LEGO1 0x100c3750
-// FUNCTION: BETA10 0x101490bd
 void MxRegion::VTable0x18(MxRect32& p_rect) {
 	MxRect32 rect(p_rect);
 	MxRect32 newRect;
@@ -84,7 +76,6 @@ void MxRegion::VTable0x18(MxRect32& p_rect) {
 	m_rect.UpdateBounds(p_rect);
 }
 
-// FUNCTION: LEGO1 0x100c3e20
 MxBool MxRegion::VTable0x1c(MxRect32& p_rect) {
 	if (!m_rect.IntersectsWith(p_rect)) {
 		return FALSE;
@@ -106,15 +97,12 @@ MxBool MxRegion::VTable0x1c(MxRect32& p_rect) {
 	return FALSE;
 }
 
-// FUNCTION: LEGO1 0x100c4c90
 MxRegionTopBottom::MxRegionTopBottom(MxS32 p_top, MxS32 p_bottom) {
 	m_top = p_top;
 	m_bottom = p_bottom;
 	m_leftRightList = new MxRegionLeftRightList;
 }
 
-// FUNCTION: LEGO1 0x100c50e0
-// FUNCTION: BETA10 0x1014a2d6
 MxRegionTopBottom::MxRegionTopBottom(MxRect32& p_rect) {
 	m_top = p_rect.GetTop();
 	m_bottom = p_rect.GetBottom();
@@ -125,8 +113,6 @@ MxRegionTopBottom::MxRegionTopBottom(MxRect32& p_rect) {
 	m_leftRightList->Append(leftRight);
 }
 
-// FUNCTION: LEGO1 0x100c5280
-// FUNCTION: BETA10 0x1014a3fc
 void MxRegionTopBottom::MergeOrExpandRegions(MxS32 p_left, MxS32 p_right) {
 	MxRegionLeftRightListCursor a(m_leftRightList);
 	MxRegionLeftRightListCursor b(m_leftRightList);
@@ -170,7 +156,6 @@ void MxRegionTopBottom::MergeOrExpandRegions(MxS32 p_left, MxS32 p_right) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100c55d0
 MxRegionTopBottom* MxRegionTopBottom::Clone() {
 	MxRegionTopBottom* clone = new MxRegionTopBottom(m_top, m_bottom);
 
@@ -184,7 +169,6 @@ MxRegionTopBottom* MxRegionTopBottom::Clone() {
 	return clone;
 }
 
-// FUNCTION: LEGO1 0x100c57b0
 MxBool MxRegionTopBottom::CheckHorizontalOverlap(MxRect32& p_rect) {
 	MxRegionLeftRightListCursor cursor(m_leftRightList);
 	MxRegionLeftRight* leftRight;

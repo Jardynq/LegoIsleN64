@@ -101,8 +101,6 @@
 #include "skateboard.h"
 #include "towtrack.h"
 
-// FUNCTION: LEGO1 0x10006e40
-// FUNCTION: BETA10 0x1009e930
 LegoObjectFactory::LegoObjectFactory() {
 	m_idLegoEntityPresenter = MxAtomId("LegoEntityPresenter", e_exact);
 	m_idLegoActorPresenter = MxAtomId("LegoActorPresenter", e_exact);
@@ -213,8 +211,6 @@ LegoObjectFactory::LegoObjectFactory() {
 	m_idAnimState = MxAtomId("AnimState", e_exact);
 }
 
-// FUNCTION: LEGO1 0x10009a90
-// FUNCTION: BETA10 0x100a1021
 MxCore* LegoObjectFactory::Create(const char* p_name) {
 	MxCore* object = NULL;
 	MxAtomId atom(p_name, e_exact);
@@ -432,7 +428,6 @@ MxCore* LegoObjectFactory::Create(const char* p_name) {
 	return object;
 }
 
-// FUNCTION: LEGO1 0x1000fb30
 void LegoObjectFactory::Destroy(MxCore* p_object) {
 	delete p_object;
 }

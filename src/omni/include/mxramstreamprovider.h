@@ -3,47 +3,34 @@
 
 #include "mxstreamprovider.h"
 
-// VTABLE: LEGO1 0x100dd0d0
-// VTABLE: BETA10 0x101c2ca8
-// SIZE 0x24
 class MxRAMStreamProvider : public MxStreamProvider {
 public:
 	MxRAMStreamProvider();
 	~MxRAMStreamProvider() override;
 
-	// FUNCTION: LEGO1 0x100d0970
-	// FUNCTION: BETA10 0x10164bf0
-	const char* ClassName() const override // vtable+0x0c
-	{
-		// STRING: LEGO1 0x10102864
-		return "MxRAMStreamProvider";
-	}
+	const char* ClassName() const override { return "MxRAMStreamProvider"; }
 
-	// FUNCTION: LEGO1 0x100d0980
-	MxBool IsA(const char* p_name) const override // vtable+0x10
-	{
+	MxBool IsA(const char* p_name) const override {
 		return !strcmp(p_name, MxRAMStreamProvider::ClassName()) ||
 			   MxStreamProvider::IsA(p_name);
 	}
 
-	MxResult SetResourceToGet(MxStreamController* p_resource
-	) override;                           // vtable+0x14
-	MxU32 GetFileSize() override;         // vtable+0x18
-	MxS32 GetStreamBuffersNum() override; // vtable+0x1c
-	MxU32 GetLengthInDWords() override;   // vtable+0x24
-	MxU32* GetBufferForDWords() override; // vtable+0x28
+	MxResult SetResourceToGet(MxStreamController* p_resource) override;
+	MxU32 GetFileSize() override;
+	MxS32 GetStreamBuffersNum() override;
+	MxU32 GetLengthInDWords() override;
+	MxU32* GetBufferForDWords() override;
 
 	MxU8* GetBufferOfFileSize() { return m_pBufferOfFileSize; }
 
 protected:
-	MxU32 m_bufferSize;        // 0x10
-	MxU32 m_fileSize;          // 0x14
-	MxU8* m_pBufferOfFileSize; // 0x18
-	MxU32 m_lengthInDWords;    // 0x1c
-	MxU32* m_bufferForDWords;  // 0x20
+	MxU32 m_bufferSize;
+	MxU32 m_fileSize;
+	MxU8* m_pBufferOfFileSize;
+	MxU32 m_lengthInDWords;
+	MxU32* m_bufferForDWords;
 };
 
-// SYNTHETIC: LEGO1 0x100d0a30
 // MxRAMStreamProvider::`scalar deleting destructor'
 
 MxU32 ReadData(MxU8* p_fileSizeBuffer, MxU32 p_fileSize);

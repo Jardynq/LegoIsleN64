@@ -19,9 +19,9 @@ public:
 	MxU32 GetPoolSize() const { return m_blockRef.Size(); }
 
 private:
-	MxU8* m_pool;            // 0x00
-	MxU32 m_blockSize;       // 0x04
-	MxBitset<NB> m_blockRef; // 0x08
+	MxU8* m_pool;
+	MxU32 m_blockSize;
+	MxBitset<NB> m_blockRef;
 };
 
 template <size_t BS, size_t NB>
@@ -81,42 +81,28 @@ void MxMemoryPool<BS, NB>::Release(MxU8* p_buf) {
 	);
 }
 
-// TEMPLATE: BETA10 0x101464a0
 // MxMemoryPool<64,22>::MxMemoryPool<64,22>
 
-// TEMPLATE: LEGO1 0x100b9100
-// TEMPLATE: BETA10 0x10146590
 // MxMemoryPool<64,22>::~MxMemoryPool<64,22>
 
-// TEMPLATE: BETA10 0x101465c0
 // MxMemoryPool<128,2>::MxMemoryPool<128,2>
 
-// TEMPLATE: LEGO1 0x100b9110
-// TEMPLATE: BETA10 0x101466b0
 // MxMemoryPool<128,2>::~MxMemoryPool<128,2>
 
-// TEMPLATE: BETA10 0x10146780
 // MxMemoryPool<64,22>::Allocate
 
-// TEMPLATE: BETA10 0x101468a0
 // MxMemoryPool<64,22>::GetPoolSize
 
-// TEMPLATE: BETA10 0x101468d0
 // MxMemoryPool<128,2>::Allocate
 
-// TEMPLATE: BETA10 0x101469f0
 // MxMemoryPool<128,2>::GetPoolSize
 
-// TEMPLATE: BETA10 0x10158610
 // MxMemoryPool<64,22>::Release
 
-// TEMPLATE: BETA10 0x101589e0
 // MxMemoryPool<128,2>::Release
 
-// TEMPLATE: BETA10 0x10158e50
 // MxMemoryPool<64,22>::Get
 
-// TEMPLATE: BETA10 0x10158f90
 // MxMemoryPool<128,2>::Get
 
 #endif // MXMEMORYPOOL_H

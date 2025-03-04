@@ -85,8 +85,6 @@ void DecodeCopy(
 	FLIC_HEADER* p_flcHeader
 );
 
-// FUNCTION: LEGO1 0x100bd530
-// FUNCTION: BETA10 0x1013dd80
 void WritePixel(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_pixelData,
@@ -103,8 +101,6 @@ void WritePixel(
 		p_pixel;
 }
 
-// FUNCTION: LEGO1 0x100bd580
-// FUNCTION: BETA10 0x1013ddef
 void WritePixels(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_pixelData,
@@ -130,8 +126,6 @@ void WritePixels(
 	memcpy(dest, p_data, p_count);
 }
 
-// FUNCTION: LEGO1 0x100bd600
-// FUNCTION: BETA10 0x1013de84
 int ClampLine(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	short& p_column,
@@ -166,8 +160,6 @@ int ClampLine(
 	return 1;
 }
 
-// FUNCTION: LEGO1 0x100bd680
-// FUNCTION: BETA10 0x1013df77
 void WritePixelRun(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_pixelData,
@@ -188,8 +180,6 @@ void WritePixelRun(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bd6e0
-// FUNCTION: BETA10 0x1013dfee
 void WritePixelPairs(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_pixelData,
@@ -219,8 +209,6 @@ void WritePixelPairs(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bd760
-// FUNCTION: BETA10 0x1013e097
 short DecodeChunks(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_pixelData,
@@ -293,14 +281,10 @@ short DecodeChunks(
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x100bd880
-// FUNCTION: BETA10 0x1013e22c
 void DecodeColors256(LPBITMAPINFOHEADER p_bitmapHeader, BYTE* p_data) {
 	DecodeColorPackets(p_bitmapHeader, p_data);
 }
 
-// FUNCTION: LEGO1 0x100bd8a0
-// FUNCTION: BETA10 0x1013e24c
 void DecodeColorPackets(LPBITMAPINFOHEADER p_bitmapHeader, BYTE* p_data) {
 	short colorIndex = 0;
 	BYTE* colors = p_data;
@@ -322,8 +306,6 @@ void DecodeColorPackets(LPBITMAPINFOHEADER p_bitmapHeader, BYTE* p_data) {
 	}
 }
 
-// FUNCTION: LEGO1 0x100bd8f0
-// FUNCTION: BETA10 0x1013e2f8
 void DecodeColorPacket(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_data,
@@ -343,14 +325,10 @@ void DecodeColorPacket(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bd940
-// FUNCTION: BETA10 0x1013e364
 void DecodeColors64(LPBITMAPINFOHEADER p_bitmapHeader, BYTE* p_data) {
 	DecodeColorPackets(p_bitmapHeader, p_data);
 }
 
-// FUNCTION: LEGO1 0x100bd960
-// FUNCTION: BETA10 0x1013e384
 void DecodeBrun(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_pixelData,
@@ -392,8 +370,6 @@ void DecodeBrun(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bda10
-// FUNCTION: BETA10 0x1013e4ca
 void DecodeLC(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_pixelData,
@@ -448,8 +424,6 @@ void DecodeLC(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bdac0
-// FUNCTION: BETA10 0x1013e61d
 void DecodeSS2(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_pixelData,
@@ -527,8 +501,6 @@ void DecodeSS2(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bdc00
-// FUNCTION: BETA10 0x1013e85a
 void DecodeBlack(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_pixelData,
@@ -565,8 +537,6 @@ void DecodeBlack(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bdc90
-// FUNCTION: BETA10 0x1013e91f
 void DecodeCopy(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_pixelData,
@@ -591,8 +561,6 @@ void DecodeCopy(
 	}
 }
 
-// FUNCTION: LEGO1 0x100bdce0
-// FUNCTION: BETA10 0x1013e9a5
 void DecodeFLCFrame(
 	LPBITMAPINFOHEADER p_bitmapHeader,
 	BYTE* p_pixelData,

@@ -4,7 +4,6 @@
 #include "mxdsstreamingaction.h"
 #include "mxramstreamprovider.h"
 
-// FUNCTION: LEGO1 0x100c6110
 MxResult MxRAMStreamController::Open(const char* p_filename) {
 	AUTOLOCK(m_criticalSection);
 	if (MxStreamController::Open(p_filename) != SUCCESS) {
@@ -31,7 +30,6 @@ MxResult MxRAMStreamController::Open(const char* p_filename) {
 	return FAILURE;
 }
 
-// FUNCTION: LEGO1 0x100c6210
 MxResult MxRAMStreamController::VTable0x20(MxDSAction* p_action) {
 	AUTOLOCK(m_criticalSection);
 	MxS32 unk0x24 = 0;
@@ -59,7 +57,6 @@ MxResult MxRAMStreamController::VTable0x20(MxDSAction* p_action) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x100c6320
 MxResult MxRAMStreamController::VTable0x24(MxDSAction* p_action) {
 	MxDSAction action;
 	do {
@@ -73,7 +70,6 @@ MxResult MxRAMStreamController::VTable0x24(MxDSAction* p_action) {
 	return SUCCESS;
 }
 
-// FUNCTION: LEGO1 0x100c63c0
 MxResult MxRAMStreamController::DeserializeObject(MxDSStreamingAction& p_action
 ) {
 	AUTOLOCK(m_criticalSection);

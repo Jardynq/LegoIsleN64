@@ -10,7 +10,6 @@
 #include "mxstillpresenter.h"
 #include "mxtransitionmanager.h"
 
-// FUNCTION: LEGO1 0x100822f0
 HistoryBook::HistoryBook() {
 	memset(m_alphabet, 0, sizeof(m_alphabet));
 	memset(m_name, 0, sizeof(m_name));
@@ -18,8 +17,6 @@ HistoryBook::HistoryBook() {
 	NotificationManager()->Register(this);
 }
 
-// FUNCTION: LEGO1 0x100824d0
-// FUNCTION: BETA10 0x1002b63e
 HistoryBook::~HistoryBook() {
 	for (MxS16 scoreIndex = 0; scoreIndex < GameState()->m_history.GetCount();
 		 scoreIndex++) {
@@ -49,7 +46,6 @@ HistoryBook::~HistoryBook() {
 	NotificationManager()->Unregister(this);
 }
 
-// FUNCTION: LEGO1 0x10082610
 MxResult HistoryBook::Create(MxDSAction& p_dsAction) {
 	MxResult result = LegoWorld::Create(p_dsAction);
 	if (result == SUCCESS) {
@@ -65,8 +61,6 @@ MxResult HistoryBook::Create(MxDSAction& p_dsAction) {
 	return result;
 }
 
-// FUNCTION: LEGO1 0x10082680
-// FUNCTION: BETA10 0x1002b907
 MxLong HistoryBook::Notify(MxParam& p_param) {
 	MxNotificationParam& param = (MxNotificationParam&) p_param;
 	LegoWorld::Notify(p_param);
@@ -91,8 +85,6 @@ MxLong HistoryBook::Notify(MxParam& p_param) {
 	return 0;
 }
 
-// FUNCTION: LEGO1 0x100826f0
-// FUNCTION: BETA10 0x1002b9b9
 void HistoryBook::ReadyWorld() {
 	undefined2 dummy1 = 0x90, dummy2 = 0x79, dummy3 = 0xc8, dummy4 = 0x17,
 			   dummy5 = 0x1b;
@@ -120,8 +112,8 @@ void HistoryBook::ReadyWorld() {
 	MxU8 scoreColors[3] = {
 		0x76,
 		0x4c,
-		0x38}; // yellow - #FFB900, blue - #00548C, red - #CB1220, background -
-			   // #CECECE, border - #74818B
+		0x38}; // yellow - #FFB900, blue - #00548C, red - #CB1220,
+			   // background - #CECECE, border - #74818B
 
 	MxS32 scoreY;
 
@@ -200,7 +192,6 @@ void HistoryBook::ReadyWorld() {
 #endif
 }
 
-// FUNCTION: LEGO1 0x10082a10
 MxBool HistoryBook::Escape() {
 	m_destLocation = LegoGameState::Area::e_infomain;
 	return TRUE;
