@@ -1,11 +1,9 @@
-HeaderFilterRegex: '^.*LegoIsleN64/src.*$'
+HeaderFilterRegex: '*'
 WarningsAsErrors: ''
 
 ExtraArgs:
-  - "-std=c++17"
+  - "-std=gnu++17"
   - "-stdlib=libstdc++"
-  - "-I/usr/lib/gcc/i686-w64-mingw32/10-win32/include/c++"
-  - "-I/usr/lib/gcc/i686-w64-mingw32/10-win32/include/c++/i686-w64-mingw32"
 
 Checks: >
   bugprone-argument-comment,
@@ -29,9 +27,7 @@ Checks: >
   bugprone-too-small-loop-variable,
   bugprone-undefined-memory-manipulation,
   bugprone-use-after-move,
-  cppcoreguidelines-avoid-goto,
   cppcoreguidelines-init-variables,
-  cppcoreguidelines-prefer-member-initializer,
   misc-unused-alias-decls,
   misc-unused-parameters,
   misc-unused-using-decls,

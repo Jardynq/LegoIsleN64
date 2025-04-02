@@ -4,34 +4,18 @@
 		{
             "label": "clean",
             "type": "shell",
-            "command": "rm",
+            "command": "make",
             "args": [
-				"-rf", "./build"
+				"clean"
             ],
-            "problemMatcher": []
-        },
-		{
-            "label": "configure",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                ".",
-                "-G", "Ninja",
-                "-B", "build",
-                "-DCMAKE_BUILD_TYPE=Debug"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": false,
-            },
             "problemMatcher": []
         },
 		{
             "label": "build",
             "type": "shell",
-            "command": "ninja",
+            "command": "make",
             "args": [
-                "-C", "./build",
+                "all"
             ],
             "group": {
                 "kind": "build",
@@ -39,15 +23,5 @@
             },
             "problemMatcher": []
         },
-        {
-			"label": "build-n64",
-			"type": "shell",
-			"command": "libdragon make",
-			"group": {
-				"kind": "build",
-				"isDefault": false
-			},
-			"problemMatcher": []
-		}
 	]
 }

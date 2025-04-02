@@ -1,9 +1,35 @@
 Index:
   Background: Build
-  External: None
+  #External: None
 
 Hover:
   ShowAKA: Yes
 
 Completion:
   AllScopes: Yes
+
+Diagnostics:
+  UnusedIncludes: Strict
+  MissingIncludes: None
+  ClangTidy:
+    FastCheckFilter: Loose
+  Suppress: 
+    - pp_file_not_found_angled_include_not_fatal
+    - overloaded-virtual
+
+CompileFlags:
+  Compiler: "/n64_toolchain/bin/mips64-elf-g++"
+  CompilationDatabase: Ancestors
+  Add: 
+    - "-target"
+    - "mipsel-none-elf"
+    - "-m32"
+    - "-mabi=32"
+    - "-DDEBUG"
+    - "-g"
+    - "-Og"
+  Remove:
+    - "-O*"
+    - "-g"
+    - "-mtune=vr4300"
+    - "-march=vr4300"
