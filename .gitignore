@@ -1,8 +1,6 @@
-/assets/data
-/assets/Scripts
-/assets/scripts
+/assets/(?i)data/
+/assets/(?i)scripts/
 /build/
 /.cache/
 *.z64
-*.map
 *.log
