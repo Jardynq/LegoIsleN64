@@ -1,6 +1,7 @@
 #ifndef VIEWROI_H
 #define VIEWROI_H
 
+#include "realtime/lodlist.h"
 #include "realtime/orientableroi.h"
 #include "tgl/tgl.h"
 #include "viewlodlist.h"
@@ -34,7 +35,7 @@ public:
 			reinterpret_cast<ViewLODList*>(lods)->Release();
 		}
 
-		lods = lodList;
+		lods = (LODListBase*) lodList;
 
 		if (lods) {
 			reinterpret_cast<ViewLODList*>(lods)->AddRef();

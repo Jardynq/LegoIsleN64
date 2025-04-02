@@ -6,7 +6,7 @@ void ModelDbModel::Free() {
 }
 
 MxResult ModelDbModel::Read(FILE* p_file) {
-	MxU32 len;
+	MxU32 len = 0;
 
 	if (fread(&len, sizeof(len), 1, p_file) != 1) {
 		return FAILURE;
@@ -49,7 +49,7 @@ MxResult ModelDbModel::Read(FILE* p_file) {
 }
 
 MxResult ModelDbPart::Read(FILE* p_file) {
-	MxU32 len;
+	MxU32 len = 0;
 	char buff[128];
 
 	if (fread(&len, sizeof(len), 1, p_file) != 1) {
@@ -78,13 +78,13 @@ ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWorlds) {
 	p_worlds = NULL;
 	p_numWorlds = 0;
 
-	MxS32 numWorlds;
+	MxS32 numWorlds = 0;
 	if (fread(&numWorlds, sizeof(numWorlds), 1, p_file) != 1) {
 		return FAILURE;
 	}
 
 	ModelDbWorld* worlds = new ModelDbWorld[numWorlds];
-	MxS32 worldNameLen, numParts, i, j;
+	MxS32 worldNameLen = 0, numParts = 0, i = 0, j = 0;
 
 	for (i = 0; i < numWorlds; i++) {
 		if (fread(&worldNameLen, sizeof(worldNameLen), 1, p_file) != 1) {
@@ -142,7 +142,7 @@ void FreeModelDbWorlds(ModelDbWorld*& p_worlds, MxS32 p_numWorlds) {
 		delete[] worlds[i].m_worldName;
 
 		ModelDbPartListCursor cursor(worlds[i].m_partList);
-		ModelDbPart* part;
+		ModelDbPart* part = nullptr;
 
 		while (cursor.Next(part)) {
 			delete part;

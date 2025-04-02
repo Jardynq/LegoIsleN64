@@ -4,8 +4,6 @@
 #include "realtime/realtimeview.h"
 #include "viewroi.h"
 
-#include <d3drm.h>
-
 class ViewManager {
 public:
 	enum Flags { c_bit1 = 0x01, c_bit2 = 0x02, c_bit3 = 0x04, c_bit4 = 0x08 };
@@ -59,8 +57,7 @@ private:
 	float frustum_vertices[8][3];
 	float transformed_points[8][3];
 	float frustum_planes[6][4];
-	IDirect3DRM2* d3drm;
-	IDirect3DRMFrame2* frame;
+	Tgl::Frame* frame;
 	float seconds_allowed;
 };
 

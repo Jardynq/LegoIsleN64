@@ -16,7 +16,7 @@ public:
 	LegoView();
 	~LegoView() override;
 
-	BOOL Create(const CreateStruct&, Tgl::Renderer*);
+	BOOL Create(Tgl::Renderer*);
 	void Destroy() override;
 
 	Tgl::Group* GetScene() const;
@@ -52,15 +52,15 @@ public:
 	~LegoView1() override;
 
 	BOOL AddLightsToViewport();
-	BOOL Create(const TglSurface::CreateStruct&, Tgl::Renderer*);
+	BOOL Create(Tgl::Renderer*);
 	void Destroy() override;
 
-	void SetLightTransform(BOOL bDirectionalLight, Tgl::FloatMatrix4& rMatrix);
+	void SetLightTransform(BOOL bDirectionalLight, Matrix4& rMatrix);
 	void
 	SetLightColor(BOOL bDirectionalLight, float red, float green, float blue);
 
 private:
-	void SetLightTransform(Tgl::Light* pLight, Tgl::FloatMatrix4& rMatrix);
+	void SetLightTransform(Tgl::Light* pLight, Matrix4& rMatrix);
 	void SetLightColor(Tgl::Light* pLight, float red, float green, float blue);
 
 	Tgl::Light* m_pSunLight;

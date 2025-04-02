@@ -1,7 +1,7 @@
 #ifndef MXMATRIX_H
 #define MXMATRIX_H
 
-#include "realtime/matrix4d.inl.h"
+#include "realtime/matrix.h"
 
 class MxMatrix : public Matrix4 {
 public:
@@ -26,10 +26,5 @@ public:
 private:
 	float m_elements[4][4];
 };
-
-// Must be included here (not before MxMatrix) for correct ordering in binary.
-// FromQuaternion and ToQuaternion in Matrix4 depend on Vector4.
-// There's a chance they included mxgeometry4d.h after including this somewhere.
-#include "realtime/vector4d.inl.h"
 
 #endif // MXMATRIX_H

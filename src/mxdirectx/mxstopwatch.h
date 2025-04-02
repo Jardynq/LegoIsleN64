@@ -2,10 +2,9 @@
 #define _MxStopWatch_h
 
 #include "assert.h"
+#include "timer.h"
 
-#include <limits.h> // ULONG_MAX
 #include <math.h>
-#include <windows.h>
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -13,8 +12,6 @@
 //
 // NOTE:	MxStopWatch measures elapsed (wall clock) time.
 //
-
-#define HUGE_VAL_IMMEDIATE 1.7976931348623157e+308
 
 class MxStopWatch {
 public:
@@ -27,63 +24,28 @@ public:
 
 	double ElapsedSeconds() const;
 
-protected:
-	unsigned int TicksPerSeconds() const;
-
 private:
-	LARGE_INTEGER
-	m_startTick; // ??? when we provide LARGE_INTEGER arithmetic, use a
-	//     LARGE_INTEGER m_elapsedTicks rather than m_elapsedSeconds
+	u64 m_startTick;
 	double m_elapsedSeconds;
-	unsigned int m_ticksPerSeconds;
 };
 
-inline MxStopWatch::MxStopWatch() : m_ticksPerSeconds(TicksPerSeconds()) {
+inline MxStopWatch::MxStopWatch() {
 	Reset();
 }
 
 inline void MxStopWatch::Start() {
-	QueryPerformanceCounter(&m_startTick);
+	m_startTick = timer_ticks();
 }
 
 inline void MxStopWatch::Stop() {
-	LARGE_INTEGER endTick;
-	BOOL result = 0;
-
-	result = QueryPerformanceCounter(&endTick);
-	assert(result);
-
-	if (endTick.HighPart != m_startTick.HighPart) {
-		// LARGE_INTEGER arithmetic not yet provided
-		m_elapsedSeconds = HUGE_VAL_IMMEDIATE;
-	} else {
-		m_elapsedSeconds +=
-			((endTick.LowPart - m_startTick.LowPart) /
-			 (double) m_ticksPerSeconds);
-	}
+	u64 endTick = timer_ticks();
+	m_elapsedSeconds +=
+		(double) TIMER_MICROS(endTick - m_startTick) * 1000000.0;
 }
 
 inline void MxStopWatch::Reset() {
-	m_startTick.LowPart = 0;
-	m_startTick.HighPart = 0;
+	m_startTick = 0;
 	m_elapsedSeconds = 0;
-}
-
-inline unsigned int MxStopWatch::TicksPerSeconds() const {
-	LARGE_INTEGER ticksPerSeconds;
-	BOOL result = 0;
-
-	result = QueryPerformanceFrequency(&ticksPerSeconds);
-	assert(result);
-
-	if (ticksPerSeconds.HighPart) {
-		// LARGE_INTEGER arithmetic not yet provided
-
-		// timer is too fast (faster than 32bits/s, i.e. faster than 4GHz)
-		return ULONG_MAX;
-	} else {
-		return ticksPerSeconds.LowPart;
-	}
 }
 
 inline double MxStopWatch::ElapsedSeconds() const {

@@ -1,6 +1,5 @@
 #include "infocenter.h"
 
-#include "act3.h"
 #include "credits_actions.h"
 #include "helicopter.h"
 #include "infomain_actions.h"
@@ -16,11 +15,9 @@
 #include "legomain.h"
 #include "legoplantmanager.h"
 #include "legoutils.h"
-#include "legovideomanager.h"
 #include "mxactionnotificationparam.h"
 #include "mxbackgroundaudiomanager.h"
 #include "mxcontrolpresenter.h"
-#include "mxdisplaysurface.h"
 #include "mxmisc.h"
 #include "mxnotificationmanager.h"
 #include "mxstillpresenter.h"
@@ -344,6 +341,10 @@ MxLong Infocenter::HandleEndAction(MxEndActionNotificationParam& p_param) {
 			PlayAction(InfomainScript::c_tic089in_RunAnim);
 			m_currentCutscene = e_noIntro;
 			return 1;
+		case e_noIntro:
+		case e_introMovie:
+		case e_outroMovie:
+			break;
 		}
 
 		// default / 2nd case probably?

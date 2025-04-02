@@ -73,8 +73,8 @@ void MxPresenter::EndAction() {
 void MxPresenter::ParseExtra() {
 	AUTOLOCK(m_criticalSection);
 
-	MxU16 extraLength;
-	char* extraData;
+	MxU16 extraLength = 0;
+	char* extraData = nullptr;
 	m_action->GetExtra(extraLength, extraData);
 
 	if (extraLength) {
@@ -172,7 +172,7 @@ void MxPresenter::Enable(MxBool p_enable) {
 
 const char* PresenterNameDispatch(const MxDSAction& p_action) {
 	const char* name = p_action.GetSourceName();
-	MxS32 format;
+	MxS32 format = 0;
 
 	if (!name || strlen(name) == 0) {
 		switch (p_action.GetType()) {
@@ -219,6 +219,12 @@ const char* PresenterNameDispatch(const MxDSAction& p_action) {
 		case MxDSObject::e_still:
 			name = MxStillPresenter::HandlerClassName();
 			break;
+		case MxDSObject::e_object:
+		case MxDSObject::e_action:
+		case MxDSObject::e_mediaAction:
+		case MxDSObject::e_multiAction:
+		case MxDSObject::e_objectAction:
+			break;
 		}
 	}
 
@@ -232,8 +238,8 @@ MxEntity* MxPresenter::CreateEntity(const char* p_defaultName) {
 	char objectName[512];
 	strcpy(objectName, p_defaultName);
 
-	MxU16 extraLength;
-	char* extraData;
+	MxU16 extraLength = 0;
+	char* extraData = nullptr;
 	m_action->GetExtra(extraLength, extraData);
 
 	if (extraLength) {

@@ -7,26 +7,6 @@
 
 //////////////////////////////////////////////////////////////////////////////
 
-BOOL InitializeCreateStruct(
-	TglSurface::CreateStruct& rTglSurfaceCreateStruct,
-	const Lego3DManager::CreateStruct& rCreateStruct
-) {
-	// initializes a TglSurface::CreateStruct from a Lego3DManager::CreateStruct
-	rTglSurfaceCreateStruct.m_pDriverGUID = rCreateStruct.m_pDriverGUID;
-	rTglSurfaceCreateStruct.m_hWnd = rCreateStruct.m_hWnd;
-	rTglSurfaceCreateStruct.m_pDirectDraw = rCreateStruct.m_pDirectDraw;
-	rTglSurfaceCreateStruct.m_pFrontBuffer = rCreateStruct.m_pFrontBuffer;
-	rTglSurfaceCreateStruct.m_pBackBuffer = rCreateStruct.m_pBackBuffer;
-	rTglSurfaceCreateStruct.m_pPalette = rCreateStruct.m_pPalette;
-	rTglSurfaceCreateStruct.m_isFullScreen = rCreateStruct.m_isFullScreen;
-	rTglSurfaceCreateStruct.m_isWideViewAngle = rCreateStruct.m_isWideViewAngle;
-	rTglSurfaceCreateStruct.m_direct3d = rCreateStruct.m_direct3d;
-	rTglSurfaceCreateStruct.m_d3dDevice = rCreateStruct.m_d3dDevice;
-	return TRUE;
-}
-
-//////////////////////////////////////////////////////////////////////////////
-
 Lego3DManager::Lego3DManager() {
 	// Tgl things
 	m_pRenderer = 0;
@@ -39,9 +19,8 @@ Lego3DManager::~Lego3DManager() {
 	Destroy();
 }
 
-BOOL Lego3DManager::Create(CreateStruct& rCreateStruct) {
-	TglSurface::CreateStruct tglSurfaceCreateStruct;
-	BOOL result;
+BOOL Lego3DManager::Create() {
+	BOOL result = Tgl::Success;
 
 	assert(!m_pViewLODListManager);
 	assert(!m_pRenderer);
@@ -55,10 +34,7 @@ BOOL Lego3DManager::Create(CreateStruct& rCreateStruct) {
 
 	m_pLego3DView = new Lego3DView;
 
-	result = InitializeCreateStruct(tglSurfaceCreateStruct, rCreateStruct);
-	assert(result);
-
-	result = m_pLego3DView->Create(tglSurfaceCreateStruct, m_pRenderer);
+	result = m_pLego3DView->Create(m_pRenderer);
 	assert(result);
 
 	return result;

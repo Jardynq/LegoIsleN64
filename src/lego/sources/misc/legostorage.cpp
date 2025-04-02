@@ -73,28 +73,12 @@ LegoResult LegoFile::SetPosition(LegoU32 p_position) {
 }
 
 LegoResult LegoFile::Open(const char* p_name, LegoU32 p_mode) {
+	(void) p_mode;
 	if (m_file) {
 		fclose(m_file);
 	}
-	char mode[4];
-	mode[0] = '\0';
-	if (p_mode & c_read) {
-		m_mode = c_read;
-		strcat(mode, "r");
-	}
-	if (p_mode & c_write) {
-		if (m_mode != c_read) {
-			m_mode = c_write;
-		}
-		strcat(mode, "w");
-	}
-	if ((p_mode & c_text) != 0) {
-		strcat(mode, "t");
-	} else {
-		strcat(mode, "b");
-	}
 
-	if (!(m_file = fopen(p_name, mode))) {
+	if (!(m_file = asset_fopen(p_name, nullptr))) {
 		return FAILURE;
 	}
 	return SUCCESS;

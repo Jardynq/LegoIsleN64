@@ -159,34 +159,11 @@ void LegoWorldPresenter::StartingTickle() {
 }
 
 MxResult LegoWorldPresenter::LoadWorld(char* p_worldName, LegoWorld* p_world) {
-	char wdbPath[512];
-	sprintf(wdbPath, "%s", MxOmni::GetHD());
-
-	if (wdbPath[strlen(wdbPath) - 1] != '\\') {
-		strcat(wdbPath, "\\");
-	}
-
-	strcat(wdbPath, "lego\\data\\world.wdb");
-
-	if (access(wdbPath, 4) != 0) {
-		sprintf(wdbPath, "%s", MxOmni::GetCD());
-
-		if (wdbPath[strlen(wdbPath) - 1] != '\\') {
-			strcat(wdbPath, "\\");
-		}
-
-		strcat(wdbPath, "lego\\data\\world.wdb");
-
-		if (access(wdbPath, 4) != 0) {
-			return FAILURE;
-		}
-	}
-
 	ModelDbWorld* worlds = NULL;
-	MxS32 numWorlds, i, j;
-	MxU32 size;
-	MxU8* buff;
-	FILE* wdbFile = fopen(wdbPath, "rb");
+	MxS32 numWorlds = 0, i = 0, j = 0;
+	MxU32 size = 0;
+	MxU8* buff = nullptr;
+	FILE* wdbFile = asset_fopen("rom:/data/world.wdb", nullptr);
 
 	if (wdbFile == NULL) {
 		return FAILURE;

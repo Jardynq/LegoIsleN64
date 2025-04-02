@@ -8,8 +8,6 @@ MxTickleThread::MxTickleThread(MxCore* p_target, MxS32 p_frequencyMS) {
 	m_frequencyMS = p_frequencyMS;
 }
 
-// Match except for register allocation
-
 MxResult MxTickleThread::Run() {
 	MxTimer* timer = Timer();
 	MxS32 lastTickled = -m_frequencyMS;

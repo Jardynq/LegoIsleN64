@@ -50,6 +50,4 @@ public:
 	const float* operator[](int idx) const { return m_data[idx]; }
 };
 
-#include "matrix4d.inl.h"
-
 #endif // MATRIX_H

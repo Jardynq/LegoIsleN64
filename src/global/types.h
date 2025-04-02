@@ -5,7 +5,6 @@
 #include <list>
 #include <map>
 #include <set>
-#include <stdint.h>
 #include <utility>
 #include <vector>
 using std::list;
@@ -15,16 +14,16 @@ using std::pair;
 using std::set;
 using std::vector;
 
-typedef int8_t i8;
-typedef int16_t i16;
-typedef int32_t i32;
-typedef int64_t i64;
-typedef uint8_t u8;
-typedef uint16_t u16;
-typedef uint32_t u32;
-typedef uint64_t u64;
-typedef uintptr_t usize;
-typedef intptr_t isize;
+typedef char i8;
+typedef short i16;
+typedef int i32;
+typedef long long int i64;
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef unsigned int u32;
+typedef unsigned long long int u64;
+typedef u32 usize;
+typedef i32 isize;
 typedef float f32;
 typedef double f64;
 
@@ -65,7 +64,6 @@ typedef u8 LegoBool;
 typedef Time LegoTime;
 typedef i32 LegoResult;
 
-/*
 typedef bool BOOL;
 typedef char* LPCSTR;
 typedef char* LPSTR;
@@ -128,7 +126,6 @@ typedef struct {
 	i32 right;
 	i32 bottom;
 } RECT;
-*/
 
 #define TRUE true
 #define FALSE false
@@ -144,27 +141,6 @@ typedef struct {
 #ifndef NULL
 #define NULL 0
 #endif
-
-/*
-typedef i32 Result;
-
-typedef enum _Result {
-	Error = 0,
-	Success = 1
-} Result;
-*/
-
-/*
-#ifndef Success
-#define Success 0
-#endif
-
-#ifndef Failure
-#define Failure -1
-#endif
-
-
-*/
 
 #define TWOCC(a, b) (((a) << 0) | ((b) << 8))
 #define FOURCC(a, b, c, d) (((a) << 0) | ((b) << 8) | ((c) << 16) | ((d) << 24))

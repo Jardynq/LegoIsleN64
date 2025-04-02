@@ -14,7 +14,7 @@ public:
 	Lego3DView();
 	~Lego3DView() override;
 
-	BOOL Create(const CreateStruct&, Tgl::Renderer*);
+	BOOL Create(Tgl::Renderer*);
 	void Destroy() override;
 
 	BOOL Add(ViewROI&);

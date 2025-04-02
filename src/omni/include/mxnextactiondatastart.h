@@ -9,9 +9,9 @@ public:
 	MxNextActionDataStart(MxU32 p_objectId, MxS16 p_unk0x24, MxU32 p_data)
 		: m_objectId(p_objectId), m_unk0x24(p_unk0x24), m_data(p_data) {}
 
-	const char* ClassName() const override { return "MxNextActionDataStart"; }
+	static const char* ClassName() { return "MxNextActionDataStart"; }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, MxNextActionDataStart::ClassName()) ||
 			   MxCore::IsA(p_name);
 	}

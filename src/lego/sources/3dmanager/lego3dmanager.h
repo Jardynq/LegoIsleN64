@@ -19,25 +19,10 @@ class ViewLODListManager;
 // Lego3DManager
 
 class Lego3DManager {
-public:
-	struct CreateStruct {
-		const GUID* m_pDriverGUID;
-		HWND m_hWnd;
-		IDirectDraw* m_pDirectDraw;
-		IDirectDrawSurface* m_pFrontBuffer;
-		IDirectDrawSurface* m_pBackBuffer;
-		IDirectDrawPalette* m_pPalette;
-		BOOL m_isFullScreen;
-		BOOL m_isWideViewAngle;
-		IDirect3D2* m_direct3d;
-		IDirect3DDevice2* m_d3dDevice;
-	};
-
-public:
 	Lego3DManager();
 	virtual ~Lego3DManager();
 
-	BOOL Create(CreateStruct&);
+	BOOL Create();
 	void Destroy();
 
 	BOOL Add(ViewROI&);

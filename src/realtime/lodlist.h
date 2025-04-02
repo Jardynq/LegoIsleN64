@@ -7,10 +7,6 @@
 
 class LODObject;
 
-// disable: identifier was truncated to '255' characters in the debug
-// information
-#pragma warning(disable : 4786)
-
 //////////////////////////////////////////////////////////////////////////////
 //
 // LODListBase
@@ -146,9 +142,5 @@ inline const T* LODList<T>::PopBack() {
 // LODList<ViewLOD>::~LODList<ViewLOD>
 
 // LODList<ViewLOD>::operator[]
-
-// re-enable: identifier was truncated to '255' characters in the debug
-// information
-#pragma warning(default : 4786)
 
 #endif // LODLIST_H

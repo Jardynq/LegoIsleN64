@@ -1,6 +1,7 @@
 // TglSurface.cpp : implementation file
 
 #include "tglsurface.h"
+#include "display.h"
 
 using namespace Tgl;
 
@@ -37,91 +38,17 @@ void TglSurface::Destroy() {
 	m_pScene = 0;
 }
 
-// ???
-
-int GetBitsPerPixel(IDirectDrawSurface* pSurface) {
-	DDPIXELFORMAT pixelFormat;
-	HRESULT result;
-
-	memset(&pixelFormat, 0, sizeof(pixelFormat));
-	pixelFormat.dwSize = sizeof(pixelFormat);
-
-	result = pSurface->GetPixelFormat(&pixelFormat);
-	assert(result == DD_OK);
-	assert(pixelFormat.dwFlags & DDPF_RGB);
-
-	return pixelFormat.dwRGBBitCount;
+int GetBitsPerPixel() {
+	// TODO: Verify this is correct
+	return display_get_bitdepth() * 8;
 }
 
 BOOL TglSurface::Create(
-	const CreateStruct& rCreateStruct,
 	Renderer* pRenderer,
 	Group* pScene
 ) {
-	DeviceDirect3DCreateData createData = {
-		rCreateStruct.m_direct3d,
-		rCreateStruct.m_d3dDevice};
-	int bitsPerPixel = GetBitsPerPixel(rCreateStruct.m_pFrontBuffer);
-
-	ColorModel colorModel = Ramp;
-	ShadingModel shadingModel = Gouraud;
-	int shadeCount = 32;
-	BOOL dither = TRUE;
-	int textureShadeCount = -1;
-	int textureColorCount = -1;
-	Result result;
-
 	m_pRenderer = pRenderer;
 	m_pScene = pScene;
-	m_pDevice = m_pRenderer->CreateDevice(createData);
-
-	if (!m_pDevice) {
-		assert(0);
-		m_pRenderer = 0;
-		m_pScene = 0;
-		return FALSE;
-	}
-
-	if (bitsPerPixel == 1) {
-		shadeCount = 4;
-		textureShadeCount = 4;
-	} else if (bitsPerPixel == 8) {
-		shadeCount = 32;
-		shadeCount = 16;
-		dither = FALSE;
-		textureShadeCount = shadeCount;
-		textureColorCount = 256;
-	} else if (bitsPerPixel == 16) {
-		shadeCount = 32;
-		dither = FALSE;
-		textureShadeCount = shadeCount;
-		textureColorCount = 256;
-	} else if (bitsPerPixel >= 24) {
-		shadeCount = 256;
-		dither = FALSE;
-		textureShadeCount = 256;
-		textureColorCount = 64;
-	} else {
-		dither = FALSE;
-	}
-
-	if (textureShadeCount != -1) {
-		result = pRenderer->SetTextureDefaultShadeCount(textureShadeCount);
-		assert(Succeeded(result));
-	}
-	if (textureColorCount != -1) {
-		result = pRenderer->SetTextureDefaultColorCount(textureColorCount);
-		assert(Succeeded(result));
-	}
-
-	result = m_pDevice->SetColorModel(colorModel);
-	assert(Succeeded(result));
-	result = m_pDevice->SetShadingModel(shadingModel);
-	assert(Succeeded(result));
-	result = m_pDevice->SetShadeCount(shadeCount);
-	assert(Succeeded(result));
-	result = m_pDevice->SetDither(dither);
-	assert(Succeeded(result));
 
 	m_width = m_pDevice->GetWidth();
 	m_height = m_pDevice->GetHeight();
@@ -153,7 +80,7 @@ double TglSurface::Render() {
 	MxStopWatch renderTimer;
 
 	if (m_isInitialized && !m_stopRendering) {
-		Result result;
+		Result result = Success;
 
 		m_renderingRateMeter.StartOperation();
 		renderTimer.Start();

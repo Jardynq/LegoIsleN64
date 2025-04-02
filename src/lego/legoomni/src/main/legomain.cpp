@@ -137,9 +137,6 @@ void LegoOmni::Destroy() {
 }
 
 MxResult LegoOmni::Create(MxOmniCreateParam& p_param) {
-	AllocConsole();
-	freopen("CON", "w", stdout);
-
 	MxResult result = FAILURE;
 	AUTOLOCK(m_criticalSection);
 
@@ -164,7 +161,7 @@ MxResult LegoOmni::Create(MxOmniCreateParam& p_param) {
 	}
 
 	if (!(m_soundManager = new LegoSoundManager()) ||
-		m_soundManager->Create(10, 0) != SUCCESS) {
+		m_soundManager->Create(10) != SUCCESS) {
 		log_error("Failed to create sound manager\n");
 		delete m_soundManager;
 		m_soundManager = NULL;

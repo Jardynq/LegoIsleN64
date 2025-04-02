@@ -7,9 +7,9 @@ class RaceSkel;
 
 class CarRaceState : public RaceState {
 public:
-	const char* ClassName() const override { return "CarRaceState"; }
+	static const char* ClassName() { return "CarRaceState"; }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, CarRaceState::ClassName()) ||
 			   RaceState::IsA(p_name);
 	}
@@ -21,9 +21,9 @@ class CarRace : public LegoRace {
 public:
 	CarRace();
 
-	const char* ClassName() const override { return "CarRace"; }
+	static const char* ClassName() { return "CarRace"; }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, CarRace::ClassName()) || LegoRace::IsA(p_name);
 	}
 

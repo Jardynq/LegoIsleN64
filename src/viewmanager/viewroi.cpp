@@ -20,10 +20,10 @@ void ViewROI::UpdateWorldData(const Matrix4& parent2world) {
 	OrientableROI::UpdateWorldData(parent2world);
 
 	if (geometry) {
-		Tgl::FloatMatrix4 matrix;
-		Matrix4 in(matrix);
+		Matrix4 in {0};
 		SETMAT4(in, m_local2world);
-		Tgl::Result result = geometry->SetTransformation(matrix);
+		Tgl::Result result = geometry->SetTransformation(in);
+		(void)result;
 		// assert(Tgl::Succeeded(result));
 	}
 }
@@ -31,30 +31,27 @@ void ViewROI::UpdateWorldData(const Matrix4& parent2world) {
 void ViewROI::VTable0x24(const Matrix4& p_transform) {
 	OrientableROI::VTable0x24(p_transform);
 	if (geometry) {
-		Tgl::FloatMatrix4 matrix;
-		Matrix4 in(matrix);
+		Matrix4 in {0};
 		SETMAT4(in, m_local2world);
-		geometry->SetTransformation(matrix);
+		geometry->SetTransformation(in);
 	}
 }
 
 void ViewROI::SetLocalTransform(const Matrix4& p_transform) {
 	OrientableROI::SetLocalTransform(p_transform);
 	if (geometry) {
-		Tgl::FloatMatrix4 matrix;
-		Matrix4 in(matrix);
+		Matrix4 in {0};
 		SETMAT4(in, m_local2world);
-		geometry->SetTransformation(matrix);
+		geometry->SetTransformation(in);
 	}
 }
 
 void ViewROI::VTable0x1c() {
 	OrientableROI::VTable0x1c();
 	if (geometry) {
-		Tgl::FloatMatrix4 matrix;
-		Matrix4 in(matrix);
+		Matrix4 in {0};
 		SETMAT4(in, m_local2world);
-		geometry->SetTransformation(matrix);
+		geometry->SetTransformation(in);
 	}
 }
 

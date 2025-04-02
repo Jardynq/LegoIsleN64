@@ -27,9 +27,9 @@ public:
 
 	LegoVehicleBuildState(const char* p_classType);
 
-	const char* ClassName() const override { return m_className.GetData(); }
+	static const char* ClassName() { return m_className.GetData(); }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, m_className.GetData()) || LegoState::IsA(p_name);
 	}
 
@@ -75,12 +75,12 @@ public:
 
 	MxBool VTable0x5c() override { return TRUE; }
 
-	const char* ClassName() const override { return "LegoCarBuild"; }
+	static const char* ClassName() { return "LegoCarBuild"; }
 
 	MxLong Notify(MxParam& p_param) override;
 	MxResult Tickle() override;
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, LegoCarBuild::ClassName()) ||
 			   LegoWorld::IsA(p_name);
 	}

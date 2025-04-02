@@ -1,6 +1,7 @@
 #ifndef _TglSurface_h
 #define _TglSurface_h
 
+#include "display.h"
 #include "mxdirectx/mxstopwatch.h"
 #include "tgl/tgl.h"
 
@@ -16,38 +17,23 @@ class Group;
 
 class TglSurface {
 public:
-	struct CreateStruct {
-		const GUID* m_pDriverGUID;
-		HWND m_hWnd;
-		IDirectDraw* m_pDirectDraw;
-		IDirectDrawSurface* m_pFrontBuffer;
-		IDirectDrawSurface* m_pBackBuffer;
-		IDirectDrawPalette* m_pPalette;
-		BOOL m_isFullScreen;
-		BOOL m_isWideViewAngle;
-		IDirect3D2* m_direct3d;
-		IDirect3DDevice2* m_d3dDevice;
-	};
-
-public:
 	TglSurface();
 	virtual ~TglSurface();
 
 	virtual BOOL
-	Create(const CreateStruct&, Tgl::Renderer*, Tgl::Group* pScene);
+	Create(Tgl::Renderer*, Tgl::Group* pScene);
 	virtual void Destroy();
 	virtual double Render(); // render time in seconds
 
 	Tgl::Renderer* GetRenderer() const { return m_pRenderer; }
-	Tgl::Device* GetDevice() const { return m_pDevice; }
 
 	Tgl::View* GetView() const { return m_pView; }
 
 	Tgl::Group* GetScene() const { return m_pScene; }
 
-	unsigned int GetWidth() const { return m_width; }
+	unsigned int GetWidth() const { return display_get_width(); }
 
-	unsigned int GetHeight() const { return m_height; }
+	unsigned int GetHeight() const { return display_get_height(); }
 
 	double GetRenderingRate() const { return m_renderingRateMeter.Frequency(); }
 	double GetFrameRate() const { return m_frameRateMeter.Frequency(); }

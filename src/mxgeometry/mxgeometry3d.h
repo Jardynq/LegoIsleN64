@@ -1,7 +1,7 @@
 #ifndef MXGEOMETRY3D_H
 #define MXGEOMETRY3D_H
 
-#include "realtime/vector3d.inl.h"
+#include "realtime/vector.h"
 
 class Mx3DPointFloat : public Vector3 {
 public:

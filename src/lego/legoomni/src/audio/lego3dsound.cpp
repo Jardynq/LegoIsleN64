@@ -6,6 +6,7 @@
 #include "legovideomanager.h"
 #include "misc.h"
 #include "mxomni.h"
+#include "wav64.h"
 
 #include <vec.h>
 
@@ -18,7 +19,6 @@ Lego3DSound::~Lego3DSound() {
 }
 
 void Lego3DSound::Init() {
-	m_ds3dBuffer = NULL;
 	m_roi = NULL;
 	m_positionROI = NULL;
 	m_actor = NULL;
@@ -28,30 +28,10 @@ void Lego3DSound::Init() {
 }
 
 MxResult Lego3DSound::Create(
-	LPDIRECTSOUNDBUFFER p_directSoundBuffer,
 	const char* p_name,
 	MxS32 p_volume
 ) {
 	m_volume = p_volume;
-
-	if (MxOmni::IsSound3D()) {
-		p_directSoundBuffer->QueryInterface(
-			IID_IDirectSound3DBuffer,
-			(LPVOID*) &m_ds3dBuffer
-		);
-		if (m_ds3dBuffer == NULL) {
-			return FAILURE;
-		}
-
-		m_ds3dBuffer->SetMinDistance(15.0f, DS3D_IMMEDIATE);
-		m_ds3dBuffer->SetMaxDistance(100.0f, DS3D_IMMEDIATE);
-		m_ds3dBuffer->SetPosition(0.0f, 0.0f, -40.0f, DS3D_IMMEDIATE);
-		m_ds3dBuffer->SetConeOutsideVolume(-10000, DS3D_IMMEDIATE);
-	}
-
-	if (m_ds3dBuffer == NULL || p_name == NULL) {
-		return SUCCESS;
-	}
 
 	if (CharacterManager()->IsActor(p_name)) {
 		m_roi = CharacterManager()->GetActorROI(p_name, TRUE);
@@ -78,43 +58,21 @@ MxResult Lego3DSound::Create(
 		m_positionROI = m_roi;
 	}
 
-	if (MxOmni::IsSound3D()) {
-		const float* position = m_positionROI->GetWorldPosition();
-		m_ds3dBuffer->SetPosition(
-			position[0],
-			position[1],
-			position[2],
-			DS3D_IMMEDIATE
-		);
-	}
-
 	LegoEntity* entity = m_roi->GetEntity();
 	if (entity != NULL && entity->IsA("LegoActor") &&
 		((LegoActor*) entity)->GetSoundFrequencyFactor() != 0.0f) {
 		m_actor = ((LegoActor*) entity);
 	}
 
-	p_directSoundBuffer->GetFrequency(&m_dwFrequency);
-
 	if (m_actor != NULL) {
 		m_frequencyFactor = m_actor->GetSoundFrequencyFactor();
-
-		if (m_frequencyFactor != 0.0) {
-			p_directSoundBuffer->SetFrequency(
-				m_frequencyFactor * m_dwFrequency
-			);
-		}
 	}
 
 	return SUCCESS;
 }
 
 void Lego3DSound::Destroy() {
-	if (m_ds3dBuffer) {
-		m_ds3dBuffer->Release();
-		m_ds3dBuffer = NULL;
-	}
-
+	wav64_close(&wav);
 	if (m_enabled && m_roi && CharacterManager()) {
 		if (m_isActor) {
 			CharacterManager()->ReleaseActor(m_roi);
@@ -122,11 +80,10 @@ void Lego3DSound::Destroy() {
 			CharacterManager()->ReleaseAutoROI(m_roi);
 		}
 	}
-
 	Init();
 }
 
-MxU32 Lego3DSound::UpdatePosition(LPDIRECTSOUNDBUFFER p_directSoundBuffer) {
+MxU32 Lego3DSound::UpdatePosition() {
 	MxU32 updated = FALSE;
 
 	if (m_positionROI != NULL) {
@@ -142,29 +99,20 @@ MxU32 Lego3DSound::UpdatePosition(LPDIRECTSOUNDBUFFER p_directSoundBuffer) {
 			return FALSE;
 		}
 
-		if (m_ds3dBuffer != NULL) {
-			m_ds3dBuffer->SetPosition(
-				position[0],
-				position[1],
-				position[2],
-				DS3D_IMMEDIATE
-			);
-		} else {
-			MxS32 newVolume = m_volume;
-			if (distance < 100.0f) {
-				newVolume = m_volume;
-			} else if (distance < 400.0f) {
-				newVolume *= 0.4;
-			} else if (distance < 3600.0f) {
-				newVolume *= 0.1;
-			} else if (distance < 10000.0f) {
-				newVolume = 0;
-			}
 
-			newVolume = newVolume * SoundManager()->GetVolume() / 100;
-			newVolume = SoundManager()->GetAttenuation(newVolume);
-			p_directSoundBuffer->SetVolume(newVolume);
+		MxS32 newVolume = m_volume;
+		if (distance < 100.0f) {
+			newVolume = m_volume;
+		} else if (distance < 400.0f) {
+			newVolume *= 0.4;
+		} else if (distance < 3600.0f) {
+			newVolume *= 0.1;
+		} else if (distance < 10000.0f) {
+			newVolume = 0;
 		}
+
+		newVolume = newVolume * SoundManager()->GetVolume() / 100;
+		newVolume = SoundManager()->GetAttenuation(newVolume);
 
 		updated = TRUE;
 	}
@@ -294,15 +242,8 @@ void Lego3DSound::Reset() {
 }
 
 MxS32 Lego3DSound::SetDistance(MxS32 p_min, MxS32 p_max) {
-	if (MxOmni::IsSound3D()) {
-		if (m_ds3dBuffer == NULL) {
-			return -1;
-		}
-
-		m_ds3dBuffer->SetMinDistance(p_min, DS3D_IMMEDIATE);
-		m_ds3dBuffer->SetMaxDistance(p_max, DS3D_IMMEDIATE);
-		return 0;
-	}
-
+	(void)p_min;
+	(void)p_max;
+	log_unimpl();
 	return 1;
 }

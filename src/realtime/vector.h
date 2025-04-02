@@ -125,8 +125,4 @@ public:
 	friend class Mx4DPointFloat;
 };
 
-#include "vector2d.inl.h"
-#include "vector3d.inl.h"
-#include "vector4d.inl.h"
-
 #endif // VECTOR_H

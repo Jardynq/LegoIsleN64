@@ -1,7 +1,7 @@
 #ifndef MXGEOMETRY4D_H
 #define MXGEOMETRY4D_H
 
-#include "realtime/vector4d.inl.h"
+#include "realtime/vector.h"
 
 class Mx4DPointFloat : public Vector4 {
 public:

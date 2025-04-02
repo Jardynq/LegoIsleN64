@@ -28,8 +28,6 @@ LegoInputManager::LegoInputManager() {
 	m_controlManager = NULL;
 	m_unk0x81 = FALSE;
 	m_unk0x88 = FALSE;
-	m_directInput = NULL;
-	m_directInputDevice = NULL;
 	m_kbStateSuccess = FALSE;
 	m_unk0x195 = 0;
 	m_joyid = -1;
@@ -106,16 +104,6 @@ void LegoInputManager::CreateAndAcquireKeyboard(HWND p_hwnd) {
 }
 
 void LegoInputManager::ReleaseDX() {
-	if (m_directInputDevice != NULL) {
-		m_directInputDevice->Unacquire();
-		m_directInputDevice->Release();
-		m_directInputDevice = NULL;
-	}
-
-	if (m_directInput != NULL) {
-		m_directInput->Release();
-		m_directInput = NULL;
-	}
 }
 
 void LegoInputManager::GetKeyboardState() {

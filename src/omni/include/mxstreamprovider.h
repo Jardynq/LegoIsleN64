@@ -11,9 +11,9 @@ class MxStreamProvider : public MxCore {
 public:
 	MxStreamProvider() : m_pLookup(NULL), m_pFile(NULL) {}
 
-	const char* ClassName() const override { return "MxStreamProvider"; }
+	static const char* ClassName() { return "MxStreamProvider"; }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, MxStreamProvider::ClassName()) ||
 			   MxCore::IsA(p_name);
 	}

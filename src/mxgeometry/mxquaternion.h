@@ -2,6 +2,7 @@
 #define MXQUATERNION_H
 
 #include "mxgeometry4d.h"
+#include "realtime/matrix.h"
 
 #include <math.h>
 
@@ -104,8 +105,8 @@ int MxQuaternionTransformer::Interpolate(Vector4& p_v, float p_f) {
 	if (m_flags == (c_startSet | c_endSet)) {
 		int i = 0;
 		double d1 = p_v.Dot(m_startQuat, m_endQuat);
-		double a = NAN;
-		double b = NAN;
+		double a = 0.0;
+		double b = 0.0;
 
 		if (d1 + 1.0 > 0.00001) {
 			if (1.0 - d1 > 0.00001) {

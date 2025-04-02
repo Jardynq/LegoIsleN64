@@ -14,10 +14,6 @@ struct ModelDbPart {
 	undefined4 m_partDataOffset;
 };
 
-// class MxCollection<ModelDbPart *>
-
-// class MxList<ModelDbPart *>
-
 class ModelDbPartList : public MxList<ModelDbPart*> {
 public:
 	ModelDbPartList() { m_unk0x18 = 1; }
@@ -34,39 +30,15 @@ public:
 		return compare;
 	}
 
-	// ModelDbPartList::`scalar deleting destructor'
-
 private:
 	undefined m_unk0x18;
 };
-
-// class MxListCursor<ModelDbPart *>
 
 class ModelDbPartListCursor : public MxListCursor<ModelDbPart*> {
 public:
 	ModelDbPartListCursor(ModelDbPartList* p_list)
 		: MxListCursor<ModelDbPart*>(p_list) {}
 };
-
-// MxCollection<ModelDbPart *>::Compare
-
-// MxCollection<ModelDbPart *>::~MxCollection<ModelDbPart *>
-
-// MxCollection<ModelDbPart *>::Destroy
-
-// MxList<ModelDbPart *>::~MxList<ModelDbPart *>
-
-// MxCollection<ModelDbPart *>::`scalar deleting destructor'
-
-// MxList<ModelDbPart *>::`scalar deleting destructor'
-
-// ModelDbPartListCursor::`scalar deleting destructor'
-
-// MxListCursor<ModelDbPart *>::~MxListCursor<ModelDbPart *>
-
-// MxListCursor<ModelDbPart *>::`scalar deleting destructor'
-
-// ModelDbPartListCursor::~ModelDbPartListCursor
 
 struct ModelDbModel {
 	void Free();

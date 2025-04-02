@@ -37,9 +37,9 @@ ViewLODList* ViewLODListManager::Create(const ROIName& rROIName, int lodCount) {
 	// returned ViewLODList has a refCount of 1, i.e. caller must call Release()
 	// when it no longer holds on to the list
 
-	ViewLODList* pLODList;
-	int refCount;
-	char* pROIName;
+	ViewLODList* pLODList = nullptr;
+	int refCount = 0;
+	char* pROIName = nullptr;
 
 	// assert(!Lookup(rROIName)); // alpha only
 

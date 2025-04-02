@@ -20,18 +20,14 @@ Lego3DView::~Lego3DView() {
 }
 
 BOOL Lego3DView::Create(
-	const TglSurface::CreateStruct& rCreateStruct,
 	Tgl::Renderer* pRenderer
 ) {
-	double viewAngle = 45;
-	if (rCreateStruct.m_isWideViewAngle) {
-		viewAngle = 90;
-	}
+	double viewAngle = 90;
 
 	float frontClippingDistance = 0.1;
 	float backClippingDistance = 500;
 
-	if (!LegoView1::Create(rCreateStruct, pRenderer)) {
+	if (!LegoView1::Create(pRenderer)) {
 		return FALSE;
 	}
 
@@ -90,9 +86,8 @@ BOOL Lego3DView::Remove(ViewROI& rROI) {
 }
 
 BOOL Lego3DView::SetPointOfView(ViewROI& rROI) {
-	Tgl::FloatMatrix4 transformation;
-	Matrix4 mat(transformation);
-	Tgl::Result result;
+	Matrix4 mat {0};
+	Tgl::Result result = Tgl::Success;
 
 	m_pPointOfView = &rROI;
 
@@ -101,7 +96,7 @@ BOOL Lego3DView::SetPointOfView(ViewROI& rROI) {
 
 	assert(GetCamera());
 	rROI.GetLocalTransform(mat);
-	result = GetCamera()->SetTransformation(transformation);
+	result = GetCamera()->SetTransformation(mat);
 	assert(Tgl::Succeeded(result));
 
 	return TRUE;
@@ -112,14 +107,13 @@ BOOL Lego3DView::Moved(ViewROI& rROI) {
 
 	if (m_pPointOfView == &rROI) {
 		// move the camera
-		Tgl::FloatMatrix4 transformation;
-		Matrix4 mat(transformation);
-		Tgl::Result result;
+		Matrix4 mat {0};
+		Tgl::Result result = Tgl::Success;
 
 		assert(GetCamera());
 
 		rROI.GetLocalTransform(mat);
-		result = GetCamera()->SetTransformation(transformation);
+		result = GetCamera()->SetTransformation(mat);
 		assert(Tgl::Succeeded(result));
 		m_pViewManager->SetPOVSource(&rROI);
 	}

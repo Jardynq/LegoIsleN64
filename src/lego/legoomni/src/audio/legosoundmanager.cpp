@@ -1,88 +1,46 @@
 #include "legosoundmanager.h"
 
 #include "legocachesoundmanager.h"
-#include "mxautolock.h"
-#include "mxomni.h"
+#include "manager.h"
+#include "mxaudiopresenter.h"
+#include "mxdsaction.h"
+#include "mxwavepresenter.h"
 
 LegoSoundManager::LegoSoundManager() {
 	Init();
 }
 
 LegoSoundManager::~LegoSoundManager() {
-	Destroy(TRUE);
+	Destroy();
 }
 
 void LegoSoundManager::Init() {
 	m_cacheSoundManager = NULL;
-	m_listener = NULL;
 }
 
-void LegoSoundManager::Destroy(MxBool p_fromDestructor) {
+void LegoSoundManager::Destroy() {
+	Manager::Destroy();
 	delete m_cacheSoundManager;
 	Init();
-
-	if (!p_fromDestructor) {
-		MxSoundManager::Destroy();
-	}
 }
 
-MxResult LegoSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
-	MxBool locked = FALSE;
+MxResult LegoSoundManager::Create(MxU32 p_frequencyMS) {
 	MxResult result = FAILURE;
 
-	if (MxSoundManager::Create(10, FALSE) == SUCCESS) {
-		m_criticalSection.Enter();
-		locked = TRUE;
-
-		if (MxOmni::IsSound3D()) {
-			if (m_dsBuffer->QueryInterface(
-					IID_IDirectSound3DListener,
-					(LPVOID*) &m_listener
-				) != DS_OK) {
-				goto done;
-			}
-
-			MxOmni* omni = MxOmni::GetInstance();
-			LPDIRECTSOUND sound;
-
-			if (omni && omni->GetSoundManager() &&
-				(sound = omni->GetSoundManager()->GetDirectSound())) {
-				DSCAPS caps;
-				memset(&caps, 0, sizeof(DSCAPS));
-				caps.dwSize = sizeof(DSCAPS);
-
-				if (sound->GetCaps(&caps) == S_OK &&
-					caps.dwMaxHw3DAllBuffers == 0) {
-					m_listener->SetDistanceFactor(0.026315790f, 0);
-					m_listener->SetRolloffFactor(10, 0);
-				}
-			}
-		}
-
-		m_cacheSoundManager = new LegoCacheSoundManager;
+	if (Manager::Create(p_frequencyMS) == SUCCESS) {
+		m_cacheSoundManager = new LegoCacheSoundManager();
 		result = SUCCESS;
 	}
 
-done:
 	if (result != SUCCESS) {
 		Destroy();
-	}
-
-	if (locked) {
-		m_criticalSection.Leave();
 	}
 
 	return result;
 }
 
-void LegoSoundManager::Destroy() {
-	Destroy(FALSE);
-}
-
 MxResult LegoSoundManager::Tickle() {
-	MxSoundManager::Tickle();
-
-	AUTOLOCK(m_criticalSection);
+	Manager::Tickle();
 	return m_cacheSoundManager->Tickle();
 }
 
@@ -92,40 +50,60 @@ void LegoSoundManager::UpdateListener(
 	const float* p_up,
 	const float* p_velocity
 ) {
-	if (m_listener != NULL) {
-		if (p_position != NULL) {
-			m_listener->SetPosition(
-				p_position[0],
-				p_position[1],
-				p_position[2],
-				DS3D_DEFERRED
-			);
-		}
+	(void)p_position;
+	(void)p_direction;
+	(void)p_up;
+	(void)p_velocity;
+	log_unimpl();
+}
 
-		if (p_direction != NULL && p_up != NULL) {
-			m_listener->SetOrientation(
-				p_direction[0],
-				p_direction[1],
-				p_direction[2],
-				p_up[0],
-				p_up[1],
-				p_up[2],
-				DS3D_DEFERRED
-			);
-		}
 
-		if (p_velocity != NULL) {
-			m_listener->SetVelocity(
-				p_velocity[0],
-				p_velocity[1],
-				p_velocity[2],
-				DS3D_DEFERRED
-			);
-		}
+MxS32 LegoSoundManager::GetVolume() {
+	return m_volume;
+}
 
-		if (p_position != NULL || (p_direction != NULL && p_up != NULL) ||
-			p_velocity != NULL) {
-			m_listener->CommitDeferredSettings();
+void LegoSoundManager::SetVolume(MxS32 p_volume) {
+	MxPresenter* presenter = nullptr;
+	MxPresenterListCursor cursor(m_presenters);
+
+	while (cursor.Next(presenter)) {
+		((MxAudioPresenter*) presenter)->SetVolume(p_volume);
+	}
+}
+
+MxPresenter* LegoSoundManager::FUN_100aebd0(const MxAtomId& p_atomId, MxU32 p_objectId) {
+	MxPresenter* presenter = nullptr;
+	MxPresenterListCursor cursor(m_presenters);
+
+	while (cursor.Next(presenter)) {
+		if (presenter->GetAction()->GetAtomId().GetInternal() ==
+				p_atomId.GetInternal() &&
+			presenter->GetAction()->GetObjectId() == p_objectId) {
+			return presenter;
+		}
+	}
+
+	return NULL;
+}
+
+void LegoSoundManager::Pause() {
+	MxPresenter* presenter = nullptr;
+	MxPresenterListCursor cursor(m_presenters);
+
+	while (cursor.Next(presenter)) {
+		if (presenter->IsA("MxWavePresenter")) {
+			((MxWavePresenter*) presenter)->Pause();
+		}
+	}
+}
+
+void LegoSoundManager::Resume() {
+	MxPresenter* presenter = nullptr;
+	MxPresenterListCursor cursor(m_presenters);
+
+	while (cursor.Next(presenter)) {
+		if (presenter->IsA("MxWavePresenter")) {
+			((MxWavePresenter*) presenter)->Resume();
 		}
 	}
 }

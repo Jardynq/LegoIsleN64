@@ -1,7 +1,7 @@
 #ifndef _tglVector_h
 #define _tglVector_h
 
-#include "math.h" // sin() in RotateAroundY()
+#include <math.h> // sin() in RotateAroundY()
 
 #include <stddef.h> // offsetof()
 
@@ -19,7 +19,7 @@ inline double RadiansToDegrees(double radians) {
 	return (radians / Constant::Pi) * 180.0;
 }
 
-typedef float FloatMatrix4[4][4];
+// typedef float FloatMatrix4[4][4];
 
 } // namespace Tgl
 

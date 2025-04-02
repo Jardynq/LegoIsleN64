@@ -2,11 +2,8 @@
 #ifndef _tgl_h
 #define _tgl_h
 
-#include "tglvector.h"
-
-#include <d3d.h>
-#include <ddraw.h>
-#include <windows.h>
+#include "realtime/vector.h"
+#include "realtime/matrix.h"
 
 namespace Tgl {
 
@@ -37,25 +34,6 @@ struct PaletteEntry {
 	unsigned char m_blue;
 };
 
-struct DeviceDirect3DCreateData {
-	IDirect3D2* m_pDirect3D;
-	IDirect3DDevice2* m_pDirect3DDevice;
-};
-
-struct DeviceDirectDrawCreateData {
-	const GUID* m_driverGUID;
-	HWND m_hWnd;
-	IDirectDraw* m_pDirectDraw;
-	IDirectDrawSurface* m_pFrontBuffer;
-	IDirectDrawSurface* m_pBackBuffer;
-
-	// These have possibly been removed in the shipped game
-	// (Put them back if we can verify when we find a callsite
-	// which constructs this type)
-	// IDirectDrawPalette* m_pPalette;
-	// int m_isFullScreen;
-};
-
 // Result type used for all methods in the Tgl API
 enum Result { Error = 0, Success = 1 };
 
@@ -84,11 +62,26 @@ public:
 	// Tgl::Object::`scalar deleting destructor'
 };
 
+class Frame {
+public:
+	Frame* parent;
+	Frame* children[8];
+	int num_children;
+
+	Matrix4 transform;
+
+	void (*draw_callback)(Frame* self);
+
+	// Replaces D3DRMCOMBINE
+	void SetTransform(Matrix4 &other) {transform = other;}
+	void PreMulTransform(Matrix4 &other) {transform.Product(other, transform);}
+	void PostMulTransform(Matrix4 &other) {transform.Product(transform, other);}
+
+	//Vector3 GetPosition() {return transform}
+};
+
 class Renderer : public Object {
 public:
-	virtual Device* CreateDevice(const DeviceDirectDrawCreateData&) = 0;
-	virtual Device* CreateDevice(const DeviceDirect3DCreateData&) = 0;
-
 	virtual View* CreateView(
 		const Device*,
 		const Camera*,
@@ -210,7 +203,7 @@ public:
 
 class Camera : public Object {
 public:
-	virtual Result SetTransformation(FloatMatrix4&) = 0;
+	virtual Result SetTransformation(Matrix4&) = 0;
 
 	// Tgl::Camera::~Camera
 
@@ -219,7 +212,7 @@ public:
 
 class Light : public Object {
 public:
-	virtual Result SetTransformation(FloatMatrix4&) = 0;
+	virtual Result SetTransformation(Matrix4&) = 0;
 	virtual Result SetColor(float r, float g, float b) = 0;
 
 	// Tgl::Light::~Light
@@ -249,7 +242,7 @@ public:
 
 class Group : public Object {
 public:
-	virtual Result SetTransformation(FloatMatrix4&) = 0;
+	virtual Result SetTransformation(Matrix4&) = 0;
 	virtual Result SetColor(float r, float g, float b, float a) = 0;
 	virtual Result SetTexture(const Texture*) = 0;
 	virtual Result GetTexture(Texture*&) = 0;
@@ -262,7 +255,7 @@ public:
 
 	// This is TransformLocalToWorld in the leak, however it seems
 	// to have been replaced by something else in the shipped code.
-	virtual Result Bounds(D3DVECTOR*, D3DVECTOR*) = 0;
+	virtual Result Bounds(float min[3], float max[3]) = 0;
 
 	// Tgl::Group::~Group
 

@@ -29,9 +29,7 @@ float g_unk0x1010105c = 0.000125F;
 
 float g_elapsedSeconds = 0;
 
-inline void SetAppData(ViewROI* p_roi, LPD3DRM_APPDATA data);
-inline undefined4 GetD3DRM(IDirect3DRM2*& d3drm, Tgl::Renderer* pRenderer);
-inline undefined4 GetFrame(IDirect3DRMFrame2*& frame, Tgl::Group* scene);
+inline undefined4 GetFrame(Tgl::Frame*& frame, Tgl::Group* scene);
 
 ViewManager::ViewManager(
 	Tgl::Renderer* pRenderer,
@@ -39,9 +37,9 @@ ViewManager::ViewManager(
 	const OrientableROI* point_of_view
 )
 	: scene(scene), flags(c_bit1 | c_bit2 | c_bit3 | c_bit4) {
+	(void)pRenderer;
 	SetPOVSource(point_of_view);
 	prev_render_time = 0.09;
-	GetD3DRM(d3drm, pRenderer);
 	GetFrame(frame, scene);
 	width = 0.0;
 	height = 0.0;
@@ -63,7 +61,7 @@ ViewManager::IsBoundingBoxInFrustum(const BoundingBox& p_bounding_box) {
 	const Vector3* box[] = {&p_bounding_box.Min(), &p_bounding_box.Max()};
 
 	float und[8][3];
-	int i, j, k;
+	int i= 0, j= 0, k= 0;
 
 	for (i = 0; i < 8; i++) {
 		for (j = 0; j < 3; j++) {
@@ -155,15 +153,14 @@ void ViewManager::UpdateROIDetailBasedOnLOD(ViewROI* p_roi, int p_und) {
 	}
 
 	Tgl::Group* group = p_roi->GetGeometry();
-	Tgl::MeshBuilder* meshBuilder;
-	ViewLOD* lod;
+	Tgl::MeshBuilder* meshBuilder = nullptr;
+	ViewLOD* lod = nullptr;
 
 	if (unk0xe0 < 0) {
 		lod = (ViewLOD*) p_roi->GetLOD(p_und);
 
 		if (lod->GetUnknown0x08() & ViewLOD::c_bit4) {
 			scene->Add((Tgl::MeshBuilder*) group);
-			SetAppData(p_roi, reinterpret_cast<LPD3DRM_APPDATA>(p_roi));
 		}
 	} else {
 		lod = (ViewLOD*) p_roi->GetLOD(unk0xe0);
@@ -184,7 +181,6 @@ void ViewManager::UpdateROIDetailBasedOnLOD(ViewROI* p_roi, int p_und) {
 
 		if (meshBuilder != NULL) {
 			group->Add(meshBuilder);
-			SetAppData(p_roi, reinterpret_cast<LPD3DRM_APPDATA>(p_roi));
 			p_roi->SetUnknown0xe0(p_und);
 			return;
 		}
@@ -345,8 +341,8 @@ inline int ViewManager::CalculateFrustumTransformations() {
 
 inline int
 ViewManager::CalculateLODLevel(float p_und1, float p_und2, ViewROI* p_roi) {
-	int result;
-	float i;
+	int result = 0;
+	float i = 0.0f;
 
 	if (IsROIVisibleAtLOD(p_roi) != 0) {
 		if (p_und1 < g_minLODThreshold) {
@@ -402,7 +398,7 @@ inline int ViewManager::IsROIVisibleAtLOD(ViewROI* p_roi) {
 void ViewManager::UpdateViewTransformations() {
 	flags &= ~c_bit2;
 
-	int i, j, k;
+	int i = 0, j = 0, k = 0;
 
 	for (i = 0; i < 8; i++) {
 		for (j = 0; j < 3; j++) {
@@ -470,7 +466,14 @@ float ViewManager::ProjectedSize(const BoundingSphere& p_bounding_sphere) {
 	return sphere_projected_area / view_area_at_one / square_dist_to_sphere;
 }
 
+// TODO, this fucntion uses d3drm pick to presumably raycast and pick game objects.
+// This needs to be manually implemented. For now, leave empty.
 ViewROI* ViewManager::Pick(Tgl::View* p_view, unsigned int x, unsigned int y) {
+	(void)p_view;
+	(void)x;
+	(void)y;
+
+	/*
 	LPDIRECT3DRMPICKEDARRAY picked = NULL;
 	ViewROI* result = NULL;
 	TglImpl::ViewImpl* view = (TglImpl::ViewImpl*) p_view;
@@ -517,22 +520,11 @@ ViewROI* ViewManager::Pick(Tgl::View* p_view, unsigned int x, unsigned int y) {
 	}
 
 	return result;
+	*/
+	return nullptr;
 }
 
-inline void SetAppData(ViewROI* p_roi, LPD3DRM_APPDATA data) {
-	IDirect3DRMFrame2* frame = NULL;
-
-	if (GetFrame(frame, p_roi->GetGeometry()) == 0) {
-		frame->SetAppData(data);
-	}
-}
-
-inline undefined4 GetD3DRM(IDirect3DRM2*& d3drm, Tgl::Renderer* pRenderer) {
-	d3drm = ((TglImpl::RendererImpl*) pRenderer)->ImplementationData();
-	return 0;
-}
-
-inline undefined4 GetFrame(IDirect3DRMFrame2*& frame, Tgl::Group* scene) {
+inline undefined4 GetFrame(Tgl::Frame*& frame, Tgl::Group* scene) {
 	frame = ((TglImpl::GroupImpl*) scene)->ImplementationData();
 	return 0;
 }

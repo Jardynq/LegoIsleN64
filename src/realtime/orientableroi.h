@@ -4,8 +4,6 @@
 #include "mxgeometry/mxmatrix.h"
 #include "roi.h"
 
-#include <windows.h>
-
 class OrientableROI : public ROI {
 public:
 	enum { c_bit1 = 0x01, c_bit2 = 0x02 };

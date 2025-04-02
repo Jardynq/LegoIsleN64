@@ -1,6 +1,5 @@
+#include "display.h"
 #include "impl.h"
-
-#include <d3drmwin.h>
 
 using namespace TglImpl;
 
@@ -9,11 +8,11 @@ void* DeviceImpl::ImplementationDataPtr() {
 }
 
 unsigned int DeviceImpl::GetWidth() {
-	return m_data->GetWidth();
+	return display_get_width();
 }
 
 unsigned int DeviceImpl::GetHeight() {
-	return m_data->GetHeight();
+	return display_get_height();
 }
 
 Result DeviceImpl::SetColorModel(ColorModel) {
@@ -21,45 +20,32 @@ Result DeviceImpl::SetColorModel(ColorModel) {
 }
 
 Result DeviceImpl::SetShadingModel(ShadingModel model) {
-	// Doesn't match well even though we know this is exactly
-	// the original code thanks to the jump table.
-	D3DRMRENDERQUALITY renderQuality = Translate(model);
-	return ResultVal(m_data->SetQuality(renderQuality));
+	(void)model;
+	return Success;
 }
 
 Result DeviceImpl::SetShadeCount(unsigned int shadeCount) {
-	return ResultVal(m_data->SetShades(shadeCount));
+	(void)shadeCount;
+	return Success;
 }
 
 Result DeviceImpl::SetDither(int dither) {
-	return ResultVal(m_data->SetDither(dither));
+	(void)dither;
+	return Success;
 }
 
 void DeviceImpl::HandleActivate(WORD wParam) {
-	// Device argument is intentionally unused.
-	IDirect3DRMWinDevice* winDevice;
-	if (ResultVal(m_data->QueryInterface(
-			IID_IDirect3DRMWinDevice,
-			(LPVOID*) &winDevice
-		))) {
-		winDevice->HandleActivate(wParam);
-		winDevice->Release();
-	}
+	(void)wParam;
 }
 
 void DeviceImpl::HandlePaint(HDC p_dc) {
-	IDirect3DRMWinDevice* winDevice;
-	if (SUCCEEDED(m_data->QueryInterface(
-			IID_IDirect3DRMWinDevice,
-			(LPVOID*) &winDevice
-		))) {
-		winDevice->HandlePaint(p_dc);
-		winDevice->Release();
-	}
+	(void)p_dc;
 }
 
 Result DeviceImpl::Update() {
-	return ResultVal(m_data->Update());
+	// TODO might have to flush render pipeline here.
+	//return ResultVal(m_data->Update());
+	return Success;
 }
 
 // IID_IDirect3DRMWinDevice

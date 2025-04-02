@@ -6,9 +6,6 @@
 
 #include <string.h>
 
-#pragma warning(disable : 4237)
-#pragma warning(disable : 4786)
-
 class ViewLOD;
 class ViewLODListManager;
 

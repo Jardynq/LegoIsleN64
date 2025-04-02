@@ -11,9 +11,9 @@ class LegoCarRaceActor : public virtual LegoRaceActor {
 public:
 	LegoCarRaceActor();
 
-	const char* ClassName() const override { return "LegoCarRaceActor"; }
+	static const char* ClassName() { return "LegoCarRaceActor"; }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, LegoCarRaceActor::ClassName()) ||
 			   LegoRaceActor::IsA(p_name);
 	}
@@ -75,9 +75,9 @@ class LegoJetskiRaceActor : public virtual LegoCarRaceActor {
 public:
 	LegoJetskiRaceActor();
 
-	const char* ClassName() const override { return "LegoJetskiRaceActor"; }
+	static const char* ClassName() { return "LegoJetskiRaceActor"; }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, LegoJetskiRaceActor::ClassName()) ||
 			   LegoCarRaceActor::IsA(p_name);
 	}

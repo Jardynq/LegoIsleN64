@@ -28,10 +28,9 @@ LegoView::~LegoView() {
 }
 
 BOOL LegoView::Create(
-	const TglSurface::CreateStruct& rCreateStruct,
 	Tgl::Renderer* pRenderer
 ) {
-	float viewAngle = 45;
+	float viewAngle = 90;
 
 	float frontClippingDistance = 0.1;
 	float backClippingDistance = 500;
@@ -40,10 +39,6 @@ BOOL LegoView::Create(
 	assert(!m_pCamera);
 	assert(pRenderer);
 
-	if (rCreateStruct.m_isWideViewAngle) {
-		viewAngle = 90;
-	}
-
 	m_pScene = pRenderer->CreateGroup();
 	assert(m_pScene);
 	// TglSurface::Create() calls CreateView(), and we need the camera in
@@ -51,7 +46,7 @@ BOOL LegoView::Create(
 	m_pCamera = pRenderer->CreateCamera();
 	assert(m_pCamera);
 
-	if (!TglSurface::Create(rCreateStruct, pRenderer, m_pScene)) {
+	if (!TglSurface::Create(pRenderer, m_pScene)) {
 		delete m_pScene;
 		m_pScene = 0;
 
@@ -110,10 +105,9 @@ BOOL LegoView1::AddLightsToViewport() {
 }
 
 BOOL LegoView1::Create(
-	const TglSurface::CreateStruct& rCreateStruct,
 	Tgl::Renderer* pRenderer
 ) {
-	if (!LegoView::Create(rCreateStruct, pRenderer)) {
+	if (!LegoView::Create(pRenderer)) {
 		return FALSE;
 	}
 
@@ -141,20 +135,17 @@ BOOL LegoView1::Create(
 	Mx3DPointFloat direction(0.0, -1.0, 0.0);
 	Mx3DPointFloat up(1.0, 0.0, 0.0);
 
-	Tgl::FloatMatrix4 matrix;
-	Matrix4 in(matrix);
+	Matrix4 matrix {0};
 	MxMatrix transform;
 
 	CalcLocalTransform(position, direction, up, transform);
-	SETMAT4(in, transform);
+	matrix = transform;
 	m_pDirectionalLight->SetTransformation(matrix);
 
 	position[0] = 0, position[1] = 150, position[2] = -150;
 	CalcLocalTransform(position, direction, up, transform);
-	SETMAT4(in, transform);
+	matrix = transform;
 	m_pSunLight->SetTransformation(matrix);
-
-	// assert(GetView());
 
 	return AddLightsToViewport();
 }
@@ -183,9 +174,9 @@ void LegoView1::Destroy() {
 
 void LegoView1::SetLightTransform(
 	BOOL bDirectionalLight,
-	Tgl::FloatMatrix4& rMatrix
+	Matrix4& rMatrix
 ) {
-	Tgl::Light* pLight;
+	Tgl::Light* pLight = nullptr;
 
 	if (bDirectionalLight == FALSE) {
 		pLight = m_pSunLight;
@@ -198,7 +189,7 @@ void LegoView1::SetLightTransform(
 
 void LegoView1::SetLightTransform(
 	Tgl::Light* pLight,
-	Tgl::FloatMatrix4& rMatrix
+	Matrix4& rMatrix
 ) {
 	pLight->SetTransformation(rMatrix);
 }
@@ -209,7 +200,7 @@ void LegoView1::SetLightColor(
 	float green,
 	float blue
 ) {
-	Tgl::Light* pLight;
+	Tgl::Light* pLight = nullptr;
 
 	if (bDirectionalLight == FALSE) {
 		pLight = m_pSunLight;

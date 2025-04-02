@@ -30,9 +30,9 @@ public:
 
 	MxLong Notify(MxParam& p_param) override;
 
-	const char* ClassName() const override { return "LegoJetski"; }
+	static const char* ClassName() { return "LegoJetski"; }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, LegoJetski::ClassName()) ||
 			   LegoJetskiRaceActor::IsA(p_name);
 	}
@@ -85,9 +85,9 @@ public:
 
 	MxLong Notify(MxParam& p_param) override;
 
-	const char* ClassName() const override { return "LegoRaceCar"; }
+	static const char* ClassName() { return "LegoRaceCar"; }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, LegoRaceCar::ClassName()) ||
 			   LegoCarRaceActor::IsA(p_name);
 	}

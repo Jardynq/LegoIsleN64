@@ -4,7 +4,7 @@
 #include "misc.h"
 
 LegoCacheSoundManager::~LegoCacheSoundManager() {
-	LegoCacheSound* sound;
+	LegoCacheSound* sound = nullptr;
 
 	while (!m_set.empty()) {
 		sound = (*m_set.begin()).GetSound();
@@ -15,8 +15,6 @@ LegoCacheSoundManager::~LegoCacheSoundManager() {
 
 	while (!m_list.empty()) {
 		sound = (*m_list.begin()).GetSound();
-		// TODO: LegoCacheSoundEntry::~LegoCacheSoundEntry should not be inlined
-		// here
 		m_list.erase(m_list.begin());
 		sound->Stop();
 		delete sound;
@@ -27,8 +25,8 @@ MxResult LegoCacheSoundManager::Tickle() {
 	Set100d6b4c::iterator setIter;
 	for (setIter = m_set.begin(); setIter != m_set.end(); setIter++) {
 		LegoCacheSound* sound = (*setIter).GetSound();
-		if (sound->GetUnknown0x58()) {
-			sound->FUN_10006be0();
+		if (sound->GetIsPlaying()) {
+			sound->Tickle();
 		}
 	}
 
@@ -36,8 +34,8 @@ MxResult LegoCacheSoundManager::Tickle() {
 	while (listIter != m_list.end()) {
 		LegoCacheSound* sound = (*listIter).GetSound();
 
-		if (sound->GetUnknown0x58()) {
-			sound->FUN_10006be0();
+		if (sound->GetIsPlaying()) {
+			sound->Tickle();
 			listIter++;
 		} else {
 			sound->Stop();
@@ -67,7 +65,7 @@ LegoCacheSound* LegoCacheSoundManager::ManageSoundEntry(LegoCacheSound* p_sound
 	if (it != m_set.end()) {
 		LegoCacheSound* sound = (*it).GetSound();
 
-		if (sound->GetUnknown0x58()) {
+		if (sound->GetIsPlaying()) {
 			m_list.push_back(LegoCacheSoundEntry(p_sound));
 			return p_sound;
 		} else {
@@ -102,7 +100,7 @@ LegoCacheSound* LegoCacheSoundManager::Play(
 		return NULL;
 	}
 
-	if (p_sound->GetUnknown0x58()) {
+	if (p_sound->GetIsPlaying()) {
 		LegoCacheSound* clone = p_sound->Clone();
 
 		if (clone) {

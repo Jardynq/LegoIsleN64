@@ -35,9 +35,9 @@ public:
 
 	void RepeatingTickle() override {}
 
-	const char* ClassName() const override { return HandlerClassName(); }
+	static const char* ClassName() { return HandlerClassName(); }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, LegoCarBuildAnimPresenter::ClassName()) ||
 			   LegoAnimPresenter::IsA(p_name);
 	}

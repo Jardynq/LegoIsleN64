@@ -7,9 +7,9 @@ class JetskiRace : public LegoRace {
 public:
 	static const char* HandlerClassName() { return "JetskiRace"; }
 
-	const char* ClassName() const override { return HandlerClassName(); }
+	static const char* ClassName() { return HandlerClassName(); }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, JetskiRace::ClassName()) ||
 			   LegoRace::IsA(p_name);
 	}
@@ -29,9 +29,9 @@ private:
 
 class JetskiRaceState : public RaceState {
 public:
-	const char* ClassName() const override { return "JetskiRaceState"; }
+	static const char* ClassName() { return "JetskiRaceState"; }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, JetskiRaceState::ClassName()) ||
 			   RaceState::IsA(p_name);
 	}

@@ -1,30 +1,15 @@
-
+#include "graphics.h"
+#include "t3d/t3d.h"
+#include "t3d/t3dmodel.h"
 #include "tgl/tgl.h"
-
-#include <d3drm.h>
-
-#ifdef DIRECTX5_SDK
-typedef DWORD LPD3DRM_APPDATA;
-#else
-typedef LPVOID LPD3DRM_APPDATA;
-#endif
-
-// Forward declare D3D types
-struct IDirect3DRM2;
-struct IDirect3DRMDevice2;
-struct IDirect3DRMViewport;
-struct IDirect3DRMFrame2;
-struct IDirect3DRMMesh;
-struct IDirect3DRMMeshBuilder;
-struct IDirect3DRMTexture;
 
 namespace TglImpl {
 
 using namespace Tgl;
 
 // Utility function used by implementations
-inline Result ResultVal(HRESULT result) {
-	return SUCCEEDED(result) ? Success : Error;
+inline Result ResultVal(Result result) {
+	return result;
 }
 
 // Forward declare implementations
@@ -44,9 +29,6 @@ public:
 	~RendererImpl() override { Destroy(); }
 
 	void* ImplementationDataPtr() override;
-
-	Device* CreateDevice(const DeviceDirectDrawCreateData&) override;
-	Device* CreateDevice(const DeviceDirect3DCreateData&) override;
 
 	View* CreateView(
 		const Device*,
@@ -76,38 +58,16 @@ public:
 
 	Result SetTextureDefaultColorCount(unsigned int) override;
 
-	HRESULT CreateTextureFromSurface(
-		LPDIRECTDRAWSURFACE pSurface,
-		LPDIRECT3DRMTEXTURE2* pTexture2
-	) {
-		return m_data->CreateTextureFromSurface(pSurface, pTexture2);
-	}
-
-	IDirect3DRM2* ImplementationData() const { return m_data; }
-
 public:
 	inline Result Create();
 	inline void Destroy();
 
 private:
-	IDirect3DRM2* m_data;
+	Frame* m_data;
 };
-
-extern IDirect3DRM2* g_pD3DRM;
-
-inline void RendererDestroy(IDirect3DRM2* pRenderer) {
-	int refCount = pRenderer->Release();
-	if (refCount <= 0) {
-		g_pD3DRM = NULL;
-	}
-}
 
 // Inlined only
 void RendererImpl::Destroy() {
-	if (m_data) {
-		RendererDestroy(m_data);
-		m_data = NULL;
-	}
 }
 
 class DeviceImpl : public Device {
@@ -115,7 +75,7 @@ public:
 	DeviceImpl() : m_data(0) {}
 	~DeviceImpl() override {
 		if (m_data) {
-			m_data->Release();
+			free(m_data);
 			m_data = NULL;
 		}
 	}
@@ -134,13 +94,13 @@ public:
 	void HandleActivate(WORD) override;
 	void HandlePaint(HDC) override;
 
-	IDirect3DRMDevice2* ImplementationData() const { return m_data; }
-	void SetImplementationData(IDirect3DRMDevice2* device) { m_data = device; }
+	Frame* ImplementationData() const { return m_data; }
+	void SetImplementationData(Frame* device) { m_data = device; }
 
 	friend class RendererImpl;
 
 private:
-	IDirect3DRMDevice2* m_data;
+	Frame* m_data;
 };
 
 class ViewImpl : public View {
@@ -148,7 +108,7 @@ public:
 	ViewImpl() : m_data(0) {}
 	~ViewImpl() override {
 		if (m_data) {
-			m_data->Release();
+			free(m_data);
 			m_data = NULL;
 		}
 	}
@@ -190,18 +150,12 @@ public:
 		int& rPickedGroupCount
 	) override;
 
-	IDirect3DRMViewport* ImplementationData() const { return m_data; }
-	void SetImplementationData(IDirect3DRMViewport* viewport) {
-		m_data = viewport;
-	}
-
-	static Result
-	ViewportCreateAppData(IDirect3DRM2*, IDirect3DRMViewport*, IDirect3DRMFrame2*);
-
+	T3DViewport* ImplementationData() const { return m_data; }
+	void SetImplementationData(T3DViewport* viewport) { m_data = viewport; }
 	friend class RendererImpl;
 
 private:
-	IDirect3DRMViewport* m_data;
+	T3DViewport* m_data;
 };
 
 class CameraImpl : public Camera {
@@ -209,21 +163,21 @@ public:
 	CameraImpl() : m_data(0) {}
 	~CameraImpl() override {
 		if (m_data) {
-			m_data->Release();
+			free(m_data);
 			m_data = NULL;
 		}
 	}
 
 	void* ImplementationDataPtr() override;
 
-	Result SetTransformation(FloatMatrix4&) override;
+	Result SetTransformation(Matrix4&) override;
 
-	IDirect3DRMFrame2* ImplementationData() const { return m_data; }
+	Frame* ImplementationData() const { return m_data; }
 
 	friend class RendererImpl;
 
 private:
-	IDirect3DRMFrame2* m_data;
+	Frame* m_data;
 };
 
 class LightImpl : public Light {
@@ -231,22 +185,22 @@ public:
 	LightImpl() : m_data(0) {}
 	~LightImpl() override {
 		if (m_data) {
-			m_data->Release();
+			free(m_data);
 			m_data = NULL;
 		}
 	}
 
 	void* ImplementationDataPtr() override;
 
-	Result SetTransformation(FloatMatrix4&) override;
+	Result SetTransformation(Matrix4&) override;
 	Result SetColor(float r, float g, float b) override;
 
-	IDirect3DRMFrame2* ImplementationData() const { return m_data; }
+	Frame* ImplementationData() const { return m_data; }
 
 	friend class RendererImpl;
 
 private:
-	IDirect3DRMFrame2* m_data;
+	Frame* m_data;
 };
 
 class MeshImpl : public Mesh {
@@ -254,7 +208,7 @@ public:
 	MeshImpl() : m_data(0) {}
 	~MeshImpl() override {
 		if (m_data) {
-			delete m_data;
+			free(m_data);
 			m_data = NULL;
 		}
 	}
@@ -271,12 +225,7 @@ public:
 
 	Mesh* ShallowClone(MeshBuilder*) override;
 
-	struct MeshData {
-		IDirect3DRMMesh* groupMesh;
-		D3DRMGROUPINDEX groupIndex;
-	};
-
-	typedef MeshData* MeshDataType;
+	typedef T3DModel* MeshDataType;
 
 	const MeshDataType& ImplementationData() const { return m_data; }
 	MeshDataType& ImplementationData() { return m_data; }
@@ -292,14 +241,14 @@ public:
 	GroupImpl() : m_data(0) {}
 	~GroupImpl() override {
 		if (m_data) {
-			m_data->Release();
+			free(m_data);
 			m_data = NULL;
 		}
 	}
 
 	void* ImplementationDataPtr() override;
 
-	Result SetTransformation(FloatMatrix4&) override;
+	Result SetTransformation(Matrix4&) override;
 	Result SetColor(float r, float g, float b, float a) override;
 
 	Result SetTexture(const Texture*) override;
@@ -312,14 +261,14 @@ public:
 	Result Remove(const MeshBuilder*) override;
 	Result RemoveAll() override;
 
-	Result Bounds(D3DVECTOR* p_min, D3DVECTOR* p_max) override;
+	Result Bounds(float min[3], float max[3]) override;
 
-	IDirect3DRMFrame2* ImplementationData() const { return m_data; }
+	Frame* ImplementationData() const { return m_data; }
 
 	friend class RendererImpl;
 
 private:
-	IDirect3DRMFrame2* m_data;
+	Frame* m_data;
 };
 
 class MeshBuilderImpl : public MeshBuilder {
@@ -327,7 +276,7 @@ public:
 	MeshBuilderImpl() : m_data(0) {}
 	~MeshBuilderImpl() override {
 		if (m_data) {
-			m_data->Release();
+			free(m_data);
 			m_data = NULL;
 		}
 	}
@@ -348,7 +297,7 @@ public:
 
 	MeshBuilder* Clone() override;
 
-	IDirect3DRMMesh* ImplementationData() const { return m_data; }
+	T3DModel* ImplementationData() const { return m_data; }
 
 	friend class RendererImpl;
 
@@ -365,7 +314,7 @@ private:
 		ShadingModel shadingModel
 	);
 
-	IDirect3DRMMesh* m_data;
+	T3DModel* m_data;
 };
 
 // No vtable, this is just a simple wrapper around D3DRMIMAGE
@@ -393,7 +342,7 @@ public:
 	Result FillRowsOfTexture(int y, int height, char* content);
 	Result InitializePalette(int paletteSize, PaletteEntry* pEntries);
 
-	D3DRMIMAGE m_image;
+	sprite_t m_image;
 	int m_texelsAllocatedByClient;
 };
 
@@ -402,7 +351,7 @@ public:
 	TextureImpl() : m_data(0) {}
 	~TextureImpl() override {
 		if (m_data) {
-			m_data->Release();
+			free(m_data);
 			m_data = NULL;
 		}
 	}
@@ -424,95 +373,15 @@ public:
 	) override;
 	Result SetPalette(int entryCount, PaletteEntry* entries) override;
 
-	IDirect3DRMTexture* ImplementationData() const { return m_data; }
-	void SetImplementation(IDirect3DRMTexture* pData) { m_data = pData; }
+	sprite_t* ImplementationData() const { return m_data; }
+	void SetImplementation(sprite_t* pData) { m_data = pData; }
 
 	friend class RendererImpl;
 
-	static Result SetImage(IDirect3DRMTexture* pSelf, TglD3DRMIMAGE* pImage);
+	static Result SetImage(sprite_t* pSelf, TglD3DRMIMAGE* pImage);
 
 private:
-	IDirect3DRMTexture* m_data;
+	sprite_t* m_data;
 };
-
-// Translation helpers
-inline D3DRMRENDERQUALITY Translate(ShadingModel tglShadingModel) {
-	D3DRMRENDERQUALITY renderQuality;
-
-	switch (tglShadingModel) {
-	case Wireframe:
-		renderQuality = D3DRMRENDER_WIREFRAME;
-		break;
-	case UnlitFlat:
-		renderQuality = D3DRMRENDER_UNLITFLAT;
-		break;
-	case Flat:
-		renderQuality = D3DRMRENDER_FLAT;
-		break;
-	case Gouraud:
-		renderQuality = D3DRMRENDER_GOURAUD;
-		break;
-	case Phong:
-		renderQuality = D3DRMRENDER_PHONG;
-		break;
-	default:
-		renderQuality = D3DRMRENDER_FLAT;
-		break;
-	}
-
-	return renderQuality;
-}
-
-inline D3DRMPROJECTIONTYPE Translate(ProjectionType tglProjectionType) {
-	D3DRMPROJECTIONTYPE projectionType;
-	switch (tglProjectionType) {
-	case Perspective:
-		projectionType = D3DRMPROJECT_PERSPECTIVE;
-		break;
-	case Orthographic:
-		projectionType = D3DRMPROJECT_ORTHOGRAPHIC;
-		break;
-	default:
-		projectionType = D3DRMPROJECT_PERSPECTIVE;
-		break;
-	}
-	return projectionType;
-}
-
-// Yes this function serves no purpose, originally they intended it to
-// convert from doubles to floats but ended up using floats throughout
-// the software stack.
-inline D3DRMMATRIX4D*
-Translate(FloatMatrix4& tglMatrix4x4, D3DRMMATRIX4D& rD3DRMMatrix4x4) {
-	for (int i = 0; i < (sizeof(rD3DRMMatrix4x4) / sizeof(rD3DRMMatrix4x4[0]));
-		 i++) {
-		for (int j = 0;
-			 j < (sizeof(rD3DRMMatrix4x4[0]) / sizeof(rD3DRMMatrix4x4[0][0]));
-			 j++) {
-			rD3DRMMatrix4x4[i][j] = D3DVAL(tglMatrix4x4[i][j]);
-		}
-	}
-	return &rD3DRMMatrix4x4;
-}
-
-// TglImpl::RendererImpl::`scalar deleting destructor'
-
-// TglImpl::DeviceImpl::`scalar deleting destructor'
-
-// TglImpl::ViewImpl::`scalar deleting destructor'
-
-// TglImpl::GroupImpl::`scalar deleting destructor'
-
-// TglImpl::CameraImpl::`scalar deleting destructor'
-
-// TglImpl::LightImpl::`scalar deleting destructor'
-
-// TglImpl::MeshBuilderImpl::`scalar deleting destructor'
-
-// TglImpl::TextureImpl::`scalar deleting destructor'
-
-// TglImpl::MeshImpl::`scalar deleting destructor'
-
-// IID_IDirect3DRMMeshBuilder
 
 } /* namespace TglImpl */

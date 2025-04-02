@@ -10,9 +10,9 @@ public:
 
 	~MxDSSource() override { delete[] m_pBuffer; }
 
-	const char* ClassName() const override { return "MxDSSource"; }
+	static const char* ClassName() { return "MxDSSource"; }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, MxDSSource::ClassName()) || MxCore::IsA(p_name);
 	}
 

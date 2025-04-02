@@ -2,9 +2,11 @@
 
 #include "legosoundmanager.h"
 #include "misc.h"
-#include "mxomni.h"
+#include "mixer.h"
+#include "wav64.h"
 
 #include <assert.h>
+#include <cstddef>
 
 LegoCacheSound::LegoCacheSound() {
 	Init();
@@ -15,95 +17,31 @@ LegoCacheSound::~LegoCacheSound() {
 }
 
 void LegoCacheSound::Init() {
-	m_dsBuffer = NULL;
-	m_data = NULL;
-	m_unk0x58 = FALSE;
-	memset(&m_wfx, 0, sizeof(m_wfx));
+	m_wav = wav64_t();
+	m_is_playing = FALSE;
 	m_looping = TRUE;
-	m_unk0x6a = FALSE;
-	m_volume = 79;
+	m_volume = 69;
 	m_unk0x70 = FALSE;
 	m_muted = FALSE;
 }
 
 MxResult LegoCacheSound::Create(
-	LPPCMWAVEFORMAT p_pwfx,
 	MxString p_mediaSrcPath,
 	MxS32 p_volume,
-	MxU8* p_data,
-	MxU32 p_dataSize
+	wav64_t *p_wav
 ) {
-	assert(p_pwfx);
-
-	WAVEFORMATEX wfx;
-	wfx.wFormatTag = p_pwfx->wf.wFormatTag;
-	wfx.nChannels = p_pwfx->wf.nChannels;
-	wfx.nSamplesPerSec = p_pwfx->wf.nSamplesPerSec;
-	wfx.nAvgBytesPerSec = p_pwfx->wf.nAvgBytesPerSec;
-	wfx.nBlockAlign = p_pwfx->wf.nBlockAlign;
-	wfx.wBitsPerSample = p_pwfx->wBitsPerSample;
-	wfx.cbSize = 0;
-
-	DSBUFFERDESC desc;
-	memset(&desc, 0, sizeof(desc));
-	desc.dwSize = sizeof(desc);
-
-	if (MxOmni::IsSound3D()) {
-		desc.dwFlags = DSBCAPS_STATIC | DSBCAPS_LOCSOFTWARE | DSBCAPS_CTRL3D |
-					   DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLVOLUME;
-	} else {
-		desc.dwFlags =
-			DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME;
-	}
-
-	desc.dwBufferBytes = p_dataSize;
-	desc.lpwfxFormat = &wfx;
-
-	if (SoundManager()
-			->GetDirectSound()
-			->CreateSoundBuffer(&desc, &m_dsBuffer, NULL) != DS_OK) {
-		return FAILURE;
-	}
-
 	m_volume = p_volume;
-
-	MxS32 volume = m_volume * SoundManager()->GetVolume() / 100;
-	MxS32 attenuation = SoundManager()->GetAttenuation(volume);
-	m_dsBuffer->SetVolume(attenuation);
-
-	if (m_sound.Create(m_dsBuffer, NULL, m_volume) != SUCCESS) {
-		m_dsBuffer->Release();
-		m_dsBuffer = NULL;
-		return FAILURE;
+	if (p_wav != nullptr) {
+		wav64_close(&m_wav);
+		m_wav = *p_wav;
 	}
 
-	if (p_data != NULL && p_dataSize != 0) {
-		CopyData(p_data, p_dataSize);
-	}
-
-	m_unk0x48 = GetBaseFilename(p_mediaSrcPath);
-	m_wfx = *p_pwfx;
+	m_filename = GetBaseFilename(p_mediaSrcPath);
 	return SUCCESS;
 }
 
-void LegoCacheSound::CopyData(MxU8* p_data, MxU32 p_dataSize) {
-	assert(p_data);
-	assert(p_dataSize);
-
-	delete[] m_data;
-	m_dataSize = p_dataSize;
-	m_data = new MxU8[m_dataSize];
-	memcpy(m_data, p_data, m_dataSize);
-}
-
 void LegoCacheSound::Destroy() {
-	if (m_dsBuffer) {
-		m_dsBuffer->Stop();
-		m_dsBuffer->Release();
-		m_dsBuffer = NULL;
-	}
-
-	delete[] m_data;
+	wav64_close(&m_wav);
 	Init();
 }
 
@@ -112,149 +50,81 @@ LegoCacheSound* LegoCacheSound::Clone() {
 	assert(pnew);
 
 	MxResult result =
-		pnew->Create(&m_wfx, m_unk0x48, m_volume, m_data, m_dataSize);
+		pnew->Create(m_filename, m_volume, &m_wav);
 	if (result == SUCCESS) {
 		return pnew;
 	} else {
 		delete pnew;
-		return NULL;
+		return nullptr;
 	}
 }
 
 MxResult LegoCacheSound::Play(const char* p_name, MxBool p_looping) {
-	assert(m_dsBuffer);
-
-	if (m_data == NULL || m_dataSize == 0) {
-		return FAILURE;
-	}
-
-	m_unk0x6a = FALSE;
-	m_sound.FUN_10011a60(m_dsBuffer, p_name);
-
 	if (p_name != NULL) {
-		m_unk0x74 = p_name;
+		m_filename = p_name;
 	}
 
-	DWORD dwStatus;
-	m_dsBuffer->GetStatus(&dwStatus);
-
-	if (dwStatus == DSBSTATUS_BUFFERLOST) {
-		m_dsBuffer->Restore();
-		m_dsBuffer->GetStatus(&dwStatus);
-	}
-
-	if (dwStatus != DSBSTATUS_BUFFERLOST) {
-		LPVOID pvAudioPtr1, pvAudioPtr2;
-		DWORD dwAudioBytes1, dwAudioBytes2;
-
-		if (m_dsBuffer->Lock(
-				0,
-				m_dataSize,
-				&pvAudioPtr1,
-				&dwAudioBytes1,
-				&pvAudioPtr2,
-				&dwAudioBytes2,
-				0
-			) == DS_OK) {
-			memcpy(pvAudioPtr1, m_data, dwAudioBytes1);
-
-			if (dwAudioBytes2 != 0) {
-				memcpy(pvAudioPtr2, m_data + dwAudioBytes1, dwAudioBytes2);
-			}
-
-			DWORD sts = m_dsBuffer->Unlock(
-				pvAudioPtr1,
-				dwAudioBytes1,
-				pvAudioPtr2,
-				dwAudioBytes2
-			);
-			assert(!sts);
-			m_dsBuffer->SetCurrentPosition(0);
-			if (m_dsBuffer->Play(0, 0, p_looping)) {
-				assert(0);
-			}
-		} else {
-			assert(0);
-		}
+	if (p_looping) {
+		wav64_set_loop(&m_wav, true);
 	} else {
-		assert(0);
+		wav64_set_loop(&m_wav, false);
 	}
+	
+	float volume = (float)m_volume * (float)SoundManager()->GetVolume() / 100'00;
+	mixer_ch_set_vol(0, volume, volume);
+	wav64_play(&m_wav, 0);
 
-	if (p_looping == FALSE) {
-		m_looping = FALSE;
-	} else {
-		m_looping = TRUE;
-	}
+	m_looping = p_looping;
 
-	m_unk0x58 = TRUE;
+	m_is_playing = TRUE;
 	m_unk0x70 = TRUE;
 	return SUCCESS;
 }
 
 void LegoCacheSound::Stop() {
-	DWORD dwStatus;
-	m_dsBuffer->GetStatus(&dwStatus);
+	wav64_close(&m_wav);
 
-	if (dwStatus) {
-		m_dsBuffer->Stop();
-	}
+	m_is_playing = FALSE;
 
-	m_unk0x58 = FALSE;
-	m_unk0x6a = FALSE;
-
-	m_sound.Reset();
-	if (m_unk0x74.GetLength() != 0) {
-		m_unk0x74 = "";
+	if (m_filename.GetLength() != 0) {
+		m_filename = "";
 	}
 }
 
-void LegoCacheSound::FUN_10006be0() {
+MxResult LegoCacheSound::Tickle() {
+	bool hasFinished = false;
+
 	if (!m_looping) {
-		DWORD dwStatus;
-		m_dsBuffer->GetStatus(&dwStatus);
-
 		if (m_unk0x70) {
-			if (dwStatus == 0) {
-				return;
+			if (!hasFinished) {
+				return SUCCESS;
 			}
-
 			m_unk0x70 = FALSE;
 		}
 
-		if (dwStatus == 0) {
-			m_dsBuffer->Stop();
-			m_sound.Reset();
-			if (m_unk0x74.GetLength() != 0) {
-				m_unk0x74 = "";
+		if (hasFinished) {
+			if (m_filename.GetLength() != 0) {
+				m_filename = "";
 			}
 
-			m_unk0x58 = FALSE;
-			return;
+			m_is_playing = FALSE;
+			return SUCCESS;
 		}
 	}
 
-	if (m_unk0x74.GetLength() == 0) {
-		return;
+	if (m_filename.GetLength() == 0) {
+		return SUCCESS;
 	}
 
 	if (!m_muted) {
-		if (!m_sound.UpdatePosition(m_dsBuffer)) {
-			if (!m_unk0x6a) {
-				m_dsBuffer->Stop();
-				m_unk0x6a = TRUE;
-			}
-		} else if (m_unk0x6a) {
-			m_dsBuffer->Play(0, 0, m_looping);
-			m_unk0x6a = FALSE;
-		}
+		Play(m_filename.GetData(), m_looping);
 	}
+
+	return SUCCESS;
 }
 
 void LegoCacheSound::SetDistance(MxS32 p_min, MxS32 p_max) {
-	m_sound.SetDistance(p_min, p_max);
-}
-
-void LegoCacheSound::FUN_10006cd0(undefined4, undefined4) {
+	//m_sound.SetDistance(p_min, p_max);
 }
 
 void LegoCacheSound::MuteSilence(MxBool p_muted) {
@@ -262,11 +132,10 @@ void LegoCacheSound::MuteSilence(MxBool p_muted) {
 		m_muted = p_muted;
 
 		if (m_muted) {
-			m_dsBuffer->SetVolume(-3000);
+			mixer_ch_set_vol(0, 0, 0);
 		} else {
-			MxS32 volume = m_volume * SoundManager()->GetVolume() / 100;
-			MxS32 attenuation = SoundManager()->GetAttenuation(volume);
-			m_dsBuffer->SetVolume(attenuation);
+			float volume = (float)m_volume * (float)SoundManager()->GetVolume() / 100'00;
+			mixer_ch_set_vol(0, volume, volume);
 		}
 	}
 }
@@ -276,9 +145,9 @@ void LegoCacheSound::MuteStop(MxBool p_muted) {
 		m_muted = p_muted;
 
 		if (m_muted) {
-			m_dsBuffer->Stop();
+			wav64_close(&m_wav);
 		} else {
-			m_dsBuffer->Play(0, 0, m_looping);
+			Play(m_filename.GetData(), m_looping);
 		}
 	}
 }

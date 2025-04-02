@@ -27,7 +27,7 @@ MxDiskStreamController::~MxDiskStreamController() {
 
 	assert(m_subscribers.size() == 0);
 
-	MxDSObject* object;
+	MxDSObject* object = nullptr;
 	while (m_unk0x3c.PopFront(object)) {
 		delete object;
 	}

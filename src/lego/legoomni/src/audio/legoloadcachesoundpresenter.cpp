@@ -40,7 +40,6 @@ void LegoLoadCacheSoundPresenter::ReadyTickle() {
 		m_pData = data;
 
 		m_cacheSound = new LegoCacheSound();
-		m_pcmWaveFormat = header->m_pcmWaveFormat;
 
 		m_subscriber->FreeDataChunk(chunk);
 		ProgressTickleState(e_streaming);
@@ -53,11 +52,9 @@ void LegoLoadCacheSoundPresenter::StreamingTickle() {
 	if (chunk) {
 		if (chunk->GetChunkFlags() & DS_CHUNK_END_OF_STREAM) {
 			m_cacheSound->Create(
-				&m_pcmWaveFormat,
 				((MxDSSound*) m_action)->GetMediaSrcPath(),
 				((MxDSSound*) m_action)->GetVolume(),
-				m_data + 2,
-				m_dataSize - 2
+				nullptr
 			);
 			ProgressTickleState(e_done);
 		} else {

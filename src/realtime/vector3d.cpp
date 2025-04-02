@@ -1,7 +1,7 @@
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
 
-#include "vector2d.inl.h"
+#include "vector.h"
 
 void Vector3::EqualsCrossImpl(const float* p_a, const float* p_b) {
 	m_data[0] = p_a[1] * p_b[2] - p_a[2] * p_b[1];

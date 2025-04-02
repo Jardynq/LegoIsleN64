@@ -6,8 +6,8 @@
 #include "mxomni.h"
 #include "mxpresenter.h"
 #include "mxticklemanager.h"
-#include "mxticklethread.h"
 #include "mxwavepresenter.h"
+#include <cstddef>
 
 MxS32 g_volumeAttenuation[100] = {
 	-6643, -5643, -5058, -4643, -4321, -4058, -3836, -3643, -3473, -3321,
@@ -30,105 +30,26 @@ MxSoundManager::~MxSoundManager() {
 }
 
 void MxSoundManager::Init() {
-	m_directSound = NULL;
-	m_dsBuffer = NULL;
 }
 
 void MxSoundManager::Destroy(MxBool p_fromDestructor) {
-	if (m_thread) {
-		m_thread->Terminate();
-		delete m_thread;
-	} else {
-		TickleManager()->UnregisterClient(this);
-	}
-
-	m_criticalSection.Enter();
-
-	if (m_dsBuffer) {
-		m_dsBuffer->Release();
-	}
+	TickleManager()->UnregisterClient(this);
 
 	Init();
-	m_criticalSection.Leave();
 
 	if (!p_fromDestructor) {
 		MxAudioManager::Destroy();
 	}
 }
 
-MxResult MxSoundManager::Create(MxU32 p_frequencyMS, MxBool p_createThread) {
+MxResult MxSoundManager::Create(MxU32 p_frequencyMS) {
 	MxResult status = FAILURE;
-	MxBool locked = FALSE;
 
 	if (MxAudioManager::Create() != SUCCESS) {
 		goto done;
 	}
 
-	m_criticalSection.Enter();
-	locked = TRUE;
-
-	if (DirectSoundCreate(NULL, &m_directSound, NULL) != DS_OK) {
-		goto done;
-	}
-
-	if (m_directSound->SetCooperativeLevel(
-			MxOmni::GetInstance()->GetWindowHandle(),
-			DSSCL_PRIORITY
-		) != DS_OK) {
-		goto done;
-	}
-
-	DSBUFFERDESC desc;
-	memset(&desc, 0, sizeof(desc));
-	desc.dwSize = sizeof(desc);
-
-	if (MxOmni::IsSound3D()) {
-		desc.dwFlags = DSBCAPS_PRIMARYBUFFER | DSBCAPS_CTRL3D;
-	} else {
-		desc.dwFlags = DSBCAPS_PRIMARYBUFFER | DSBCAPS_CTRLVOLUME;
-	}
-
-	if (m_directSound->CreateSoundBuffer(&desc, &m_dsBuffer, NULL) != DS_OK) {
-		if (!MxOmni::IsSound3D()) {
-			goto done;
-		}
-
-		MxOmni::SetSound3D(FALSE);
-		desc.dwFlags = DSBCAPS_PRIMARYBUFFER | DSBCAPS_CTRLVOLUME;
-
-		if (m_directSound->CreateSoundBuffer(&desc, &m_dsBuffer, NULL) !=
-			DS_OK) {
-			goto done;
-		}
-	}
-
-	WAVEFORMATEX format;
-
-	format.wFormatTag = WAVE_FORMAT_PCM;
-
-	if (MxOmni::IsSound3D()) {
-		format.nChannels = 2;
-	} else {
-		format.nChannels = 1;
-	}
-
-	format.nSamplesPerSec = 11025; // KHz
-	format.wBitsPerSample = 16;
-	format.nBlockAlign = format.nChannels * 2;
-	format.nAvgBytesPerSec = format.nBlockAlign * 11025;
-	format.cbSize = 0;
-
-	status = m_dsBuffer->SetFormat(&format);
-
-	if (p_createThread) {
-		m_thread = new MxTickleThread(this, p_frequencyMS);
-
-		if (!m_thread || m_thread->Start(0, 0) != SUCCESS) {
-			goto done;
-		}
-	} else {
-		TickleManager()->RegisterClient(this, p_frequencyMS);
-	}
+	TickleManager()->RegisterClient(this, p_frequencyMS);
 
 	status = SUCCESS;
 
@@ -137,9 +58,7 @@ done:
 		Destroy();
 	}
 
-	if (locked) {
-		m_criticalSection.Leave();
-	}
+
 	return status;
 }
 
@@ -150,9 +69,7 @@ void MxSoundManager::Destroy() {
 void MxSoundManager::SetVolume(MxS32 p_volume) {
 	MxAudioManager::SetVolume(p_volume);
 
-	m_criticalSection.Enter();
-
-	MxPresenter* presenter;
+	MxPresenter* presenter = nullptr;
 	MxPresenterListCursor cursor(m_presenters);
 
 	while (cursor.Next(presenter)) {
@@ -160,14 +77,13 @@ void MxSoundManager::SetVolume(MxS32 p_volume) {
 			->SetVolume(((MxAudioPresenter*) presenter)->GetVolume());
 	}
 
-	m_criticalSection.Leave();
 }
 
 MxPresenter*
 MxSoundManager::FUN_100aebd0(const MxAtomId& p_atomId, MxU32 p_objectId) {
 	AUTOLOCK(m_criticalSection);
 
-	MxPresenter* presenter;
+	MxPresenter* presenter = nullptr;
 	MxPresenterListCursor cursor(m_presenters);
 
 	while (cursor.Next(presenter)) {
@@ -185,7 +101,7 @@ MxS32 MxSoundManager::GetAttenuation(MxU32 p_volume) {
 	// The unit for p_volume is percent, rounded to integer.
 	// Convert to DSOUND attenuation units: -10000 (silent) to 0 (loudest).
 	if (p_volume == 0) {
-		return DSBVOLUME_MIN;
+		return -10000;
 	}
 
 	return g_volumeAttenuation[p_volume - 1];
@@ -194,7 +110,7 @@ MxS32 MxSoundManager::GetAttenuation(MxU32 p_volume) {
 void MxSoundManager::Pause() {
 	AUTOLOCK(m_criticalSection);
 
-	MxPresenter* presenter;
+	MxPresenter* presenter = nullptr;
 	MxPresenterListCursor cursor(m_presenters);
 
 	while (cursor.Next(presenter)) {
@@ -207,7 +123,7 @@ void MxSoundManager::Pause() {
 void MxSoundManager::Resume() {
 	AUTOLOCK(m_criticalSection);
 
-	MxPresenter* presenter;
+	MxPresenter* presenter = nullptr;
 	MxPresenterListCursor cursor(m_presenters);
 
 	while (cursor.Next(presenter)) {

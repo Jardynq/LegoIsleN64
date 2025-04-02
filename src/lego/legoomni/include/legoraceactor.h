@@ -9,9 +9,9 @@ class LegoRaceActor : public virtual LegoAnimActor {
 public:
 	LegoRaceActor();
 
-	const char* ClassName() const override { return "LegoRaceActor"; }
+	static const char* ClassName() { return "LegoRaceActor"; }
 
-	MxBool IsA(const char* p_name) const override {
+	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, LegoRaceActor::ClassName()) ||
 			   LegoAnimActor::IsA(p_name);
 	}

@@ -1,9 +1,7 @@
 #include "mxmediamanager.h"
 
-#include "mxautolock.h"
 #include "mxomni.h"
 #include "mxpresenter.h"
-#include "mxticklemanager.h"
 #include "stdio.h"
 
 MxMediaManager::MxMediaManager() {
@@ -16,13 +14,10 @@ MxMediaManager::~MxMediaManager() {
 
 MxResult MxMediaManager::Init() {
 	this->m_presenters = NULL;
-	this->m_thread = NULL;
 	return SUCCESS;
 }
 
 MxResult MxMediaManager::Create() {
-	AUTOLOCK(m_criticalSection);
-
 	this->m_presenters = new MxPresenterList;
 
 	if (!this->m_presenters) {
@@ -35,8 +30,6 @@ MxResult MxMediaManager::Create() {
 }
 
 void MxMediaManager::Destroy() {
-	AUTOLOCK(m_criticalSection);
-
 	if (this->m_presenters) {
 		delete this->m_presenters;
 	}
@@ -45,8 +38,7 @@ void MxMediaManager::Destroy() {
 }
 
 MxResult MxMediaManager::Tickle() {
-	AUTOLOCK(m_criticalSection);
-	MxPresenter* presenter;
+	MxPresenter* presenter = nullptr;
 	MxPresenterListCursor cursor(this->m_presenters);
 
 	while (cursor.Next(presenter)) {
@@ -63,13 +55,10 @@ MxResult MxMediaManager::Tickle() {
 }
 
 void MxMediaManager::RegisterPresenter(MxPresenter& p_presenter) {
-	AUTOLOCK(m_criticalSection);
-
 	this->m_presenters->Append(&p_presenter);
 }
 
 void MxMediaManager::UnregisterPresenter(MxPresenter& p_presenter) {
-	AUTOLOCK(m_criticalSection);
 	MxPresenterListCursor cursor(this->m_presenters);
 
 	if (cursor.Find(&p_presenter)) {
@@ -78,8 +67,7 @@ void MxMediaManager::UnregisterPresenter(MxPresenter& p_presenter) {
 }
 
 void MxMediaManager::StopPresenters() {
-	AUTOLOCK(m_criticalSection);
-	MxPresenter* presenter;
+	MxPresenter* presenter = nullptr;
 	MxPresenterListCursor cursor(this->m_presenters);
 
 	while (cursor.Next(presenter)) {
