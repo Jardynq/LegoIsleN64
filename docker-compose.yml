@@ -1,0 +1,9 @@
+services:
+  isle64:
+    build: .
+    image: isle64
+    pull_policy: never
+    container_name: isle64
+    volumes:
+      - ./:/isle64
+    working_dir: /isle64
