@@ -1,14 +1,16 @@
-# How to build (On Linux/WSL)
-1. Install cmake, ninja-build, mingw-w64  
-2. Run the `configure` vscode task, or run the following in project root: `cmake . -G "Ninja" -B build -DCMAKE_BUILD_TYPE=Debug`
-3. Run the `build` vscode task, or run the following in project root: `ninja -C build`
-4. Built binaries will be found in the `legobin` directory
-
-# How to run (Only works on Windows)
+# How to build
 1. Have a legitemate install of Lego Island on you computer
-2. Copy the file `d3drm.dll` and the folder `LEGO` from your Lego Island installation into the `legobin` directory
-3. Run `legobin/config.exe` to generate settings to `registry.txt`
-4. Run `legobin/isle.exe` to start.
+2. In the legimate install there should be a folder called `LEGO`, copy the contents of this folder (`scripts` and `data`) into the `assets` folder in project root. After copying, the `assets` folder in this project should contain 3 subfolder: `cursors`, `data`, `scripts`.
+3. Install docker
+4. Execute `docker compose up` in project root
+
+# How to run
+
+
+# How to setup vscode
+1. Install `Dev Containers` vscode extension
+2. Attach vscode to the newly created libdragon docker container (see "How to Build" section) in the sidebar 
+3. Install the `clangd` extension in the newly attached vscode instance
 
 # LEGO Island Decompilation
 
@@ -17,8 +19,6 @@
 This is a functionally complete decompilation of LEGO Island (Version 1.1, English). It aims to be as accurate as possible, matching the recompiled instructions to the original machine code as much as possible. The goal is to provide a workable codebase that can be modified, improved, and ported to other platforms later on.
 
 ## Status
-
-<img src="https://legoisland.org/progress/ISLEPROGRESS.SVG" width="50%"><img src="https://legoisland.org/progress/LEGO1PROGRESS.SVG" width="50%">
 
 Both `ISLE.EXE` and `LEGO1.DLL` are completely decompiled and, to the best of our knowledge, are functionally identical to the originals. However, work is still ongoing to improve the accuracy, naming, documentation, and structure of the source code. While there may still be unresolved bugs that are not present in retail, the game should be fully playable with the binaries derived from this source code.
 
