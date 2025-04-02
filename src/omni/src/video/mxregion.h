@@ -20,8 +20,6 @@ public:
 
 	friend class MxRegionCursor;
 
-	// MxRegion::`scalar deleting destructor'
-
 private:
 	MxRegionTopBottomList* m_list;
 	MxRect32 m_rect;

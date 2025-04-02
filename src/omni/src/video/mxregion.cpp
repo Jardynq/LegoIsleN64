@@ -26,7 +26,7 @@ void MxRegion::VTable0x18(MxRect32& p_rect) {
 	MxRect32 rect(p_rect);
 	MxRect32 newRect;
 	MxRegionTopBottomListCursor cursor(m_list);
-	MxRegionTopBottom* topBottom;
+	MxRegionTopBottom* topBottom = nullptr;
 
 	while (rect.IsValid() && cursor.Next(topBottom)) {
 		if (topBottom->GetTop() >= rect.GetBottom()) {
@@ -82,7 +82,7 @@ MxBool MxRegion::VTable0x1c(MxRect32& p_rect) {
 	}
 
 	MxRegionTopBottomListCursor cursor(m_list);
-	MxRegionTopBottom* topBottom;
+	MxRegionTopBottom* topBottom = nullptr;
 
 	while (cursor.Next(topBottom)) {
 		if (topBottom->GetTop() >= p_rect.GetBottom()) {
@@ -117,7 +117,7 @@ void MxRegionTopBottom::MergeOrExpandRegions(MxS32 p_left, MxS32 p_right) {
 	MxRegionLeftRightListCursor a(m_leftRightList);
 	MxRegionLeftRightListCursor b(m_leftRightList);
 
-	MxRegionLeftRight* leftRight;
+	MxRegionLeftRight* leftRight = nullptr;
 	while (a.Next(leftRight) && leftRight->GetRight() < p_left) {
 		;
 	}
@@ -160,7 +160,7 @@ MxRegionTopBottom* MxRegionTopBottom::Clone() {
 	MxRegionTopBottom* clone = new MxRegionTopBottom(m_top, m_bottom);
 
 	MxRegionLeftRightListCursor cursor(m_leftRightList);
-	MxRegionLeftRight* leftRight;
+	MxRegionLeftRight* leftRight = nullptr;
 
 	while (cursor.Next(leftRight)) {
 		clone->m_leftRightList->Append(leftRight->Clone());
@@ -171,7 +171,7 @@ MxRegionTopBottom* MxRegionTopBottom::Clone() {
 
 MxBool MxRegionTopBottom::CheckHorizontalOverlap(MxRect32& p_rect) {
 	MxRegionLeftRightListCursor cursor(m_leftRightList);
-	MxRegionLeftRight* leftRight;
+	MxRegionLeftRight* leftRight = nullptr;
 
 	while (cursor.Next(leftRight)) {
 		if (p_rect.GetRight() <= leftRight->GetLeft()) {

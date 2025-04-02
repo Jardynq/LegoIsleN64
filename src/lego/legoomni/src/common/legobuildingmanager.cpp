@@ -257,9 +257,8 @@ void LegoBuildingManager::LoadWorldInfo() {
 		}
 	} else {
 		for (i = 0; i < sizeOfArray(g_buildingInfoVariants); i++) {
-			LegoEntity* entity =
-				(LegoEntity*)
-					world->Find("MxEntity", g_buildingInfoVariants[i]);
+			LegoEntity* entity = (LegoEntity*
+			) world->Find("MxEntity", g_buildingInfoVariants[i]);
 			if (entity) {
 				entity->GetROI()->SetVisibility(m_nextVariant == i);
 			}
@@ -270,9 +269,8 @@ void LegoBuildingManager::LoadWorldInfo() {
 }
 
 void LegoBuildingManager::CreateBuilding(MxS32 p_index, LegoWorld* p_world) {
-	LegoEntity* entity =
-		(LegoEntity*)
-			p_world->Find("MxEntity", g_buildingInfo[p_index].m_variant);
+	LegoEntity* entity = (LegoEntity*
+	) p_world->Find("MxEntity", g_buildingInfo[p_index].m_variant);
 
 	if (entity) {
 		entity->SetType(LegoEntity::e_building);
@@ -722,7 +720,7 @@ MxResult LegoBuildingManager::Tickle() {
 	return SUCCESS;
 }
 
-void LegoBuildingManager::FUN_10030590() {
+void LegoBuildingManager::Reset() {
 	for (MxS32 i = 0; i < sizeOfArray(g_buildingInfo); i++) {
 		g_buildingInfo[i].m_unk0x11 = -1;
 		g_buildingInfo[i].m_initialUnk0x11 = -1;

@@ -80,7 +80,7 @@ public:
 		MxBool p_haveSound,
 		MxBool p_unk0x28
 	);
-	void FUN_10030590();
+	void Reset();
 	void AdjustHeight(MxS32 p_index);
 	MxResult FUN_10030630();
 	LegoBuildingInfo* GetInfoArray(MxS32& p_length);

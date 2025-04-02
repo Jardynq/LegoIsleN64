@@ -674,7 +674,7 @@ MxResult LegoPlantManager::Tickle() {
 	return SUCCESS;
 }
 
-void LegoPlantManager::FUN_10027120() {
+void LegoPlantManager::Reset() {
 	LegoWorld* world = CurrentWorld();
 
 	for (MxS32 i = 0; i < sizeOfArray(g_plantInfo); i++) {

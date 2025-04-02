@@ -3,8 +3,6 @@
 
 #include "mxvideopresenter.h"
 
-#include <flic.h>
-
 class MxFlcPresenter : public MxVideoPresenter {
 public:
 	MxFlcPresenter();

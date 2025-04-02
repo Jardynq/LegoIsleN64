@@ -94,7 +94,7 @@ public:
 	MxS32 GetY() const { return this->m_location.GetY(); }
 	MxS32 GetDisplayZ() const { return this->m_displayZ; }
 
-	MxDSAction* GetAction() const { return this->m_action; }
+	MxDSAction* GetAction() { return this->m_action; }
 
 	void SetAction(MxDSAction* p_action) { m_action = p_action; }
 

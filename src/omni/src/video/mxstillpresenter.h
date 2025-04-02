@@ -37,9 +37,7 @@ private:
 	void Destroy(MxBool p_fromDestructor);
 
 	MxLong m_chunkTime;
-	MxBITMAPINFO* m_bitmapInfo;
+	sprite_t* m_bitmapInfo;
 };
-
-// MxStillPresenter::`scalar deleting destructor'
 
 #endif // MXSTILLPRESENTER_H

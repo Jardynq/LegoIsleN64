@@ -24,11 +24,11 @@ MxRegionCursor::~MxRegionCursor() {
 MxRect32* MxRegionCursor::VTable0x18() {
 	m_topBottomCursor->Head();
 
-	MxRegionTopBottom* topBottom;
+	MxRegionTopBottom* topBottom = nullptr;
 	if (m_topBottomCursor->Current(topBottom)) {
 		ResetAndInitializeCursor(*topBottom->m_leftRightList);
 
-		MxRegionLeftRight* leftRight;
+		MxRegionLeftRight* leftRight = nullptr;
 		m_leftRightCursor->First(leftRight);
 
 		UpdateRect(
@@ -47,11 +47,11 @@ MxRect32* MxRegionCursor::VTable0x18() {
 MxRect32* MxRegionCursor::VTable0x20() {
 	m_topBottomCursor->Tail();
 
-	MxRegionTopBottom* topBottom;
+	MxRegionTopBottom* topBottom = nullptr;
 	if (m_topBottomCursor->Current(topBottom)) {
 		ResetAndInitializeCursor(*topBottom->m_leftRightList);
 
-		MxRegionLeftRight* leftRight;
+		MxRegionLeftRight* leftRight = nullptr;
 		m_leftRightCursor->Last(leftRight);
 
 		UpdateRect(
@@ -68,8 +68,8 @@ MxRect32* MxRegionCursor::VTable0x20() {
 }
 
 MxRect32* MxRegionCursor::VTable0x28() {
-	MxRegionLeftRight* leftRight;
-	MxRegionTopBottom* topBottom;
+	MxRegionLeftRight* leftRight = nullptr;
+	MxRegionTopBottom* topBottom = nullptr;
 
 	if (m_leftRightCursor && m_leftRightCursor->Next(leftRight)) {
 		m_topBottomCursor->Current(topBottom);
@@ -101,8 +101,8 @@ MxRect32* MxRegionCursor::VTable0x28() {
 }
 
 MxRect32* MxRegionCursor::VTable0x30() {
-	MxRegionLeftRight* leftRight;
-	MxRegionTopBottom* topBottom;
+	MxRegionLeftRight* leftRight = nullptr;
+	MxRegionTopBottom* topBottom = nullptr;
 
 	if (m_leftRightCursor && m_leftRightCursor->Prev(leftRight)) {
 		m_topBottomCursor->Current(topBottom);
@@ -146,10 +146,10 @@ MxRect32* MxRegionCursor::VTable0x1c(MxRect32& p_rect) {
 }
 
 MxRect32* MxRegionCursor::VTable0x24(MxRect32& p_rect) {
-	MxRegionLeftRight* leftRight;
+	MxRegionLeftRight* leftRight = nullptr;
 
 	if (m_leftRightCursor && m_leftRightCursor->Next(leftRight)) {
-		MxRegionTopBottom* topBottom;
+		MxRegionTopBottom* topBottom = nullptr;
 
 		m_topBottomCursor->Current(topBottom);
 
@@ -173,10 +173,10 @@ MxRect32* MxRegionCursor::VTable0x24(MxRect32& p_rect) {
 }
 
 MxRect32* MxRegionCursor::VTable0x2c(MxRect32& p_rect) {
-	MxRegionLeftRight* leftRight;
+	MxRegionLeftRight* leftRight = nullptr;
 
 	if (m_leftRightCursor && m_leftRightCursor->Prev(leftRight)) {
-		MxRegionTopBottom* topBottom;
+		MxRegionTopBottom* topBottom = nullptr;
 
 		m_topBottomCursor->Current(topBottom);
 
@@ -240,7 +240,7 @@ void MxRegionCursor::UpdateRect(
 }
 
 void MxRegionCursor::ProcessRectOverlapAscending(MxRect32& p_rect) {
-	MxRegionTopBottom* topBottom;
+	MxRegionTopBottom* topBottom = nullptr;
 	while (m_topBottomCursor->Next(topBottom)) {
 		if (p_rect.GetBottom() <= topBottom->GetTop()) {
 			Reset();
@@ -250,7 +250,7 @@ void MxRegionCursor::ProcessRectOverlapAscending(MxRect32& p_rect) {
 		if (p_rect.GetTop() < topBottom->GetBottom()) {
 			ResetAndInitializeCursor(*topBottom->m_leftRightList);
 
-			MxRegionLeftRight* leftRight;
+			MxRegionLeftRight* leftRight = nullptr;
 			while (m_leftRightCursor->Next(leftRight)) {
 				if (p_rect.GetRight() <= leftRight->GetLeft()) {
 					break;
@@ -274,7 +274,7 @@ void MxRegionCursor::ProcessRectOverlapAscending(MxRect32& p_rect) {
 }
 
 void MxRegionCursor::ProcessOverlapWithRect(MxRect32& p_rect) {
-	MxRegionTopBottom* topBottom;
+	MxRegionTopBottom* topBottom = nullptr;
 	while (m_topBottomCursor->Prev(topBottom)) {
 		if (topBottom->GetBottom() <= p_rect.GetTop()) {
 			Reset();
@@ -284,7 +284,7 @@ void MxRegionCursor::ProcessOverlapWithRect(MxRect32& p_rect) {
 		if (topBottom->GetTop() < p_rect.GetBottom()) {
 			ResetAndInitializeCursor(*topBottom->m_leftRightList);
 
-			MxRegionLeftRight* leftRight;
+			MxRegionLeftRight* leftRight = nullptr;
 			while (m_leftRightCursor->Prev(leftRight)) {
 				if (leftRight->GetRight() <= p_rect.GetLeft()) {
 					break;

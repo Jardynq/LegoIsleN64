@@ -50,7 +50,7 @@ public:
 	MxBool FUN_10026c50(LegoEntity* p_entity);
 	void ScheduleAnimation(LegoEntity* p_entity, MxLong p_length);
 	MxResult FUN_10026410();
-	void FUN_10027120();
+	void Reset();
 	void FUN_10027200();
 
 	static void SetCustomizeAnimFile(const char* p_value);
