@@ -1,5 +1,8 @@
+/assets/data
+/assets/Scripts
+/assets/scripts
 /build/
-/legobin/
 /.cache/
 *.z64
-
+*.map
+*.log

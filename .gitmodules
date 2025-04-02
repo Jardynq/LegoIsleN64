@@ -1,3 +1,13 @@
-[submodule "libdragon"]
-	path = libdragon
+[submodule "3rdparty/libdragon"]
+	path = 3rdparty/libdragon
 	url = git@github.com:DragonMinded/libdragon.git
+	branch = preview
+[submodule "3rdparty/tiny3d"]
+	path = 3rdparty/tiny3d
+	url = git@github.com:HailToDodongo/tiny3d.git
+[submodule "3rdparty/libsmacker"]
+	path = 3rdparty/libsmacker
+	url = git@github.com:foxtacles/libsmacker.git
+[submodule "3rdparty/LegoIsleN64-legofs"]
+	path = 3rdparty/LegoIsleN64-legofs
+	url = git@github.com:Jardynq/LegoIsleN64-legofs.git
