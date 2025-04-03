@@ -1,5 +1,5 @@
-/assets/(?i)data/
-/assets/(?i)scripts/
+/assets/[dD]ata/
+/assets/[sS]cripts/
 /build/
 /.cache/
 *.z64
