@@ -1,7 +1,7 @@
 #ifndef ISLEAPP_H
 #define ISLEAPP_H
 
-#include "mxvideoparam.h"
+#include "mx_video_param.h"
 
 class IsleApp {
 public:

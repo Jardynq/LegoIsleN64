@@ -1,8 +1,8 @@
 #ifndef TOWTRACK_H
 #define TOWTRACK_H
 
-#include "islepathactor.h"
-#include "legostate.h"
+#include "isle_path_actor.h"
+#include "state.h"
 
 class MxEndActionNotificationParam;
 

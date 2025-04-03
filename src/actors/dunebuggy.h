@@ -1,7 +1,7 @@
 #ifndef DUNEBUGGY_H
 #define DUNEBUGGY_H
 
-#include "islepathactor.h"
+#include "isle_path_actor.h"
 
 class DuneBuggy : public IslePathActor {
 public:

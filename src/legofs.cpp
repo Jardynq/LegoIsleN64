@@ -1,8 +1,8 @@
 #include "legofs.h"
 
 #include "asset.h"
-#include "global/debug.h"
-#include "global/types.h"
+#include "debug.h"
+#include "types.h"
 #include "mpeg2.h"
 #include "sprite.h"
 #include "wav64.h"

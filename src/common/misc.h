@@ -2,7 +2,7 @@
 #define MISC_H
 
 // Long include path due to dependency of misc library on LegoOmni
-#include "lego/legoomni/include/actions/actionsfwd.h"
+#include "action_sfwd.h"
 
 class LegoAnimationManager;
 class LegoBuildingManager;

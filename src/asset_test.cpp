@@ -1,8 +1,8 @@
 #include "debugcpp.h"
 #include "display.h"
 #include "dragonfs.h"
-#include "global/debug.h"
-#include "global/types.h"
+#include "debug.h"
+#include "types.h"
 #include "graphics.h"
 #include "joypad.h"
 #include "legofs.h"
@@ -19,9 +19,9 @@
 #include <cmath>
 #include <cstring>
 #include <libdragon.h>
-#include <t3d/t3d.h>
-#include <t3d/t3dmath.h>
-#include <t3d/tpx.h>
+#include <t3d.h>
+#include <t3dmath.h>
+#include <tpx.h>
 
 typedef struct mpeg2_s {
 	void* buf;

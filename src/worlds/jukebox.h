@@ -1,9 +1,9 @@
 #ifndef JUKEBOX_H
 #define JUKEBOX_H
 
-#include "legogamestate.h"
-#include "legostate.h"
-#include "legoworld.h"
+#include "gamestate.h"
+#include "state.h"
+#include "world.h"
 
 class LegoControlManagerNotificationParam;
 

@@ -1,12 +1,12 @@
 #include "misc.h"
 
-#include "3dmanager/lego3dmanager.h"
-#include "legoinputmanager.h"
+#include "3d_manager.h"
+#include "input_manager.h"
 #include "legomain.h"
-#include "legovideomanager.h"
-#include "mxbackgroundaudiomanager.h"
-#include "mxmisc.h"
-#include "roi/legoroi.h"
+#include "video_manager.h"
+#include "mx_background_audio_manager.h"
+#include "mx_misc.h"
+#include "roi.h"
 #include "scripts.h"
 
 MxBool g_isWorldActive = TRUE;

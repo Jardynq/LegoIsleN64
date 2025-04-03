@@ -1,12 +1,12 @@
 #ifndef INFOCENTER_H
 #define INFOCENTER_H
 
-#include "actionsfwd.h"
-#include "legogamestate.h"
-#include "legostate.h"
-#include "legoworld.h"
+#include "action_sfwd.h"
+#include "gamestate.h"
+#include "state.h"
+#include "world.h"
 #include "misc.h"
-#include "mxrect32.h"
+#include "mx_rect32.h"
 #include "radio.h"
 
 class MxNotificationParam;

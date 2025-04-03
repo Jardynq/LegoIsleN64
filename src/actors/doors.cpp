@@ -1,10 +1,10 @@
 #include "doors.h"
 
-#include "legopathboundary.h"
-#include "mxmisc.h"
-#include "mxtimer.h"
-#include "roi/legoroi.h"
-#include "tgl/tglvector.h"
+#include "path_boundary.h"
+#include "mx_misc.h"
+#include "mx_timer.h"
+#include "roi.h"
+#include "tgl_vector.h"
 
 #include <assert.h>
 

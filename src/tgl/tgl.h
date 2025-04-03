@@ -2,8 +2,8 @@
 #ifndef _tgl_h
 #define _tgl_h
 
-#include "realtime/vector.h"
-#include "realtime/matrix.h"
+#include "vector.h"
+#include "matrix.h"
 
 namespace Tgl {
 

@@ -1,0 +1,75 @@
+#ifndef LEGOEVENTNOTIFICATIONPARAM_H
+#define LEGOEVENTNOTIFICATIONPARAM_H
+
+#include "mx_notification_param.h"
+
+#include <stdlib.h>
+
+class LegoROI;
+
+class LegoEventNotificationParam : public MxNotificationParam {
+public:
+	enum {
+		c_lButtonState = 1,
+		c_rButtonState = 2,
+		c_modKey1 = 4,
+		c_modKey2 = 8,
+	};
+
+	MxNotificationParam* Clone() const override {
+		LegoEventNotificationParam* clone = new LegoEventNotificationParam(
+			m_type,
+			m_sender,
+			m_modifier,
+			m_x,
+			m_y,
+			m_key
+		);
+		clone->m_roi = m_roi;
+		return clone;
+	}
+
+	LegoEventNotificationParam()
+		: MxNotificationParam(c_notificationType0, NULL) {}
+	LegoEventNotificationParam(
+		NotificationId p_type,
+		MxCore* p_sender,
+		MxU8 p_modifier,
+		MxS32 p_x,
+		MxS32 p_y,
+		MxU8 p_key
+	)
+		: MxNotificationParam(p_type, p_sender), m_modifier(p_modifier),
+		  m_x(p_x), m_y(p_y), m_key(p_key), m_roi(NULL) {}
+
+	LegoROI* GetROI() { return m_roi; }
+	MxU8 GetModifier() { return m_modifier; }
+	MxU8 GetKey() const { return m_key; }
+
+	MxS32 GetX() const { return m_x; }
+
+	MxS32 GetY() const { return m_y; }
+
+	void SetROI(LegoROI* p_roi) { m_roi = p_roi; }
+
+	void SetModifier(MxU8 p_modifier) { m_modifier = p_modifier; }
+
+	void SetKey(MxU8 p_key) { m_key = p_key; }
+
+	void SetX(MxS32 p_x) { m_x = p_x; }
+
+	void SetY(MxS32 p_y) { m_y = p_y; }
+
+protected:
+	MxU8 m_modifier;
+	MxS32 m_x;
+	MxS32 m_y;
+	MxU8 m_key;
+	LegoROI* m_roi;
+};
+
+// LegoEventNotificationParam::`scalar deleting destructor'
+
+// LegoEventNotificationParam::~LegoEventNotificationParam
+
+#endif // LEGOEVENTNOTIFICATIONPARAM_H

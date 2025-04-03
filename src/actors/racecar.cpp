@@ -2,11 +2,11 @@
 
 #include "isle.h"
 #include "isle_actions.h"
-#include "legocontrolmanager.h"
-#include "legoutils.h"
-#include "legoworld.h"
+#include "control_manager.h"
+#include "utils.h"
+#include "world.h"
 #include "misc.h"
-#include "mxtransitionmanager.h"
+#include "mx_transition_manager.h"
 
 RaceCar::RaceCar() {
 	m_maxLinearVel = 40.0;

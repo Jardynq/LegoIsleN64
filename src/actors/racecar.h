@@ -1,7 +1,7 @@
 #ifndef RACECAR_H
 #define RACECAR_H
 
-#include "islepathactor.h"
+#include "isle_path_actor.h"
 
 class RaceCar : public IslePathActor {
 public:

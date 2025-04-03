@@ -1,7 +1,7 @@
 #ifndef DOORS_H
 #define DOORS_H
 
-#include "legopathactor.h"
+#include "path_actor.h"
 
 class LegoROI;
 

@@ -1,10 +1,10 @@
 #ifndef ACT3_H
 #define ACT3_H
 
-#include "act3ammo.h"
-#include "legogamestate.h"
-#include "legostate.h"
-#include "legoworld.h"
+#include "act3_ammo.h"
+#include "gamestate.h"
+#include "state.h"
+#include "world.h"
 
 class Act3Brickster;
 class Act3Cop;

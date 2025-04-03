@@ -1,10 +1,10 @@
 #ifndef HOSPITAL_H
 #define HOSPITAL_H
 
-#include "actionsfwd.h"
-#include "legogamestate.h"
-#include "legostate.h"
-#include "legoworld.h"
+#include "action_sfwd.h"
+#include "gamestate.h"
+#include "state.h"
+#include "world.h"
 
 class LegoControlManagerNotificationParam;
 class MxEndActionNotificationParam;

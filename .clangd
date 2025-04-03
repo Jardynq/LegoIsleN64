@@ -14,6 +14,7 @@ Diagnostics:
   ClangTidy:
     FastCheckFilter: Loose
   Suppress: 
+    - member_function_call_bad_type
     - pp_file_not_found_angled_include_not_fatal
     - overloaded-virtual
 

@@ -1,8 +1,8 @@
 #ifndef MODELDB_H
 #define MODELDB_H
 
-#include "mxlist.h"
-#include "mxstring.h"
+#include "mx_list.h"
+#include "mx_string.h"
 
 #include <stdio.h>
 

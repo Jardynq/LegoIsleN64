@@ -1,7 +1,7 @@
 #include "manager.h"
 
-#include "mxmisc.h"
-#include "mxticklemanager.h"
+#include "mx_misc.h"
+#include "mx_tickle_manager.h"
 #include "stdio.h"
 
 Manager::Manager() {

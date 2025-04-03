@@ -1,6 +1,6 @@
 #include "scripts.h"
 
-#include "mxatom.h"
+#include "mx_atom.h"
 
 MxAtomId* g_copterScript = NULL;
 

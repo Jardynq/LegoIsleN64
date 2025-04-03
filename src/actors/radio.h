@@ -1,8 +1,8 @@
 #ifndef RADIO_H
 #define RADIO_H
 
-#include "legostate.h"
-#include "mxcore.h"
+#include "state.h"
+#include "mx_core.h"
 
 class LegoControlManagerNotificationParam;
 class MxAtomId;

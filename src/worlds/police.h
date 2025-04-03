@@ -1,9 +1,9 @@
 #ifndef POLICE_H
 #define POLICE_H
 
-#include "legogamestate.h"
-#include "legostate.h"
-#include "legoworld.h"
+#include "gamestate.h"
+#include "state.h"
+#include "world.h"
 #include "radio.h"
 
 class LegoControlManagerNotificationParam;

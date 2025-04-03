@@ -1,0 +1,40 @@
+#include "actor_presenter.h"
+
+#include "entity.h"
+#include "misc.h"
+
+void LegoActorPresenter::ReadyTickle() {
+	if (CurrentWorld()) {
+		m_entity = (LegoEntity*) CreateEntity("LegoActor");
+		if (m_entity) {
+			SetEntityLocation(
+				m_action->GetLocation(),
+				m_action->GetDirection(),
+				m_action->GetUp()
+			);
+			m_entity->Create(*m_action);
+		}
+		ProgressTickleState(e_starting);
+	}
+}
+
+void LegoActorPresenter::StartingTickle() {
+	if (m_entity->GetROI()) {
+		ProgressTickleState(e_streaming);
+		ParseExtra();
+	}
+}
+
+void LegoActorPresenter::ParseExtra() {
+	MxU16 extraLength;
+	char* extraData;
+	m_action->GetExtra(extraLength, extraData);
+
+	if (extraLength) {
+		char extraCopy[512];
+		memcpy(extraCopy, extraData, extraLength);
+		extraCopy[extraLength] = '\0';
+
+		m_entity->ParseAction(extraCopy);
+	}
+}

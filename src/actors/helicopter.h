@@ -1,9 +1,9 @@
 #ifndef HELICOPTER_H
 #define HELICOPTER_H
 
-#include "islepathactor.h"
-#include "legostate.h"
-#include "mxgeometry/mxquaternion.h"
+#include "isle_path_actor.h"
+#include "state.h"
+#include "mx_quaternion.h"
 
 class Act3;
 

@@ -1,7 +1,7 @@
 #ifndef BIKE_H
 #define BIKE_H
 
-#include "islepathactor.h"
+#include "isle_path_actor.h"
 
 class Bike : public IslePathActor {
 public:

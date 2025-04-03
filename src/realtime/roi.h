@@ -3,8 +3,8 @@
 
 // ROI stands for Real-time Object Instance.
 
-#include "lodlist.h"
-#include "mxgeometry/mxgeometry3d.h"
+#include "lod_list.h"
+#include "mx_geometry_3d.h"
 
 /*
  * A simple bounding box object with Min and Max accessor methods.

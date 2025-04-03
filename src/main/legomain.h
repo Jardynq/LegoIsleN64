@@ -1,8 +1,8 @@
 #ifndef LEGOMAIN_H
 #define LEGOMAIN_H
 
-#include "mxdsaction.h"
-#include "mxomni.h"
+#include "mx_ds_action.h"
+#include "mx_omni.h"
 
 class Isle;
 class LegoAnimationManager;

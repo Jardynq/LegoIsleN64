@@ -15,14 +15,7 @@ INCLUDE := $(shell $(N64_CXX) -E -x c++ - -v 2>&1 < /dev/null | \
              grep ' /' | tr -d ' ')
 CXXFLAGS += $(patsubst %,-I%, $(INCLUDE))
 CXXFLAGS += -Isrc
-CXXFLAGS += $(patsubst %,-I%,$(shell find src/lego -type d))
-CXXFLAGS += $(patsubst %,-I%,$(shell find src/omni -type d))
-CXXFLAGS += $(patsubst %,-I%,$(shell find src/tgl -type d))
-CXXFLAGS += $(patsubst %,-I%,$(shell find src/realtime -type d))
-CXXFLAGS += $(patsubst %,-I%,$(shell find src/modeldb -type d))
-CXXFLAGS += $(patsubst %,-I%,$(shell find src/viewmanager -type d))
-CXXFLAGS += $(patsubst %,-I%,$(shell find src/mxdirectx -type d))
-CXXFLAGS += $(patsubst %,-I%,$(shell find src/mxgeometry -type d))
+CXXFLAGS += $(patsubst %,-I%,$(shell find src -type d))
 
 CXXFLAGS += -I3rdparty/vec 
 CXXFLAGS += -I3rdparty/libsmacker 
@@ -30,9 +23,9 @@ CXXFLAGS += -I3rdparty/libsmacker
 CXXFLAGS += -include $(SOURCE_DIR)/global.h
 #CXXFLAGS += -NDEBUG
 
-#SRCS := $(wildcard $(SOURCE_DIR)/**/*.cpp $(SOURCE_DIR)/*.cpp)
-#OBJS := $(patsubst $(SOURCE_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
-OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/legofs.o
+SRCS := $(wildcard $(SOURCE_DIR)/**/*.cpp $(SOURCE_DIR)/*.cpp)
+OBJS := $(patsubst $(SOURCE_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
+#OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/legofs.o
 
 isle.z64: N64_ROM_TITLE="LegoIsleN64"
 isle.z64: $(BUILD_DIR)/isle.dfs $(BUILD_DIR)/isle.elf

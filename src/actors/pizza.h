@@ -1,9 +1,9 @@
 #ifndef PIZZA_H
 #define PIZZA_H
 
-#include "actionsfwd.h"
-#include "isleactor.h"
-#include "legostate.h"
+#include "action_sfwd.h"
+#include "isle_actor.h"
+#include "state.h"
 
 class Act1State;
 class PizzeriaState;

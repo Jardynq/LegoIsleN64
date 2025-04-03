@@ -1,7 +1,7 @@
 #include "graphics.h"
-#include "t3d/t3d.h"
-#include "t3d/t3dmodel.h"
-#include "tgl/tgl.h"
+#include "t3d.h"
+#include "t3dmodel.h"
+#include "tgl.h"
 
 namespace TglImpl {
 

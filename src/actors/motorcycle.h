@@ -1,7 +1,7 @@
 #ifndef MOTORCYCLE_H
 #define MOTORCYCLE_H
 
-#include "islepathactor.h"
+#include "isle_path_actor.h"
 
 class Motocycle : public IslePathActor {
 public:

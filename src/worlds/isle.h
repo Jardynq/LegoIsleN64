@@ -1,11 +1,11 @@
 #ifndef ISLE_H
 #define ISLE_H
 
-#include "actionsfwd.h"
-#include "legogamestate.h"
-#include "legonamedplane.h"
-#include "legostate.h"
-#include "legoworld.h"
+#include "action_sfwd.h"
+#include "gamestate.h"
+#include "named_plane.h"
+#include "state.h"
+#include "world.h"
 #include "radio.h"
 
 class Ambulance;

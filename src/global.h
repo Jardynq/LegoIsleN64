@@ -1,18 +1,18 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
-#include "global/debug.h"
-#include "global/math.h"
-#include "global/string.h"
-#include "global/types.h"
-//#include "global/manager.h"
+#include "debug.h"
+#include "maths.h"
+#include "strings.h"
+#include "types.h"
+// #include "manager.h"
 
 #include <libdragon.h>
-#include <t3d/t3d.h>
-#include <t3d/t3dmodel.h>
+#include <t3d.h>
+#include <t3dmodel.h>
 
-// #include "global/point.h"
-// #include "global/size.h"
-// #include "global/rect.h"
+// #include "point.h"
+// #include "size.h"
+// #include "rect.h"
 
 #endif // GLOBAL_H

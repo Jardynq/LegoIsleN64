@@ -1,7 +1,7 @@
 #ifndef BUILDINGS_H
 #define BUILDINGS_H
 
-#include "buildingentity.h"
+#include "building_entity.h"
 
 class LegoEventNotificationParam;
 

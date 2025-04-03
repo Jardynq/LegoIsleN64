@@ -1,7 +1,7 @@
 #ifndef LEGOFS_H
 #define LEGOFS_H
 
-#include "global/types.h"
+#include "types.h"
 
 #include <unordered_map>
 #include <vector>

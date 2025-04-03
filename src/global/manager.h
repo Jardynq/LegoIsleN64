@@ -1,8 +1,8 @@
 #ifndef MANAGER_H
 #define MANAGER_H
 
-#include "mxcore.h"
-#include "mxpresenterlist.h"
+#include "mx_core.h"
+#include "mx_presenter_list.h"
 
 class Manager : public MxCore {
 public:
