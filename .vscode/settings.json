@@ -5,6 +5,7 @@
         "*.cpp": "cpp",
         "*.h": "cpp",
         "Makefile": "makefile",
+        "Makeassets": "makefile",
         ".clang-tidy": "yaml",
         ".clang-format": "yaml",
         ".clangd": "yaml",

@@ -1,0 +1,219 @@
+SCRIPTS = $(ASSET_DIR)/scripts
+CURSORS = $(ASSET_DIR)/cursors
+DATA = $(ASSET_DIR)/data
+
+SCRIPT_OUT = $(BUILD_DIR)/$(ASSET_DIR)/scripts
+CURSOR_OUT = $(BUILD_DIR)/$(ASSET_DIR)/cursors
+DATA_OUT = $(BUILD_DIR)/$(ASSET_DIR)/data
+
+ASSET_TEMP = $(BUILD_DIR)/.temp/assets
+
+
+legofs: $(LEGOFS)
+$(LEGOFS): cursors data scripts
+	mkdfs $@ $(BUILD_DIR)/$(ASSET_DIR)
+
+
+SIDUMP = $(BUILD_DIR)/sidump
+sidump: $(SIDUMP)
+$(SIDUMP):
+	$(MAKE) -j -C 3rdparty/LegoIsleN64-legofs
+	cp 3rdparty/LegoIsleN64-legofs/sidump $@
+
+
+.PHONY: lowercase_assets
+lowercase_assets:
+	@echo "Making all asset filenames lowercase"
+	@mkdir -p $(ASSET_TEMP)
+	@find $(ASSET_DIR) -depth | while read path; do \
+		dir=$$(dirname "$$path"); \
+		name=$$(basename "$$path"); \
+		lower=$$(echo "$$name" | tr '[:upper:]' '[:lower:]'); \
+		if [ "$$name" != "$$lower" ]; then \
+			mv -T "$$dir/$$name" "$(ASSET_TEMP)/$$name"; \
+			mv -T "$(ASSET_TEMP)/$$name" "$$dir/$$lower"; \
+		fi; \
+	done; \
+
+
+.PHONY: check_assets
+check_assets: lowercase_assets
+	@missing=""
+	@for dir in $(ASSET_DIR)/cursors $(ASSET_DIR)/data $(ASSET_DIR)/scripts; do \
+		if [ ! -d "$$dir" ]; then \
+			missing="$$missing$$dir/ is missing.\n"; \
+		elif [ -z "$$(find $$dir -type f 2>/dev/null)" ]; then \
+			missing="$$missing$$dir is empty.\n"; \
+		fi; \
+	done; \
+	if [ -n "$$missing" ]; then \
+		echo "\nError: missing assets!\n$$missing"; \
+		echo "Copy contents of the 'LEGO' folder into 'assets' and retry."; \
+		exit 1; \
+	fi
+
+
+.PHONY: cursors
+cursors: check_assets
+	@echo "Converting cursor files"
+	@mkdir -p $(CURSOR_OUT)
+	@for file in $(ASSET_DIR)/cursors/*; do \
+		mksprite -c 1 -f RGBA16 -o $(CURSOR_OUT) "$$file"; \
+	done
+
+
+.PHONY: data
+data: check_assets
+	@echo "Converting data files"
+	@mkdir -p $(DATA_OUT)
+	@for file in $(ASSET_DIR)/data/*; do \
+		mkasset -c 1 -o $(DATA_OUT) "$$file"; \
+	done
+
+
+.PHONY: scripts
+.ONESHELL:
+scripts: check_assets sidump
+	@FLAGS="$(MAKEFLAGS)" SCRIPTS="$(SCRIPTS)" bash <<'EOF'
+		set -euo pipefail
+		main() {
+			JOBS_PATTERN="(^| )-j([0-9]+)?( |$$)"
+			JOBS_FLAG=$$(echo "$$FLAGS" | grep -Eo -- "$$JOBS_PATTERN" | tr -d ' ' || true)
+			if [[ "$$JOBS_FLAG" == "-j" ]]; then
+				JOBS=$$(nproc)
+			elif [[ "$$JOBS_FLAG" != "" ]]; then
+				JOBS=$$(echo "$$JOBS_FLAG" | sed "s/-j//")
+			else
+				JOBS=1
+			fi
+			export JOBS
+
+			echo "Converting script files"
+			echo ""
+			echo "TODO:"
+			echo "CURRENTLY ONLY SUPPORTS INFOMAIN.SI"
+			echo ""
+			find "$$SCRIPTS" -type f -name "*.si" -print0 | \
+				xargs -0 -n1 -P"$$JOBS" bash -c 'process_script "$$@"' _ 
+		}
+		
+		conv_bmp() {
+			local out="$$2"
+			local file="$$3"
+			local png="$${file%.bmp}.png"
+			ffmpeg -hide_banner -loglevel error -y -i "$$file" "$$png"
+			mksprite -c 1 -f RGBA16 -o "$$out" "$$png"
+			rm "$$file" "$$png"
+		}
+		export -f conv_bmp
+
+		conv_wav() {
+			local out="$$2"
+			local file="$$3"
+			audioconv64 --wav-compress 1 -o "$$out" "$$file"
+			rm "$$file"
+		}
+		export -f conv_wav
+
+		conv_flc() {
+			local out="$$2"
+			local file="$$3"
+			local m1v="$${file%.flc}.m1v"
+			ffmpeg -hide_banner -loglevel error -y -i "$$file" \
+				-vf "scale=iw/2:ih/2" -vb 800K \
+				-c:v mpeg1video -an -r 24 "$$m1v"
+			mv "$$m1v" "$$out"
+			rm "$$file"
+		}
+		export -f conv_flc
+
+		conv_pho() {
+			local out="$$2"
+			local file="$$3"
+			local m1v="$${file%.pho}.m1v"
+			ffmpeg -hide_banner -loglevel error -y -i "$$file" \
+				-vf "scale=iw/2:ih/2,vflip" -vb 800K \
+				-c:v mpeg1video -an -r 24 "$$m1v"
+			mv "$$m1v" "$$out"
+			rm "$$file"
+		}
+		export -f conv_pho
+		
+		conv_smk() {
+			local out="$$2"
+			local file="$$3"
+
+			local m1v="$${file%.smk}.m1v"
+			ffmpeg -hide_banner -loglevel error -y -i "$$file" \
+				-vf "scale=iw/2:ih/2" -vb 800K \
+				-c:v mpeg1video -an -r 24 "$$m1v"
+			mv "$$m1v" "$$out"
+			
+			local m1vwav="$${file%.smk}.m1vwav"
+			local has_audio=$$(ffprobe -v error -select_streams a -show_entries stream=codec_type -of csv=p=0 "$$file")
+			if [ "$$has_audio" = "audio" ]; then
+				ffmpeg -hide_banner -loglevel error \
+					-y -i "$$file" -vn -acodec pcm_s16le -ar 32000 -ac 1 "$$m1vwav"
+				audioconv64 --wav-compress 1 -o "$$out" "$$m1vwav"
+				rm "$$m1vwav"
+			fi
+			rm "$$file"
+		}
+		export -f conv_smk
+
+		conv_misc() {
+			local out="$$2"
+			local file="$$3"
+			mkasset -c 1 -o "$$script_dir" "$$file";
+		}
+		export -f conv_misc
+
+		process_script() {
+			local script="$$1"
+			local script_rel=$${script#"$$SCRIPTS/"}
+			local script_out="$(SCRIPT_OUT)/$$script_rel"
+			local temp_out="$(ASSET_TEMP)/$$script_rel"
+
+			if [ "$$script_rel" != "infocntr/infomain.si" ]; then
+				echo "$$script_rel: Ignored"
+				return
+			fi
+			
+			mkdir -p "$$script_out" "$$temp_out"
+			echo "$$script_rel: Starting"
+
+			"$(SIDUMP)" "$$temp_out" "$$script" &> /dev/null
+			mv "$${temp_out}/index" "$$script_out/index"
+			echo "$$script_rel: Finished sidump"
+
+			convert conv_bmp "*.bmp" "$$temp_out" "$$script_out" "$$script_rel" &
+			convert conv_wav "*.wav" "$$temp_out" "$$script_out" "$$script_rel" &
+			convert conv_flc "*.flc" "$$temp_out" "$$script_out" "$$script_rel" &
+			convert conv_pho "*.pho" "$$temp_out" "$$script_out" "$$script_rel" &
+			convert conv_smk "*.smk" "$$temp_out" "$$script_out" "$$script_rel" &
+			wait
+			
+			convert conv_misc "*" "$$temp_out" "$$script_out" "$$script_rel"
+			convert conv_misc "*.*" "$$temp_out" "$$script_out" "$$script_rel"
+			
+			rm -r "$$temp_out"
+			echo "$$script_rel: Finished"
+		}
+		export -f process_script
+		
+		convert() {
+			local converter="$$1"
+			local pattern="$$2"
+			local script_in="$$3"
+			local script_out="$$4"
+			local script_rel="$$5"
+
+			find "$$script_in" -type f -name "$$pattern" -print0 | \
+				xargs -0 -n1 -P"$$JOBS" bash -c \
+					'func="$$1"; shift; "$$func" "$$@"' _ "$$converter" {} "$$script_out"
+			echo "$$script_rel: Finished $$converter"
+		}
+		export -f convert
+		
+		main
+	EOF
