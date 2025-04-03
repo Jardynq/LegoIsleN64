@@ -10,14 +10,17 @@ ASSET_TEMP = $(BUILD_DIR)/.temp/assets
 
 
 legofs: $(LEGOFS)
-$(LEGOFS): cursors data scripts
+$(LEGOFS):
+	$(MAKE) cursors 
+	$(MAKE) data 
+	$(MAKE) scripts
 	mkdfs $@ $(BUILD_DIR)/$(ASSET_DIR)
 
 
 SIDUMP = $(BUILD_DIR)/sidump
 sidump: $(SIDUMP)
 $(SIDUMP):
-	$(MAKE) -j -C 3rdparty/LegoIsleN64-legofs
+	$(MAKE) -C 3rdparty/LegoIsleN64-legofs
 	cp 3rdparty/LegoIsleN64-legofs/sidump $@
 
 
@@ -149,9 +152,9 @@ scripts: check_assets sidump
 				-c:v mpeg1video -an -r 24 "$$m1v"
 			mv "$$m1v" "$$out"
 			
-			local m1vwav="$${file%.smk}.m1vwav"
 			local has_audio=$$(ffprobe -v error -select_streams a -show_entries stream=codec_type -of csv=p=0 "$$file")
 			if [ "$$has_audio" = "audio" ]; then
+				local m1vwav="$${file%.smk}.m1vwav"
 				ffmpeg -hide_banner -loglevel error \
 					-y -i "$$file" -vn -acodec pcm_s16le -ar 32000 -ac 1 "$$m1vwav"
 				audioconv64 --wav-compress 1 -o "$$out" "$$m1vwav"
@@ -164,7 +167,7 @@ scripts: check_assets sidump
 		conv_misc() {
 			local out="$$2"
 			local file="$$3"
-			mkasset -c 1 -o "$$script_dir" "$$file";
+			mkasset -c 1 -o "$$out" "$$file";
 		}
 		export -f conv_misc
 
@@ -193,8 +196,9 @@ scripts: check_assets sidump
 			convert conv_smk "*.smk" "$$temp_out" "$$script_out" "$$script_rel" &
 			wait
 			
-			convert conv_misc "*" "$$temp_out" "$$script_out" "$$script_rel"
-			convert conv_misc "*.*" "$$temp_out" "$$script_out" "$$script_rel"
+			convert conv_misc "*" "$$temp_out" "$$script_out" "$$script_rel" &
+			convert conv_misc "*.*" "$$temp_out" "$$script_out" "$$script_rel" &
+			wait
 			
 			rm -r "$$temp_out"
 			echo "$$script_rel: Finished"
