@@ -14,7 +14,7 @@ INCLUDE := $(shell $(N64_CXX) -E -x c++ - -v 2>&1 < /dev/null | \
              sed -n '/#include <...> search starts here:/,/End of search list./p' | \
              grep ' /' | tr -d ' ')
 CXXFLAGS += $(patsubst %,-I%, $(INCLUDE))
-CXXFLAGS += -Isrc
+CXXFLAGS += -I$(SOURCE_DIR)
 CXXFLAGS += $(patsubst %,-I%,$(shell find src -type d))
 
 CXXFLAGS += -I3rdparty/vec 

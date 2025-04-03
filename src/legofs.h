@@ -1,8 +1,6 @@
 #ifndef LEGOFS_H
 #define LEGOFS_H
 
-#include "types.h"
-
 #include <unordered_map>
 #include <vector>
 

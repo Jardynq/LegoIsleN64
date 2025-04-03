@@ -1,8 +1,6 @@
 #include "legofs.h"
 
 #include "asset.h"
-#include "debug.h"
-#include "types.h"
 #include "mpeg2.h"
 #include "sprite.h"
 #include "wav64.h"
@@ -18,7 +16,7 @@ LegofsIndex legofs_index;
 void legofs_read_index_node(LegofsNode* node, FILE* file);
 void legofs_init() {
 	FILE* file =
-		asset_fopen("rom:/scripts/Infocntr/INFOMAIN.SI/index", nullptr);
+		asset_fopen("rom:/scripts/infocntr/infomain.si/index", nullptr);
 	if (!file) {
 		return;
 	}
@@ -43,7 +41,7 @@ void legofs_init() {
 }
 
 const u8* legofs_read(u16 index, i32* size) {
-	auto path = std::string("rom:/scripts/Infocntr/INFOMAIN.SI/") +
+	auto path = std::string("rom:/scripts/infocntr/infomain.si/") +
 				std::to_string(index);
 
 	FILE* file = asset_fopen(path.c_str(), size);
@@ -58,7 +56,7 @@ const u8* legofs_read(u16 index, i32* size) {
 }
 
 FILE* legofs_open(u16 index, i32* size, const char* ext) {
-	auto path = std::string("rom:/scripts/Infocntr/INFOMAIN.SI/") +
+	auto path = std::string("rom:/scripts/Infocntr/infomain.si/") +
 				std::to_string(index);
 	if (ext != nullptr) {
 		path += ext;
@@ -73,7 +71,7 @@ FILE* legofs_open(u16 index, i32* size, const char* ext) {
 
 MxResult legofs_open_video(u16 index, mpeg2_t** video) {
 	auto path =
-		"rom:/scripts/Infocntr/INFOMAIN.SI/" + std::to_string(index) + ".m1v";
+		"rom:/scripts/infocntr/infomain.si/" + std::to_string(index) + ".m1v";
 	*video = mpeg2_open(path.c_str());
 	if (!*video) {
 		return FAILURE;
@@ -83,7 +81,7 @@ MxResult legofs_open_video(u16 index, mpeg2_t** video) {
 
 MxResult legofs_open_audio(u16 index, wav64_t* audio) {
 	auto path =
-		"rom:/scripts/Infocntr/INFOMAIN.SI/" + std::to_string(index) + ".wav64";
+		"rom:/scripts/infocntr/infomain.si/" + std::to_string(index) + ".wav64";
 	FILE* file = fopen(path.c_str(), "r");
 	if (!file) {
 		return FAILURE;
@@ -94,7 +92,7 @@ MxResult legofs_open_audio(u16 index, wav64_t* audio) {
 }
 
 MxResult legofs_open_sprite(u16 index, sprite_t** sprite) {
-	auto path = "rom:/scripts/Infocntr/INFOMAIN.SI/" + std::to_string(index) +
+	auto path = "rom:/scripts/infocntr/infomain.si/" + std::to_string(index) +
 				".sprite";
 	*sprite = sprite_load(path.c_str());
 	if (*sprite == nullptr) {

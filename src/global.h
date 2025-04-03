@@ -1,15 +1,15 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
-#include "debug.h"
-#include "maths.h"
-#include "strings.h"
-#include "types.h"
+#include "global/debug.h"
+#include "global/maths.h"
+#include "global/strings.h"
+#include "global/types.h"
 // #include "manager.h"
 
 #include <libdragon.h>
-#include <t3d.h>
-#include <t3dmodel.h>
+#include <t3d/t3d.h>
+#include <t3d/t3dmodel.h>
 
 // #include "point.h"
 // #include "size.h"
