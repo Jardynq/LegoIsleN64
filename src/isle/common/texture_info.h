@@ -1,5 +1,4 @@
-#ifndef LEGOTEXTUREINFO_H
-#define LEGOTEXTUREINFO_H
+#pragma once
 
 #include "tgl.h"
 
@@ -30,4 +29,3 @@ public:
 
 // IID_IDirect3DRMTexture2
 
-#endif // LEGOTEXTUREINFO_H

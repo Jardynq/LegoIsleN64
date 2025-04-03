@@ -1,5 +1,4 @@
-#ifndef __LEGOCOLOR_H
-#define __LEGOCOLOR_H
+#pragma once
 
 class LegoStorage;
 
@@ -20,4 +19,3 @@ protected:
 	LegoU8 m_blue;
 };
 
-#endif // __LEGOCOLOR_H

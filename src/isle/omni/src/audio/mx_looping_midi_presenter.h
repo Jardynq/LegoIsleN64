@@ -1,5 +1,4 @@
-#ifndef MXLOOPINGMIDIPRESENTER_H
-#define MXLOOPINGMIDIPRESENTER_H
+#pragma once
 
 #include "mx_midi_presenter.h"
 
@@ -21,4 +20,3 @@ public:
 
 // MxLoopingMIDIPresenter::`scalar deleting destructor'
 
-#endif // MXLOOPINGMIDIPRESENTER_H

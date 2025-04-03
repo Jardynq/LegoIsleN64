@@ -1,5 +1,4 @@
-#ifndef MXSTRINGLIST_H
-#define MXSTRINGLIST_H
+#pragma once
 
 #include "mx_list.h"
 #include "mx_string.h"
@@ -65,4 +64,3 @@ public:
 
 // MxListEntry<MxString>::~MxListEntry<MxString>
 
-#endif // MXSTRINGLIST_H

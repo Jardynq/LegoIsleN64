@@ -1,5 +1,4 @@
-#ifndef MXSOUNDMANAGER_H
-#define MXSOUNDMANAGER_H
+#pragma once
 
 #include "mx_atom.h"
 #include "mx_audio_manager.h"
@@ -28,4 +27,3 @@ protected:
 
 // MxSoundManager::`scalar deleting destructor'
 
-#endif // MXSOUNDMANAGER_H

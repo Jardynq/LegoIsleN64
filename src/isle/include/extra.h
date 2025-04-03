@@ -1,5 +1,4 @@
-#ifndef EXTRA_H
-#define EXTRA_H
+#pragma once
 
 // Items related to the Extra string of key-value pairs found in MxOb
 
@@ -20,4 +19,3 @@ struct Extra {
 	};
 };
 
-#endif // EXTRA_H

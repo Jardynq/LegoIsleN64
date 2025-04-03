@@ -1,5 +1,4 @@
-#ifndef MXLOOPINGSMKPRESENTER_H
-#define MXLOOPINGSMKPRESENTER_H
+#pragma once
 
 #include "mx_smk_presenter.h"
 
@@ -28,4 +27,3 @@ private:
 
 // MxLoopingSmkPresenter::`scalar deleting destructor'
 
-#endif // MXLOOPINGSMKPRESENTER_H

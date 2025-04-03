@@ -1,5 +1,4 @@
-#ifndef ISLE_H
-#define ISLE_H
+#pragma once
 
 #include "action_sfwd.h"
 #include "gamestate.h"
@@ -159,4 +158,3 @@ protected:
 	LegoGameState::Area m_destLocation;
 };
 
-#endif // ISLE_H

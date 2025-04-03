@@ -1,5 +1,4 @@
-#ifndef MXRAMSTREAMCONTROLLER_H
-#define MXRAMSTREAMCONTROLLER_H
+#pragma once
 
 #include "mx_ds_buffer.h"
 #include "mx_stream_controller.h"
@@ -29,4 +28,3 @@ private:
 
 // MxRAMStreamController::`scalar deleting destructor'
 
-#endif // MXRAMSTREAMCONTROLLER_H

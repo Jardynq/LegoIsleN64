@@ -1,5 +1,4 @@
-#ifndef LEGOPATHACTOR_H
-#define LEGOPATHACTOR_H
+#pragma once
 
 #include "actor.h"
 #include "unknown.h"
@@ -190,4 +189,3 @@ protected:
 
 // List<LegoPathBoundary *>::~List<LegoPathBoundary *>
 
-#endif // LEGOPATHACTOR_H

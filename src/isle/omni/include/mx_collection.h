@@ -1,5 +1,4 @@
-#ifndef MXCOLLECTION_H
-#define MXCOLLECTION_H
+#pragma once
 
 #include "mx_core.h"
 
@@ -23,4 +22,3 @@ protected:
 	void (*m_customDestructor)(T);
 };
 
-#endif // MXCOLLECTION_H

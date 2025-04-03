@@ -1,5 +1,4 @@
-#ifndef MXCONTROLPRESENTER_H
-#define MXCONTROLPRESENTER_H
+#pragma once
 
 #include "mx_composite_presenter.h"
 
@@ -53,4 +52,3 @@ private:
 
 // MxControlPresenter::`scalar deleting destructor'
 
-#endif // MXCONTROLPRESENTER_H

@@ -1,5 +1,4 @@
-#ifndef MXENTITY_H
-#define MXENTITY_H
+#pragma once
 
 #include "mx_atom.h"
 #include "mx_core.h"
@@ -41,4 +40,3 @@ protected:
 	MxAtomId m_atomId;
 };
 
-#endif // MXENTITY_H

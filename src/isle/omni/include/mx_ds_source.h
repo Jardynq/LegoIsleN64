@@ -1,5 +1,4 @@
-#ifndef MXDSSOURCE_H
-#define MXDSSOURCE_H
+#pragma once
 
 #include "mx_core.h"
 #include "mx_ds_buffer.h"
@@ -42,4 +41,3 @@ protected:
 
 // MxDSSource::`scalar deleting destructor'
 
-#endif // MXDSSOURCE_H

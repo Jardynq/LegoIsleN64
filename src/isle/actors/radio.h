@@ -1,5 +1,4 @@
-#ifndef RADIO_H
-#define RADIO_H
+#pragma once
 
 #include "state.h"
 #include "mx_core.h"
@@ -67,4 +66,3 @@ private:
 	MxLong HandleControl(LegoControlManagerNotificationParam& p_param);
 };
 
-#endif // RADIO_H

@@ -1,5 +1,4 @@
-#ifndef VIEWMANAGER_H
-#define VIEWMANAGER_H
+#pragma once
 
 #include "realtime_view.h"
 #include "view_roi.h"
@@ -70,4 +69,3 @@ private:
 // vector<ROI const *,allocator<ROI const *> >::~vector<ROI const
 // *,allocator<ROI const *> >
 
-#endif // VIEWMANAGER_H

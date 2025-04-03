@@ -1,5 +1,4 @@
-#ifndef LEGOPATHCONTROLLER_H
-#define LEGOPATHCONTROLLER_H
+#pragma once
 
 #include "unkown100db7f4.h"
 #include "path_actor.h"
@@ -340,4 +339,3 @@ private:
 // _Tree<LegoBEWithFloat *,LegoBEWithFloat *,multiset<LegoBEWithFloat *,LegoBEWithFloatComparator,allocator<LegoBEWithFloat *> >::_Kfn,LegoBEWithFloatComparator,allocator<LegoBEWithFloat *> >::_Nil
 // clang-format on
 
-#endif // LEGOPATHCONTROLLER_H

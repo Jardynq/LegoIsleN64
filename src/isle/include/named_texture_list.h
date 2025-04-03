@@ -1,5 +1,4 @@
-#ifndef LEGONAMEDTEXTURELIST_H
-#define LEGONAMEDTEXTURELIST_H
+#pragma once
 
 #include "named_texture.h"
 #include "mx_list.h"
@@ -57,4 +56,3 @@ public:
 
 // MxPtrList<LegoNamedTexture>::`scalar deleting destructor'
 
-#endif // LEGONAMEDTEXTURELIST_H

@@ -1,5 +1,4 @@
-#ifndef __LEGOTEXTURE_H
-#define __LEGOTEXTURE_H
+#pragma once
 
 class LegoImage;
 class LegoStorage;
@@ -17,4 +16,3 @@ protected:
 	LegoImage* m_image;
 };
 
-#endif // __LEGOTEXTURE_H

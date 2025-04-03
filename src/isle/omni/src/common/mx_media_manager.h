@@ -1,5 +1,4 @@
-#ifndef MXMEDIAMANGER_H
-#define MXMEDIAMANGER_H
+#pragma once
 
 #include "mx_core.h"
 #include "mx_presenter_list.h"
@@ -24,4 +23,3 @@ protected:
 	MxPresenterList* m_presenters;
 };
 
-#endif // MXMEDIAMANGER_H

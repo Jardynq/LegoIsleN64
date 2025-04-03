@@ -1,5 +1,4 @@
-#ifndef MXSTRING_H
-#define MXSTRING_H
+#pragma once
 
 #include "mx_core.h"
 
@@ -42,4 +41,3 @@ private:
 	MxU16 m_length;
 };
 
-#endif // MXSTRING_H

@@ -1,5 +1,4 @@
-#ifndef MXRECTLIST_H
-#define MXRECTLIST_H
+#pragma once
 
 #include "mx_list.h"
 #include "mx_rect32.h"
@@ -90,4 +89,3 @@ public:
 
 // MxListEntry<MxRect32 *>::SetNext
 
-#endif // MXRECTLIST_H

@@ -1,5 +1,4 @@
-#ifndef LEGOCACHSOUND_H
-#define LEGOCACHSOUND_H
+#pragma once
 
 #include "mx_core.h"
 #include "mx_string.h"
@@ -54,4 +53,3 @@ private:
 	MxBool m_muted;
 };
 
-#endif // LEGOCACHSOUND_H

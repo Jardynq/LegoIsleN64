@@ -1,5 +1,4 @@
-#ifndef MXDSANIM_H
-#define MXDSANIM_H
+#pragma once
 
 #include "mx_ds_media_action.h"
 
@@ -23,4 +22,3 @@ public:
 	// MxDSAnim::`scalar deleting destructor'
 };
 
-#endif // MXDSANIM_H

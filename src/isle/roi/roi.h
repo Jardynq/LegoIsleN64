@@ -1,5 +1,4 @@
-#ifndef LEGOROI_H
-#define LEGOROI_H
+#pragma once
 
 #include "view_roi.h"
 
@@ -141,4 +140,3 @@ private:
 	LegoTime m_time;
 };
 
-#endif // LEGOROI_H

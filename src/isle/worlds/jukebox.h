@@ -1,5 +1,4 @@
-#ifndef JUKEBOX_H
-#define JUKEBOX_H
+#pragma once
 
 #include "gamestate.h"
 #include "state.h"
@@ -66,4 +65,3 @@ private:
 	undefined2 m_unk0x100;
 };
 
-#endif // JUKEBOX_H

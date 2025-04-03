@@ -1,5 +1,4 @@
-#ifndef LEGOLOOPINGANIMPRESENTER_H
-#define LEGOLOOPINGANIMPRESENTER_H
+#pragma once
 
 #include "anim_presenter.h"
 
@@ -24,4 +23,3 @@ private:
 
 // LegoLoopingAnimPresenter::`scalar deleting destructor'
 
-#endif // LEGOLOOPINGANIMPRESENTER_H

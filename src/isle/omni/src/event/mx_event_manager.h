@@ -1,5 +1,4 @@
-#ifndef MXEVENTMANAGER_H
-#define MXEVENTMANAGER_H
+#pragma once
 
 #include "mx_media_manager.h"
 
@@ -18,4 +17,3 @@ private:
 	void Destroy(MxBool p_fromDestructor);
 };
 
-#endif // MXEVENTMANAGER_H

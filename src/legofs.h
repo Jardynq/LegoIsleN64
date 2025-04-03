@@ -1,5 +1,4 @@
-#ifndef LEGOFS_H
-#define LEGOFS_H
+#pragma once
 
 #include <unordered_map>
 #include <vector>
@@ -54,4 +53,3 @@ MxResult legofs_open_audio(u16 index, wav64_t* audio);
 MxResult legofs_open_video(u16 index, mpeg2_t** video);
 MxResult legofs_open_sprite(u16 index, sprite_t** sprite);
 
-#endif // LEGOFS_H

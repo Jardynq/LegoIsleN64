@@ -1,5 +1,4 @@
-#ifndef CARRACE_H
-#define CARRACE_H
+#pragma once
 
 #include "race.h"
 
@@ -56,4 +55,3 @@ private:
 	RaceSkel* m_skeleton;
 };
 
-#endif // CARRACE_H

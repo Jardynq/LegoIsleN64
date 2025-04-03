@@ -1,5 +1,4 @@
-#ifndef LEGOCHARACTERMANAGER_H
-#define LEGOCHARACTERMANAGER_H
+#pragma once
 
 #include "mx_variable.h"
 #include "roi.h"
@@ -152,4 +151,3 @@ private:
 // _Tree<char *,pair<char * const,LegoCharacter *>,map<char *,LegoCharacter *,LegoCharacterComparator,allocator<LegoCharacter *> >::_Kfn,LegoCharacterComparator,allocator<LegoCharacter *> >::_Nil
 // clang-format on
 
-#endif // LEGOCHARACTERMANAGER_H

@@ -1,5 +1,4 @@
-#ifndef DEFINE_H
-#define DEFINE_H
+#pragma once
 
 extern const char* g_parseExtraTokens;
 extern const char* g_strWORLD;
@@ -38,4 +37,3 @@ extern const char* g_strPATH;
 extern const char* g_strCOLLIDEBOX;
 extern const char* g_strHIT_ACTOR_SOUND;
 
-#endif // DEFINE_H

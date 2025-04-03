@@ -1,5 +1,4 @@
-#ifndef LEGOCONTROLMANAGER_H
-#define LEGOCONTROLMANAGER_H
+#pragma once
 
 #include "event_notification_param.h"
 #include "input_manager.h"
@@ -80,4 +79,3 @@ private:
 	LegoNotifyList m_notifyList;
 };
 
-#endif // LEGOCONTROLMANAGER_H

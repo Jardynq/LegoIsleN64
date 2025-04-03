@@ -1,5 +1,4 @@
-#ifndef JUKEBOXENTITY_H
-#define JUKEBOXENTITY_H
+#pragma once
 
 #include "action_sfwd.h"
 #include "entity.h"
@@ -29,4 +28,3 @@ protected:
 	MxBool m_audioEnabled;
 };
 
-#endif // JUKEBOXENTITY_H

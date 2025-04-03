@@ -1,5 +1,4 @@
-#ifndef MXCOMPOSITEPRESENTER_H
-#define MXCOMPOSITEPRESENTER_H
+#pragma once
 
 #include "mx_presenter.h"
 
@@ -60,4 +59,3 @@ protected:
 
 // MxList<MxDSAction *>::DeleteEntry
 
-#endif // MXCOMPOSITEPRESENTER_H

@@ -1,5 +1,4 @@
-#ifndef MXDSSTREAMINGACTION_H
-#define MXDSSTREAMINGACTION_H
+#pragma once
 
 #include "mx_ds_action.h"
 
@@ -60,4 +59,3 @@ private:
 	MxDSAction* m_internalAction;
 };
 
-#endif // MXDSSTREAMINGACTION_H

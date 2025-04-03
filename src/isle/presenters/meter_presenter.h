@@ -1,5 +1,4 @@
-#ifndef LEGOMETERPRESENTER_H
-#define LEGOMETERPRESENTER_H
+#pragma once
 
 #include "mx_rect16.h"
 #include "mx_still_presenter.h"
@@ -41,4 +40,3 @@ private:
 
 // LegoMeterPresenter::`scalar deleting destructor'
 
-#endif // LEGOMETERPRESENTER_H

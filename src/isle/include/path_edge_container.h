@@ -1,5 +1,4 @@
-#ifndef LEGOPATHEDGECONTAINER_H
-#define LEGOPATHEDGECONTAINER_H
+#pragma once
 
 #include "mx_geometry_3d.h"
 
@@ -94,4 +93,3 @@ struct LegoPathEdgeContainer : public list<LegoBoundaryEdge> {
 	MxU8 m_flags;
 };
 
-#endif // LEGOPATHEDGECONTAINER_H

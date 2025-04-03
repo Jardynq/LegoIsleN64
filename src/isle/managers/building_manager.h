@@ -1,5 +1,4 @@
-#ifndef LEGOBUILDINGMANAGER_H
-#define LEGOBUILDINGMANAGER_H
+#pragma once
 
 #include "mx_core.h"
 
@@ -105,4 +104,3 @@ private:
 	LegoWorld* m_world;
 };
 
-#endif // LEGOBUILDINGMANAGER_H

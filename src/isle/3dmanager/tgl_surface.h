@@ -1,5 +1,4 @@
-#ifndef _TglSurface_h
-#define _TglSurface_h
+#pragma once
 
 #include "display.h"
 #include "mx_stopwatch.h"
@@ -62,4 +61,3 @@ private:
 
 // TglSurface::`scalar deleting destructor'
 
-#endif /* _TglSurface_h */

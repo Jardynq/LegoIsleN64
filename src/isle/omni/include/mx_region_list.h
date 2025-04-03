@@ -1,5 +1,4 @@
-#ifndef MXREGIONLIST_H
-#define MXREGIONLIST_H
+#pragma once
 
 #include "mx_list.h"
 
@@ -274,4 +273,3 @@ public:
 
 // MxList<MxRegionTopBottom *>::DeleteEntry
 
-#endif // MXREGIONLIST_H

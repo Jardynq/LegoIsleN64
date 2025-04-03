@@ -1,5 +1,4 @@
-#ifndef MXVIDEOPARAM_H
-#define MXVIDEOPARAM_H
+#pragma once
 
 #include "mx_rect32.h"
 #include "mx_video_param_flags.h"
@@ -34,4 +33,3 @@ private:
 	int m_unk0x1c;
 };
 
-#endif // MXVIDEOPARAM_H

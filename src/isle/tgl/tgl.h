@@ -1,6 +1,5 @@
 
-#ifndef _tgl_h
-#define _tgl_h
+#pragma once
 
 #include "vector.h"
 #include "matrix.h"
@@ -310,4 +309,3 @@ public:
 
 } // namespace Tgl
 
-#endif /* _tgl_h */

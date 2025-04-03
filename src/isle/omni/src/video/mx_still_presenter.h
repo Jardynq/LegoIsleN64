@@ -1,5 +1,4 @@
-#ifndef MXSTILLPRESENTER_H
-#define MXSTILLPRESENTER_H
+#pragma once
 
 #include "mx_video_presenter.h"
 
@@ -40,4 +39,3 @@ private:
 	sprite_t* m_bitmapInfo;
 };
 
-#endif // MXSTILLPRESENTER_H

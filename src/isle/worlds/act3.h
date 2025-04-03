@@ -1,5 +1,4 @@
-#ifndef ACT3_H
-#define ACT3_H
+#pragma once
 
 #include "act3_ammo.h"
 #include "gamestate.h"
@@ -177,4 +176,3 @@ protected:
 
 // Act3List::~Act3List
 
-#endif // ACT3_H

@@ -1,5 +1,4 @@
-#ifndef MXMUSICPRESENTER_H
-#define MXMUSICPRESENTER_H
+#pragma once
 
 #include "mx_audio_presenter.h"
 
@@ -27,4 +26,3 @@ private:
 	void Destroy(MxBool p_fromDestructor);
 };
 
-#endif // MXMUSICPRESENTER_H

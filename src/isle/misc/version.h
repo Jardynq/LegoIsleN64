@@ -1,6 +1,4 @@
-#ifndef __VERSION_H
-#define __VERSION_H
+#pragma once
 
 #define MODEL_VERSION 19
 
-#endif // __VERSION_H

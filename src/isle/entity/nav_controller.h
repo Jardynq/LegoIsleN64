@@ -1,5 +1,4 @@
-#ifndef __LEGONAVCONTROLLER_H
-#define __LEGONAVCONTROLLER_H
+#pragma once
 
 #include "mx_core.h"
 
@@ -155,4 +154,3 @@ protected:
 	static MxBool g_defuseRotationalVel;
 };
 
-#endif // __LEGOPOVCONTROLLER_H

@@ -1,5 +1,4 @@
-#ifndef MXSTREAMCONTROLLER_H
-#define MXSTREAMCONTROLLER_H
+#pragma once
 
 #include "mx_atom.h"
 #include "mx_core.h"
@@ -115,4 +114,3 @@ protected:
 
 // MxUtilityList<MxDSSubscriber *>::Remove
 
-#endif // MXSTREAMCONTROLLER_H

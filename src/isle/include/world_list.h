@@ -1,5 +1,4 @@
-#ifndef LEGOWORLDLIST_H
-#define LEGOWORLDLIST_H
+#pragma once
 
 #include "mx_list.h"
 
@@ -65,4 +64,3 @@ public:
 
 // MxList<LegoWorld *>::DeleteEntry
 
-#endif // LEGOWORLDLIST_H

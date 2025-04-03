@@ -1,5 +1,4 @@
-#ifndef LEGOPATHCONTROLLERLIST_H
-#define LEGOPATHCONTROLLERLIST_H
+#pragma once
 
 #include "path_controller.h"
 #include "mx_list.h"
@@ -87,4 +86,3 @@ public:
 
 // MxListEntry<LegoPathController *>::GetValue
 
-#endif // LEGOPATHCONTROLLERLIST_H

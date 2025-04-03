@@ -1,5 +1,4 @@
-#ifndef MXCOMPOSITEMEDIAPRESENTER_H
-#define MXCOMPOSITEMEDIAPRESENTER_H
+#pragma once
 
 #include "mx_composite_presenter.h"
 
@@ -31,4 +30,3 @@ private:
 
 // MxCompositeMediaPresenter::`scalar deleting destructor'
 
-#endif // MXCOMPOSITEMEDIAPRESENTER_H

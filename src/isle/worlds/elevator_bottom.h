@@ -1,5 +1,4 @@
-#ifndef ELEVATORBOTTOM_H
-#define ELEVATORBOTTOM_H
+#pragma once
 
 #include "gamestate.h"
 #include "world.h"
@@ -34,4 +33,3 @@ private:
 	MxLong HandleControl(LegoControlManagerNotificationParam& p_param);
 };
 
-#endif // ELEVATORBOTTOM_H

@@ -1,5 +1,4 @@
-#ifndef PIZZERIA_H
-#define PIZZERIA_H
+#pragma once
 
 #include "action_sfwd.h"
 #include "isle_actor.h"
@@ -56,4 +55,3 @@ private:
 	PizzaMissionState* m_pizzaMissionState;
 };
 
-#endif // PIZZERIA_H

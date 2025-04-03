@@ -1,5 +1,4 @@
-#ifndef LEGORACE_H
-#define LEGORACE_H
+#pragma once
 
 #include "gamestate.h"
 #include "race_actor.h"
@@ -130,4 +129,3 @@ protected:
 	RaceState* m_raceState;
 };
 
-#endif // LEGORACE_H

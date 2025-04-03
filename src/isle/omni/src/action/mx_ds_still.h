@@ -1,5 +1,4 @@
-#ifndef MXDSSTILL_H
-#define MXDSSTILL_H
+#pragma once
 
 #include "mx_ds_media_action.h"
 
@@ -23,4 +22,3 @@ public:
 	// MxDSStill::`scalar deleting destructor'
 };
 
-#endif // MXDSSTILL_H

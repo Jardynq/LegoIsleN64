@@ -1,5 +1,4 @@
-#ifndef MXDSOBJECTACTION_H
-#define MXDSOBJECTACTION_H
+#pragma once
 
 #include "mx_ds_media_action.h"
 
@@ -23,4 +22,3 @@ public:
 	// MxDSObjectAction::`scalar deleting destructor'
 };
 
-#endif // MXDSOBJECTACTION_H

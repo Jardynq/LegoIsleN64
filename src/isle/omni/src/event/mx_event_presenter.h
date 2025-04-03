@@ -1,5 +1,4 @@
-#ifndef MXEVENTPRESENTER_H
-#define MXEVENTPRESENTER_H
+#pragma once
 
 #include "mx_media_presenter.h"
 
@@ -32,4 +31,3 @@ private:
 	MxU8* m_data;
 };
 
-#endif // MXEVENTPRESENTER_H

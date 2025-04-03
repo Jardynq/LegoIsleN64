@@ -1,5 +1,4 @@
-#ifndef LEGOVARIABLES_H
-#define LEGOVARIABLES_H
+#pragma once
 
 #include "mx_variable.h"
 
@@ -46,4 +45,3 @@ public:
 	void SetValue(const char* p_value) override;
 };
 
-#endif // LEGOVARIABLES_H

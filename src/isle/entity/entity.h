@@ -1,5 +1,4 @@
-#ifndef LEGOENTITY_H
-#define LEGOENTITY_H
+#pragma once
 
 #include "extra.h"
 #include "mx_entity.h"
@@ -104,4 +103,3 @@ protected:
 
 // LegoEntity::`scalar deleting destructor'
 
-#endif // LEGOENTITY_H

@@ -1,5 +1,4 @@
-#ifndef LEGOLOADCACHESOUNDPRESENTER_H
-#define LEGOLOADCACHESOUNDPRESENTER_H
+#pragma once
 
 #include "mx_wave_presenter.h"
 
@@ -34,4 +33,3 @@ private:
 
 // LegoLoadCacheSoundPresenter::`scalar deleting destructor'
 
-#endif // LEGOLOADCACHESOUNDPRESENTER_H

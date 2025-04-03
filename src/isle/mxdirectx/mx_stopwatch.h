@@ -1,5 +1,4 @@
-#ifndef _MxStopWatch_h
-#define _MxStopWatch_h
+#pragma once
 
 #include "assert.h"
 #include "timer.h"
@@ -130,4 +129,3 @@ inline double MxFrequencyMeter::ElapsedSeconds() const {
 
 // MxFrequencyMeter::~MxFrequencyMeter
 
-#endif /* _MxStopWatch_h */

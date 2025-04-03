@@ -1,5 +1,4 @@
-#ifndef __LEGOWEEDGE_H
-#define __LEGOWEEDGE_H
+#pragma once
 
 struct LegoUnknown100db7f4;
 
@@ -30,4 +29,3 @@ protected:
 	LegoUnknown100db7f4** m_edges;
 };
 
-#endif // __LEGOWEEDGE_H

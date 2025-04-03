@@ -1,5 +1,4 @@
-#ifndef __LEGOEDGE_H
-#define __LEGOEDGE_H
+#pragma once
 
 class LegoWEEdge;
 class Vector3;
@@ -35,4 +34,3 @@ struct LegoEdge {
 	Vector3* m_pointB;
 };
 
-#endif // __LEGOEDGE_H

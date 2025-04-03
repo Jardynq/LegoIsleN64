@@ -1,5 +1,4 @@
-#ifndef LEGORACERS_H
-#define LEGORACERS_H
+#pragma once
 
 // clang-format off
 #include "race_special.h"
@@ -166,4 +165,3 @@ private:
 
 // LegoJetski::`vbtable'{for `LegoJetskiRaceActor'}
 
-#endif // LEGORACERS_H

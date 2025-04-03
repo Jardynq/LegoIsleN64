@@ -1,5 +1,4 @@
-#ifndef LEGOCACHESOUNDLIST_H
-#define LEGOCACHESOUNDLIST_H
+#pragma once
 
 #include "cach_sound.h"
 #include "mx_list.h"
@@ -20,4 +19,3 @@ public:
 		: MxPtrListCursor<LegoCacheSound>(p_list) {}
 };
 
-#endif // LEGOCACHESOUNDLIST_H

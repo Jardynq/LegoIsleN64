@@ -1,5 +1,4 @@
-#ifndef JETSKIRACE_H
-#define JETSKIRACE_H
+#pragma once
 
 #include "race.h"
 
@@ -43,4 +42,3 @@ public:
 
 // JetskiRace::~JetskiRace
 
-#endif // JETSKIRACE_H

@@ -1,5 +1,4 @@
-#ifndef LEGOINPUTMANAGER_H
-#define LEGOINPUTMANAGER_H
+#pragma once
 
 #include "event_notification_param.h"
 #include "mx_list.h"
@@ -209,4 +208,3 @@ private:
 
 // MxListEntry<LegoEventNotificationParam>::GetValue
 
-#endif // LEGOINPUTMANAGER_H

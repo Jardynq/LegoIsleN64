@@ -1,5 +1,4 @@
-#ifndef MXAUDIOMANAGER_H
-#define MXAUDIOMANAGER_H
+#pragma once
 
 #include "mx_media_manager.h"
 
@@ -28,4 +27,3 @@ protected:
 	MxS32 m_volume;
 };
 
-#endif // MXAUDIOMANAGER_H

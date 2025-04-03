@@ -1,5 +1,4 @@
-#ifndef MXSIZE32_H
-#define MXSIZE32_H
+#pragma once
 
 class MxSize32 {
 public:
@@ -19,4 +18,3 @@ private:
 	MxS32 m_height;
 };
 
-#endif // MXSIZE32_H

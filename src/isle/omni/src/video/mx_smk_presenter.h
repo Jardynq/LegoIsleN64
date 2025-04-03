@@ -1,5 +1,4 @@
-#ifndef MXSMKPRESENTER_H
-#define MXSMKPRESENTER_H
+#pragma once
 
 #include "mx_smk.h"
 #include "mx_video_presenter.h"
@@ -37,4 +36,3 @@ protected:
 	MxU32 m_currentFrame;
 };
 
-#endif // MXSMKPRESENTER_H

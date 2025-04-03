@@ -1,5 +1,4 @@
-#ifndef MXVIDEOMANAGER_H
-#define MXVIDEOMANAGER_H
+#pragma once
 
 #include "mx_media_manager.h"
 #include "mx_video_param.h"
@@ -49,4 +48,3 @@ protected:
 	MxBool m_unk0x60;
 };
 
-#endif // MXVIDEOMANAGER_H

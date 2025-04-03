@@ -1,5 +1,4 @@
-#ifndef RACESKEL_H
-#define RACESKEL_H
+#pragma once
 
 #include "anim_actor.h"
 
@@ -27,4 +26,3 @@ private:
 
 // RaceSkel::`vbtable'
 
-#endif // RACESKEL_H

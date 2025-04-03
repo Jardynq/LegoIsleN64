@@ -1,5 +1,4 @@
-#ifndef LEGOGAMESTATE_H
-#define LEGOGAMESTATE_H
+#pragma once
 
 #include "action_sfwd.h"
 #include "mx_variable.h"
@@ -251,4 +250,3 @@ MxBool ROIHandlerFunction(const char* p_input, char* p_output, MxU32 p_copyLen);
 
 // LegoGameState::ScoreItem::ScoreItem
 
-#endif // LEGOGAMESTATE_H

@@ -1,5 +1,4 @@
-#ifndef MXVIDEOPRESENTER_H
-#define MXVIDEOPRESENTER_H
+#pragma once
 
 #include "mx_media_presenter.h"
 
@@ -108,4 +107,3 @@ protected:
 	MxLong m_unk0x60;
 };
 
-#endif // MXVIDEOPRESENTER_H

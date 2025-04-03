@@ -1,5 +1,4 @@
-#ifndef LEGOTRANINFO_H
-#define LEGOTRANINFO_H
+#pragma once
 
 #include "mx_matrix.h"
 
@@ -40,4 +39,3 @@ struct LegoTranInfo {
 	MxU32 m_flags;
 };
 
-#endif // LEGOTRANINFO_H

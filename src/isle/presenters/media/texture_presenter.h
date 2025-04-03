@@ -1,5 +1,4 @@
-#ifndef LEGOTEXTUREPRESENTER_H
-#define LEGOTEXTUREPRESENTER_H
+#pragma once
 
 #include "named_texture_list.h"
 #include "mx_media_presenter.h"
@@ -31,4 +30,3 @@ private:
 	LegoNamedTextureList* m_textures;
 };
 
-#endif // LEGOTEXTUREPRESENTER_H

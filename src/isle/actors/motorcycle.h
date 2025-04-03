@@ -1,5 +1,4 @@
-#ifndef MOTORCYCLE_H
-#define MOTORCYCLE_H
+#pragma once
 
 #include "isle_path_actor.h"
 
@@ -31,4 +30,3 @@ private:
 	MxFloat m_time;
 };
 
-#endif // MOTORCYCLE_H

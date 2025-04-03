@@ -1,5 +1,4 @@
-#ifndef MXPOINT32_H
-#define MXPOINT32_H
+#pragma once
 
 class MxPoint32 {
 public:
@@ -25,4 +24,3 @@ private:
 	MxS32 m_y;
 };
 
-#endif // MXPOINT32_H

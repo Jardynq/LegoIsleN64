@@ -1,5 +1,4 @@
-#ifndef MXSTREAMCHUNK_H
-#define MXSTREAMCHUNK_H
+#pragma once
 
 #include "mx_ds_chunk.h"
 
@@ -41,4 +40,3 @@ private:
 
 // MxStreamChunk::`scalar deleting destructor'
 
-#endif // MXSTREAMCHUNK_H

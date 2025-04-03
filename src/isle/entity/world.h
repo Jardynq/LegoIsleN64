@@ -1,5 +1,4 @@
-#ifndef LEGOWORLD_H
-#define LEGOWORLD_H
+#pragma once
 
 #include "mx_presenter_list.h"
 #include "entity_list.h"
@@ -114,4 +113,3 @@ protected:
 	undefined m_unk0xf7;
 };
 
-#endif // LEGOWORLD_H

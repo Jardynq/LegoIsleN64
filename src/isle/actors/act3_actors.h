@@ -1,5 +1,4 @@
-#ifndef ACT3ACTORS_H
-#define ACT3ACTORS_H
+#pragma once
 
 #include "anim_actor.h"
 
@@ -161,4 +160,3 @@ private:
 
 // Act3Shark::`vbtable'
 
-#endif // ACT3ACTORS_H

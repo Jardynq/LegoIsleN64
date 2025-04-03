@@ -1,5 +1,4 @@
-#ifndef __LEGOIMAGE_H
-#define __LEGOIMAGE_H
+#pragma once
 
 class LegoStorage;
 
@@ -50,4 +49,3 @@ protected:
 	LegoU8* m_bits;
 };
 
-#endif // __LEGOIMAGE_H

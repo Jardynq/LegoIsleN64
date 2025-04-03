@@ -1,5 +1,4 @@
-#ifndef LEGOANIMPRESENTER_H
-#define LEGOANIMPRESENTER_H
+#pragma once
 
 #include "roi_list.h"
 #include "mx_atom.h"
@@ -208,4 +207,3 @@ public:
 // _Tree<char const *,pair<char const * const,LegoAnimStruct>,map<char const *,LegoAnimStruct,LegoAnimStructComparator,allocator<LegoAnimStruct> >::_Kfn,LegoAnimStructComparator,allocator<LegoAnimStruct> >::_Nil
 // clang-format on
 
-#endif // LEGOANIMPRESENTER_H

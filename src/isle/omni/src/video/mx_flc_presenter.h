@@ -1,5 +1,4 @@
-#ifndef MXFLCPRESENTER_H
-#define MXFLCPRESENTER_H
+#pragma once
 
 #include "mx_video_presenter.h"
 
@@ -28,4 +27,3 @@ protected:
 	FLIC_HEADER* m_flcHeader;
 };
 
-#endif // MXFLCPRESENTER_H

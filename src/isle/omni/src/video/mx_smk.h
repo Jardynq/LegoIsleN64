@@ -1,5 +1,4 @@
-#ifndef MXSMK_H
-#define MXSMK_H
+#pragma once
 
 #include "mx_rect_list.h"
 
@@ -47,4 +46,3 @@ struct MxSmk {
 	GetRect(MxU8* p_unk0x6b4, MxU16* p_und, u32* p_smackRect, MxRect32* p_rect);
 };
 
-#endif // MXSMK_H

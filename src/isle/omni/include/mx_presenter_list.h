@@ -1,5 +1,4 @@
-#ifndef MXPRESENTERLIST_H
-#define MXPRESENTERLIST_H
+#pragma once
 
 #include "mx_list.h"
 #include "mx_presenter.h"
@@ -76,4 +75,3 @@ public:
 
 // MxListCursor<MxPresenter *>::Prev
 
-#endif // MXPRESENTERLIST_H

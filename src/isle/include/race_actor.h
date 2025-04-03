@@ -1,5 +1,4 @@
-#ifndef LEGORACEACTOR_H
-#define LEGORACEACTOR_H
+#pragma once
 
 #include "anim_actor.h"
 
@@ -35,4 +34,3 @@ private:
 
 // LegoRaceActor::`vbtable'{for `LegoAnimActor'}
 
-#endif // LEGORACEACTOR_H

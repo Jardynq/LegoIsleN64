@@ -1,5 +1,4 @@
-#ifndef MXRECT32_H
-#define MXRECT32_H
+#pragma once
 
 #include "mx_point32.h"
 #include "mx_size32.h"
@@ -115,4 +114,3 @@ private:
 	MxS32 m_bottom;
 };
 
-#endif // MXRECT32_H

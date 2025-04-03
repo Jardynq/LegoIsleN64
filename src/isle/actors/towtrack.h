@@ -1,5 +1,4 @@
-#ifndef TOWTRACK_H
-#define TOWTRACK_H
+#pragma once
 
 #include "isle_path_actor.h"
 #include "state.h"
@@ -169,4 +168,3 @@ private:
 	MxFloat m_time;
 };
 
-#endif // TOWTRACK_H

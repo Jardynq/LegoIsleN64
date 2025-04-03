@@ -1,5 +1,4 @@
-#ifndef __LEGOBOX_H
-#define __LEGOBOX_H
+#pragma once
 
 #include "vertex.h"
 
@@ -28,4 +27,3 @@ protected:
 	LegoVertex m_max;
 };
 
-#endif // __LEGOBOX_H

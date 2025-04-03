@@ -1,5 +1,4 @@
-#ifndef LEGOEXTRAACTOR_H
-#define LEGOEXTRAACTOR_H
+#pragma once
 
 #include "anim_actor.h"
 
@@ -69,4 +68,3 @@ private:
 
 // ?uninitialized_copy@@YAPAPAEPAPAE00@Z
 
-#endif // LEGOEXTRAACTOR_H

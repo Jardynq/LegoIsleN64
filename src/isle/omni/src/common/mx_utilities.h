@@ -1,5 +1,4 @@
-#ifndef MXUTILITIES_H
-#define MXUTILITIES_H
+#pragma once
 
 #include <string.h>
 
@@ -77,4 +76,3 @@ MxBool ContainsPresenter(
 void FUN_100b7220(MxDSAction* p_action, MxU32 p_newFlags, MxBool p_setFlags);
 MxBool KeyValueStringParse(char*, const char*, const char*);
 
-#endif // MXUTILITIES_H

@@ -1,5 +1,4 @@
-#ifndef MXWAVEPRESENTER_H
-#define MXWAVEPRESENTER_H
+#pragma once
 
 #include "mx_sound_presenter.h"
 
@@ -62,4 +61,3 @@ protected:
 	MxBool m_paused;
 };
 
-#endif // MXWAVEPRESENTER_H

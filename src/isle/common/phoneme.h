@@ -1,5 +1,4 @@
-#ifndef LEGOPHONEME_H
-#define LEGOPHONEME_H
+#pragma once
 
 #include "mx_string.h"
 
@@ -34,4 +33,3 @@ private:
 	LegoTextureInfo* m_unk0x1c;
 };
 
-#endif // LEGOPHONEME_H

@@ -1,5 +1,4 @@
-#ifndef MXNEXTACTIONDATASTART_H
-#define MXNEXTACTIONDATASTART_H
+#pragma once
 
 #include "mx_core.h"
 
@@ -29,4 +28,3 @@ private:
 	MxU32 m_data;
 };
 
-#endif // MXNEXTACTIONDATASTART_H

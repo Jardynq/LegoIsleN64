@@ -1,5 +1,4 @@
-#ifndef MXREGIONCURSOR_H
-#define MXREGIONCURSOR_H
+#pragma once
 
 #include "mx_region.h"
 
@@ -37,4 +36,3 @@ private:
 
 // MxRegionCursor::`scalar deleting destructor'
 
-#endif // MXREGIONCURSOR_H

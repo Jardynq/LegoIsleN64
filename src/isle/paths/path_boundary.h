@@ -1,5 +1,4 @@
-#ifndef LEGOPATHBOUNDARY_H
-#define LEGOPATHBOUNDARY_H
+#pragma once
 
 #include "weg_edge.h"
 #include "anim_presenter.h"
@@ -212,4 +211,3 @@ private:
 // _Tree<LegoAnimPresenter *,LegoAnimPresenter *,set<LegoAnimPresenter *,LegoAnimPresenterSetCompare,allocator<LegoAnimPresenter *> >::_Kfn,LegoAnimPresenterSetCompare,allocator<LegoAnimPresenter *> >::_Nil
 // clang-format on
 
-#endif // LEGOPATHBOUNDARY_H

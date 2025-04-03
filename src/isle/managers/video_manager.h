@@ -1,5 +1,4 @@
-#ifndef LEGOVIDEOMANAGER_H
-#define LEGOVIDEOMANAGER_H
+#pragma once
 
 #include "phoneme_list.h"
 #include "mx_video_manager.h"
@@ -120,4 +119,3 @@ private:
 
 // LegoVideoManager::`scalar deleting destructor'
 
-#endif // LEGOVIDEOMANAGER_H

@@ -1,5 +1,4 @@
-#ifndef MXGEOMETRY4D_H
-#define MXGEOMETRY4D_H
+#pragma once
 
 #include "vector.h"
 
@@ -36,4 +35,3 @@ private:
 	float m_elements[4];
 };
 
-#endif // MXGEOMETRY4D_H

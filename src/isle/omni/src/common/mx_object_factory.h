@@ -1,5 +1,4 @@
-#ifndef MXOBJECTFACTORY_H
-#define MXOBJECTFACTORY_H
+#pragma once
 
 #include "mx_atom.h"
 #include "mx_core.h"
@@ -42,4 +41,3 @@ private:
 #undef X
 };
 
-#endif // MXOBJECTFACTORY_H

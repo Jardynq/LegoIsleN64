@@ -1,5 +1,4 @@
-#ifndef LEGOWORLDPRESENTER_H
-#define LEGOWORLDPRESENTER_H
+#pragma once
 
 #include "entity_presenter.h"
 
@@ -44,4 +43,3 @@ private:
 	undefined4 m_unk0x50;
 };
 
-#endif // LEGOWORLDPRESENTER_H

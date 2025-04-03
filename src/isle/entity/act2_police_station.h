@@ -1,5 +1,4 @@
-#ifndef ACT2POLICESTATION_H
-#define ACT2POLICESTATION_H
+#pragma once
 
 #include "entity.h"
 
@@ -17,4 +16,3 @@ public:
 	// Act2PoliceStation::`scalar deleting destructor'
 };
 
-#endif // ACT2POLICESTATION_H

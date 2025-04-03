@@ -1,5 +1,4 @@
-#ifndef __LEGOANIM_H
-#define __LEGOANIM_H
+#pragma once
 
 #include "storage.h"
 #include "tree.h"
@@ -318,4 +317,3 @@ protected:
 	LegoTreeNodeData* CreateData() override { return new LegoAnimNodeData(); }
 };
 
-#endif // __LEGOANIM_H

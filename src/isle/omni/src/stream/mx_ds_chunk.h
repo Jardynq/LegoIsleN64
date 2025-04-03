@@ -1,5 +1,4 @@
-#ifndef MXDSCHUNK_H
-#define MXDSCHUNK_H
+#pragma once
 
 #include "mx_core.h"
 
@@ -62,4 +61,3 @@ protected:
 	MxU8* m_data;
 };
 
-#endif // MXDSCHUNK_H

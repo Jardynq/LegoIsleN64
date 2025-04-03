@@ -1,5 +1,4 @@
-#ifndef LEGOSOUNDMANAGER_H
-#define LEGOSOUNDMANAGER_H
+#pragma once
 
 #include "cache_sound_manager.h"
 #include "mx_atom.h"
@@ -40,4 +39,3 @@ private:
 
 // IID_IDirectSound3DListener
 
-#endif // LEGOSOUNDMANAGER_H

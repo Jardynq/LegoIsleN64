@@ -1,5 +1,4 @@
-#ifndef MXDSFILE_H
-#define MXDSFILE_H
+#pragma once
 
 #include "mx_ds_source.h"
 #include "mx_io.h"
@@ -57,4 +56,3 @@ private:
 	MxULong m_skipReadingChunks;
 };
 
-#endif // MXDSFILE_H

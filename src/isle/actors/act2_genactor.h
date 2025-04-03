@@ -1,5 +1,4 @@
-#ifndef ACT2GENACTOR_H
-#define ACT2GENACTOR_H
+#pragma once
 
 #include "path_actor.h"
 
@@ -12,4 +11,3 @@ private:
 	static MxLong g_lastHitActorTime;
 };
 
-#endif // ACT2GENACTOR_H

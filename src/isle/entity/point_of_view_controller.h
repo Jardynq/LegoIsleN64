@@ -1,5 +1,4 @@
-#ifndef LEGOPOINTOFVIEWCONTROLLER_H
-#define LEGOPOINTOFVIEWCONTROLLER_H
+#pragma once
 
 #include "mx_core.h"
 #include "mx_point32.h"
@@ -84,4 +83,3 @@ protected:
 
 // LegoPointOfViewController::`scalar deleting destructor'
 
-#endif /* LEGOPOINTOFVIEWCONTROLLER_H */

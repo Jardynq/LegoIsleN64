@@ -1,5 +1,4 @@
-#ifndef LEGOACTORS_H
-#define LEGOACTORS_H
+#pragma once
 
 class LegoExtraActor;
 class LegoROI;
@@ -67,4 +66,3 @@ enum LegoActorParts {
 extern LegoActorInfo g_actorInfoInit[66];
 extern LegoActorLOD g_actorLODs[11];
 
-#endif // LEGOACTORS_H

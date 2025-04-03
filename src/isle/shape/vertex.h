@@ -1,5 +1,4 @@
-#ifndef __LEGOVERTEX_H
-#define __LEGOVERTEX_H
+#pragma once
 
 class LegoStorage;
 
@@ -29,4 +28,3 @@ protected:
 	LegoFloat m_coordinates[3];
 };
 
-#endif // __LEGOVERTEX_H

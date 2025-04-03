@@ -1,5 +1,4 @@
-#ifndef DOORS_H
-#define DOORS_H
+#pragma once
 
 #include "path_actor.h"
 
@@ -33,4 +32,3 @@ private:
 	MxFloat m_unk0x1f4;
 };
 
-#endif // DOORS_H

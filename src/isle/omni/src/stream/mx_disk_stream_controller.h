@@ -1,5 +1,4 @@
-#ifndef MXDISKSTREAMCONTROLLER_H
-#define MXDISKSTREAMCONTROLLER_H
+#pragma once
 
 #include "mx_ds_buffer.h"
 #include "mx_stream_controller.h"
@@ -78,4 +77,3 @@ private:
 
 // MxUtilityList<MxDSObject *>::PushBack
 
-#endif // MXDISKSTREAMCONTROLLER_H

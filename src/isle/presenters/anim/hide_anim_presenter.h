@@ -1,5 +1,4 @@
-#ifndef LEGOHIDEANIMPRESENTER_H
-#define LEGOHIDEANIMPRESENTER_H
+#pragma once
 
 #include "looping_anim_presenter.h"
 
@@ -93,4 +92,3 @@ private:
 // _Tree<char const *,pair<char const * const,LegoHideAnimStruct>,map<char const *,LegoHideAnimStruct,LegoHideAnimStructComparator,allocator<LegoHideAnimStruct> >::_Kfn,LegoHideAnimStructComparator,allocator<LegoHideAnimStruct> >::_Nil
 // clang-format on
 
-#endif // LEGOHIDEANIMPRESENTER_H

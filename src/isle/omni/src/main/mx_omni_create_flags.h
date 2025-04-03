@@ -1,5 +1,4 @@
-#ifndef MXOMNICREATEFLAGS_H
-#define MXOMNICREATEFLAGS_H
+#pragma once
 
 class MxOmniCreateFlags {
 public:
@@ -38,4 +37,3 @@ private:
 	FlagBitfield m_flags2;
 };
 
-#endif // MXOMNICREATEFLAGS_H

@@ -1,5 +1,4 @@
-#ifndef MATH_H
-#define MATH_H
+#pragma once
 
 #ifndef sizeOfArray
 #define sizeOfArray(arr) (sizeof(arr) / sizeof((arr)[0]))
@@ -25,4 +24,3 @@ T RToD(T rad);
 template <class T>
 void Swap(T& a, T& b);
 
-#endif // MATH_H

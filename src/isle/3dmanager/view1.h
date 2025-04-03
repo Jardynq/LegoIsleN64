@@ -1,5 +1,4 @@
-#ifndef _LegoView1_h
-#define _LegoView1_h
+#pragma once
 
 #include "tgl_surface.h"
 
@@ -70,4 +69,3 @@ private:
 
 // LegoView1::`scalar deleting destructor'
 
-#endif /* _LegoView1_h */

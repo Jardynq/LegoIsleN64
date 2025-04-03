@@ -1,5 +1,4 @@
-#ifndef MXRECT16_H
-#define MXRECT16_H
+#pragma once
 
 struct MxRect16 {
 
@@ -32,4 +31,3 @@ private:
 	MxS16 m_bottom;
 };
 
-#endif // MXRECT16_H

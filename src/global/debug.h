@@ -1,5 +1,4 @@
-#ifndef DEBUG_H
-#define DEBUG_H
+#pragma once
 
 #define __FILENAME__                                                           \
 	(strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
@@ -24,4 +23,3 @@
 #define log_error(msg, ...) __log_internal("ERROR", msg, ##__VA_ARGS__)
 #define log_unimpl() __log_internal("UNIMPLEMENTED", "")
 
-#endif // DEBUG_H

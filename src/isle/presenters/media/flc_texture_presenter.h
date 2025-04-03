@@ -1,5 +1,4 @@
-#ifndef LEGOFLCTEXTUREPRESENTER_H
-#define LEGOFLCTEXTUREPRESENTER_H
+#pragma once
 
 #include "mx_flc_presenter.h"
 
@@ -26,4 +25,3 @@ private:
 	LegoTextureInfo* m_texture;
 };
 
-#endif // LEGOFLCTEXTUREPRESENTER_H

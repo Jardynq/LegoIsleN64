@@ -1,5 +1,4 @@
-#ifndef INFOCENTERDOOR_H
-#define INFOCENTERDOOR_H
+#pragma once
 
 #include "gamestate.h"
 #include "world.h"
@@ -34,4 +33,3 @@ private:
 	MxLong HandleControl(LegoControlManagerNotificationParam& p_param);
 };
 
-#endif // INFOCENTERDOOR_H

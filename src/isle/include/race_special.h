@@ -1,5 +1,4 @@
-#ifndef LEGOCARRACEACTOR_H
-#define LEGOCARRACEACTOR_H
+#pragma once
 
 #include "race_actor.h"
 
@@ -114,4 +113,3 @@ public:
 
 // LegoJetskiRaceActor::`vbtable'{for `LegoCarRaceActor'}
 
-#endif // LEGOCARRACEACTOR_H

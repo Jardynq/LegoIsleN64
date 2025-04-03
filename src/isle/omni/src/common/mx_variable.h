@@ -1,5 +1,4 @@
-#ifndef MXVARIABLE_H
-#define MXVARIABLE_H
+#pragma once
 
 #include "mx_core.h"
 #include "mx_string.h"
@@ -31,4 +30,3 @@ protected:
 
 // MxVariable::~MxVariable
 
-#endif // MXVARIABLE_H

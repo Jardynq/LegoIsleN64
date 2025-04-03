@@ -1,5 +1,4 @@
-#ifndef MXDSMEDIAACTION_H
-#define MXDSMEDIAACTION_H
+#pragma once
 
 #include "mx_ds_action.h"
 
@@ -60,4 +59,3 @@ private:
 	undefined4 m_unk0xb4;
 };
 
-#endif // MXDSMEDIAACTION_H

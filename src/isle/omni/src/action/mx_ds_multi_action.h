@@ -1,5 +1,4 @@
-#ifndef MXDSMULTIACTION_H
-#define MXDSMULTIACTION_H
+#pragma once
 
 #include "mx_ds_action.h"
 #include "mx_ds_action_list.h"
@@ -45,4 +44,3 @@ protected:
 
 // MxDSActionListCursor::~MxDSActionListCursor
 
-#endif // MXDSMULTIACTION_H

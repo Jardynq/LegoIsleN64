@@ -1,5 +1,4 @@
-#ifndef ISLEAPP_H
-#define ISLEAPP_H
+#pragma once
 
 #include "mx_video_param.h"
 
@@ -51,4 +50,3 @@ public:
 	HCURSOR m_cursorCurrent;
 };
 
-#endif // ISLEAPP_H

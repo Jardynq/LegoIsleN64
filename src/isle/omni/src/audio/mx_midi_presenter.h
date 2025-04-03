@@ -1,5 +1,4 @@
-#ifndef MXMIDIPRESENTER_H
-#define MXMIDIPRESENTER_H
+#pragma once
 
 #include "mx_music_presenter.h"
 
@@ -38,4 +37,3 @@ protected:
 	MxStreamChunk* m_chunk;
 };
 
-#endif // MXMIDIPRESENTER_H

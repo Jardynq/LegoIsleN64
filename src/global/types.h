@@ -1,5 +1,4 @@
-#ifndef TYPES_H
-#define TYPES_H
+#pragma once
 
 #include <algorithm>
 #include <list>
@@ -157,4 +156,3 @@ typedef union {
 		u8 m_bit7 : 1;
 	};
 } FlagBitfield;
-#endif // TYPES_H

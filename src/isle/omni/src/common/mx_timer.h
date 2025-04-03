@@ -1,5 +1,4 @@
-#ifndef MXTIMER_H
-#define MXTIMER_H
+#pragma once
 
 #include "mx_core.h"
 
@@ -35,4 +34,3 @@ private:
 
 // MxTimer::~MxTimer
 
-#endif // MXTIMER_H

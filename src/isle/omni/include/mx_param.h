@@ -1,5 +1,4 @@
-#ifndef MXPARAM_H
-#define MXPARAM_H
+#pragma once
 
 class MxParam {
 public:
@@ -10,4 +9,3 @@ public:
 
 // MxParam::`scalar deleting destructor'
 
-#endif // MXPARAM_H

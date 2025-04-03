@@ -1,5 +1,4 @@
-#ifndef MXVIDEOPARAMFLAGS_H
-#define MXVIDEOPARAMFLAGS_H
+#pragma once
 
 class MxVideoParamFlags {
 public:
@@ -33,4 +32,3 @@ private:
 	FlagBitfield m_flags2;
 };
 
-#endif // MXVIDEOPARAMFLAGS_H

@@ -1,5 +1,4 @@
-#ifndef MXVARIABLETABLE_H
-#define MXVARIABLETABLE_H
+#pragma once
 
 #include "mx_hashtable.h"
 #include "mx_variable.h"
@@ -69,4 +68,3 @@ public:
 
 // MxHashTable<MxVariable *>::DeleteAll
 
-#endif // MXVARIABLETABLE_H

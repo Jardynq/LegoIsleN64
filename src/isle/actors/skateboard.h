@@ -1,5 +1,4 @@
-#ifndef SKATEBOARD_H
-#define SKATEBOARD_H
+#pragma once
 
 #include "isle_path_actor.h"
 
@@ -37,4 +36,3 @@ private:
 	Act1State* m_act1state;
 };
 
-#endif // SKATEBOARD_H

@@ -1,5 +1,4 @@
-#ifndef BUILDINGENTITY_H
-#define BUILDINGENTITY_H
+#pragma once
 
 #include "entity.h"
 
@@ -24,4 +23,3 @@ public:
 	// BuildingEntity::`scalar deleting destructor'
 };
 
-#endif // BUILDINGENTITY_H

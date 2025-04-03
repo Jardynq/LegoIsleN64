@@ -1,5 +1,4 @@
-#ifndef LEGOMAIN_H
-#define LEGOMAIN_H
+#pragma once
 
 #include "mx_ds_action.h"
 #include "mx_omni.h"
@@ -197,4 +196,3 @@ public:
 	MxBool m_unk0x13c;
 };
 
-#endif // LEGOMAIN_H

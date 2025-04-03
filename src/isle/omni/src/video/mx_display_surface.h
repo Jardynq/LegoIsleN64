@@ -1,5 +1,4 @@
-#ifndef MXDISPLAYSURFACE_H
-#define MXDISPLAYSURFACE_H
+#pragma once
 
 #include "mx_core.h"
 #include "mx_video_param.h"
@@ -125,4 +124,3 @@ private:
 
 // MxDisplaySurface::`scalar deleting destructor'
 
-#endif // MXDISPLAYSURFACE_H

@@ -1,5 +1,4 @@
-#ifndef MXDSEVENT_H
-#define MXDSEVENT_H
+#pragma once
 
 #include "mx_ds_media_action.h"
 
@@ -23,4 +22,3 @@ public:
 	// MxDSEvent::`scalar deleting destructor'
 };
 
-#endif // MXDSEVENT_H

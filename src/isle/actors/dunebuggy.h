@@ -1,5 +1,4 @@
-#ifndef DUNEBUGGY_H
-#define DUNEBUGGY_H
+#pragma once
 
 #include "isle_path_actor.h"
 
@@ -33,4 +32,3 @@ private:
 	MxFloat m_time;
 };
 
-#endif // DUNEBUGGY_H

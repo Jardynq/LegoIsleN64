@@ -1,5 +1,4 @@
-#ifndef MXDSSUBSCRIBER_H
-#define MXDSSUBSCRIBER_H
+#pragma once
 
 #include "mx_core.h"
 #include "mx_stream_chunk_list.h"
@@ -54,4 +53,3 @@ private:
 
 // MxUtilityList<MxDSSubscriber *>::PopFront
 
-#endif // MXDSSUBSCRIBER_H

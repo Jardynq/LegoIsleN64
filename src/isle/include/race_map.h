@@ -1,5 +1,4 @@
-#ifndef LEGORACEMAP_H
-#define LEGORACEMAP_H
+#pragma once
 
 #include "race_actor.h"
 
@@ -53,4 +52,3 @@ private:
 
 // LegoRaceMap::`vbtable'{for `LegoRaceActor'}
 
-#endif // LEGORACEMAP_H

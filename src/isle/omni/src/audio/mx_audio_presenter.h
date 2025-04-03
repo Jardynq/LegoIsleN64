@@ -1,5 +1,4 @@
-#ifndef MXAUDIOPRESENTER_H
-#define MXAUDIOPRESENTER_H
+#pragma once
 
 #include "mx_media_presenter.h"
 
@@ -28,4 +27,3 @@ protected:
 
 // MxAudioPresenter::~MxAudioPresenter
 
-#endif // MXAUDIOPRESENTER_H

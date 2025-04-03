@@ -1,5 +1,4 @@
-#ifndef MXDSACTIONLIST_H
-#define MXDSACTIONLIST_H
+#pragma once
 
 #include "mx_ds_action.h"
 #include "mx_list.h"
@@ -86,4 +85,3 @@ public:
 
 // MxList<MxDSAction *>::DeleteAll
 
-#endif // MXDSACTIONLIST_H

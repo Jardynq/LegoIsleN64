@@ -1,5 +1,4 @@
-#ifndef MXCORE_H
-#define MXCORE_H
+#pragma once
 
 #include <string.h>
 
@@ -27,4 +26,3 @@ private:
 	MxU32 m_id;
 };
 
-#endif // MXCORE_H

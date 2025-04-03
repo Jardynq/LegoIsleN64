@@ -1,5 +1,4 @@
-#ifndef MISC_H
-#define MISC_H
+#pragma once
 
 // Long include path due to dependency of misc library on LegoOmni
 #include "action_sfwd.h"
@@ -59,4 +58,3 @@ void PlayMusic(JukeboxScript::Script p_objectId);
 void SetIsWorldActive(MxBool p_isWorldActive);
 void DeleteObjects(MxAtomId* p_id, MxS32 p_first, MxS32 p_last);
 
-#endif // MISC_H

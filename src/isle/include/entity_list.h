@@ -1,5 +1,4 @@
-#ifndef LEGOENTITYLIST_H
-#define LEGOENTITYLIST_H
+#pragma once
 
 #include "entity.h"
 #include "mx_list.h"
@@ -68,4 +67,3 @@ public:
 
 // MxList<LegoEntity *>::DeleteEntry
 
-#endif // LEGOENTITYLIST_H

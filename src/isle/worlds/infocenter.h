@@ -1,5 +1,4 @@
-#ifndef INFOCENTER_H
-#define INFOCENTER_H
+#pragma once
 
 #include "action_sfwd.h"
 #include "gamestate.h"
@@ -163,4 +162,3 @@ private:
 	MxS16 m_unk0x1d6;
 };
 
-#endif // INFOCENTER_H

@@ -1,5 +1,4 @@
-#ifndef ACT2ACTOR_H
-#define ACT2ACTOR_H
+#pragma once
 
 #include "anim_actor.h"
 
@@ -65,4 +64,3 @@ private:
 // list<LegoBoundaryEdge,allocator<LegoBoundaryEdge>
 // >::list<LegoBoundaryEdge,allocator<LegoBoundaryEdge> >
 
-#endif // ACT2ACTOR_H

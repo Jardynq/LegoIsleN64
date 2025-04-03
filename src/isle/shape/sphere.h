@@ -1,5 +1,4 @@
-#ifndef __LEGOSPHERE_H
-#define __LEGOSPHERE_H
+#pragma once
 
 #include "vertex.h"
 
@@ -17,4 +16,3 @@ protected:
 	LegoFloat m_radius;
 };
 
-#endif // __LEGOSPHERE_H

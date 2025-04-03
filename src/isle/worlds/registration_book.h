@@ -1,5 +1,4 @@
-#ifndef REGISTRATIONBOOK_H
-#define REGISTRATIONBOOK_H
+#pragma once
 
 #include "world.h"
 
@@ -63,4 +62,3 @@ private:
 	MxBool CreateSurface();
 };
 
-#endif // REGISTRATIONBOOK_H

@@ -1,5 +1,4 @@
-#ifndef REALTIMEVIEW_H
-#define REALTIMEVIEW_H
+#pragma once
 
 extern float g_userMaxLodPower;
 
@@ -17,4 +16,3 @@ public:
 	static float GetUserMaxLodPower() { return g_userMaxLodPower; }
 };
 
-#endif // REALTIMEVIEW_H

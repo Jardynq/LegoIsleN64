@@ -1,5 +1,4 @@
-#ifndef LEGONAMEDPARTLIST_H
-#define LEGONAMEDPARTLIST_H
+#pragma once
 
 #include "named_part.h"
 #include "mx_list.h"
@@ -57,4 +56,3 @@ public:
 
 // MxPtrList<LegoNamedPart>::`scalar deleting destructor'
 
-#endif // LEGONAMEDPARTLIST_H

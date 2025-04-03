@@ -1,5 +1,4 @@
-#ifndef LEGOENTITYPRESENTER_H
-#define LEGOENTITYPRESENTER_H
+#pragma once
 
 #include "mx_composite_presenter.h"
 
@@ -47,4 +46,3 @@ protected:
 	LegoEntity* m_entity;
 };
 
-#endif // LEGOENTITYPRESENTER_H

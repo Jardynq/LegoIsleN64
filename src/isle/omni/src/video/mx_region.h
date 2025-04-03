@@ -1,5 +1,4 @@
-#ifndef MXREGION_H
-#define MXREGION_H
+#pragma once
 
 #include "mx_core.h"
 #include "mx_rect32.h"
@@ -25,4 +24,3 @@ private:
 	MxRect32 m_rect;
 };
 
-#endif // MXREGION_H

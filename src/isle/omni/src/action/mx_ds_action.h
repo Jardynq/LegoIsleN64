@@ -1,5 +1,4 @@
-#ifndef MXDSACTION_H
-#define MXDSACTION_H
+#pragma once
 
 #include "mx_ds_object.h"
 #include "mx_geometry_3d.h"
@@ -106,4 +105,3 @@ protected:
 	MxLong m_unk0x90;
 };
 
-#endif // MXDSACTION_H

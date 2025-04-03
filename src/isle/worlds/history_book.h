@@ -1,5 +1,4 @@
-#ifndef HISTORYBOOK_H
-#define HISTORYBOOK_H
+#pragma once
 
 #include "gamestate.h"
 #include "world.h"
@@ -34,4 +33,3 @@ private:
 	MxStillPresenter* m_scores[20];
 };
 
-#endif // HISTORYBOOK_H

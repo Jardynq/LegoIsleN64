@@ -1,5 +1,4 @@
-#ifndef __LEGOMESH_H
-#define __LEGOMESH_H
+#pragma once
 
 #include "color.h"
 
@@ -64,4 +63,3 @@ protected:
 	LegoBool m_unk0x21;
 };
 
-#endif // __LEGOMESH_H

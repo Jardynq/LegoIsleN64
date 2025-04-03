@@ -1,5 +1,4 @@
-#ifndef LEGOANIMACTOR_H
-#define LEGOANIMACTOR_H
+#pragma once
 
 #include "path_actor.h"
 
@@ -102,4 +101,3 @@ protected:
 // ?uninitialized_copy@@YAPAPAULegoAnimActorStruct@@PAPAU1@00@Z
 // clang-format on
 
-#endif // LEGOANIMACTOR_H

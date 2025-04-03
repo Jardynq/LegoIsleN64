@@ -1,5 +1,4 @@
-#ifndef LEGOEVENTNOTIFICATIONPARAM_H
-#define LEGOEVENTNOTIFICATIONPARAM_H
+#pragma once
 
 #include "mx_notification_param.h"
 
@@ -72,4 +71,3 @@ protected:
 
 // LegoEventNotificationParam::~LegoEventNotificationParam
 
-#endif // LEGOEVENTNOTIFICATIONPARAM_H

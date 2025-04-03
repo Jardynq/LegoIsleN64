@@ -1,5 +1,4 @@
-#ifndef MODELDB_H
-#define MODELDB_H
+#pragma once
 
 #include "mx_list.h"
 #include "mx_string.h"
@@ -66,4 +65,3 @@ MxResult
 ReadModelDbWorlds(FILE* p_file, ModelDbWorld*& p_worlds, MxS32& p_numWorlds);
 void FreeModelDbWorlds(ModelDbWorld*& p_worlds, MxS32 p_numWorlds);
 
-#endif // MODELDB_H

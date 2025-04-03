@@ -1,5 +1,4 @@
-#ifndef LEGOPLANTS_H
-#define LEGOPLANTS_H
+#pragma once
 
 class LegoEntity;
 class LegoPathBoundary;
@@ -41,4 +40,3 @@ struct LegoPlantInfo {
 
 extern LegoPlantInfo g_plantInfoInit[81];
 
-#endif // LEGOPLANTS_H

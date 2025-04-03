@@ -1,5 +1,4 @@
-#ifndef MXTRANSITIONMANAGER_H
-#define MXTRANSITIONMANAGER_H
+#pragma once
 
 #include "mx_core.h"
 
@@ -74,4 +73,3 @@ private:
 	MxS32 m_animationSpeed;
 };
 
-#endif // MXTRANSITIONMANAGER_H

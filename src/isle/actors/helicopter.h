@@ -1,5 +1,4 @@
-#ifndef HELICOPTER_H
-#define HELICOPTER_H
+#pragma once
 
 #include "isle_path_actor.h"
 #include "state.h"
@@ -70,4 +69,3 @@ protected:
 	MxAtomId m_script;
 };
 
-#endif // HELICOPTER_H

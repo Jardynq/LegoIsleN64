@@ -1,5 +1,4 @@
-#ifndef MXBACKGROUNDAUDIOMANAGER_H
-#define MXBACKGROUNDAUDIOMANAGER_H
+#pragma once
 
 #include "mx_core.h"
 #include "mx_ds_action.h"
@@ -72,4 +71,3 @@ private:
 	MxAtomId m_script;
 };
 
-#endif // MXBACKGROUNDAUDIOMANAGER_H

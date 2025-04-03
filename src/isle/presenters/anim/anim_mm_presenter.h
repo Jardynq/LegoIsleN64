@@ -1,5 +1,4 @@
-#ifndef LEGOANIMMMPRESENTER_H
-#define LEGOANIMMMPRESENTER_H
+#pragma once
 
 // MxDSActionListCursor needs to be included before std::list
 // clang-format off
@@ -74,4 +73,3 @@ private:
 	MxU32 m_roiMapSize;
 };
 
-#endif // LEGOANIMMMPRESENTER_H

@@ -1,5 +1,4 @@
-#ifndef LEGO3DWAVEPRESENTER_H
-#define LEGO3DWAVEPRESENTER_H
+#pragma once
 
 #include "3d_sound.h"
 #include "mx_wave_presenter.h"
@@ -27,4 +26,3 @@ private:
 	Lego3DSound m_sound;
 };
 
-#endif // LEGO3DWAVEPRESENTER_H

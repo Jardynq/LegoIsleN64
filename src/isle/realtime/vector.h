@@ -1,5 +1,4 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#pragma once
 
 // Note: virtual function overloads appear in the virtual table
 // in reverse order of appearance.
@@ -125,4 +124,3 @@ public:
 	friend class Mx4DPointFloat;
 };
 
-#endif // VECTOR_H

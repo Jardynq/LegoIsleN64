@@ -1,5 +1,4 @@
-#ifndef LEGONAMEDTEXTURE_H
-#define LEGONAMEDTEXTURE_H
+#pragma once
 
 #include "texture.h"
 #include "mx_string.h"
@@ -21,4 +20,3 @@ private:
 	LegoTexture* m_texture;
 };
 
-#endif // LEGONAMEDTEXTURE_H

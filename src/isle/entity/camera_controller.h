@@ -1,5 +1,4 @@
-#ifndef LEGOCAMERACONTROLLER_H
-#define LEGOCAMERACONTROLLER_H
+#pragma once
 
 #include "point_of_view_controller.h"
 #include "mx_geometry_3d.h"
@@ -47,4 +46,3 @@ private:
 
 // LegoCameraController::`scalar deleting destructor'
 
-#endif // LEGOCAMERACONTROLLER_H

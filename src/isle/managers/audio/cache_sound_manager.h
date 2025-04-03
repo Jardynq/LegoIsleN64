@@ -1,5 +1,4 @@
-#ifndef LEGOCACHESOUNDMANAGER_H
-#define LEGOCACHESOUNDMANAGER_H
+#pragma once
 
 #include "cach_sound.h"
 
@@ -62,4 +61,3 @@ private:
 	List100d6b4c m_list;
 };
 
-#endif // LEGOCACHESOUNDMANAGER_H

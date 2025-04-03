@@ -1,5 +1,4 @@
-#ifndef LEGOACTIONCONTROLPRESENTER_H
-#define LEGOACTIONCONTROLPRESENTER_H
+#pragma once
 
 #include "extra.h"
 #include "mx_media_presenter.h"
@@ -36,4 +35,3 @@ private:
 
 // LegoActionControlPresenter::`scalar deleting destructor'
 
-#endif // LEGOACTIONCONTROLPRESENTER_H

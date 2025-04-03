@@ -1,5 +1,4 @@
-#ifndef MXRAMSTREAMPROVIDER_H
-#define MXRAMSTREAMPROVIDER_H
+#pragma once
 
 #include "mx_stream_provider.h"
 
@@ -35,4 +34,3 @@ protected:
 
 MxU32 ReadData(MxU8* p_fileSizeBuffer, MxU32 p_fileSize);
 
-#endif // MXRAMSTREAMPROVIDER_H

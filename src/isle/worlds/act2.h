@@ -1,5 +1,4 @@
-#ifndef LEGOACT2_H
-#define LEGOACT2_H
+#pragma once
 
 #include "act2_brick.h"
 #include "gamestate.h"
@@ -117,4 +116,3 @@ private:
 	LegoGameState::Area m_destLocation;
 };
 
-#endif // LEGOACT2_H

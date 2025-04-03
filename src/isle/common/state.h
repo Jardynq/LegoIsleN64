@@ -1,5 +1,4 @@
-#ifndef LEGOSTATE_H
-#define LEGOSTATE_H
+#pragma once
 
 #include "storage.h"
 #include "mx_core.h"
@@ -57,4 +56,3 @@ public:
 	// LegoState::`scalar deleting destructor'
 };
 
-#endif // LEGOSTATE_H

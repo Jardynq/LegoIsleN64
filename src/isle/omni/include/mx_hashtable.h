@@ -1,5 +1,4 @@
-#ifndef MXHASHTABLE_H
-#define MXHASHTABLE_H
+#pragma once
 
 #include "mx_collection.h"
 #include "mx_core.h"
@@ -218,4 +217,3 @@ inline void MxHashTable<T>::Add(T p_newobj) {
 
 #undef HASH_TABLE_INIT_SIZE
 
-#endif // MXHASHTABLE_H

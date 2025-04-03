@@ -1,5 +1,4 @@
-#ifndef LEGOLOCOMOTIONANIMPRESENTER_H
-#define LEGOLOCOMOTIONANIMPRESENTER_H
+#pragma once
 
 #include "looping_anim_presenter.h"
 #include "roi_map_list.h"
@@ -56,4 +55,3 @@ private:
 	undefined2 m_unk0xd4;
 };
 
-#endif // LEGOLOCOMOTIONANIMPRESENTER_H

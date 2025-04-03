@@ -1,5 +1,4 @@
-#ifndef LODLIST_H
-#define LODLIST_H
+#pragma once
 
 #include "assert.h"
 
@@ -143,4 +142,3 @@ inline const T* LODList<T>::PopBack() {
 
 // LODList<ViewLOD>::operator[]
 
-#endif // LODLIST_H

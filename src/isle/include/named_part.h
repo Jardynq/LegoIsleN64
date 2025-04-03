@@ -1,5 +1,4 @@
-#ifndef LEGONAMEDPART_H
-#define LEGONAMEDPART_H
+#pragma once
 
 #include "lod_list.h"
 #include "mx_string.h"
@@ -28,4 +27,3 @@ private:
 	LegoLODList* m_list;
 };
 
-#endif // LEGONAMEDPART_H

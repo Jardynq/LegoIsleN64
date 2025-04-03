@@ -1,5 +1,4 @@
-#ifndef LEGOOBJECTFACTORY_H
-#define LEGOOBJECTFACTORY_H
+#pragma once
 
 #include "mx_object_factory.h"
 
@@ -121,4 +120,3 @@ private:
 #undef X
 };
 
-#endif // LEGOOBJECTFACTORY_H

@@ -1,5 +1,4 @@
-#ifndef BUMPBOUY_H
-#define BUMPBOUY_H
+#pragma once
 
 #include "anim_actor.h"
 
@@ -21,4 +20,3 @@ public:
 
 // BumpBouy::`vbtable'
 
-#endif // BUMPBOUY_H

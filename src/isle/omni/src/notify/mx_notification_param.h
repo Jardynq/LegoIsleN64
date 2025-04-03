@@ -1,5 +1,4 @@
-#ifndef MXNOTIFICATIONPARAM_H
-#define MXNOTIFICATIONPARAM_H
+#pragma once
 
 #include "mx_param.h"
 
@@ -60,4 +59,3 @@ protected:
 
 // MxNotificationParam::~MxNotificationParam
 
-#endif // MXNOTIFICATIONPARAM_H

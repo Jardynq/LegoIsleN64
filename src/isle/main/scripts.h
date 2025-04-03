@@ -1,5 +1,4 @@
-#ifndef SCRIPTS_H
-#define SCRIPTS_H
+#pragma once
 
 class MxAtomId;
 
@@ -36,4 +35,3 @@ void CreateScripts();
 void DestroyScripts();
 const char* GetNoCD_SourceName();
 
-#endif // SCRIPTS_H

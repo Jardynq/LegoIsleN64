@@ -1,5 +1,4 @@
-#ifndef BUILDINGS_H
-#define BUILDINGS_H
+#pragma once
 
 #include "building_entity.h"
 
@@ -126,4 +125,3 @@ class CaveEntity : public BuildingEntity {
 	// CaveEntity::`scalar deleting destructor'
 };
 
-#endif // BUILDINGS_H

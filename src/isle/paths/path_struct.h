@@ -1,5 +1,4 @@
-#ifndef LEGOPATHSTRUCT_H
-#define LEGOPATHSTRUCT_H
+#pragma once
 
 #include "mx_atom.h"
 #include "mx_notification_param.h"
@@ -109,4 +108,3 @@ private:
 
 // LegoPathStruct::`vector deleting destructor'
 
-#endif // LEGOPATHSTRUCT_H

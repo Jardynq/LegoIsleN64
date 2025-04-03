@@ -1,5 +1,4 @@
-#ifndef ISLEACTOR_H
-#define ISLEACTOR_H
+#pragma once
 
 #include "actor.h"
 
@@ -49,4 +48,3 @@ protected:
 
 // IsleActor::`scalar deleting destructor'
 
-#endif // ISLEACTOR_H

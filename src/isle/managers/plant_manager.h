@@ -1,5 +1,4 @@
-#ifndef LEGOPLANTMANAGER_H
-#define LEGOPLANTMANAGER_H
+#pragma once
 
 #include "legomain.h"
 #include "mx_core.h"
@@ -77,4 +76,3 @@ private:
 	LegoWorld* m_world;
 };
 
-#endif // LEGOPLANTMANAGER_H

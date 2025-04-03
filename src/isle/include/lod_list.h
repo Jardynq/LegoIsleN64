@@ -1,5 +1,4 @@
-#ifndef LEGOLODLIST_H
-#define LEGOLODLIST_H
+#pragma once
 
 #include "mx_list.h"
 #include "lod.h"
@@ -56,4 +55,3 @@ public:
 
 // MxPtrList<LegoLOD>::~MxPtrList<LegoLOD>
 
-#endif // LEGOLODLIST_H

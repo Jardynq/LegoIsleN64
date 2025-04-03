@@ -1,5 +1,4 @@
-#ifndef MXDSBUFFER_H
-#define MXDSBUFFER_H
+#pragma once
 
 #include "mx_core.h"
 
@@ -96,4 +95,3 @@ private:
 	MxDSStreamingAction* m_unk0x30;
 };
 
-#endif // MXDSBUFFER_H

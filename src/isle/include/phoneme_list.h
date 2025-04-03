@@ -1,5 +1,4 @@
-#ifndef LEGOPHONEMELIST_H
-#define LEGOPHONEMELIST_H
+#pragma once
 
 #include "phoneme.h"
 #include "mx_list.h"
@@ -51,4 +50,3 @@ public:
 
 // MxList<LegoPhoneme *>::`scalar deleting destructor'
 
-#endif // LEGOPHONEMELIST_H

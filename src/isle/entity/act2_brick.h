@@ -1,5 +1,4 @@
-#ifndef ACT2BRICK_H
-#define ACT2BRICK_H
+#pragma once
 
 #include "path_actor.h"
 
@@ -45,4 +44,3 @@ private:
 	MxS32 m_unk0x190;
 };
 
-#endif // ACT2BRICK_H

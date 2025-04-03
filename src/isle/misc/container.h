@@ -1,5 +1,4 @@
-#ifndef LEGOCONTAINER_H
-#define LEGOCONTAINER_H
+#pragma once
 
 #include "texture.h"
 
@@ -171,4 +170,3 @@ protected:
 
 // LegoContainer<LegoTextureInfo>::Get
 
-#endif // LEGOCONTAINER_H

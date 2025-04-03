@@ -1,5 +1,4 @@
-#ifndef __LEGOTREE_H
-#define __LEGOTREE_H
+#pragma once
 
 class LegoStorage;
 
@@ -73,4 +72,3 @@ protected:
 	LegoTreeNode* m_root;
 };
 
-#endif // __LEGOTREE_H

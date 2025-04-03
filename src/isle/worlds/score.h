@@ -1,5 +1,4 @@
-#ifndef SCORE_H
-#define SCORE_H
+#pragma once
 
 #include "gamestate.h"
 #include "state.h"
@@ -72,4 +71,3 @@ protected:
 	MxU8* m_surface;
 };
 
-#endif // SCORE_H

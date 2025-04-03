@@ -1,5 +1,4 @@
-#ifndef _tglVector_h
-#define _tglVector_h
+#pragma once
 
 #include <math.h> // sin() in RotateAroundY()
 
@@ -23,4 +22,3 @@ inline double RadiansToDegrees(double radians) {
 
 } // namespace Tgl
 
-#endif /* _tglVector_h */

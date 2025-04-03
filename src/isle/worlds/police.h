@@ -1,5 +1,4 @@
-#ifndef POLICE_H
-#define POLICE_H
+#pragma once
 
 #include "gamestate.h"
 #include "state.h"
@@ -69,4 +68,3 @@ private:
 	LegoGameState::Area m_destLocation;
 };
 
-#endif // POLICE_H

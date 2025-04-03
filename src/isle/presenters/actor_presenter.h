@@ -1,5 +1,4 @@
-#ifndef LEGOACTORPRESENTER_H
-#define LEGOACTORPRESENTER_H
+#pragma once
 
 #include "entity_presenter.h"
 
@@ -25,4 +24,3 @@ public:
 
 // LegoActorPresenter::`scalar deleting destructor'
 
-#endif // LEGOACTORPRESENTER_H

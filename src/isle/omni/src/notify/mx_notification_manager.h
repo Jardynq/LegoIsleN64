@@ -1,5 +1,4 @@
-#ifndef MXNOTIFICATIONMANAGER_H
-#define MXNOTIFICATIONMANAGER_H
+#pragma once
 
 #include "mx_core.h"
 #include "mxcriticalsection.h"
@@ -79,4 +78,3 @@ private:
 
 // list<MxNotification *,allocator<MxNotification *> >::empty
 
-#endif // MXNOTIFICATIONMANAGER_H

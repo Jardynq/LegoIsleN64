@@ -1,5 +1,4 @@
-#ifndef MXDSSOUND_H
-#define MXDSSOUND_H
+#pragma once
 
 #include "mx_ds_media_action.h"
 
@@ -31,4 +30,3 @@ private:
 	MxS32 m_volume;
 };
 
-#endif // MXDSSOUND_H

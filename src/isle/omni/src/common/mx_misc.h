@@ -1,5 +1,4 @@
-#ifndef MXMISC_H
-#define MXMISC_H
+#pragma once
 
 class MxAtomSet;
 class MxDSAction;
@@ -28,4 +27,3 @@ MxAtomSet* AtomSet();
 MxObjectFactory* ObjectFactory();
 void DeleteObject(MxDSAction& p_dsAction);
 
-#endif // MXMISC_H

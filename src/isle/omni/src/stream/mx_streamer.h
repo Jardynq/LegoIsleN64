@@ -1,5 +1,4 @@
-#ifndef MXSTREAMER_H
-#define MXSTREAMER_H
+#pragma once
 
 #include "mx_core.h"
 #include "mx_memory_pool.h"
@@ -131,4 +130,3 @@ private:
 // ?find@@YA?AViterator@?$list@PAVMxStreamController@@V?$allocator@PAVMxStreamController@@@@@@V12@0ABQAVMxStreamController@@@Z
 // clang-format on
 
-#endif // MXSTREAMER_H

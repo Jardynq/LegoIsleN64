@@ -1,5 +1,4 @@
-#ifndef JETSKI_H
-#define JETSKI_H
+#pragma once
 
 #include "isle_path_actor.h"
 
@@ -34,4 +33,3 @@ private:
 	MxS16 m_jetskiDashboardStreamId;
 };
 
-#endif // JETSKI_H

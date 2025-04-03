@@ -1,5 +1,4 @@
-#ifndef __LEGOWEGEDGE_H
-#define __LEGOWEGEDGE_H
+#pragma once
 
 class LegoPathStruct;
 
@@ -74,4 +73,3 @@ protected:
 	Mx3DPointFloat* m_unk0x50;
 };
 
-#endif // __LEGOWEGEDGE_H

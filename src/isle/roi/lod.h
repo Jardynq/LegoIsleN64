@@ -1,5 +1,4 @@
-#ifndef LEGOLOD_H
-#define LEGOLOD_H
+#pragma once
 
 #include "view_lod.h"
 
@@ -50,4 +49,3 @@ protected:
 	undefined4 m_unk0x1c;
 };
 
-#endif // LEGOLOD_H

@@ -1,5 +1,4 @@
-#ifndef MXQUEUE_H
-#define MXQUEUE_H
+#pragma once
 
 #include "mx_list.h"
 
@@ -21,4 +20,3 @@ public:
 	}
 };
 
-#endif // MXQUEUE_H

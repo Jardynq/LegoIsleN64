@@ -1,5 +1,4 @@
-#ifndef LEGOACTOR_H
-#define LEGOACTOR_H
+#pragma once
 
 #include "entity.h"
 #include "mx_matrix.h"
@@ -50,4 +49,3 @@ protected:
 
 // LegoActor::`scalar deleting destructor'
 
-#endif // LEGOACTOR_H

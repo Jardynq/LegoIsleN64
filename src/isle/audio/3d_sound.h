@@ -1,5 +1,4 @@
-#ifndef LEGO3DSOUND_H
-#define LEGO3DSOUND_H
+#pragma once
 
 #include <dsound.h>
 
@@ -40,4 +39,3 @@ private:
 
 // IID_IDirectSound3DBuffer
 
-#endif // LEGO3DSOUND_H

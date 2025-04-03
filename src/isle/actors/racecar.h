@@ -1,5 +1,4 @@
-#ifndef RACECAR_H
-#define RACECAR_H
+#pragma once
 
 #include "isle_path_actor.h"
 
@@ -25,4 +24,3 @@ private:
 	undefined m_unk0x160[4];
 };
 
-#endif // RACECAR_H

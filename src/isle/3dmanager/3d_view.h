@@ -1,5 +1,4 @@
-#ifndef _Lego3DView_h
-#define _Lego3DView_h
+#pragma once
 
 #include "view1.h"
 
@@ -50,4 +49,3 @@ inline ViewROI* Lego3DView::GetPointOfView() {
 	return m_pPointOfView;
 }
 
-#endif /* _Lego3DView_h */

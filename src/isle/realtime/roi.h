@@ -1,5 +1,4 @@
-#ifndef ROI_H
-#define ROI_H
+#pragma once
 
 // ROI stands for Real-time Object Instance.
 
@@ -116,4 +115,3 @@ protected:
 
 // ROI::~ROI
 
-#endif // ROI_H

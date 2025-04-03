@@ -1,5 +1,4 @@
-#ifndef AMBULANCE_H
-#define AMBULANCE_H
+#pragma once
 
 #include "isle_path_actor.h"
 #include "state.h"
@@ -176,4 +175,3 @@ private:
 	MxFloat m_time;
 };
 
-#endif // AMBULANCE_H

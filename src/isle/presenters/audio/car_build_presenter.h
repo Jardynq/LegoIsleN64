@@ -1,5 +1,4 @@
-#ifndef LEGOCARBUILDPRESENTER_H
-#define LEGOCARBUILDPRESENTER_H
+#pragma once
 
 #include "anim.h"
 #include "anim_presenter.h"
@@ -118,4 +117,3 @@ private:
 	LegoChar* m_mainSourceId;
 };
 
-#endif // LEGOCARBUILDPRESENTER_H

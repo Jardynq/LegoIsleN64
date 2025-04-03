@@ -1,5 +1,4 @@
-#ifndef BIKE_H
-#define BIKE_H
+#pragma once
 
 #include "isle_path_actor.h"
 
@@ -27,4 +26,3 @@ private:
 	undefined m_unk0x160[4];
 };
 
-#endif // BIKE_H

@@ -1,5 +1,4 @@
-#ifndef __LEGOSTORAGE_H
-#define __LEGOSTORAGE_H
+#pragma once
 
 #include "mx_geometry_3d.h"
 #include "mx_string.h"
@@ -186,4 +185,3 @@ protected:
 	FILE* m_file;
 };
 
-#endif // __LEGOSTORAGE_H

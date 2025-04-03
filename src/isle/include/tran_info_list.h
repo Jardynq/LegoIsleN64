@@ -1,5 +1,4 @@
-#ifndef LEGOTRANINFOLIST_H
-#define LEGOTRANINFOLIST_H
+#pragma once
 
 #include "tran_info.h"
 #include "mx_list.h"
@@ -55,4 +54,3 @@ public:
 
 // LegoTranInfoListCursor::~LegoTranInfoListCursor
 
-#endif // LEGOTRANINFOLIST_H

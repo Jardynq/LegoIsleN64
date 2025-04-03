@@ -1,5 +1,4 @@
-#ifndef LEGOENDANIMNOTIFICATIONPARAM_H
-#define LEGOENDANIMNOTIFICATIONPARAM_H
+#pragma once
 
 #include "mx_notification_param.h"
 
@@ -26,4 +25,3 @@ protected:
 
 // LegoEndAnimNotificationParam::~LegoEndAnimNotificationParam
 
-#endif // LEGOENDANIMNOTIFICATIONPARAM_H

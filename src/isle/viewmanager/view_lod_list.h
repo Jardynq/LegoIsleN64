@@ -1,5 +1,4 @@
-#ifndef VIEWLODLIST_H
-#define VIEWLODLIST_H
+#pragma once
 
 #include "assert.h"
 #include "lod_list.h"
@@ -198,4 +197,3 @@ inline int ViewLODList::Release() {
 	return m_refCount;
 }
 
-#endif // VIEWLODLIST_H

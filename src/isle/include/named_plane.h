@@ -1,5 +1,4 @@
-#ifndef LEGONAMEDPLANE_H
-#define LEGONAMEDPLANE_H
+#pragma once
 
 #include "storage.h"
 #include "mx_geometry_3d.h"
@@ -56,4 +55,3 @@ struct LegoNamedPlane {
 	Mx3DPointFloat m_up;
 };
 
-#endif // LEGONAMEDPLANE_H

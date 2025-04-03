@@ -1,5 +1,4 @@
-#ifndef MXDISKSTREAMPROVIDER_H
-#define MXDISKSTREAMPROVIDER_H
+#pragma once
 
 #include "mxcriticalsection.h"
 #include "mx_ds_action.h"
@@ -57,4 +56,3 @@ private:
 
 // MxDiskStreamProvider::`scalar deleting destructor'
 
-#endif // MXDISKSTREAMPROVIDER_H

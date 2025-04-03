@@ -1,5 +1,4 @@
-#ifndef __LEGOUNKNOWN_H
-#define __LEGOUNKNOWN_H
+#pragma once
 
 #include "mx_geometry_3d.h"
 
@@ -23,4 +22,3 @@ private:
 	Mx3DPointFloat m_unk0x00[4];
 };
 
-#endif // __LEGOUNKNOWN_H

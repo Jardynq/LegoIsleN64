@@ -1,5 +1,4 @@
-#ifndef LEGOANIMATIONMANAGER_H
-#define LEGOANIMATIONMANAGER_H
+#pragma once
 
 #include "locations.h"
 #include "legomain.h"
@@ -296,4 +295,3 @@ private:
 
 // MxListCursor<LegoTranInfo *>::MxListCursor<LegoTranInfo *>
 
-#endif // LEGOANIMATIONMANAGER_H

@@ -1,5 +1,4 @@
-#ifndef MXATOM_H
-#define MXATOM_H
+#pragma once
 
 #include "mx_string.h"
 
@@ -200,4 +199,3 @@ private:
 
 // MxAtomSet::~MxAtomSet
 
-#endif // MXATOM_H

@@ -1,5 +1,4 @@
-#ifndef MXSTREAMPROVIDER_H
-#define MXSTREAMPROVIDER_H
+#pragma once
 
 #include "mx_core.h"
 
@@ -40,4 +39,3 @@ protected:
 
 // MxStreamProvider::~MxStreamProvider
 
-#endif // MXSTREAMPROVIDER_H

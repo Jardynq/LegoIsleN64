@@ -1,5 +1,4 @@
-#ifndef MXPRESENTER_H
-#define MXPRESENTER_H
+#pragma once
 
 #include "mx_core.h"
 #include "mxcriticalsection.h"
@@ -120,4 +119,3 @@ protected:
 
 const char* PresenterNameDispatch(const MxDSAction&);
 
-#endif // MXPRESENTER_H

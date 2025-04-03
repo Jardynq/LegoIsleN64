@@ -1,5 +1,4 @@
-#ifndef MXDSSELECTACTION_H
-#define MXDSSELECTACTION_H
+#pragma once
 
 #include "mx_ds_parallel_action.h"
 #include "mx_string_list.h"
@@ -38,4 +37,3 @@ private:
 
 // MxStringListCursor::~MxStringListCursor
 
-#endif // MXDSSELECTACTION_H

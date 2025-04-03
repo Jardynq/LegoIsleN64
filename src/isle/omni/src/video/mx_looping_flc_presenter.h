@@ -1,5 +1,4 @@
-#ifndef MXLOOPINGFLCPRESENTER_H
-#define MXLOOPINGFLCPRESENTER_H
+#pragma once
 
 #include "mx_flc_presenter.h"
 
@@ -27,4 +26,3 @@ private:
 	MxLong m_elapsedDuration;
 };
 
-#endif // MXLOOPINGFLCPRESENTER_H

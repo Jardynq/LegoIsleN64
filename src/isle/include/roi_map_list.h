@@ -1,5 +1,4 @@
-#ifndef LEGOROIMAPLIST_H
-#define LEGOROIMAPLIST_H
+#pragma once
 
 #include "mx_list.h"
 
@@ -36,4 +35,3 @@ public:
 
 // MxPtrList<LegoROI *>::`scalar deleting destructor'
 
-#endif // LEGOROIMAPLIST_H

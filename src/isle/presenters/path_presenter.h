@@ -1,5 +1,4 @@
-#ifndef LEGOPATHPRESENTER_H
-#define LEGOPATHPRESENTER_H
+#pragma once
 
 #include "mx_atom.h"
 #include "mx_media_presenter.h"
@@ -36,4 +35,3 @@ protected:
 	MxAtomId m_trigger;
 };
 
-#endif // LEGOPATHPRESENTER_H

@@ -1,5 +1,4 @@
-#ifndef _Lego3DManager_h
-#define _Lego3DManager_h
+#pragma once
 
 #include "assert.h"
 #include "3d_view.h"
@@ -94,4 +93,3 @@ inline ViewLODListManager* Lego3DManager::GetViewLODListManager() {
 	return m_pViewLODListManager;
 }
 
-#endif /* _Lego3DManager_h */

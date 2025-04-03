@@ -1,5 +1,4 @@
-#ifndef MXLIST_H
-#define MXLIST_H
+#pragma once
 
 #include "mx_collection.h"
 #include "mx_core.h"
@@ -298,4 +297,3 @@ inline void MxListCursor<T>::Prepend(T p_newobj) {
 	}
 }
 
-#endif // MXLIST_H

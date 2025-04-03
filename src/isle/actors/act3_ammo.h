@@ -1,5 +1,4 @@
-#ifndef ACT3AMMO_H
-#define ACT3AMMO_H
+#pragma once
 
 #include "path_actor.h"
 #include "mx_geometry_3d.h"
@@ -92,4 +91,3 @@ private:
 	MxFloat m_unk0x19c;
 };
 
-#endif // ACT3AMMO_H

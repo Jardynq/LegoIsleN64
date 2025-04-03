@@ -1,5 +1,4 @@
-#ifndef MXTICKLEMANAGER_H
-#define MXTICKLEMANAGER_H
+#pragma once
 
 #include "mx_core.h"
 
@@ -56,4 +55,3 @@ private:
 
 // List<MxTickleClient *>::~List<MxTickleClient *>
 
-#endif // MXTICKLEMANAGER_H

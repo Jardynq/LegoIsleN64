@@ -1,5 +1,4 @@
-#ifndef GASSTATION_H
-#define GASSTATION_H
+#pragma once
 
 #include "gamestate.h"
 #include "state.h"
@@ -85,4 +84,3 @@ private:
 	Radio m_radio;
 };
 
-#endif // GASSTATION_H

@@ -1,5 +1,4 @@
-#ifndef MXDSPARALLELACTION_H
-#define MXDSPARALLELACTION_H
+#pragma once
 
 #include "mx_ds_multi_action.h"
 
@@ -27,4 +26,3 @@ public:
 	MxDSAction* Clone() override;
 };
 
-#endif // MXDSPARALLELACTION_H

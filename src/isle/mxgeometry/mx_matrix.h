@@ -1,5 +1,4 @@
-#ifndef MXMATRIX_H
-#define MXMATRIX_H
+#pragma once
 
 #include "matrix.h"
 
@@ -27,4 +26,3 @@ private:
 	float m_elements[4][4];
 };
 
-#endif // MXMATRIX_H

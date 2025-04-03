@@ -1,5 +1,4 @@
-#ifndef MXDSSERIALACTION_H
-#define MXDSSERIALACTION_H
+#pragma once
 
 #include "mx_ds_multi_action.h"
 
@@ -30,4 +29,3 @@ private:
 	undefined4 m_unk0xa4;
 };
 
-#endif // MXDSSERIALACTION_H

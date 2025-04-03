@@ -1,5 +1,4 @@
-#ifndef MXOMNICREATEPARAM_H
-#define MXOMNICREATEPARAM_H
+#pragma once
 
 #include "mx_omni_create_flags.h"
 #include "mx_param.h"
@@ -24,4 +23,3 @@ private:
 
 // MxOmniCreateParam::~MxOmniCreateParam
 
-#endif // MXOMNICREATEPARAM_H

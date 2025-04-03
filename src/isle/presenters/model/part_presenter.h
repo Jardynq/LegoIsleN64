@@ -1,5 +1,4 @@
-#ifndef LEGOPARTPRESENTER_H
-#define LEGOPARTPRESENTER_H
+#pragma once
 
 #include "named_part_list.h"
 #include "mx_media_presenter.h"
@@ -39,4 +38,3 @@ private:
 	LegoNamedPartList* m_parts;
 };
 
-#endif // LEGOPARTPRESENTER_H

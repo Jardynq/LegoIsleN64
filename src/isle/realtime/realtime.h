@@ -1,5 +1,4 @@
-#ifndef REALTIME_H
-#define REALTIME_H
+#pragma once
 
 #include "matrix.h"
 #include "roi.h"
@@ -21,4 +20,3 @@ void CalcLocalTransform(
 // update_world_bounding_volumes() using a modelling sphere
 void CalcWorldBoundingVolumes(const BoundingSphere& modelling_sphere, const Matrix4& local2world, BoundingBox&, BoundingSphere&);
 
-#endif // REALTIME_H

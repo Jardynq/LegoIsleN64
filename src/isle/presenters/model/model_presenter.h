@@ -1,5 +1,4 @@
-#ifndef LEGOMODELPRESENTER_H
-#define LEGOMODELPRESENTER_H
+#pragma once
 
 #include "mx_video_presenter.h"
 
@@ -52,4 +51,3 @@ private:
 	MxResult CreateROI(MxDSChunk* p_chunk);
 };
 
-#endif // LEGOMODELPRESENTER_H

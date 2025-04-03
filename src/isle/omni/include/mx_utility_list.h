@@ -1,5 +1,4 @@
-#ifndef MXUTILITYLIST_H
-#define MXUTILITYLIST_H
+#pragma once
 
 // Probably should be defined somewhere else
 
@@ -21,4 +20,3 @@ public:
 	void Remove(T p_obj) { this->remove(p_obj); }
 };
 
-#endif // MXUTILITYLIST_H

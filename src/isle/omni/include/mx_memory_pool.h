@@ -1,5 +1,4 @@
-#ifndef MXMEMORYPOOL_H
-#define MXMEMORYPOOL_H
+#pragma once
 
 #include "mx_bitset.h"
 
@@ -104,4 +103,3 @@ void MxMemoryPool<BS, NB>::Release(MxU8* p_buf) {
 
 // MxMemoryPool<128,2>::Get
 
-#endif // MXMEMORYPOOL_H

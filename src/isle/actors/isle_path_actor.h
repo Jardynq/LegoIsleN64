@@ -1,5 +1,4 @@
-#ifndef ISLEPATHACTOR_H
-#define ISLEPATHACTOR_H
+#pragma once
 
 #include "gamestate.h"
 #include "path_actor.h"
@@ -124,4 +123,3 @@ protected:
 	MxFloat m_previousVel;
 };
 
-#endif // ISLEPATHACTOR_H

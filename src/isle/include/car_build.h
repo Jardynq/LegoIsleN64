@@ -1,5 +1,4 @@
-#ifndef LEGOCARBUILD_H
-#define LEGOCARBUILD_H
+#pragma once
 
 #include "gamestate.h"
 #include "state.h"
@@ -209,4 +208,3 @@ private:
 	static LookupTableActions g_unk0x100d65b0[];
 };
 
-#endif // LEGOCARBUILD_H

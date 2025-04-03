@@ -1,5 +1,4 @@
-#ifndef LEGOLOCATIONS_H
-#define LEGOLOCATIONS_H
+#pragma once
 
 struct LegoLocation {
 
@@ -25,4 +24,3 @@ struct LegoLocation {
 
 extern LegoLocation g_locations[70];
 
-#endif // LEGOLOCATIONS_H

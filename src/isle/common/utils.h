@@ -1,5 +1,4 @@
-#ifndef LEGOUTILS_H
-#define LEGOUTILS_H
+#pragma once
 
 #include "action_sfwd.h"
 #include "extra.h"
@@ -103,4 +102,3 @@ inline void StartIsleAction(IsleScript::Script p_objectId) {
 
 // LegoTexture::`scalar deleting destructor'
 
-#endif // LEGOUTILS_H

@@ -1,5 +1,4 @@
-#ifndef MXQUATERNION_H
-#define MXQUATERNION_H
+#pragma once
 
 #include "mx_geometry_4d.h"
 #include "matrix.h"
@@ -141,4 +140,3 @@ int MxQuaternionTransformer::Interpolate(Vector4& p_v, float p_f) {
 	return -1;
 }
 
-#endif // MXQUATERNION_H

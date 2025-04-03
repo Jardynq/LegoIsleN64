@@ -1,5 +1,4 @@
-#ifndef HOSPITAL_H
-#define HOSPITAL_H
+#pragma once
 
 #include "action_sfwd.h"
 #include "gamestate.h"
@@ -83,4 +82,3 @@ private:
 	undefined m_unk0x128;
 };
 
-#endif // HOSPITAL_H

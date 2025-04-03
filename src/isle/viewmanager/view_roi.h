@@ -1,5 +1,4 @@
-#ifndef VIEWROI_H
-#define VIEWROI_H
+#pragma once
 
 #include "lod_list.h"
 #include "orientable_roi.h"
@@ -63,4 +62,3 @@ protected:
 
 // ViewROI::`scalar deleting destructor'
 
-#endif // VIEWROI_H

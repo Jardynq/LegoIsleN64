@@ -1,5 +1,4 @@
-#ifndef MXMEDIAPRESENTER_H
-#define MXMEDIAPRESENTER_H
+#pragma once
 
 #include "mx_presenter.h"
 #include "mx_stream_chunk_list.h"
@@ -56,4 +55,3 @@ protected:
 
 // MxStreamChunkListCursor::~MxStreamChunkListCursor
 
-#endif // MXMEDIAPRESENTER_H

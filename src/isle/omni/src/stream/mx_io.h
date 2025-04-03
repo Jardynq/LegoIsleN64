@@ -1,5 +1,4 @@
-#ifndef MXIO_H
-#define MXIO_H
+#pragma once
 
 // mmsystem.h requires inclusion of windows.h before
 // clang-format off
@@ -36,4 +35,3 @@ public:
 #endif
 };
 
-#endif // MXIO_H

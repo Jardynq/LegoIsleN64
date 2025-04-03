@@ -1,5 +1,4 @@
-#ifndef LEGOPHONEMEPRESENTER_H
-#define LEGOPHONEMEPRESENTER_H
+#pragma once
 
 #include "mx_flc_presenter.h"
 #include "mx_string.h"
@@ -34,4 +33,3 @@ private:
 
 // MxListEntry<LegoPhoneme *>::MxListEntry<LegoPhoneme *>
 
-#endif // LEGOPHONEMEPRESENTER_H

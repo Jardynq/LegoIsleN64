@@ -1,5 +1,4 @@
-#ifndef MXMUSICMANAGER_H
-#define MXMUSICMANAGER_H
+#pragma once
 
 #include "mx_audio_manager.h"
 
@@ -45,4 +44,3 @@ protected:
 	void InitData();
 };
 
-#endif // MXMUSICMANAGER_H

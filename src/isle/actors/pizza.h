@@ -1,5 +1,4 @@
-#ifndef PIZZA_H
-#define PIZZA_H
+#pragma once
 
 #include "action_sfwd.h"
 #include "isle_actor.h"
@@ -176,4 +175,3 @@ private:
 	MxBool m_unk0x98;
 };
 
-#endif // PIZZA_H

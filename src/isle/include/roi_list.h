@@ -1,5 +1,4 @@
-#ifndef LEGOROILIST_H
-#define LEGOROILIST_H
+#pragma once
 
 #include "mx_list.h"
 #include "roi.h"
@@ -60,4 +59,3 @@ public:
 
 // MxListEntry<LegoROI *>::MxListEntry<LegoROI *>
 
-#endif // LEGOROILIST_H

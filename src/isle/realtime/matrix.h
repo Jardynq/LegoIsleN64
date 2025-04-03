@@ -1,5 +1,4 @@
-#ifndef MATRIX_H
-#define MATRIX_H
+#pragma once
 
 #include "vector.h"
 
@@ -50,4 +49,3 @@ public:
 	const float* operator[](int idx) const { return m_data[idx]; }
 };
 
-#endif // MATRIX_H

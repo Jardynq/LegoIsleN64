@@ -1,5 +1,4 @@
-#ifndef ORIENTABLEROI_H
-#define ORIENTABLEROI_H
+#pragma once
 
 #include "mx_matrix.h"
 #include "roi.h"
@@ -64,4 +63,3 @@ protected:
 
 // OrientableROI::~OrientableROI
 
-#endif // ORIENTABLEROI_H

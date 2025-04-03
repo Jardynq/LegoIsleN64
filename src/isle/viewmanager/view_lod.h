@@ -1,5 +1,4 @@
-#ifndef VIEWLOD_H
-#define VIEWLOD_H
+#pragma once
 
 #include "roi.h"
 #include "tgl.h"
@@ -37,4 +36,3 @@ protected:
 	undefined4 m_unk0x08;
 };
 
-#endif // VIEWLOD_H

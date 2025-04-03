@@ -1,5 +1,4 @@
-#ifndef MXDSOBJECT_H
-#define MXDSOBJECT_H
+#pragma once
 
 #include "mx_atom.h"
 #include "mx_core.h"
@@ -104,4 +103,3 @@ MxDSObject* CreateStreamObject(MxDSFile*, MxS16);
 
 // MxUtilityList<MxDSObject *>::PopFront
 
-#endif // MXDSOBJECT_H

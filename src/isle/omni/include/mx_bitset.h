@@ -1,5 +1,4 @@
-#ifndef MXBITSET_H
-#define MXBITSET_H
+#pragma once
 
 #pragma warning(disable : 4237)
 
@@ -135,4 +134,3 @@ private:
 
 // MxBitset<2>::Xran
 
-#endif // MXBITSET_H

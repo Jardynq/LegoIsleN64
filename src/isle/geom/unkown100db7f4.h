@@ -1,5 +1,4 @@
-#ifndef __LEGOUNKNOWN100DB7F4_H
-#define __LEGOUNKNOWN100DB7F4_H
+#pragma once
 
 #include "edge.h"
 #include "weg_edge.h"
@@ -141,4 +140,3 @@ inline LegoU32 LegoUnknown100db7f4::FUN_10048c40(const Vector3& p_position) {
 	return TRUE;
 }
 
-#endif // __LEGOUNKNOWN100DB7F4_H
