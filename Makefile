@@ -14,29 +14,32 @@ INCLUDE := $(shell $(N64_CXX) -E -x c++ - -v 2>&1 < /dev/null | \
              sed -n '/#include <...> search starts here:/,/End of search list./p' | \
              grep ' /' | tr -d ' ')
 CXXFLAGS += $(patsubst %,-I%, $(INCLUDE))
+CXXFLAGS += $(patsubst %,-I%,$(shell find $(SOURCE_DIR)/isle -type d))
 CXXFLAGS += -I$(SOURCE_DIR)
-CXXFLAGS += $(patsubst %,-I%,$(shell find src -type d))
-
+CXXFLAGS += -I$(SOURCE_DIR)/tests
 CXXFLAGS += -I3rdparty/vec 
+
 CXXFLAGS += -include $(SOURCE_DIR)/global.h
 #CXXFLAGS += -NDEBUG
 
-SRCS := $(wildcard $(SOURCE_DIR)/**/*.cpp $(SOURCE_DIR)/*.cpp)
-OBJS := $(patsubst $(SOURCE_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
-#OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/legofs.o
+#SRCS := $(wildcard $(SOURCE_DIR)/**/*.cpp $(SOURCE_DIR)/*.cpp)
+#OBJS := $(patsubst $(SOURCE_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
+OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/legofs.o
 
+isle: isle.z64
 isle.z64: N64_ROM_TITLE="LegoIsleN64"
 isle.z64: $(BUILD_DIR)/isle.dfs $(BUILD_DIR)/isle.elf
 $(BUILD_DIR)/isle.elf: $(OBJS)
 
-asset_test.z64: N64_ROM_TITLE="LegoIsleN64"
-asset_test.z64: $(BUILD_DIR)/isle.dfs $(BUILD_DIR)/asset_test.elf
-$(BUILD_DIR)/asset_test.elf: $(BUILD_DIR)/asset_test.o $(BUILD_DIR)/legofs.o
+tests: test_assets.z64
+
+test_assets.z64: $(BUILD_DIR)/isle.dfs $(BUILD_DIR)/test_assets.elf
+$(BUILD_DIR)/test_assets.elf: $(BUILD_DIR)/tests/test_assets.o $(BUILD_DIR)/legofs.o
 
 clean:
 	rm -rf $(BUILD_DIR)/* isle.z64
 
-all: isle.z64
+all: isle tests
 .PHONY: all clean
 
 -include $(wildcard $(BUILD_DIR)/*.d)
