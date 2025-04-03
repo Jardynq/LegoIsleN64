@@ -18,8 +18,6 @@ CXXFLAGS += -Isrc
 CXXFLAGS += $(patsubst %,-I%,$(shell find src -type d))
 
 CXXFLAGS += -I3rdparty/vec 
-CXXFLAGS += -I3rdparty/libsmacker 
-
 CXXFLAGS += -include $(SOURCE_DIR)/global.h
 #CXXFLAGS += -NDEBUG
 
