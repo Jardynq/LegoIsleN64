@@ -132,22 +132,83 @@ int main(void) {
 
 		switch (node.type) {
 		case LegofsType::Bitmap: {
-			log_info("Bitmap %u: %s\n", node.index, node.name);
+			debugf(
+				"Bitmap %u: \t%s \t %s\n",
+				node.index,
+				node.name,
+				node.presenter
+			);
 			sprites.push_back(node.index);
 			break;
 		}
 		case LegofsType::Wave: {
-			log_info("Wave %u: %s\n", node.index, node.name);
+			debugf(
+				"Wave %u: \t%s \t %s\n",
+				node.index,
+				node.name,
+				node.presenter
+			);
 			waves.push_back(node.index);
 			break;
 		}
 		case LegofsType::Flic:
 		case LegofsType::Smacker: {
-			log_info("Video %u: %s\n", node.index, node.name);
+			debugf(
+				"Video %u: \t%s \t %s\n",
+				node.index,
+				node.name,
+				node.presenter
+			);
 			vids.push_back(node.index);
 			break;
 		}
-		default:
+		case LegofsType::Presenter: {
+			debugf(
+				"Presenter %u: \t%s \t %s\n",
+				node.index,
+				node.name,
+				node.presenter
+			);
+			break;
+		}
+		case LegofsType::World: {
+			debugf(
+				"World %u: \t%s \t %s\n",
+				node.index,
+				node.name,
+				node.presenter
+			);
+			break;
+		}
+		case LegofsType::Object: {
+			debugf(
+				"Object %u: \t%s \t %s\n",
+				node.index,
+				node.name,
+				node.presenter
+			);
+			break;
+		}
+		case LegofsType::Animation: {
+			debugf(
+				"Animation %u: \t%s \t %s\n",
+				node.index,
+				node.name,
+				node.presenter
+			);
+			break;
+		}
+		case LegofsType::Event: {
+			debugf(
+				"Event %u: \t%s \t %s\n",
+				node.index,
+				node.name,
+				node.presenter
+			);
+			break;
+		}
+
+		case LegofsType::Null:
 			break;
 		}
 	}
