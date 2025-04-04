@@ -1,53 +1,36 @@
 #include "object_factory.h"
 
-// Headers need to be included in a certain order to match the original binary.
-// Some of the following headers were probably not directly included,
-// but were included from one of the higher level classes. We should attempt
-// to reverse engineer the inclusion "graph" at some point. Until then, to
-// maintain correct order in the binary, we include them in the order we want
-// here.
-// clang-format off
-#include "mx_presenter.h"
-#include "entity.h"
-#include "path_actor.h"
-// The below header inclusions should be sound.
-#include "looping_anim_presenter.h"
-#include "mx_composite_media_presenter.h"
-#include "actor_presenter.h"
-#include "model_presenter.h"
-#include "texture_presenter.h"
-#include "part_presenter.h"
-#include "action_control_presenter.h"
 #include "3d_wave_presenter.h"
-#include "jetski_race.h"
-#include "car_race.h"
-#include "score.h"
 #include "act2.h"
-#include "helicopter.h"
-#include "act2_police_station.h"
-#include "act3.h"
-#include "doors.h"
-#include "pizzeria.h"
-#include "buildings.h"
-#include "jukebox.h"
-// clang-format on
-
 #include "act2_actor.h"
 #include "act2_brick.h"
 #include "act2_genactor.h"
 #include "act2_police_station.h"
 #include "act3.h"
 #include "act3_actors.h"
+#include "action_control_presenter.h"
+#include "actor.h"
+#include "actor_presenter.h"
 #include "ambulance.h"
+#include "anim_actor.h"
+#include "anim_mm_presenter.h"
+#include "anim_presenter.h"
+#include "animation_manager.h"
 #include "bike.h"
 #include "buildings.h"
 #include "bump_bouy.h"
+#include "car_build.h"
+#include "car_build_presenter.h"
 #include "car_race.h"
 #include "doors.h"
 #include "dunebuggy.h"
 #include "elevator_bottom.h"
+#include "entity.h"
+#include "entity_presenter.h"
+#include "flc_texture_presenter.h"
 #include "gas_station.h"
 #include "helicopter.h"
+#include "hide_anim_presenter.h"
 #include "history_book.h"
 #include "hospital.h"
 #include "infocenter.h"
@@ -57,56 +40,41 @@
 #include "jetski_race.h"
 #include "jukebox.h"
 #include "jukebox_entity.h"
-#include "3d_wave_presenter.h"
-#include "act2.h"
-#include "action_control_presenter.h"
-#include "actor.h"
-#include "actor_presenter.h"
-#include "anim_actor.h"
-#include "animation_manager.h"
-#include "anim_mm_presenter.h"
-#include "anim_presenter.h"
-#include "car_build.h"
-#include "car_build_presenter.h"
-#include "entity.h"
-#include "entity_presenter.h"
-#include "flc_texture_presenter.h"
-#include "hide_anim_presenter.h"
+#include "legopalettepresenter.h"
 #include "load_cache_sound_presenter.h"
 #include "locomotion_anim_presenter.h"
 #include "looping_anim_presenter.h"
 #include "meter_presenter.h"
+#include "misc.h"
 #include "model_presenter.h"
-#include "legopalettepresenter.h"
+#include "motorcycle.h"
+#include "mx_composite_media_presenter.h"
+#include "mx_control_presenter.h"
+#include "mx_presenter.h"
 #include "part_presenter.h"
 #include "path_actor.h"
 #include "path_presenter.h"
 #include "phoneme_presenter.h"
-#include "racers.h"
-#include "race_special.h"
-#include "texture_presenter.h"
-#include "world.h"
-#include "world_presenter.h"
-#include "misc.h"
-#include "motorcycle.h"
-#include "mx_composite_media_presenter.h"
-#include "mx_control_presenter.h"
 #include "pizza.h"
 #include "pizzeria.h"
 #include "police.h"
-#include "racecar.h"
 #include "race_skel.h"
+#include "race_special.h"
+#include "racecar.h"
+#include "racers.h"
 #include "registration_book.h"
 #include "score.h"
 #include "skateboard.h"
+#include "texture_presenter.h"
 #include "towtrack.h"
+#include "world.h"
+#include "world_presenter.h"
 
 LegoObjectFactory::LegoObjectFactory() {
 	m_idLegoEntityPresenter = MxAtomId("LegoEntityPresenter", e_exact);
 	m_idLegoActorPresenter = MxAtomId("LegoActorPresenter", e_exact);
 	m_idLegoWorldPresenter = MxAtomId("LegoWorldPresenter", e_exact);
 	m_idLegoWorld = MxAtomId("LegoWorld", e_exact);
-	m_idLegoAnimPresenter = MxAtomId("LegoAnimPresenter", e_exact); // duplicate
 	m_idLegoModelPresenter = MxAtomId("LegoModelPresenter", e_exact);
 	m_idLegoTexturePresenter = MxAtomId("LegoTexturePresenter", e_exact);
 	m_idLegoPhonemePresenter = MxAtomId("LegoPhonemePresenter", e_exact);
@@ -216,103 +184,104 @@ MxCore* LegoObjectFactory::Create(const char* p_name) {
 	MxAtomId atom(p_name, e_exact);
 
 	if (m_idLegoModelPresenter == atom) {
-		object = new LegoModelPresenter();
+		object = (MxCore*) new LegoModelPresenter();
 	} else if (m_idLegoTexturePresenter == atom) {
-		object = new LegoTexturePresenter();
+		object = (MxCore*) new LegoTexturePresenter();
 	} else if (m_idLegoPhonemePresenter == atom) {
-		object = new LegoPhonemePresenter();
+		object = (MxCore*) new LegoPhonemePresenter();
 	} else if (m_idLegoFlcTexturePresenter == atom) {
-		object = new LegoFlcTexturePresenter();
+		object = (MxCore*) new LegoFlcTexturePresenter();
 	} else if (m_idLegoEntityPresenter == atom) {
-		object = new LegoEntityPresenter();
+		object = (MxCore*) new LegoEntityPresenter();
 	} else if (m_idLegoActorPresenter == atom) {
-		object = new LegoActorPresenter();
+		object = (MxCore*) new LegoActorPresenter();
 	} else if (m_idLegoWorldPresenter == atom) {
-		object = new LegoWorldPresenter();
+		object = (MxCore*) new LegoWorldPresenter();
 	} else if (m_idLegoWorld == atom) {
-		object = new LegoWorld();
-	} else if (m_idLegoPalettePresenter == atom) {
-		object = new LegoPalettePresenter();
+		object = (MxCore*) new LegoWorld();
 	} else if (m_idLegoPathPresenter == atom) {
-		object = new LegoPathPresenter();
+		object = (MxCore*) new LegoPathPresenter();
 	} else if (m_idLegoAnimPresenter == atom) {
-		object = new LegoAnimPresenter();
+		object = (MxCore*) new LegoAnimPresenter();
 	} else if (m_idLegoLoopingAnimPresenter == atom) {
-		object = new LegoLoopingAnimPresenter();
+		object = (MxCore*) new LegoLoopingAnimPresenter();
 	} else if (m_idLegoLocomotionAnimPresenter == atom) {
-		object = new LegoLocomotionAnimPresenter();
+		object = (MxCore*) new LegoLocomotionAnimPresenter();
 	} else if (m_idLegoHideAnimPresenter == atom) {
-		object = new LegoHideAnimPresenter();
+		object = (MxCore*) new LegoHideAnimPresenter();
 	} else if (m_idLegoPartPresenter == atom) {
-		object = new LegoPartPresenter();
+		object = (MxCore*) new LegoPartPresenter();
 	} else if (m_idLegoCarBuildAnimPresenter == atom) {
-		object = new LegoCarBuildAnimPresenter();
+		object = (MxCore*) new LegoCarBuildAnimPresenter();
 	} else if (m_idLegoActionControlPresenter == atom) {
-		object = new LegoActionControlPresenter();
+		object = (MxCore*) new LegoActionControlPresenter();
 	} else if (m_idLegoMeterPresenter == atom) {
-		object = new LegoMeterPresenter();
+		object = (MxCore*) new LegoMeterPresenter();
 	} else if (m_idLegoLoadCacheSoundPresenter == atom) {
-		object = new LegoLoadCacheSoundPresenter();
+		object = (MxCore*) new LegoLoadCacheSoundPresenter();
 	} else if (m_idLego3DWavePresenter == atom) {
-		object = new Lego3DWavePresenter();
+		object = (MxCore*) new Lego3DWavePresenter();
 	} else if (m_idLegoActor == atom) {
-		object = new LegoActor();
+		object = (MxCore*) new LegoActor();
 	} else if (m_idLegoPathActor == atom) {
-		object = new LegoPathActor();
+		object = (MxCore*) new LegoPathActor();
 	} else if (m_idJetskiRace == atom) {
-		object = new JetskiRace();
+		object = (MxCore*) new JetskiRace();
 	} else if (m_idLegoEntity == atom) {
-		object = new LegoEntity();
+		object = (MxCore*) new LegoEntity();
 	} else if (m_idLegoRaceCar == atom) {
-		object = new LegoRaceCar();
+		object = (MxCore*) new LegoRaceCar();
 	} else if (m_idLegoJetski == atom) {
-		object = new LegoJetski();
+		object = (MxCore*) new LegoJetski();
 	} else if (m_idLegoCarRaceActor == atom) {
-		object = new LegoCarRaceActor();
+		object = (MxCore*) new LegoCarRaceActor();
 	} else if (m_idLegoJetskiRaceActor == atom) {
-		object = new LegoJetskiRaceActor();
+		object = (MxCore*) new LegoJetskiRaceActor();
 	} else if (m_idLegoCarBuild == atom) {
-		object = new LegoCarBuild();
+		object = (MxCore*) new LegoCarBuild();
 	} else if (m_idInfocenter == atom) {
-		object = new Infocenter();
+		object = (MxCore*) new Infocenter();
 	} else if (m_idLegoAnimActor == atom) {
-		object = new LegoAnimActor();
+		object = (MxCore*) new LegoAnimActor();
 	} else if (m_idMxControlPresenter == atom) {
-		object = new MxControlPresenter();
+		object = (MxCore*) new MxControlPresenter();
 	} else if (m_idRegistrationBook == atom) {
-		object = new RegistrationBook();
+		object = (MxCore*) new RegistrationBook();
 	} else if (m_idHistoryBook == atom) {
-		object = new HistoryBook();
+		object = (MxCore*) new HistoryBook();
 	} else if (m_idElevatorBottom == atom) {
-		object = new ElevatorBottom();
+		object = (MxCore*) new ElevatorBottom();
 	} else if (m_idInfocenterDoor == atom) {
-		object = new InfocenterDoor();
+		object = (MxCore*) new InfocenterDoor();
 	} else if (m_idScore == atom) {
-		object = new Score();
+		object = (MxCore*) new Score();
 	} else if (m_idScoreState == atom) {
-		object = new ScoreState();
+		object = (MxCore*) new ScoreState();
 	} else if (m_idHospital == atom) {
-		object = new Hospital();
+		object = (MxCore*) new Hospital();
 	} else if (m_idIsle == atom) {
-		object = new Isle();
+		object = (MxCore*) new Isle();
 	} else if (m_idPolice == atom) {
-		object = new Police();
+		object = (MxCore*) new Police();
 	} else if (m_idGasStation == atom) {
-		object = new GasStation();
+		object = (MxCore*) new GasStation();
 	} else if (m_idLegoAct2 == atom) {
-		object = new LegoAct2();
+		object = (MxCore*) new LegoAct2();
 	} else if (m_idLegoAct2State == atom) {
-		object = new LegoAct2State();
+		object = (MxCore*) new LegoAct2State();
 	} else if (m_idCarRace == atom) {
-		object = new CarRace();
-	} else if (m_idLegoRaceCarBuildState == atom || m_idLegoCopterBuildState == atom || m_idLegoDuneCarBuildState == atom || m_idLegoJetskiBuildState == atom) {
-		object = new LegoVehicleBuildState(p_name);
+		object = (MxCore*) new CarRace();
+	} else if (m_idLegoRaceCarBuildState == atom ||
+			   m_idLegoCopterBuildState == atom ||
+			   m_idLegoDuneCarBuildState == atom ||
+			   m_idLegoJetskiBuildState == atom) {
+		object = (MxCore*) new LegoVehicleBuildState(p_name);
 	} else if (m_idHospitalState == atom) {
-		object = new HospitalState();
+		object = (MxCore*) new HospitalState();
 	} else if (m_idInfocenterState == atom) {
-		object = new InfocenterState();
+		object = (MxCore*) new InfocenterState();
 	} else if (m_idPoliceState == atom) {
-		object = new PoliceState();
+		object = (MxCore*) new PoliceState();
 	}
 
 	if (object != NULL) {
@@ -320,111 +289,108 @@ MxCore* LegoObjectFactory::Create(const char* p_name) {
 	}
 
 	if (m_idGasStationState == atom) {
-		object = new GasStationState();
+		object = (MxCore*) new GasStationState();
 	} else if (m_idSkateBoard == atom) {
-		object = new SkateBoard();
+		object = (MxCore*) new SkateBoard();
 	} else if (m_idHelicopter == atom) {
-		object = new Helicopter();
+		object = (MxCore*) new Helicopter();
 	} else if (m_idHelicopterState == atom) {
-		object = new HelicopterState();
+		object = (MxCore*) new HelicopterState();
 	} else if (m_idDuneBuggy == atom) {
-		object = new DuneBuggy();
+		object = (MxCore*) new DuneBuggy();
 	} else if (m_idPizza == atom) {
-		object = new Pizza();
+		object = (MxCore*) new Pizza();
 	} else if (m_idPizzaMissionState == atom) {
-		object = new PizzaMissionState();
+		object = (MxCore*) new PizzaMissionState();
 	} else if (m_idAct2Actor == atom) {
 		Act2Actor* actor = new Act2Actor();
 		((LegoAct2*) CurrentWorld())->SetUnknown0x1138(actor);
-		object = actor;
+		object = (MxCore*) actor;
 	} else if (m_idAct2Brick == atom) {
-		object = new Act2Brick();
+		object = (MxCore*) new Act2Brick();
 	} else if (m_idAct2GenActor == atom) {
-		object = new Act2GenActor();
+		object = (MxCore*) new Act2GenActor();
 	} else if (m_idAct2PoliceStation == atom) {
-		object = new Act2PoliceStation();
+		object = (MxCore*) new Act2PoliceStation();
 	} else if (m_idAct3 == atom) {
-		object = new Act3();
+		object = (MxCore*) new Act3();
 	} else if (m_idAct3State == atom) {
-		object = new Act3State();
+		object = (MxCore*) new Act3State();
 	} else if (m_idDoors == atom) {
-		object = new Doors();
+		object = (MxCore*) new Doors();
 	} else if (m_idLegoAnimMMPresenter == atom) {
-		object = new LegoAnimMMPresenter();
+		object = (MxCore*) new LegoAnimMMPresenter();
 	} else if (m_idRaceCar == atom) {
-		object = new RaceCar();
+		object = (MxCore*) new RaceCar();
 	} else if (m_idJetski == atom) {
-		object = new Jetski();
+		object = (MxCore*) new Jetski();
 	} else if (m_idBike == atom) {
-		object = new Bike();
+		object = (MxCore*) new Bike();
 	} else if (m_idMotocycle == atom) {
-		object = new Motocycle();
+		object = (MxCore*) new Motocycle();
 	} else if (m_idAmbulance == atom) {
-		object = new Ambulance();
+		object = (MxCore*) new Ambulance();
 	} else if (m_idAmbulanceMissionState == atom) {
-		object = new AmbulanceMissionState();
+		object = (MxCore*) new AmbulanceMissionState();
 	} else if (m_idTowTrack == atom) {
-		object = new TowTrack();
+		object = (MxCore*) new TowTrack();
 	} else if (m_idTowTrackMissionState == atom) {
-		object = new TowTrackMissionState();
+		object = (MxCore*) new TowTrackMissionState();
 	} else if (m_idAct3Cop == atom) {
-		object = new Act3Cop();
+		object = (MxCore*) new Act3Cop();
 	} else if (m_idAct3Brickster == atom) {
-		object = new Act3Brickster();
+		object = (MxCore*) new Act3Brickster();
 	} else if (m_idAct3Shark == atom) {
-		object = new Act3Shark();
+		object = (MxCore*) new Act3Shark();
 	} else if (m_idAct3Actor == atom) {
-		object = new Act3Actor();
+		object = (MxCore*) new Act3Actor();
 	} else if (m_idBumpBouy == atom) {
-		object = new BumpBouy();
+		object = (MxCore*) new BumpBouy();
 	} else if (m_idJetskiRaceState == atom) {
-		object = new JetskiRaceState();
+		object = (MxCore*) new JetskiRaceState();
 	} else if (m_idCarRaceState == atom) {
-		object = new CarRaceState();
+		object = (MxCore*) new CarRaceState();
 	} else if (m_idAct1State == atom) {
-		object = new Act1State();
+		object = (MxCore*) new Act1State();
 	} else if (m_idPizzeria == atom) {
-		object = new Pizzeria();
+		object = (MxCore*) new Pizzeria();
 	} else if (m_idPizzeriaState == atom) {
-		object = new PizzeriaState();
+		object = (MxCore*) new PizzeriaState();
 	} else if (m_idInfoCenterEntity == atom) {
-		object = new InfoCenterEntity();
+		object = (MxCore*) new InfoCenterEntity();
 	} else if (m_idHospitalEntity == atom) {
-		object = new HospitalEntity();
+		object = (MxCore*) new HospitalEntity();
 	} else if (m_idGasStationEntity == atom) {
-		object = new GasStationEntity();
+		object = (MxCore*) new GasStationEntity();
 	} else if (m_idPoliceEntity == atom) {
-		object = new PoliceEntity();
+		object = (MxCore*) new PoliceEntity();
 	} else if (m_idBeachHouseEntity == atom) {
-		object = new BeachHouseEntity();
+		object = (MxCore*) new BeachHouseEntity();
 	} else if (m_idJukeBoxEntity == atom) {
-		object = new JukeBoxEntity();
+		object = (MxCore*) new JukeBoxEntity();
 	} else if (m_idRaceStandsEntity == atom) {
-		object = new RaceStandsEntity();
+		object = (MxCore*) new RaceStandsEntity();
 	} else if (m_idRadioState == atom) {
-		object = new RadioState();
+		object = (MxCore*) new RadioState();
 	} else if (m_idCaveEntity == atom) {
-		object = new CaveEntity();
+		object = (MxCore*) new CaveEntity();
 	} else if (m_idJailEntity == atom) {
-		object = new JailEntity();
+		object = (MxCore*) new JailEntity();
 	} else if (m_idMxCompositeMediaPresenter == atom) {
-		object = new MxCompositeMediaPresenter();
+		object = (MxCore*) new MxCompositeMediaPresenter();
 	} else if (m_idJukeBox == atom) {
-		object = new JukeBox();
+		object = (MxCore*) new JukeBox();
 	} else if (m_idJukeBoxState == atom) {
-		object = new JukeBoxState();
+		object = (MxCore*) new JukeBoxState();
 	} else if (m_idRaceSkel == atom) {
-		object = new RaceSkel();
+		object = (MxCore*) new RaceSkel();
 	} else if (m_idAnimState == atom) {
-		object = new AnimState();
+		object = (MxCore*) new AnimState();
 	} else {
 		object = MxObjectFactory::Create(p_name);
 	}
 
-	// clang-format off
 	assert(object != NULL);
-	// clang-format on
-
 	return object;
 }
 

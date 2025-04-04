@@ -110,13 +110,8 @@ public:
 	MxCore* Create(const char* p_name) override;
 	void Destroy(MxCore* p_object) override;
 
-	// LegoObjectFactory::`scalar deleting destructor'
-
-	// LegoObjectFactory::~LegoObjectFactory
-
 private:
 #define X(V) MxAtomId m_id##V;
 	FOR_LEGOOBJECTFACTORY_OBJECTS(X)
 #undef X
 };
-
