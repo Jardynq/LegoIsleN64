@@ -6,7 +6,7 @@ SCRIPT_OUT = $(BUILD_DIR)/$(ASSET_DIR)/scripts
 CURSOR_OUT = $(BUILD_DIR)/$(ASSET_DIR)/cursors
 DATA_OUT = $(BUILD_DIR)/$(ASSET_DIR)/data
 
-ASSET_TEMP = $(BUILD_DIR)/.temp/assets
+ASSET_TEMP = $(BUILD_DIR)/temp/assets
 
 
 legofs: $(LEGOFS)
@@ -14,7 +14,7 @@ $(LEGOFS):
 	$(MAKE) cursors 
 	$(MAKE) data 
 	$(MAKE) scripts
-	mkdfs $@ $(BUILD_DIR)/$(ASSET_DIR)
+	mkdfs "$@" "$(BUILD_DIR)/$(ASSET_DIR)"
 
 
 SIDUMP = $(BUILD_DIR)/sidump
@@ -25,63 +25,77 @@ $(SIDUMP):
 
 
 .PHONY: lowercase_assets
+.ONESHELL:
 lowercase_assets:
-	@echo "Making all asset filenames lowercase"
-	@mkdir -p $(ASSET_TEMP)
-	@find $(ASSET_DIR) -depth | while read path; do \
-		dir=$$(dirname "$$path"); \
-		name=$$(basename "$$path"); \
-		lower=$$(echo "$$name" | tr '[:upper:]' '[:lower:]'); \
-		if [ "$$name" != "$$lower" ]; then \
-			mv -T "$$dir/$$name" "$(ASSET_TEMP)/$$name"; \
-			mv -T "$(ASSET_TEMP)/$$name" "$$dir/$$lower"; \
-		fi; \
-	done; \
-
+	@bash <<'EOF'
+		set -euo pipefail
+		echo "Making all asset filenames lowercase"
+		mkdir -p "$(ASSET_TEMP)"
+		find "$(ASSET_DIR)" -depth | while read path; do
+			dir=$$(dirname "$$path")
+			name=$$(basename "$$path")
+			lower=$$(echo "$$name" | tr '[:upper:]' '[:lower:]')
+			if [ "$$name" != "$$lower" ]; then
+				mv -T "$$dir/$$name" "$(ASSET_TEMP)/$$name"
+				mv -T "$(ASSET_TEMP)/$$name" "$$dir/$$lower"
+			fi
+		done
+	EOF
 
 .PHONY: check_assets
+.ONESHELL:
 check_assets: lowercase_assets
-	@missing=""
-	@for dir in $(ASSET_DIR)/cursors $(ASSET_DIR)/data $(ASSET_DIR)/scripts; do \
-		if [ ! -d "$$dir" ]; then \
-			missing="$$missing$$dir/ is missing.\n"; \
-		elif [ -z "$$(find $$dir -type f 2>/dev/null)" ]; then \
-			missing="$$missing$$dir is empty.\n"; \
-		fi; \
-	done; \
-	if [ -n "$$missing" ]; then \
-		echo "\nError: missing assets!\n$$missing"; \
-		echo "Copy contents of the 'LEGO' folder into 'assets' and retry."; \
-		exit 1; \
-	fi
-
+	@bash <<'EOF'
+		set -euo pipefail
+		missing=""
+		for dir in "$(ASSET_DIR)"/cursors "$(ASSET_DIR)"/data "$(ASSET_DIR)"/scripts; do
+			if [ ! -d "$$dir" ]; then
+				missing="$$missing$$dir/ is missing.\n"
+			elif [ -z "$$(find $$dir -type f 2>/dev/null)" ]; then
+				missing="$$missing$$dir is empty.\n"
+			fi
+		done
+		if [ -n "$$missing" ]; then
+			echo "\nError: missing assets!\n$$missing"
+			echo "Copy contents of the 'LEGO' folder into 'assets' and retry."
+			exit 1
+		fi
+	EOF
 
 .PHONY: cursors
+.ONESHELL:
 cursors: check_assets
-	@echo "Converting cursor files"
-	@mkdir -p $(CURSOR_OUT)
-	@for file in $(ASSET_DIR)/cursors/*; do \
-		mksprite -c 1 -f RGBA16 -o $(CURSOR_OUT) "$$file"; \
-	done
+	@bash <<'EOF'
+		set -euo pipefail
+		echo "Converting cursor files"
+		mkdir -p "$(CURSOR_OUT)"
+		for file in "$(ASSET_DIR)"/cursors/*; do 
+			mksprite -c 1 -f RGBA16 -o "$(CURSOR_OUT)" "$$file"
+		done
+	EOF
 
 
 .PHONY: data
+.ONESHELL:
 data: check_assets
-	@echo "Converting data files"
-	@mkdir -p $(DATA_OUT)
-	@for file in $(ASSET_DIR)/data/*; do \
-		mkasset -c 1 -o $(DATA_OUT) "$$file"; \
-	done
+	@bash <<'EOF'
+		set -euo pipefail
+		echo "Converting data files"
+		mkdir -p "$(DATA_OUT)"
+		for file in "$(ASSET_DIR)"/data/*; do
+			mkasset -c 1 -o "$(DATA_OUT)" "$$file"
+		done
+	EOF
 
 
 .PHONY: scripts
 .ONESHELL:
 scripts: check_assets sidump
-	@FLAGS="$(MAKEFLAGS)" SCRIPTS="$(SCRIPTS)" bash <<'EOF'
+	@bash <<'EOF'
 		set -euo pipefail
 		main() {
 			JOBS_PATTERN="(^| )-j([0-9]+)?( |$$)"
-			JOBS_FLAG=$$(echo "$$FLAGS" | grep -Eo -- "$$JOBS_PATTERN" | tr -d ' ' || true)
+			JOBS_FLAG=$$(echo "$(MAKEFLAGS)" | grep -Eo -- "$$JOBS_PATTERN" | tr -d ' ' || true)
 			if [[ "$$JOBS_FLAG" == "-j" ]]; then
 				JOBS=$$(nproc)
 			elif [[ "$$JOBS_FLAG" != "" ]]; then
@@ -91,18 +105,19 @@ scripts: check_assets sidump
 			fi
 			export JOBS
 
-			echo "Converting script files"
 			echo ""
 			echo "TODO:"
 			echo "CURRENTLY ONLY SUPPORTS INFOMAIN.SI"
 			echo ""
-			find "$$SCRIPTS" -type f -name "*.si" -print0 | \
+			
+			echo "Converting script files"
+			find "$(SCRIPTS)" -type f -name "*.si" -print0 | \
 				xargs -0 -n1 -P"$$JOBS" bash -c 'process_script "$$@"' _ 
 		}
 		
 		conv_bmp() {
-			local out="$$2"
-			local file="$$3"
+			local out="$$1"
+			local file="$$2"
 			local png="$${file%.bmp}.png"
 			ffmpeg -hide_banner -loglevel error -y -i "$$file" "$$png"
 			mksprite -c 1 -f RGBA16 -o "$$out" "$$png"
@@ -111,19 +126,19 @@ scripts: check_assets sidump
 		export -f conv_bmp
 
 		conv_wav() {
-			local out="$$2"
-			local file="$$3"
+			local out="$$1"
+			local file="$$2"
 			audioconv64 --wav-compress 1 -o "$$out" "$$file"
 			rm "$$file"
 		}
 		export -f conv_wav
 
 		conv_flc() {
-			local out="$$2"
-			local file="$$3"
+			local out="$$1"
+			local file="$$2"
 			local m1v="$${file%.flc}.m1v"
 			ffmpeg -hide_banner -loglevel error -y -i "$$file" \
-				-vf "scale=iw/2:ih/2" -vb 800K \
+				-vf "scale=trunc(iw/32)*32:trunc(ih/16)*16" -vb 800K \
 				-c:v mpeg1video -an -r 24 "$$m1v"
 			mv "$$m1v" "$$out"
 			rm "$$file"
@@ -131,11 +146,11 @@ scripts: check_assets sidump
 		export -f conv_flc
 
 		conv_pho() {
-			local out="$$2"
-			local file="$$3"
+			local out="$$1"
+			local file="$$2"
 			local m1v="$${file%.pho}.m1v"
 			ffmpeg -hide_banner -loglevel error -y -i "$$file" \
-				-vf "scale=iw/2:ih/2,vflip" -vb 800K \
+				-vf "scale=trunc(iw/32)*32:trunc(ih/16)*16,vflip" -vb 800K \
 				-c:v mpeg1video -an -r 24 "$$m1v"
 			mv "$$m1v" "$$out"
 			rm "$$file"
@@ -143,12 +158,12 @@ scripts: check_assets sidump
 		export -f conv_pho
 		
 		conv_smk() {
-			local out="$$2"
-			local file="$$3"
+			local out="$$1"
+			local file="$$2"
 
 			local m1v="$${file%.smk}.m1v"
 			ffmpeg -hide_banner -loglevel error -y -i "$$file" \
-				-vf "scale=iw/2:ih/2" -vb 800K \
+				-vf "scale=trunc(iw/32)*32:trunc(ih/16)*16" -vb 800K \
 				-c:v mpeg1video -an -r 24 "$$m1v"
 			mv "$$m1v" "$$out"
 			
@@ -165,15 +180,18 @@ scripts: check_assets sidump
 		export -f conv_smk
 
 		conv_misc() {
-			local out="$$2"
-			local file="$$3"
+			local out="$$1"
+			local file="$$2"
 			mkasset -c 1 -o "$$out" "$$file";
+			#rm "$$file" Disabled for now, as to see what types I'm missing
 		}
 		export -f conv_misc
 
 		process_script() {
+			umask 0022
+
 			local script="$$1"
-			local script_rel=$${script#"$$SCRIPTS/"}
+			local script_rel=$${script#"$(SCRIPTS)/"}
 			local script_out="$(SCRIPT_OUT)/$$script_rel"
 			local temp_out="$(ASSET_TEMP)/$$script_rel"
 
@@ -191,8 +209,8 @@ scripts: check_assets sidump
 
 			convert conv_bmp "*.bmp" "$$temp_out" "$$script_out" "$$script_rel" &
 			convert conv_wav "*.wav" "$$temp_out" "$$script_out" "$$script_rel" &
-			convert conv_flc "*.flc" "$$temp_out" "$$script_out" "$$script_rel" &
-			convert conv_pho "*.pho" "$$temp_out" "$$script_out" "$$script_rel" &
+			convert conv_flc "*.flc" "$$temp_out" "$$script_out" "$$script_rel" 6
+			convert conv_pho "*.pho" "$$temp_out" "$$script_out" "$$script_rel" 6
 			convert conv_smk "*.smk" "$$temp_out" "$$script_out" "$$script_rel" &
 			wait
 			
@@ -200,7 +218,7 @@ scripts: check_assets sidump
 			convert conv_misc "*.*" "$$temp_out" "$$script_out" "$$script_rel" &
 			wait
 			
-			rm -r "$$temp_out"
+			#rm -r "$$temp_out"
 			echo "$$script_rel: Finished"
 		}
 		export -f process_script
@@ -212,9 +230,11 @@ scripts: check_assets sidump
 			local script_out="$$4"
 			local script_rel="$$5"
 
-			find "$$script_in" -type f -name "$$pattern" -print0 | \
-				xargs -0 -n1 -P"$$JOBS" bash -c \
-					'func="$$1"; shift; "$$func" "$$@"' _ "$$converter" {} "$$script_out"
+			local args=("$$script_in" -type f -name "$$pattern")
+			if [ -n "$$(find "$${args[@]}" | head -n 1)" ]; then
+				find "$${args[@]}" -print0 | xargs -0 -n1 -P"$$JOBS" bash -c \
+					'func="$$1"; shift; "$$func" "$$@"' _ "$$converter" "$$script_out"
+			fi
 			echo "$$script_rel: Finished $$converter"
 		}
 		export -f convert

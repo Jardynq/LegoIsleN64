@@ -13,10 +13,12 @@
 
 LegofsIndex legofs_index;
 
+const std::string LEGOFS_SCRIPT_ROOT =
+	std::string("rom:/scripts/infocntr/infomain.si/");
+
 void legofs_read_index_node(LegofsNode* node, FILE* file);
 void legofs_init() {
-	FILE* file =
-		asset_fopen("rom:/scripts/infocntr/infomain.si/index", nullptr);
+	FILE* file = asset_fopen((LEGOFS_SCRIPT_ROOT + "index").c_str(), nullptr);
 	if (!file) {
 		return;
 	}
@@ -41,8 +43,7 @@ void legofs_init() {
 }
 
 const u8* legofs_read(u16 index, i32* size) {
-	auto path = std::string("rom:/scripts/infocntr/infomain.si/") +
-				std::to_string(index);
+	auto path = LEGOFS_SCRIPT_ROOT + std::to_string(index);
 
 	FILE* file = asset_fopen(path.c_str(), size);
 	if (!file) {
@@ -56,8 +57,7 @@ const u8* legofs_read(u16 index, i32* size) {
 }
 
 FILE* legofs_open(u16 index, i32* size, const char* ext) {
-	auto path = std::string("rom:/scripts/Infocntr/infomain.si/") +
-				std::to_string(index);
+	auto path = LEGOFS_SCRIPT_ROOT + std::to_string(index);
 	if (ext != nullptr) {
 		path += ext;
 	}
@@ -70,8 +70,7 @@ FILE* legofs_open(u16 index, i32* size, const char* ext) {
 }
 
 MxResult legofs_open_video(u16 index, mpeg2_t** video) {
-	auto path =
-		"rom:/scripts/infocntr/infomain.si/" + std::to_string(index) + ".m1v";
+	auto path = LEGOFS_SCRIPT_ROOT + std::to_string(index) + ".m1v";
 	*video = mpeg2_open(path.c_str());
 	if (!*video) {
 		return FAILURE;
@@ -80,8 +79,7 @@ MxResult legofs_open_video(u16 index, mpeg2_t** video) {
 }
 
 MxResult legofs_open_audio(u16 index, wav64_t* audio) {
-	auto path =
-		"rom:/scripts/infocntr/infomain.si/" + std::to_string(index) + ".wav64";
+	auto path = LEGOFS_SCRIPT_ROOT + std::to_string(index) + ".wav64";
 	FILE* file = fopen(path.c_str(), "r");
 	if (!file) {
 		return FAILURE;
@@ -92,8 +90,7 @@ MxResult legofs_open_audio(u16 index, wav64_t* audio) {
 }
 
 MxResult legofs_open_sprite(u16 index, sprite_t** sprite) {
-	auto path = "rom:/scripts/infocntr/infomain.si/" + std::to_string(index) +
-				".sprite";
+	auto path = LEGOFS_SCRIPT_ROOT + std::to_string(index) + ".sprite";
 	*sprite = sprite_load(path.c_str());
 	if (*sprite == nullptr) {
 		return FAILURE;
