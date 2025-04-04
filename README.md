@@ -4,8 +4,9 @@
 Copy the contents of this folder (`scripts` and `data`) into the `assets` folder in project root.   
 After copying, the `assets` folder should contain 3 subfolder: `cursors`, `data`, `scripts`.
 3. Install docker.
-5. (Optional) Ensure the `user` field in `docker-compose.yml` and the `UID` and `GID` args in `Dockerfile` points to user and group of your choosing. You can get your user with `id -u` and group with `id -g`. 
-4. Execute `docker compose up` in project root.
+5. (Optional) Ensure the `user`, `UID` and `GID` fields in `docker-compose.yml` point to your user and group.  
+You can get your user with `id -u` and group with `id -g`. 
+4. Execute `docker compose up -d` in project root.
 5. Enter a shell in the newly created docker instance and run `make`. 
 6. The output is called `isle.z64` and is located in project root.
 

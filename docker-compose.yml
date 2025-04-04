@@ -1,7 +1,14 @@
 services:
   isle64:
-    build: .
-    user: "1000:1000"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        UID: 1000
+        GID: 1000
+        USERNAME: isleman
+      
+    user: 1000:1000
     image: isle64
     pull_policy: never
     container_name: isle64

@@ -12,9 +12,9 @@ RUN cd /tmp/tiny3d && ./build.sh
 FROM ghcr.io/dragonminded/libdragon:latest
 ENV N64_INST=/n64_toolchain
 
-ARG UID=1000
-ARG GID=1000
-ARG USERNAME=isleman
+ARG UID
+ARG GID
+ARG USERNAME
 
 # Copy the built libraries from the builder stage
 COPY --from=builder ${N64_INST} ${N64_INST}
