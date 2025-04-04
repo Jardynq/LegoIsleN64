@@ -36,11 +36,14 @@ tests: test_assets.z64
 test_assets.z64: $(LEGOFS) $(BUILD_DIR)/test_assets.elf
 $(BUILD_DIR)/test_assets.elf: $(BUILD_DIR)/tests/test_assets.o $(BUILD_DIR)/legofs.o
 
+bear:
+	@bear -- $(MAKE) -j -B $(BUILD_DIR)/isle.elf --ignore-errors
+
 clean:
 	@rm -f *.z64
 	@rm -rf $(BUILD_DIR)/*
 
 all: isle tests
-.PHONY: all clean
+.PHONY: all clean bear
 
 -include $(wildcard $(BUILD_DIR)/*.d)
