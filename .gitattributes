@@ -1,0 +1,10 @@
+*.cpp   text eol=lf
+*.h     text eol=lf
+*.md    text eol=lf
+*.json  text eol=lf
+*.yml   text eol=lf
+.clang* text eol=lf
+Dockerfile  text eol=lf
+Makefile    text eol=lf
+Makeassets  text eol=lf
+compile_commands.json text eol=lf diff=ignore

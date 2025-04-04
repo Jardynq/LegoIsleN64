@@ -15,6 +15,7 @@ INCLUDE := $(shell $(N64_CXX) -E -x c++ - -v 2>&1 < /dev/null | \
              grep ' /' | tr -d ' ')
 CXXFLAGS += $(patsubst %,-I%, $(INCLUDE))
 CXXFLAGS += $(patsubst %,-I%,$(shell find $(SOURCE_DIR)/isle -type d))
+CXXFLAGS += $(patsubst %,-I%,$(shell find $(SOURCE_DIR)/omni -type d))
 CXXFLAGS += -I$(SOURCE_DIR)
 CXXFLAGS += -I$(SOURCE_DIR)/tests
 CXXFLAGS += -I3rdparty/vec 
