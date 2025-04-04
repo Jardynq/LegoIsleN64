@@ -20,7 +20,7 @@ $(LEGOFS):
 SIDUMP = $(BUILD_DIR)/sidump
 sidump: $(SIDUMP)
 $(SIDUMP):
-	$(MAKE) -C 3rdparty/LegoIsleN64-legofs
+	$(MAKE) -C 3rdparty/LegoIsleN64-legofs CXXFLAGS="-O3 -DNDEBUG"
 	cp 3rdparty/LegoIsleN64-legofs/sidump $@
 
 
