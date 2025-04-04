@@ -38,8 +38,7 @@ $(BUILD_DIR)/test_assets.elf: $(BUILD_DIR)/tests/test_assets.o $(BUILD_DIR)/lego
 
 clean:
 	@rm -f *.z64
-	@find $(BUILD_DIR) -mindepth 1 -delete
-	@mkdir -p $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR)/*
 
 all: isle tests
 .PHONY: all clean

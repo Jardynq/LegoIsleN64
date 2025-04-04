@@ -1,6 +1,7 @@
 services:
   isle64:
     build: .
+    user: "1000:1000"
     image: isle64
     pull_policy: never
     container_name: isle64
