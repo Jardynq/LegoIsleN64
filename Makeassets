@@ -188,8 +188,6 @@ scripts: check_assets sidump
 		export -f conv_misc
 
 		process_script() {
-			umask 0022
-
 			local script="$$1"
 			local script_rel=$${script#"$(SCRIPTS)/"}
 			local script_out="$(SCRIPT_OUT)/$$script_rel"
