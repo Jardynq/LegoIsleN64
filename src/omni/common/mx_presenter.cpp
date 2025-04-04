@@ -2,7 +2,6 @@
 
 #include "define.h"
 #include "mx_action_notification_param.h"
-#include "mxautolock.h"
 #include "mx_composite_presenter.h"
 #include "mx_ds_anim.h"
 #include "mx_ds_sound.h"
@@ -17,7 +16,6 @@
 #include "mx_notification_manager.h"
 #include "mx_object_factory.h"
 #include "mx_omni.h"
-#include "mx_param.h"
 #include "mx_smk_presenter.h"
 #include "mx_still_presenter.h"
 #include "mx_streamer.h"
@@ -36,8 +34,6 @@ void MxPresenter::Init() {
 }
 
 MxResult MxPresenter::StartAction(MxStreamController*, MxDSAction* p_action) {
-	AUTOLOCK(m_criticalSection);
-
 	m_action = p_action;
 	m_location =
 		MxPoint32(m_action->GetLocation()[0], m_action->GetLocation()[1]);
@@ -52,8 +48,6 @@ void MxPresenter::EndAction() {
 	if (m_action == NULL) {
 		return;
 	}
-
-	AUTOLOCK(m_criticalSection);
 
 	if (!m_compositePresenter) {
 		MxOmni::GetInstance()->NotifyCurrentEntity(MxEndActionNotificationParam(
@@ -71,8 +65,6 @@ void MxPresenter::EndAction() {
 }
 
 void MxPresenter::ParseExtra() {
-	AUTOLOCK(m_criticalSection);
-
 	MxU16 extraLength = 0;
 	char* extraData = nullptr;
 	m_action->GetExtra(extraLength, extraData);
@@ -104,8 +96,6 @@ void MxPresenter::ParseExtra() {
 
 void MxPresenter::SendToCompositePresenter(MxOmni* p_omni) {
 	if (m_compositePresenter) {
-		AUTOLOCK(m_criticalSection);
-
 		NotificationManager()->Send(
 			m_compositePresenter,
 			MxNotificationParam(c_notificationPresenter, this)
@@ -116,8 +106,6 @@ void MxPresenter::SendToCompositePresenter(MxOmni* p_omni) {
 }
 
 MxResult MxPresenter::Tickle() {
-	AUTOLOCK(m_criticalSection);
-
 	switch (m_currentTickleState) {
 	case e_ready:
 		ReadyTickle();

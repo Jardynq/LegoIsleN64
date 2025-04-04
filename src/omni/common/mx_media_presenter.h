@@ -36,8 +36,6 @@ public:
 	MxStreamChunk* CurrentChunk();
 	MxStreamChunk* NextChunk();
 
-	// MxMediaPresenter::`scalar deleting destructor'
-
 protected:
 	MxDSSubscriber* m_subscriber;
 	MxStreamChunkList* m_loopingChunks;
@@ -46,12 +44,3 @@ protected:
 	void Init();
 	void Destroy(MxBool p_fromDestructor);
 };
-
-// MxStreamChunkListCursor::`scalar deleting destructor'
-
-// MxListCursor<MxStreamChunk *>::~MxListCursor<MxStreamChunk *>
-
-// MxListCursor<MxStreamChunk *>::`scalar deleting destructor'
-
-// MxStreamChunkListCursor::~MxStreamChunkListCursor
-

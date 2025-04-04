@@ -10,7 +10,7 @@ MxString::MxString() {
 	this->m_length = 0;
 }
 
-MxString::MxString(const MxString& p_str) {
+MxString::MxString(const MxString& p_str) : MxCore(p_str) {
 	this->m_length = p_str.m_length;
 	this->m_data = new char[this->m_length + 1];
 	strcpy(this->m_data, p_str.m_data);

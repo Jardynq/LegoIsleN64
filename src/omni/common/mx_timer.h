@@ -14,8 +14,6 @@ public:
 	void InitLastTimeCalculated() { g_lastTimeCalculated = m_startTime; }
 
 	MxLong GetTime() {
-		// Note that the BETA10 implementation differs - it only consists of the
-		// second branch of this `if` call
 		if (m_isRunning) {
 			return g_lastTimeTimerStarted;
 		} else {
@@ -23,14 +21,9 @@ public:
 		}
 	}
 
-	// MxTimer::`scalar deleting destructor'
-
 private:
 	MxLong m_startTime;
 	MxBool m_isRunning;
 	static MxLong g_lastTimeCalculated;
 	static MxLong g_lastTimeTimerStarted;
 };
-
-// MxTimer::~MxTimer
-

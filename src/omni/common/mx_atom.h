@@ -13,8 +13,6 @@
 
 class MxAtom {
 public:
-	// always inlined
-
 	MxAtom(const char* p_str) : m_key(p_str), m_value(0) {}
 
 	void Inc();
@@ -22,15 +20,12 @@ public:
 
 	MxString& GetKey() { return m_key; }
 
-	// MxAtom::`scalar deleting destructor'
-
 private:
 	MxString m_key;
 	MxU16 m_value;
 };
 
 struct MxAtomCompare {
-
 	int operator()(MxAtom* const& p_val0, MxAtom* const& p_val1) const {
 		return strcmp(p_val0->GetKey().GetData(), p_val1->GetKey().GetData()) >
 			   0;
@@ -57,16 +52,9 @@ public:
 		return this->m_internal == p_atomId.m_internal;
 	}
 
-	// Required for modern compilers.
-	// MSVC 4.20 uses a synthetic function from INCLUDE/UTILITY that inverts
-	// operator==
 	MxBool operator!=(const MxAtomId& p_atomId) const {
 		return this->m_internal != p_atomId.m_internal;
 	}
-
-	// TODO:
-	// BETA10 0x1007dc20 operator==
-	// BETA10 0x10096970 operator!=
 
 	MxBool operator==(const char* p_internal) const {
 		return p_internal && !strcmp(m_internal, p_internal);
@@ -89,113 +77,3 @@ private:
 
 	const char* m_internal;
 };
-
-// ??9@YAHABVMxAtomId@@0@Z
-// aka MxAtomId::operator!=
-
-// MxAtom::~MxAtom
-
-// clang-format off
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::iterator::_Dec
-// clang-format on
-
-// clang-format off
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::_Lbound
-// clang-format on
-
-// clang-format off
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::_Insert
-// clang-format on
-
-// clang-format off
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::const_iterator::operator*
-// clang-format on
-
-// clang-format off
-
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::~_Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >
-// clang-format on
-
-// clang-format off
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::iterator::_Inc
-// clang-format on
-
-// clang-format off
-
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::erase
-// clang-format on
-
-// clang-format off
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::size
-// clang-format on
-
-// clang-format off
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::_Erase
-// clang-format on
-
-// clang-format off
-
-
-// set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::~set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >
-// clang-format on
-
-// Set<MxAtom *,MxAtomCompare>::~Set<MxAtom *,MxAtomCompare>
-
-// set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::begin
-
-// clang-format off
-
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::_Nil
-// clang-format on
-
-// clang-format off
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::begin
-// clang-format on
-
-// set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::size
-
-// set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::erase
-
-// set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::end
-
-// set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::find
-
-// clang-format off
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::find
-// clang-format on
-
-// MxAtom::~MxAtom
-
-// set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::insert
-
-// MxAtomSet::MxAtomSet
-
-// Set<MxAtom *,MxAtomCompare>::Set<MxAtom *,MxAtomCompare>
-
-// clang-format off
-
-// set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >
-
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::_Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >
-
-
-// _Tree<MxAtom *,MxAtom *,set<MxAtom *,MxAtomCompare,allocator<MxAtom *> >::_Kfn,MxAtomCompare,allocator<MxAtom *> >::_Init
-// clang-format on
-
-// MxAtomSet::`scalar deleting destructor'
-
-// MxAtomSet::~MxAtomSet
-

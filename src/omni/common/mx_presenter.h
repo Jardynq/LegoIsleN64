@@ -1,7 +1,6 @@
 #pragma once
 
 #include "mx_core.h"
-#include "mxcriticalsection.h"
 #include "mx_point32.h"
 
 class MxCompositePresenter;
@@ -103,8 +102,6 @@ public:
 
 	void SetDisplayZ(MxS32 p_displayZ) { m_displayZ = p_displayZ; }
 
-	// MxPresenter::`scalar deleting destructor'
-
 protected:
 	void Init();
 
@@ -113,9 +110,7 @@ protected:
 	MxPoint32 m_location;
 	MxS32 m_displayZ;
 	MxDSAction* m_action;
-	MxCriticalSection m_criticalSection;
 	MxCompositePresenter* m_compositePresenter;
 };
 
 const char* PresenterNameDispatch(const MxDSAction&);
-

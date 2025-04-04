@@ -34,10 +34,7 @@ public:
 		return strcmp(m_data, p_str.m_data);
 	}
 
-	// MxString::`scalar deleting destructor'
-
 private:
 	char* m_data;
 	MxU16 m_length;
 };
-

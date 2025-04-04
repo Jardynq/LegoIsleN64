@@ -1,7 +1,6 @@
 #pragma once
 
 #include "mx_core.h"
-#include "mxcriticalsection.h"
 
 class MxNotificationParam;
 
@@ -26,7 +25,6 @@ class MxNotificationManager : public MxCore {
 private:
 	MxNotificationPtrList* m_queue;
 	MxNotificationPtrList* m_sendList;
-	MxCriticalSection m_lock;
 	MxS32 m_unk0x2c;
 	MxIdList m_listenerIds;
 	MxBool m_active;
@@ -77,4 +75,3 @@ private:
 // MxNotificationPtrList::~MxNotificationPtrList
 
 // list<MxNotification *,allocator<MxNotification *> >::empty
-

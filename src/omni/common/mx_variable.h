@@ -1,6 +1,5 @@
 #pragma once
 
-#include "mx_core.h"
 #include "mx_string.h"
 
 class MxVariable {
@@ -27,6 +26,3 @@ protected:
 	MxString m_key;
 	MxString m_value;
 };
-
-// MxVariable::~MxVariable
-

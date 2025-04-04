@@ -1,7 +1,6 @@
 #include "mx_media_presenter.h"
 
 #include "mx_action_notification_param.h"
-#include "mxautolock.h"
 #include "mx_composite_presenter.h"
 #include "mx_ds_subscriber.h"
 #include "mx_misc.h"
@@ -18,8 +17,6 @@ void MxMediaPresenter::Init() {
 
 void MxMediaPresenter::Destroy(MxBool p_fromDestructor) {
 	{
-		AUTOLOCK(m_criticalSection);
-
 		if (m_currentChunk && m_subscriber) {
 			m_subscriber->FreeDataChunk(m_currentChunk);
 		}
@@ -91,7 +88,6 @@ MxResult MxMediaPresenter::StartAction(
 	MxDSAction* p_action
 ) {
 	MxResult result = FAILURE;
-	AUTOLOCK(m_criticalSection);
 
 	if (MxPresenter::StartAction(p_controller, p_action) == SUCCESS) {
 		if (m_action->GetFlags() & MxDSAction::c_looping) {
@@ -123,8 +119,6 @@ done:
 }
 
 void MxMediaPresenter::EndAction() {
-	AUTOLOCK(m_criticalSection);
-
 	if (!m_action) {
 		return;
 	}
@@ -159,8 +153,6 @@ void MxMediaPresenter::EndAction() {
 }
 
 MxResult MxMediaPresenter::Tickle() {
-	AUTOLOCK(m_criticalSection);
-
 	CurrentChunk();
 
 	return MxPresenter::Tickle();

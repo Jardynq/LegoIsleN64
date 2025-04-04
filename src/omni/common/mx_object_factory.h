@@ -3,20 +3,6 @@
 #include "mx_atom.h"
 #include "mx_core.h"
 
-#define FOR_MXOBJECTFACTORY_OBJECTS(X)                                         \
-	X(MxPresenter)                                                             \
-	X(MxCompositePresenter)                                                    \
-	X(MxVideoPresenter)                                                        \
-	X(MxFlcPresenter)                                                          \
-	X(MxSmkPresenter)                                                          \
-	X(MxStillPresenter)                                                        \
-	X(MxWavePresenter)                                                         \
-	X(MxMIDIPresenter)                                                         \
-	X(MxEventPresenter)                                                        \
-	X(MxLoopingFlcPresenter)                                                   \
-	X(MxLoopingSmkPresenter)                                                   \
-	X(MxLoopingMIDIPresenter)
-
 class MxObjectFactory : public MxCore {
 public:
 	MxObjectFactory();
@@ -31,13 +17,17 @@ public:
 	virtual MxCore* Create(const char* p_name);
 	virtual void Destroy(MxCore* p_object);
 
-	// MxObjectFactory::`scalar deleting destructor'
-
-	// MxObjectFactory::~MxObjectFactory
-
 private:
-#define X(V) MxAtomId m_id##V;
-	FOR_MXOBJECTFACTORY_OBJECTS(X)
-#undef X
+	MxAtomId m_idMxPresenter;
+	MxAtomId m_idMxCompositePresenter;
+	MxAtomId m_idMxVideoPresenter;
+	MxAtomId m_idMxFlcPresenter;
+	MxAtomId m_idMxSmkPresenter;
+	MxAtomId m_idMxStillPresenter;
+	MxAtomId m_idMxWavePresenter;
+	MxAtomId m_idMxMIDIPresenter;
+	MxAtomId m_idMxEventPresenter;
+	MxAtomId m_idMxLoopingFlcPresenter;
+	MxAtomId m_idMxLoopingSmkPresenter;
+	MxAtomId m_idMxLoopingMIDIPresenter;
 };
-

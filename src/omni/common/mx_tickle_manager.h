@@ -42,16 +42,8 @@ public:
 	virtual void SetClientTickleInterval(MxCore* p_client, MxTime p_interval);
 	virtual MxTime GetClientTickleInterval(MxCore* p_client);
 
-	// MxTickleManager::`scalar deleting destructor'
-
 private:
 	MxTickleClientPtrList m_clients;
 };
 
 #define TICKLE_MANAGER_NOT_FOUND 0x80000000
-
-// list<MxTickleClient *,allocator<MxTickleClient *> >::~list<MxTickleClient
-// *,allocator<MxTickleClient *> >
-
-// List<MxTickleClient *>::~List<MxTickleClient *>
-

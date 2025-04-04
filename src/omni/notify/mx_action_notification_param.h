@@ -119,19 +119,3 @@ public:
 private:
 	MxPresenter* m_unk0x14;
 };
-
-// MxActionNotificationParam::`scalar deleting destructor'
-
-// MxEndActionNotificationParam::`scalar deleting destructor'
-
-// MxEndActionNotificationParam::~MxEndActionNotificationParam
-
-// MxStartActionNotificationParam::`scalar deleting destructor'
-
-// MxStartActionNotificationParam::~MxStartActionNotificationParam
-
-// MxType4NotificationParam::`scalar deleting destructor'
-
-// MxType4NotificationParam::~MxType4NotificationParam
-
-#endif
