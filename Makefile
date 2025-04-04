@@ -22,8 +22,8 @@ CXXFLAGS += -I3rdparty/vec
 CXXFLAGS += -include $(SOURCE_DIR)/global.h
 #CXXFLAGS += -NDEBUG
 
-#SRCS := $(wildcard $(SOURCE_DIR)/**/*.cpp $(SOURCE_DIR)/*.cpp)
-#OBJS := $(patsubst $(SOURCE_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
+#SRCS := $(shell find $(SOURCE_DIR) -type f -name '*.cpp')
+#OBJS := $(patsubst %.cpp, $(BUILD_DIR)/%.o, $(subst $(SOURCE_DIR)/,,$(SRCS)))
 OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/legofs.o
 
 isle: isle.z64
