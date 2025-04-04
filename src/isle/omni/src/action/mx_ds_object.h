@@ -59,7 +59,7 @@ public:
 	virtual MxU32 GetSizeOnDisk();
 	virtual void Deserialize(MxU8*& p_source, MxS16 p_unk0x24);
 
-	virtual void SetAtomId(MxAtomId p_atomId) { m_atomId = p_atomId; }
+	virtual void SetAtomId(const MxAtomId& p_atomId) { m_atomId = p_atomId; }
 
 	Type GetType() const { return (Type) m_type; }
 
@@ -84,8 +84,6 @@ public:
 
 	void ClearAtom() { m_atomId.Clear(); }
 
-	// MxDSObject::`scalar deleting destructor'
-
 protected:
 	MxU32 m_sizeOnDisk;
 	MxU16 m_type;
@@ -100,6 +98,3 @@ protected:
 
 MxDSObject* DeserializeDSObjectDispatch(MxU8*&, MxS16);
 MxDSObject* CreateStreamObject(MxDSFile*, MxS16);
-
-// MxUtilityList<MxDSObject *>::PopFront
-

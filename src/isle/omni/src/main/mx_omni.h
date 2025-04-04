@@ -1,7 +1,6 @@
 #pragma once
 
 #include "mx_core.h"
-#include "mxcriticalsection.h"
 #include "mx_string.h"
 
 class MxAtomSet;
@@ -83,8 +82,6 @@ public:
 
 	MxLong HandleEndAction(MxParam& p_param);
 
-	// MxOmni::`scalar deleting destructor'
-
 protected:
 	static MxOmni* g_instance;
 
@@ -101,7 +98,5 @@ protected:
 	MxTimer* m_timer;
 	MxStreamer* m_streamer;
 	MxAtomSet* m_atomSet;
-	MxCriticalSection m_criticalSection;
 	MxBool m_paused;
 };
-

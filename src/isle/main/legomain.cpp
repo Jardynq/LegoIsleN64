@@ -1,24 +1,15 @@
 #include "legomain.h"
 
 #include "3d_manager.h"
-#include "isle_path_actor.h"
 #include "animation_manager.h"
 #include "building_manager.h"
 #include "character_manager.h"
+#include "container.h"
 #include "gamestate.h"
 #include "input_manager.h"
-#include "object_factory.h"
-#include "plant_manager.h"
-#include "sound_manager.h"
-#include "utils.h"
-#include "variables.h"
-#include "video_manager.h"
-#include "world.h"
-#include "world_list.h"
+#include "isle_path_actor.h"
 #include "misc.h"
-#include "container.h"
 #include "mx_action_notification_param.h"
-#include "mxautolock.h"
 #include "mx_background_audio_manager.h"
 #include "mx_display_surface.h"
 #include "mx_misc.h"
@@ -29,8 +20,17 @@
 #include "mx_tickle_manager.h"
 #include "mx_transition_manager.h"
 #include "mx_variable_table.h"
+#include "mxautolock.h"
+#include "object_factory.h"
+#include "plant_manager.h"
 #include "scripts.h"
+#include "sound_manager.h"
+#include "utils.h"
+#include "variables.h"
+#include "video_manager.h"
 #include "view_manager.h"
+#include "world.h"
+#include "world_list.h"
 
 const char* g_current = "current";
 
@@ -63,8 +63,6 @@ void LegoOmni::Init() {
 }
 
 void LegoOmni::Destroy() {
-	AUTOLOCK(m_criticalSection);
-
 	m_notificationManager->Unregister(this);
 
 	if (m_worldList) {
@@ -138,7 +136,6 @@ void LegoOmni::Destroy() {
 
 MxResult LegoOmni::Create(MxOmniCreateParam& p_param) {
 	MxResult result = FAILURE;
-	AUTOLOCK(m_criticalSection);
 
 	p_param.CreateFlags().CreateObjectFactory(FALSE);
 	p_param.CreateFlags().CreateVideoManager(FALSE);

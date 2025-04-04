@@ -98,9 +98,11 @@ public:
 	MxResult Start(MxDSAction* p_dsAction) override;
 	void DeleteObject(MxDSAction& p_dsAction) override;
 	MxBool DoesEntityExist(MxDSAction& p_dsAction) override;
-	MxEntity*
-	AddToWorld(const char* p_id, MxS32 p_entityId, MxPresenter* p_presenter)
-		override;
+	MxEntity* AddToWorld(
+		const char* p_id,
+		MxS32 p_entityId,
+		MxPresenter* p_presenter
+	) override;
 	void NotifyCurrentEntity(const MxNotificationParam& p_param) override;
 	void Pause() override;
 	void Resume() override;
@@ -169,9 +171,7 @@ public:
 	}
 	void SetUnknown13c(MxBool p_unk0x13c) { m_unk0x13c = p_unk0x13c; }
 
-	void CloseMainWindow() { PostMessageA(m_windowHandle, WM_CLOSE, 0, 0); }
-
-	// LegoOmni::`scalar deleting destructor'
+	void CloseMainWindow() { m_closed = true; }
 
 private:
 	WorldContainer* m_worlds;
@@ -181,6 +181,7 @@ private:
 	LegoWorldList* m_worldList;
 	LegoWorld* m_currentWorld;
 	MxBool m_exit;
+	bool m_closed;
 	LegoNavController* m_navController;
 	LegoPathActor* m_userActor;
 	LegoCharacterManager* m_characterManager;
@@ -195,4 +196,3 @@ private:
 public:
 	MxBool m_unk0x13c;
 };
-
