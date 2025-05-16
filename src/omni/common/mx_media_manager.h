@@ -17,9 +17,6 @@ public:
 
 	MxResult Init();
 
-	// MxMediaManager::`scalar deleting destructor'
-
 protected:
 	MxPresenterList* m_presenters;
 };
-

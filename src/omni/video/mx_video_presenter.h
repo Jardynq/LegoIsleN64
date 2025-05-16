@@ -1,18 +1,15 @@
 #pragma once
 
+#include "legofs.h"
 #include "mx_media_presenter.h"
 
 class MxVideoPresenter : public MxMediaPresenter {
 public:
 	MxVideoPresenter() { Init(); }
 
-	virtual void LoadHeader(MxStreamChunk* p_chunk) {}
-
 	virtual void CreateBitmap() {}
 
 	virtual void NextFrame();
-
-	virtual void LoadFrame(MxStreamChunk* p_chunk) {}
 
 	virtual void PutFrame();
 
@@ -24,18 +21,14 @@ public:
 
 	void Destroy() override { Destroy(FALSE); }
 
-	virtual LPDIRECTDRAWSURFACE VTable0x78() { return m_unk0x58; }
-
-	virtual MxBool VTable0x7c() {
-		return m_frameBitmap != NULL || m_alpha != NULL;
-	}
+	virtual MxBool VTable0x7c() { return m_video != NULL || m_alpha != NULL; }
 
 	virtual MxS32 GetWidth() {
-		return m_alpha ? m_alpha->m_width : m_frameBitmap->GetBmiWidth();
+		return m_alpha ? m_alpha->m_width : mpeg2_get_width(m_video);
 	}
 
 	virtual MxS32 GetHeight() {
-		return m_alpha ? m_alpha->m_height : m_frameBitmap->GetBmiHeightAbs();
+		return m_alpha ? m_alpha->m_height : mpeg2_get_height(m_video);
 	}
 
 	static const char* HandlerClassName() { return "MxVideoPresenter"; }
@@ -62,22 +55,16 @@ public:
 		MxU16 m_width;
 		MxU16 m_height;
 
-		AlphaMask(const MxBitmap&);
+		AlphaMask(const yuv_frame_t&);
 		AlphaMask(const AlphaMask&);
 		virtual ~AlphaMask();
 
 		MxS32 IsHit(MxU32 p_x, MxU32 p_y);
-
-		// MxVideoPresenter::AlphaMask::`scalar deleting destructor'
 	};
 
 	inline MxS32 PrepareRects(RECT& p_rectDest, RECT& p_rectSrc);
-	MxBitmap* GetBitmap() { return m_frameBitmap; }
+	yuv_frame_t& GetBitmap() { return m_frame; }
 	AlphaMask* GetAlphaMask() { return m_alpha; }
-
-	MxU8* GetBitmapStart(MxS32 p_left, MxS32 p_top) {
-		return m_frameBitmap->GetStart(p_left, p_top);
-	}
 
 	void SetBit0(BOOL p_e) { m_flags.m_bit0 = p_e; }
 	void SetBit1(BOOL p_e) { m_flags.m_bit1 = p_e; }
@@ -91,19 +78,18 @@ public:
 	BYTE GetBit3() { return m_flags.m_bit3; }
 	BYTE GetBit4() { return m_flags.m_bit4; }
 
-	// MxVideoPresenter::`scalar deleting destructor'
-
 private:
 	void Init();
 
 protected:
 	void Destroy(MxBool p_fromDestructor);
 
-	MxBitmap* m_frameBitmap;
+	LegofsNode* node;
+	yuv_frame_t m_frame;
+	yuv_blitter_t m_yuv;
+	mpeg2_t* m_video;
 	AlphaMask* m_alpha;
-	LPDIRECTDRAWSURFACE m_unk0x58;
 	MxS16 m_unk0x5c;
 	FlagBitfield m_flags;
 	MxLong m_unk0x60;
 };
-

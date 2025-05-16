@@ -10,7 +10,7 @@ public:
 	~MxRegion() override;
 
 	virtual void Reset();
-	virtual void VTable0x18(MxRect32& p_rect);
+	virtual void InvalidateRect(MxRect32& p_rect);
 	virtual MxBool VTable0x1c(MxRect32& p_rect);
 	virtual MxBool VTable0x20();
 
@@ -23,4 +23,3 @@ private:
 	MxRegionTopBottomList* m_list;
 	MxRect32 m_rect;
 };
-

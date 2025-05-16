@@ -104,4 +104,3 @@ protected:
 	MxCore* m_origin;
 	MxLong m_unk0x90;
 };
-

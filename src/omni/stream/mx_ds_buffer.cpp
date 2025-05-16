@@ -7,8 +7,8 @@
 #include "mx_omni.h"
 #include "mx_stream_chunk.h"
 #include "mx_stream_controller.h"
-#include "mx_streamer.h"
 #include "mx_stream_provider.h"
+#include "mx_streamer.h"
 
 MxDSBuffer::MxDSBuffer() {
 	m_pBuffer = NULL;
@@ -125,7 +125,7 @@ MxResult MxDSBuffer::FUN_100c67b0(
 					}
 
 					((MxDiskStreamController*) p_controller)
-						->FUN_100c7cb0(*p_streamingAction);
+						->Cleanup(*p_streamingAction);
 					*p_streamingAction = NULL;
 				} else {
 					goto done;
@@ -252,9 +252,8 @@ MxResult MxDSBuffer::ParseChunk(
 
 		if (!buffer || buffer->AllocateBuffer(length, e_allocate) != SUCCESS ||
 			buffer->CalcBytesRemaining((MxU8*) p_data) != SUCCESS ||
-			(*p_streamingAction =
-				 new MxDSStreamingAction((MxDSStreamingAction&) *p_action)) ==
-				NULL) {
+			(*p_streamingAction = new MxDSStreamingAction((MxDSStreamingAction&
+			 ) *p_action)) == NULL) {
 			delete buffer;
 			delete p_header;
 			return FAILURE;
@@ -299,7 +298,7 @@ MxResult MxDSBuffer::ParseChunk(
 					p_header = NULL;
 				} else {
 					if (p_action->GetObjectId() == p_header->GetObjectId() &&
-						p_controller->VTable0x30(p_action) == SUCCESS) {
+						p_controller->StopAction(p_action) == SUCCESS) {
 						p_controller->GetProvider()->VTable0x20(p_action);
 						result = 1;
 					}

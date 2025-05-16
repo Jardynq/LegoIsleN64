@@ -1,13 +1,13 @@
 #include "mx_video_manager.h"
 
-#include "mxautolock.h"
 #include "mx_display_surface.h"
 #include "mx_misc.h"
 #include "mx_omni.h"
-#include "mxpalette.h"
 #include "mx_presenter.h"
 #include "mx_region.h"
 #include "mx_tickle_manager.h"
+#include "mxautolock.h"
+#include "mxpalette.h"
 #include "mxticklethread.h"
 #include "stdio.h"
 
@@ -301,7 +301,7 @@ void MxVideoManager::InvalidateRect(MxRect32& p_rect) {
 	m_criticalSection.Enter();
 
 	if (m_region) {
-		m_region->VTable0x18(p_rect);
+		m_region->InvalidateRect(p_rect);
 	}
 
 	m_criticalSection.Leave();

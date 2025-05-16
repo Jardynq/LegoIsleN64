@@ -2,28 +2,28 @@
 
 #include "3d_manager.h"
 #include "act3.h"
-#include "infocenter.h"
 #include "animation_manager.h"
 #include "camera_controller.h"
 #include "character_manager.h"
 #include "gamestate.h"
+#include "infocenter.h"
 #include "input_manager.h"
-#include "locations.h"
 #include "legomain.h"
-#include "plant_manager.h"
-#include "sound_manager.h"
-#include "utils.h"
-#include "video_manager.h"
-#include "world.h"
+#include "locations.h"
 #include "misc.h"
 #include "mx_background_audio_manager.h"
 #include "mx_misc.h"
 #include "mx_timer.h"
 #include "mx_transition_manager.h"
 #include "mx_utilities.h"
+#include "plant_manager.h"
 #include "realtime.h"
 #include "realtime_view.h"
+#include "sound_manager.h"
+#include "utils.h"
+#include "video_manager.h"
 #include "view_manager.h"
+#include "world.h"
 
 #include <vec.h>
 
@@ -864,7 +864,8 @@ MxLong LegoNavController::Notify(MxParam& p_param) {
 							GameState()->SwitchArea(LegoGameState::e_act2main);
 							break;
 						case '3':
-							GameState()->SwitchArea(LegoGameState::e_act3script
+							GameState()->SwitchArea(
+								LegoGameState::e_act3script
 							);
 							break;
 						case '4': {
@@ -905,6 +906,7 @@ MxLong LegoNavController::Notify(MxParam& p_param) {
 					} else {
 						MxDSAction action;
 						action.SetObjectId(key - '0');
+						// TODO is this a node by path?
 						action.SetAtomId(MxAtomId(
 							"q:\\lego\\media\\model\\common\\common",
 							e_lowerCase2

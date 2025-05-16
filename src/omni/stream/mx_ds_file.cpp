@@ -117,3 +117,10 @@ MxULong MxDSFile::GetBufferSize() {
 MxULong MxDSFile::GetStreamBuffersNum() {
 	return m_header.m_streamBuffersNum;
 }
+
+MxS32 MxDSFile::CalcFileSize() {
+	int size = 0;
+	FILE* file = asset_fopen(m_filename.GetData(), &size);
+	fclose(file);
+	return size;
+}

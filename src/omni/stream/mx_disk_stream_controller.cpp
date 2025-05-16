@@ -1,11 +1,11 @@
 #include "mx_disk_stream_controller.h"
 
 #include "mx_action_notification_param.h"
-#include "mxautolock.h"
 #include "mx_disk_stream_provider.h"
 #include "mx_ds_streaming_action.h"
 #include "mx_misc.h"
 #include "mx_omni.h"
+#include "mx_stream_provider.h"
 #include "mx_tickle_manager.h"
 
 #include <assert.h>
@@ -15,8 +15,6 @@ MxDiskStreamController::MxDiskStreamController() {
 }
 
 MxDiskStreamController::~MxDiskStreamController() {
-	AUTOLOCK(m_criticalSection);
-
 	m_unk0xc4 = FALSE;
 	m_unk0x70 = FALSE;
 
@@ -40,11 +38,11 @@ MxDiskStreamController::~MxDiskStreamController() {
 	FUN_100c8720();
 
 	while (m_list0x80.PopFront(object)) {
-		FUN_100c7cb0((MxDSStreamingAction*) object);
+		Cleanup((MxDSStreamingAction*) object);
 	}
 
 	while (m_list0x64.PopFront(object)) {
-		FUN_100c7cb0((MxDSStreamingAction*) object);
+		Cleanup((MxDSStreamingAction*) object);
 	}
 
 	while (!m_list0x74.empty()) {
@@ -53,33 +51,11 @@ MxDiskStreamController::~MxDiskStreamController() {
 		FUN_100c7ce0(buffer);
 	}
 
-	TickleManager()->UnregisterClient(this);
+	TickleManager()->UnregisterClient((MxCore*) this);
 }
 
 MxResult MxDiskStreamController::Open(const char* p_filename) {
-	AUTOLOCK(m_criticalSection);
 	MxResult result = MxStreamController::Open(p_filename);
-
-	if (result != SUCCESS) {
-		goto done;
-	}
-
-	m_provider = new MxDiskStreamProvider();
-	if (m_provider == NULL) {
-		result = FAILURE;
-		goto done;
-	}
-
-	result = m_provider->SetResourceToGet(this);
-	if (result != SUCCESS) {
-		delete m_provider;
-		m_provider = NULL;
-		goto done;
-	}
-
-	TickleManager()->RegisterClient(this, 10);
-
-done:
 	return result;
 }
 
@@ -88,7 +64,6 @@ MxResult MxDiskStreamController::VTable0x18(undefined4, undefined4) {
 }
 
 MxResult MxDiskStreamController::FUN_100c7890(MxDSStreamingAction* p_action) {
-	AUTOLOCK(m_criticalSection);
 	if (p_action == NULL) {
 		return FAILURE;
 	}
@@ -107,36 +82,32 @@ void MxDiskStreamController::FUN_100c7970() {
 }
 
 void MxDiskStreamController::FUN_100c7980() {
-	MxDSBuffer* buffer;
+	MxDSBuffer* buffer = nullptr;
 	MxDSStreamingAction* action = NULL;
 
-	{
-		AUTOLOCK(m_criticalSection);
+	if (m_unk0x3c.size() && m_unk0x8c < m_provider->GetStreamBuffersNum()) {
+		buffer = new MxDSBuffer();
 
-		if (m_unk0x3c.size() && m_unk0x8c < m_provider->GetStreamBuffersNum()) {
-			buffer = new MxDSBuffer();
-
-			if (buffer->AllocateBuffer(
-					m_provider->GetFileSize(),
-					MxDSBuffer::e_chunk
-				) != SUCCESS) {
-				if (buffer) {
-					delete buffer;
-				}
-				return;
+		if (buffer->AllocateBuffer(
+				m_provider->GetFileSize(),
+				MxDSBuffer::e_chunk
+			) != SUCCESS) {
+			if (buffer) {
+				delete buffer;
 			}
-
-			action = VTable0x28();
-			if (!action) {
-				if (buffer) {
-					delete buffer;
-				}
-				return;
-			}
-
-			action->SetUnknowna0(buffer);
-			m_unk0x8c++;
+			return;
 		}
+
+		action = VTable0x28();
+		if (!action) {
+			if (buffer) {
+				delete buffer;
+			}
+			return;
+		}
+
+		action->SetUnknowna0(buffer);
+		m_unk0x8c++;
 	}
 
 	if (action) {
@@ -145,8 +116,7 @@ void MxDiskStreamController::FUN_100c7980() {
 }
 
 MxDSStreamingAction* MxDiskStreamController::VTable0x28() {
-	AUTOLOCK(m_criticalSection);
-	MxDSObject* oldAction;
+	MxDSObject* oldAction = nullptr;
 
 	assert(m_provider);
 	MxDSStreamingAction* request = NULL;
@@ -173,17 +143,16 @@ done:
 	return request;
 }
 
-MxResult MxDiskStreamController::VTable0x30(MxDSAction* p_action) {
-	AUTOLOCK(m_criticalSection);
-	MxResult result = MxStreamController::VTable0x30(p_action);
+MxResult MxDiskStreamController::StopAction(MxDSAction* p_action) {
+	MxResult result = MxStreamController::StopAction(p_action);
 
-	MxDSStreamingAction* item;
+	MxDSStreamingAction* item = nullptr;
 	while (TRUE) {
 		item = (MxDSStreamingAction*) m_list0x90.FindAndErase(p_action);
 		if (item == NULL) {
 			break;
 		}
-		FUN_100c7cb0(item);
+		Cleanup(item);
 	}
 
 	while (TRUE) {
@@ -191,13 +160,13 @@ MxResult MxDiskStreamController::VTable0x30(MxDSAction* p_action) {
 		if (item == NULL) {
 			break;
 		}
-		FUN_100c7cb0(item);
+		Cleanup(item);
 	}
 
 	return result;
 }
 
-void MxDiskStreamController::FUN_100c7cb0(MxDSStreamingAction* p_action) {
+void MxDiskStreamController::Cleanup(MxDSStreamingAction* p_action) {
 	if (p_action->GetUnknowna0()) {
 		FUN_100c7ce0(p_action->GetUnknowna0());
 	}
@@ -213,11 +182,12 @@ void MxDiskStreamController::FUN_100c7ce0(MxDSBuffer* p_buffer) {
 	case MxDSBuffer::e_unknown:
 		delete p_buffer;
 		break;
+	case MxDSBuffer::e_preallocated:
+		break;
 	}
 }
 
 MxResult MxDiskStreamController::FUN_100c7d10() {
-	AUTOLOCK(m_criticalSection);
 	MxDSStreamingAction* action = FUN_100c7db0();
 
 	if (!action) {
@@ -226,7 +196,7 @@ MxResult MxDiskStreamController::FUN_100c7d10() {
 
 	if (FUN_100c8360(action) != SUCCESS) {
 		VTable0x24(action);
-		FUN_100c7cb0(action);
+		Cleanup(action);
 		return FAILURE;
 	}
 
@@ -234,8 +204,6 @@ MxResult MxDiskStreamController::FUN_100c7d10() {
 }
 
 MxDSStreamingAction* MxDiskStreamController::FUN_100c7db0() {
-	AUTOLOCK(m_criticalSection);
-
 	for (MxNextActionDataStartList::iterator it = m_nextActionList.begin();
 		 it != m_nextActionList.end();
 		 it++) {
@@ -263,18 +231,17 @@ MxDSStreamingAction* MxDiskStreamController::FUN_100c7db0() {
 	return NULL;
 }
 
-void MxDiskStreamController::FUN_100c7f40(MxDSStreamingAction* p_streamingaction
+void MxDiskStreamController::FUN_100c7f40(
+	MxDSStreamingAction* p_streamingaction
 ) {
-	AUTOLOCK(m_criticalSection);
 	if (p_streamingaction) {
 		m_list0x64.PushBack(p_streamingaction);
 	}
 }
 
 MxResult MxDiskStreamController::VTable0x20(MxDSAction* p_action) {
-	AUTOLOCK(m_criticalSection);
-	MxDSStreamingAction* entry = (MxDSStreamingAction*) m_list0x80.Find(p_action
-	); // TODO: is this a seperate class?
+	MxDSStreamingAction* entry = (MxDSStreamingAction*
+	) m_list0x80.Find(p_action); // TODO: is this a seperate class?
 
 	if (entry) {
 		MxDSStreamingAction* action = new MxDSStreamingAction(*p_action, 0);
@@ -298,7 +265,7 @@ MxResult MxDiskStreamController::VTable0x20(MxDSAction* p_action) {
 }
 
 void MxDiskStreamController::FUN_100c8120(MxDSAction* p_action) {
-	VTable0x30(p_action);
+	StopAction(p_action);
 
 	if (m_provider) {
 		m_provider->VTable0x20(p_action);
@@ -314,9 +281,8 @@ void MxDiskStreamController::FUN_100c8120(MxDSAction* p_action) {
 }
 
 MxResult MxDiskStreamController::VTable0x24(MxDSAction* p_action) {
-	AUTOLOCK(m_criticalSection);
 	if (m_unk0x54.Find(p_action) == NULL) {
-		if (VTable0x30(p_action) == SUCCESS) {
+		if (StopAction(p_action) == SUCCESS) {
 			MxOmni::GetInstance()->NotifyCurrentEntity(
 				MxEndActionNotificationParam(
 					c_notificationEndAction,
@@ -352,7 +318,6 @@ MxResult MxDiskStreamController::VTable0x24(MxDSAction* p_action) {
 }
 
 MxResult MxDiskStreamController::FUN_100c8360(MxDSStreamingAction* p_action) {
-	AUTOLOCK(m_criticalSection);
 	MxDSBuffer* buffer = p_action->GetUnknowna0();
 	MxDSStreamingAction* action2 =
 		(MxDSStreamingAction*) m_list0x90.FindAndErase(p_action);
@@ -368,7 +333,7 @@ MxResult MxDiskStreamController::FUN_100c8360(MxDSStreamingAction* p_action) {
 
 	if (action2) {
 		if (action2->GetUnknowna0() == NULL) {
-			FUN_100c7cb0(action2);
+			Cleanup(action2);
 		} else {
 			if (action2->GetObjectId() == -1) {
 				action2->SetObjectId(p_action->GetObjectId());
@@ -378,17 +343,15 @@ MxResult MxDiskStreamController::FUN_100c8360(MxDSStreamingAction* p_action) {
 		}
 	}
 
-	FUN_100c7cb0(p_action);
+	Cleanup(p_action);
 	return SUCCESS;
 }
 
 void MxDiskStreamController::InsertToList74(MxDSBuffer* p_buffer) {
-	AUTOLOCK(m_criticalSection);
 	m_list0x74.push_back(p_buffer);
 }
 
 void MxDiskStreamController::FUN_100c8540() {
-	AUTOLOCK(m_criticalSection);
 	for (list<MxDSBuffer*>::iterator it = m_list0x74.begin();
 		 it != m_list0x74.end();) {
 		MxDSBuffer* buf = *it;
@@ -405,7 +368,7 @@ void MxDiskStreamController::FUN_100c8540() {
 			MxDSStreamingAction* action =
 				(MxDSStreamingAction*) m_list0x64.front();
 			m_list0x64.pop_front();
-			FUN_100c7cb0(action);
+			Cleanup(action);
 		}
 	}
 }
@@ -425,19 +388,17 @@ MxResult MxDiskStreamController::Tickle() {
 	return SUCCESS;
 }
 
-void MxDiskStreamController::FUN_100c8670(MxDSStreamingAction* p_streamingAction
+void MxDiskStreamController::FUN_100c8670(
+	MxDSStreamingAction* p_streamingAction
 ) {
-	AUTOLOCK(m_critical9c);
 	m_list0xb8.push_back(p_streamingAction);
 }
 
 void MxDiskStreamController::FUN_100c8720() {
-	AUTOLOCK(m_critical9c);
-
-	MxDSStreamingAction* action;
+	MxDSStreamingAction* action = nullptr;
 	while (!m_list0xb8.empty()) {
 		action = (MxDSStreamingAction*) m_list0xb8.front();
 		m_list0xb8.pop_front();
-		FUN_100c7cb0(action);
+		Cleanup(action);
 	}
 }

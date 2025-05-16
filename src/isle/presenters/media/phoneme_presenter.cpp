@@ -1,11 +1,11 @@
 #include "phoneme_presenter.h"
 
 #include "character_manager.h"
-#include "video_manager.h"
-#include "misc.h"
 #include "container.h"
+#include "misc.h"
 #include "mx_composite_presenter.h"
 #include "mx_ds_action.h"
+#include "video_manager.h"
 
 LegoPhonemePresenter::LegoPhonemePresenter() {
 	Init();
@@ -98,7 +98,7 @@ void LegoPhonemePresenter::LoadFrame(MxStreamChunk* p_chunk) {
 
 void LegoPhonemePresenter::PutFrame() {
 	if (m_textureInfo != NULL && m_rectCount != 0) {
-		m_textureInfo->FUN_10066010(m_frameBitmap->GetImage());
+		m_textureInfo->DrawTexture(m_frameBitmap->GetImage());
 		m_rectCount = 0;
 	}
 }

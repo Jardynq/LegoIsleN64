@@ -26,13 +26,13 @@ public:
 	MxResult VTable0x20(MxDSAction* p_action) override;
 	MxResult VTable0x24(MxDSAction* p_action) override;
 	MxDSStreamingAction* VTable0x28() override;
-	MxResult VTable0x30(MxDSAction* p_action) override;
+	MxResult StopAction(MxDSAction* p_action) override;
 	virtual MxResult VTable0x34(undefined4);
 
 	MxBool GetUnk0xc4() const { return m_unk0xc4; }
 
 	MxResult FUN_100c7890(MxDSStreamingAction* p_action);
-	void FUN_100c7cb0(MxDSStreamingAction* p_action);
+	void Cleanup(MxDSStreamingAction* p_action);
 	void FUN_100c7f40(MxDSStreamingAction* p_streamingaction);
 	void FUN_100c8120(MxDSAction* p_action);
 	void InsertToList74(MxDSBuffer* p_buffer);
@@ -45,7 +45,6 @@ private:
 	MxDSObjectList m_list0x80;
 	undefined2 m_unk0x8c;
 	MxDSObjectList m_list0x90;
-	MxCriticalSection m_critical9c;
 	MxDSObjectList m_list0xb8;
 	MxBool m_unk0xc4;
 	void FUN_100c7970();
@@ -57,23 +56,3 @@ private:
 	void FUN_100c8540();
 	void FUN_100c8720();
 };
-
-// list<MxDSObject *,allocator<MxDSObject *> >::erase
-
-// list<MxDSObject *,allocator<MxDSObject *> >::_Buynode
-
-// list<MxDSBuffer *,allocator<MxDSBuffer *> >::~list<MxDSBuffer
-// *,allocator<MxDSBuffer *> >
-
-// list<MxDSBuffer *,allocator<MxDSBuffer *> >::_Buynode
-
-// MxDiskStreamController::`scalar deleting destructor'
-
-// List<MxDSBuffer *>::~List<MxDSBuffer *>
-
-// list<MxNextActionDataStart *,allocator<MxNextActionDataStart *> >::insert
-
-// MxUtilityList<MxNextActionDataStart *>::PushBack
-
-// MxUtilityList<MxDSObject *>::PushBack
-

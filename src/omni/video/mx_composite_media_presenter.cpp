@@ -1,14 +1,13 @@
 #include "mx_composite_media_presenter.h"
 
-#include "sound_manager.h"
-#include "video_manager.h"
 #include "misc.h"
-#include "mxautolock.h"
 #include "mx_ds_multi_action.h"
 #include "mx_media_presenter.h"
 #include "mx_misc.h"
 #include "mx_object_factory.h"
 #include "mx_timer.h"
+#include "sound_manager.h"
+#include "video_manager.h"
 
 MxCompositeMediaPresenter::MxCompositeMediaPresenter() {
 	m_unk0x4c = 0;
@@ -24,8 +23,6 @@ MxResult MxCompositeMediaPresenter::StartAction(
 	MxStreamController* p_controller,
 	MxDSAction* p_action
 ) {
-	AUTOLOCK(m_criticalSection);
-
 	MxResult result = FAILURE;
 	MxDSActionList* actions = ((MxDSMultiAction*) p_action)->GetActionList();
 	MxDSActionListCursor cursor(actions);
@@ -86,8 +83,6 @@ MxResult MxCompositeMediaPresenter::StartAction(
 }
 
 void MxCompositeMediaPresenter::StartingTickle() {
-	AUTOLOCK(m_criticalSection);
-
 	if (!m_unk0x4e) {
 		for (MxCompositePresenterList::iterator it = m_list.begin();
 			 it != m_list.end();
@@ -166,8 +161,6 @@ MxResult MxCompositeMediaPresenter::Tickle() {
 }
 
 MxResult MxCompositeMediaPresenter::PutData() {
-	AUTOLOCK(m_criticalSection);
-
 	if (m_currentTickleState >= e_streaming && m_currentTickleState <= e_done) {
 		for (MxCompositePresenterList::iterator it = m_list.begin();
 			 it != m_list.end();

@@ -19,7 +19,8 @@ MxBool MxDSStreamingAction::HasId(MxU32 p_objectId) {
 
 MxDSStreamingAction::MxDSStreamingAction(
 	MxDSStreamingAction& p_dsStreamingAction
-) {
+)
+	: MxDSAction(p_dsStreamingAction) {
 	Init();
 	CopyFrom(p_dsStreamingAction);
 }

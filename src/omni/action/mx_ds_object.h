@@ -97,4 +97,3 @@ protected:
 };
 
 MxDSObject* DeserializeDSObjectDispatch(MxU8*&, MxS16);
-MxDSObject* CreateStreamObject(MxDSFile*, MxS16);

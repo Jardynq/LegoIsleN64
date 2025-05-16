@@ -59,54 +59,42 @@ MxAtomId* g_creditsScript = NULL;
 MxAtomId* g_nocdSourceName = NULL;
 
 void CreateScripts() {
-	g_copterScript =
-		new MxAtomId("\\lego\\scripts\\build\\copter", e_lowerCase2);
+	g_copterScript = new MxAtomId("rom:/scripts/build/copter", e_lowerCase2);
 	g_dunecarScript =
-		new MxAtomId("\\lego\\scripts\\build\\dunecar", e_lowerCase2);
-	g_jetskiScript =
-		new MxAtomId("\\lego\\scripts\\build\\jetski", e_lowerCase2);
-	g_racecarScript =
-		new MxAtomId("\\lego\\scripts\\build\\racecar", e_lowerCase2);
-	g_carraceScript =
-		new MxAtomId("\\lego\\scripts\\race\\carrace", e_lowerCase2);
-	g_carracerScript =
-		new MxAtomId("\\lego\\scripts\\race\\carracer", e_lowerCase2);
-	g_jetraceScript =
-		new MxAtomId("\\lego\\scripts\\race\\jetrace", e_lowerCase2);
-	g_jetracerScript =
-		new MxAtomId("\\lego\\scripts\\race\\jetracer", e_lowerCase2);
-	g_isleScript = new MxAtomId("\\lego\\scripts\\isle\\isle", e_lowerCase2);
+		new MxAtomId("rom:/lego/scripts/build/dunecar", e_lowerCase2);
+	g_jetskiScript = new MxAtomId("rom:/scripts/build/jetski", e_lowerCase2);
+	g_racecarScript = new MxAtomId("rom:/scripts/build/racecar", e_lowerCase2);
+	g_carraceScript = new MxAtomId("rom:/scripts/race/carrace", e_lowerCase2);
+	g_carracerScript = new MxAtomId("rom:/scripts/race/carracer", e_lowerCase2);
+	g_jetraceScript = new MxAtomId("rom:/scripts/race/jetrace", e_lowerCase2);
+	g_jetracerScript = new MxAtomId("rom:/scripts/race/jetracer", e_lowerCase2);
+	g_isleScript = new MxAtomId("rom:/scripts/isle/isle", e_lowerCase2);
 	g_elevbottScript =
-		new MxAtomId("\\lego\\scripts\\infocntr\\elevbott", e_lowerCase2);
+		new MxAtomId("rom:/scripts/infocntr/elevbott", e_lowerCase2);
 	g_infodoorScript =
-		new MxAtomId("\\lego\\scripts\\infocntr\\infodoor", e_lowerCase2);
+		new MxAtomId("rom:/scripts/infocntr/infodoor", e_lowerCase2);
 	g_infomainScript =
-		new MxAtomId("\\lego\\scripts\\infocntr\\infomain", e_lowerCase2);
+		new MxAtomId("rom:/scripts/infocntr/infomain", e_lowerCase2);
 	g_infoscorScript =
-		new MxAtomId("\\lego\\scripts\\infocntr\\infoscor", e_lowerCase2);
+		new MxAtomId("rom:/scripts/infocntr/infoscor", e_lowerCase2);
 	g_regbookScript =
-		new MxAtomId("\\lego\\scripts\\infocntr\\regbook", e_lowerCase2);
+		new MxAtomId("rom:/scripts/infocntr/regbook", e_lowerCase2);
 	g_histbookScript =
-		new MxAtomId("\\lego\\scripts\\infocntr\\histbook", e_lowerCase2);
+		new MxAtomId("rom:/scripts/infocntr/histbook", e_lowerCase2);
 	g_hospitalScript =
-		new MxAtomId("\\lego\\scripts\\hospital\\hospital", e_lowerCase2);
-	g_policeScript =
-		new MxAtomId("\\lego\\scripts\\police\\police", e_lowerCase2);
-	g_garageScript =
-		new MxAtomId("\\lego\\scripts\\garage\\garage", e_lowerCase2);
-	g_act2mainScript =
-		new MxAtomId("\\lego\\scripts\\act2\\act2main", e_lowerCase2);
-	g_act3Script = new MxAtomId("\\lego\\scripts\\act3\\act3", e_lowerCase2);
-	g_jukeboxScript =
-		new MxAtomId("\\lego\\scripts\\isle\\jukebox", e_lowerCase2);
-	g_pz5Script = new MxAtomId("\\lego\\scripts\\isle\\pz5", e_lowerCase2);
-	g_introScript = new MxAtomId("\\lego\\scripts\\intro", e_lowerCase2);
-	g_testScript = new MxAtomId("\\lego\\scripts\\test\\test", e_lowerCase2);
-	g_jukeboxwScript =
-		new MxAtomId("\\lego\\scripts\\isle\\jukeboxw", e_lowerCase2);
-	g_sndAnimScript = new MxAtomId("\\lego\\scripts\\sndanim", e_lowerCase2);
-	g_creditsScript = new MxAtomId("\\lego\\scripts\\credits", e_lowerCase2);
-	g_nocdSourceName = new MxAtomId("\\lego\\scripts\\nocd", e_lowerCase2);
+		new MxAtomId("rom:/scripts/hospital/hospital", e_lowerCase2);
+	g_policeScript = new MxAtomId("rom:/scripts/police/police", e_lowerCase2);
+	g_garageScript = new MxAtomId("rom:/scripts/garage/garage", e_lowerCase2);
+	g_act2mainScript = new MxAtomId("rom:/scripts/act2/act2main", e_lowerCase2);
+	g_act3Script = new MxAtomId("rom:/scripts/act3/act3", e_lowerCase2);
+	g_jukeboxScript = new MxAtomId("rom:/scripts/isle/jukebox", e_lowerCase2);
+	g_pz5Script = new MxAtomId("rom:/scripts/isle/pz5", e_lowerCase2);
+	g_introScript = new MxAtomId("rom:/scripts/intro", e_lowerCase2);
+	g_testScript = new MxAtomId("rom:/scripts/test/test", e_lowerCase2);
+	g_jukeboxwScript = new MxAtomId("rom:/scripts/isle/jukeboxw", e_lowerCase2);
+	g_sndAnimScript = new MxAtomId("rom:/scripts/sndanim", e_lowerCase2);
+	g_creditsScript = new MxAtomId("rom:/scripts/credits", e_lowerCase2);
+	g_nocdSourceName = new MxAtomId("rom:/scripts/nocd", e_lowerCase2);
 }
 
 void DestroyScripts() {

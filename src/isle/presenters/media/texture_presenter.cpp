@@ -1,13 +1,13 @@
 #include "texture_presenter.h"
 
-#include "video_manager.h"
-#include "misc.h"
 #include "container.h"
 #include "image.h"
-#include "storage.h"
+#include "misc.h"
 #include "mx_composite_presenter.h"
-#include "mxdirect3d.h"
 #include "mx_ds_subscriber.h"
+#include "mxdirect3d.h"
+#include "storage.h"
+#include "video_manager.h"
 
 LegoTexturePresenter::~LegoTexturePresenter() {
 	VideoManager()->UnregisterPresenter(*this);
@@ -99,7 +99,7 @@ MxResult LegoTexturePresenter::Store() {
 				);
 			}
 		} else {
-			textureInfo->FUN_10066010(texture->GetImage()->GetBits());
+			textureInfo->DrawTexture(texture->GetImage()->GetBits());
 		}
 	}
 

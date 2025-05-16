@@ -2,7 +2,6 @@
 
 #include "mx_atom.h"
 #include "mx_core.h"
-#include "mxcriticalsection.h"
 #include "mx_ds_object.h"
 #include "mx_ds_subscriber.h"
 #include "mx_next_action_data_start.h"
@@ -36,12 +35,12 @@ public:
 	virtual MxResult VTable0x1c(undefined4, undefined4) { return FAILURE; }
 
 	virtual MxResult VTable0x20(MxDSAction* p_action);
-	virtual MxResult VTable0x24(MxDSAction* p_action);
+	virtual MxResult StopAction(MxDSAction* p_action);
 
 	virtual MxDSStreamingAction* VTable0x28() { return NULL; }
 
 	virtual MxResult VTable0x2c(MxDSAction* p_action, MxU32 p_bufferval);
-	virtual MxResult VTable0x30(MxDSAction* p_action);
+	virtual MxResult DeleteAction(MxDSAction* p_action);
 
 	void AddSubscriber(MxDSSubscriber* p_subscriber);
 	void RemoveSubscriber(MxDSSubscriber* p_subscriber);
@@ -61,7 +60,6 @@ public:
 	MxDSSubscriberList& GetSubscriberList() { return m_subscribers; }
 
 protected:
-	MxCriticalSection m_criticalSection;
 	MxAtomId m_atom;
 	MxStreamProvider* m_provider;
 	undefined4* m_unk0x2c;
@@ -71,46 +69,3 @@ protected:
 	MxDSObjectList m_unk0x54;
 	MxDSAction* m_action0x60;
 };
-
-// list<MxDSObject *,allocator<MxDSObject *> >::~list<MxDSObject
-// *,allocator<MxDSObject *> >
-
-// list<MxDSSubscriber *,allocator<MxDSSubscriber *> >::~list<MxDSSubscriber
-// *,allocator<MxDSSubscriber *> >
-
-// list<MxDSSubscriber *,allocator<MxDSSubscriber *> >::_Buynode
-
-// clang-format off
-
-// list<MxNextActionDataStart *,allocator<MxNextActionDataStart *> >::~list<MxNextActionDataStart *,allocator<MxNextActionDataStart *> >
-// clang-format on
-
-// list<MxNextActionDataStart *,allocator<MxNextActionDataStart *> >::_Buynode
-
-// MxStreamController::`scalar deleting destructor'
-
-// MxDSSubscriberList::~MxDSSubscriberList
-
-// MxDSObjectList::~MxDSObjectList
-
-// MxNextActionDataStartList::~MxNextActionDataStartList
-
-// MxUtilityList<MxDSSubscriber *>::~MxUtilityList<MxDSSubscriber *>
-
-// MxUtilityList<MxDSObject *>::~MxUtilityList<MxDSObject *>
-
-// MxUtilityList<MxNextActionDataStart *>::~MxUtilityList<MxNextActionDataStart
-// *>
-
-// List<MxDSSubscriber *>::~List<MxDSSubscriber *>
-
-// List<MxDSObject *>::~List<MxDSObject *>
-
-// List<MxNextActionDataStart *>::~List<MxNextActionDataStart *>
-
-// list<MxDSObject *,allocator<MxDSObject *> >::insert
-
-// MxUtilityList<MxDSSubscriber *>::PushBack
-
-// MxUtilityList<MxDSSubscriber *>::Remove
-

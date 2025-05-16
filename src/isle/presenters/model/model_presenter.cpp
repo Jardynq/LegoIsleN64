@@ -2,22 +2,22 @@
 
 #include "3d_manager.h"
 #include "anim.h"
-#include "define.h"
 #include "character_manager.h"
+#include "container.h"
+#include "define.h"
 #include "entity.h"
 #include "entity_presenter.h"
-#include "video_manager.h"
-#include "world.h"
 #include "misc.h"
-#include "container.h"
-#include "texture.h"
-#include "version.h"
 #include "mx_composite_presenter.h"
-#include "mxdirect3d.h"
 #include "mx_ds_subscriber.h"
 #include "mx_utilities.h"
+#include "mxdirect3d.h"
 #include "realtime.h"
 #include "roi.h"
+#include "texture.h"
+#include "version.h"
+#include "video_manager.h"
+#include "world.h"
 
 MxS32 g_modelPresenterConfig = 1;
 
@@ -316,7 +316,9 @@ void LegoModelPresenter::ParseExtra() {
 				m_roi = CharacterManager()->GetActorROI(token, FALSE);
 				m_addedToView = FALSE;
 			}
-		} else if (KeyValueStringParse(output, g_strDB_CREATE, extraCopy) != 0 && m_roi == NULL) {
+		} else if (KeyValueStringParse(output, g_strDB_CREATE, extraCopy) !=
+					   0 &&
+				   m_roi == NULL) {
 			LegoWorld* currentWorld = CurrentWorld();
 			list<LegoROI*>& roiList = currentWorld->GetROIList();
 

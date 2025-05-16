@@ -17,12 +17,9 @@ public:
 	void NextFrame() override;
 	virtual void VTable0x88();
 
-	// MxLoopingFlcPresenter::`scalar deleting destructor'
-
 private:
 	void Init();
 	void Destroy(MxBool p_fromDestructor);
 
 	MxLong m_elapsedDuration;
 };
-

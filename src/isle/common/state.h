@@ -1,7 +1,7 @@
 #pragma once
 
-#include "storage.h"
 #include "mx_core.h"
+#include "storage.h"
 
 class LegoState : public MxCore {
 public:
@@ -52,7 +52,4 @@ public:
 	static MxBool IsA(const char* p_name) {
 		return !strcmp(p_name, LegoState::ClassName()) || MxCore::IsA(p_name);
 	}
-
-	// LegoState::`scalar deleting destructor'
 };
-

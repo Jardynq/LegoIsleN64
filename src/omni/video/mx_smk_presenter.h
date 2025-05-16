@@ -1,6 +1,5 @@
 #pragma once
 
-#include "mx_smk.h"
 #include "mx_video_presenter.h"
 
 class MxSmkPresenter : public MxVideoPresenter {
@@ -19,20 +18,9 @@ public:
 
 	MxResult AddToManager() override;
 	void Destroy() override;
-	void LoadHeader(MxStreamChunk* p_chunk) override;
-	void CreateBitmap() override;
-	void LoadFrame(MxStreamChunk* p_chunk) override;
-	void RealizePalette() override;
 	virtual void VTable0x88();
-
-	// MxSmkPresenter::`scalar deleting destructor'
 
 private:
 	void Init();
 	void Destroy(MxBool p_fromDestructor);
-
-protected:
-	MxSmk m_mxSmk;
-	MxU32 m_currentFrame;
 };
-

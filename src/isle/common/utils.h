@@ -3,8 +3,6 @@
 #include "action_sfwd.h"
 #include "extra.h"
 
-#include <windows.h>
-
 #define WM_ISLE_SETCURSOR 0x5400
 
 // name verified by BETA10 0x100d4054
@@ -101,4 +99,3 @@ inline void StartIsleAction(IsleScript::Script p_objectId) {
 }
 
 // LegoTexture::`scalar deleting destructor'
-

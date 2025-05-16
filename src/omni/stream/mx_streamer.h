@@ -53,7 +53,7 @@ public:
 	MxStreamController* GetOpenStream(const char* p_name);
 	void FUN_100b98f0(MxDSAction* p_action);
 	MxResult AddStreamControllerToOpenList(MxStreamController* p_stream);
-	MxResult FUN_100b99b0(MxDSAction* p_action);
+	MxResult StartAction(MxDSAction* p_action);
 	MxResult DeleteObject(MxDSAction* p_dsAction);
 
 	MxU8* GetMemoryBlock(MxU32 p_blockSize) {
@@ -93,40 +93,3 @@ private:
 	MxMemoryPool64 m_pool64;
 	MxMemoryPool128 m_pool128;
 };
-
-// clang-format off
-
-
-// list<MxStreamController *,allocator<MxStreamController *> >::~list<MxStreamController *,allocator<MxStreamController *> >
-// clang-format on
-
-// list<MxStreamController *,allocator<MxStreamController *> >::begin
-
-// list<MxStreamController *,allocator<MxStreamController *> >::end
-
-// list<MxStreamController *,allocator<MxStreamController *>
-// >::iterator::operator++
-
-// MxStreamer::`scalar deleting destructor'
-
-// List<MxStreamController *>::~List<MxStreamController *>
-
-// list<MxStreamController *,allocator<MxStreamController *>
-// >::iterator::operator*
-
-// MxStreamerNotification::`scalar deleting destructor'
-
-// MxStreamerNotification::~MxStreamerNotification
-
-// list<MxStreamController *,allocator<MxStreamController *>
-// >::iterator::operator==
-
-// list<MxStreamController *,allocator<MxStreamController *> >::push_back
-
-// ??9@YAHABViterator@?$list@PAVMxStreamController@@V?$allocator@PAVMxStreamController@@@@@@0@Z
-
-// clang-format off
-
-// ?find@@YA?AViterator@?$list@PAVMxStreamController@@V?$allocator@PAVMxStreamController@@@@@@V12@0ABQAVMxStreamController@@@Z
-// clang-format on
-

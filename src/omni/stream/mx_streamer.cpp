@@ -5,6 +5,7 @@
 #include "mx_misc.h"
 #include "mx_notification_manager.h"
 #include "mx_ram_stream_controller.h"
+#include "mx_stream_controller.h"
 
 #include <algorithm>
 #include <assert.h>
@@ -36,12 +37,6 @@ MxStreamer::~MxStreamer() {
 }
 
 MxStreamController* MxStreamer::Open(const char* p_name, MxU16 p_lookupType) {
-	log_info(
-		"Open %s as %s controller\n",
-		p_name,
-		!p_lookupType ? "disk" : "RAM"
-	);
-
 	MxStreamController* stream = NULL;
 
 	if (GetOpenStream(p_name)) {
@@ -50,10 +45,13 @@ MxStreamController* MxStreamer::Open(const char* p_name, MxU16 p_lookupType) {
 
 	switch (p_lookupType) {
 	case e_diskStream:
-		stream = new MxDiskStreamController();
+		stream = (MxStreamController*) new MxDiskStreamController();
 		break;
 	case e_RAMStream:
-		stream = new MxRAMStreamController();
+		log_error(
+			"Ram stream is not supported, and isn't used in this codebase "
+			"anyways. How did we get here?\n"
+		);
 		break;
 	}
 
@@ -123,8 +121,8 @@ void MxStreamer::FUN_100b98f0(MxDSAction* p_action) {
 	}
 }
 
-MxResult MxStreamer::AddStreamControllerToOpenList(MxStreamController* p_stream
-) {
+MxResult
+MxStreamer::AddStreamControllerToOpenList(MxStreamController* p_stream) {
 	list<MxStreamController*>::iterator i =
 		find(m_controllers.begin(), m_controllers.end(), p_stream);
 
@@ -140,7 +138,7 @@ MxResult MxStreamer::AddStreamControllerToOpenList(MxStreamController* p_stream
 	return FAILURE;
 }
 
-MxResult MxStreamer::FUN_100b99b0(MxDSAction* p_action) {
+MxResult MxStreamer::StartAction(MxDSAction* p_action) {
 	// TODO: MxAtomId operator== used here for NULL test. BETA10 0x1007dc20
 	if (p_action == NULL || p_action->GetAtomId().GetInternal() == NULL ||
 		p_action->GetObjectId() == -1) {
@@ -175,7 +173,7 @@ MxResult MxStreamer::DeleteObject(MxDSAction* p_dsAction) {
 		if (p_dsAction->GetAtomId().GetInternal() == NULL ||
 			p_dsAction->GetAtomId() == (*it)->GetAtom()) {
 			tempAction.SetAtomId((*it)->GetAtom());
-			result = (*it)->VTable0x24(&tempAction);
+			result = (*it)->StopAction(&tempAction);
 		}
 	}
 

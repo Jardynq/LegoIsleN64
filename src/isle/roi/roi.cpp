@@ -1,13 +1,13 @@
 #include "roi.h"
 
 #include "anim.h"
-#include "lod.h"
+#include "box.h"
 #include "container.h"
-#include "storage.h"
+#include "lod.h"
 #include "mx_geometry_4d.h"
 #include "realtime.h"
-#include "box.h"
 #include "sphere.h"
+#include "storage.h"
 
 #include <string.h>
 #include <vec.h>
@@ -292,15 +292,15 @@ LegoResult LegoROI::Read(
 				goto done;
 			}
 
-			FUN_100a9210(textureInfo);
-			FUN_100a9170(1.0F, 1.0F, 1.0F, 0.0F);
+			SetTexture(textureInfo);
+			SetColor(1.0F, 1.0F, 1.0F, 0.0F);
 		} else {
 			LegoFloat red = 1.0F;
 			LegoFloat green = 0.0F;
 			LegoFloat blue = 1.0F;
 			LegoFloat alpha = 0.0F;
-			FUN_100a9bf0(textureName, red, green, blue, alpha);
-			FUN_100a9170(red, green, blue, alpha);
+			ColorLookup(textureName, red, green, blue, alpha);
+			SetColor(red, green, blue, alpha);
 		}
 	}
 
@@ -488,7 +488,7 @@ LegoResult LegoROI::SetFrame(LegoAnim* p_anim, LegoTime p_time) {
 	return FUN_100a8da0(root, mat, p_time, this);
 }
 
-LegoResult LegoROI::FUN_100a9170(
+LegoResult LegoROI::SetColor(
 	LegoFloat p_red,
 	LegoFloat p_green,
 	LegoFloat p_blue,
@@ -501,15 +501,14 @@ LegoResult LegoROI::FUN_100a9170(
 	for (LegoU32 i = 0; i < lodCount; i++) {
 		LegoLOD* lod = (LegoLOD*) GetLOD(i);
 
-		if (lod->FUN_100aacb0(p_red, p_green, p_blue, p_alpha) != SUCCESS) {
+		if (lod->SetColor(p_red, p_green, p_blue, p_alpha) != SUCCESS) {
 			result = FAILURE;
 		}
 	}
 
 	if (comp != NULL) {
 		for (it = comp->begin(); it != comp->end(); it++) {
-			if (((LegoROI*) *it)
-					->FUN_100a9170(p_red, p_green, p_blue, p_alpha) !=
+			if (((LegoROI*) *it)->SetColor(p_red, p_green, p_blue, p_alpha) !=
 				SUCCESS) {
 				result = FAILURE;
 			}
@@ -519,7 +518,7 @@ LegoResult LegoROI::FUN_100a9170(
 	return result;
 }
 
-LegoResult LegoROI::FUN_100a9210(LegoTextureInfo* p_textureInfo) {
+LegoResult LegoROI::SetTexture(LegoTextureInfo* p_textureInfo) {
 	LegoResult result = SUCCESS;
 	CompoundObject::iterator it;
 
@@ -527,14 +526,14 @@ LegoResult LegoROI::FUN_100a9210(LegoTextureInfo* p_textureInfo) {
 	for (LegoU32 i = 0; i < lodCount; i++) {
 		LegoLOD* lod = (LegoLOD*) GetLOD(i);
 
-		if (lod->FUN_100aad00(p_textureInfo) != SUCCESS) {
+		if (lod->SetTexture(p_textureInfo) != SUCCESS) {
 			result = FAILURE;
 		}
 	}
 
 	if (comp != NULL) {
 		for (it = comp->begin(); it != comp->end(); it++) {
-			if (((LegoROI*) *it)->FUN_100a9210(p_textureInfo) != SUCCESS) {
+			if (((LegoROI*) *it)->SetTexture(p_textureInfo) != SUCCESS) {
 				result = FAILURE;
 			}
 		}
@@ -572,13 +571,13 @@ LegoResult LegoROI::FUN_100a9330(
 	LegoFloat p_blue,
 	LegoFloat p_alpha
 ) {
-	return FUN_100a9170(p_red, p_green, p_blue, p_alpha);
+	return SetColor(p_red, p_green, p_blue, p_alpha);
 }
 
 LegoResult LegoROI::FUN_100a9350(const LegoChar* p_color) {
 	MxFloat red, green, blue, alpha;
 	if (ColorAliasLookup(p_color, red, green, blue, alpha)) {
-		return FUN_100a9170(red, green, blue, alpha);
+		return SetColor(red, green, blue, alpha);
 	}
 
 	return SUCCESS;
@@ -754,7 +753,7 @@ void TimeROI::FUN_100a9b40(Matrix4& p_matrix, LegoTime p_time) {
 	}
 }
 
-LegoBool LegoROI::FUN_100a9bf0(
+LegoBool LegoROI::ColorLookup(
 	const LegoChar* p_param,
 	float& p_red,
 	float& p_green,

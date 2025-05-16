@@ -2,10 +2,9 @@
 
 #include "3d_manager.h"
 #include "gamestate.h"
+#include "misc.h"
 #include "nav_controller.h"
 #include "video_manager.h"
-#include "misc.h"
-#include "roi.h"
 
 const char* g_varJETSPEED = "jetSPEED";
 
@@ -61,7 +60,7 @@ void VisibilityVariable::SetValue(const char* p_value) {
 	if (p_value) {
 		char* instruction = strtok(m_value.GetData(), g_delimiter2);
 		char* name = strtok(NULL, g_delimiter2);
-		MxBool show;
+		MxBool show = 0;
 
 		if (!strcmpi(instruction, g_varHIDE)) {
 			show = FALSE;

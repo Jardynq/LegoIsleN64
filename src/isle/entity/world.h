@@ -1,10 +1,10 @@
 #pragma once
 
-#include "mx_presenter_list.h"
-#include "entity_list.h"
 #include "cache_sound_list.h"
 #include "entity.h"
+#include "entity_list.h"
 #include "legomain.h"
+#include "mx_presenter_list.h"
 #include "path_controller_list.h"
 #include "roi.h"
 
@@ -38,7 +38,7 @@ public:
 	MxResult Create(MxDSAction& p_dsAction) override;
 	void Destroy(MxBool p_fromDestructor) override;
 	virtual void ReadyWorld();
-	virtual LegoCameraController* VTable0x54();
+	virtual LegoCameraController* InitCamera();
 	virtual void Add(MxCore* p_object);
 
 	// The BETA10 match could also be LegoWorld::Escape(), only the child
@@ -112,4 +112,3 @@ protected:
 	MxBool m_worldStarted;
 	undefined m_unk0xf7;
 };
-

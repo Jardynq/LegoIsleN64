@@ -22,7 +22,7 @@ void MxRegion::Reset() {
 	m_rect = MxRect32(INT_MAX, INT_MAX, -1, -1);
 }
 
-void MxRegion::VTable0x18(MxRect32& p_rect) {
+void MxRegion::InvalidateRect(MxRect32& p_rect) {
 	MxRect32 rect(p_rect);
 	MxRect32 newRect;
 	MxRegionTopBottomListCursor cursor(m_list);

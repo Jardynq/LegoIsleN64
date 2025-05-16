@@ -46,8 +46,6 @@ public:
 
 	void ClearUnknowna0() { m_unk0xa0 = NULL; }
 
-	// MxDSStreamingAction::`scalar deleting destructor'
-
 private:
 	MxU32 m_unk0x94;
 	MxU32 m_bufferOffset;
@@ -58,4 +56,3 @@ private:
 	undefined2 m_unk0xac;
 	MxDSAction* m_internalAction;
 };
-

@@ -1,78 +1,30 @@
 #include "mx_video_presenter.h"
 
-#include "mxautolock.h"
-#include "mx_display_surface.h"
+#include "mpeg2.h"
 #include "mx_ds_media_action.h"
-#include "mx_ds_subscriber.h"
 #include "mx_misc.h"
 #include "mx_region_cursor.h"
 #include "mx_video_manager.h"
+#include "mxautolock.h"
+#include "yuv.h"
 
-MxVideoPresenter::AlphaMask::AlphaMask(const MxBitmap& p_bitmap) {
-	m_width = p_bitmap.GetBmiWidth();
-	// DECOMP: ECX becomes word-sized if these are not two separate actions.
-	MxLong height = p_bitmap.GetBmiHeightAbs();
-	m_height = height;
+MxVideoPresenter::AlphaMask::AlphaMask(const yuv_frame_t& p_bitmap) {
+	m_width = p_bitmap.y.width;
+	m_height = p_bitmap.y.height;
 
 	MxS32 size = ((m_width * m_height) / 8) + 1;
 	m_bitmask = new MxU8[size];
 	memset(m_bitmask, 0, size);
 
-	MxU32 rowsBeforeTop;
-	MxU8* bitmapSrcPtr;
-
-	// The goal here is to enable us to walk through the bitmap's rows
-	// in order, regardless of the orientation. We want to end up at the
-	// start of the first row, which is either at position 0, or at
-	// (image_stride * biHeight) - 1.
-
-	// Reminder: Negative biHeight means this is a top-down DIB.
-	// Otherwise it is bottom-up.
-
-	switch (p_bitmap.GetBmiHeader()->biCompression) {
-	case BI_RGB: {
-		if (p_bitmap.GetBmiHeight() < 0) {
-			rowsBeforeTop = 0;
-		} else {
-			rowsBeforeTop = p_bitmap.GetBmiHeightAbs() - 1;
-		}
-		bitmapSrcPtr =
-			p_bitmap.GetImage() + (p_bitmap.GetBmiStride() * rowsBeforeTop);
-		break;
-	}
-	case BI_RGB_TOPDOWN:
-		bitmapSrcPtr = p_bitmap.GetImage();
-		break;
-	default: {
-		if (p_bitmap.GetBmiHeight() < 0) {
-			rowsBeforeTop = 0;
-		} else {
-			rowsBeforeTop = p_bitmap.GetBmiHeightAbs() - 1;
-		}
-		bitmapSrcPtr =
-			p_bitmap.GetImage() + (p_bitmap.GetBmiStride() * rowsBeforeTop);
-	}
-	}
-
-	// How many bytes are there for each row of the bitmap?
-	// (i.e. the image stride)
-	// If this is a bottom-up DIB, we will walk it in reverse.
-	// TODO: Same rounding trick as in MxBitmap
-	MxS32 rowSeek = ((m_width + 3) & -4);
-	if (p_bitmap.GetBmiHeader()->biCompression != BI_RGB_TOPDOWN &&
-		p_bitmap.GetBmiHeight() > 0) {
-		rowSeek = -rowSeek;
-	}
-
 	// The actual offset into the m_bitmask array. The two for-loops
 	// are just for counting the pixels.
 	MxS32 offset = 0;
 
+	MxU8* bitmapSrcPtr = (u8*) p_bitmap.y.buffer;
 	for (MxS32 j = 0; j < m_height; j++) {
-		MxU8* tPtr = bitmapSrcPtr;
+		MxU8* tPtr = (u8*) bitmapSrcPtr;
 		for (MxS32 i = 0; i < m_width; i++) {
 			if (*tPtr) {
-				// TODO: Second CDQ instruction for abs() should not be there.
 				MxU32 shift = abs(offset) & 7;
 				m_bitmask[offset / 8] |= (1 << abs((MxS32) shift));
 			}
@@ -80,8 +32,7 @@ MxVideoPresenter::AlphaMask::AlphaMask(const MxBitmap& p_bitmap) {
 			offset++;
 		}
 		// Seek to the start of the next row
-		bitmapSrcPtr += rowSeek;
-		tPtr = bitmapSrcPtr;
+		bitmapSrcPtr += p_bitmap.y.stride;
 	}
 }
 
@@ -112,10 +63,9 @@ MxS32 MxVideoPresenter::AlphaMask::IsHit(MxU32 p_x, MxU32 p_y) {
 }
 
 void MxVideoPresenter::Init() {
-	m_frameBitmap = NULL;
+	m_video = NULL;
 	m_alpha = NULL;
 	m_unk0x5c = 1;
-	m_unk0x58 = NULL;
 	m_unk0x60 = -1;
 	SetBit0(FALSE);
 
@@ -134,14 +84,7 @@ void MxVideoPresenter::Destroy(MxBool p_fromDestructor) {
 		MVideoManager()->UnregisterPresenter(*this);
 	}
 
-	if (m_unk0x58) {
-		m_unk0x58->Release();
-		m_unk0x58 = NULL;
-		SetBit1(FALSE);
-		SetBit2(FALSE);
-	}
-
-	if (MVideoManager() && (m_alpha || m_frameBitmap)) {
+	if (MVideoManager() && (m_alpha || m_video)) {
 		// MxRect32 rect(m_location, MxSize32(GetWidth(), GetHeight()));
 		MxS32 height = GetHeight();
 		MxS32 width = GetWidth();
@@ -158,7 +101,8 @@ void MxVideoPresenter::Destroy(MxBool p_fromDestructor) {
 		);
 	}
 
-	delete m_frameBitmap;
+	mpeg2_close(m_video);
+	m_video = nullptr;
 	delete m_alpha;
 
 	Init();
@@ -169,69 +113,40 @@ void MxVideoPresenter::Destroy(MxBool p_fromDestructor) {
 }
 
 void MxVideoPresenter::NextFrame() {
-	MxStreamChunk* chunk = NextChunk();
-
-	if (chunk->GetChunkFlags() & DS_CHUNK_END_OF_STREAM) {
-		m_subscriber->FreeDataChunk(chunk);
-		ProgressTickleState(e_repeating);
-	} else {
-		LoadFrame(chunk);
-		m_subscriber->FreeDataChunk(chunk);
+	if (mpeg2_next_frame(m_video)) {
+		m_frame = mpeg2_get_frame(m_video);
 	}
+
+	ProgressTickleState(e_repeating);
 }
 
 MxBool MxVideoPresenter::IsHit(MxS32 p_x, MxS32 p_y) {
 	MxDSAction* action = GetAction();
 	if ((action == NULL) ||
 		(((action->GetFlags() & MxDSAction::c_bit11) == 0) && !IsEnabled()) ||
-		(!m_frameBitmap && !m_alpha)) {
+		(!m_video && !m_alpha)) {
 		return FALSE;
 	}
 
-	if (!m_frameBitmap) {
+	if (!m_video) {
 		return m_alpha->IsHit(p_x - m_location.GetX(), p_y - m_location.GetY());
 	}
 
-	MxLong heightAbs = m_frameBitmap->GetBmiHeightAbs();
+	MxLong heightAbs = m_frame.y.height;
 
 	MxLong minX = m_location.GetX();
 	MxLong minY = m_location.GetY();
 
 	MxLong maxY = minY + heightAbs;
-	MxLong maxX = minX + m_frameBitmap->GetBmiWidth();
+	MxLong maxX = minX + m_frame.y.width;
 
 	if (p_x < minX || p_x >= maxX || p_y < minY || p_y >= maxY) {
 		return FALSE;
 	}
 
-	MxU8* pixel;
-
-	MxLong biCompression = m_frameBitmap->GetBmiHeader()->biCompression;
-	MxLong height = m_frameBitmap->GetBmiHeight();
-	MxLong seekRow;
-
-	// DECOMP: Same basic layout as AlphaMask constructor
-	// The idea here is to again seek to the correct place in the bitmap's
-	// m_data buffer. The x,y args are (most likely) screen x and y, so we
-	// need to shift that to coordinates local to the bitmap by removing
-	// the MxPresenter location x and y coordinates.
-	if (biCompression == BI_RGB) {
-		if (biCompression == BI_RGB_TOPDOWN || height < 0) {
-			seekRow = p_y - m_location.GetY();
-		} else {
-			height = height > 0 ? height : -height;
-			seekRow = height - p_y - 1 + m_location.GetY();
-		}
-		pixel = m_frameBitmap->GetBmiStride() * seekRow +
-				m_frameBitmap->GetImage() - m_location.GetX() + p_x;
-	} else if (biCompression == BI_RGB_TOPDOWN) {
-		pixel = m_frameBitmap->GetImage();
-	} else {
-		height = height > 0 ? height : -height;
-		height--;
-		pixel =
-			m_frameBitmap->GetBmiStride() * height + m_frameBitmap->GetImage();
-	}
+	MxLong x = p_y - m_location.GetY();
+	MxLong y = p_x - m_location.GetX();
+	MxU8* pixel = (u8*) m_frame.y.buffer + m_frame.y.stride * y - x;
 
 	if (GetBit4()) {
 		return (MxBool) *pixel;
@@ -266,7 +181,7 @@ inline MxS32 MxVideoPresenter::PrepareRects(RECT& p_rectDest, RECT& p_rectSrc) {
 		p_rectSrc.right = 640;
 	}
 
-	LONG height, width;
+	LONG height = 0, width = 0;
 	if ((height = (p_rectDest.bottom - p_rectDest.top) + 1) <= 1 ||
 		(width = (p_rectDest.right - p_rectDest.left) + 1) <= 1) {
 		return -1;
@@ -281,107 +196,69 @@ inline MxS32 MxVideoPresenter::PrepareRects(RECT& p_rectDest, RECT& p_rectSrc) {
 }
 
 void MxVideoPresenter::PutFrame() {
-	MxDisplaySurface* displaySurface = MVideoManager()->GetDisplaySurface();
 	MxRegion* region = MVideoManager()->GetRegion();
 	MxRect32 rect(MxPoint32(0, 0), MxSize32(GetWidth(), GetHeight()));
 	rect.AddPoint(GetLocation());
-	LPDIRECTDRAWSURFACE ddSurface = displaySurface->GetDirectDrawSurface2();
 
 	if (m_action->GetFlags() & MxDSAction::c_bit5) {
-		if (m_unk0x58) {
-			RECT src, dest;
-			src.top = 0;
-			src.left = 0;
-			src.right = GetWidth();
-			src.bottom = GetHeight();
+		RECT src, dest;
+		src.top = 0;
+		src.left = 0;
+		src.right = GetWidth();
+		src.bottom = GetHeight();
 
-			dest.left = GetX();
-			dest.top = GetY();
-			dest.right = dest.left + GetWidth();
-			dest.bottom = dest.top + GetHeight();
+		dest.left = GetX();
+		dest.top = GetY();
+		dest.right = dest.left + GetWidth();
+		dest.bottom = dest.top + GetHeight();
 
-			switch (PrepareRects(src, dest)) {
-			case 0:
-				ddSurface->Blt(&dest, m_unk0x58, &src, DDBLT_KEYSRC, NULL);
-				break;
-			case 1:
-				ddSurface->BltFast(
-					dest.left,
-					dest.top,
-					m_unk0x58,
-					&src,
-					DDBLTFAST_SRCCOLORKEY | DDBLTFAST_WAIT
-				);
+		if (PrepareRects(src, dest) >= 0) {
+			// Todo, maybe consider scaling based on src/dest?
+			if (m_yuv.block != nullptr) {
+				yuv_blitter_free(&m_yuv);
 			}
-		} else {
-			displaySurface->VTable0x30(
-				m_frameBitmap,
-				0,
-				0,
-				rect.GetLeft(),
-				rect.GetTop(),
-				m_frameBitmap->GetBmiWidth(),
-				m_frameBitmap->GetBmiHeightAbs(),
-				TRUE
+			m_yuv = yuv_blitter_new(
+				dest.left,
+				dest.top,
+				GetWidth(),
+				GetHeight(),
+				nullptr,
+				nullptr
 			);
+			yuv_blitter_run(&m_yuv, &m_frame);
 		}
 	} else {
 		MxRegionCursor cursor(region);
-		MxRect32* regionRect;
+		MxRect32* regionRect = nullptr;
 
 		while ((regionRect = cursor.VTable0x24(rect))) {
 			if (regionRect->GetWidth() >= 1 && regionRect->GetHeight() >= 1) {
 				RECT src, dest;
 
-				if (m_unk0x58) {
-					src.left = regionRect->GetLeft() - GetX();
-					src.top = regionRect->GetTop() - GetY();
-					src.right = src.left + regionRect->GetWidth();
-					src.bottom = src.top + regionRect->GetHeight();
+				src.left = regionRect->GetLeft() - GetX();
+				src.top = regionRect->GetTop() - GetY();
+				src.right = src.left + regionRect->GetWidth();
+				src.bottom = src.top + regionRect->GetHeight();
 
-					dest.left = regionRect->GetLeft();
-					dest.top = regionRect->GetTop();
-					dest.right = dest.left + regionRect->GetWidth();
-					dest.bottom = dest.top + regionRect->GetHeight();
-				}
+				dest.left = regionRect->GetLeft();
+				dest.top = regionRect->GetTop();
+				dest.right = dest.left + regionRect->GetWidth();
+				dest.bottom = dest.top + regionRect->GetHeight();
 
-				if (m_action->GetFlags() & MxDSAction::c_bit4) {
-					if (m_unk0x58) {
-						if (PrepareRects(src, dest) >= 0) {
-							ddSurface->Blt(
-								&dest,
-								m_unk0x58,
-								&src,
-								DDBLT_KEYSRC,
-								NULL
-							);
-						}
-					} else {
-						displaySurface->VTable0x30(
-							m_frameBitmap,
-							regionRect->GetLeft() - GetX(),
-							regionRect->GetTop() - GetY(),
-							regionRect->GetLeft(),
-							regionRect->GetTop(),
-							regionRect->GetWidth(),
-							regionRect->GetHeight(),
-							FALSE
-						);
+				if (PrepareRects(src, dest) >= 0) {
+					// Todo, maybe consider scaling based on src/dest?
+					if (m_yuv.block != nullptr) {
+						yuv_blitter_free(&m_yuv);
 					}
-				} else if (m_unk0x58) {
-					if (PrepareRects(src, dest) >= 0) {
-						ddSurface->Blt(&dest, m_unk0x58, &src, 0, NULL);
-					}
-				} else {
-					displaySurface->VTable0x28(
-						m_frameBitmap,
-						regionRect->GetLeft() - GetX(),
-						regionRect->GetTop() - GetY(),
-						regionRect->GetLeft(),
-						regionRect->GetTop(),
-						regionRect->GetWidth(),
-						regionRect->GetHeight()
+					m_yuv = yuv_blitter_new(
+						dest.left,
+						dest.top,
+						GetWidth(),
+						GetHeight(),
+						nullptr,
+						nullptr
 					);
+					yuv_blitter_run(&m_yuv, &m_frame);
 				}
 			}
 		}
@@ -389,20 +266,12 @@ void MxVideoPresenter::PutFrame() {
 }
 
 void MxVideoPresenter::ReadyTickle() {
-	MxStreamChunk* chunk = NextChunk();
-
-	if (chunk) {
-		LoadHeader(chunk);
-		m_subscriber->FreeDataChunk(chunk);
-		ParseExtra();
-		ProgressTickleState(e_starting);
-	}
+	ParseExtra();
+	ProgressTickleState(e_starting);
 }
 
 void MxVideoPresenter::StartingTickle() {
-	MxStreamChunk* chunk = CurrentChunk();
-
-	if (chunk && m_action->GetElapsedTime() >= chunk->GetTime()) {
+	if (m_action->GetElapsedTime() >= node->start_time) {
 		CreateBitmap();
 		ProgressTickleState(e_streaming);
 	}
@@ -410,31 +279,12 @@ void MxVideoPresenter::StartingTickle() {
 
 void MxVideoPresenter::StreamingTickle() {
 	if (m_action->GetFlags() & MxDSAction::c_bit10) {
-		if (!m_currentChunk) {
-			MxMediaPresenter::StreamingTickle();
-		}
-
-		if (m_currentChunk) {
-			LoadFrame(m_currentChunk);
-			m_currentChunk = NULL;
-		}
 	} else {
 		for (MxS16 i = 0; i < m_unk0x5c; i++) {
-			if (!m_currentChunk) {
-				MxMediaPresenter::StreamingTickle();
-
-				if (!m_currentChunk) {
-					break;
-				}
-			}
-
-			if (m_action->GetElapsedTime() < m_currentChunk->GetTime()) {
+			if (m_action->GetElapsedTime() < node->start_time) {
 				break;
 			}
 
-			LoadFrame(m_currentChunk);
-			m_subscriber->FreeDataChunk(m_currentChunk);
-			m_currentChunk = NULL;
 			SetBit0(TRUE);
 
 			if (m_currentTickleState != e_streaming) {
@@ -451,33 +301,14 @@ void MxVideoPresenter::StreamingTickle() {
 void MxVideoPresenter::RepeatingTickle() {
 	if (IsEnabled()) {
 		if (m_action->GetFlags() & MxDSAction::c_bit10) {
-			if (!m_currentChunk) {
-				MxMediaPresenter::RepeatingTickle();
-			}
-
-			if (m_currentChunk) {
-				LoadFrame(m_currentChunk);
-				m_currentChunk = NULL;
-			}
 		} else {
 			for (MxS16 i = 0; i < m_unk0x5c; i++) {
-				if (!m_currentChunk) {
-					MxMediaPresenter::RepeatingTickle();
-
-					if (!m_currentChunk) {
-						break;
-					}
-				}
-
 				if (m_action->GetElapsedTime() % m_action->GetLoopCount() <
-					m_currentChunk->GetTime()) {
+					node->start_time) {
 					break;
 				}
 
-				LoadFrame(m_currentChunk);
-				m_currentChunk = NULL;
 				SetBit0(TRUE);
-
 				if (m_currentTickleState != e_repeating) {
 					break;
 				}
@@ -523,11 +354,10 @@ MxResult MxVideoPresenter::AddToManager() {
 void MxVideoPresenter::EndAction() {
 	if (m_action) {
 		MxMediaPresenter::EndAction();
-		AUTOLOCK(m_criticalSection);
 
-		if (m_frameBitmap) {
-			MxLong height = m_frameBitmap->GetBmiHeightAbs();
-			MxLong width = m_frameBitmap->GetBmiWidth();
+		if (m_video) {
+			MxLong height = m_frame.y.height;
+			MxLong width = m_frame.y.width;
 			MxS32 x = m_location.GetX();
 			MxS32 y = m_location.GetY();
 
@@ -539,8 +369,6 @@ void MxVideoPresenter::EndAction() {
 }
 
 MxResult MxVideoPresenter::PutData() {
-	AUTOLOCK(m_criticalSection);
-
 	if (IsEnabled() && m_currentTickleState >= e_streaming &&
 		m_currentTickleState <= e_freezing) {
 		PutFrame();

@@ -1,11 +1,11 @@
 
 #include "lod.h"
 
-#include "roi.h"
 #include "container.h"
-#include "storage.h"
-#include "mesh.h"
 #include "impl.h"
+#include "mesh.h"
+#include "roi.h"
+#include "storage.h"
 
 LPDIRECT3DRMMATERIAL g_unk0x101013d4 = NULL;
 
@@ -247,7 +247,7 @@ LegoResult LegoLOD::Read(
 			LegoFloat alpha = 0.0F;
 
 			if (mesh->GetUnknown0x21()) {
-				LegoROI::FUN_100a9bf0(materialName, red, green, blue, alpha);
+				LegoROI::ColorLookup(materialName, red, green, blue, alpha);
 			} else {
 				red = mesh->GetColor().GetRed() / 255.0;
 				green = mesh->GetColor().GetGreen() / 255.0;
@@ -337,7 +337,7 @@ LegoLOD* LegoLOD::Clone(Tgl::Renderer* p_renderer) {
 	return dupLod;
 }
 
-LegoResult LegoLOD::FUN_100aacb0(
+LegoResult LegoLOD::SetColor(
 	LegoFloat p_red,
 	LegoFloat p_green,
 	LegoFloat p_blue,
@@ -352,7 +352,7 @@ LegoResult LegoLOD::FUN_100aacb0(
 	return SUCCESS;
 }
 
-LegoResult LegoLOD::FUN_100aad00(LegoTextureInfo* p_textureInfo) {
+LegoResult LegoLOD::SetTexture(LegoTextureInfo* p_textureInfo) {
 	for (LegoU32 i = m_unk0x1c; i < m_numMeshes; i++) {
 		if (m_melems[i].m_unk0x04) {
 			LegoTextureInfo::SetGroupTexture(

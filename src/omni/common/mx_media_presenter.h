@@ -1,7 +1,6 @@
 #pragma once
 
 #include "mx_presenter.h"
-#include "mx_stream_chunk_list.h"
 
 class MxDSSubscriber;
 
@@ -31,16 +30,8 @@ public:
 	MxResult StartAction(MxStreamController*, MxDSAction*) override;
 	void EndAction() override;
 	void Enable(MxBool p_enable) override;
-	virtual void LoopChunk(MxStreamChunk* p_chunk);
-
-	MxStreamChunk* CurrentChunk();
-	MxStreamChunk* NextChunk();
 
 protected:
-	MxDSSubscriber* m_subscriber;
-	MxStreamChunkList* m_loopingChunks;
-	MxStreamChunkListCursor* m_loopingChunkCursor;
-	MxStreamChunk* m_currentChunk;
 	void Init();
 	void Destroy(MxBool p_fromDestructor);
 };

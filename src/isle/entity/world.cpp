@@ -1,8 +1,8 @@
 #include "world.h"
 
 #include "anim.h"
-#include "animation_manager.h"
 #include "anim_presenter.h"
+#include "animation_manager.h"
 #include "building_manager.h"
 #include "cache_sound_manager.h"
 #include "camera_controller.h"
@@ -10,11 +10,6 @@
 #include "gamestate.h"
 #include "input_manager.h"
 #include "locomotion_anim_presenter.h"
-#include "nav_controller.h"
-#include "plant_manager.h"
-#include "sound_manager.h"
-#include "utils.h"
-#include "video_manager.h"
 #include "misc.h"
 #include "mx_action_notification_param.h"
 #include "mx_control_presenter.h"
@@ -23,6 +18,12 @@
 #include "mx_notification_param.h"
 #include "mx_tickle_manager.h"
 #include "mx_utilities.h"
+#include "nav_controller.h"
+#include "plant_manager.h"
+#include "roi.h"
+#include "sound_manager.h"
+#include "utils.h"
+#include "video_manager.h"
 #include "view_manager.h"
 
 LegoWorld::LegoWorld() : m_list0x68(TRUE) {
@@ -59,7 +60,7 @@ MxResult LegoWorld::Create(MxDSAction& p_dsAction) {
 		return FAILURE;
 	}
 
-	if (!VTable0x54()) {
+	if (!InitCamera()) {
 		return FAILURE;
 	}
 
@@ -93,7 +94,7 @@ void LegoWorld::Destroy(MxBool p_fromDestructor) {
 	}
 
 	MxPresenterListCursor animPresenterCursor(&m_animPresenters);
-	MxPresenter* presenter;
+	MxPresenter* presenter = nullptr;
 
 	while (animPresenterCursor.First(presenter)) {
 		animPresenterCursor.Detach();
@@ -153,7 +154,7 @@ void LegoWorld::Destroy(MxBool p_fromDestructor) {
 
 	if (m_entityList) {
 		LegoEntityListCursor cursor(m_entityList);
-		LegoEntity* entity;
+		LegoEntity* entity = nullptr;
 
 		while (cursor.First(entity)) {
 			cursor.Detach();
@@ -169,7 +170,7 @@ void LegoWorld::Destroy(MxBool p_fromDestructor) {
 
 	if (m_cacheSoundList) {
 		LegoCacheSoundListCursor cursor(m_cacheSoundList);
-		LegoCacheSound* sound;
+		LegoCacheSound* sound = nullptr;
 
 		while (cursor.First(sound)) {
 			cursor.Detach();
@@ -206,12 +207,34 @@ MxLong LegoWorld::Notify(MxParam& p_param) {
 	case c_notificationNewPresenter:
 		TickleManager()->RegisterClient(this, 100);
 		break;
+	case c_notificationType0:
+	case c_notificationStartAction:
+	case c_notificationType4:
+	case c_notificationPresenter:
+	case c_notificationStreamer:
+	case c_notificationKeyPress:
+	case c_notificationButtonUp:
+	case c_notificationButtonDown:
+	case c_notificationMouseMove:
+	case c_notificationClick:
+	case c_notificationDragStart:
+	case c_notificationDrag:
+	case c_notificationDragEnd:
+	case c_notificationTimer:
+	case c_notificationControl:
+	case c_notificationEndAnim:
+	case c_notificationPathStruct:
+	case c_notificationType20:
+	case c_notificationType22:
+	case c_notificationType23:
+	case c_notificationTransitioned:
+		break;
 	}
 
 	return result;
 }
 
-LegoCameraController* LegoWorld::VTable0x54() {
+LegoCameraController* LegoWorld::InitCamera() {
 	MxBool success = FALSE;
 
 	if (!VideoManager()) {
@@ -251,7 +274,7 @@ MxResult LegoWorld::PlaceActor(
 	float p_destScale
 ) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
-	LegoPathController* controller;
+	LegoPathController* controller = nullptr;
 
 	while (cursor.Next(controller)) {
 		if (controller->PlaceActor(
@@ -271,7 +294,7 @@ MxResult LegoWorld::PlaceActor(
 
 MxResult LegoWorld::PlaceActor(LegoPathActor* p_actor) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
-	LegoPathController* controller;
+	LegoPathController* controller = nullptr;
 
 	while (cursor.Next(controller)) {
 		if (controller->PlaceActor(p_actor) == SUCCESS) {
@@ -289,7 +312,7 @@ MxResult LegoWorld::PlaceActor(
 	Vector3& p_direction
 ) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
-	LegoPathController* controller;
+	LegoPathController* controller = nullptr;
 
 	while (cursor.Next(controller)) {
 		if (controller
@@ -304,7 +327,7 @@ MxResult LegoWorld::PlaceActor(
 
 void LegoWorld::RemoveActor(LegoPathActor* p_actor) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
-	LegoPathController* controller;
+	LegoPathController* controller = nullptr;
 
 	while (cursor.Next(controller)) {
 		if (controller->RemoveActor(p_actor) == SUCCESS) {
@@ -315,7 +338,7 @@ void LegoWorld::RemoveActor(LegoPathActor* p_actor) {
 
 MxBool LegoWorld::ActorExists(LegoPathActor* p_actor) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
-	LegoPathController* controller;
+	LegoPathController* controller = nullptr;
 
 	while (cursor.Next(controller)) {
 		if (controller->ActorExists(p_actor) == TRUE) {
@@ -328,7 +351,7 @@ MxBool LegoWorld::ActorExists(LegoPathActor* p_actor) {
 
 void LegoWorld::FUN_1001fda0(LegoAnimPresenter* p_presenter) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
-	LegoPathController* controller;
+	LegoPathController* controller = nullptr;
 
 	while (cursor.Next(controller)) {
 		controller->FUN_100468f0(p_presenter);
@@ -337,7 +360,7 @@ void LegoWorld::FUN_1001fda0(LegoAnimPresenter* p_presenter) {
 
 void LegoWorld::FUN_1001fe90(LegoAnimPresenter* p_presenter) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
-	LegoPathController* controller;
+	LegoPathController* controller = nullptr;
 
 	while (cursor.Next(controller)) {
 		controller->FUN_10046930(p_presenter);
@@ -351,7 +374,7 @@ void LegoWorld::AddPath(LegoPathController* p_controller) {
 
 LegoPathBoundary* LegoWorld::FindPathBoundary(const char* p_name) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
-	LegoPathController* controller;
+	LegoPathController* controller = nullptr;
 
 	while (cursor.Next(controller)) {
 		LegoPathBoundary* boundary = controller->GetPathBoundary(p_name);
@@ -367,7 +390,7 @@ LegoPathBoundary* LegoWorld::FindPathBoundary(const char* p_name) {
 MxResult
 LegoWorld::GetCurrPathInfo(LegoPathBoundary** p_boundaries, MxS32& p_numL) {
 	LegoPathControllerListCursor cursor(&m_list0x68);
-	LegoPathController* controller;
+	LegoPathController* controller = nullptr;
 
 	cursor.Next(controller);
 
@@ -384,7 +407,6 @@ void LegoWorld::Add(MxCore* p_object) {
 		return;
 	}
 
-#ifndef BETA10
 	if (p_object->IsA("LegoAnimPresenter")) {
 		if (!strcmpi(
 				((LegoAnimPresenter*) p_object)->GetAction()->GetObjectName(),
@@ -398,7 +420,6 @@ void LegoWorld::Add(MxCore* p_object) {
 								  ->GetDuration());
 		}
 	}
-#endif
 
 	if (p_object->IsA("MxControlPresenter")) {
 		MxPresenterListCursor cursor(&m_controlPresenters);
@@ -434,9 +455,7 @@ void LegoWorld::Add(MxCore* p_object) {
 		if (p_object->IsA("LegoHideAnimPresenter")) {
 			m_hideAnim = (LegoHideAnimPresenter*) p_object;
 		}
-	}
-#ifndef BETA10
-	else if (p_object->IsA("LegoCacheSound")) {
+	} else if (p_object->IsA("LegoCacheSound")) {
 		LegoCacheSoundListCursor cursor(m_cacheSoundList);
 
 		if (cursor.Find((LegoCacheSound*) p_object)) {
@@ -445,16 +464,9 @@ void LegoWorld::Add(MxCore* p_object) {
 		}
 
 		m_cacheSoundList->Append((LegoCacheSound*) p_object);
-	}
-#endif
-	else {
+	} else {
 		MxCoreSet::iterator it = m_set0xa8.find(p_object);
 		if (it == m_set0xa8.end()) {
-#ifdef BETA10
-			if (p_object->IsA("MxPresenter")) {
-				assert(static_cast<MxPresenter*>(p_object)->GetAction());
-			}
-#endif
 
 			m_set0xa8.insert(p_object);
 		} else {
@@ -509,17 +521,13 @@ void LegoWorld::Remove(MxCore* p_object) {
 				cursor.Detach();
 			}
 		}
-	}
-#ifndef BETA10
-	else if (p_object->IsA("LegoCacheSound")) {
+	} else if (p_object->IsA("LegoCacheSound")) {
 		LegoCacheSoundListCursor cursor(m_cacheSoundList);
 
 		if (cursor.Find((LegoCacheSound*) p_object)) {
 			cursor.Detach();
 		}
-	}
-#endif
-	else {
+	} else {
 		it = m_set0xa8.find(p_object);
 		if (it != m_set0xa8.end()) {
 			m_set0xa8.erase(it);
@@ -535,7 +543,7 @@ void LegoWorld::Remove(MxCore* p_object) {
 MxCore* LegoWorld::Find(const char* p_class, const char* p_name) {
 	if (!strcmp(p_class, "MxControlPresenter")) {
 		MxPresenterListCursor cursor(&m_controlPresenters);
-		MxPresenter* presenter;
+		MxPresenter* presenter = nullptr;
 
 		while (cursor.Next(presenter)) {
 			if (!strcmp(presenter->GetAction()->GetObjectName(), p_name)) {
@@ -548,7 +556,7 @@ MxCore* LegoWorld::Find(const char* p_class, const char* p_name) {
 
 	if (!strcmp(p_class, "MxEntity")) {
 		LegoEntityListCursor cursor(m_entityList);
-		LegoEntity* entity;
+		LegoEntity* entity = nullptr;
 
 		while (cursor.Next(entity)) {
 			if (!p_name) {
@@ -566,7 +574,7 @@ MxCore* LegoWorld::Find(const char* p_class, const char* p_name) {
 
 	if (!strcmp(p_class, "LegoAnimPresenter")) {
 		MxPresenterListCursor cursor(&m_animPresenters);
-		MxPresenter* presenter;
+		MxPresenter* presenter = nullptr;
 
 		while (cursor.Next(presenter)) {
 			if (!strcmpi(
@@ -598,7 +606,7 @@ MxCore* LegoWorld::Find(const char* p_class, const char* p_name) {
 
 MxCore* LegoWorld::Find(const MxAtomId& p_atom, MxS32 p_entityId) {
 	LegoEntityListCursor entityCursor(m_entityList);
-	LegoEntity* entity;
+	LegoEntity* entity = nullptr;
 
 	while (entityCursor.Next(entity)) {
 		if (entity->GetAtomId() == p_atom &&
@@ -608,7 +616,7 @@ MxCore* LegoWorld::Find(const MxAtomId& p_atom, MxS32 p_entityId) {
 	}
 
 	MxPresenterListCursor controlPresenterCursor(&m_controlPresenters);
-	MxPresenter* presenter;
+	MxPresenter* presenter = nullptr;
 
 	while (controlPresenterCursor.Next(presenter)) {
 		MxDSAction* action = presenter->GetAction();
@@ -660,15 +668,13 @@ void LegoWorld::Enable(MxBool p_enable) {
 			CurrentWorld()->Enable(FALSE);
 
 			LegoEntityListCursor cursor(m_entityList);
-			LegoEntity* entity;
+			LegoEntity* entity = nullptr;
 
 			while (cursor.Next(entity)) {
 				assert(entity->GetROI());
 
 				if (entity->GetROI()) {
-#ifndef BETA10
 					entity->GetROI()->SetEntity(entity);
-#endif
 					GetViewManager()->Add(entity->GetROI());
 				}
 			}
@@ -703,12 +709,10 @@ void LegoWorld::Enable(MxBool p_enable) {
 		}
 
 		GameState()->ResetROI();
-#ifndef BETA10
 		SetIsWorldActive(TRUE);
-#endif
 	} else if (!p_enable && m_set0xd0.size() == 0) {
-		MxPresenter* presenter;
-		LegoPathController* controller;
+		MxPresenter* presenter = nullptr;
+		LegoPathController* controller = nullptr;
 		LegoPathActor* actor = UserActor();
 
 		if (actor) {
@@ -720,9 +724,7 @@ void LegoWorld::Enable(MxBool p_enable) {
 
 		if (m_worldId != LegoOmni::e_undefined) {
 			PlantManager()->Reset(m_worldId);
-#ifndef BETA10
 			BuildingManager()->Reset();
-#endif
 		}
 
 		MxPresenterListCursor controlPresenterCursor(&m_controlPresenters);

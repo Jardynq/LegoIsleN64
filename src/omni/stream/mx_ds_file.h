@@ -1,10 +1,7 @@
 #pragma once
 
 #include "mx_ds_source.h"
-#include "mx_io.h"
 #include "mx_string.h"
-
-#include <windows.h>
 
 class MxDSFile : public MxDSSource {
 public:
@@ -28,9 +25,7 @@ public:
 
 	void SetFileName(const char* p_filename) { m_filename = p_filename; }
 
-	MxS32 CalcFileSize() { return GetFileSize(m_io.m_info.hmmio, NULL); }
-
-	// MxDSFile::`scalar deleting destructor'
+	MxS32 CalcFileSize();
 
 	struct ChunkHeader {
 
@@ -49,10 +44,8 @@ private:
 	MxResult ReadChunks();
 
 	MxString m_filename;
-	MXIOINFO m_io;
 	ChunkHeader m_header;
 	// If false, read chunks immediately on open, otherwise
 	// skip reading chunks until ReadChunks is explicitly called.
 	MxULong m_skipReadingChunks;
 };
-

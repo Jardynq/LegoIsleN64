@@ -159,8 +159,8 @@ void MxDSAction::MergeFrom(MxDSAction& p_dsAction) {
 		m_up[2] = p_dsAction.GetUp()[2];
 	}
 
-	MxU16 extraLength;
-	char* extraData;
+	MxU16 extraLength = 0;
+	char* extraData = nullptr;
 	p_dsAction.GetExtra(extraLength, extraData);
 
 	if (extraLength && extraData) {

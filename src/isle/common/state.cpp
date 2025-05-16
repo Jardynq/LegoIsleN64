@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 MxU32 LegoState::Playlist::Next() {
-	MxU32 objectId;
+	MxU32 objectId = 0;
 
 	switch (m_mode) {
 	case e_loop:

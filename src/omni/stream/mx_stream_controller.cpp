@@ -1,6 +1,5 @@
 #include "mx_stream_controller.h"
 
-#include "mxautolock.h"
 #include "mx_ds_multi_action.h"
 #include "mx_ds_streaming_action.h"
 #include "mx_misc.h"
@@ -17,15 +16,12 @@ MxStreamController::MxStreamController() {
 }
 
 MxStreamController::~MxStreamController() {
-	log_info("Destroy %s controller.\n", m_atom.GetInternal());
-	AUTOLOCK(m_criticalSection);
-
-	MxDSSubscriber* subscriber;
+	MxDSSubscriber* subscriber = nullptr;
 	while (m_subscribers.PopFront(subscriber)) {
 		delete subscriber;
 	}
 
-	MxDSObject* action;
+	MxDSObject* action = nullptr;
 	while (m_unk0x3c.PopFront(action)) {
 		delete action;
 	}
@@ -50,7 +46,6 @@ MxStreamController::~MxStreamController() {
 
 MxResult MxStreamController::Open(const char* p_filename) {
 	char sourceName[256];
-	AUTOLOCK(m_criticalSection);
 
 	MakeSourceName(sourceName, p_filename);
 	m_atom = MxAtomId(sourceName, e_lowerCase2);
@@ -66,9 +61,7 @@ void MxStreamController::RemoveSubscriber(MxDSSubscriber* p_subscriber) {
 }
 
 MxResult MxStreamController::VTable0x20(MxDSAction* p_action) {
-	AUTOLOCK(m_criticalSection);
-
-	MxResult result;
+	MxResult result = 0;
 	MxU32 offset = 0;
 
 	MxS32 objectId = p_action->GetObjectId();
@@ -87,9 +80,8 @@ MxResult MxStreamController::VTable0x20(MxDSAction* p_action) {
 	return result;
 }
 
-MxResult MxStreamController::VTable0x24(MxDSAction* p_action) {
-	AUTOLOCK(m_criticalSection);
-	VTable0x30(p_action);
+MxResult MxStreamController::StopAction(MxDSAction* p_action) {
+	DeleteAction(p_action);
 	m_action0x60 = (MxDSAction*) m_unk0x54.FindAndErase(p_action);
 
 	if (m_action0x60 == NULL) {
@@ -183,8 +175,6 @@ MxStreamController::FUN_100c1a00(MxDSAction* p_action, MxU32 p_offset) {
 
 MxResult
 MxStreamController::VTable0x2c(MxDSAction* p_action, MxU32 p_bufferval) {
-	AUTOLOCK(m_criticalSection);
-
 	if (FUN_100c1a00(p_action, p_bufferval) != SUCCESS) {
 		return FAILURE;
 	}
@@ -195,8 +185,7 @@ MxStreamController::VTable0x2c(MxDSAction* p_action, MxU32 p_bufferval) {
 	);
 }
 
-MxResult MxStreamController::VTable0x30(MxDSAction* p_action) {
-	AUTOLOCK(m_criticalSection);
+MxResult MxStreamController::DeleteAction(MxDSAction* p_action) {
 	MxResult result = FAILURE;
 	MxDSObject* action = m_unk0x3c.FindAndErase(p_action);
 
@@ -214,7 +203,6 @@ MxResult MxStreamController::VTable0x30(MxDSAction* p_action) {
 }
 
 MxResult MxStreamController::InsertActionToList54(MxDSAction* p_action) {
-	AUTOLOCK(m_criticalSection);
 	MxDSAction* action = p_action->Clone();
 
 	if (action == NULL) {
@@ -226,7 +214,6 @@ MxResult MxStreamController::InsertActionToList54(MxDSAction* p_action) {
 }
 
 MxPresenter* MxStreamController::FUN_100c1e70(MxDSAction& p_action) {
-	AUTOLOCK(m_criticalSection);
 	MxPresenter* result = NULL;
 
 	if (p_action.GetObjectId() != -1) {
@@ -240,8 +227,6 @@ MxPresenter* MxStreamController::FUN_100c1e70(MxDSAction& p_action) {
 }
 
 MxResult MxStreamController::FUN_100c1f00(MxDSAction* p_action) {
-	AUTOLOCK(m_criticalSection);
-
 	MxU32 objectId = p_action->GetObjectId();
 	MxStreamChunk* chunk = new MxStreamChunk;
 
@@ -261,7 +246,7 @@ MxResult MxStreamController::FUN_100c1f00(MxDSAction* p_action) {
 		MxDSActionList* actions =
 			((MxDSMultiAction*) p_action)->GetActionList();
 		MxDSActionListCursor cursor(actions);
-		MxDSAction* action;
+		MxDSAction* action = nullptr;
 
 		while (cursor.Next(action)) {
 			if (FUN_100c1f00(action) != SUCCESS) {
@@ -287,20 +272,13 @@ MxBool MxStreamController::IsStoped(MxDSObject* p_obj) {
 	MxDSSubscriber* subscriber = m_subscribers.Find(p_obj);
 
 	if (subscriber) {
-		log_warn(
-			"Subscriber for action (stream %d, instance %d) from %s is still "
-			"here.\n",
-			subscriber->GetObjectId(),
-			subscriber->GetUnknown48(),
-			GetAtom().GetInternal()
-		);
 		return FALSE;
 	}
 
 	if (p_obj->IsA("MxDSMultiAction")) {
 		MxDSActionListCursor cursor(((MxDSMultiAction*) p_obj)->GetActionList()
 		);
-		MxDSAction* action;
+		MxDSAction* action = nullptr;
 
 		while (cursor.Next(action)) {
 			if (!IsStoped(action)) {

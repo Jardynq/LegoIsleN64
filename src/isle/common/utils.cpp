@@ -2,32 +2,32 @@
 
 #include "3d_manager.h"
 #include "anim.h"
+#include "anim_presenter.h"
+#include "animation_manager.h"
+#include "container.h"
+#include "gamestate.h"
+#include "image.h"
+#include "input_manager.h"
 #include "isle.h"
 #include "isle_actions.h"
 #include "isle_path_actor.h"
-#include "animation_manager.h"
-#include "anim_presenter.h"
-#include "gamestate.h"
-#include "input_manager.h"
 #include "legomain.h"
-#include "named_texture.h"
-#include "path_struct.h"
-#include "sound_manager.h"
-#include "video_manager.h"
-#include "world.h"
-#include "world_list.h"
 #include "misc.h"
-#include "container.h"
-#include "image.h"
-#include "tree.h"
 #include "mx_ds_action.h"
 #include "mx_misc.h"
 #include "mx_notification_manager.h"
 #include "mx_streamer.h"
 #include "mx_utilities.h"
 #include "mx_variable_table.h"
+#include "named_texture.h"
+#include "path_struct.h"
 #include "realtime.h"
 #include "scripts.h"
+#include "sound_manager.h"
+#include "tree.h"
+#include "video_manager.h"
+#include "world.h"
+#include "world_list.h"
 
 #include <process.h>
 #include <string.h>
@@ -291,14 +291,6 @@ void InvokeAction(
 
 		break;
 	case Extra::ActionType::e_run:
-		_spawnl(
-			0,
-			"\\lego\\sources\\main\\main.exe",
-			"\\lego\\sources\\main\\main.exe",
-			"/script",
-			&p_pAtom,
-			0
-		);
 		break;
 	case Extra::ActionType::e_enable:
 		assert(p_streamId != DS_NOT_A_STREAM);
@@ -559,12 +551,7 @@ void EnableAnimations(MxBool p_enable) {
 }
 
 void SetAppCursor(Cursor p_cursor) {
-	PostMessageA(
-		MxOmni::GetInstance()->GetWindowHandle(),
-		WM_ISLE_SETCURSOR,
-		p_cursor,
-		0
-	);
+	set_app_cursor(p_cursor);
 }
 
 MxBool FUN_1003ef60() {
@@ -625,7 +612,8 @@ void SetLightPosition(MxS32 p_index) {
 		{0.0, -1.0, 0.0, 0.0, 150.0, -150.0},
 		{-0.309, -0.951, 0.0, 25.0, 50.0, -50.0},
 		{-0.809, -0.588, 0.0, 75.0, 50.0, -50.0},
-		{-1.0, 0.0, 0.0, 150.0, 50.0, -50.0}};
+		{-1.0, 0.0, 0.0, 150.0, 50.0, -50.0}
+	};
 
 	Mx3DPointFloat up(1.0, 0.0, 0.0);
 	Mx3DPointFloat direction;

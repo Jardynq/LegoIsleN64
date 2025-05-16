@@ -21,7 +21,7 @@ public:
 	undefined4 VTable0x14() override;
 	MxU32 GetSizeOnDisk() override;
 	void Deserialize(MxU8*& p_source, MxS16 p_unk0x24) override;
-	void SetAtomId(MxAtomId p_atomId) override;
+	void SetAtomId(MxAtomId p_atomId);
 	MxDSAction* Clone() override;
 	void MergeFrom(MxDSAction& p_dsAction) override;
 	MxBool HasId(MxU32 p_objectId) override;
@@ -43,4 +43,3 @@ protected:
 // MxListCursor<MxDSAction *>::`scalar deleting destructor'
 
 // MxDSActionListCursor::~MxDSActionListCursor
-

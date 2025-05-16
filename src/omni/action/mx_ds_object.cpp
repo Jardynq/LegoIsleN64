@@ -218,39 +218,3 @@ MxDSObject* DeserializeDSObjectDispatch(MxU8*& p_source, MxS16 p_flags) {
 
 	return obj;
 }
-
-MxDSObject* CreateStreamObject(MxDSFile* p_file, MxS16 p_ofs) {
-	MxU8* buf;
-	_MMCKINFO tmpChunk;
-
-	if (p_file->Seek(((MxLong*) p_file->GetBuffer())[p_ofs], SEEK_SET)) {
-		return NULL;
-	}
-
-	if (p_file->Read((MxU8*) &tmpChunk.ckid, 8) == 0 &&
-		tmpChunk.ckid == FOURCC('M', 'x', 'S', 't')) {
-		if (p_file->Read((MxU8*) &tmpChunk.ckid, 8) == 0 &&
-			tmpChunk.ckid == FOURCC('M', 'x', 'O', 'b')) {
-
-			buf = new MxU8[tmpChunk.cksize];
-			if (!buf) {
-				return NULL;
-			}
-
-			if (p_file->Read(buf, tmpChunk.cksize) != 0) {
-				return NULL;
-			}
-
-			// Save a copy so we can clean up properly, because
-			// this function will alter the pointer value.
-			MxU8* copy = buf;
-			MxDSObject* obj = DeserializeDSObjectDispatch(buf, -1);
-			delete[] copy;
-			return obj;
-		}
-
-		return NULL;
-	}
-
-	return NULL;
-}

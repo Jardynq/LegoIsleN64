@@ -3,8 +3,11 @@
 #include "view_roi.h"
 
 typedef unsigned char (*ROIHandler)(const char*, char*, unsigned int);
-typedef unsigned char (*TextureHandler
-)(const char*, unsigned char*, unsigned int);
+typedef unsigned char (*TextureHandler)(
+	const char*,
+	unsigned char*,
+	unsigned int
+);
 
 class LegoEntity;
 class LegoTextureContainer;
@@ -48,13 +51,13 @@ public:
 		LegoROI** p_roiMap
 	);
 	LegoResult SetFrame(LegoAnim* p_anim, LegoTime p_time);
-	LegoResult FUN_100a9170(
+	LegoResult SetColor(
 		LegoFloat p_red,
 		LegoFloat p_green,
 		LegoFloat p_blue,
 		LegoFloat p_alpha
 	);
-	LegoResult FUN_100a9210(LegoTextureInfo* p_textureInfo);
+	LegoResult SetTexture(LegoTextureInfo* p_textureInfo);
 	LegoResult GetTexture(LegoTextureInfo*& p_textureInfo);
 	LegoResult FUN_100a9330(
 		LegoFloat p_red,
@@ -85,7 +88,7 @@ public:
 	static void FUN_100a81b0(const LegoChar* p_error, const LegoChar* p_name);
 	static void configureLegoROI(int p_roi);
 	static void FUN_100a9d30(ROIHandler p_func);
-	static LegoBool FUN_100a9bf0(
+	static LegoBool ColorLookup(
 		const LegoChar* p_param,
 		float& p_red,
 		float& p_green,
@@ -139,4 +142,3 @@ public:
 private:
 	LegoTime m_time;
 };
-

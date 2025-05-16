@@ -1,21 +1,22 @@
 #include "isleapp.h"
 
 // #include "3d_manager.h"
-#include "debugcpp.h"
-#include "types.h"
 #include "animation_manager.h"
 #include "building_manager.h"
+#include "debugcpp.h"
 #include "gamestate.h"
 #include "input_manager.h"
 #include "legomain.h"
+#include "misc.h"
 #include "model_presenter.h"
+#include "mx_background_audio_manager.h"
 #include "part_presenter.h"
+#include "types.h"
 #include "utils.h"
 #include "video_manager.h"
 #include "world_presenter.h"
-#include "misc.h"
 // #include "mx_background_audio_manager.h"
-#include "mxdirect3d.h"
+#include "legofs.h"
 #include "mx_ds_action.h"
 #include "mx_misc.h"
 #include "mx_omni_create_flags.h"
@@ -25,11 +26,10 @@
 #include "mx_timer.h"
 #include "mx_transition_manager.h"
 #include "mx_variable_table.h"
+#include "mxdirect3d.h"
 #include "resource.h"
 #include "roi.h"
 #include "timer.h"
-
-#include "legofs.h"
 
 IsleApp* g_isle = NULL;
 
@@ -258,7 +258,7 @@ inline void IsleApp::Tick(BOOL sleepIfNotNextFrame) {
 		BackgroundAudioManager()->Enable(this->m_useMusic);
 
 		MxStreamController* stream = Streamer()->Open(
-			"\\lego\\scripts\\isle\\isle",
+			"rom:/scripts/isle/isle",
 			MxStreamer::e_diskStream
 		);
 		MxDSAction ds;

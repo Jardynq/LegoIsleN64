@@ -15,15 +15,4 @@ public:
 	static const char* HandlerClassName() { return "MxFlcPresenter"; }
 
 	static const char* ClassName() { return HandlerClassName(); }
-
-	void LoadHeader(MxStreamChunk* p_chunk) override;
-	void CreateBitmap() override;
-	void LoadFrame(MxStreamChunk* p_chunk) override;
-	void RealizePalette() override;
-
-	// MxFlcPresenter::`scalar deleting destructor'
-
-protected:
-	FLIC_HEADER* m_flcHeader;
 };
-

@@ -2,7 +2,6 @@
 
 #include "mx_action_notification_param.h"
 #include "mx_atom.h"
-#include "mxautolock.h"
 #include "mx_ds_multi_action.h"
 #include "mx_event_manager.h"
 #include "mx_misc.h"
@@ -17,6 +16,7 @@
 #include "mx_timer.h"
 #include "mx_variable_table.h"
 #include "mx_video_manager.h"
+#include "mxautolock.h"
 
 char g_hdPath[1024] = "";
 
@@ -123,7 +123,7 @@ MxResult MxOmni::Create(MxOmniCreateParam& p_param) {
 
 	if (p_param.CreateFlags().CreateSoundManager()) {
 		if ((m_soundManager = new MxSoundManager())) {
-			if (m_soundManager->Create(10, 0) != SUCCESS) {
+			if (m_soundManager->Create(10) != SUCCESS) {
 				delete m_soundManager;
 				m_soundManager = NULL;
 			}
@@ -132,7 +132,7 @@ MxResult MxOmni::Create(MxOmniCreateParam& p_param) {
 
 	if (p_param.CreateFlags().CreateMusicManager()) {
 		if ((m_musicManager = new MxMusicManager())) {
-			if (m_musicManager->Create(50, 0) != SUCCESS) {
+			if (m_musicManager->Create(50) != SUCCESS) {
 				delete m_musicManager;
 				m_musicManager = NULL;
 			}
@@ -204,7 +204,7 @@ MxResult MxOmni::Start(MxDSAction* p_dsAction) {
 	MxResult result = FAILURE;
 	if (p_dsAction->GetAtomId().GetInternal() != NULL &&
 		p_dsAction->GetObjectId() != -1 && m_streamer != NULL) {
-		result = m_streamer->FUN_100b99b0(p_dsAction);
+		result = m_streamer->StartAction(p_dsAction);
 	}
 
 	return result;
@@ -288,7 +288,7 @@ MxBool MxOmni::ActionSourceEquals(MxDSAction* p_action, const char* p_name) {
 		MxDSActionListCursor cursor(
 			((MxDSMultiAction*) p_action)->GetActionList()
 		);
-		MxDSAction* action;
+		MxDSAction* action = nullptr;
 
 		while (cursor.Next(action)) {
 			if (ActionSourceEquals(action, p_name)) {
@@ -301,8 +301,6 @@ MxBool MxOmni::ActionSourceEquals(MxDSAction* p_action, const char* p_name) {
 }
 
 MxLong MxOmni::Notify(MxParam& p_param) {
-	AUTOLOCK(m_criticalSection);
-
 	if (((MxNotificationParam&) p_param).GetNotification() !=
 		c_notificationEndAction) {
 		return 0;
