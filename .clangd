@@ -17,6 +17,7 @@ Diagnostics:
     - member_function_call_bad_type
     - pp_file_not_found_angled_include_not_fatal
     - overloaded-virtual
+    - no_member
 
 CompileFlags:
   Compiler: "/n64_toolchain/bin/mips64-elf-g++"

@@ -1,6 +1,7 @@
 /assets/[dD]ata/
 /assets/[sS]cripts/
 /build/
+/bin/
 /.cache/
 *.z64
 *.log

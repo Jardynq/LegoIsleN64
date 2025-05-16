@@ -6,6 +6,7 @@
         "*.h": "cpp",
         "Makefile": "makefile",
         "Makeassets": "makefile",
+        "Maketests": "makefile",
         ".clang-tidy": "yaml",
         ".clang-format": "yaml",
         ".clangd": "yaml",
