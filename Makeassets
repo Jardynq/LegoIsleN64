@@ -2,27 +2,23 @@ SCRIPTS = $(ASSET_DIR)/scripts
 CURSORS = $(ASSET_DIR)/cursors
 DATA = $(ASSET_DIR)/data
 
-SCRIPT_OUT = $(BUILD_DIR)/$(ASSET_DIR)/scripts
-CURSOR_OUT = $(BUILD_DIR)/$(ASSET_DIR)/cursors
-DATA_OUT = $(BUILD_DIR)/$(ASSET_DIR)/data
+SCRIPT_OUT = $(BUILD_DIR)/assets/scripts
+CURSOR_OUT = $(BUILD_DIR)/assets/cursors
+DATA_OUT = $(BUILD_DIR)/assets/data
+ASSET_TEMP = $(BUILD_DIR)/assets/temp
 
-ASSET_TEMP = $(BUILD_DIR)/temp/assets
-
-
-legofs: $(LEGOFS)
-$(LEGOFS):
-	$(MAKE) cursors 
-	$(MAKE) data 
-	$(MAKE) scripts
-	mkdfs "$@" "$(BUILD_DIR)/$(ASSET_DIR)"
-
+.PHONY: assets
+assets: $(BUILD_DIR)/assets.stamp
+$(BUILD_DIR)/assets.stamp:
+	@$(MAKE) cursors 
+	@$(MAKE) scripts_and_data
+	@touch $@
 
 SIDUMP = $(BUILD_DIR)/sidump
 sidump: $(SIDUMP)
 $(SIDUMP):
-	$(MAKE) -C 3rdparty/LegoIsleN64-legofs CXXFLAGS="-O3 -DNDEBUG"
+	$(MAKE) -C 3rdparty/LegoIsleN64-legofs FLAGS="-O3 -DNDEBUG"
 	cp 3rdparty/LegoIsleN64-legofs/sidump $@
-
 
 .PHONY: lowercase_assets
 .ONESHELL:
@@ -74,23 +70,9 @@ cursors: check_assets
 		done
 	EOF
 
-
-.PHONY: data
+.PHONY: scripts_and_data
 .ONESHELL:
-data: check_assets
-	@bash <<'EOF'
-		set -euo pipefail
-		echo "Converting data files"
-		mkdir -p "$(DATA_OUT)"
-		for file in "$(ASSET_DIR)"/data/*; do
-			mkasset -c 1 -o "$(DATA_OUT)" "$$file"
-		done
-	EOF
-
-
-.PHONY: scripts
-.ONESHELL:
-scripts: check_assets sidump
+scripts_and_data: check_assets sidump
 	@bash <<'EOF'
 		set -euo pipefail
 		main() {
@@ -105,31 +87,40 @@ scripts: check_assets sidump
 			fi
 			export JOBS
 
-			echo ""
-			echo "TODO:"
-			echo "CURRENTLY ONLY SUPPORTS INFOMAIN.SI"
-			echo ""
-			
-			echo "Converting script files"
+			echo "Converting asset files"
+			process_worlds & \
 			find "$(SCRIPTS)" -type f -name "*.si" -print0 | \
-				xargs -0 -n1 -P"$$JOBS" bash -c 'process_script "$$@"' _ 
+				xargs -0 -n1 -P"$$JOBS" bash -c 'process_script "$$@"' _ & \
+			wait
 		}
 		
 		conv_bmp() {
 			local out="$$1"
 			local file="$$2"
 			local png="$${file%.bmp}.png"
-			ffmpeg -hide_banner -loglevel error -y -i "$$file" "$$png"
+			ffmpeg -hide_banner -loglevel error -y -i "$$file" \
+				-vf "colorkey=0xff00ff:0.1:0.0,format=rgba,scale=iw/2:ih/2" "$$png"
 			mksprite -c 1 -f RGBA16 -o "$$out" "$$png"
-			rm "$$file" "$$png"
+			#rm "$$file" "$$png"
 		}
 		export -f conv_bmp
+
+		conv_tex() {
+			local out="$$1"
+			local file="$$2"
+			local png="$${file%.bmp}.png"
+			ffmpeg -hide_banner -loglevel error -y -i "$$file" \
+				-vf "colorkey=0xff00ff:0.1:0.0,format=rgba,scale=32:32" "$$png"
+			mksprite -c 1 -f RGBA16 -o "$$out" "$$png"
+			#rm "$$file" "$$png"
+		}
+		export -f conv_tex
 
 		conv_wav() {
 			local out="$$1"
 			local file="$$2"
 			audioconv64 --wav-compress 1 -o "$$out" "$$file"
-			rm "$$file"
+			#rm "$$file"
 		}
 		export -f conv_wav
 
@@ -141,7 +132,7 @@ scripts: check_assets sidump
 				-vf "scale=trunc(iw/32)*32:trunc(ih/16)*16" -vb 800K \
 				-c:v mpeg1video -an -r 24 "$$m1v"
 			mv "$$m1v" "$$out"
-			rm "$$file"
+			#rm "$$file"
 		}
 		export -f conv_flc
 
@@ -150,10 +141,10 @@ scripts: check_assets sidump
 			local file="$$2"
 			local m1v="$${file%.pho}.m1v"
 			ffmpeg -hide_banner -loglevel error -y -i "$$file" \
-				-vf "scale=trunc(iw/32)*32:trunc(ih/16)*16,vflip" -vb 800K \
+				-vf "scale=trunc(iw/64)*32:trunc(ih/32)*16,vflip" -vb 800K \
 				-c:v mpeg1video -an -r 24 "$$m1v"
 			mv "$$m1v" "$$out"
-			rm "$$file"
+			#rm "$$file"
 		}
 		export -f conv_pho
 		
@@ -163,10 +154,10 @@ scripts: check_assets sidump
 
 			local m1v="$${file%.smk}.m1v"
 			ffmpeg -hide_banner -loglevel error -y -i "$$file" \
-				-vf "scale=trunc(iw/32)*32:trunc(ih/16)*16" -vb 800K \
+				-vf "scale=trunc(iw/64)*32:trunc(ih/32)*16" -vb 800K \
 				-c:v mpeg1video -an -r 24 "$$m1v"
 			mv "$$m1v" "$$out"
-			
+
 			local has_audio=$$(ffprobe -v error -select_streams a -show_entries stream=codec_type -of csv=p=0 "$$file")
 			if [ "$$has_audio" = "audio" ]; then
 				local m1vwav="$${file%.smk}.m1vwav"
@@ -175,11 +166,26 @@ scripts: check_assets sidump
 				audioconv64 --wav-compress 1 -o "$$out" "$$m1vwav"
 				rm "$$m1vwav"
 			fi
-			rm "$$file"
+			#rm "$$file"
 		}
 		export -f conv_smk
 
+		conv_t3d() {
+			local out="$$1"
+			local file="$$2"
+			local glb="$${file%.obj}.glb"
+			local t3dm="$$out/$$(basename $${file%.obj}.t3dm)"
+			blender --background --python "blender_pipeline.py" -- "$$file" "$$glb" &> /dev/null
+			gltf_to_t3d "$$glb" "$$t3dm" --asset-path="$(ASSET_TEMP)"
+			#rm "$$file" "$$glb" "$${file%.obj}.mtl"
+		}
+		export -f conv_t3d
+
 		conv_misc() {
+			if [ -d "$$2" ]; then
+				return
+			fi
+
 			local out="$$1"
 			local file="$$2"
 			mkasset -c 1 -o "$$out" "$$file";
@@ -191,36 +197,49 @@ scripts: check_assets sidump
 			local script="$$1"
 			local script_rel=$${script#"$(SCRIPTS)/"}
 			local script_out="$(SCRIPT_OUT)/$$script_rel"
-			local temp_out="$(ASSET_TEMP)/$$script_rel"
+			local temp_out="$(ASSET_TEMP)/scripts/$$script_rel"
 
-			if [ "$$script_rel" != "infocntr/infomain.si" ]; then
-				echo "$$script_rel: Ignored"
-				return
-			fi
-			
 			mkdir -p "$$script_out" "$$temp_out"
 			echo "$$script_rel: Starting"
-
-			"$(SIDUMP)" "$$temp_out" "$$script" &> /dev/null
-			mv "$${temp_out}/index" "$$script_out/index"
+			
+			"$(SIDUMP)" scripts "$$temp_out" "$$script" &> /dev/null
+			mkasset -c 1 -o "$$script_out" "$$temp_out/index";
+			rm "$$temp_out/index"
 			echo "$$script_rel: Finished sidump"
 
-			convert conv_bmp "*.bmp" "$$temp_out" "$$script_out" "$$script_rel" &
-			convert conv_wav "*.wav" "$$temp_out" "$$script_out" "$$script_rel" &
-			convert conv_flc "*.flc" "$$temp_out" "$$script_out" "$$script_rel" 6
-			convert conv_pho "*.pho" "$$temp_out" "$$script_out" "$$script_rel" 6
+			convert conv_t3d "*.obj" "$$temp_out" "$$script_out" "$$script_rel" &
 			convert conv_smk "*.smk" "$$temp_out" "$$script_out" "$$script_rel" &
+			convert conv_pho "*.pho" "$$temp_out" "$$script_out" "$$script_rel" 6
+			convert conv_flc "*.flc" "$$temp_out" "$$script_out" "$$script_rel" 6
+			convert conv_wav "*.wav" "$$temp_out" "$$script_out" "$$script_rel" &
+			convert conv_bmp "*.bmp" "$$temp_out" "$$script_out" "$$script_rel" &
 			wait
 			
-			convert conv_misc "*" "$$temp_out" "$$script_out" "$$script_rel" &
-			convert conv_misc "*.*" "$$temp_out" "$$script_out" "$$script_rel" &
-			wait
-			
-			#rm -r "$$temp_out"
+			# rm -r "$$temp_out"
 			echo "$$script_rel: Finished"
 		}
 		export -f process_script
 		
+		process_worlds() {
+			local worlds="$(DATA)/world.wdb"
+			local worlds_out="$(DATA_OUT)/"
+			local temp_out="$(ASSET_TEMP)/data/"
+
+			mkdir -p "$$worlds_out" "$$temp_out"
+			echo "$$worlds: Starting"
+
+			echo "$$temp_out" "$$worlds"
+			"$(SIDUMP)" worlds "$$temp_out" "$$worlds" &> /dev/null
+			find "$$temp_out" -type f -name "index_*" -exec mkasset -c 1 -o "$$worlds_out" {} \;
+			echo "$$worlds: Finished sidump"
+
+			convert conv_tex "*.bmp" "$$temp_out" "$$worlds_out" "$$worlds"
+			convert conv_t3d "*.obj" "$$temp_out" "$$worlds_out" "$$worlds"
+
+			# rm -r "$$temp_out"
+			echo "$$worlds: Finished"
+		}
+
 		convert() {
 			local converter="$$1"
 			local pattern="$$2"
@@ -228,14 +247,19 @@ scripts: check_assets sidump
 			local script_out="$$4"
 			local script_rel="$$5"
 
+			local convert_inner='\
+				func="$$1"; \
+				shift; \
+				"$$func" "$$1" "$$2"';
+
 			local args=("$$script_in" -type f -name "$$pattern")
 			if [ -n "$$(find "$${args[@]}" | head -n 1)" ]; then
-				find "$${args[@]}" -print0 | xargs -0 -n1 -P"$$JOBS" bash -c \
-					'func="$$1"; shift; "$$func" "$$@"' _ "$$converter" "$$script_out"
+				find "$${args[@]}" -print0 \
+					| xargs -0 -n1 -P"$$JOBS" bash -c "$$convert_inner" _ "$$converter" "$$script_out"
 			fi
 			echo "$$script_rel: Finished $$converter"
 		}
 		export -f convert
-		
+
 		main
 	EOF

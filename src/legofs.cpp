@@ -11,66 +11,68 @@
 #include <unordered_map>
 #include <vector>
 
-LegofsIndex legofs_index;
+// #include "mx_ds_action.h"
+// #include "mx_ds_object.h"
 
-const std::string LEGOFS_SCRIPT_ROOT =
-	std::string("rom:/scripts/infocntr/infomain.si/");
+LegofsIndexIndex legofs_index;
+
+bool check_index(const std::string& si, u16 index, LegofsType type) {
+	if (index >= legofs_index.si_to_index[si]->nodes.size()) {
+		return false;
+	}
+	auto node = legofs_index.si_to_index[si]->nodes[index];
+	return node.type == type;
+}
 
 void legofs_read_index_node(LegofsNode* node, FILE* file);
-void legofs_init() {
-	FILE* file = asset_fopen((LEGOFS_SCRIPT_ROOT + "index").c_str(), nullptr);
-	if (!file) {
-		return;
+MxResult legofs_init(const std::string& si) {
+	if (legofs_index.si_to_index.find(si) != legofs_index.si_to_index.end()) {
+		return SUCCESS;
 	}
 
+	FILE* file = asset_fopen((si + "/index").c_str(), nullptr);
+	if (!file) {
+		return FAILURE;
+	}
+
+	LegofsIndex index;
 	u16 size = 0;
 	fread(&size, sizeof(size), 1, file);
-	legofs_index.nodes.resize(size);
+	index.nodes.resize(size);
 	for (u32 i = 0; i < size; ++i) {
-		legofs_read_index_node(&legofs_index.nodes[i], file);
+		legofs_read_index_node(&index.nodes[i], file);
 	}
 	fclose(file);
 
-	for (LegofsNode& node : legofs_index.nodes) {
+	for (LegofsNode& node : index.nodes) {
 		for (u32 i = 0; i < node.children.size(); ++i) {
 			u16 child_index = (u16) (usize) node.children[i];
-			node.children[i] = &legofs_index.nodes[child_index];
+			node.children[i] = &index.nodes[child_index];
 		}
 
-		legofs_index.name_to_node[node.name] = &legofs_index.nodes[node.index];
-		legofs_index.path_to_node[node.path] = &legofs_index.nodes[node.index];
+		// index.name_to_node[node.name] = &index.nodes[node.index];
+		// index.path_to_node[node.path] = &index.nodes[node.index];
 	}
+
+	legofs_index.indices.push_back(index);
+	legofs_index.si_to_index[si] = &legofs_index.indices.back();
+
+	return SUCCESS;
 }
 
-const u8* legofs_read(u16 index, i32* size) {
-	auto path = LEGOFS_SCRIPT_ROOT + std::to_string(index);
-
-	FILE* file = asset_fopen(path.c_str(), size);
-	if (!file) {
-		return nullptr;
-	}
-
-	u8* buffer = new u8[*size];
-	fread(buffer, *size, 1, file);
-	fclose(file);
-	return buffer;
+const LegofsIndex& legofs_get_index(const std::string& si) {
+	legofs_init(si);
+	return *legofs_index.si_to_index.at(si);
 }
 
-FILE* legofs_open(u16 index, i32* size, const char* ext) {
-	auto path = LEGOFS_SCRIPT_ROOT + std::to_string(index);
-	if (ext != nullptr) {
-		path += ext;
+MxResult legofs_open_video(const std::string& si, u16 index, mpeg2_t** video) {
+	legofs_init(si);
+	if (!check_index(si, index, LegofsType::Flic) &&
+		!check_index(si, index, LegofsType::Smacker)) {
+		return FAILURE;
 	}
 
-	FILE* file = asset_fopen(path.c_str(), size);
-	if (!file) {
-		return nullptr;
-	}
-	return file;
-}
-
-MxResult legofs_open_video(u16 index, mpeg2_t** video) {
-	auto path = LEGOFS_SCRIPT_ROOT + std::to_string(index) + ".m1v";
+	auto path = si + "/" + std::to_string(index) + ".m1v";
 	*video = mpeg2_open(path.c_str());
 	if (!*video) {
 		return FAILURE;
@@ -78,8 +80,13 @@ MxResult legofs_open_video(u16 index, mpeg2_t** video) {
 	return SUCCESS;
 }
 
-MxResult legofs_open_audio(u16 index, wav64_t* audio) {
-	auto path = LEGOFS_SCRIPT_ROOT + std::to_string(index) + ".wav64";
+MxResult legofs_open_audio(const std::string& si, u16 index, wav64_t* audio) {
+	legofs_init(si);
+	if (!check_index(si, index, LegofsType::Wave)) {
+		return FAILURE;
+	}
+
+	auto path = si + "/" + std::to_string(index) + ".wav64";
 	FILE* file = fopen(path.c_str(), "r");
 	if (!file) {
 		return FAILURE;
@@ -89,8 +96,14 @@ MxResult legofs_open_audio(u16 index, wav64_t* audio) {
 	return SUCCESS;
 }
 
-MxResult legofs_open_sprite(u16 index, sprite_t** sprite) {
-	auto path = LEGOFS_SCRIPT_ROOT + std::to_string(index) + ".sprite";
+MxResult
+legofs_open_sprite(const std::string& si, u16 index, sprite_t** sprite) {
+	legofs_init(si);
+	if (!check_index(si, index, LegofsType::Bitmap)) {
+		return FAILURE;
+	}
+
+	auto path = si + "/" + std::to_string(index) + ".sprite";
 	*sprite = sprite_load(path.c_str());
 	if (*sprite == nullptr) {
 		return FAILURE;
@@ -98,38 +111,27 @@ MxResult legofs_open_sprite(u16 index, sprite_t** sprite) {
 	return SUCCESS;
 }
 
-const LegofsNode& legofs_index_node(u16 index) {
-	return legofs_index.nodes[index];
+const LegofsNode& legofs_index_node(const std::string& si, u16 index) {
+	legofs_init(si);
+	return legofs_index.si_to_index[si]->nodes[index];
 }
 
-const LegofsNode& legofs_name_node(const char* name) {
-	return *legofs_index.name_to_node[name];
+const LegofsNode&
+legofs_name_node(const std::string& si, const std::string& name) {
+	legofs_init(si);
+	return *legofs_index.si_to_index[si]->name_to_node.at(name);
 }
 
-const LegofsNode& legofs_path_node(const char* path) {
-	return *legofs_index.path_to_node[path];
+const LegofsNode&
+legofs_path_node(const std::string& si, const std::string& path) {
+	legofs_init(si);
+	return *legofs_index.si_to_index[si]->path_to_node.at(path);
 }
 
 void legofs_read_index_node(LegofsNode* node, FILE* file) {
 	fread(&node->type, sizeof(node->type), 1, file);
 	fread(&node->index, sizeof(node->index), 1, file);
 	if (node->type == LegofsType::Null) {
-		node->name = nullptr;
-		node->path = nullptr;
-		node->presenter = nullptr;
-		node->direction[0] = 0.0f;
-		node->direction[1] = 0.0f;
-		node->direction[2] = 0.0f;
-		node->up[0] = 0.0f;
-		node->up[1] = 0.0f;
-		node->up[2] = 0.0f;
-		node->location[0] = 0.0f;
-		node->location[1] = 0.0f;
-		node->location[2] = 0.0f;
-		node->start_time = 0;
-		node->duration = 0;
-		node->loops = 0;
-		node->flags = 0;
 		return;
 	}
 
@@ -180,4 +182,11 @@ void legofs_read_index_node(LegofsNode* node, FILE* file) {
 		node->children[i] = 0;
 		fread(&node->children[i], sizeof(u16), 1, file);
 	}
+}
+
+MxDSObject* legofs_create_object(const MxAtomId& atom, u16 index) {
+	return nullptr;
+}
+MxDSAction* legofs_create_action(const MxAtomId& atom, u16 index) {
+	return nullptr;
 }

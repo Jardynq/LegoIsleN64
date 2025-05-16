@@ -1,0 +1,76 @@
+TEST_SI := \
+	credits intor nocd sndanim \
+	act2_act2main \
+	act3_act3 \
+	build_copter build_dunecar build_jetski build_racecar \
+	garage_garage \
+	hospital_hospital \
+	infocntr_elevbott infocntr_histbook infocntr_infodoor infocntr_infomain infocntr_infoscor infocntr_regbook \
+	isle_isle isle_jukebox isle_jukeboxw \
+	police_police \
+	race_carrace race_carracer race_jetrace race_jetracer
+
+TEST_PROGS := view place
+TEST_TARGETS := $(foreach si,$(TEST_SI),$(foreach prog,$(TEST_PROGS),$(prog)_$(si).z64))
+
+all: tests
+.PHONY: all tests test_si test_worlds
+
+tests: test_si test_worlds
+
+
+test_worlds: worlds.z64
+	@mkdir -p bin
+	@mv worlds.z64 bin/
+
+worlds.z64: N64_ROM_TITLE="worlds.si"
+worlds.z64: $(BUILD_DIR)/tests/worlds.dfs $(BUILD_DIR)/worlds.elf
+$(BUILD_DIR)/worlds.elf: $(BUILD_DIR)/tests/worlds.o $(BUILD_DIR)/worldfs.o
+$(BUILD_DIR)/tests/worlds.dfs: $(BUILD_DIR)/assets.stamp
+	@mkdir -p $(BUILD_DIR)/assets_worlds/data
+	@mkdir -p $(BUILD_DIR)/assets_worlds/cursors
+
+	@cp -r $(BUILD_DIR)/assets/data/* $(BUILD_DIR)/assets_worlds/data/
+	@cp -r $(BUILD_DIR)/assets/cursors/* $(BUILD_DIR)/assets_worlds/cursors/
+
+	@mkdfs $@ $(BUILD_DIR)/assets_worlds
+
+test_si: $(TEST_TARGETS)
+	@mkdir -p bin
+	@for f in *.z64; do \
+		[ -f "$$f" ] || continue; \
+		base=$$(basename "$$f"); \
+		prog=$$(echo "$$base" | cut -d_ -f1); \
+		case " $(TEST_PROGS) " in *" $$prog "*) ;; *) continue ;; esac; \
+		path="bin/$$(echo "$$base" | tr '_' '/')"; \
+		mkdir -p "$$(dirname "$$path")"; \
+		mv "$$f" "$$path"; \
+	done
+
+AT := $(shell printf '@')
+define gen-si-rule
+$(1)_$(2).z64: N64_ROM_TITLE="$(2).si"
+$(1)_$(2).z64: $$(BUILD_DIR)/tests/$(1)_$(2).dfs $$(BUILD_DIR)/$(1)_$(2).elf
+$$(BUILD_DIR)/$(1)_$(2).elf: $$(BUILD_DIR)/tests/$(1)_$(2).o $$(BUILD_DIR)/legofs.o
+$$(BUILD_DIR)/tests/$(1)_$(2).o: $$(SOURCE_DIR)/tests/$(1).cpp
+	$$(AT)echo "    [CXX] $$<"
+	$$(N64_CXX) -c $$(N64_CXXFLAGS) $$(CXXFLAGS) -o $$@ $$<
+
+$$(BUILD_DIR)/tests/$(1)_$(2).dfs: $(BUILD_DIR)/assets.stamp	
+	$$(AT)mkdir -p $$(BUILD_DIR)/assets_$(1)/$(2)/data
+	$$(AT)mkdir -p $$(BUILD_DIR)/assets_$(1)/$(2)/cursors
+	$$(AT)mkdir -p $$(BUILD_DIR)/assets_$(1)/$(2)/scripts/main.si
+
+	$$(AT)cp -r $$(BUILD_DIR)/assets/cursors/* $$(BUILD_DIR)/assets_$(1)/$(2)/cursors/
+	$$(AT)cp -r $$(BUILD_DIR)/assets/scripts/$$(subst _,/,$(2)).si/* $$(BUILD_DIR)/assets_$(1)/$(2)/scripts/main.si/
+
+	$$(AT)mkdfs $$@ $$(BUILD_DIR)/assets_$(1)/$(2)
+endef
+
+$(foreach prog,$(TEST_PROGS), \
+  $(foreach si,$(TEST_SI), \
+    $(eval $(call gen-si-rule,$(prog),$(si))) \
+  ) \
+)
+
+-include $(wildcard $(BUILD_DIR)/*.d)

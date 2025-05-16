@@ -3,11 +3,9 @@ BUILD_DIR=build
 ASSET_DIR=assets
 
 V=1
-include $(N64_INST)/include/n64.mk
+#include $(N64_INST)/include/n64.mk
+include 3rdparty/libdragon/n64.mk
 include $(N64_INST)/include/t3d.mk
-
-LEGOFS=$(BUILD_DIR)/legofs.dfs
-include Makeassets
 
 # Grab include dirs from mips-g++ and add them to compile_commands.json
 INCLUDE := $(shell $(N64_CXX) -E -x c++ - -v 2>&1 < /dev/null | \
@@ -23,26 +21,39 @@ CXXFLAGS += -I3rdparty/vec
 CXXFLAGS += -include $(SOURCE_DIR)/global.h
 #CXXFLAGS += -NDEBUG
 
+%.z64: N64_CXXFLAGS:=$(filter-out -Werror,$(N64_CXXFLAGS))
+
+include Makeassets
+include Maketests
+
 #SRCS := $(shell find $(SOURCE_DIR) -type f -name '*.cpp')
 #OBJS := $(patsubst %.cpp, $(BUILD_DIR)/%.o, $(subst $(SOURCE_DIR)/,,$(SRCS)))
 OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/legofs.o
 
 isle: isle.z64
 isle.z64: N64_ROM_TITLE="LegoIsleN64"
-isle.z64: $(LEGOFS) $(BUILD_DIR)/isle.elf
+isle.z64: $(BUILD_DIR)/isle.dfs $(BUILD_DIR)/isle.elf
 $(BUILD_DIR)/isle.elf: $(OBJS)
+$(BUILD_DIR)/isle.dfs: $(BUILD_DIR)/assets.stamp
+	@mkdir -p $(BUILD_DIR)/assets_isle/cursors
+	@mkdir -p $(BUILD_DIR)/assets_isle/data
+	@mkdir -p $(BUILD_DIR)/assets_isle/scripts
 
-tests: test_assets.z64
+	@cp -r $(BUILD_DIR)/assets/cursors/* $(BUILD_DIR)/assets_isle/cursors/
+	@cp -r $(BUILD_DIR)/assets/data/* $(BUILD_DIR)/assets_isle/data/
+	@cp -r $(BUILD_DIR)/assets/scripts/infocntr/infomain.si \
+		   $(BUILD_DIR)/assets_isle/scripts/infocntr/infomain.si
 
-test_assets.z64: $(LEGOFS) $(BUILD_DIR)/test_assets.elf
-$(BUILD_DIR)/test_assets.elf: $(BUILD_DIR)/tests/test_assets.o $(BUILD_DIR)/legofs.o
+	@mkdfs $@ $(BUILD_DIR)/assets_isle
 
 bear:
-	@bear -- $(MAKE) -j -B $(BUILD_DIR)/isle.elf --ignore-errors
+	@bear -- $(MAKE) -j -B tests --ignore-errors
 
 clean:
 	@rm -f *.z64
 	@rm -rf $(BUILD_DIR)/*
+	@rm -rf bin/*
+	@$(MAKE) -C 3rdparty/LegoIsleN64-legofs clean
 
 all: isle tests
 .PHONY: all clean bear

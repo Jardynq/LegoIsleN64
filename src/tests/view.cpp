@@ -1,4 +1,3 @@
-#include "debug.h"
 #include "debugcpp.h"
 #include "display.h"
 #include "dragonfs.h"
@@ -12,6 +11,7 @@
 #include "rdpq_sprite.h"
 #include "rspq.h"
 #include "sprite.h"
+#include "testing.h"
 #include "wav64.h"
 #include "yuv.h"
 
@@ -22,51 +22,60 @@
 #include <t3d/t3dmath.h>
 #include <t3d/tpx.h>
 
-typedef struct mpeg2_s {
-	void* buf;
-	void* v;
-	void* f;
-} mpeg2_t;
-
 auto sprites = std::vector<u16>();
 auto waves = std::vector<u16>();
 auto vids = std::vector<u16>();
 int asset_index = 0;
 int asset_type_index = 0;
 
-int asset_count = 0;
-int asset_type_count = 3;
-
 int video_width = 32;
 int video_height = 32;
 yuv_blitter_t yuv;
-
-bool changed = false;
 
 yuv_frame_t last_frame2;
 sprite_t* current_sprite = nullptr;
 mpeg2_t* current_vid = nullptr;
 wav64_t current_audio;
 
+bool is_bad = true;
+
+int get_asset_count(int index) {
+	if (index == 0) {
+		return sprites.size();
+	} else if (index == 1) {
+		return waves.size();
+	} else if (index == 2) {
+		return vids.size();
+	}
+	return 0;
+}
+
 void on_change() {
-	changed = true;
+	if (get_asset_count(asset_type_index) == 0) {
+		is_bad = true;
+		return;
+	}
+
 	if (asset_type_index == 0) {
 		if (current_sprite != nullptr) {
 			sprite_free(current_sprite);
 		}
 		MxResult result =
-			legofs_open_sprite(sprites[asset_index], &current_sprite);
+			legofs_open_sprite(si, sprites[asset_index], &current_sprite);
 		if (result == FAILURE) {
 			log_error("Failed to open sprite %u\n", sprites[asset_index]);
+			is_bad = true;
 			return;
 		}
 	} else if (asset_type_index == 1) {
 		if (current_audio.st != nullptr) {
 			wav64_close(&current_audio);
 		}
-		MxResult result = legofs_open_audio(waves[asset_index], &current_audio);
+		MxResult result =
+			legofs_open_audio(si, waves[asset_index], &current_audio);
 		if (result == FAILURE) {
 			log_error("Failed to open audio %u\n", waves[asset_index]);
+			is_bad = true;
 			return;
 		}
 		mixer_ch_stop(0);
@@ -75,9 +84,11 @@ void on_change() {
 		if (current_vid != nullptr) {
 			mpeg2_close(current_vid);
 		}
-		MxResult result = legofs_open_video(vids[asset_index], &current_vid);
+		MxResult result =
+			legofs_open_video(si, vids[asset_index], &current_vid);
 		if (result == FAILURE) {
 			log_error("Failed to open video %u\n", vids[asset_index]);
+			is_bad = true;
 			return;
 		}
 		video_width = mpeg2_get_width(current_vid);
@@ -98,6 +109,41 @@ void on_change() {
 			nullptr
 		);
 	}
+	is_bad = false;
+}
+
+void change_asset_index(int new_index) {
+	if (new_index == asset_index) {
+		return;
+	}
+
+	int asset_count = get_asset_count(asset_type_index);
+	if (asset_count == 0) {
+		return;
+	}
+
+	if (new_index >= asset_count) {
+		new_index = 0;
+	} else if (new_index < 0) {
+		new_index = asset_count - 1;
+	}
+
+	asset_index = new_index;
+	on_change();
+}
+
+void change_asset_type(int new_index) {
+	if (new_index == asset_type_index) {
+		return;
+	} else if (new_index >= 3) {
+		new_index = 0;
+	} else if (new_index < 0) {
+		new_index = 2;
+	}
+
+	asset_type_index = new_index;
+	asset_index = 0;
+	on_change();
 }
 
 int main(void) {
@@ -107,7 +153,6 @@ int main(void) {
 	joypad_init();
 
 	dfs_init(DFS_DEFAULT_LOCATION);
-	legofs_init();
 
 	rdpq_init();
 	yuv_init();
@@ -125,95 +170,35 @@ int main(void) {
 		FILTERS_RESAMPLE
 	);
 
-	log_info("Index size: %u\n", legofs_index.nodes.size());
-	for (unsigned int n = 0; n < legofs_index.nodes.size(); n++) {
-		auto node = legofs_index_node(n);
+	auto fs_index = legofs_get_index(si);
 
+	log_info("Index size: %u\n", fs_index.nodes.size());
+	for (unsigned int n = 0; n < fs_index.nodes.size(); n++) {
+		auto node = legofs_index_node(si, n);
+
+		print_node(node);
 		switch (node.type) {
 		case LegofsType::Bitmap: {
-			debugf(
-				"Bitmap %u: \t%s \t %s\n",
-				node.index,
-				node.name,
-				node.presenter
-			);
 			sprites.push_back(node.index);
 			break;
 		}
 		case LegofsType::Wave: {
-			debugf(
-				"Wave %u: \t%s \t %s\n",
-				node.index,
-				node.name,
-				node.presenter
-			);
 			waves.push_back(node.index);
 			break;
 		}
 		case LegofsType::Flic:
 		case LegofsType::Smacker: {
-			debugf(
-				"Video %u: \t%s \t %s\n",
-				node.index,
-				node.name,
-				node.presenter
-			);
 			vids.push_back(node.index);
 			break;
 		}
-		case LegofsType::Presenter: {
-			debugf(
-				"Presenter %u: \t%s \t %s\n",
-				node.index,
-				node.name,
-				node.presenter
-			);
+		default: {
 			break;
 		}
-		case LegofsType::World: {
-			debugf(
-				"World %u: \t%s \t %s\n",
-				node.index,
-				node.name,
-				node.presenter
-			);
-			break;
-		}
-		case LegofsType::Object: {
-			debugf(
-				"Object %u: \t%s \t %s\n",
-				node.index,
-				node.name,
-				node.presenter
-			);
-			break;
-		}
-		case LegofsType::Animation: {
-			debugf(
-				"Animation %u: \t%s \t %s\n",
-				node.index,
-				node.name,
-				node.presenter
-			);
-			break;
-		}
-		case LegofsType::Event: {
-			debugf(
-				"Event %u: \t%s \t %s\n",
-				node.index,
-				node.name,
-				node.presenter
-			);
-			break;
-		}
-
-		case LegofsType::Null:
-			break;
 		}
 	}
 
 	on_change();
-	for (;;) {
+	while (true) {
 
 		joypad_poll();
 		auto a = joypad_get_buttons_pressed(JOYPAD_PORT_1);
@@ -222,59 +207,52 @@ int main(void) {
 		}
 
 		if (a.a) {
-			asset_index = 0;
-			asset_type_index++;
-			if (asset_type_index >= asset_type_count) {
-				asset_type_index = 0;
-			}
-			on_change();
+			change_asset_type(asset_type_index + 1);
 		}
 		if (a.b) {
-			asset_index = 0;
-			asset_type_index--;
-			if (asset_type_index < 0) {
-				asset_type_index = asset_type_count - 1;
-			}
-			on_change();
-		}
-
-		asset_count = 0;
-		if (asset_type_index == 0) {
-			asset_count = sprites.size();
-		} else if (asset_type_index == 1) {
-			asset_count = waves.size();
-		} else if (asset_type_index == 2) {
-			asset_count = vids.size();
+			change_asset_type(asset_type_index - 1);
 		}
 
 		if (a.d_right) {
-			asset_index++;
-			if (asset_index >= asset_count) {
-				asset_index = 0;
-			}
-			on_change();
+			change_asset_index(asset_index + 1);
 		}
 		if (a.d_left) {
-			asset_index--;
-			if (asset_index < 0) {
-				asset_index = asset_count - 1;
-			}
-			on_change();
+			change_asset_index(asset_index - 1);
 		}
 
+		int asset_count = get_asset_count(asset_type_index);
 		auto display_surface = display_get();
 
 		char buf[256] = {0};
-		if (asset_type_index == 0) {
+		if (get_asset_count(asset_type_index) == 0 || is_bad) {
+			const char* type_str = "Unknown";
+			if (asset_type_index == 0) {
+				type_str = "Sprite";
+			} else if (asset_type_index == 1) {
+				type_str = "Audio";
+			} else if (asset_type_index == 2) {
+				type_str = "Video";
+			}
+
 			rdpq_attach_clear(display_surface, 0);
 			rdpq_detach_wait();
+			rspq_flush();
+			rspq_wait();
+			snprintf(buf, sizeof(buf), "No %s available", type_str);
+			graphics_draw_text(display_surface, 8, 8, buf);
+			display_show(display_surface);
+		} else if (asset_type_index == 0) {
+			rdpq_attach_clear(display_surface, 0);
+			rdpq_detach_wait();
+			rspq_flush();
+			rspq_wait();
 			snprintf(
 				buf,
 				sizeof(buf),
 				"Sprite %u/%u: %s\n%ux%u",
 				asset_index + 1,
 				asset_count,
-				legofs_index_node(sprites[asset_index]).name,
+				legofs_index_node(si, sprites[asset_index]).name,
 				current_sprite->width,
 				current_sprite->height
 			);
@@ -282,37 +260,37 @@ int main(void) {
 			int cy = display_get_height() / 2;
 			int cw = current_sprite->width / 2;
 			int ch = current_sprite->height / 2;
-			graphics_draw_sprite(
+			graphics_draw_sprite_trans(
 				display_surface,
 				cx - cw,
 				cy - ch,
 				current_sprite
 			);
 			graphics_draw_text(display_surface, 8, 8, buf);
-			rspq_flush();
-			rspq_wait();
 			display_show(display_surface);
 		} else if (asset_type_index == 1) {
 			rdpq_attach_clear(display_surface, 0);
-			rdpq_detach_wait();
 			mixer_try_play();
+			rdpq_detach_wait();
+			rspq_flush();
+			mixer_try_play();
+			rspq_wait();
 			snprintf(
 				buf,
 				sizeof(buf),
 				"Audio %u/%u: %s\n%s %fhz, %u samples",
 				asset_index + 1,
 				asset_count,
-				legofs_index_node(waves[asset_index]).name,
+				legofs_index_node(si, waves[asset_index]).name,
 				current_audio.wave.channels == 1 ? "Mono" : "Stereo",
 				current_audio.wave.frequency,
 				current_audio.wave.len
 			);
-			graphics_draw_text(display_surface, 8, 8, buf);
-			rspq_flush();
 			mixer_try_play();
-			rspq_wait();
+			graphics_draw_text(display_surface, 8, 8, buf);
 			mixer_try_play();
 			display_show(display_surface);
+			mixer_try_play();
 		} else if (asset_type_index == 2) {
 			snprintf(
 				buf,
@@ -320,7 +298,7 @@ int main(void) {
 				"Video %u/%u: %s\n",
 				asset_index + 1,
 				asset_count,
-				legofs_index_node(vids[asset_index]).name
+				legofs_index_node(si, vids[asset_index]).name
 			);
 
 			rdpq_attach_clear(display_surface, nullptr);
@@ -331,9 +309,9 @@ int main(void) {
 				yuv_blitter_run(&yuv, &last_frame2);
 			}
 			rdpq_detach_wait();
-			graphics_draw_text(display_surface, 8, 8, buf);
 			rspq_flush();
 			rspq_wait();
+			graphics_draw_text(display_surface, 8, 8, buf);
 			display_show(display_surface);
 		}
 	}
