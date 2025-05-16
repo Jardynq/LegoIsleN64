@@ -46,16 +46,17 @@ int main(void) {
 
 	dfs_init(DFS_DEFAULT_LOCATION);
 
-	legofs_init();
 	auto sprites = std::vector<sprite_t*>();
 
-	log_info("Index size: %u\n", legofs_index.nodes.size());
-	for (unsigned int n = 0; n < legofs_index.nodes.size(); n++) {
-		auto node = legofs_index_node(n);
+	auto si = std::string("rom:/scripts/infocntr/infomain.si");
+	auto fs_index = legofs_get_index(si);
+
+	log_info("Index size: %u\n", fs_index.nodes.size());
+	for (unsigned int n = 0; n < fs_index.nodes.size(); n++) {
+		auto node = legofs_index_node(si, n);
 		if (node.type == LegofsType::Bitmap) {
-			i32 size = 0;
-			auto sprite_buf = legofs_read(node.index, &size);
-			auto sprite = sprite_load_buf((void*) sprite_buf, size);
+			sprite_t* sprite = nullptr;
+			legofs_open_sprite(si, node.index, &sprite);
 			sprites.push_back(sprite);
 		}
 
